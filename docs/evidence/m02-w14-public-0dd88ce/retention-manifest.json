@@ -1,0 +1,118 @@
+{
+  "scope": "Exact clean 0dd actual public artifacts and build/run logs plus independent read-only audit; no Gate A approval",
+  "archive_sha256": "05e01c8c5bd808393c15ae512557fce23b765f074060b30d6f2676f16abe5948",
+  "archive_bytes": 676021,
+  "regular_members": 22,
+  "files": [
+    {
+      "path": "audit/japp-w14-public-0dd-lifecycle-review.md",
+      "bytes": 3532,
+      "sha256": "dd58f1bcf40325c1abebabafe1ad22348b41a4e0d5b5908585ae45f1e1f9d65a"
+    },
+    {
+      "path": "audit/japp-w14-public-0dd88ce-independent-review.md",
+      "bytes": 3837,
+      "sha256": "438a27dbdb44e6ed6ac967db8e55443451628d49d3fa9a96d5c7890bc2b36964"
+    },
+    {
+      "path": "audit/japp-w14-public-0dd88ce-review-findings.json",
+      "bytes": 2308,
+      "sha256": "97a486901cc80958fa3d54b83b3999ad2702327962b556d6abb17b2f03ba1443"
+    },
+    {
+      "path": "commands/public-build.log",
+      "bytes": 454,
+      "sha256": "99c495a2868c1a6cba5fa223c5118471a7c97321d90ee9ea44999c06c094601d"
+    },
+    {
+      "path": "commands/public-run.log",
+      "bytes": 205,
+      "sha256": "8491d743df30413278b98d3c1a5b46530e0318b9134dec670f0f71612af99ac9"
+    },
+    {
+      "path": "raw/PUBLIC-STRUCTURE-14-before.json",
+      "bytes": 352112,
+      "sha256": "a039aa3799b413684628363701ef249d138b2e86948ec6604660ecdd8c410bc7"
+    },
+    {
+      "path": "raw/PUBLIC-STRUCTURE-15-before.json",
+      "bytes": 360854,
+      "sha256": "c995f063b5cea6ec0c4b8ece5926a1a2bedebd32671fd9a0a9f8a1ee74e1056c"
+    },
+    {
+      "path": "raw/PUBLIC-STRUCTURE-19-before.json",
+      "bytes": 70500,
+      "sha256": "c519f2470c1b47a45207c6935e9b70b18b85cdc142a8585471890bf8c0c0523b"
+    },
+    {
+      "path": "raw/PUBLIC-STRUCTURE-20-before.json",
+      "bytes": 627372,
+      "sha256": "e8c32a851fc0fd3df52d5a234152b7076d1315d4bf48c9ff42f16c0e9393e823"
+    },
+    {
+      "path": "raw/PUBLIC-STRUCTURE-22-before.json",
+      "bytes": 167588,
+      "sha256": "a7511b1b75dee256160ed4a2049b508da45be258cfeeb99399d7d86fe1c8b42c"
+    },
+    {
+      "path": "raw/PUBLIC-STRUCTURE-24-before.json",
+      "bytes": 427637,
+      "sha256": "9caedbc31353be8256317cf59eb52552eaf2308ff463355102a882c80d400790"
+    },
+    {
+      "path": "raw/PUBLIC-STRUCTURE-25-before.json",
+      "bytes": 421729,
+      "sha256": "e0f995dc994c3664370563bfd50ead4350d47a887f5ea9ee856fe22354e85a66"
+    },
+    {
+      "path": "raw/PUBLIC-STRUCTURE-26-before.json",
+      "bytes": 162126,
+      "sha256": "54ce422497ceaa0ae56357a1090d25917edc38995ce725a2d496b2f4e01772b2"
+    },
+    {
+      "path": "raw/PUBLIC-SUPPLEMENT-18-before.json",
+      "bytes": 370848,
+      "sha256": "0781f21e6661a122b28ec611ec1a3da5a33c10b11c76151ab760c8abc7a55b00"
+    },
+    {
+      "path": "raw/action-results.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/assessment.json",
+      "bytes": 9458,
+      "sha256": "1cb5bd581aa14cf7ef15ba50088451a1e6e46fcf7d9858dddfadd54f00315ca8"
+    },
+    {
+      "path": "raw/campaign-binding.json",
+      "bytes": 852,
+      "sha256": "6da8e4456dfbd53b0cce74dab7c877c89dca64c69c258c1fa56637fe715c7289"
+    },
+    {
+      "path": "raw/end-binding.json",
+      "bytes": 547,
+      "sha256": "c20f27c6e0d4fd5e1d0be0184878f95ed164faf7d83969a9d6ec9b9f06375c02"
+    },
+    {
+      "path": "raw/finalization.json",
+      "bytes": 664,
+      "sha256": "208c74086b73e12ba437b2552f856abc0f0a043335808d06af4a82572a01b520"
+    },
+    {
+      "path": "raw/page-results.jsonl",
+      "bytes": 1149480,
+      "sha256": "5daeecfb907ee8358905c66c5afd36b7ae1414a3a38d5a3e6fbf956d50b020b4"
+    },
+    {
+      "path": "raw/public-contact.json.gz",
+      "bytes": 129217,
+      "sha256": "6d65587faffed60208cedb1e73c683528e4c44a8a98463755ada830b56aed6ea"
+    },
+    {
+      "path": "raw/rows.jsonl",
+      "bytes": 1149480,
+      "sha256": "5daeecfb907ee8358905c66c5afd36b7ae1414a3a38d5a3e6fbf956d50b020b4"
+    }
+  ]
+}

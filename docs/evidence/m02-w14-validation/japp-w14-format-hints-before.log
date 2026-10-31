@@ -1,0 +1,45 @@
+
+ RUN  v4.1.10 /Users/tanishkalwad/jobapplyv2/packages/form-engine
+
+ ❯ test/m02-w14-format-hints.test.ts (13 tests | 3 failed) 163ms
+     × recognizes the exact label with the inert hint: Email address (required the site lowercases it on blur) 157ms
+     × recognizes the exact label with the inert hint: Email address (optional the site uppercases it on change) 1ms
+     × recognizes the exact label with the inert hint: Email address (required the site trims it on blur) 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/m02-w14-format-hints.test.ts > W14 closed administrative formatting hints > recognizes the exact label with the inert hint: Email address (required the site lowercases it on blur)
+ FAIL  test/m02-w14-format-hints.test.ts > W14 closed administrative formatting hints > recognizes the exact label with the inert hint: Email address (optional the site uppercases it on change)
+ FAIL  test/m02-w14-format-hints.test.ts > W14 closed administrative formatting hints > recognizes the exact label with the inert hint: Email address (required the site trims it on blur)
+AssertionError: expected { status: 'CLASSIFIED', …(4) } to match object { status: 'CLASSIFIED', …(2) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "band": "DETERMINISTIC",
++   "band": "REVIEW",
+    "concept": "EMAIL_ADDRESS",
+    "status": "CLASSIFIED",
+  }
+
+ ❯ test/m02-w14-format-hints.test.ts:12:63
+     10|   ]) {
+     11|     it(`recognizes the exact label with the inert hint: ${label}`, asy…
+     12|       expect(classifyField(await buildDescriptor({ label }))).toMatchO…
+       |                                                               ^
+     13|         status: "CLASSIFIED",
+     14|         concept: "EMAIL_ADDRESS",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 10 passed (13)
+   Start at  12:11:26
+   Duration  386ms (transform 92ms, setup 0ms, import 125ms, tests 163ms, environment 0ms)
+
+undefined
+/Users/tanishkalwad/jobapplyv2/packages/form-engine:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/m02-w14-format-hints.test.ts

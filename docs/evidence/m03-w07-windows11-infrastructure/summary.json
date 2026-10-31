@@ -1,0 +1,33 @@
+{
+  "canonical_collected_cases": 2624,
+  "canonical_focus_cases": 213,
+  "canonical_focus_closure": {
+    "all_nine_commands_closed_zero": true,
+    "end_utc": "2026-10-29T17:54:57.794182+00:00",
+    "runtime_count": 40,
+    "source_count": 2274,
+    "source_runtime_bytes_fullmodes_status_head_tree_equal": true
+  },
+  "canonical_independent_data_joins": 4632,
+  "common": 2622,
+  "native_compile_media_install_VM_or_product_actors": 0,
+  "new_windows_cases": 147,
+  "posix_only": 2,
+  "proof": {
+    "bytes": 6830497,
+    "path": "proof.tar.gz",
+    "sha256": "fb9688cc436ab382265e3e22ce3e1f9d7bf45b8ac0010080e7deeb53cc4b06fa"
+  },
+  "root_composition": "bbb6110110b2aab0a72670062609e524761e44c5335f41bf20dd8125d344a4d6",
+  "root_short_id_review_joins": 59,
+  "root_short_id_source": "cea8b5e4355a20b94554a99425000f0da04736137ce268767e0d793505a58b4b",
+  "scope": "REVIEWED_WINDOWS11_INFRASTRUCTURE_AND_SHORT_ID_COMPOSED_ADOPTED_FOCUSED_NOT_NATIVE",
+  "source_v1": "309d89034e5c20f9c3578f65faaa0d6460507a9120aef2dcc968758d4041039e",
+  "source_v1_fake_cleanup_controls": 12,
+  "source_v1_retained_data_joins": 6247,
+  "source_v1_verdict": "HOLD_F1_COMMON_WINDOWS_TYPE_IMPORT_BOUNDARY",
+  "source_v2": "167b9efccc423c3998320fbadc80d9e9d38cfce96672afb42f3b2d47481f888d",
+  "source_v2_data_joins": 9778,
+  "source_v2_verdict": "CLEAR_AFTER_NARROW_FIXTURE_CORRECTION",
+  "template_enabled": false
+}

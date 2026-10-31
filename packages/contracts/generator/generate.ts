@@ -49,6 +49,12 @@ import {
   PYTHON_SEMANTIC_RULE_EXPORTS,
   SEMANTIC_RULE_CATALOG_SCHEMA_ID,
   type LoadedSemanticRules,
+} from "./semantic-rules-v2.ts";
+import {
+  emitPythonSemanticRules as emitInheritedPythonSemanticRules,
+  emitTypescriptSemanticRules as emitInheritedTypescriptSemanticRules,
+  PYTHON_SEMANTIC_RULE_EXPORTS as INHERITED_PYTHON_SEMANTIC_RULE_EXPORTS,
+  SEMANTIC_RULE_CATALOG_SCHEMA_ID as INHERITED_SEMANTIC_RULE_CATALOG_SCHEMA_ID,
 } from "./semantic-rules.ts";
 import {
   pythonModuleName,
@@ -76,8 +82,14 @@ import {
  * 1.5.0 (M01-W07 corrective): deprecated v1 platform evaluators preserve the
  * published accepted-set union while distinct v2 rule kinds carry the reviewed
  * strict semantics and the generator emits the corresponding v2 roots.
+ * 1.6.0 (M02-W14): additive gate-v2 nonexecution/owner-waiver semantics and
+ * a versioned finite rule-catalog v2; all earlier schema preimages are retained.
+ * 1.7.0 (M02-W14 freeze repair): preserve frozen v1 emitter/catalog/runtime
+ * bytes and emit current semantics through an explicit inherited v2 catalog.
  */
-export const GENERATOR_FORMAT_VERSION = "1.5.0";
+// 1.8.0 (M03-W04): finite string const plus provably disjoint closed object
+// oneOf declarations. Existing model/runtime emission remains byte-identical.
+export const GENERATOR_FORMAT_VERSION = "1.8.0";
 
 /** Generator configuration embedded in the provenance manifest. */
 export const GENERATOR_CONFIG = {
@@ -212,6 +224,12 @@ function buildManifest(
       version: input.version,
     })),
     {
+      path: semanticRules.inheritedV1.repositoryPath,
+      sha256: sha256Hex(semanticRules.inheritedV1.rawText),
+      validatedAgainst: INHERITED_SEMANTIC_RULE_CATALOG_SCHEMA_ID,
+      version: semanticRules.inheritedV1.version,
+    },
+    {
       path: semanticRules.repositoryPath,
       sha256: sha256Hex(semanticRules.rawText),
       validatedAgainst: SEMANTIC_RULE_CATALOG_SCHEMA_ID,
@@ -275,13 +293,13 @@ Layout:
   \`error/catalog-data.v1.ts\` (canonical error-catalog metadata),
   \`security/policy-data.v1.ts\` (immutable authorization catalogs,
   lookups, and fail-closed authorization),
-  \`semantic/rules.v1.ts\` (finite reviewed semantic-rule evaluators), and
+  \`semantic/rules.v1.ts\` (frozen inherited semantics) and \`semantic/rules.v2.ts\` (current finite evaluators), and
   \`index.ts\`
   (the stable export surface re-exported by \`@japp/contracts/generated\`).
 - \`python/src/japp_contracts/\` — the generated strict Pydantic v2 package
   (one module per schema document plus \`_runtime.py\` and
   \`error/catalog_data_v1.py\`, \`security/policy_data_v1.py\`, and
-  \`semantic/rules_v1.py\`);
+  \`semantic/rules_v1.py\` and \`semantic/rules_v2.py\`);
   importable as \`japp_contracts\` through
   the repository mypy/pytest path configuration.
 
@@ -357,6 +375,7 @@ export function generateContracts(
         "error/catalog-data.v1.ts",
         "security/policy-data.v1.ts",
         "semantic/rules.v1.ts",
+        "semantic/rules.v2.ts",
       ],
     }),
     ...emitPython(ir, {
@@ -371,6 +390,10 @@ export function generateContracts(
         },
         {
           module: "japp_contracts.semantic.rules_v1",
+          exports: INHERITED_PYTHON_SEMANTIC_RULE_EXPORTS,
+        },
+        {
+          module: "japp_contracts.semantic.rules_v2",
           exports: PYTHON_SEMANTIC_RULE_EXPORTS,
         },
       ],
@@ -379,6 +402,8 @@ export function generateContracts(
     emitPythonCatalogData(errorCatalog),
     emitTypescriptSecurityPolicy(securityPolicy),
     emitPythonSecurityPolicy(securityPolicy),
+    emitInheritedTypescriptSemanticRules(semanticRules.inheritedV1),
+    emitInheritedPythonSemanticRules(semanticRules.inheritedV1),
     emitTypescriptSemanticRules(semanticRules),
     emitPythonSemanticRules(semanticRules),
     { path: README_PATH, content: GENERATED_README },

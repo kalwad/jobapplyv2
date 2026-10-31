@@ -1,0 +1,7 @@
+# Line/stanza sizes of the Packages indexes retained by GNOME prepare run 41147070404 (artifact 13021462695).
+# Computed locally (macOS) from the downloaded unreviewed candidate; components from the size and SHA-256 listed in the
+# retained signed noble Release. The indexes themselves are not committed.
+
+packages-001 (noble main/binary-amd64/Packages): 7165069 bytes, sha256 8f6f71ae839c8cba390a7643fcbbdacddb0bc7d12c1583a2dd80a1f8443a30e5; longest line 11204 bytes (Package: libc6-dbg, field Build-Ids); largest stanza 12824 bytes (Package: libc6-dbg); lines over 65536: none
+packages-002 (noble restricted/binary-amd64/Packages): 669193 bytes, sha256 f5620712a54076429190adbc8b3974250606ffb624c9b877bc240d8f2476118e; longest line 15424 bytes (Package: nvidia-driver-535, field Modaliases); largest stanza 28094 bytes (Package: nvidia-driver-535); lines over 65536: none
+packages-003 (noble universe/binary-amd64/Packages): 73379142 bytes, sha256 687ffc969e7700137677b9cfe2f614ee2d638052a91a7c9bf31f3f6a3040a99a; longest line 70841 bytes (Package: librust-winapi-dev, field Provides); largest stanza 71854 bytes (Package: librust-winapi-dev); lines over 65536: ['Package: librust-winapi-dev Provides 70841 bytes']

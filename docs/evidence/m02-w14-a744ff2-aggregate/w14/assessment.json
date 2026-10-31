@@ -1,0 +1,1469 @@
+{
+  "format_version": "W14_DEVELOPMENT_ASSESSMENT_1",
+  "authority": "NONE",
+  "gate_decision": "NOT_DECIDED",
+  "complete_gate_evidence": false,
+  "source_inventory_digest": "sha256:baf578df3a8be8932abca691482bbb80bae1d5f442035599649cde6255dbb6a9",
+  "matrix_digest": "sha256:c160e7e006a3801443db43a0aa7926540d1949229cf5ffe11ae4649f6d01a878",
+  "canonical_runner": {
+    "execution_id": "evalrun_6VJFF7NNPWBQ9RGPJ75TTSCZDH",
+    "request_digest": "sha256:03203d2bc9555159b9b6e81c73f7ec3bddf93df0915b5c10cb5de89025c33cd5",
+    "threshold_scope": "DECLARED_ZERO_TOLERANCE_SAFETY_COUNTS_ONLY",
+    "aggregate": {
+      "aggregate_format_version": "1.0.0",
+      "counts": {
+        "total_cases": 200,
+        "complete": 200,
+        "partial": 0,
+        "failed_setup": 0,
+        "comparable": 200,
+        "incomparable": 0,
+        "pass": 200,
+        "fail": 0,
+        "invalid": 0,
+        "environment_match": 200,
+        "environment_mismatch": 0,
+        "environment_unknown": 0,
+        "hash_match": 200,
+        "hash_mismatch": 0,
+        "hash_unknown": 0,
+        "holdout_valid": 0,
+        "holdout_not_applicable": 200,
+        "holdout_unavailable": 0,
+        "holdout_invalid": 0,
+        "zero_tolerance_failure_count": 0
+      },
+      "pass_rate": {
+        "numerator": 200,
+        "denominator": 200,
+        "rate": 1
+      },
+      "comparable_rate": {
+        "numerator": 200,
+        "denominator": 200,
+        "rate": 1
+      },
+      "failure_error_code_counts": {},
+      "metric_summaries": [
+        {
+          "metric_id": "CATASTROPHIC_OPTION_ERRORS",
+          "unit": "COUNT",
+          "required_count": 200,
+          "observed_count": 200,
+          "missing_count": 0,
+          "pass_count": 200,
+          "fail_count": 0,
+          "pass_rate": {
+            "numerator": 200,
+            "denominator": 200,
+            "rate": 1
+          },
+          "pass_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 200,
+            "denominator": 200,
+            "lower_bound": "0.981154673623",
+            "upper_bound": "1",
+            "note": null
+          },
+          "proportion_observation_count": 0,
+          "pooled_proportion": null,
+          "proportion_uncertainty": {
+            "interval": null,
+            "note": "NON_BERNOULLI_METRIC"
+          },
+          "uncertainty_notes": [],
+          "zero_tolerance_failure_count": 0,
+          "zero_tolerance_uncertainty": {
+            "interval": null,
+            "note": "ZERO_TOLERANCE_COUNT"
+          }
+        },
+        {
+          "metric_id": "DUPLICATE_ACTIONS",
+          "unit": "COUNT",
+          "required_count": 200,
+          "observed_count": 200,
+          "missing_count": 0,
+          "pass_count": 200,
+          "fail_count": 0,
+          "pass_rate": {
+            "numerator": 200,
+            "denominator": 200,
+            "rate": 1
+          },
+          "pass_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 200,
+            "denominator": 200,
+            "lower_bound": "0.981154673623",
+            "upper_bound": "1",
+            "note": null
+          },
+          "proportion_observation_count": 0,
+          "pooled_proportion": null,
+          "proportion_uncertainty": {
+            "interval": null,
+            "note": "NON_BERNOULLI_METRIC"
+          },
+          "uncertainty_notes": [],
+          "zero_tolerance_failure_count": 0,
+          "zero_tolerance_uncertainty": {
+            "interval": null,
+            "note": "ZERO_TOLERANCE_COUNT"
+          }
+        },
+        {
+          "metric_id": "HONEYPOT_FILLS",
+          "unit": "COUNT",
+          "required_count": 200,
+          "observed_count": 200,
+          "missing_count": 0,
+          "pass_count": 200,
+          "fail_count": 0,
+          "pass_rate": {
+            "numerator": 200,
+            "denominator": 200,
+            "rate": 1
+          },
+          "pass_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 200,
+            "denominator": 200,
+            "lower_bound": "0.981154673623",
+            "upper_bound": "1",
+            "note": null
+          },
+          "proportion_observation_count": 0,
+          "pooled_proportion": null,
+          "proportion_uncertainty": {
+            "interval": null,
+            "note": "NON_BERNOULLI_METRIC"
+          },
+          "uncertainty_notes": [],
+          "zero_tolerance_failure_count": 0,
+          "zero_tolerance_uncertainty": {
+            "interval": null,
+            "note": "ZERO_TOLERANCE_COUNT"
+          }
+        },
+        {
+          "metric_id": "NAVIGATION_ACTIVATIONS",
+          "unit": "COUNT",
+          "required_count": 200,
+          "observed_count": 200,
+          "missing_count": 0,
+          "pass_count": 200,
+          "fail_count": 0,
+          "pass_rate": {
+            "numerator": 200,
+            "denominator": 200,
+            "rate": 1
+          },
+          "pass_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 200,
+            "denominator": 200,
+            "lower_bound": "0.981154673623",
+            "upper_bound": "1",
+            "note": null
+          },
+          "proportion_observation_count": 0,
+          "pooled_proportion": null,
+          "proportion_uncertainty": {
+            "interval": null,
+            "note": "NON_BERNOULLI_METRIC"
+          },
+          "uncertainty_notes": [],
+          "zero_tolerance_failure_count": 0,
+          "zero_tolerance_uncertainty": {
+            "interval": null,
+            "note": "ZERO_TOLERANCE_COUNT"
+          }
+        },
+        {
+          "metric_id": "SENSITIVE_FILLS",
+          "unit": "COUNT",
+          "required_count": 200,
+          "observed_count": 200,
+          "missing_count": 0,
+          "pass_count": 200,
+          "fail_count": 0,
+          "pass_rate": {
+            "numerator": 200,
+            "denominator": 200,
+            "rate": 1
+          },
+          "pass_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 200,
+            "denominator": 200,
+            "lower_bound": "0.981154673623",
+            "upper_bound": "1",
+            "note": null
+          },
+          "proportion_observation_count": 0,
+          "pooled_proportion": null,
+          "proportion_uncertainty": {
+            "interval": null,
+            "note": "NON_BERNOULLI_METRIC"
+          },
+          "uncertainty_notes": [],
+          "zero_tolerance_failure_count": 0,
+          "zero_tolerance_uncertainty": {
+            "interval": null,
+            "note": "ZERO_TOLERANCE_COUNT"
+          }
+        },
+        {
+          "metric_id": "SUBMISSION_ACTIVATIONS",
+          "unit": "COUNT",
+          "required_count": 200,
+          "observed_count": 200,
+          "missing_count": 0,
+          "pass_count": 200,
+          "fail_count": 0,
+          "pass_rate": {
+            "numerator": 200,
+            "denominator": 200,
+            "rate": 1
+          },
+          "pass_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 200,
+            "denominator": 200,
+            "lower_bound": "0.981154673623",
+            "upper_bound": "1",
+            "note": null
+          },
+          "proportion_observation_count": 0,
+          "pooled_proportion": null,
+          "proportion_uncertainty": {
+            "interval": null,
+            "note": "NON_BERNOULLI_METRIC"
+          },
+          "uncertainty_notes": [],
+          "zero_tolerance_failure_count": 0,
+          "zero_tolerance_uncertainty": {
+            "interval": null,
+            "note": "ZERO_TOLERANCE_COUNT"
+          }
+        }
+      ],
+      "precision_recall_summaries": [
+        {
+          "group_id": "AUTOFILL_ANY_ATTEMPT_ELIGIBLE_TRUTH",
+          "true_positive": 1485,
+          "false_positive": 0,
+          "false_negative": 0,
+          "precision": {
+            "numerator": 1485,
+            "denominator": 1485,
+            "rate": 1
+          },
+          "recall": {
+            "numerator": 1485,
+            "denominator": 1485,
+            "rate": 1
+          },
+          "precision_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 1485,
+            "denominator": 1485,
+            "lower_bound": "0.997419833524",
+            "upper_bound": "1",
+            "note": null
+          },
+          "recall_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 1485,
+            "denominator": 1485,
+            "lower_bound": "0.997419833524",
+            "upper_bound": "1",
+            "note": null
+          },
+          "uncertainty_notes": []
+        }
+      ],
+      "implementation_groups": [
+        {
+          "kind": "IMPLEMENTATION",
+          "identity": "japp-mv3",
+          "version": "1.0.0",
+          "source_digest": "sha256:baf578df3a8be8932abca691482bbb80bae1d5f442035599649cde6255dbb6a9",
+          "case_count": 200,
+          "pass_count": 200,
+          "fail_count": 0,
+          "invalid_count": 0
+        }
+      ]
+    },
+    "report_manifest_digest": "sha256:8df103d1d27625cec7ad44eae8abf5898e2d0065b9ec921438ce6692a7286e0b",
+    "autofill_run_manifest_digest": "sha256:c93d16e56de266eda6cc8e80b85f8f4880669cb0019debe16b4a4e609d32705f",
+    "manifest_issues": [],
+    "adapter_invoked_case_count": 200,
+    "live_observed_case_count": 200,
+    "row_timestamps": "ACCEPTED_RUNNER_REAL_WALL_CLOCK_WITNESSES"
+  },
+  "expected_cases": 200,
+  "recorded_cases": 200,
+  "authored_logical_controls": 4020,
+  "observed_native_controls": 4060,
+  "metrics": {
+    "executed_cases": 200,
+    "scored_cases": 200,
+    "refused_cases": 0,
+    "measurement_error_cases": 0,
+    "scored_logical_controls": 4020,
+    "preservation": {
+      "expected": 90,
+      "correct": 90,
+      "violations": 0,
+      "empty_abstention_violations": 0
+    },
+    "ordinary_attempted_precision": {
+      "numerator": 1485,
+      "denominator": 1485,
+      "rate": 1
+    },
+    "required_ordinary_recall": {
+      "numerator": 1275,
+      "denominator": 1275,
+      "rate": 1
+    },
+    "required_reporting": {
+      "numerator": 770,
+      "denominator": 770,
+      "rate": 1
+    },
+    "observed_persistence": {
+      "numerator": 1485,
+      "denominator": 1485,
+      "rate": 1
+    },
+    "counts": {
+      "required_silent": 0,
+      "sensitive_fills": 0,
+      "honeypot_fills": 0,
+      "catastrophic_option_errors": 0,
+      "duplicate_actions": 0
+    },
+    "full_settle_scan_fill_timing": {
+      "sample_count": 200,
+      "p95_ms": 874.831582999992,
+      "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+      "includes_fixture_setup": false,
+      "includes_browser_setup": false,
+      "includes_reporting": false
+    }
+  },
+  "family_metrics": {
+    "WORKDAY": {
+      "executed_cases": 80,
+      "scored_cases": 80,
+      "refused_cases": 0,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 1620,
+      "preservation": {
+        "expected": 36,
+        "correct": 36,
+        "violations": 0,
+        "empty_abstention_violations": 0
+      },
+      "ordinary_attempted_precision": {
+        "numerator": 585,
+        "denominator": 585,
+        "rate": 1
+      },
+      "required_ordinary_recall": {
+        "numerator": 510,
+        "denominator": 510,
+        "rate": 1
+      },
+      "required_reporting": {
+        "numerator": 317,
+        "denominator": 317,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 585,
+        "denominator": 585,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 80,
+        "p95_ms": 875.0568750000093,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    },
+    "GREENHOUSE": {
+      "executed_cases": 40,
+      "scored_cases": 40,
+      "refused_cases": 0,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 800,
+      "preservation": {
+        "expected": 18,
+        "correct": 18,
+        "violations": 0,
+        "empty_abstention_violations": 0
+      },
+      "ordinary_attempted_precision": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "required_ordinary_recall": {
+        "numerator": 255,
+        "denominator": 255,
+        "rate": 1
+      },
+      "required_reporting": {
+        "numerator": 151,
+        "denominator": 151,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 40,
+        "p95_ms": 873.5581670000101,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    },
+    "LEVER": {
+      "executed_cases": 40,
+      "scored_cases": 40,
+      "refused_cases": 0,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 800,
+      "preservation": {
+        "expected": 18,
+        "correct": 18,
+        "violations": 0,
+        "empty_abstention_violations": 0
+      },
+      "ordinary_attempted_precision": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "required_ordinary_recall": {
+        "numerator": 255,
+        "denominator": 255,
+        "rate": 1
+      },
+      "required_reporting": {
+        "numerator": 151,
+        "denominator": 151,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 40,
+        "p95_ms": 873.5108750000072,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    },
+    "ASHBY": {
+      "executed_cases": 40,
+      "scored_cases": 40,
+      "refused_cases": 0,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 800,
+      "preservation": {
+        "expected": 18,
+        "correct": 18,
+        "violations": 0,
+        "empty_abstention_violations": 0
+      },
+      "ordinary_attempted_precision": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "required_ordinary_recall": {
+        "numerator": 255,
+        "denominator": 255,
+        "rate": 1
+      },
+      "required_reporting": {
+        "numerator": 151,
+        "denominator": 151,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 40,
+        "p95_ms": 875.9607090000063,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    }
+  },
+  "native_physical_witness": {
+    "source": "CDP_EXTENSION_ISOLATED_REALM_NATIVE_1",
+    "expected_cases": 200,
+    "observed_cases": 200,
+    "native_mutation_count": 1485,
+    "interaction_count": 5490,
+    "per_case_witness_digests": [
+      {
+        "case_id": "benchmarkcase_00PYMKZ3RCGSS5S1AFQC47S29Y",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_019A715NFSESQZCAATSNJMWFZA",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_01CBRM373BEA3R7KGVJ5TGBQSC",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_024A079DR9S1RENRFBCK658M4Q",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_04PR3J5EXF37SVC4SY46DQBTST",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_083J8GYCCRG8D3TAP8KFHV57C3",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_0962TZS0P5D7SHDGPSV57PYYVG",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_09NJ8BFXMNZRBY3FTMC39GWA8C",
+        "digest": "sha256:6133c202cbee9ae7b1362b9c0e872dacf52ccbfe98c1c1d3e5521248da839651"
+      },
+      {
+        "case_id": "benchmarkcase_0AWQH265BGS8SWT3PQ080HR1MP",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_0DXAMPC63KKJQAE4SX14SWE5YX",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_0E3DHNCZQS8WY3V59X455WSYNW",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_0E968TNPVKWWSNB1EK72GEG3AH",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_0GH6D55XD5BQFNR2VPX8V45JF4",
+        "digest": "sha256:2ccf131433b016ce7e9781ed18c041572ee22c1fb1336e7e57fcea84f7f1875d"
+      },
+      {
+        "case_id": "benchmarkcase_0GHGENQJB1XW1YWQHTX2GVTV8C",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_0H8AET39579FSFG4436XJEMA27",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_0JWRT7KPD47GMNB7R6QVTY1W3T",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_0MC0SF8BBRMMFK3N1G90RGZKNA",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_0MGFQWAWJ8CQ9GF2XN3QTZ24X8",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_0N4ZG6ASJXMR2FJ10FJQBNXG5G",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_0NN0FKAEB354ZHVVM82E051M64",
+        "digest": "sha256:50faab7bf03efa1006ed2eafa11f83675e30dfb5f9d0c4fd7f4983361a750904"
+      },
+      {
+        "case_id": "benchmarkcase_0V0SVV9K1HH96WQYXQH6Z17CQF",
+        "digest": "sha256:50faab7bf03efa1006ed2eafa11f83675e30dfb5f9d0c4fd7f4983361a750904"
+      },
+      {
+        "case_id": "benchmarkcase_0VN9CB60MCT8AAM88BDZ6CR7ZD",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_0VP62GQDPN058MCX54ZG3MFH1R",
+        "digest": "sha256:775401d3b61717de3327b5dbb65f6c378120a838647e0c3403036787a97b933d"
+      },
+      {
+        "case_id": "benchmarkcase_0W6C3T4JEYK8AZ8H2Q7RKSE3V5",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_0X1WC2SBEF1YJ2QGKGJ21R92BT",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_0X7WD67R5QGCX7XDN511NRB99N",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_0Y550FGB6C29MWWAFHJ022XWXR",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_0ZD32SQQQPDC47PFVZEG665T94",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_11XYAN497RVCD3CB5S6TFG3WK9",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_125J5GZNVWCKYVXVB5M6AWZ14X",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_12GEFG7FJZ6XK3J0PBAHKJGESW",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_12SDSNNNGQRJWJJJP64SYCKNJ2",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_13PV4A9Q4KGQGJEE7WANCBWWPT",
+        "digest": "sha256:775401d3b61717de3327b5dbb65f6c378120a838647e0c3403036787a97b933d"
+      },
+      {
+        "case_id": "benchmarkcase_16AMTJSNX4FA62QGF4EJY26YP3",
+        "digest": "sha256:2ccf131433b016ce7e9781ed18c041572ee22c1fb1336e7e57fcea84f7f1875d"
+      },
+      {
+        "case_id": "benchmarkcase_1A5RXN5TDN4GKT9DZS8136P8CS",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_1A9CFW6M1RVJ2Y3FDJGPSRKSTS",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_1AGPWHWVF6ZJNBV39SHY4C1Y0X",
+        "digest": "sha256:2ccf131433b016ce7e9781ed18c041572ee22c1fb1336e7e57fcea84f7f1875d"
+      },
+      {
+        "case_id": "benchmarkcase_1BEHXP1ENBBQQ49HBZ1TEXC7DZ",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_1BS15QVG69ZRHRGEJQ2BK2S5CZ",
+        "digest": "sha256:6133c202cbee9ae7b1362b9c0e872dacf52ccbfe98c1c1d3e5521248da839651"
+      },
+      {
+        "case_id": "benchmarkcase_1CTXJSQVCTCHJAJFKYGARPR1RJ",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_1D7NZWBHQ81ZXKHM6ADF48R0RV",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_1DD9FCRBFPM9GTGJK3FDN3TW9E",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_1DQTBNQQ6MG0JSFDAH3QM3715N",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_1EK78SV7YR7G10MAR2EMC0K85C",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_1GCDTAC8436NPM9605VD3XVPY6",
+        "digest": "sha256:775401d3b61717de3327b5dbb65f6c378120a838647e0c3403036787a97b933d"
+      },
+      {
+        "case_id": "benchmarkcase_1J97KZA3EWRC5TKGY36RWZAZ23",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_1JYSWRKKHWDHN5PXG5S6FF9KQ9",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_1M5XYEV12WDPERT47FKK1JZ78J",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_1N1KVYV50YA1ZHD3K4XC68013F",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_1NXR72CCKC0K78JM6N7SYDZ79M",
+        "digest": "sha256:50faab7bf03efa1006ed2eafa11f83675e30dfb5f9d0c4fd7f4983361a750904"
+      },
+      {
+        "case_id": "benchmarkcase_1PJP8NKMH28Z9049KS599QFXXM",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_1PZG6DR3PYGPPK8NNS1K9CDPW3",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_1R0FYQY24V7DYWF08KP1S7HB6V",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_1S823QV5T0MRGW6DRYQVGM4SSS",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_1V3DZAKHFZ6H6MFBF6Z3VEA3K2",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_20HWM5QZJHJVWR3XNDPXPT6977",
+        "digest": "sha256:2ccf131433b016ce7e9781ed18c041572ee22c1fb1336e7e57fcea84f7f1875d"
+      },
+      {
+        "case_id": "benchmarkcase_20XSC6Z7YSDMYYCSX5NHMC2T3D",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_223BY9ZQRZKWDAP67QF5Z8WBJ0",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_223KDK0J24JTRP78QZEF4TSFT9",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_26VCT7A7QDW3N1272KAZG075YJ",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_26XNN03S7JKTX2J8FA05AWW46P",
+        "digest": "sha256:2ccf131433b016ce7e9781ed18c041572ee22c1fb1336e7e57fcea84f7f1875d"
+      },
+      {
+        "case_id": "benchmarkcase_28320Q38NFHWV8TES45W7P3TVB",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_28HBQT6WXQ57TJFVDY8P2H9ESV",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_28Y9DWAFY1A8QBNSB8P2ERZRVX",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_296TK4FY30WP1X51ATY1J67MMT",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_29AP99JPXQ9NYJKK7SHY090TEF",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_2APYDB4HXNA9N7Y8Z4N2FG6T06",
+        "digest": "sha256:2ccf131433b016ce7e9781ed18c041572ee22c1fb1336e7e57fcea84f7f1875d"
+      },
+      {
+        "case_id": "benchmarkcase_2BABX3KCD4Q4RYWRS9C2MREY1X",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_2CAQ3J3E8NCSGZJ7D8BMXC3A0A",
+        "digest": "sha256:50faab7bf03efa1006ed2eafa11f83675e30dfb5f9d0c4fd7f4983361a750904"
+      },
+      {
+        "case_id": "benchmarkcase_2E0M9DCMW0S8CAYBB0X9Q7YKWN",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_2EVT5PSMY7RM18YBMMX4P3KWAP",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_2KADAK1GR6WNKMW388YKT22MP1",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_2KY64XVPV128BEYFTG7JZAR1SB",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_2P8N012HZRK20CF9EEG3D57NRZ",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_2QD890TD7A2DY8ZF7HX3446E3M",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_2R7WH51B798NSVKDC4EZVXQBEA",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_2VPGMR6FR4XJCDKW05FSCXXK7J",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_2X77TM6QX2MG2PWQ0TSAZ6NHZ6",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_2XMXYHXANQQNFW2TFCYFNJDM8J",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_2YSC2ZG0DN37TZG5N53KQ5TTRG",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_32KK1YVEZCAYV666WWQP1232RZ",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_3508PYNHMD37SR959WF1KK1CCM",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_35V854WYFKDMFFCM1MNA0GAQRD",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_37MY2WA7DYSFYFS0ZVKX1Z6KGR",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_383MW183Z3NS19WBX2D13KKGE1",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_384SY96SBXGJQASBQH23DP113N",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_3APGFQF8QR7NKMQ63EWZX9FMN2",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_3C3JCSWSX4HVPXXQJTY5SW343Y",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_3CSDW4YQH78882DGRJ88FVA08G",
+        "digest": "sha256:2ccf131433b016ce7e9781ed18c041572ee22c1fb1336e7e57fcea84f7f1875d"
+      },
+      {
+        "case_id": "benchmarkcase_3D4EX2F51HRJVWW575BBFQGJPY",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_3EQ26S3E0JPAVHFKKJ5A6FAE4J",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_3F0W46WD3CZVFJ22QCQB0GW6X8",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_3FFXZR85ACV4057J8CEHJBXTZE",
+        "digest": "sha256:775401d3b61717de3327b5dbb65f6c378120a838647e0c3403036787a97b933d"
+      },
+      {
+        "case_id": "benchmarkcase_3GG0M51ZNVP87R08440Q84Y1GT",
+        "digest": "sha256:2ccf131433b016ce7e9781ed18c041572ee22c1fb1336e7e57fcea84f7f1875d"
+      },
+      {
+        "case_id": "benchmarkcase_3GX1KVKT3V6D5A2WP9ANJM3GV4",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_3HZ4D12WJ4EBPME0648JSNSTMG",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_3JRTH5SD0G79PTA4T3H6VZR7MB",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_3NBT6GJPNK4WMX6M6Y41AHH324",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_3P3FFFHK4B8FQ694N1PRR217KW",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_3RF3B186BTWAF1K786PVDTHMTN",
+        "digest": "sha256:775401d3b61717de3327b5dbb65f6c378120a838647e0c3403036787a97b933d"
+      },
+      {
+        "case_id": "benchmarkcase_3SGVVQP0JKFSRPBWKPWCT45AHW",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_3T3P61DE0HVT2WYA0Y9YC2XF6K",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_3TVR0N2DRQ2QGGBCFD57WDP9W9",
+        "digest": "sha256:50faab7bf03efa1006ed2eafa11f83675e30dfb5f9d0c4fd7f4983361a750904"
+      },
+      {
+        "case_id": "benchmarkcase_3YH2NMYH2BF8117XV4WK6BE46P",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_412QXA555C693YRK04TKR94R04",
+        "digest": "sha256:50faab7bf03efa1006ed2eafa11f83675e30dfb5f9d0c4fd7f4983361a750904"
+      },
+      {
+        "case_id": "benchmarkcase_450TK0CDP9RDXV5EKSA01XCM0K",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_45NCWSPASANQEKA3TJYCB0HRXT",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_477VBXQC8NRX09QKZFVNJP2W2C",
+        "digest": "sha256:2ccf131433b016ce7e9781ed18c041572ee22c1fb1336e7e57fcea84f7f1875d"
+      },
+      {
+        "case_id": "benchmarkcase_47RQMB9V3WV92J01188X8TJ70Z",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_48HTSBCR11ASGJYJERDVT937CV",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_4AKWQCQ42N04XBFP8MKA5X5FQN",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_4B18K64WXSD2WS5NCQHPZD5ERT",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_4BPMWM14EGNKM82WNJAWDR9AEM",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_4D5QC0Y8C5NNHZ7ZR8BAJSTPEF",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_4DH7PPNVFN2Z0KTY10KE0ESCGP",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_4H7XGNAT6BS04M0AWF48CGNBQ5",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_4MA5AQ3SS91NZ53J5BPYV222HX",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_4MHQAABZPT8HX1ZEXA08NQZQ3W",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_4PK6RBKVBD098AYJ20DXC7SAVJ",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_4PXXRBAQA2Y5ZBTQBBS5MFK26W",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_4RAEM9XHJT44W4C7E5DKHZVYRC",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_4Z46ZT1VJY9XTBVRVKAK68AFQM",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_538DZMDNVNNFXK3SRN4MSVCJT1",
+        "digest": "sha256:2ccf131433b016ce7e9781ed18c041572ee22c1fb1336e7e57fcea84f7f1875d"
+      },
+      {
+        "case_id": "benchmarkcase_54K0RHFQKGEKT2D64DPGB64AXD",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_54X5D1VB47PZPE8KWYKPPE6E8M",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_55XECJWJNM0JV6T03PS1T16TD1",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_55Y3MPY6QRA897RSXDBSVSGEN6",
+        "digest": "sha256:50faab7bf03efa1006ed2eafa11f83675e30dfb5f9d0c4fd7f4983361a750904"
+      },
+      {
+        "case_id": "benchmarkcase_5614NWE7MCZV05QMN53A417EQH",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_568MWK9NKP3740W2ZHEYTNDC82",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_57S1DQKQVPYNEG67CKGJGZ6Q0M",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_591G3DM0X8APWPCBNGBQ2VD3Q5",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_59YXYTWBY2WHVPRKF1AKPGACVJ",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_5AQVKT6SNCY4GNDAEH5MJX6XD4",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_5CD2W9S5MGXTVXERG1113241ZC",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_5CHAH7E69JE5623R3J0FX1HRA5",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_5CJK0Z64RKQS70DXS65MC0BNS5",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_5E2J2TT4YPHVR7WNPGFY34CTYN",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_5EN0Q9QWA43GPXN1SBQMN07KZX",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_5JF685MZXCWT1Q9S0FEM2VSEPV",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_5MARCM6VEZC7V37Z7YSPAFZ9T7",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_5NE3Q459TSEJ2E044FPTAXJQ2D",
+        "digest": "sha256:6133c202cbee9ae7b1362b9c0e872dacf52ccbfe98c1c1d3e5521248da839651"
+      },
+      {
+        "case_id": "benchmarkcase_5R17VZMJ7JHHS3FFHBR955PBD0",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_5RF6SQZHXWES2F5VCNP367BKFZ",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_5RND9MN89SG2CSBVQRQB8HYK25",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_5TNMV8GK84M69JMDV5CM18ZH3W",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_5XB6R9TVQQF0J3BWB9YHBH46BS",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_5Y3F6TJQMM6PX2X7BZGGV5A886",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_5Z52ZJXN34QD8J2MTY9TZ0YHV4",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_6002CNPF3FFFGH39EZX4H7GS7C",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_63K1FW1EMN504NAT1FHSWPA959",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_664HG0SDE1Y1FD3BRT92YVHB0A",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_671FG78ZN14BVX1X8ECN26XH8P",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_67K68WAQD9SD7ES24WXGGZFFGD",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_67MQBYWX6QBJ4SRX18ENC8NSEY",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_6AEBETXSAMX38DQZ7AXJ5DX375",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_6B3YR0RZWTDZJG0AJ11DHFE0G3",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_6E00SR16SEVBM7XW4WC44K7QD8",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_6GFC310WET7E1QKFFYGTT9TGKQ",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_6H1W0FX2AND4YVJCB02ZPA1YTQ",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_6HPZZ66MEMF79NPX4D4QGJ9ZSQ",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_6MBKF1JWY0GCFJMT5QDM07TS1C",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_6N2N8XMYQVB38KTVKGYWSK3N2A",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_6NJVJM7HSEKAAGKTFR6AJRA9J3",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_6NKZ941GDXNH5BQV37YEBWMSF1",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_6NZFEWZF628667MXC9YCH55XV5",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_6PENY1M393QJ6JTK4AEA1JZQ09",
+        "digest": "sha256:50faab7bf03efa1006ed2eafa11f83675e30dfb5f9d0c4fd7f4983361a750904"
+      },
+      {
+        "case_id": "benchmarkcase_6Q1X366MCBHJE6K9QRHCTZQG7R",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_6QTDV09TBTV3Y6TGYAMMD8AWY3",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_6RF9Y4KH8B7SWTY7GS13PS1XQY",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_6SFE75Y35V2B81PE5Z49RG39PK",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_6VHQVQA1TPX3YT4AG00CPATHD6",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_6ZWKZ0EFFGJ17KGVMFSKJ7Y41X",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_72BHZ7WCE5AZEV0P5E2V9TRVDG",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_73CETR49JZWTM36S433VCJNWC5",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_73NCAEYQN9CGT7XWKA78S3XFE8",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_76M7R2PZ0PDXYQMXZM7P3082BX",
+        "digest": "sha256:6133c202cbee9ae7b1362b9c0e872dacf52ccbfe98c1c1d3e5521248da839651"
+      },
+      {
+        "case_id": "benchmarkcase_76PCPA5CRB88WFXYWC309SJ1XS",
+        "digest": "sha256:6133c202cbee9ae7b1362b9c0e872dacf52ccbfe98c1c1d3e5521248da839651"
+      },
+      {
+        "case_id": "benchmarkcase_790SY8185SXWE28GYRNPNQQHYR",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_7B1R0KV6SKCYF80T5AAZAZS1YK",
+        "digest": "sha256:50faab7bf03efa1006ed2eafa11f83675e30dfb5f9d0c4fd7f4983361a750904"
+      },
+      {
+        "case_id": "benchmarkcase_7B1S0CB7HJS3H7Y5SXFHR29MGD",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_7B48VYZ8RRJJTMVR7FV7AJ16E7",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_7B6SNP99Z7D0GDSFMZSJ1VH54N",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_7C5Q1ZYBKY7AEH2J279VZNNP98",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_7CN8897NNB3MJCTGKXEN70BXKT",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_7CS0PBX6P097TMRBBV6X5XJHE4",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_7D3ANEX7H8AP75NQEBKWJ7QN6Q",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_7E655TXY94RJPCTKY9A14ZS86Y",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_7FW4D0JWZ87H07BBZ4X7A21SPZ",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_7FXHXT45MSH5YFX2JEQMK9PJBN",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_7J189EB06SS6FN686DKC4SVQNH",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_7J58RXEWW6EVDM6Q1NNX80MCKB",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_7JA1YE57V2MP9AVXZYJ0FM3JPF",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_7JMKPR5KGJPMWNJWNMN5S4C71H",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_7JQ1WBHF3R5EY6WF9ZC4XASG2E",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_7PVNNQB5R1QXPGKG7GB4Z5RYAK",
+        "digest": "sha256:99572cd4dc32d79dab398492d0ddf6720d3dd9c3886adfa02a1c1a8570e36a57"
+      },
+      {
+        "case_id": "benchmarkcase_7T0SH8VSA8SXY5DB3EF9WGV02S",
+        "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "case_id": "benchmarkcase_7TSVBRP338W7A3DPCMYY6RWW2A",
+        "digest": "sha256:e64b80e0448cba2c5665635e4d46b082311fb7a8fbd9d01b9708f8f07aa5c897"
+      },
+      {
+        "case_id": "benchmarkcase_7VFMX7Q29NWAAXTMDY6V341XW1",
+        "digest": "sha256:2115c5daf156e751bc6cbe31b1d52e25979cea9fee30480e3e0b15027d9f3318"
+      },
+      {
+        "case_id": "benchmarkcase_7WFKY17RX2WWR7E9RH0YJGF9GJ",
+        "digest": "sha256:7f8fd2ab6e12503d77169ccf4ed3178d238e7bb985eef76bffae3f36dd17547a"
+      },
+      {
+        "case_id": "benchmarkcase_7XDCKV5YYTSEH4CS1835XR69EH",
+        "digest": "sha256:50faab7bf03efa1006ed2eafa11f83675e30dfb5f9d0c4fd7f4983361a750904"
+      }
+    ],
+    "scope": "INDEPENDENT_NODE_BOUND_INSTALLED_NATIVE_SURFACES_IN_ACTUAL_EXTENSION_REALM"
+  },
+  "physical_safety_all_executed_cases": {
+    "sensitive_fills": 0,
+    "honeypot_fills": 0,
+    "catastrophic_option_errors": 0,
+    "duplicate_actions": 0,
+    "navigation_activations": 0,
+    "submission_activations": 0,
+    "paused_boundary_actions": 0
+  },
+  "physical_safety_coverage": {
+    "expected_cases": 200,
+    "observed_cases": 200,
+    "state": "OBSERVED",
+    "raw_physical_actions": 1485,
+    "audited_physical_actions": 1485,
+    "orphan_physical_actions": 0
+  },
+  "immutability": {
+    "source_unchanged": true,
+    "build_unchanged": true,
+    "declarations_unchanged": true,
+    "end_source_digest": "sha256:baf578df3a8be8932abca691482bbb80bae1d5f442035599649cde6255dbb6a9",
+    "end_build_digest": "sha256:cf36249aba48945a5ac68e5d134ad14dd7a106850391d6c8ef422088f6c7560d"
+  },
+  "measurement_refusals": [],
+  "unsupported_scored_feature_coverage": [
+    {
+      "feature": "FILE_UPLOAD",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "REPEATER_OPERATION",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "DATE_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "CHECKBOX_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "RADIO_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "CUSTOM_COMBOBOX_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "IFRAME",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "SHADOW_DOM",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "PAGE_TRANSITION",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "PARSER_EFFECT",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "LONG_SESSION_SOAK",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    }
+  ],
+  "external_execution_by_this_contact_campaign": {
+    "holdout": "HOLDOUT_WAIVED_OWNER_ADR0006",
+    "public_no_submit": "NOT_EXECUTED_BY_THIS_CAMPAIGN",
+    "simplify": "NOT_EXECUTED_BY_THIS_CAMPAIGN",
+    "committed_legacy_registry_snapshot": [
+      {
+        "system": "CAREERPULSE",
+        "status": "UNAVAILABLE",
+        "source_revision": null
+      },
+      {
+        "system": "LEGACY_JOBAPPLY",
+        "status": "NOT_ATTEMPTED",
+        "source_revision": "c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd"
+      }
+    ]
+  },
+  "limitations": [
+    "Visible synthetic W12 expansion only; W06 parent corpus is separately committed and is not wholly executed by this campaign.",
+    "Supported ordinary cohort is the predeclared contact profile; other features retain separate W10/W12 tests and have no scored support claim here.",
+    "W13 canonical abstention counts remain unchanged. A separately committed W14 initial-state model measures preservation with live initial/final snapshots and zero-write proof.",
+    "Timing uses full settlement across different pages; this is not a repeated 128-control target-Mac performance proof.",
+    "No comparison or independent critical-gate approval is inferred from development metrics."
+  ],
+  "compressed_bundle_digest": "sha256:75a75b276f67d37b45dc1c4530642bf74f3d036a28ddee78132a8482bed2550b",
+  "compressed_bundle_bytes": 4176658
+}

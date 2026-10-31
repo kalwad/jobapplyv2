@@ -38,9 +38,15 @@
       "sha256": "31722639c611cc94bfd9cc31a6e631433c6b145d2b2d8c9d5446aac31d3db1c3",
       "validatedAgainst": "urn:japp:schema:semantic:rule-catalog:v1",
       "version": "1.1.0"
+    },
+    {
+      "path": "packages/contracts/catalog/semantic-rules.v2.json",
+      "sha256": "b574b603e4bf1c26b990c97512935179c4f4a0886774f8163e3b87dce801a5c9",
+      "validatedAgainst": "urn:japp:schema:semantic:rule-catalog:v2",
+      "version": "1.2.0"
     }
   ],
-  "formatVersion": "1.5.0",
+  "formatVersion": "1.8.0",
   "generator": "scripts/generate-contracts.ts",
   "inputs": [
     {
@@ -146,6 +152,24 @@
       "sha256": "a8a37fd4cb55ea0b48b73ed9dc031ed14955bb9345dbdefccc3b63ff46bd68ac"
     },
     {
+      "id": "urn:japp:schema:desktop:service-cancellation:v1",
+      "path": "packages/contracts/schemas/desktop/service-cancellation.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "c499ea48030a96e94405ab6f1058dced247ae031044329c29fa1daa06efccc9e"
+    },
+    {
+      "id": "urn:japp:schema:desktop:service-diagnostics:v1",
+      "path": "packages/contracts/schemas/desktop/service-diagnostics.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "d67f58e5590f25d5133575e084a3b8d28d5eefe574e9cf9de0d22bb45a9dd78e"
+    },
+    {
+      "id": "urn:japp:schema:desktop:service-request:v1",
+      "path": "packages/contracts/schemas/desktop/service-request.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "df20006831c604cc39db3489bcf4499e744408e4db86f8d1254db6a4d7279e4b"
+    },
+    {
       "id": "urn:japp:schema:error:catalog:v1",
       "path": "packages/contracts/schemas/error/catalog.v1.schema.json",
       "schemaVersion": "1.0.0",
@@ -206,10 +230,22 @@
       "sha256": "3f9698a5247bd923d4bb33ff241a971c11d23bf595f0d28befda68bebeaff354"
     },
     {
+      "id": "urn:japp:schema:gate:decision:v2",
+      "path": "packages/contracts/schemas/gate/decision.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "7535d64e924be9eab1e13fb1def1c3b181fdc41db4cb4d01b6916b94bbe2d225"
+    },
+    {
       "id": "urn:japp:schema:gate:evidence-bundle:v1",
       "path": "packages/contracts/schemas/gate/evidence-bundle.v1.schema.json",
       "schemaVersion": "1.0.0",
       "sha256": "be9d0679e830fdf17236d6791f8e1b6bc9e0a3fabd4e77c4e7884683355f40fd"
+    },
+    {
+      "id": "urn:japp:schema:gate:evidence-bundle:v2",
+      "path": "packages/contracts/schemas/gate/evidence-bundle.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "ca7bae93b9763b9a838a7df2e3527ea8bdef34a6e559af0af5e8b6021406ea64"
     },
     {
       "id": "urn:japp:schema:platform:browser-discovery-request:v1",
@@ -470,6 +506,30 @@
       "sha256": "5ef91d096359d9be82755431e30d442664f54c4f7e87d0d923dd2d8fbc5aa92c"
     },
     {
+      "id": "urn:japp:schema:semantic:rule-catalog:v2",
+      "path": "packages/contracts/schemas/semantic/rule-catalog.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "f16d26c5ec95f49b7fe6ed00492f2af1e33874a1e169e0709691fae4d0b4a744"
+    },
+    {
+      "id": "urn:japp:schema:service:health:v1",
+      "path": "packages/contracts/schemas/service/health.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "e8f1647d3d2b778b1758e2b3e837ac61097e43b5e4d4245eb6aaf8ffec4de780"
+    },
+    {
+      "id": "urn:japp:schema:service:ready:v1",
+      "path": "packages/contracts/schemas/service/ready.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "3742214104b957d82531b9029c7fa18362fb1f2205d9afc3cf03e7acc6a3f196"
+    },
+    {
+      "id": "urn:japp:schema:service:version:v1",
+      "path": "packages/contracts/schemas/service/version.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "a7941d35f2b58674f587a9ae32bda782eab482e3648660ed1b3980f89d4bd942"
+    },
+    {
       "id": "urn:japp:schema:session:application-session:v1",
       "path": "packages/contracts/schemas/session/application-session.v1.schema.json",
       "schemaVersion": "1.0.0",
@@ -515,11 +575,11 @@
   "outputs": [
     {
       "path": "README.md",
-      "sha256": "dd6207b6628e9462cd8035abfc0c47df66bb9381b8b38deec8376ef979976e12"
+      "sha256": "d11f4ff484a356699e062068523378e731ee6246f3e51d59d59cc5a14cd760e2"
     },
     {
       "path": "python/src/japp_contracts/__init__.py",
-      "sha256": "3f632e92cfa7ba3085980e4800a3a5fb4d9a788c84b449cc857039574c6fe4f3"
+      "sha256": "2ba3bd8c50d033f2bc50b9ecdff5794ca178ef4928216fae612cc9929149acdc"
     },
     {
       "path": "python/src/japp_contracts/_runtime.py",
@@ -606,6 +666,22 @@
       "sha256": "ec7ed257181d676d862750c713db9af833fda9c6585dd16ff34e6ffa1ab8dbdc"
     },
     {
+      "path": "python/src/japp_contracts/desktop/__init__.py",
+      "sha256": "587e921e9db1434fafe28add23ace9bd978a6556a147cae8be64cc8b2565cb42"
+    },
+    {
+      "path": "python/src/japp_contracts/desktop/service_cancellation_v1.py",
+      "sha256": "5f4d446c112baf2e2c87645cbd35a4c4756dc40cac39aacfe3de6ee2ac6423f5"
+    },
+    {
+      "path": "python/src/japp_contracts/desktop/service_diagnostics_v1.py",
+      "sha256": "9d1e44895fbe27ed6c1c34e432796b3bc39d2242a61c93c268f217c281906891"
+    },
+    {
+      "path": "python/src/japp_contracts/desktop/service_request_v1.py",
+      "sha256": "5938876217e1bc06641bf916c06d8eb1f55ca1819ad4961884a37bbbd7c1bd3e"
+    },
+    {
       "path": "python/src/japp_contracts/error/__init__.py",
       "sha256": "3124fec72c1da5f5a537325ae345a5481ec0e34d5b8142a1e9cbfb8277767304"
     },
@@ -666,8 +742,16 @@
       "sha256": "18e7cfaba7aed6cac77808349e446fc826008278bb4268606d08b4a7d6fe31fb"
     },
     {
+      "path": "python/src/japp_contracts/gate/decision_v2.py",
+      "sha256": "639180648c44fa0b5bbcb4b038d1b71ebd59661be74fc98607f388f3c59fe04e"
+    },
+    {
       "path": "python/src/japp_contracts/gate/evidence_bundle_v1.py",
       "sha256": "1d973367d76ee436e5dfe8647339656216db0fd526aa2b9255007997fe208077"
+    },
+    {
+      "path": "python/src/japp_contracts/gate/evidence_bundle_v2.py",
+      "sha256": "e0ad6df55c1aa0174095bf02ee62da85a51ce39b542dd7d4c4fe92add4232cd1"
     },
     {
       "path": "python/src/japp_contracts/platform/__init__.py",
@@ -870,8 +954,32 @@
       "sha256": "e32b819ed05cb1d54de41d89fb01bea10a15426612530c9093922b6f7e352630"
     },
     {
+      "path": "python/src/japp_contracts/semantic/rule_catalog_v2.py",
+      "sha256": "01d0b20cf705627d2e0a8032384b670f49a6481d662bca9a8ba1cd463be139cf"
+    },
+    {
       "path": "python/src/japp_contracts/semantic/rules_v1.py",
       "sha256": "832cf9bc405416a345f0fb62c7eff821bba4e041894a3d876ccf58d85883b549"
+    },
+    {
+      "path": "python/src/japp_contracts/semantic/rules_v2.py",
+      "sha256": "8a2a35a6274f9996840306e8e2cdc7ae58527626e0719f00bececa7c5a90dff8"
+    },
+    {
+      "path": "python/src/japp_contracts/service/__init__.py",
+      "sha256": "d0e08c318737cb157b731a2d1e5cda3fa2c2a7c6c95d3c8ccc81556f421fc726"
+    },
+    {
+      "path": "python/src/japp_contracts/service/health_v1.py",
+      "sha256": "6f2e1613d65ff633e858846b4c36213a3b28a47a0ad983afb09180e82269eb10"
+    },
+    {
+      "path": "python/src/japp_contracts/service/ready_v1.py",
+      "sha256": "493fb9e599a5cdb72a772b6862b82fdc19a6cad6f8a1fc99cb5c8e4acf2b76a6"
+    },
+    {
+      "path": "python/src/japp_contracts/service/version_v1.py",
+      "sha256": "5ccb9046dd2432b27af72893de17413e954136d2855790634370b617fd6fcd82"
     },
     {
       "path": "python/src/japp_contracts/session/__init__.py",
@@ -978,6 +1086,18 @@
       "sha256": "02397bfa04942688b2d7ad8716cecddd69fbc9a7b8be022ec417ec44429a35d4"
     },
     {
+      "path": "typescript/desktop/service-cancellation.v1.ts",
+      "sha256": "e0598e6d1559189a499aa79ced794d496e3a9508516fa5b6a3eca6e8720361aa"
+    },
+    {
+      "path": "typescript/desktop/service-diagnostics.v1.ts",
+      "sha256": "a6ddbaa158087fef1f6d8274d26c96d3705304749c39a2d55c0d9010aeab0e15"
+    },
+    {
+      "path": "typescript/desktop/service-request.v1.ts",
+      "sha256": "5088eadce34071aa53723853d0447111c083eef89daed280f6e57006723cec2a"
+    },
+    {
       "path": "typescript/error/catalog-data.v1.ts",
       "sha256": "c45f42664bedbc9bc987cb2cc45dd844070a3bca07161f4053b97bacc5ab9c12"
     },
@@ -1022,12 +1142,20 @@
       "sha256": "04f622fe930a94300237d8e6964788740edec4e6188b6f17ab99eb5cdd14a428"
     },
     {
+      "path": "typescript/gate/decision.v2.ts",
+      "sha256": "1b06444b33d568e079f9acb0b65594660f307c73129b652ed9ed2cc7b6510ef6"
+    },
+    {
       "path": "typescript/gate/evidence-bundle.v1.ts",
       "sha256": "495f04036427d35774d402465104b4aca152f28f6174e66d1208a7979f588ac7"
     },
     {
+      "path": "typescript/gate/evidence-bundle.v2.ts",
+      "sha256": "ee705acde527b05b4a748bebe78efd15c3b9bdadbcc0e190d5f0cabe405c7d76"
+    },
+    {
       "path": "typescript/index.ts",
-      "sha256": "8a2009f7b7999b24f68942a1be637a63d9d3aa23ff20f4a39b2bdd9c47f606d6"
+      "sha256": "69e1b9942d61d1436895f59bcc6c3ed34bc2eafba0f1349bccc8fda0151e6462"
     },
     {
       "path": "typescript/platform/browser-discovery-request.v1.ts",
@@ -1206,8 +1334,28 @@
       "sha256": "7ed54d5051948eb9c9d4654646fe5c0b22fcd6268c3d4d4921647114df8b9a53"
     },
     {
+      "path": "typescript/semantic/rule-catalog.v2.ts",
+      "sha256": "86fbaa855d29d85e0e1bbb62515966334c0f57b2404830a7ece0f4e93d178551"
+    },
+    {
       "path": "typescript/semantic/rules.v1.ts",
       "sha256": "449d3a34473791fc3b880fd76685f59e46fc7f2d8b75ed4572a4cee04b89848f"
+    },
+    {
+      "path": "typescript/semantic/rules.v2.ts",
+      "sha256": "96c7f7fdddd2041a9c57c8edb877c092e0db747a967ffbe261e68c3087496134"
+    },
+    {
+      "path": "typescript/service/health.v1.ts",
+      "sha256": "f9f24d89e9ee78bbdc9a5b86a7918afa84cdb7d6287e683f31044b0364fe51f3"
+    },
+    {
+      "path": "typescript/service/ready.v1.ts",
+      "sha256": "46af67ee53e45769fcbf505e5ac484371e9401cc5ea4bfd96bd4eb85654982b5"
+    },
+    {
+      "path": "typescript/service/version.v1.ts",
+      "sha256": "101eeff59e61d9abbe6595c83dc12c74ddcee8c8a552437f239ae56611f2d278"
     },
     {
       "path": "typescript/session/application-session.v1.ts",
@@ -1227,7 +1375,7 @@
     },
     {
       "path": "typescript/validators.ts",
-      "sha256": "477fc8a11c9b8224391e468919e96bcfc9c2a8eb183e3ebdcbd95629b8aab97d"
+      "sha256": "a7edd97645d722f4c9e28197a500d298ff1bd9e4044ec0199379e7fcf1143082"
     },
     {
       "path": "typescript/workday/certification-record.v1.ts",
@@ -1803,6 +1951,36 @@
         "module": "typescript/common/timestamp-utc.v1.ts"
       }
     },
+    "urn:japp:schema:desktop:service-cancellation:v1": {
+      "python": {
+        "module": "japp_contracts.desktop.service_cancellation_v1",
+        "symbol": "DesktopServiceCancellationV1"
+      },
+      "typescript": {
+        "export": "DesktopServiceCancellationV1",
+        "module": "typescript/desktop/service-cancellation.v1.ts"
+      }
+    },
+    "urn:japp:schema:desktop:service-diagnostics:v1": {
+      "python": {
+        "module": "japp_contracts.desktop.service_diagnostics_v1",
+        "symbol": "DesktopServiceDiagnosticsV1"
+      },
+      "typescript": {
+        "export": "DesktopServiceDiagnosticsV1",
+        "module": "typescript/desktop/service-diagnostics.v1.ts"
+      }
+    },
+    "urn:japp:schema:desktop:service-request:v1": {
+      "python": {
+        "module": "japp_contracts.desktop.service_request_v1",
+        "symbol": "DesktopServiceRequestV1"
+      },
+      "typescript": {
+        "export": "DesktopServiceRequestV1",
+        "module": "typescript/desktop/service-request.v1.ts"
+      }
+    },
     "urn:japp:schema:error:catalog:v1": {
       "python": {
         "module": "japp_contracts.error.catalog_v1",
@@ -2293,6 +2471,66 @@
         "module": "typescript/gate/decision.v1.ts"
       }
     },
+    "urn:japp:schema:gate:decision:v2": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v2",
+        "symbol": "GateDecisionV2"
+      },
+      "typescript": {
+        "export": "GateDecisionV2",
+        "module": "typescript/gate/decision.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v2#/$defs/gateDecision": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v2",
+        "symbol": "GateDecisionV2GateDecision"
+      },
+      "typescript": {
+        "export": "GateDecisionV2GateDecision",
+        "module": "typescript/gate/decision.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v2#/$defs/independentReviewState": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v2",
+        "symbol": "GateDecisionV2IndependentReviewState"
+      },
+      "typescript": {
+        "export": "GateDecisionV2IndependentReviewState",
+        "module": "typescript/gate/decision.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v2#/$defs/ownerDecisionState": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v2",
+        "symbol": "GateDecisionV2OwnerDecisionState"
+      },
+      "typescript": {
+        "export": "GateDecisionV2OwnerDecisionState",
+        "module": "typescript/gate/decision.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v2#/$defs/reasonCode": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v2",
+        "symbol": "GateDecisionV2ReasonCode"
+      },
+      "typescript": {
+        "export": "GateDecisionV2ReasonCode",
+        "module": "typescript/gate/decision.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v2#/$defs/thresholdEvidenceSummary": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v2",
+        "symbol": "GateDecisionV2ThresholdEvidenceSummary"
+      },
+      "typescript": {
+        "export": "GateDecisionV2ThresholdEvidenceSummary",
+        "module": "typescript/gate/decision.v2.ts"
+      }
+    },
     "urn:japp:schema:gate:evidence-bundle:v1": {
       "python": {
         "module": "japp_contracts.gate.evidence_bundle_v1",
@@ -2321,6 +2559,56 @@
       "typescript": {
         "export": "GateEvidenceBundleV1GateId",
         "module": "typescript/gate/evidence-bundle.v1.ts"
+      }
+    },
+    "urn:japp:schema:gate:evidence-bundle:v2": {
+      "python": {
+        "module": "japp_contracts.gate.evidence_bundle_v2",
+        "symbol": "GateEvidenceBundleV2"
+      },
+      "typescript": {
+        "export": "GateEvidenceBundleV2",
+        "module": "typescript/gate/evidence-bundle.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:evidence-bundle:v2#/$defs/completenessInventory": {
+      "python": {
+        "module": "japp_contracts.gate.evidence_bundle_v2",
+        "symbol": "GateEvidenceBundleV2CompletenessInventory"
+      },
+      "typescript": {
+        "export": "GateEvidenceBundleV2CompletenessInventory",
+        "module": "typescript/gate/evidence-bundle.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:evidence-bundle:v2#/$defs/gateId": {
+      "python": {
+        "module": "japp_contracts.gate.evidence_bundle_v2",
+        "symbol": "GateEvidenceBundleV2GateId"
+      },
+      "typescript": {
+        "export": "GateEvidenceBundleV2GateId",
+        "module": "typescript/gate/evidence-bundle.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:evidence-bundle:v2#/$defs/holdoutAssessment": {
+      "python": {
+        "module": "japp_contracts.gate.evidence_bundle_v2",
+        "symbol": "GateEvidenceBundleV2HoldoutAssessment"
+      },
+      "typescript": {
+        "export": "GateEvidenceBundleV2HoldoutAssessment",
+        "module": "typescript/gate/evidence-bundle.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:evidence-bundle:v2#/$defs/ownerHoldoutWaiver": {
+      "python": {
+        "module": "japp_contracts.gate.evidence_bundle_v2",
+        "symbol": "GateEvidenceBundleV2OwnerHoldoutWaiver"
+      },
+      "typescript": {
+        "export": "GateEvidenceBundleV2OwnerHoldoutWaiver",
+        "module": "typescript/gate/evidence-bundle.v2.ts"
       }
     },
     "urn:japp:schema:platform:browser-discovery-request:v1": {
@@ -3611,6 +3899,66 @@
       "typescript": {
         "export": "SemanticRuleCatalogV1RuleKind",
         "module": "typescript/semantic/rule-catalog.v1.ts"
+      }
+    },
+    "urn:japp:schema:semantic:rule-catalog:v2": {
+      "python": {
+        "module": "japp_contracts.semantic.rule_catalog_v2",
+        "symbol": "SemanticRuleCatalogV2"
+      },
+      "typescript": {
+        "export": "SemanticRuleCatalogV2",
+        "module": "typescript/semantic/rule-catalog.v2.ts"
+      }
+    },
+    "urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleEntry": {
+      "python": {
+        "module": "japp_contracts.semantic.rule_catalog_v2",
+        "symbol": "SemanticRuleCatalogV2RuleEntry"
+      },
+      "typescript": {
+        "export": "SemanticRuleCatalogV2RuleEntry",
+        "module": "typescript/semantic/rule-catalog.v2.ts"
+      }
+    },
+    "urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleKind": {
+      "python": {
+        "module": "japp_contracts.semantic.rule_catalog_v2",
+        "symbol": "SemanticRuleCatalogV2RuleKind"
+      },
+      "typescript": {
+        "export": "SemanticRuleCatalogV2RuleKind",
+        "module": "typescript/semantic/rule-catalog.v2.ts"
+      }
+    },
+    "urn:japp:schema:service:health:v1": {
+      "python": {
+        "module": "japp_contracts.service.health_v1",
+        "symbol": "ServiceHealthV1"
+      },
+      "typescript": {
+        "export": "ServiceHealthV1",
+        "module": "typescript/service/health.v1.ts"
+      }
+    },
+    "urn:japp:schema:service:ready:v1": {
+      "python": {
+        "module": "japp_contracts.service.ready_v1",
+        "symbol": "ServiceReadyV1"
+      },
+      "typescript": {
+        "export": "ServiceReadyV1",
+        "module": "typescript/service/ready.v1.ts"
+      }
+    },
+    "urn:japp:schema:service:version:v1": {
+      "python": {
+        "module": "japp_contracts.service.version_v1",
+        "symbol": "ServiceVersionV1"
+      },
+      "typescript": {
+        "export": "ServiceVersionV1",
+        "module": "typescript/service/version.v1.ts"
       }
     },
     "urn:japp:schema:session:application-session:v1": {

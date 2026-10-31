@@ -1,0 +1,236 @@
+✔ STRUCTURAL_TEST_ONLY positive join recomputes counts and references actual legacy rows (2.007584ms)
+✔ STRUCTURAL_TEST_ONLY supplied exact booleans cannot inflate or suppress counts (0.292167ms)
+✔ STRUCTURAL_TEST_ONLY phone formatting equivalence remains separate from exact (0.258542ms)
+✔ STRUCTURAL_TEST_ONLY false phone equivalence claim cannot inflate counts (0.189833ms)
+✔ STRUCTURAL_TEST_ONLY rejects wrong candidate lock (0.202666ms)
+✔ STRUCTURAL_TEST_ONLY rejects wrong legacy lock (0.083583ms)
+✔ STRUCTURAL_TEST_ONLY rejects duplicate candidate case (0.084458ms)
+✔ STRUCTURAL_TEST_ONLY rejects missing candidate artifact (0.081292ms)
+✔ STRUCTURAL_TEST_ONLY rejects duplicate legacy case (0.099667ms)
+✔ STRUCTURAL_TEST_ONLY rejects missing legacy row (0.121125ms)
+✔ STRUCTURAL_TEST_ONLY rejects old candidate artifact (0.107667ms)
+✔ STRUCTURAL_TEST_ONLY rejects old legacy artifact (0.103666ms)
+✔ STRUCTURAL_TEST_ONLY rejects candidate native value disagrees (0.115792ms)
+✔ STRUCTURAL_TEST_ONLY rejects missing native surface (0.09ms)
+✔ STRUCTURAL_TEST_ONLY fixtures are rejected by actual default join mode (4.826292ms)
+✔ STRUCTURAL_TEST_ONLY browser deadline is finite and remains a timeout (0.253167ms)
+✔ STRUCTURAL_TEST_ONLY nonfinite or overflow deadlines refuse (0.167292ms)
+✔ STRUCTURAL_TEST_ONLY already exited child needs no signal (0.118291ms)
+✔ STRUCTURAL_TEST_ONLY SIGTERM success requires an actual exit event (0.076958ms)
+✔ STRUCTURAL_TEST_ONLY ignored SIGTERM escalates only owned handle to SIGKILL and waits (0.062042ms)
+✔ STRUCTURAL_TEST_ONLY unconfirmed SIGKILL is explicit cleanup failure, not success (0.060125ms)
+✔ STRUCTURAL_TEST_ONLY live process error never falsely proves termination (0.086042ms)
+✔ STRUCTURAL_TEST_ONLY spawn failure without PID is recorded without signaling (0.065209ms)
+✔ STRUCTURAL_TEST_ONLY successful wait clears deadline timer (0.045125ms)
+✔ STRUCTURAL_TEST_ONLY runner exit alone never proves browser context cleanup (0.055459ms)
+✔ STRUCTURAL_TEST_ONLY normal close evidence keeps OS descendant scope unobserved (0.057083ms)
+Listing tests:
+  [chromium] › browser-smoke.spec.ts:11:1 › pinned Chromium launches, renders controlled content, and executes JavaScript
+  [chromium] › extension/extension-ack-causality.spec.ts:14:1 › the actual content entrypoint leaves readiness absent after an invalid worker ACK
+  [chromium] › extension/extension-autofill-harness.spec.ts:105:1 › W13 A-I M-N: W12 four-family MV3 candidate, independent oracle, accepted runner and deterministic worksheet
+  [chromium] › extension/extension-benchmark.spec.ts:19:1 › W13 J: overlapping equivalent requests perform exactly one physical fill
+  [chromium] › extension/extension-benchmark.spec.ts:61:1 › W13 L: total scan and re-resolution scaling includes work outside W11
+  [chromium] › extension/extension-benchmark.spec.ts:208:1 › W13 J: overlapping delayed repeater operations perform one physical click
+  [chromium] › extension/extension-benchmark.spec.ts:261:1 › W13 K: required control beyond capacity cannot receive a complete readiness proof
+  [chromium] › extension/extension-benchmark.spec.ts:292:1 › W13 K: observation beginning over capacity requires a complete recovery scan
+  [chromium] › extension/extension-drivers.spec.ts:323:1 › TX1/TEXT1/TEXT2/UNDO1: native text transactions use a real W09 decision, persist, redact, and restore
+  [chromium] › extension/extension-drivers.spec.ts:381:1 › SEL1/RAD1/CHK1/DATE1: exact native choice and date drivers verify and checkbox undo restores
+  [chromium] › extension/extension-drivers.spec.ts:450:1 › TX2/TX3/TX4/TX5/TX6: missing, ambiguous, stale, inert, and non-FILL targets perform no action
+  [chromium] › extension/extension-drivers.spec.ts:541:1 › FW1/FW2: real React and Vue state accept native-setter events and survive forced rerender
+  [chromium] › extension/extension-drivers.spec.ts:616:1 › FW3/VAL1/VAL2/DATE2: immediate-only or site-rejected matches never verify
+  [chromium] › extension/extension-drivers.spec.ts:694:1 › SEL2/SEL3/RAD2: missing, disabled, disappearing, and duplicate semantic options are never guessed
+  [chromium] › extension/extension-drivers.spec.ts:755:1 › COMBO1/COMBO2/COMBO3: ARIA combobox commits exact options, reselects after stale query, and refuses missing/duplicate targets
+  [chromium] › extension/extension-drivers.spec.ts:818:1 › TX7: immediately-before-action re-resolution blocks semantic replacement, and partial widget failure rolls back
+  [chromium] › extension/extension-drivers.spec.ts:939:1 › VIRT1/VIRT2: the 480-row windowed list finds one off-window exact target within a bound and refuses absence
+  [chromium] › extension/extension-drivers.spec.ts:987:1 › REP1/REP2/REP3: bounded repeater add/edit/remove uses stable labels and undo never uses an index
+  [chromium] › extension/extension-drivers.spec.ts:1097:1 › UPLOAD1-4: only exact bounded synthetic artifact bytes and metadata verify, and clear undo restores empty
+  [chromium] › extension/extension-drivers.spec.ts:1176:1 › WD1/WD2/WD3: synthetic prompt transacts, while navigation is identification-only and ambiguity/unsafe state never acts
+  [chromium] › extension/extension-drivers.spec.ts:1274:1 › UNDO2 and frame/document authority: restoration re-resolves, consumes stale attempts, and page world cannot forge controller authority
+  [chromium] › extension/extension-dynamic.spec.ts:376:1 › DYN1/DYN2/DYN3/REC1: conditional fields are discovered by affected-subtree scans, reported REQUIRED_UNRESOLVED, and retired on removal
+  [chromium] › extension/extension-dynamic.spec.ts:470:1 › REC2/REC3/REC4/NOACT1: a mixed page reports every required control explicitly and never upgrades blocked or concealed controls
+  [chromium] › extension/extension-dynamic.spec.ts:634:1 › DUP1/DUP2/DUP3: framework rerenders and repeated requests cause exactly zero duplicate actions while new decisions stay legitimate
+  [chromium] › extension/extension-dynamic.spec.ts:776:1 › CHG1/CHG2/CHG3: page-changed values and late validation rejection are detected without silent verified state or automatic refill
+  [chromium] › extension/extension-dynamic.spec.ts:901:1 › BATCH1/BATCH2/PERF1/PERF2/PERF3: a mutation storm coalesces into bounded batches that scan only affected subtrees
+  [chromium] › extension/extension-dynamic.spec.ts:989:1 › ROOT1/PERF4: outside-root mutations and idle periods change nothing, and stopping with a queued batch stays safe
+  [chromium] › extension/extension-dynamic.spec.ts:1064:1 › ROOT2/GEN2: replacing the application root invalidates old state and stale addresses cannot authorize a current action
+  [chromium] › extension/extension-dynamic.spec.ts:1167:1 › GEN1: an SPA route change advances route and page generations while the browser document identity stays the same
+  [chromium] › extension/extension-dynamic.spec.ts:1257:1 › FRAME1/FRAME2: dynamic observation stays frame-local and wrong-frame control messages are rejected
+  [chromium] › extension/extension-dynamic.spec.ts:1327:1 › PERF5/NOACT2: CPU/memory measurement is real at its declared boundaries and no navigation or submit surface exists
+  [chromium] › extension/extension-inert.spec.ts:329:1 › W07 preserves the complete live native form before/after activation and reload
+  [chromium] › extension/extension-inert.spec.ts:369:1 › W07 preserves route, flow, receipt, storage, and body state across activation and reload
+  [chromium] › extension/extension-inert.spec.ts:398:1 › the extension context issues only loopback and browser-internal traffic across lab navigation
+  [chromium] › extension/extension-observable-surface.spec.ts:98:1 › the real extension dispatches only the reviewed WXT lifecycle event
+  [chromium] › extension/extension-probe.spec.ts:14:1 › the real content script establishes the probe round-trip and sets the namespaced readiness marker
+  [chromium] › extension/extension-probe.spec.ts:30:1 › the readiness marker comes from the extension runtime, never from the lab page itself
+  [chromium] › extension/extension-probe.spec.ts:47:1 › the content script does not execute on a non-matching document
+  [chromium] › extension/extension-probe.spec.ts:61:1 › a reload re-establishes the probe through the real extension runtime
+  [chromium] › extension/extension-protocol-closure.spec.ts:23:1 › the real worker preserves the probe and rejects arbitrary command-shaped messages
+  [chromium] › extension/extension-research.spec.ts:231:3 › W12 WORKDAY: complete research variant matrix through real generic core
+  [chromium] › extension/extension-research.spec.ts:231:3 › W12 GREENHOUSE: complete research variant matrix through real generic core
+  [chromium] › extension/extension-research.spec.ts:231:3 › W12 LEVER: complete research variant matrix through real generic core
+  [chromium] › extension/extension-research.spec.ts:231:3 › W12 ASHBY: complete research variant matrix through real generic core
+  [chromium] › extension/extension-research.spec.ts:359:1 › P8 regression: actual matrix work, education and language repeaters create, reorder, rerender and reject ambiguity through W10/W11
+  [chromium] › extension/extension-research.spec.ts:537:1 › WD1–WD10/XATS: observed contradictory, single-signal, login, CAPTCHA and unknown surfaces pause without action
+  [chromium] › extension/extension-research.spec.ts:624:1 › WD12–WD17/M5: delayed parser, duplicate prevention, validation, rerender and stale generation
+  [chromium] › extension/extension-research.spec.ts:735:1 › WD15: actual synthetic upload rejected by site never becomes VERIFIED
+  [chromium] › extension/extension-research.spec.ts:779:1 › WD21–WD23: 256 route cycles bound observation, queues, ledgers, scans and measured heap
+  [chromium] › extension/extension-resolver.spec.ts:323:1 › W09 turns real scanned native-lab descriptors into canonical safe decisions without any browser action
+  [chromium] › extension/extension-resolver.spec.ts:439:1 › W09 abstains on single-option fields instead of selecting the only rendered option
+  [chromium] › extension/extension-scanner.spec.ts:213:1 › W08 extracts canonical label, ARIA, section, option, visibility, enabled, and required evidence
+  [chromium] › extension/extension-scanner.spec.ts:320:1 › C1: a unique native form is not widened to its semantic main ancestor
+  [chromium] › extension/extension-scanner.spec.ts:345:1 › C2: unrelated controls surrounding a unique form stay outside its descriptor inventory
+  [chromium] › extension/extension-scanner.spec.ts:373:1 › C3: a stronger explicit application root includes controls outside its native form
+  [chromium] › extension/extension-scanner.spec.ts:400:1 › C4: a unique semantic main remains the fallback when no form qualifies
+  [chromium] › extension/extension-scanner.spec.ts:422:1 › C5: two qualifying forms remain ambiguous instead of selecting either form
+  [chromium] › extension/extension-scanner.spec.ts:446:1 › C6: a unique role=form root is not widened to its semantic main ancestor
+  [chromium] › extension/extension-scanner.spec.ts:479:1 › V1: an ordinary in-flow field below the initial fold is visible before any scroll
+  [chromium] › extension/extension-scanner.spec.ts:501:1 › V2: window scroll position never changes the descriptors of an unchanged document
+  [chromium] › extension/extension-scanner.spec.ts:540:1 › V3: deliberately displaced off-canvas controls with nonzero boxes stay invisible
+  [chromium] › extension/extension-scanner.spec.ts:613:1 › V4-V6: concealed and zero-box controls stay invisible below the fold and after scrolling
+  [chromium] › extension/extension-scanner.spec.ts:648:1 › V7: controls anchored to a fixed container keep scroll-independent visibility
+  [chromium] › extension/extension-scanner.spec.ts:700:1 › M3: targeted subtree scanning never escapes the requested application subtree
+  [chromium] › extension/extension-scanner.spec.ts:730:1 › repeat scans are deterministic apart from the truthful observation time
+  [chromium] › extension/extension-scanner.spec.ts:748:1 › M2: same-origin child agents remain frame-local and aggregation preserves frame identity
+  [chromium] › extension/extension-scanner.spec.ts:785:1 › cross-origin permitted child agents report through the worker without parent traversal
+  [chromium] › extension/extension-scanner.spec.ts:854:1 › legitimate semantic rerender re-resolves the unique current control
+  [chromium] › extension/extension-scanner.spec.ts:889:1 › M4: stale semantic replacement is unresolved even when it reuses the old ID and index
+  [chromium] › extension/extension-scanner.spec.ts:921:1 › M4: multiple current semantic matches return ambiguous and never pick the first
+  [chromium] › extension/extension-semantic-index.spec.ts:38:1 › W13 index: warm identities invalidate external associations, sections and duplicate candidates
+  [chromium] › extension/extension-semantic-index.spec.ts:141:1 › W13 index: semantic rerender and property-only state never inherit stale node authority
+  [chromium] › extension/extension-semantic-index.spec.ts:243:1 › W13 index: mutation during awaited descriptor hashing refuses obsolete global uniqueness
+  [chromium] › extension/extension-substrate.spec.ts:14:1 › the persistent bundled Chromium context exposes a real chrome-extension service worker for the built extension
+  [chromium] › extension/extension-substrate.spec.ts:27:1 › the observed service worker is the W07 background runtime, not an unrelated worker
+  [chromium] › extension/extension-substrate.spec.ts:43:1 › the manifest inside the running browser is genuine MV3 with the reviewed minimal boundary
+  [chromium] › extension/extension-w14-evaluation.spec.ts:201:1 › W14: execute all 200 immutable W12 recipes and preserve incomplete measurement evidence
+  [chromium] › extension/extension-w14-native-witness.spec.ts:17:1 › W14 native witness: eventless protected write and restore cannot claim zero-write preservation
+  [chromium] › extension/extension-w14-native-witness.spec.ts:163:1 › W14 native witness: real driver writes retain framework events and controlled rerenders
+  [chromium] › extension/extension-w14-native-witness.spec.ts:209:1 › W14 native witness: every installed setter and interaction surface reaches the independent collector
+  [chromium] › extension/extension-w14-native-witness.spec.ts:276:1 › W14 native witness: equal native and framework counts cannot hide a different event value
+  [chromium] › extension/extension-w14-option-preservation-peer.spec.ts:20:1 › W14 peer: appending an unselected native option preserves verified evidence without new writes
+  [chromium] › extension/extension-w14-outside-owner-peer.spec.ts:17:5 › W14 peer: document outside-root Employer ownership at initial prevents applicant writes
+  [chromium] › extension/extension-w14-outside-owner-peer.spec.ts:17:5 › W14 peer: document outside-root Employer ownership at before-execute prevents applicant writes
+  [chromium] › extension/extension-w14-outside-owner-peer.spec.ts:17:5 › W14 peer: document outside-root Employer ownership at focus prevents applicant writes
+  [chromium] › extension/extension-w14-outside-owner-peer.spec.ts:17:5 › W14 peer: shadow outside-root Employer ownership at initial prevents applicant writes
+  [chromium] › extension/extension-w14-outside-owner-peer.spec.ts:17:5 › W14 peer: shadow outside-root Employer ownership at before-execute prevents applicant writes
+  [chromium] › extension/extension-w14-outside-owner-peer.spec.ts:17:5 › W14 peer: shadow outside-root Employer ownership at focus prevents applicant writes
+  [chromium] › extension/extension-w14-outside-owner-peer.spec.ts:148:3 › W14 peer: document outside-root ancestry depth270 refuses positive authority and reports required field
+  [chromium] › extension/extension-w14-outside-owner-peer.spec.ts:148:3 › W14 peer: shadow outside-root ancestry depth270 refuses positive authority and reports required field
+  [chromium] › extension/extension-w14-outside-owner-peer.spec.ts:236:5 › W14 peer: document outside-root duplicate-idref refuses partial owner evidence
+  [chromium] › extension/extension-w14-outside-owner-peer.spec.ts:236:5 › W14 peer: document outside-root section-token-overflow refuses partial owner evidence
+  [chromium] › extension/extension-w14-outside-owner-peer.spec.ts:236:5 › W14 peer: shadow outside-root duplicate-idref refuses partial owner evidence
+  [chromium] › extension/extension-w14-outside-owner-peer.spec.ts:236:5 › W14 peer: shadow outside-root section-token-overflow refuses partial owner evidence
+  [chromium] › extension/extension-w14-post-input-ownership-peer.spec.ts:16:3 › W14 peer: document input-handler ownership drift refuses verification and undo authority
+  [chromium] › extension/extension-w14-post-input-ownership-peer.spec.ts:16:3 › W14 peer: shadow input-handler ownership drift refuses verification and undo authority
+  [chromium] › extension/extension-w14-result-ownership-peer.spec.ts:104:3 › W14 peer: description drift during final result metadata hash refuses direct verification and undo authority
+  [chromium] › extension/extension-w14-result-ownership-peer.spec.ts:104:3 › W14 peer: aria-invalid drift during final result metadata hash refuses direct verification and undo authority
+  [chromium] › extension/extension-w14-semantic-lookup.spec.ts:17:1 › W14 semantic lookup: complete identity stays unique while omitted optional name preserves global ambiguity
+  [chromium] › extension/extension-w14-shadow-gap.spec.ts:19:1 › W14 W06 MAL-SHD-001: open-shadow other-party required field is reported and never filled
+  [chromium] › extension/extension-w14-shadow-peer.spec.ts:113:1 › W14 peer: required root attached during final inventory hash refuses stale READY publication
+  [chromium] › extension/extension-w14-shadow-peer.spec.ts:207:1 › W14 peer: focus slot reassignment to Employer refuses an approved applicant write
+  [chromium] › extension/extension-w14-shadow-peer.spec.ts:282:3 › W14 peer: incremental attached-root cannot exceed the absolute eight-root depth
+  [chromium] › extension/extension-w14-shadow-peer.spec.ts:282:3 › W14 peer: incremental added-subtree cannot exceed the absolute eight-root depth
+  [chromium] › extension/extension-w14-shadow-peer.spec.ts:423:1 › W14 peer: removed roots lose native topology observer subscriptions
+  [chromium] › extension/extension-w14-shadow-peer.spec.ts:514:3 › W14 peer: document description ownership change invalidates an earlier applicant approval
+  [chromium] › extension/extension-w14-shadow-peer.spec.ts:514:3 › W14 peer: shadow description ownership change invalidates an earlier applicant approval
+  [chromium] › extension/extension-w14-shadow-peer.spec.ts:624:3 › W14 peer: delayed prompt ownership change through describedby prevents post-await option commit
+  [chromium] › extension/extension-w14-shadow-peer.spec.ts:624:3 › W14 peer: delayed prompt ownership change through title prevents post-await option commit
+  [chromium] › extension/extension-w14-shadow.spec.ts:23:1 › W14 W06 MAL-SHD-001: open-shadow other-party required field is reported and never filled
+  [chromium] › extension/extension-w14-shadow.spec.ts:219:3 › W14 open shadow: approved
+  [chromium] › extension/extension-w14-shadow.spec.ts:219:3 › W14 open shadow: duplicate
+  [chromium] › extension/extension-w14-shadow.spec.ts:219:3 › W14 open shadow: late-duplicate
+  [chromium] › extension/extension-w14-shadow.spec.ts:219:3 › W14 open shadow: rerender
+  [chromium] › extension/extension-w14-shadow.spec.ts:219:3 › W14 open shadow: removed
+  [chromium] › extension/extension-w14-shadow.spec.ts:219:3 › W14 open shadow: removed-host
+  [chromium] › extension/extension-w14-shadow.spec.ts:219:3 › W14 open shadow: hidden-host
+  [chromium] › extension/extension-w14-shadow.spec.ts:219:3 › W14 open shadow: transparent-host
+  [chromium] › extension/extension-w14-shadow.spec.ts:219:3 › W14 open shadow: disabled-host
+  [chromium] › extension/extension-w14-shadow.spec.ts:219:3 › W14 open shadow: local-error
+  [chromium] › extension/extension-w14-shadow.spec.ts:219:3 › W14 open shadow: local-aria
+  [chromium] › extension/extension-w14-shadow.spec.ts:219:3 › W14 open shadow: focus-duplicate
+  [chromium] › extension/extension-w14-shadow.spec.ts:219:3 › W14 open shadow: during-action-duplicate
+  [chromium] › extension/extension-w14-shadow.spec.ts:450:1 › W14 open shadow: late attached unknown required control joins active reconciliation
+  [chromium] › extension/extension-w14-shadow.spec.ts:492:1 › W14 open shadow: root capacity refuses complete-inventory claims
+  [chromium] › extension/extension-w14-shadow.spec.ts:517:3 › W14 open shadow: host Employer context prevents applicant fill
+  [chromium] › extension/extension-w14-shadow.spec.ts:517:3 › W14 open shadow: host Recruiter context prevents applicant fill
+  [chromium] › extension/extension-w14-shadow.spec.ts:573:1 › W14 open shadow: native select remains inventoried and refuses unsupported shadow action
+  [chromium] › extension/extension-w14-shadow.spec.ts:642:1 › W14 open shadow: new required root during action remains unresolved after settlement
+  [chromium] › extension/extension-w14-shadow.spec.ts:700:1 › W14 open shadow: duplicate local validation IDs prevent verified acceptance
+  [chromium] › extension/extension-w14-shadow.spec.ts:749:1 › W14 open shadow: duplicate local label IDs do not gain applicant authority
+  [chromium] › extension/extension-w14-shadow.spec.ts:801:1 › W14 open shadow: duplicate identities introduced together in one observed subtree refuse readiness
+  [chromium] › extension/extension-w14-shadow.spec.ts:837:5 › W14 DOCUMENT ambiguous DESCRIPTION ownership never fills applicant fact
+  [chromium] › extension/extension-w14-shadow.spec.ts:837:5 › W14 DOCUMENT ambiguous SECTION ownership never fills applicant fact
+  [chromium] › extension/extension-w14-shadow.spec.ts:837:5 › W14 SHADOW ambiguous DESCRIPTION ownership never fills applicant fact
+  [chromium] › extension/extension-w14-shadow.spec.ts:837:5 › W14 SHADOW ambiguous SECTION ownership never fills applicant fact
+  [chromium] › extension/extension-w14-shadow.spec.ts:901:1 › W14 cached outside host: silently attached competing application refuses previous field authority
+  [chromium] › extension/extension-w14-shadow.spec.ts:953:3 › W14 DOCUMENT SVG description retains Employer negative evidence
+  [chromium] › extension/extension-w14-shadow.spec.ts:953:3 › W14 SHADOW SVG description retains Employer negative evidence
+  [chromium] › extension/extension-w14-shadow.spec.ts:1005:3 › W14 DOCUMENT required email validation clearing retains verified W11 evidence without replay authority
+  [chromium] › extension/extension-w14-shadow.spec.ts:1005:3 › W14 SHADOW required email validation clearing retains verified W11 evidence without replay authority
+  [chromium] › extension/extension-w14-shadow.spec.ts:1103:3 › W14 DOCUMENT verified validation clear can restore captured undo state
+  [chromium] › extension/extension-w14-shadow.spec.ts:1103:3 › W14 SHADOW verified validation clear can restore captured undo state
+  [chromium] › extension/extension-w14-topology-scaling.spec.ts:27:1 › W14 topology: warm native128 identities retain bounded captures with unrelated host scaling
+  [chromium] › extension/extension-w14-validation.spec.ts:51:3 › W14 site runtime: native-valid email clears the recoverable site error and survives controlled replacement
+  [chromium] › extension/extension-w14-validation.spec.ts:51:3 › W14 site runtime: malformed email retains native and ARIA rejection
+  [chromium] › extension/extension-w14-validation.spec.ts:51:3 › W14 site runtime: persistent site rejection remains rejected despite native validity
+  [chromium] › extension/extension-w14-validation.spec.ts:51:3 › W14 site runtime: a rerender restoring rejection prevents a verified-fill claim
+  [chromium] › extension/extension-w14-validation.spec.ts:123:1 › W14 foreground contact campaign retains ten native writes through full settlement
+  [chromium] › extension/extension-w14-w06.spec.ts:319:1 › W14 W06: account for all 32 original cases with mounted real-MV3 contact execution
+  [chromium] › mock-ats-lab/captcha.spec.ts:6:1 › valid step 3 pauses on the CAPTCHA gate until the manual test-only action
+  [chromium] › mock-ats-lab/captcha.spec.ts:43:1 › a reloaded paused step 3 stays paused until resolved
+  [chromium] › mock-ats-lab/catalog.spec.ts:10:1 › index page lists every catalog case with its route
+  [chromium] › mock-ats-lab/catalog.spec.ts:26:1 › expected-transition catalog covers the app catalog exactly
+  [chromium] › mock-ats-lab/catalog.spec.ts:39:1 › every catalog route serves a lab page with the synthetic notice
+  [chromium] › mock-ats-lab/combobox.spec.ts:6:1 › the combobox filters, tracks the active option, and commits by keyboard
+  [chromium] › mock-ats-lab/combobox.spec.ts:29:1 › arrow keys walk the filtered options with exact identity
+  [chromium] › mock-ats-lab/combobox.spec.ts:52:1 › a query with no match shows the empty state and commits nothing
+  [chromium] › mock-ats-lab/combobox.spec.ts:65:1 › the required-selection check reports and clears deterministically
+  [chromium] › mock-ats-lab/combobox.spec.ts:81:1 › the listbox selects by keyboard with aria-selected identity
+  [chromium] › mock-ats-lab/datephone.spec.ts:6:1 › the date widget normalizes single digits and commits a valid ISO date
+  [chromium] › mock-ats-lab/datephone.spec.ts:22:1 › an impossible calendar day is rejected and clears the committed value
+  [chromium] › mock-ats-lab/datephone.spec.ts:34:1 › leap-day February 29 is accepted only in a leap year
+  [chromium] › mock-ats-lab/datephone.spec.ts:49:1 › the phone widget strips separators on blur and commits the exact E.164 form
+  [chromium] › mock-ats-lab/datephone.spec.ts:62:1 › wrong national length and non-digit input are rejected deterministically
+  [chromium] › mock-ats-lab/dynamic.spec.ts:6:1 › checking the referral toggle inserts a required field and unchecking removes it
+  [chromium] › mock-ats-lab/dynamic.spec.ts:28:1 › the country choice drives the region field's required state
+  [chromium] › mock-ats-lab/dynamic.spec.ts:51:1 › additional questions mount after the fixed deterministic delay
+  [chromium] › mock-ats-lab/dynamic.spec.ts:68:1 › replacement creates a new node while the stable control keeps identity and value
+  [chromium] › mock-ats-lab/frames.spec.ts:5:1 › the embedded frame carries its own identity and validation state
+  [chromium] › mock-ats-lab/frames.spec.ts:30:1 › frame state stays isolated from the host document
+  [chromium] › mock-ats-lab/injection.spec.ts:7:1 › the help-block injection text is visible, textual, and unexecuted
+  [chromium] › mock-ats-lab/injection.spec.ts:27:1 › the job-description injection text is inert and adds no elements
+  [chromium] › mock-ats-lab/injection.spec.ts:46:1 › the injection text changes no form behavior
+  [chromium] › mock-ats-lab/multipage.spec.ts:33:1 › empty required fields block step-1 navigation until corrected
+  [chromium] › mock-ats-lab/multipage.spec.ts:54:1 › Back preserves edits and forward navigation keeps every persisted value
+  [chromium] › mock-ats-lab/multipage.spec.ts:72:1 › review shows every persisted answer and the local receipt arrives after the fixed delay
+  [chromium] › mock-ats-lab/multipage.spec.ts:94:1 › submitting the same synthetic application twice warns instead of issuing a second receipt
+  [chromium] › mock-ats-lab/multipage.spec.ts:118:1 › reset returns the flow and receipts to the exact initial state
+  [chromium] › mock-ats-lab/native.spec.ts:6:1 › empty required native fields block the local save with errors
+  [chromium] › mock-ats-lab/native.spec.ts:22:1 › native email type mismatch is reported and clears when corrected
+  [chromium] › mock-ats-lab/native.spec.ts:34:1 › a complete valid native form is accepted with persisted values
+  [chromium] › mock-ats-lab/native.spec.ts:59:1 › sensitive fixtures render realistically without fixture metadata
+  [chromium] › mock-ats-lab/native.spec.ts:85:1 › the honeypot is present, hidden, blank, and rejects when populated
+  [chromium] › mock-ats-lab/network-isolation.spec.ts:7:1 › a full index visit issues loopback requests only
+  [chromium] › mock-ats-lab/network-isolation.spec.ts:20:1 › the multipage flow and iframe stay loopback-only end to end
+  [chromium] › mock-ats-lab/react-controlled.spec.ts:7:1 › typed values commit to React state and survive a forced rerender
+  [chromium] › mock-ats-lab/react-controlled.spec.ts:28:1 › a direct stale DOM write never becomes accepted React state
+  [chromium] › mock-ats-lab/react-controlled.spec.ts:49:1 › the page's own blur rewrite is observable and the delayed rerender keeps state
+  [chromium] › mock-ats-lab/shadow.spec.ts:5:1 › the open shadow control validates and accepts values on a stable host
+  [chromium] › mock-ats-lab/shadow.spec.ts:34:1 › the shadow control is labeled accessibly inside the shadow root
+  [chromium] › mock-ats-lab/upload.spec.ts:11:1 › an accepted synthetic file shows exact deterministic metadata
+  [chromium] › mock-ats-lab/upload.spec.ts:28:1 › a rejected type clears the selection with an explicit reason
+  [chromium] › mock-ats-lab/upload.spec.ts:45:1 › an oversize file is rejected by the deterministic size rule
+  [chromium] › mock-ats-lab/upload.spec.ts:58:1 › clearing the selection returns to the NO_FILE state
+  [chromium] › mock-ats-lab/validation.spec.ts:6:1 › the custom username rule reports while typing and clears when fixed
+  [chromium] › mock-ats-lab/validation.spec.ts:18:1 › cross-field email confirmation must match exactly and clears on match
+  [chromium] › mock-ats-lab/validation.spec.ts:31:1 › the delayed local check accepts the exact synthetic code shape
+  [chromium] › mock-ats-lab/validation.spec.ts:44:1 › the delayed local check rejects a wrong code and editing resets it
+  [chromium] › mock-ats-lab/validation.spec.ts:61:1 › continue stays blocked until every validation problem is resolved
+  [chromium] › mock-ats-lab/virtualized.spec.ts:7:1 › only a bounded window of the 480 options is mounted
+  [chromium] › mock-ats-lab/virtualized.spec.ts:18:1 › scrolling re-windows the mounted subset with stable option identity
+  [chromium] › mock-ats-lab/virtualized.spec.ts:32:1 › an offscreen option is selectable by scrolling and clicking
+  [chromium] › mock-ats-lab/virtualized.spec.ts:48:1 › keyboard navigation reaches far options and commits with Enter
+  [chromium] › mock-ats-lab/virtualized.spec.ts:65:1 › the committed selection survives a rerender of the listbox
+  [chromium] › mock-ats-lab/vue-controlled.spec.ts:7:1 › typed values commit to Vue state and survive a forced rerender
+  [chromium] › mock-ats-lab/vue-controlled.spec.ts:24:1 › a direct stale DOM write never becomes accepted Vue state
+  [chromium] › mock-ats-lab/vue-controlled.spec.ts:45:1 › the page's own uppercase rewrite is observable as you type
+Total: 208 tests in 44 files

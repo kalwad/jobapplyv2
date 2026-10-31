@@ -1,0 +1,22 @@
+{
+  "scope": "INDEPENDENT_TERMINAL_FIXED9872_CI_DATA_JOIN_NO_ARTIFACT_EXECUTION",
+  "archive": {
+    "bytes": 3827506,
+    "sha256": "967f07801bbea9ae7b49cdbc9f6dbb635f9fd5c5de6fe0748fef9598a295f78d",
+    "safe_regular_members": 384
+  },
+  "review_sha256": "2c4ec11b21548949a96ed78f4ecf49ab6cf1416c7e81175164c54ec45e7eaae3",
+  "audit_sha256": "d05df6570767861fe1775a4bb192f540f3ed0da82d2150ece8bc1f99e04613e6",
+  "retention": {
+    "canonical_archive": "all5complete rawjobs+officialrunlogZIP+source/API bindings+all460artifactmember inventories+allselected diagnostic/raw closure records+original Windows artifact ZIP",
+    "outside_only": "original196288284-byte Ubuntu artifactZIP and expanded payload/SDK/deb bytes remain under ci-9872aca; not copied into canonical archive",
+    "ubuntu_original_zip": {
+      "id": 12865484769,
+      "name": "native-development-ubuntu-24.04-1f7ee086340d8125b127178a19b79a0283aef1a8",
+      "bytes": 196288284,
+      "sha256": "62da8c619466f080326506999149cda1eb6d419b2efbedd75b3ebc9e8cb15b24",
+      "safe_regular_members": 371
+    },
+    "downloaded_subject_execution": false
+  }
+}

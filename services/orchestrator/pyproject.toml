@@ -1,12 +1,17 @@
 [project]
 name = "orchestrator"
 version = "0.0.1"
-description = "Local orchestrator service (Python 3.12 + FastAPI + Pydantic v2 per spec §5.2). The service skeleton arrives in M03-W02; the M00-W02 scaffold contains no service code."
+description = "Local orchestrator service (Python 3.12 + FastAPI + Pydantic v2 per spec §5.2). Authenticated loopback service skeleton (M03-W02)."
 requires-python = ">=3.12,<3.13"
-dependencies = []
+dependencies = [
+    "fastapi==0.146.0",
+    "uvicorn==0.54.0",
+    "pydantic==2.12.5",
+    "japp-contracts",
+]
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling==1.32.4"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]

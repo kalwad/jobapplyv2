@@ -1,0 +1,11 @@
+{
+  "full_name": "Synthetic Applicant",
+  "email": "synthetic@example.invalid",
+  "phone": "2025550100",
+  "website_url": "https://example.invalid/profile",
+  "address_street1": "100 Synthetic Avenue",
+  "address_city": "Synthetic City",
+  "address_state": "Michigan",
+  "address_zip": "48104",
+  "address_country_name": "United States"
+}

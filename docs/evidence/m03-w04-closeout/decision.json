@@ -1,0 +1,25 @@
+{
+  "work_package": "M03-W04",
+  "decision": "VERIFIED",
+  "decision_maker": "/root",
+  "authority": "OD-037 / ADR-0008",
+  "manual_owner_click": false,
+  "evaluated_commit": "2a327c6210bfb7236f3d8a572a3a62e9b7e13d63",
+  "evaluated_tree": "4ce9cf0c1f5515252a029584f820ea674a66e05e",
+  "full_result": "doctor28/all20 ACTIVE PASS, source1886/runtime40 unchanged",
+  "counts": {
+    "Python": 1679,
+    "TypeScript": 4006,
+    "native_each_three_modes": 138,
+    "main_browser": 262,
+    "controlled_research": 2,
+    "controlled_contact": 62,
+    "visual": 3
+  },
+  "data_review_sha256": "938fc28975d2ef42e4c8b976735b5ef83ca50c2e80a0229bcc6c87f223caf321",
+  "next_package": "M03-W05",
+  "KI0108": "IN_PROGRESS pending actual Windows revalidation",
+  "new_gui_or_hosted_pass": false,
+  "milestone_accepted": false,
+  "release_ready": false
+}

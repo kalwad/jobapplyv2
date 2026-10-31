@@ -1,0 +1,9 @@
+# Actual Mac shell zoom, navigation and keyboard observation
+
+The closed v6 campaign contains50 original2240×1520 JPEG/AX/event triples and one prospectively excluded stream warmup. Four independent content witnesses meet the unchanged near2× pixel thresholds and reset exactly to1×. Every measured frame also passes the predeclared native sharing-pill/title controls; no direct zoom percentage or OS-DPI getter is inferred.
+
+Seven actual routes are readable at baseline, enlarged and reset using the retained supplemental scroll frames. Each scale has a keyboard Check again action with exactly one Return, strict UTC advancement within5s and Ready/Local service focus, followed by bounded ShiftTab to Skip and Return to the actual AX container. All50 measured images plus warmup were individually viewed by root and the different reviewer. The original600s interval closes344260.882ms after starting before warmup. Selected22source/40runtime/43app endpoints match; immutable a7 historical source bindings are retained.
+
+Different1354data joins and590 independently written same-decoder pixel checks CLEAR this finite observation. The original201 subject bodies remain exact. This compact packet retains all original subject bytes/modes, complete different-review proof and the prospective different-review proof. Earlier failed/incomplete campaigns remain immutable outside historical packets and are not relabeled. Root reported an initial unsaved helper-setup rejection before the clock/actions; no raw exception receipt is invented.
+
+The app was already opened through Finder. CmdQ produces the literal bound AX error -10005 App quit; this is a UI quit observation, without a new process/listener/orphan proof. No VoiceOver narration, fresh launch, foreign OS, notarized release, owner visual baseline or formal milestone acceptance is claimed. Current script/document changes do not inherit a whole-tree validation from these selected source bindings.

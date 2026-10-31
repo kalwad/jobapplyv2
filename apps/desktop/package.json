@@ -2,5 +2,30 @@
   "name": "@japp/desktop",
   "version": "0.0.1",
   "private": true,
-  "description": "Desktop app (Tauri 2 + React + TypeScript + Vite per spec §5.2). Workspace slot created in M00-W02; the application shell is created in M03-W01, so this package intentionally has no code or scripts yet."
+  "description": "Local desktop shell and authenticated service client (Tauri2, React, TypeScript).",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --config vite.desktop.config.ts --host 127.0.0.1 --port 1420 --strictPort",
+    "build": "vite build --config vite.desktop.config.ts",
+    "e2e-server": "vite build --config vite.renderer.config.ts && vite preview --config vite.renderer.config.ts --host 127.0.0.1 --port 4762 --strictPort",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@japp/ui": "workspace:*",
+    "@tauri-apps/api": "2.12.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "@japp/contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "@tauri-apps/cli": "2.12.3",
+    "vite": "7.3.6"
+  }
 }

@@ -1,0 +1,70 @@
+[WebServer] (node:55135) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ vite build --config vite.lab.config.ts && vite preview --config vite.lab.config.ts --host 127.0.0.1 --port 4761 --strictPort
+[WebServer] (node:55152) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:55162) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+✔ Built extension in 383 ms
+  ├─ dist/chrome-mv3/manifest.json                   532 B    
+  ├─ dist/chrome-mv3/background.js                   40.24 kB 
+  └─ dist/chrome-mv3/content-scripts/feasibility.js  110.15 kB
+Σ Total size: 150.92 kB                            
+✔ Finished in 430 ms
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+✔ Built extension in 324 ms
+  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+  └─ dist/invalid-ack/chrome-mv3/content-scripts/feasibility.js  110.15 kB
+Σ Total size: 111.67 kB                                        
+✔ Finished in 371 ms
+
+Running 1 test using 1 worker
+
+(node:55197) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+W14_PROGRESS 25/200
+W14_PROGRESS 50/200
+W14_PROGRESS 75/200
+W14_PROGRESS 100/200
+W14_PROGRESS 125/200
+W14_PROGRESS 150/200
+W14_PROGRESS 175/200
+W14_PROGRESS 200/200
+W14_DEVELOPMENT {"recorded_cases":200,"metrics":{"executed_cases":200,"scored_cases":200,"refused_cases":0,"measurement_error_cases":0,"scored_logical_controls":4020,"preservation":{"expected":90,"correct":90,"violations":0,"empty_abstention_violations":0},"ordinary_attempted_precision":{"numerator":1485,"denominator":1485,"rate":1},"required_ordinary_recall":{"numerator":1275,"denominator":1275,"rate":1},"required_reporting":{"numerator":770,"denominator":770,"rate":1},"observed_persistence":{"numerator":1485,"denominator":1485,"rate":1},"counts":{"required_silent":0,"sensitive_fills":0,"honeypot_fills":0,"catastrophic_option_errors":0,"duplicate_actions":0},"full_settle_scan_fill_timing":{"sample_count":200,"p95_ms":2009.8366249999963,"scope":"ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER","includes_fixture_setup":false,"includes_browser_setup":false,"includes_reporting":false}},"safety":{"sensitive_fills":0,"honeypot_fills":0,"catastrophic_option_errors":0,"duplicate_actions":0,"navigation_activations":0,"submission_activations":0,"paused_boundary_actions":0},"bundle_digest":"sha256:ba5590b538956995f844ed9d0942106f17613b870191cd31428f59b680bdeb6d"}
+  ✘  1 [chromium] › e2e/extension/extension-w14-evaluation.spec.ts:184:1 › W14: execute all 200 immutable W12 recipes and preserve incomplete measurement evidence (5.2m)
+
+
+  1) [chromium] › e2e/extension/extension-w14-evaluation.spec.ts:184:1 › W14: execute all 200 immutable W12 recipes and preserve incomplete measurement evidence 
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 1500
+    Received:    2009.8366249999963
+
+      634 |     expect(
+      635 |       assessment.metrics.full_settle_scan_fill_timing.p95_ms,
+    > 636 |     ).toBeLessThanOrEqual(1500);
+          |       ^
+      637 |   }
+      638 |   expect(assessment.metrics.preservation).toEqual({
+      639 |     expected: 90,
+        at /Users/tanishkalwad/jobapplyv2/e2e/extension/extension-w14-evaluation.spec.ts:636:7
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/extension-extension-w14-ev-edb7a-mplete-measurement-evidence-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/extension-extension-w14-ev-edb7a-mplete-measurement-evidence-chromium/error-context.md
+
+  Slow test file: [chromium] › e2e/extension/extension-w14-evaluation.spec.ts (5.2m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  1 failed
+    [chromium] › e2e/extension/extension-w14-evaluation.spec.ts:184:1 › W14: execute all 200 immutable W12 recipes and preserve incomplete measurement evidence 

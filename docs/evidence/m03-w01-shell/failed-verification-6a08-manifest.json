@@ -1,0 +1,46 @@
+{
+  "sha256": "782c7bf39532f6c6341a0d80c436cddb5fc6f8724cdd80356b457238aabe97f9",
+  "bytes": 266029,
+  "members": [
+    {
+      "member": "after.json",
+      "bytes": 375803,
+      "sha256": "9e9e0e1f0541f3708ab2ff30e49a4b14d1294d1640f06fa94eae028ee70385a2"
+    },
+    {
+      "member": "before.json",
+      "bytes": 375803,
+      "sha256": "9e9e0e1f0541f3708ab2ff30e49a4b14d1294d1640f06fa94eae028ee70385a2"
+    },
+    {
+      "member": "closure.json",
+      "bytes": 154,
+      "sha256": "35321bbbc14d9a70c166a838f003222c516b3ba9513c49c8f766ef3fe077c7c8"
+    },
+    {
+      "member": "commands.json",
+      "bytes": 821,
+      "sha256": "15359d206e0f63b737597b1df548ea3676d1bc29977ae19bd1bae5ba48a58431"
+    },
+    {
+      "member": "doctor.log",
+      "bytes": 3222,
+      "sha256": "0b114d3112efd5f0bc52af6b57282085bda1a3c0272edf6774b3952cdbca8cc8"
+    },
+    {
+      "member": "environment.json",
+      "bytes": 1433,
+      "sha256": "7dcc2d6d8586f0f73d3698c028cc308dbfd5513eb6f83874a33a8baf61da6cab"
+    },
+    {
+      "member": "executed-wrapper.py",
+      "bytes": 3351,
+      "sha256": "638d2321314727fe045a26c959c88bc1af10bdab1f60345709fc7ad6b1c6b8b7"
+    },
+    {
+      "member": "verify.log",
+      "bytes": 613203,
+      "sha256": "eeff4d791e00fb8c06e2f5945936e7a6d452675974c62f6aa65d6215c293690f"
+    }
+  ]
+}

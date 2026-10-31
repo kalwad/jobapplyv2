@@ -1,0 +1,73 @@
+{
+  "scope": "Reviewed source correction and separate historical C/D CI outcomes; corrected CI pending.",
+  "work_package": "M03-W07",
+  "state": "IN_PROGRESS",
+  "C": {
+    "source": "ab70bdfc5cb5ced448e5d6416ef894347138a634",
+    "run": 40970361829,
+    "outcome": "FAILURE",
+    "each_of_three_hosted_verify_jobs": {
+      "active_pass": 19,
+      "python_preflight": "FAILURE_CANONICAL_JSON_SERIALIZATION",
+      "canonical_python_cases_executed": false
+    },
+    "native_package": "UNEXPANDED_SKIPPED",
+    "curated_exports": 0
+  },
+  "D": {
+    "source": "7f7902f7249b7e8c6e4075a9af34491318000484",
+    "run": 40974739781,
+    "outcome": "FAILURE",
+    "ubuntu": {
+      "active_pass": 20,
+      "python_pass": 2880,
+      "python_seconds": 714.22
+    },
+    "windows": {
+      "active_pass": 20,
+      "python_pass": 2878,
+      "python_seconds": 877.6
+    },
+    "macos": {
+      "active_pass": 19,
+      "unit_ts": "FAILURE",
+      "python_pass": 2880,
+      "python_seconds": 839.89
+    },
+    "native_package": "UNEXPANDED_SKIPPED",
+    "curated_exports": 0
+  },
+  "catalog": {
+    "common": 2878,
+    "posix_only": 2,
+    "order_only_correction": true,
+    "identities_digest_unchanged": true,
+    "new_ids_for_turbo_fix": 0
+  },
+  "source_correction": {
+    "path": "turbo.json",
+    "before_sha256": "edb1a6db5de68ad76aa72e83d8c087d192d183fb9c6317ae0f08af396d5f8bd8",
+    "after_sha256": "f090c098028b095b6258885cb06b60eb0a847166b034139311919c44e021d8bd",
+    "change": "globalEnv:[RUSTUP_HOME]",
+    "unrelated_environment_filtered": true,
+    "actual_tiny_tasks": 7,
+    "source_peer": "CLEAR",
+    "exact_historical_Rust_stderr_cause": "UNKNOWN",
+    "fresh_corrected_hosted_CI": "NOT_OBSERVED"
+  },
+  "issue": "KI-0139 IN_PROGRESS",
+  "formal_progress": "39/300 VERIFIED; M03-W07 sole IN_PROGRESS; Gate A PASS; release NOT_READY; no native/model/gate acceptance added",
+  "D_independent_review": {
+    "directory": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-7f7902f-independent-review/v1",
+    "verdict": "CLEAR_AS_RECORDED_FAILURE",
+    "data_joins": 17231,
+    "files": {
+      "REVIEW.md": "56258f241b085f3541a40b2b6e19fd4e300f605e3ab1c67038a701eeb42ecc14",
+      "MANIFEST.json": "5277ec642e911cdba08aa06a642faca5fe595f487246db5c377c281e84881874",
+      "proof-review-and-reference-pins.tar.gz": "7b6cbaeacb1937fbcf1195619ef7ad40d5aab0f94c5f157abcf350c80a585a2f"
+    },
+    "custody": "131GET owners closed:128exit0+3earlyTLS-handshake-timeout exit1; original outer collector10986reaped/groupABSENT/exit0. No CI success inferred.",
+    "case_identity_limits": "12maskedauthIDs per platform; exact remaining catalog projection, aggregate execution output rather than every executed case label.",
+    "own_reader_errors_retained": true
+  }
+}

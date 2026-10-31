@@ -1,0 +1,1716 @@
+{
+  "all_original_body_fullmodes_verified": true,
+  "external_historical_parents": {
+    "historical_f3_CI": {
+      "compact_parent_absolute_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full437-ci-f3-compact-evidence-preparation/v1/after/docs/evidence/m03-w07-ci-f3-terminal",
+      "full_original_review_parent_absolute_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f-independent-review/v1",
+      "full_parent_proof_bytes": 517312791,
+      "full_parent_proof_sha256": "9158eefac41c3e0d66f02d6d6ec76084005247a12299f7460ca855a17c24231a",
+      "proof_bytes": 5943844,
+      "proof_sha256": "9d919d8502487e43f5f26473ed53e31535c4c222885514f4630610f8ea279ba3",
+      "scope": "Small raw Windows result/API/job log and parent text inventories retained here; parent proofs/original ZIP/binary bodies remain at exact outside parents, not embedded again."
+    }
+  },
+  "members": [
+    {
+      "bytes": 11743,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-independent-review/v1/MANIFEST.json",
+      "path": "actual-data-review/MANIFEST.json",
+      "sha256": "9bc809a6c578278bd93141b069008dc8839923320bdfcf234b9caef5c227637f"
+    },
+    {
+      "bytes": 4342,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-independent-review/v1/REVIEW.md",
+      "path": "actual-data-review/REVIEW.md",
+      "sha256": "7eb896f7d59e06eb9d1766c2a51ee7ae273f31f3a685f90b39e49fc9ea57b9a3"
+    },
+    {
+      "bytes": 662,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-independent-review/v1/SEAL.json",
+      "path": "actual-data-review/SEAL.json",
+      "sha256": "88a241cb05c1d0904d2873a219c594fb5e21213738709a05aece3dbae9d99fbe"
+    },
+    {
+      "bytes": 11733,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-independent-review/v1/SOURCE.json",
+      "path": "actual-data-review/SOURCE.json",
+      "sha256": "a16ecdd5f60eef329b76d5664db072ea98aae9de063f5f58020d83f2a04193f7"
+    },
+    {
+      "bytes": 463897,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-independent-review/v1/adoption-data-review.json",
+      "path": "actual-data-review/adoption-data-review.json",
+      "sha256": "e443368b32bd798a71cc383437ac680b622f619fcdce8b9deba46990a461b409"
+    },
+    {
+      "bytes": 7027,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-independent-review/v1/audit-adoption.py",
+      "path": "actual-data-review/audit-adoption.py",
+      "sha256": "2c8a28c953e669709b4889f0dd501ea61cf68927dd2632d01bdf55b19f6634c3"
+    },
+    {
+      "bytes": 7852,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-independent-review/v1/audit-focus-epochs.py",
+      "path": "actual-data-review/audit-focus-epochs.py",
+      "sha256": "a5c3a0da9cd528d6b8726f865e905f9a18dbc4f7eee135b5d2d406cce4cf0fdd"
+    },
+    {
+      "bytes": 4990,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-independent-review/v1/audit-successor.py",
+      "path": "actual-data-review/audit-successor.py",
+      "sha256": "047a245acc4be8a7ac5262a43f71173cea7aa23d9df1ca55f45529fa7f635e2f"
+    },
+    {
+      "bytes": 1233,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-independent-review/v1/data-review.json",
+      "path": "actual-data-review/data-review.json",
+      "sha256": "5ffb436a8c88b24163c50547be33535f7dd7fd7f6cad55c36e2dc0db4cfd19e3"
+    },
+    {
+      "bytes": 323248,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-independent-review/v1/focus-epochs-data-review.json",
+      "path": "actual-data-review/focus-epochs-data-review.json",
+      "sha256": "af2b5eefaae19d4adafd3198aa3eb91b6e81b9d96ec322fd4ef53572767ece8e"
+    },
+    {
+      "bytes": 1361837,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-independent-review/v1/proof.tar.gz",
+      "path": "actual-data-review/proof.tar.gz",
+      "sha256": "bf53e6506221c99a8d669251251b9bc46f07e029d58035781ea0edd7bace0f14"
+    },
+    {
+      "bytes": 1630,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-independent-review/v1/retain-inputs.py",
+      "path": "actual-data-review/retain-inputs.py",
+      "sha256": "41b2a58ab6bfcc70c70be344c9fd109c531eeb45ff15c082ebcd20502fe4eb22"
+    },
+    {
+      "bytes": 15191,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-independent-review/v1/retained-inputs.json",
+      "path": "actual-data-review/retained-inputs.json",
+      "sha256": "2583ec3c47180003659390d03f50967fd53215128e5e38d053cb066ec85beeb2"
+    },
+    {
+      "bytes": 3215,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-independent-review/v1/seal-review.py",
+      "path": "actual-data-review/seal-review.py",
+      "sha256": "9daef7aeb717a6862bfe234ee2d97b6501bacbfed80e62d32181bbb11ac779ce"
+    },
+    {
+      "bytes": 19240,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-independent-review/v1/successor-data-review.json",
+      "path": "actual-data-review/successor-data-review.json",
+      "sha256": "a4f11d901b25fdd23bcc0a8a1b430b5da3d5ef7c21698a2fb1e9b4863449fce0"
+    },
+    {
+      "bytes": 496062,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-adoption/v1/after.json",
+      "path": "actual/combined-adoption/after.json",
+      "sha256": "27d310ef97d23212150bb8c15d0ebd59945ab70087f9ab5c2191e40d362dae4f"
+    },
+    {
+      "bytes": 495085,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-adoption/v1/before.json",
+      "path": "actual/combined-adoption/before.json",
+      "sha256": "2be15003b42e494de56982ce9245361ef420bed615956689d6f0d51c01ccddcd"
+    },
+    {
+      "bytes": 522,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-adoption/v1/closure.json",
+      "path": "actual/combined-adoption/closure.json",
+      "sha256": "39f8cbbc265a9a255e82f91056e3fc24cf7d6194d882e04041cc8987283de316"
+    },
+    {
+      "bytes": 384649,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-adoption/v1/composed-catalog.json",
+      "path": "actual/combined-adoption/composed-catalog.json",
+      "sha256": "e9cb6a61e7e810c36a1b5eaddddca5171049fdb87461b94802db4847803997c4"
+    },
+    {
+      "bytes": 6460,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-adoption/v1/executed-adoption.py",
+      "path": "actual/combined-adoption/executed-adoption.py",
+      "sha256": "49b1137c1a106bcdf1b09deb6e8f0ce30fc4bd7aeab1b6d971f7704f4e3fd7fe"
+    },
+    {
+      "bytes": 10762,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-adoption/v1/root-review.json",
+      "path": "actual/combined-adoption/root-review.json",
+      "sha256": "19ab23d1a057cc9d440daedf32d74116eedc3deb18a2fd45de7f8a104358e9b6"
+    },
+    {
+      "bytes": 496279,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-focus/v1/after.json",
+      "path": "actual/focus-before-index-stage/after.json",
+      "sha256": "f0a6a60297ba2187e8d9702a3a831c4645f9846709e49a3b89ad321287c5814c"
+    },
+    {
+      "bytes": 496279,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-focus/v1/before.json",
+      "path": "actual/focus-before-index-stage/before.json",
+      "sha256": "f0a6a60297ba2187e8d9702a3a831c4645f9846709e49a3b89ad321287c5814c"
+    },
+    {
+      "bytes": 334,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-focus/v1/closure.json",
+      "path": "actual/focus-before-index-stage/closure.json",
+      "sha256": "4e63b7c6315b51ff98fc1753b8164aa9f121c48596145a3de22dd69aec3709db"
+    },
+    {
+      "bytes": 182,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-focus/v1/collection-join.json",
+      "path": "actual/focus-before-index-stage/collection-join.json",
+      "sha256": "0cf5536ca85db802b4769f4594011822ebd4a18d6b980905bc8e35536cff7b47"
+    },
+    {
+      "bytes": 357247,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-focus/v1/collection.log",
+      "path": "actual/focus-before-index-stage/collection.log",
+      "sha256": "e4ec4a830f6ed97764b575205619477f0188dd342e4470c087d49a6698f409b7"
+    },
+    {
+      "bytes": 8651,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-focus/v1/commands.json",
+      "path": "actual/focus-before-index-stage/commands.json",
+      "sha256": "b2db9870872a468c36d9cac634272bf846800ef2104357d19ccaee7d17dc8300"
+    },
+    {
+      "bytes": 6597,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-focus/v1/executed-driver.py",
+      "path": "actual/focus-before-index-stage/executed-driver.py",
+      "sha256": "34222c77a095fb4b8ef1bf8b2309ce78f415b66eba7a95910af28b25b80adc49"
+    },
+    {
+      "bytes": 420,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-focus/v1/focused-python.log",
+      "path": "actual/focus-before-index-stage/focused-python.log",
+      "sha256": "dc1a24983ebda727e28a7dbe1e94766b186627df8d86a18a7b59930ba38b429a"
+    },
+    {
+      "bytes": 27,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-focus/v1/format.log",
+      "path": "actual/focus-before-index-stage/format.log",
+      "sha256": "7ff2df5e4a19c344d6ea2dfc25c25d2370159894cbac570f392753b22180e09c"
+    },
+    {
+      "bytes": 138778,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-focus/v1/integrity.log",
+      "path": "actual/focus-before-index-stage/integrity.log",
+      "sha256": "0a10069448643727ce4df7f3021e4840b9a7df7c84ff0f4ca0d6f866ae74f10e"
+    },
+    {
+      "bytes": 44,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-focus/v1/mypy-linux.log",
+      "path": "actual/focus-before-index-stage/mypy-linux.log",
+      "sha256": "ca16d6d1a06c6903f5407ba5268cb8b5eb5d8c7811b7532282916ec31807c328"
+    },
+    {
+      "bytes": 43,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-focus/v1/mypy-win32-fixtures.log",
+      "path": "actual/focus-before-index-stage/mypy-win32-fixtures.log",
+      "sha256": "e317872697c2cbfdefa321527a6efe73290dff3a390b0fa8723b87092eccba6a"
+    },
+    {
+      "bytes": 35,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-focus/v1/portability.log",
+      "path": "actual/focus-before-index-stage/portability.log",
+      "sha256": "b2369f3d044bc4c808b5aa346434aa52316f5d38268cf433815a465cbafca415"
+    },
+    {
+      "bytes": 66,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-focus/v1/prettier.log",
+      "path": "actual/focus-before-index-stage/prettier.log",
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "bytes": 19,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-and-authorizer-canonical-focus/v1/ruff.log",
+      "path": "actual/focus-before-index-stage/ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "bytes": 496279,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-loader-pin-canonical-adoption/v1/after.json",
+      "path": "actual/loader-pin-and-request-withdrawal/after.json",
+      "sha256": "f0a6a60297ba2187e8d9702a3a831c4645f9846709e49a3b89ad321287c5814c"
+    },
+    {
+      "bytes": 496102,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-loader-pin-canonical-adoption/v1/before.json",
+      "path": "actual/loader-pin-and-request-withdrawal/before.json",
+      "sha256": "16e1e93bcdd11d6f5b824d130271f90e92a1a00399deff706d97c618a63360dd"
+    },
+    {
+      "bytes": 663,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-loader-pin-canonical-adoption/v1/closure.json",
+      "path": "actual/loader-pin-and-request-withdrawal/closure.json",
+      "sha256": "e9c28a55becf126a0d146123e2edb551f9111f1570a0cd9162f110460dd09e4a"
+    },
+    {
+      "bytes": 384763,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-loader-pin-canonical-adoption/v1/composed-catalog.json",
+      "path": "actual/loader-pin-and-request-withdrawal/composed-catalog.json",
+      "sha256": "444a098d3fde71952c235aae17a5d053761ce412689da18839951a68d38961fe"
+    },
+    {
+      "bytes": 6384,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-loader-pin-canonical-adoption/v1/executed-adoption.py",
+      "path": "actual/loader-pin-and-request-withdrawal/executed-adoption.py",
+      "sha256": "b65aec9d46728f6ae3cf399e8c4cc400e75c846bf5e4898e9e26a7e50d653ebc"
+    },
+    {
+      "bytes": 904,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-loader-pin-canonical-adoption/v1/retired-root-request.json",
+      "path": "actual/loader-pin-and-request-withdrawal/retired-root-request.json",
+      "sha256": "9a88dac3505493f5f3da76db91e477d483591e2d6177419d86316447acbffffe"
+    },
+    {
+      "bytes": 1030,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-loader-pin-canonical-adoption/v1/root-review.json",
+      "path": "actual/loader-pin-and-request-withdrawal/root-review.json",
+      "sha256": "9c12d0b424852823deac157bd9f81b7b7fcd9823fc17faec862083d8c0552cd2"
+    },
+    {
+      "bytes": 496201,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-authorizer-post-stage-checks/v1/after-stage.json",
+      "path": "actual/post-stage-successor/after-stage.json",
+      "sha256": "e0e9a5b1bce7b5233dd269f0657374441393c2cd4bb9e0fd5abd7dbcb36f6166"
+    },
+    {
+      "bytes": 496201,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-authorizer-post-stage-checks/v1/after.json",
+      "path": "actual/post-stage-successor/after.json",
+      "sha256": "e0e9a5b1bce7b5233dd269f0657374441393c2cd4bb9e0fd5abd7dbcb36f6166"
+    },
+    {
+      "bytes": 496200,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-authorizer-post-stage-checks/v1/before.json",
+      "path": "actual/post-stage-successor/before.json",
+      "sha256": "ef226384bbd8e718edab01e15e1665b0561609cf93086b2267656f8316bd83c7"
+    },
+    {
+      "bytes": 818,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-authorizer-post-stage-checks/v1/closure.json",
+      "path": "actual/post-stage-successor/closure.json",
+      "sha256": "e384828363e49d377c5cc0e87b971269bcfb5bc2b8e44487c65641b3ca808b25"
+    },
+    {
+      "bytes": 1310,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-authorizer-post-stage-checks/v1/commands.json",
+      "path": "actual/post-stage-successor/commands.json",
+      "sha256": "db2d0df1cc50d8a233194729813dcd1bef89c05bc87d766dca83f1b741ae4b09"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-authorizer-post-stage-checks/v1/diff-check-combined.log",
+      "path": "actual/post-stage-successor/diff-check-combined.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 4614,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-authorizer-post-stage-checks/v1/executed-driver.py",
+      "path": "actual/post-stage-successor/executed-driver.py",
+      "sha256": "970ad53438055b5d8eda611b47202d96b12cabe571d3758c2ad062a7e470a269"
+    },
+    {
+      "bytes": 138431,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-authorizer-post-stage-checks/v1/integrity.log",
+      "path": "actual/post-stage-successor/integrity.log",
+      "sha256": "9b1d858b9d044833f47ecd387da472c3e9ecac6a35bb6d858be86ff2f5490178"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-authorizer-post-stage-checks/v1/stage-exact-withdrawal.log",
+      "path": "actual/post-stage-successor/stage-exact-withdrawal.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 5322,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full437-ci-f3-compact-evidence-preparation/v1/after/docs/evidence/m03-w07-ci-f3-terminal/README.md",
+      "path": "historical-f3-CI/compact-parent/README.md",
+      "sha256": "356469895a9529b86c5fc7147e0c51cdeeb4a1e3a8b3af29f97b6cb766b95ca3"
+    },
+    {
+      "bytes": 144,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full437-ci-f3-compact-evidence-preparation/v1/after/docs/evidence/m03-w07-ci-f3-terminal/artifact.json",
+      "path": "historical-f3-CI/compact-parent/artifact.json",
+      "sha256": "f9eac7d30ae11ac0a2899a82c7798a7b3c23916d3ae3f5c5fdd758e7d3eb5bde"
+    },
+    {
+      "bytes": 599456,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full437-ci-f3-compact-evidence-preparation/v1/after/docs/evidence/m03-w07-ci-f3-terminal/retention-manifest.json",
+      "path": "historical-f3-CI/compact-parent/retention-manifest.json",
+      "sha256": "70ad76f632e226e692966ff26fe0073c6b2ded5d49a350ff85c9adb8c3cd7c4b"
+    },
+    {
+      "bytes": 31380,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full437-ci-f3-compact-evidence-preparation/v1/after/docs/evidence/m03-w07-ci-f3-terminal/summary.json",
+      "path": "historical-f3-CI/compact-parent/summary.json",
+      "sha256": "13f29fd2674fef6ef9eb2d68f506301202a1092c05c56eba8364b32f5f151c46"
+    },
+    {
+      "bytes": 1098943,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f-independent-review/v1/package-record-review.json",
+      "path": "historical-f3-CI/package-record-review.json",
+      "sha256": "e5316d50027951187caee64c175fdcb7cbded1be4afc9d9db9b1c94e19b26930"
+    },
+    {
+      "bytes": 5289,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f-independent-review/v1/raw-collector/artifacts/12938240486/contents-attempt-1/pipeline/10-tauri-package.result.json",
+      "path": "historical-f3-CI/raw-collector/artifacts/12938240486/contents-attempt-1/pipeline/10-tauri-package.result.json",
+      "sha256": "f1d28ca0bfd23fb546bf6c9d8fa0c9831a9a937deb7d19208d0587b0b95cdf01"
+    },
+    {
+      "bytes": 5493,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f-independent-review/v1/raw-collector/runs/40956683963/closed-jobs/123763607069.json",
+      "path": "historical-f3-CI/raw-collector/runs/40956683963/closed-jobs/123763607069.json",
+      "sha256": "b55b55fa077710e1b4fb5da1a26ef87aad58c3a4714cf1370cc22e6ff5f25675"
+    },
+    {
+      "bytes": 35683,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f-independent-review/v1/raw-collector/runs/40956683963/closed-jobs/123763607069.log",
+      "path": "historical-f3-CI/raw-collector/runs/40956683963/closed-jobs/123763607069.log",
+      "sha256": "c83ff1156765ff604093c98c0673349ea3d13de96cc0d91ede5e56427eb9ae3e"
+    },
+    {
+      "bytes": 6082,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f-independent-review/v1/REVIEW.md",
+      "path": "historical-f3-CI/review.md",
+      "sha256": "c7862436e9b217c6edeadc5b75090ad193aa5802004595a39764c5039c7d573f"
+    },
+    {
+      "bytes": 53670,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-prepare-first.log",
+      "path": "historical-failed-request-R/actual-prepare-first.log",
+      "sha256": "e42a48c16b4cb09ab6fe6da55bb12f9be1dc545e66e71c1b22370e016eb32635"
+    },
+    {
+      "bytes": 19766,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata.zip",
+      "path": "historical-failed-request-R/actual-request-metadata.zip",
+      "sha256": "426947184d7268bc2c7f1f1b310c10b2984d569e159cebe89aeb14a4fd26aa08"
+    },
+    {
+      "bytes": 71,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/closure.json",
+      "path": "historical-failed-request-R/actual-request-metadata/closure.json",
+      "sha256": "5ebd22be6617b92b7fc641810d94479ba2c15a697386bf3a551392f3757800c3"
+    },
+    {
+      "bytes": 389,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-001.json",
+      "path": "historical-failed-request-R/actual-request-metadata/git-001.json",
+      "sha256": "e55d36495fd5f2568a1d6fcef4c19bda7723fed2db063e8e120d4f828922ba99"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-001.stderr",
+      "path": "historical-failed-request-R/actual-request-metadata/git-001.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 41,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-001.stdout",
+      "path": "historical-failed-request-R/actual-request-metadata/git-001.stdout",
+      "sha256": "b2b93f1688024e8a39a09e84f84aa3601416eb7acdb502f6492159a7e460a2ac"
+    },
+    {
+      "bytes": 463,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-002.json",
+      "path": "historical-failed-request-R/actual-request-metadata/git-002.json",
+      "sha256": "1e9725ad8c9e7b8707e13d0df9ccfdc2b0924faec4d5f8855caa44eea2eac871"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-002.stderr",
+      "path": "historical-failed-request-R/actual-request-metadata/git-002.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 904,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-002.stdout",
+      "path": "historical-failed-request-R/actual-request-metadata/git-002.stdout",
+      "sha256": "9a88dac3505493f5f3da76db91e477d483591e2d6177419d86316447acbffffe"
+    },
+    {
+      "bytes": 424,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-003.json",
+      "path": "historical-failed-request-R/actual-request-metadata/git-003.json",
+      "sha256": "70f91c17019f723784c9fda1beb16b86b0afb3b0c6c8bfdc9ed6547cf651e673"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-003.stderr",
+      "path": "historical-failed-request-R/actual-request-metadata/git-003.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 82,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-003.stdout",
+      "path": "historical-failed-request-R/actual-request-metadata/git-003.stdout",
+      "sha256": "5542c1a4080990e9b5ea4efc6096cf78c6a78ce774a7f4ab95f1fc93a218da17"
+    },
+    {
+      "bytes": 559,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-004.json",
+      "path": "historical-failed-request-R/actual-request-metadata/git-004.json",
+      "sha256": "0e0c5b6fb6a0bd860b7e4e355fc8a84181b2b71b13fa34d8b8ec32e2b7c3d493"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-004.stderr",
+      "path": "historical-failed-request-R/actual-request-metadata/git-004.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 42,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-004.stdout",
+      "path": "historical-failed-request-R/actual-request-metadata/git-004.stdout",
+      "sha256": "b4ebe90b403a61708aedb92799661f9fac4937f77055866d0d1505d141ca8727"
+    },
+    {
+      "bytes": 494,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-005.json",
+      "path": "historical-failed-request-R/actual-request-metadata/git-005.json",
+      "sha256": "41fba06d69eb479aa165bd1d4d3b7d73710810c7c3aad9b029b4288577186fdc"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-005.stderr",
+      "path": "historical-failed-request-R/actual-request-metadata/git-005.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-005.stdout",
+      "path": "historical-failed-request-R/actual-request-metadata/git-005.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 397,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-006.json",
+      "path": "historical-failed-request-R/actual-request-metadata/git-006.json",
+      "sha256": "376b35241ab1bd6e546a099929e021873527e8c981a9d84ff70a5e56e0f59e6a"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-006.stderr",
+      "path": "historical-failed-request-R/actual-request-metadata/git-006.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 41,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-006.stdout",
+      "path": "historical-failed-request-R/actual-request-metadata/git-006.stdout",
+      "sha256": "54129f07749fb3c7869ee94f4c5aeaf5e2fd5c52d0474804d1b7d7c0002244df"
+    },
+    {
+      "bytes": 465,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-007.json",
+      "path": "historical-failed-request-R/actual-request-metadata/git-007.json",
+      "sha256": "1fd5408bccc96d0855bcfd5e3453a9b08990b40c6f5d6cbc26a766729f63d9be"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-007.stderr",
+      "path": "historical-failed-request-R/actual-request-metadata/git-007.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 6561,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-007.stdout",
+      "path": "historical-failed-request-R/actual-request-metadata/git-007.stdout",
+      "sha256": "7c1dfff4005e5bbc290a56484836de2babe2f981c5eaa56283c68ebe1bc942e0"
+    },
+    {
+      "bytes": 467,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-008.json",
+      "path": "historical-failed-request-R/actual-request-metadata/git-008.json",
+      "sha256": "cdccc205fdd6ef21985a4ad2b54cf20c73dc590bb340c38afe69b6a24d520c03"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-008.stderr",
+      "path": "historical-failed-request-R/actual-request-metadata/git-008.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 8044,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-008.stdout",
+      "path": "historical-failed-request-R/actual-request-metadata/git-008.stdout",
+      "sha256": "60f9545aebfed42c002c8b54087ef355b7891068804e821ecb0233357662523d"
+    },
+    {
+      "bytes": 467,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-009.json",
+      "path": "historical-failed-request-R/actual-request-metadata/git-009.json",
+      "sha256": "c0a6b9afc2775e5bfae038d05eb05730a7045f7dccf82546d3f995e2260d3ae7"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-009.stderr",
+      "path": "historical-failed-request-R/actual-request-metadata/git-009.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 25597,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-009.stdout",
+      "path": "historical-failed-request-R/actual-request-metadata/git-009.stdout",
+      "sha256": "02097ca7539df3d25ff4f7d49a7780157824b232bebf8c16f2576e3791fd4fdb"
+    },
+    {
+      "bytes": 466,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-010.json",
+      "path": "historical-failed-request-R/actual-request-metadata/git-010.json",
+      "sha256": "b2ed98ec9bbae7badb5b04889061b47066cf5a40ccf8a0432c2d1205eb67187e"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-010.stderr",
+      "path": "historical-failed-request-R/actual-request-metadata/git-010.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1549,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-010.stdout",
+      "path": "historical-failed-request-R/actual-request-metadata/git-010.stdout",
+      "sha256": "1bed1775fe376d05f32e125c310e538b4693cb475dfd075edb47ff70579ead7a"
+    },
+    {
+      "bytes": 466,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-011.json",
+      "path": "historical-failed-request-R/actual-request-metadata/git-011.json",
+      "sha256": "406ee36177799008f8c6498c03f1e43710668e586d5a15f0089f193a2837c7d7"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-011.stderr",
+      "path": "historical-failed-request-R/actual-request-metadata/git-011.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 420,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/git-011.stdout",
+      "path": "historical-failed-request-R/actual-request-metadata/git-011.stdout",
+      "sha256": "8ea71349dce148662d6a8cb2629760a36ec657f6acc9a7285fd2f7703c0052b8"
+    },
+    {
+      "bytes": 91,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/actual-request-metadata/request.json",
+      "path": "historical-failed-request-R/actual-request-metadata/request.json",
+      "sha256": "cc99bde3c8a5f61ed613c4ac38ad528e20e781c201391644a858f58ee1245a7d"
+    },
+    {
+      "bytes": 5559,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/adoption-executed.py",
+      "path": "historical-failed-request-R/adoption-executed.py",
+      "sha256": "8d81c4d80bd86f8204284b763fb065ca1b17f73495f49771b4573b445368f6eb"
+    },
+    {
+      "bytes": 415,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/adoption.json",
+      "path": "historical-failed-request-R/adoption.json",
+      "sha256": "3a5057248c408887383e7f46a5526b7fe80fce91ae75574996b8ab93e0c02d65"
+    },
+    {
+      "bytes": 755,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/fresh-artifact.json",
+      "path": "historical-failed-request-R/fresh-artifact.json",
+      "sha256": "002474e631f89e684b16a2ce7daa9d0ad9a36767676531cdcffbd143029a3be1"
+    },
+    {
+      "bytes": 17148,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/fresh-pr.json",
+      "path": "historical-failed-request-R/fresh-pr.json",
+      "sha256": "dda714b36f498659aec70ac23948ee7da5d6dd8712112684f533f6165ba5df69"
+    },
+    {
+      "bytes": 12365,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/fresh-run.json",
+      "path": "historical-failed-request-R/fresh-run.json",
+      "sha256": "5945320a39f1d45f2b30d0cfa78b69b5dc2c795fc8d5145042a2c13e2166fe60"
+    },
+    {
+      "bytes": 62020,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/new-head-runs-initial.json",
+      "path": "historical-failed-request-R/new-head-runs-initial.json",
+      "sha256": "d4ab5d5bff626accd2b31fea47264ac9ea321d1e19492004e5cd7d7f92ce20eb"
+    },
+    {
+      "bytes": 12365,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/original-run-after-request.json",
+      "path": "historical-failed-request-R/original-run-after-request.json",
+      "sha256": "0abe78a64d7fdd0c533195bed7f89d1aa5047cf80c47da96efd8dfdd0b062dde"
+    },
+    {
+      "bytes": 1730,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-download-only-root-release/v1/root-review.json",
+      "path": "historical-failed-request-R/root-review.json",
+      "sha256": "2e1f422802759db798a8b247e475e88c0230f00f89c6f2a0ff0536cbc28e5015"
+    },
+    {
+      "bytes": 2054808,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/GATHERED.json",
+      "path": "preparation/GATHERED.json",
+      "sha256": "32ac71ebc946ed2583f5e1d4347a0520914580b2331047738e83e3cc67d586fa"
+    },
+    {
+      "bytes": 2041200,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/NESTED-ARCHIVES.json",
+      "path": "preparation/NESTED-ARCHIVES.json",
+      "sha256": "626c88a9576880b796bbd53bbb4b9e60ba4062113a6cb61a4f00eccc27ac83ad"
+    },
+    {
+      "bytes": 18684,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/PACKET-FACTS.json",
+      "path": "preparation/PACKET-FACTS.json",
+      "sha256": "c0517117e4f8d64cb73014eebc202113e27dda8a1b6c940c9d8046f3d0f770ed"
+    },
+    {
+      "bytes": 481,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/PREDECLARED.md",
+      "path": "preparation/PREDECLARED.md",
+      "sha256": "56bea089e5f6e9fe7134d2f7da7a70224caf6f1246b8729757afb00b73746b4b"
+    },
+    {
+      "bytes": 2371536,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/SOURCE.json",
+      "path": "preparation/SOURCE.json",
+      "sha256": "e7e1cd362ccdb9322161949d9e2e38fa20be9e232469bf9574462078ab7c4a3d"
+    },
+    {
+      "bytes": 8438,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/finalize-package-authorizer-evidence-v2.py",
+      "path": "preparation/finalize-packaging.py",
+      "sha256": "b0f48aea04da76542a2781ae83e1aa50cf3abb077bd3efb0c595a5dc9ec7d800"
+    },
+    {
+      "bytes": 391,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/gather-reader-correction.json",
+      "path": "preparation/gather-reader-correction.json",
+      "sha256": "6980ef0a82dc073336b8d587e72f22beb3dd981ef82acb96049d2297a4f9ed1d"
+    },
+    {
+      "bytes": 558,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/history/finalizer-v1/failure.json",
+      "path": "preparation/history/finalizer-v1/failure.json",
+      "sha256": "0b4137a2913558a6a857bde47fd401dea57b7e90a86f6af2c01b45c59a932383"
+    },
+    {
+      "bytes": 8508,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/history/finalizer-v1/script.py",
+      "path": "preparation/history/finalizer-v1/script.py",
+      "sha256": "37f4f76367cde61cad8081de30c913e07b8fee008c2c3b65b6cdaacc21caeaa6"
+    },
+    {
+      "bytes": 451,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/history/initial-gather/failure.txt",
+      "path": "preparation/history/initial-gather/failure.txt",
+      "sha256": "27ed89a5fc615c584639f6d743a55391f66b1d4b2db731f6034ebc3ccb2dc51a"
+    },
+    {
+      "bytes": 4250,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/history/initial-gather/script.py",
+      "path": "preparation/history/initial-gather/script.py",
+      "sha256": "06719a4dd1367ae64f9d2e6746780cacd18e3b46736af3b92daf9d4b03b27df4"
+    },
+    {
+      "bytes": 926,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/packaging-receipt.json",
+      "path": "preparation/packaging-receipt.json",
+      "sha256": "2ca0118d27bbee22d771eb90cdb7a9e47233552e3e62a0d27848516430b4e8d3"
+    },
+    {
+      "bytes": 1670,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/packaging.stdout.log",
+      "path": "preparation/packaging.stdout.log",
+      "sha256": "b6ce347c33330988fbf944ea175e4ca2fae21037365352e5f9807d092bff09d6"
+    },
+    {
+      "bytes": 1462,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/run-package-authorizer-packaging-v1.py",
+      "path": "preparation/run-packaging.py",
+      "sha256": "6f6b22828593341343f5a4afeb9797bc492abef8e6ecbbbbd7efe841307ab441"
+    },
+    {
+      "bytes": 379049,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-authorizers-v1/DATA.json",
+      "path": "retained/peer-authorizers-v1/DATA.json",
+      "sha256": "8593a14e451ccf8c65ee69305efbd7f2277adb2771dc565f9b03aa2a898bb58e"
+    },
+    {
+      "bytes": 1360086,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-authorizers-v1/MANIFEST.json",
+      "path": "retained/peer-authorizers-v1/MANIFEST.json",
+      "sha256": "46f15822d9d91481433dfb0e4ecb6f7c3c94528275baf132814bdf3362e03353"
+    },
+    {
+      "bytes": 356,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-authorizers-v1/READ-ERROR-HISTORY.txt",
+      "path": "retained/peer-authorizers-v1/READ-ERROR-HISTORY.txt",
+      "sha256": "8c97d7eeed39112dc849e8820efcc7b4c5380c54f81e038cd1ec8e4aa59d48b2"
+    },
+    {
+      "bytes": 4464,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-authorizers-v1/REVIEW.md",
+      "path": "retained/peer-authorizers-v1/REVIEW.md",
+      "sha256": "688ac7c56b8500d727f72d440bc5ecc2c15ea95fba96d7640e0426ca59b0980c"
+    },
+    {
+      "bytes": 9608,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-authorizers-v1/audit.py",
+      "path": "retained/peer-authorizers-v1/audit.py",
+      "sha256": "7687f87c2b9fab524e176df165baa199831abcc3d1a0bb75fffc19debf15dba0"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-authorizers-v1/audit.stderr",
+      "path": "retained/peer-authorizers-v1/audit.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 58,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-authorizers-v1/audit.stdout",
+      "path": "retained/peer-authorizers-v1/audit.stdout",
+      "sha256": "7106172cece7fab963ee765fa6385d9ec4d6298bbccf3f42640ecfabad45df8c"
+    },
+    {
+      "bytes": 6459,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-authorizers-v1/control-results.json",
+      "path": "retained/peer-authorizers-v1/control-results.json",
+      "sha256": "53b51bfe7da7e4786c526526d829bf8f1b4538b8f8a3fc20f2e74382c546a043"
+    },
+    {
+      "bytes": 3775,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-authorizers-v1/controls.py",
+      "path": "retained/peer-authorizers-v1/controls.py",
+      "sha256": "96475cf0820b3393e39b0c68f1c4669ecd22220b26b74f94e4fdcf1760140f22"
+    },
+    {
+      "bytes": 352,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-authorizers-v1/findings.json",
+      "path": "retained/peer-authorizers-v1/findings.json",
+      "sha256": "36b9286351d92dcaa9756fc971c4bffd454e3977ae5100f862ecfb86c9563ccf"
+    },
+    {
+      "bytes": 898383,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-authorizers-v1/proof.tar.gz",
+      "path": "retained/peer-authorizers-v1/proof.tar.gz",
+      "sha256": "14380d4f401a5c3fdd309a180206388905c03bf60e5030cb8fc72fb04b52a9af"
+    },
+    {
+      "bytes": 3078,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-authorizers-v1/reproduce-retained-own.py",
+      "path": "retained/peer-authorizers-v1/reproduce-retained-own.py",
+      "sha256": "f8e26cb762495ea89a33bdaa35b7f6fd0047dd5a98aefebe0a8aea4c7bbb547d"
+    },
+    {
+      "bytes": 2303,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-authorizers-v1/retained-api-own.json",
+      "path": "retained/peer-authorizers-v1/retained-api-own.json",
+      "sha256": "75b32f7ce248262dbef3f72b254e06dbbbef9bec84d25af1ac3f201a3ed560c6"
+    },
+    {
+      "bytes": 1566,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-authorizers-v1/run.py",
+      "path": "retained/peer-authorizers-v1/run.py",
+      "sha256": "646e1fff1c1f25964035af1ce5ff3e737e5dd93d2f4d326abd68061fabe9f05a"
+    },
+    {
+      "bytes": 70240,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-loader-pin/DATA.json",
+      "path": "retained/peer-loader-pin/DATA.json",
+      "sha256": "651f832a6653f3bcbf9f6486b52cbacc452b58e9c06cf1e3999c44d90cd273c1"
+    },
+    {
+      "bytes": 26187,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-loader-pin/MANIFEST.json",
+      "path": "retained/peer-loader-pin/MANIFEST.json",
+      "sha256": "9db5a6620ecdd8eedce06211d58900b11fa4253b7094341e646404ae7ae1e6f7"
+    },
+    {
+      "bytes": 244,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-loader-pin/READ-ERROR-HISTORY.txt",
+      "path": "retained/peer-loader-pin/READ-ERROR-HISTORY.txt",
+      "sha256": "1458e9b9f626ede488bdb3ecc5b1de393b1f4f37fe84dc088b43cf1bd858f55b"
+    },
+    {
+      "bytes": 2416,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-loader-pin/REVIEW.md",
+      "path": "retained/peer-loader-pin/REVIEW.md",
+      "sha256": "686951ea61f88e06d264ba52b474e6eab0a3c0602de876b49a45c60a19164144"
+    },
+    {
+      "bytes": 6186,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-loader-pin/audit.py",
+      "path": "retained/peer-loader-pin/audit.py",
+      "sha256": "29d48c1d78713d4b4d7351f7c139ae078a1a64b6720f76e5a33deba1d7e94162"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-loader-pin/audit.stderr",
+      "path": "retained/peer-loader-pin/audit.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 36,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-loader-pin/audit.stdout",
+      "path": "retained/peer-loader-pin/audit.stdout",
+      "sha256": "fbd36c91ad22efb4271db08bd49c42b91ce046599164c1f8c48ce720cb0fc218"
+    },
+    {
+      "bytes": 920,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-loader-pin/control-results.json",
+      "path": "retained/peer-loader-pin/control-results.json",
+      "sha256": "d5c164baf18470d312523188261526e09cd1b6aad4f4f7791a4fbd807d968c3f"
+    },
+    {
+      "bytes": 3248,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-loader-pin/controls.py",
+      "path": "retained/peer-loader-pin/controls.py",
+      "sha256": "5cda67907742bb756153affd43b66cbd6c420ae89074acf2a12c7ef23213a935"
+    },
+    {
+      "bytes": 279,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-loader-pin/findings.json",
+      "path": "retained/peer-loader-pin/findings.json",
+      "sha256": "41b30c6196eead3b0c9adf0e12cfeec062454fae12bfc74e8bf0ff62c1df773b"
+    },
+    {
+      "bytes": 272334,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-loader-pin/proof.tar.gz",
+      "path": "retained/peer-loader-pin/proof.tar.gz",
+      "sha256": "5a546a9ed8170e95d8e579a8378974633962f84ed4ed783cd079efe52d1379d3"
+    },
+    {
+      "bytes": 1572,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-loader-pin/run.py",
+      "path": "retained/peer-loader-pin/run.py",
+      "sha256": "047352fe0e3861530ea84b7b8a09374f4de4d3e4ea08ab06cd351e0e21b2836e"
+    },
+    {
+      "bytes": 134124,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-windows-job-v2/DATA.json",
+      "path": "retained/peer-windows-job-v2/DATA.json",
+      "sha256": "9a629687a44cfa4e1c14c784194ab41dc36a27e665b7fb2d39071cd10415460b"
+    },
+    {
+      "bytes": 50960,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-windows-job-v2/MANIFEST.json",
+      "path": "retained/peer-windows-job-v2/MANIFEST.json",
+      "sha256": "be0ebce6ef06f0ed7cb0bd2fd850718fee392438a6764669b95a2f89f65136cd"
+    },
+    {
+      "bytes": 4539,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-windows-job-v2/REVIEW.md",
+      "path": "retained/peer-windows-job-v2/REVIEW.md",
+      "sha256": "e7a25f9faddd2833829d6591b3ce6a12d815d66c2ac4f6226b952c6501cdd058"
+    },
+    {
+      "bytes": 9557,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-windows-job-v2/audit.py",
+      "path": "retained/peer-windows-job-v2/audit.py",
+      "sha256": "1b96eb1518e8cd0fafbc7d3b8fcc547b3162ebe194569ebb239a809898f82b77"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-windows-job-v2/audit.stderr",
+      "path": "retained/peer-windows-job-v2/audit.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 74,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-windows-job-v2/audit.stdout",
+      "path": "retained/peer-windows-job-v2/audit.stdout",
+      "sha256": "fe965e3bec2f299154ed3f2ccdbc9e209dd59253425b3c45816644357ffd6707"
+    },
+    {
+      "bytes": 2680,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-windows-job-v2/boundary-control-results.json",
+      "path": "retained/peer-windows-job-v2/boundary-control-results.json",
+      "sha256": "b4c6816ad8047952cfe7f4ef51a310a1facbf9ba8d26cc8cd0964dcc4c40e6a3"
+    },
+    {
+      "bytes": 3976,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-windows-job-v2/boundary-controls.py",
+      "path": "retained/peer-windows-job-v2/boundary-controls.py",
+      "sha256": "5eafadd2d5f9074dd64a97db85212b7510f26c6d95eefba971dd8f509d6d1af0"
+    },
+    {
+      "bytes": 345,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-windows-job-v2/findings.json",
+      "path": "retained/peer-windows-job-v2/findings.json",
+      "sha256": "56a252fbb2adfe1e4beff7c8a534a4f2f1c74b90189fdebbcd2adf4d03d62043"
+    },
+    {
+      "bytes": 2869,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-windows-job-v2/original-v1-probe.py",
+      "path": "retained/peer-windows-job-v2/original-v1-probe.py",
+      "sha256": "a4030998b32519f28910495b0612fda2397693b8dd175cb7f7a7e62d842031f6"
+    },
+    {
+      "bytes": 1337,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-windows-job-v2/probe-results.json",
+      "path": "retained/peer-windows-job-v2/probe-results.json",
+      "sha256": "605a56ba6f6cc01b8ed06e8ab440b78a16e53055db471b998a9986b05c438216"
+    },
+    {
+      "bytes": 3399,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-windows-job-v2/probe.py",
+      "path": "retained/peer-windows-job-v2/probe.py",
+      "sha256": "6d267abfc9362cdf62a801bee4c55abac2333b24f893958ce9070ce31ed77077"
+    },
+    {
+      "bytes": 252008,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-windows-job-v2/proof.tar.gz",
+      "path": "retained/peer-windows-job-v2/proof.tar.gz",
+      "sha256": "ebea58d84300bfa0f14164c9602b5b04489666e9f9ca767bea701c347bd83000"
+    },
+    {
+      "bytes": 1572,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/peer-windows-job-v2/run.py",
+      "path": "retained/peer-windows-job-v2/run.py",
+      "sha256": "047352fe0e3861530ea84b7b8a09374f4de4d3e4ea08ab06cd351e0e21b2836e"
+    },
+    {
+      "bytes": 1931,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-authorizers-v1/ADOPTION.json",
+      "path": "retained/source-authorizers-v1/ADOPTION.json",
+      "sha256": "cb8d6e8f3ab6881ba873c0f4bbda43641d456d50eb040c8ad38e5667c0f6addd"
+    },
+    {
+      "bytes": 11977,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-authorizers-v1/ADOPTION.patch",
+      "path": "retained/source-authorizers-v1/ADOPTION.patch",
+      "sha256": "7a1a134bedd7031d2ed1bcbed1161325b6c22dedc0fafaf1431658c85af01497"
+    },
+    {
+      "bytes": 153113,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-authorizers-v1/DATA.json",
+      "path": "retained/source-authorizers-v1/DATA.json",
+      "sha256": "065e5a03b97787ad99508a5cc428926a1879be1b1881fd8631e8084bb1f00c99"
+    },
+    {
+      "bytes": 12950,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-authorizers-v1/FOCUSED-OLD-TEST-IDS.txt",
+      "path": "retained/source-authorizers-v1/FOCUSED-OLD-TEST-IDS.txt",
+      "sha256": "6366616df3d3e3fec8700540b364364e1aede41e2104c1dfd5fe15e4a1101f7f"
+    },
+    {
+      "bytes": 3688,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-authorizers-v1/HANDOFF.md",
+      "path": "retained/source-authorizers-v1/HANDOFF.md",
+      "sha256": "d064ff0d7163f36249a7506e5e158acd26946c72f48468373cb9a7a63efd4253"
+    },
+    {
+      "bytes": 596,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-authorizers-v1/MANIFEST.json",
+      "path": "retained/source-authorizers-v1/MANIFEST.json",
+      "sha256": "bfc5902ef40eab5253513683130ed871a3ca665131c27af36b3bbef5279ec78f"
+    },
+    {
+      "bytes": 3932,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-authorizers-v1/NEW-TEST-IDS.txt",
+      "path": "retained/source-authorizers-v1/NEW-TEST-IDS.txt",
+      "sha256": "f1cfb7f62f671fe3a8074c803fa2ffa12996c46959c34a37d06c5b04b64dbb11"
+    },
+    {
+      "bytes": 5164,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-authorizers-v1/PREIMAGES.json",
+      "path": "retained/source-authorizers-v1/PREIMAGES.json",
+      "sha256": "d6be8997f618caebb174125504fcb9ffcb04474f0c508c88df65b4761a2a2776"
+    },
+    {
+      "bytes": 64276,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-authorizers-v1/SOURCE.json",
+      "path": "retained/source-authorizers-v1/SOURCE.json",
+      "sha256": "ac4a86cba1c29ea604d31a09f323c75c7d7865ed61a55db6ecb19c47a000fd67"
+    },
+    {
+      "bytes": 7928,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-authorizers-v1/audit-and-seal.py",
+      "path": "retained/source-authorizers-v1/audit-and-seal.py",
+      "sha256": "b87b81c13011debbee5d495334a0f07b48c4ed91b6f7c0767c7650d68f63edbc"
+    },
+    {
+      "bytes": 581723,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-authorizers-v1/proof.tar.gz",
+      "path": "retained/source-authorizers-v1/proof.tar.gz",
+      "sha256": "902ac448186073b21f62be2dd8ad202ca8dd3dc4d37bbc70a4ca12415faa897b"
+    },
+    {
+      "bytes": 3070,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-authorizers-v1/reproduce-retained-api.py",
+      "path": "retained/source-authorizers-v1/reproduce-retained-api.py",
+      "sha256": "a02bf21c6281925e23d8cab75e32c81d77795e09c138db3da762646742c400f4"
+    },
+    {
+      "bytes": 2303,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-authorizers-v1/retained-api-reproduction.json",
+      "path": "retained/source-authorizers-v1/retained-api-reproduction.json",
+      "sha256": "75b32f7ce248262dbef3f72b254e06dbbbef9bec84d25af1ac3f201a3ed560c6"
+    },
+    {
+      "bytes": 2101,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-authorizers-v1/run-phase.py",
+      "path": "retained/source-authorizers-v1/run-phase.py",
+      "sha256": "9d43ec2d882f65d6440265d35aad684709bee5c8dc68d111b74db4efd8c9f0e9"
+    },
+    {
+      "bytes": 1156,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-loader-pin/ADOPTION.json",
+      "path": "retained/source-loader-pin/ADOPTION.json",
+      "sha256": "bc2e38409bdb0596b8172181b9afeccd9ac5f8c0c525597943d7a39eee71b438"
+    },
+    {
+      "bytes": 7056,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-loader-pin/DATA.json",
+      "path": "retained/source-loader-pin/DATA.json",
+      "sha256": "7423ada637992db5c7392e55449f508d26c5165e9cb85587be47ca8927c39c69"
+    },
+    {
+      "bytes": 1046,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-loader-pin/HANDOFF.json",
+      "path": "retained/source-loader-pin/HANDOFF.json",
+      "sha256": "ebd9275d18531e0383cef1b480c2e7ec0f3751eb4256bf50e62aa684c6ae4754"
+    },
+    {
+      "bytes": 404,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-loader-pin/MANIFEST.json",
+      "path": "retained/source-loader-pin/MANIFEST.json",
+      "sha256": "97cf496a98397c3b959be211853df13e45d9e1baeb09447de36791b15875f533"
+    },
+    {
+      "bytes": 492,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-loader-pin/PREIMAGES.json",
+      "path": "retained/source-loader-pin/PREIMAGES.json",
+      "sha256": "8513c32fd7a6258a4b3dcd13bb9cfa9a7dbfc9a8aa98c517221ac2fc8e0de98a"
+    },
+    {
+      "bytes": 2162,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-loader-pin/README.md",
+      "path": "retained/source-loader-pin/README.md",
+      "sha256": "80ed5cff9896083295b6b04b758b22f55cb16a80ba4769c39a28f481ea10cbb8"
+    },
+    {
+      "bytes": 21723,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-loader-pin/SOURCE.json",
+      "path": "retained/source-loader-pin/SOURCE.json",
+      "sha256": "62286b109344c0b5a6f236594e7967c2260cf997ea866020ebfd23e58f6d4b0f"
+    },
+    {
+      "bytes": 3910,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-loader-pin/audit.py",
+      "path": "retained/source-loader-pin/audit.py",
+      "sha256": "e199af848ac4ddf45d95988cd25a8ebab5e9bb627ac978cb8211ea868290ec7e"
+    },
+    {
+      "bytes": 2077,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-loader-pin/correction.patch",
+      "path": "retained/source-loader-pin/correction.patch",
+      "sha256": "b91b8933d56fd5e6c049a90628460002c9111ad782fcfc9b1a223c45ce74b6eb"
+    },
+    {
+      "bytes": 2610,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-loader-pin/guard_controls.py",
+      "path": "retained/source-loader-pin/guard_controls.py",
+      "sha256": "235985d0cfd3c589eabc92c78d814b31c4de78fb1228e70b10c76b0969bd99a8"
+    },
+    {
+      "bytes": 150390,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-loader-pin/proof.tar.gz",
+      "path": "retained/source-loader-pin/proof.tar.gz",
+      "sha256": "0c206aafb15e0ad6a8432568f1888bc37d1e1466eebf19e5c734344146c6eaf1"
+    },
+    {
+      "bytes": 2254,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-loader-pin/run_phase.py",
+      "path": "retained/source-loader-pin/run_phase.py",
+      "sha256": "a594c8f5c86fd7df3eb7b63b28ab6417c0bb2a3d017aa53dd3c2392e41149b8f"
+    },
+    {
+      "bytes": 3024,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-loader-pin/seal.py",
+      "path": "retained/source-loader-pin/seal.py",
+      "sha256": "b3d030991e626eb3b9990063986a756828581aa00dd0cb13db1718f7bfe97473"
+    },
+    {
+      "bytes": 1903,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/ADOPTION.json",
+      "path": "retained/source-windows-job-v2/ADOPTION.json",
+      "sha256": "6207293b63b1abaf5e0d9ffd222b4ce2b272806b4d3add899454a11ecc4e770c"
+    },
+    {
+      "bytes": 45228,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/DATA.json",
+      "path": "retained/source-windows-job-v2/DATA.json",
+      "sha256": "e23d9c2821636702a31a40ad1c4fc81d7727ab2c20714ea80a46c1d206178f62"
+    },
+    {
+      "bytes": 1523,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/HANDOFF.json",
+      "path": "retained/source-windows-job-v2/HANDOFF.json",
+      "sha256": "354676a7912b3201309e8c779899ab1c068caf74460ba707c8110a52b97ef958"
+    },
+    {
+      "bytes": 1315,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/HISTORICAL.json",
+      "path": "retained/source-windows-job-v2/HISTORICAL.json",
+      "sha256": "6ac0b88b4579390fd5c62235bd971829792a783b7f76847d43e2986380039bc2"
+    },
+    {
+      "bytes": 405,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/MANIFEST.json",
+      "path": "retained/source-windows-job-v2/MANIFEST.json",
+      "sha256": "6143f566a369035f47d95f974f9563fe96588a902af21c38904d13a61138cdc3"
+    },
+    {
+      "bytes": 3467,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/NEW-NODE-IDS.json",
+      "path": "retained/source-windows-job-v2/NEW-NODE-IDS.json",
+      "sha256": "6ef628480fa0cbcbc7040de1842183deb997b185f854d29a335d32c7c4286df3"
+    },
+    {
+      "bytes": 258,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/PARENT.json",
+      "path": "retained/source-windows-job-v2/PARENT.json",
+      "sha256": "5ace503a1b5bdc7babee52b0db03e62ae5265918a61b473e0e59a8a56a5fe809"
+    },
+    {
+      "bytes": 689,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/PREIMAGES.json",
+      "path": "retained/source-windows-job-v2/PREIMAGES.json",
+      "sha256": "28cbf3bb483fd65e4773bb5a77ab6051a238909d53ecd3d2fa843b03c7d50719"
+    },
+    {
+      "bytes": 633,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/PRIMARY.json",
+      "path": "retained/source-windows-job-v2/PRIMARY.json",
+      "sha256": "b2910770a4dbf267dbfd7a52c5d5446e996f5340617cfc84dfeba51910940951"
+    },
+    {
+      "bytes": 3625,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/README.md",
+      "path": "retained/source-windows-job-v2/README.md",
+      "sha256": "dc6526daffd83f9b70ee2bb12b0dd98b65342d14c37a6e3a42cfa78ee189c89d"
+    },
+    {
+      "bytes": 5291,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/RETAINED-RESULTS.json",
+      "path": "retained/source-windows-job-v2/RETAINED-RESULTS.json",
+      "sha256": "e35846dde2771355628eff4f38c34ec36db0a53e9235d8b6c8074838d31ee2c2"
+    },
+    {
+      "bytes": 28018,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/SOURCE.json",
+      "path": "retained/source-windows-job-v2/SOURCE.json",
+      "sha256": "c38ee31b9d401cc9db4057b2d37bce7790d9be753e129afb64e22386f6ad5793"
+    },
+    {
+      "bytes": 7374,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/audit.py",
+      "path": "retained/source-windows-job-v2/audit.py",
+      "sha256": "6f7bb3183df843b8728a0485a2bb61ae1398f1b07c7eb9743fe0a0ba85b6955d"
+    },
+    {
+      "bytes": 26846,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/correction.patch",
+      "path": "retained/source-windows-job-v2/correction.patch",
+      "sha256": "2ffbb75d1da82c6817ff8048d6d0b46ed4f0ef9934da21835b9350d557be45b4"
+    },
+    {
+      "bytes": 197305,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/proof.tar.gz",
+      "path": "retained/source-windows-job-v2/proof.tar.gz",
+      "sha256": "cd9395e2509c605173fc830ad9681a7d4694fc8ddfa87e262c70f0508811130e"
+    },
+    {
+      "bytes": 2254,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/run_phase.py",
+      "path": "retained/source-windows-job-v2/run_phase.py",
+      "sha256": "a594c8f5c86fd7df3eb7b63b28ab6417c0bb2a3d017aa53dd3c2392e41149b8f"
+    },
+    {
+      "bytes": 3059,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-package-and-authorizer-evidence-preparation/v1/retained/source-windows-job-v2/seal.py",
+      "path": "retained/source-windows-job-v2/seal.py",
+      "sha256": "88b43791bf7cd85254223a2ddebc24e9bc42e94a2710d4c6d993b1931ea29374"
+    },
+    {
+      "bytes": 6455,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/adopt-package-and-authorizer-fixes-root-v1.py",
+      "path": "root-and-packaging-drivers/adopt-package-and-authorizer-fixes-root-v1.py",
+      "sha256": "682ff86cef1c6363cba4b0818c58b28e74a9ac74da1b8f939a659faf110b403d"
+    },
+    {
+      "bytes": 6460,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/adopt-package-and-authorizer-fixes-root-v2.py",
+      "path": "root-and-packaging-drivers/adopt-package-and-authorizer-fixes-root-v2.py",
+      "sha256": "49b1137c1a106bcdf1b09deb6e8f0ce30fc4bd7aeab1b6d971f7704f4e3fd7fe"
+    },
+    {
+      "bytes": 6384,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/adopt-package-loader-pin-root-v1.py",
+      "path": "root-and-packaging-drivers/adopt-package-loader-pin-root-v1.py",
+      "sha256": "b65aec9d46728f6ae3cf399e8c4cc400e75c846bf5e4898e9e26a7e50d653ebc"
+    },
+    {
+      "bytes": 18680,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/build-package-authorizer-evidence-v1.py",
+      "path": "root-and-packaging-drivers/build-package-authorizer-evidence-v1.py",
+      "sha256": "ab1b2b4571090be916184a6697e15e71dba61af166136c47d29529e3ba94fc9e"
+    },
+    {
+      "bytes": 4250,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gather-package-authorizer-packet-v1.py",
+      "path": "root-and-packaging-drivers/gather-package-authorizer-packet-v1.py",
+      "sha256": "f897ad46966429f535d7a1abed7b25df899b3f688a209c34c4065aeb2e37d43b"
+    },
+    {
+      "bytes": 428,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-authorizer-root-reader-v1-failure.json",
+      "path": "root-and-packaging-drivers/package-authorizer-root-reader-v1-failure.json",
+      "sha256": "5d3bda732cd9b3fb1dc10ad2f6e1cd1b561eb6add9fc255435ac30cefb03fb34"
+    },
+    {
+      "bytes": 4614,
+      "full_mode": 33188,
+      "mode": 420,
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/stage-retired-request-and-check-root-v1.py",
+      "path": "root-and-packaging-drivers/stage-retired-request-and-check-root-v1.py",
+      "sha256": "970ad53438055b5d8eda611b47202d96b12cabe571d3758c2ad062a7e470a269"
+    }
+  ],
+  "nested_archives": {
+    "count": 7,
+    "inventory_in_proof": "preparation/NESTED-ARCHIVES.json",
+    "safe_regular_members": 6256
+  },
+  "omissions": [
+    "No full current Git/source or runtime binary payload bodies; complete retained byte/full-mode maps identify the finite epochs.",
+    "Disposable pytest/cache/temporary projections are omitted; all executed commands, authoritative raw logs, before/after maps, catalog and retired request bytes are retained.",
+    "Original historical full/CI binary bodies and large archives remain in their already sealed outside packets; this packet does not duplicate them or claim a new result.",
+    "No read-only partial current-CI snapshot is needed or included; original request failure and source/data epochs remain separately bounded."
+  ],
+  "regular_members": 211
+}

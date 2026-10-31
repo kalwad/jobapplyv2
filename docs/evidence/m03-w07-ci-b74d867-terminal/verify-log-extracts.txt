@@ -1,0 +1,74 @@
+# Extracts of the raw job logs of run 41124431600 (gh api repos/kalwad/jobapplyv2/actions/jobs/<id>/logs):
+# the final pytest summary line and the final 'suite / state / result' table of pnpm verify, per job.
+
+## job 124299149118 doctor + verify (ubuntu-24.04)
+======================= 2899 passed in 721.16s (0:12:01) =======================
+toolchain      ACTIVE               PASS
+format         ACTIVE               PASS
+lint           ACTIVE               PASS
+typecheck      ACTIVE               PASS
+unit-ts        ACTIVE               PASS
+contract-gen   ACTIVE               PASS
+fixture-corpus ACTIVE               PASS
+evaluation-corpus ACTIVE               PASS
+contract       ACTIVE               PASS
+build          ACTIVE               PASS
+e2e-browser    ACTIVE               PASS
+w14-public-controlled ACTIVE               PASS
+w14-public-contact-controlled ACTIVE               PASS
+visual         ACTIVE               PASS
+python         ACTIVE               PASS
+rust           ACTIVE               PASS
+portability    ACTIVE               PASS
+traceability   ACTIVE               PASS
+status         ACTIVE               PASS
+integrity      ACTIVE               PASS
+(20 suite rows; 20 PASS)
+
+## job 124299149765 doctor + verify (macos-15)
+====================== 2899 passed in 1089.83s (0:18:09) =======================
+toolchain      ACTIVE               PASS
+format         ACTIVE               PASS
+lint           ACTIVE               PASS
+typecheck      ACTIVE               PASS
+unit-ts        ACTIVE               PASS
+contract-gen   ACTIVE               PASS
+fixture-corpus ACTIVE               PASS
+evaluation-corpus ACTIVE               PASS
+contract       ACTIVE               PASS
+build          ACTIVE               PASS
+e2e-browser    ACTIVE               PASS
+w14-public-controlled ACTIVE               PASS
+w14-public-contact-controlled ACTIVE               PASS
+visual         ACTIVE               PASS
+python         ACTIVE               PASS
+rust           ACTIVE               PASS
+portability    ACTIVE               PASS
+traceability   ACTIVE               PASS
+status         ACTIVE               PASS
+integrity      ACTIVE               PASS
+(20 suite rows; 20 PASS)
+
+## job 124299149797 doctor + verify (windows-2025)
+====================== 2897 passed in 946.44s (0:15:46) =======================
+toolchain      ACTIVE               PASS
+format         ACTIVE               PASS
+lint           ACTIVE               PASS
+typecheck      ACTIVE               PASS
+unit-ts        ACTIVE               PASS
+contract-gen   ACTIVE               PASS
+fixture-corpus ACTIVE               PASS
+evaluation-corpus ACTIVE               PASS
+contract       ACTIVE               PASS
+build          ACTIVE               PASS
+e2e-browser    ACTIVE               PASS
+w14-public-controlled ACTIVE               PASS
+w14-public-contact-controlled ACTIVE               PASS
+visual         ACTIVE               PASS
+python         ACTIVE               PASS
+rust           ACTIVE               PASS
+portability    ACTIVE               PASS
+traceability   ACTIVE               PASS
+status         ACTIVE               PASS
+integrity      ACTIVE               PASS
+(20 suite rows; 20 PASS)

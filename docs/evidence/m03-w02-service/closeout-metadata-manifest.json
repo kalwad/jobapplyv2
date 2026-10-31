@@ -1,0 +1,86 @@
+{
+  "sha256": "219362740b1593521991df8d36f26a9b9aa9d7c00028ca790c7768371d568b4e",
+  "bytes": 1569235,
+  "members": [
+    {
+      "member": "japp-m03-w02-closeout-proof-20261018/metadata.log",
+      "bytes": 895,
+      "sha256": "4fd0878b26be3d91c1ed3bcc1244d924352b332fcf496201143586ef3dcbef18"
+    },
+    {
+      "member": "japp-m03-w02-closeout-proof-20261018/observed-command-results.json",
+      "bytes": 889,
+      "sha256": "8932e22b74c61ad3422b3958f8d26102e03bae5470ca5f646a4ab71d4df35d6d"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/closeout-final-review/REVIEW.md",
+      "bytes": 1164,
+      "sha256": "0ad33b161bad93bbaa1c5d93314d5e7e9116d2084ec51d09d5abc1fd25f1f7cf"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/closeout-final-review/audit.py",
+      "bytes": 13371,
+      "sha256": "2f1efd565452450961b0fe64bfc46a7a9c84384fd0958ef57054cf4f027568a9"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/closeout-final-review/findings.json",
+      "bytes": 22153,
+      "sha256": "7c84ace2e393d83e7e08b88e6a029f77ef5c2d64802fe2a0987bcaac6d24543a"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/closeout-final-review/inputs/metadata/pytest.log",
+      "bytes": 895,
+      "sha256": "4fd0878b26be3d91c1ed3bcc1244d924352b332fcf496201143586ef3dcbef18"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/closeout-final-review/inputs/root/docs/COMPATIBILITY_MATRIX.md",
+      "bytes": 17185,
+      "sha256": "65944be62381a136d950cfa4928109db59d7e0ee218a9724dabea3de8fe1180c"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/closeout-final-review/inputs/root/docs/KNOWN_ISSUES.md",
+      "bytes": 288538,
+      "sha256": "110e94873f69e99015411c7bfaefb0fe923cdfbc21bd0ed81ba3b546a25603ef"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/closeout-final-review/inputs/root/docs/PROJECT_STATUS.md",
+      "bytes": 38418,
+      "sha256": "522f667e63481a5b7481779e8bd820ddfdfd091343f0a4c45285b2a619ffc2ed"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/closeout-final-review/inputs/root/docs/REQUIREMENTS_TRACEABILITY.md",
+      "bytes": 342785,
+      "sha256": "ff91046b66b0aae891d5b4e32bf75f897b4bcb8fc97cea9eb90a9dbb63b78bc6"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/closeout-final-review/inputs/root/docs/TEST_EVIDENCE.md",
+      "bytes": 977148,
+      "sha256": "b114e99699872ced1a8ffa71503ab16aff24ee33cd1d1d6759207ecdeb25fbcf"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/closeout-final-review/inputs/root/docs/evidence/m03-w02-service/clean-verification-manifest.json",
+      "bytes": 8026,
+      "sha256": "9319da4faa4161f654c8689db1914f37fd4751464380f91f96e73e0ea9193bab"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/closeout-final-review/inputs/root/docs/evidence/m03-w02-service/clean-verification-proof.tar.gz",
+      "bytes": 887356,
+      "sha256": "931a922d4030921730e3dd38377cff161da6fb5c46a4d4680b4b932986801b5c"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/closeout-final-review/inputs/root/docs/evidence/m03-w02-service/clean-verification-summary.json",
+      "bytes": 1831,
+      "sha256": "0234d017ced881aff37e244a9e8ea00ad3b95d1f19e49704c9e4b107cc0db1b1"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/closeout-final-review/inputs/root/docs/traceability.json",
+      "bytes": 713715,
+      "sha256": "cd12b8f42293ba238ff617acb3445594b4ddfaa5415aa27c232a16355e08b6d6"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/closeout-final-review/tracked-source-comparison.json",
+      "bytes": 635391,
+      "sha256": "8df2d5689ccd2f5006fa399e80831982dd0444dae543043686b80e87fec64225"
+    }
+  ]
+}

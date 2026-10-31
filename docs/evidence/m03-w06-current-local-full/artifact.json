@@ -1,0 +1,10 @@
+{
+  "archive": {
+    "bytes": 531912,
+    "sha256": "c85ab2e8d16175afacf6abedfdb3e7a19206cbd2ab467ba781ddfee096f5003b"
+  },
+  "members": 34,
+  "physical_images_in_archive": false,
+  "scope": "DERIVED descriptor; actual evidence stays original",
+  "status": "W06_IN_PROGRESS"
+}

@@ -1,0 +1,96 @@
+{
+  "safe_regular_members": 13,
+  "members": [
+    {
+      "path": "different-metadata-review/REVIEW.md",
+      "bytes": 2053,
+      "sha256": "befea6f4faff2d8366da2612cc7bb187d5c134cac5bac452eb0517abaa036103",
+      "source_mode": 420,
+      "archive_mode": 420
+    },
+    {
+      "path": "different-metadata-review/bindings.json",
+      "bytes": 7619,
+      "sha256": "a3b6bea949dc426d507f3011f33b2947e3e8ea2599d621fb30731b9ea2ab0829",
+      "source_mode": 420,
+      "archive_mode": 420
+    },
+    {
+      "path": "different-metadata-review/reviewed.diff",
+      "bytes": 25271,
+      "sha256": "ff381882438aea2cc0ab3339235aad2665354dd5c9eec70eb5e1061b874cb64f",
+      "source_mode": 420,
+      "archive_mode": 420
+    },
+    {
+      "path": "different-review/REVIEW.md",
+      "bytes": 1420,
+      "sha256": "5ca65de7a92b8bb2cd355736dfbae94f3bdde200cdf5bd2886cdfd7e07466554",
+      "source_mode": 420,
+      "archive_mode": 420
+    },
+    {
+      "path": "different-review/checks.json",
+      "bytes": 3306,
+      "sha256": "7843e31d0286c18330e57f6a9a27ae4d7e34359829c72f4c31cb0384fe62ac59",
+      "source_mode": 420,
+      "archive_mode": 420
+    },
+    {
+      "path": "later-retained-wrappers/run-w06-record-tests-v2.py",
+      "bytes": 2078,
+      "sha256": "19e3f4c2501f9c895f6fd968c4828dd361548d0481a92ae3fbd28ea84215ab42",
+      "source_mode": 420,
+      "archive_mode": 420
+    },
+    {
+      "path": "later-retained-wrappers/run-w06-record-tests.py",
+      "bytes": 2074,
+      "sha256": "3ebbb40434003b94e8228a6287d92100ba915fad153b644c2edac487cbc45756",
+      "source_mode": 420,
+      "archive_mode": 420
+    },
+    {
+      "path": "record-tests-v2/pytest.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_mode": 420,
+      "archive_mode": 420
+    },
+    {
+      "path": "record-tests-v2/pytest.stdout",
+      "bytes": 432,
+      "sha256": "ec68f7ddc7312937fc6389729a53bb3aa920a7db0b503a9549cea8b496c22b73",
+      "source_mode": 420,
+      "archive_mode": 420
+    },
+    {
+      "path": "record-tests-v2/results.json",
+      "bytes": 856068,
+      "sha256": "9257d072f5aec52d6b38dff0464212ca20aacc70725265883bca2fbb01403bba",
+      "source_mode": 420,
+      "archive_mode": 420
+    },
+    {
+      "path": "record-tests/pytest.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_mode": 420,
+      "archive_mode": 420
+    },
+    {
+      "path": "record-tests/pytest.stdout",
+      "bytes": 107,
+      "sha256": "449a4265ffac4919d05f4fb297496e4ee87d6a61627b660ee42b9dde9b3011ac",
+      "source_mode": 420,
+      "archive_mode": 420
+    },
+    {
+      "path": "record-tests/results.json",
+      "bytes": 856084,
+      "sha256": "8bdfef177abb73f3ee96b8cdf50bd48e50e68e44455770f446178d2840251184",
+      "source_mode": 420,
+      "archive_mode": 420
+    }
+  ]
+}

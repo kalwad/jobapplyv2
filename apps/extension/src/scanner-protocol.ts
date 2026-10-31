@@ -1,3 +1,4 @@
+import { TOPOLOGY_WORK_KEYS } from "./open-dom.ts";
 import type {
   FormFieldAddressV1,
   FormFieldDescriptorV1,
@@ -61,6 +62,7 @@ export const SCANNER_WORK_KEYS = [
   "index_invalidations",
   "index_rebuild_duration_us",
   "semantic_match_checks",
+  ...TOPOLOGY_WORK_KEYS,
 ] as const;
 
 export type ScannerWorkMetrics = Readonly<

@@ -1,0 +1,58 @@
+{
+  "canonical_dependency_runtime_default_or_milestone_credit": false,
+  "common_facade": {
+    "default_disabled_gio_windows_native_executed": false,
+    "final_commands_closed_zero": 6,
+    "independent_joins": 26,
+    "native_credentials_called": false,
+    "new_fake_units": 13,
+    "preserve_delete_intent_mutant": {
+      "fail": 3,
+      "pass": 10
+    },
+    "remove_thread_affinity_mutant": {
+      "fail": 2,
+      "pass": 2
+    },
+    "review_manifest_sha256": "5c71cdd346657d63ec8817ef0d0ea6873b2a085bc248bf03ca2673fb663da994",
+    "source_sha256": "94d85435a7d0f22341b5d35edba6da51591d16a5bf9926e8ba3ab35fef3791d5",
+    "unchanged_backend_fake_units": [
+      21,
+      64,
+      51
+    ]
+  },
+  "created_utc": "2026-10-29T15:21:41.075385+00:00",
+  "m04_status": "NOT_STARTED",
+  "selected_packet_dependency_data_review": {
+    "joins": 6527,
+    "report_sha256": "6650ac073af06ea69ecf2ff14066ca48d6e4de028551dac7d6367b0bf9c4c25e"
+  },
+  "selected_sdk": {
+    "members": 137,
+    "proof_sha256": "7cb68d44b4b0a497b45486180766445ca7ce20bfc93d846a2137a7922c0940f4",
+    "scope": "Actual realSDK/noWindow/privatepath pipe uses only owned synthetic fixed arrays; no native protected key."
+  },
+  "selected_windows_authority": {
+    "fake_units_pass": 64,
+    "members": 13,
+    "native_windows_runtime": false,
+    "proof_sha256": "938fbeb0c946551ecc02ece5e9a583acc42ed832ec8000bf6b725f41a9ae25d1"
+  },
+  "ubuntu_secret_v2": {
+    "absence_effect_mutant": {
+      "fail": 3,
+      "pass": 48
+    },
+    "distinct_privacy_affinity_compile_fail_cases": 4,
+    "fake_units_pass": 51,
+    "independent_delta_joins": 28,
+    "native_gio_dbus_calls": false,
+    "source_sha256": "71514527f9588b9532da1a999beb2800668bd597f6875536713633c30173ab53",
+    "strict_commands_closed_zero": 5,
+    "unknown_prompt_guard_mutant": {
+      "fail": 10,
+      "pass": 41
+    }
+  }
+}

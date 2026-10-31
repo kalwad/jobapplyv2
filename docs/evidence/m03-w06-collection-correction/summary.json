@@ -1,0 +1,84 @@
+{
+  "correction": {
+    "affected_pytest_pass": 30,
+    "affected_pytest_seconds": 0.11,
+    "all19_test_names_args_decorators_and36_assertions_preserved": true,
+    "all_focused_exit0": true,
+    "canonical_collected": 1801,
+    "canonical_pytest_pass": 1801,
+    "canonical_pytest_seconds": 377.98,
+    "common_ids": 1799,
+    "focused_command_count": 6,
+    "owned_groups": "GONE; leaders reaped; no signals; outside descendants UNOBSERVED",
+    "posix_only_ids": 2,
+    "production_and_verifier_unchanged": true,
+    "python_and_integrity_seconds": 386.1147076669731,
+    "python_and_integrity_suites": "ACTIVE PASS",
+    "source1951_and_runtime40_unchanged": true,
+    "source_change": "One existing fixture file only; removes module-namespace monkeypatch, explicit test helper keyword preserves owned-file checks and synthetic mode behavior",
+    "static_red_exit": 1
+  },
+  "failed_full": {
+    "browser_batches": [
+      262,
+      2,
+      62,
+      3
+    ],
+    "doctor_exit": 0,
+    "doctor_pass": 28,
+    "head": "e0a501b4979d5e76bf68859fe8c514a17c3c5b7e",
+    "native_each_mode": [
+      232,
+      232,
+      232
+    ],
+    "owned_groups": "GONE; leaders reaped; no cleanup signals; outside descendants UNOBSERVED",
+    "python_collection_or_execution": false,
+    "reason": "existing test passed its current module to an unmodeled monkeypatch call; unchanged static collection policy refused",
+    "source_and_runtime_unchanged": true,
+    "source_files": 1951,
+    "suites_failed": [
+      "python",
+      "integrity"
+    ],
+    "suites_passed": 18,
+    "tree": "bbf94e791c7d5ad038dded4b0683f4cc57f57b83",
+    "typescript_unit_pass": 4006,
+    "verify_exit": 1,
+    "verify_seconds": 798.6005997079774
+  },
+  "history": "V1 wrong-head preflight refused before doctor/verify; v2 failed full and static RED retained; no prior failure relabeled. Original source-review helper-prefix observation error retained separately.",
+  "progress": {
+    "M03": "IN_PROGRESS",
+    "release": "NOT_READY",
+    "sole_in_progress": "M03-W06",
+    "total": 300,
+    "verified": 38
+  },
+  "remaining": [
+    "Fresh clean full20 after correction/integration",
+    "Native window/LaunchServices/Close/Quit/Ready UI",
+    "Current macOS positive packaged Engine experiment",
+    "Actual foreign packaging/platform acceptance",
+    "W06/M03 acceptance/release"
+  ],
+  "reviews": {
+    "failed_full": {
+      "checks": 47,
+      "sha256": "f11908130384d6614a12d34b1f45841f13fb14872148e07eb22aeb5c4a98f09c",
+      "verdict": "EVIDENCE_CONSISTENT_ACTUAL_FAILURE"
+    },
+    "fixture_source": {
+      "checks": 8,
+      "sha256": "1290b578f529a20e3b55c7be5c077d87909d86a433d944e07eb8128c126153fb",
+      "verdict": "CLEAR_SOURCE"
+    },
+    "focused_actual_data": {
+      "checks": 12,
+      "sha256": "d4fd1ffeb12f486e6e2ecc608e3631ce30c5cb7a656e0d388f49dcaaec872072",
+      "verdict": "CLEAR_DATA"
+    }
+  },
+  "scope": "W06 IN_PROGRESS correction; not full20 or package acceptance"
+}

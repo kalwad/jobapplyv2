@@ -1,0 +1,177 @@
+{
+  "archive_sha256": "ab26ba7132dcdbce367341c12dc62e1cb8e16e012b6e8cdf5393318e8eb8fb4b",
+  "archive_bytes": 715030,
+  "regular_members": 35,
+  "files": [
+    {
+      "path": "acquisition-build.log",
+      "bytes": 454,
+      "sha256": "22753f92129abacfa67568c09d0534a7e92c027694fcd4fc70a9d329bcc3b404"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/PUBLIC-GH-FINAL-02-before.json",
+      "bytes": 389052,
+      "sha256": "62488da4b1a990b539a72e0845138c3af73930e78074b266f2c331ca1e4f8f22"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/PUBLIC-STRUCTURE-15-before.json",
+      "bytes": 360852,
+      "sha256": "502eba0db3b5a75759dcd9e60af021f220d2e8696017011c15abf63cc91bdd4f"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/PUBLIC-STRUCTURE-17-before.json",
+      "bytes": 361266,
+      "sha256": "8eb0af93a6a85e62ebefa15a2de94cfce9bc4eff214a7df23d9ac03d5fd68adb"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/PUBLIC-STRUCTURE-19-before.json",
+      "bytes": 70500,
+      "sha256": "af99b770d18b488b836dbb4dec3dc17db48708f4874c3473c6da7db81c44b072"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/PUBLIC-STRUCTURE-20-before.json",
+      "bytes": 627374,
+      "sha256": "9203afe15fe6bec31ca9e86bef7ee2777a5f077aa0e0dafa715cdaebb69e92a7"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/PUBLIC-STRUCTURE-22-before.json",
+      "bytes": 167586,
+      "sha256": "2690572b674b6d4d1ea5ccd28a593de451ab42a63d6f6c115fbfe01edbeb853e"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/PUBLIC-STRUCTURE-24-before.json",
+      "bytes": 427637,
+      "sha256": "417bd0528f2b8fc92ec7d8a629488a06259192f247253a8a79287891ebdac5e3"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/PUBLIC-STRUCTURE-25-before.json",
+      "bytes": 421729,
+      "sha256": "46a22cb1f62fb0b80725761953dc4068d98bb21c6755f6c3e9455ff0e95acb99"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/PUBLIC-STRUCTURE-26-before.json",
+      "bytes": 162126,
+      "sha256": "85880e1a159d1399364c51389bf09baa214bb3454c0a2d357b054ad0cea60b8e"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/action-results.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/assessment.json",
+      "bytes": 9458,
+      "sha256": "50e7740661958f34a390eb6f488f3cca6018ed8c73529b3f68df4038ac90d639"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/campaign-binding.json",
+      "bytes": 852,
+      "sha256": "f39b121304400f1c185e614ca38300ab5d26c27fd5d672718f878b88fe054b83"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/end-binding.json",
+      "bytes": 547,
+      "sha256": "b0a635173a41b4a4d532c56fa6c796ed77fa47fc60cf0d84c4e803a16162a571"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/finalization.json",
+      "bytes": 664,
+      "sha256": "20040c8d33de0b014623513ba6b5835a67d13bbcb990bc96bca1589c4c98cd2a"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/page-results.jsonl",
+      "bytes": 1163912,
+      "sha256": "b4fcadf73ece707da6898136cc40447e590931b3b2805f39c74209c6bb833c6a"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/public-contact.json.gz",
+      "bytes": 129402,
+      "sha256": "411e92e8788d11b428559a38de66ce86a30720dbb2f5f8d5ee94b936cc4443ac"
+    },
+    {
+      "path": "campaign-after-acquisition-fix/rows.jsonl",
+      "bytes": 1163912,
+      "sha256": "b4fcadf73ece707da6898136cc40447e590931b3b2805f39c74209c6bb833c6a"
+    },
+    {
+      "path": "drain-label-controlled62.log",
+      "bytes": 127739,
+      "sha256": "b81be8de0adc10c70a63ad556dc22da407a45b1c8fe267941ba7f294b3ec574b"
+    },
+    {
+      "path": "drain-label-focused-artifacts/.last-run.json",
+      "bytes": 45,
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "drain-label-focused.log",
+      "bytes": 542,
+      "sha256": "52b6df9b503f01058f53d45b11a9eefe099c6eadda5f96a78b978f4c569fc79c"
+    },
+    {
+      "path": "drain-label-format.log",
+      "bytes": 164,
+      "sha256": "8ad450c4a0d2fc32041f7d45a1daa8c5b035066e8e3ba62e8b452dcb4c2a7539"
+    },
+    {
+      "path": "drain-label-legacy-runtime-unchanged.log",
+      "bytes": 97,
+      "sha256": "e916b0ea55357df2c755b39f2796c86f687d02b858081a472592ad5e187d14bd"
+    },
+    {
+      "path": "drain-label-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "drain-label-python-inventory.log",
+      "bytes": 179076,
+      "sha256": "bc75d142b23716e71c5c71ebf73be3137a2d6e453f3213200908644e96e6f4a6"
+    },
+    {
+      "path": "drain-label-registry-format.log",
+      "bytes": 38,
+      "sha256": "9d04e42622b2ff964f97221ca2233e2e1322fd654b2a38cb6f119f7a8710a0ee"
+    },
+    {
+      "path": "drain-label-ruff-format.log",
+      "bytes": 26,
+      "sha256": "3bc53bf3e981a98a34a852e175bf9b77af841edea74fca595d9aedcbaf9a4938"
+    },
+    {
+      "path": "drain-label-ruff.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "drain-label-types.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "drain-label-verifier-guards.log",
+      "bytes": 472,
+      "sha256": "fe437e2a9f4a99d175f774ddf8f6facb57a0ea1aa46dec1ab4e2e7efb3c5d52c"
+    },
+    {
+      "path": "greenhouse-label-channel-diagnostic.json",
+      "bytes": 3327,
+      "sha256": "9a909c1ae35cfdbab16b84028b337e101161bc895f4b924b0cd6be4b2e96cc44"
+    },
+    {
+      "path": "greenhouse-literal-drift-analysis.json",
+      "bytes": 3738,
+      "sha256": "2d303e4dc45b659b8cd8f04639b47b36992c9fd2cd8d45a42f8eea5b88075fb7"
+    },
+    {
+      "path": "readonly-drain-bounded20s.json",
+      "bytes": 866,
+      "sha256": "9ab461724499f68688bef6dde6e21ad9db9e72f21fd3e502f52af990e8726915"
+    },
+    {
+      "path": "run-after-acquisition-fix.log",
+      "bytes": 205,
+      "sha256": "8491d743df30413278b98d3c1a5b46530e0318b9134dec670f0f71612af99ac9"
+    }
+  ]
+}

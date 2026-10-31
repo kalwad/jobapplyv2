@@ -1,0 +1,109 @@
+{
+  "schema": "M03_W06_UNIT_TS_BOUNDED_PACKAGE_CONCURRENCY_LOCAL_ACTUAL_V1",
+  "scope": "INDEPENDENT_ACTUAL_UNIT_TS_DATA_REVIEW_NOT_FUTURE_CI_OR_MILESTONE_ACCEPTANCE",
+  "reference_head": "35b46287dc754a5987d653490ab49f978647ca26",
+  "evaluated_source": "DIRTY_2065_FILE_SIZE_HASH_MODE_SNAPSHOT_NOT_CLEAN_COMMIT",
+  "start_utc": "2026-10-28T23:47:04.887732+00:00",
+  "end_utc": "2026-10-28T23:48:34.184855+00:00",
+  "exact_outer_child_argv": [
+    "uv",
+    "run",
+    "--no-sync",
+    "--offline",
+    "python",
+    "scripts/verify.py",
+    "--suite",
+    "unit-ts"
+  ],
+  "exact_prepared_command": [
+    "pnpm",
+    "exec",
+    "turbo",
+    "run",
+    "test",
+    "--force",
+    "--concurrency=2",
+    "--",
+    "--reporter=default"
+  ],
+  "seconds": 88.91856595792342,
+  "source_files": 2065,
+  "runtime_files": 40,
+  "same_source_runtime_sizes_hashes_modes_status_endpoints": true,
+  "fresh_workspace_tasks": 15,
+  "cached_tasks": 0,
+  "ordinary_passed_tests": 4006,
+  "per_package_counts": {
+    "@japp/security": 1,
+    "@japp/evaluation-corpus": 218,
+    "@japp/test-fixtures": 166,
+    "@japp/domain": 1,
+    "@japp/evaluation-runner": 377,
+    "@japp/resume-schema": 1,
+    "@japp/form-engine": 106,
+    "@japp/evaluation-baselines": 171,
+    "@japp/ats-adapters": 65,
+    "@japp/desktop": 39,
+    "@japp/ui": 11,
+    "@japp/platform": 1,
+    "@japp/extension": 257,
+    "@japp/mock-ats-lab": 32,
+    "@japp/contracts": 2560
+  },
+  "same_prior_actual_package_counts": true,
+  "protected_TS_package_config_inputs_unchanged": 131,
+  "complete_Vitest_case_ID_channel": "NOT_RECORDED",
+  "focused_python": {
+    "retained_passed": 19,
+    "deselected": 296,
+    "seconds": 0.63,
+    "exact_argv_receipt": "NOT_RECORDED",
+    "source_neutrality_receipt": "NOT_RECORDED"
+  },
+  "full_python_collection": {
+    "actual_collected": 2120,
+    "common": 2118,
+    "posix_only": 2,
+    "all_prior_common_preserved": 2082,
+    "new_harness_IDs": 19,
+    "separate_generation_IDs": 17,
+    "execution": "COLLECTION_ONLY_NOT_FULL_TEST_PASS"
+  },
+  "owned_direct_children_reaped": 1,
+  "outer_groups_observed_absent": 1,
+  "timeouts": 0,
+  "outer_cleanup_signals": 0,
+  "hosted_context": {
+    "run_id": 40782097996,
+    "attempt": 1,
+    "run_head": "35b46287dc754a5987d653490ab49f978647ca26",
+    "run_head_tree": "f0789de7f5c82f6931eebe489110fcb771130724",
+    "macos_active_pass": 19,
+    "macos_active_fail": 1,
+    "windows_active_pass": 20,
+    "ubuntu_active_pass": 20,
+    "native_packages": "SKIPPED",
+    "new_hosted_run_after_correction": "NOT_RECORDED",
+    "product_or_contention_cause": "UNPROVEN"
+  },
+  "independent_review": {
+    "verdict": "CLEAR",
+    "checks_passed": 172,
+    "review_sha256": "a107d2b90e8663a7aa7fdefb968600a38f43612c919601b279167713a10954ec",
+    "audit_sha256": "91946f20ca6c8456bf6b6645646d7473d129c17ff1b6d4e1ea39a1b57ca5d62c"
+  },
+  "states": {
+    "M03-W06": "IN_PROGRESS",
+    "M03": "IN_PROGRESS",
+    "verified": 38,
+    "release": "NOT_READY"
+  },
+  "limits": [
+    "Only15task/per-package counts and unchanged test input bytes are proved; no complete Vitest per-case-ID reporter exists in this log.",
+    "No fresh hosted CI or definitive contention cause is inferred from local PASS.",
+    "This dirty2065source/40runtime cohort does not prove clean committed-source full-project validation.",
+    "Source/runtime/status/mode endpoints are retained; final HEAD/tree and global escaped descendants are not observed.",
+    "2120Python cases are actually collected, not all executed here; only19focused harness passes recorded.",
+    "No milestone, platform certification, storage/model qualification or whole-product acceptance."
+  ]
+}

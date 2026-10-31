@@ -1,0 +1,5 @@
+PACKAGE_LISTENER_CONTROL live_pid=11673 live_address=127.0.0.1:37657 previous_reuseaddr=0
+PACKAGE_LISTENER_CONTROL retired_pid=11673 retired_address=127.0.0.1:36029 peer=127.0.0.1:53448 previous_reuseaddr=0
+PACKAGE_LISTENER_ORACLE_CONTROL_PASS previous_reuseaddr=0 server_active_close=1 live_listener_rejected=1 retired_connection_refused=1 legacy_bind=AddrInUse gui_claim=0
+PACKAGE_OWNED_CLEANUP success=true elapsed_ms=272 policy_wait_bound_ms=6000
+PACKAGE_SERVICE_ACTOR_PASS actual_native_actors=1 health=1 ready=1 version=1 shutdown=1 authority_withdrawn=1 listener_released=1 gui_claim=0

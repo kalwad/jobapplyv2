@@ -1,0 +1,61 @@
+{
+  "source": "b4b5b96cf9014474ea71442581491e9f87f6a6c0",
+  "tree": "6a40b7905199c98655dc357a5170829e07e10c83",
+  "merge": "f4854e2f33757f9f367d18820d44911b44182061",
+  "run": 41139850970,
+  "attempt": 1,
+  "outcome": "SUCCESS",
+  "verification": {
+    "macos-15": {
+      "suites_active_pass": 20,
+      "python_passed": 2899,
+      "seconds": 917.05
+    },
+    "ubuntu-24.04": {
+      "suites_active_pass": 20,
+      "python_passed": 2899,
+      "seconds": 716.43
+    },
+    "windows-2025": {
+      "suites_active_pass": 20,
+      "python_passed": 2897,
+      "seconds": 1195.82,
+      "windows_only_test": "service::windows_native::tests::os_windows_directory_forms_the_service_environment ok"
+    }
+  },
+  "packages": {
+    "ubuntu-24.04": "PASS",
+    "windows-2025": "PASS"
+  },
+  "windows_steps_strict_success": [
+    "10-tauri-package",
+    "11-package-stage",
+    "12-package-inspect",
+    "12-pe-app",
+    "12-pe-service",
+    "13-package-actor-compile",
+    "14-package-actor-catalog",
+    "15-package-actor"
+  ],
+  "windows_package_actor": "PACKAGE_SERVICE_ACTOR_PASS actual_native_actors=1 health=1 ready=1 version=1 shutdown=1 authority_withdrawn=1 listener_released=1 gui_claim=0",
+  "windows_owned_cleanup_ms": 277,
+  "ubuntu_owned_cleanup_ms": 221,
+  "KI0142": "FIXED_ON_HOSTED_BUILD_HOST",
+  "artifacts": {
+    "windows": {
+      "id": 13020593172,
+      "sha256": "d205b30e3dd2e699f894ce95ae35f34639c0995e50eecb3b134883ddc24f2511"
+    },
+    "ubuntu": {
+      "id": 13021481393,
+      "sha256": "fef701299379435bfbed7c2eeb2bf545c5a6361196b26362d7e61bdce4d1a8b4"
+    },
+    "gnome_input": {
+      "id": 13021446265,
+      "sha256": "a4408aa4b1a5a82390f824ed3418c1fc9da9562a966c041751a8a10eab055579"
+    },
+    "expires": "2026-11-06"
+  },
+  "windows11_evidence": false,
+  "gnome_desktop_evidence": false
+}

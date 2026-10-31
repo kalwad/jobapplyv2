@@ -1,0 +1,112 @@
+{
+  "actual_current_hosted_PE_subsystem_failure_observed": false,
+  "canonical_focus": {
+    "closure": {
+      "all_five_commands_closed_zero": true,
+      "end_observed_utc": "2026-10-29T17:17:37.242411+00:00",
+      "runtime_files": 40,
+      "source_bytes_fullmodes_status_head_tree_equal": true,
+      "tracked_files": 2255
+    },
+    "commands": [
+      {
+        "argv": [
+          "cargo",
+          "fmt",
+          "--manifest-path",
+          "apps/desktop/src-tauri/Cargo.toml",
+          "--",
+          "--check"
+        ],
+        "exit_code": 0,
+        "group": "ABSENT",
+        "reaped": true,
+        "seconds": 0.31140416697598994,
+        "signals": [],
+        "timeout": false
+      },
+      {
+        "argv": [
+          "cargo",
+          "clippy",
+          "--locked",
+          "--manifest-path",
+          "apps/desktop/src-tauri/Cargo.toml",
+          "--all-targets",
+          "--all-features",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "exit_code": 0,
+        "group": "ABSENT",
+        "reaped": true,
+        "seconds": 0.7663411250105128,
+        "signals": [],
+        "timeout": false
+      },
+      {
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "--offline",
+          "python",
+          "scripts/verify.py",
+          "--suite",
+          "rust"
+        ],
+        "exit_code": 0,
+        "group": "ABSENT",
+        "reaped": true,
+        "seconds": 22.077607124927454,
+        "signals": [],
+        "timeout": false
+      },
+      {
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "--offline",
+          "python",
+          "scripts/check_portability.py",
+          "--quiet"
+        ],
+        "exit_code": 0,
+        "group": "ABSENT",
+        "reaped": true,
+        "seconds": 1.1014180419733748,
+        "signals": [],
+        "timeout": false
+      },
+      {
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "--offline",
+          "python",
+          "scripts/verify.py",
+          "--suite",
+          "integrity"
+        ],
+        "exit_code": 0,
+        "group": "ABSENT",
+        "reaped": true,
+        "seconds": 8.189735958003439,
+        "signals": [],
+        "timeout": false
+      }
+    ],
+    "rust_same_unique_cases_each_three_modes": 342
+  },
+  "corrected_actual_windows_PE_native_gui_or_acceptance_credit": false,
+  "created_utc": "2026-10-29T17:19:35.172840+00:00",
+  "quit_afterimage": "53ce147f3cf175371eefafdfc296363d8cf57f928f4609f35a527fb84a08b4f9",
+  "quit_source": "11c396773be1d2086b4a5002404a546ff50fb38c89e6af4be427bfc7cb45dbef",
+  "scope": "REVIEWED_NATIVE_QUIT_AND_WINDOWS_DEBUG_GUI_SOURCE_ADOPTED_AND_CANONICALLY_CHECKED_NOT_FOREIGN_GUI",
+  "windows_gui_afterimage": "85d95119a4ebcfeb4122020a8d33a0e62eb9e850721a53c64b0fd07e5807bce3",
+  "windows_gui_independent_manifest": "d0ded0b520693d1eec8298a2d10b58ebe0520a9def5cd30047dc8ab5139b7741",
+  "windows_gui_source": "7d03ceea68ba681982f97e73364d5a27fc1de0b0e2b0662b5cbe9a20a36dda68"
+}

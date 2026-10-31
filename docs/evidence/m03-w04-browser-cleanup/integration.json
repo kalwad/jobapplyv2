@@ -1,0 +1,32 @@
+{
+  "scope": "Current root integration of seven reviewed fixture/registry paths plus one test-local type annotation; no native Windows/full/KI0108 closure claim",
+  "base_commit": "5e2540b5c987b25dccd6a21973ad354c27c0a6eb",
+  "review_sha256": "465e8e227ae800217d0ee32a2769bd7d4bd4d275ae1cc495017b58685568eefd",
+  "actual_root_checks": {
+    "unit": "44 PASS",
+    "typecheck_before_annotation": "FAIL mypy[var-annotated]; TS15/roottsc passed",
+    "typecheck_after_annotation": "PASS entire suite including mypy48",
+    "changed_ts_eslint": "PASS",
+    "artifact_registry_before_annotation": "2 PASS2.27s",
+    "artifact_registry_after_annotation": "2 PASS2.85s"
+  },
+  "actual_local_browser": "Intentional failed fixture retains its sole intended body error/real Chromium trace and observed owned cleanup. Unchanged WD case passes once,retry0,reportedcase1132ms including fixtures. Five failure artifacts survive actual later sibling-output cleanups and list. No deeper Windows cause inferred.",
+  "source_delta_paths": [
+    "e2e/extension/support/extension-test.ts",
+    "apps/extension/test/m02-w15/inherited-fixture-cleanup.test.ts",
+    "apps/extension/test/m02-w15/owned-browser-retirement.test.ts",
+    "playwright.config.ts",
+    "scripts/verification-suites.json",
+    "scripts/tests/test_ci_workflow.py",
+    "scripts/tests/test_suite_states.py"
+  ],
+  "actual_root_postimages": {
+    "e2e/extension/support/extension-test.ts": "4a24b44f69f1c58da4cc5aaae3ca6c40783dfd0a57a6ac4b3c15fcab6f9fa105",
+    "apps/extension/test/m02-w15/inherited-fixture-cleanup.test.ts": "c225c837f0adf534e508d777d2c9ed59a67c6a5b1d31427592204b3ef03ab2d7",
+    "apps/extension/test/m02-w15/owned-browser-retirement.test.ts": "2fdbd86faf09bca666fd35a911c5619ad35b2afc2cefce4465c3740c0bc02dcb",
+    "playwright.config.ts": "6120295b44ad380b090a9954c0f32c412be0ebcf7f9dd4ac048286121fd72625",
+    "scripts/verification-suites.json": "d465e816dfdc77a37611d66221062f679c6c3cec4709bb26a6d3d9647f310525",
+    "scripts/tests/test_ci_workflow.py": "bc7d7257335feec7d33d386c6667330a3b811ca365b089c1086fe92b1ae86678",
+    "scripts/tests/test_suite_states.py": "9522eadad045409e9ec91dd25544f0f48cc79051b534d3d0b4b0533d4f0104cd"
+  }
+}

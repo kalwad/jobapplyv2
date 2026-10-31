@@ -1,0 +1,97 @@
+[WebServer] (node:62294) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:62309) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+✔ Built extension in 378 ms
+  ├─ dist/chrome-mv3/manifest.json                   532 B    
+  ├─ dist/chrome-mv3/background.js                   40.24 kB 
+  └─ dist/chrome-mv3/content-scripts/feasibility.js  110.15 kB
+Σ Total size: 150.92 kB                            
+✔ Finished in 481 ms
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+✔ Built extension in 321 ms
+  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+  └─ dist/invalid-ack/chrome-mv3/content-scripts/feasibility.js  110.15 kB
+Σ Total size: 111.67 kB                                        
+✔ Finished in 421 ms
+
+Running 2 tests using 1 worker
+
+(node:62317) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › e2e/extension/extension-w14-shadow-gap.spec.ts:19:1 › W14 W06 MAL-SHD-001: open-shadow other-party required field is reported and never filled (660ms)
+(node:62335) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [chromium] › e2e/extension/extension-w14-w06.spec.ts:116:1 › W14 W06: account for all 32 original cases with mounted real-MV3 contact execution (444ms)
+
+
+  1) [chromium] › e2e/extension/extension-w14-shadow-gap.spec.ts:19:1 › W14 W06 MAL-SHD-001: open-shadow other-party required field is reported and never filled 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "FOUND"
+    Received: "UNRESOLVED"
+
+      72 |     expect(actual.required).toBe(true);
+      73 |     expect(actual.value).toBe("");
+    > 74 |     expect(top?.root_status).toBe("FOUND");
+         |                              ^
+      75 |     expect(descriptor).toBeDefined();
+      76 |     expect(descriptor?.required).toBe(true);
+      77 |     expect(decision?.status).toBe("RESOLVED");
+        at /private/tmp/japp-w14-w06-run.xk0qj6t5/e2e/extension/extension-w14-shadow-gap.spec.ts:74:30
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/extension-extension-w14-sh-62c4c-s-reported-and-never-filled-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/extension-extension-w14-sh-62c4c-s-reported-and-never-filled-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/extension-extension-w14-sh-62c4c-s-reported-and-never-filled-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/extension-extension-w14-sh-62c4c-s-reported-and-never-filled-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › e2e/extension/extension-w14-w06.spec.ts:116:1 › W14 W06: account for all 32 original cases with mounted real-MV3 contact execution 
+
+    Error: EISDIR: illegal operation on a directory, read
+
+      47 |   const paths = execFileSync("git", ["ls-files", "-co", "--exclude-standard", "-z"], { encoding: "utf8" })
+      48 |     .split("\0").filter((path) => path !== "" && !path.startsWith("docs/evidence/"));
+    > 49 |   const files = [...new Set(paths)].sort().map((path) => ({ path, digest: sha256Bytes(readFileSync(path)) }));
+         |                                                                                       ^
+      50 |   return { files, digest: sha256Canonical(files), commit: execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(), source_state: "INVENTORY_SCOPED_NO_FROZEN_TREE_CLAIM" };
+      51 | }
+      52 | function builtFiles(directory: string, prefix = ""): { path: string; digest: string }[] {
+        at map (/private/tmp/japp-w14-w06-run.xk0qj6t5/e2e/extension/extension-w14-w06.spec.ts:49:87)
+        at sourceSnapshot (/private/tmp/japp-w14-w06-run.xk0qj6t5/e2e/extension/extension-w14-w06.spec.ts:49:44)
+        at /private/tmp/japp-w14-w06-run.xk0qj6t5/e2e/extension/extension-w14-w06.spec.ts:123:18
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/extension-extension-w14-w0-24e31--real-MV3-contact-execution-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/extension-extension-w14-w0-24e31--real-MV3-contact-execution-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/extension-extension-w14-w0-24e31--real-MV3-contact-execution-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/extension-extension-w14-w0-24e31--real-MV3-contact-execution-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › e2e/extension/extension-w14-shadow-gap.spec.ts:19:1 › W14 W06 MAL-SHD-001: open-shadow other-party required field is reported and never filled 
+    [chromium] › e2e/extension/extension-w14-w06.spec.ts:116:1 › W14 W06: account for all 32 original cases with mounted real-MV3 contact execution 

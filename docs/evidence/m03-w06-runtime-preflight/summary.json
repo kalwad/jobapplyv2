@@ -1,0 +1,70 @@
+{
+  "schema": "M03_W06_RUNTIME_PREFLIGHT_NATIVE14_PHASES_V1",
+  "scope": "HISTORICAL_LOCAL_NATIVE_SOURCE_BOUND_VALIDATION_NOT_WHOLECURRENT_ACCEPTANCE",
+  "reference_head": "35b46287dc754a5987d653490ab49f978647ca26",
+  "reference_tree": "f0789de7f5c82f6931eebe489110fcb771130724",
+  "dirty_status": " M apps/desktop/README.md\n M apps/desktop/src-tauri/src/service/platform.rs\n M apps/desktop/src-tauri/src/service/runtime_integrity.rs\n M apps/desktop/test/renderer/main.tsx\n M apps/desktop/vite.renderer.config.ts\n?? apps/desktop/test/renderer/catalog-main.tsx\n?? apps/desktop/test/renderer/catalog.html\n?? apps/desktop/test/renderer/catalog.ts\n?? e2e/desktop/state-catalog.spec.ts\n?? e2e/visual/desktop-catalog.spec.ts\n?? e2e/visual/support/desktop-capture.ts\n",
+  "source_files": 2004,
+  "runtime_files": 40,
+  "same_source_runtime_byte_kind_endpoints": true,
+  "permission_modes": "NOT_RECORDED_BY_NATIVE_ACTOR",
+  "same_head_tree_status_endpoints": true,
+  "phases": 14,
+  "successful_phases": 14,
+  "unexecuted": [],
+  "new_selectors": [
+    "service::platform::tests::prechecked_runtime_replaced_with_fifo_is_rejected_before_read",
+    "service::runtime_integrity::tests::prechecked_payload_replaced_with_fifo_is_rejected_before_read",
+    "service::platform::tests::prechecked_runtime_replaced_with_symlink_is_rejected_before_read",
+    "service::platform::tests::valid_regular_runtime_is_still_accepted_with_nonblocking_open"
+  ],
+  "focus_each": {
+    "passed": 1,
+    "filtered": 237,
+    "outer_timeout_seconds": 5
+  },
+  "native_per_feature_mode": 238,
+  "actual_three_mode_name_sets_equal_catalog": true,
+  "strict_clippy_modes": 3,
+  "rustfmt_check": "PASS",
+  "final_customprotocol_build": "PASS",
+  "owned_direct_children_reaped": 14,
+  "observed_groups_gone": 14,
+  "outer_cleanup_signals": 0,
+  "independent_data_checks_passed": 101,
+  "source_review": "Separate pre-execution REVIEW.md retained unchanged",
+  "plan_sha256": "ffd976bef3f4dedc9988287c6bf9f2bb011775e014e30733ff7cba1518fe785b",
+  "wrapper_sha256": "0586ffea59a7fc15f27f56cf4da0ab1bafa6bb509c9584c11dafe506dbe5ddfe",
+  "actual_executed_source": [
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform.rs",
+      "sha256": "a3e2b194250cdab49257916f2c82cc63dd9954b6d07875c740fb341b5ea31c7c",
+      "bytes": 28806,
+      "retained": "independent-review/executed-source/apps/desktop/src-tauri/src/service/platform.rs"
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/runtime_integrity.rs",
+      "sha256": "6596e63f9e29d4a6d30423ba5205f926a9b1f4161ab5298a7e46785e92464718",
+      "bytes": 22546,
+      "retained": "independent-review/executed-source/apps/desktop/src-tauri/src/service/runtime_integrity.rs"
+    }
+  ],
+  "later_w11_source_delta": [
+    "e2e/visual/desktop-catalog.spec.ts"
+  ],
+  "states": {
+    "M03-W06": "IN_PROGRESS",
+    "M03-W11": "NOT_STARTED",
+    "M03": "IN_PROGRESS",
+    "verified": 38,
+    "release": "NOT_READY"
+  },
+  "limits": [
+    "Snapshot equality is path/kind/bytes/hash only; full permission modes were not recorded.",
+    "Reference35b is dirty with FIFO and W11 harness changes; this is not clean35b validation.",
+    "Later TS option correction and subsequent documentary/source changes do not inherit whole-tree native PASS.",
+    "Four focused successes and three full modes are local macOS observations, not Windows/Ubuntu, GUI/package or certification evidence.",
+    "Direct children/groups are observed; unobserved escaped descendants are not globally inventoried.",
+    "Inherited development environment with explicit PATH/locale/TMPDIR is not a hermetic environment."
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "scope": "Compact actual terminal CI failure/source/member evidence; original723MB collector/ZIPs explicitly external.",
+  "members": {
+    "different/REVIEW.md": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d-independent-review/v1/REVIEW.md",
+      "bytes": 4468,
+      "sha256": "f71b7cef081e5be49c9a4d93825217cbae15cedefc591cde4747766f7b572b06",
+      "full_mode": 33188
+    },
+    "different/data-review.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d-independent-review/v1/data-review.json",
+      "bytes": 1825901,
+      "sha256": "fbc34be314647da020e3d8e4fa8b9e69547b01ca0e7360a6fd3409949490fd7f",
+      "full_mode": 33188
+    },
+    "different/package-review.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d-independent-review/v1/package-review.json",
+      "bytes": 760310,
+      "sha256": "c5426ae3b648868aeaed7210679c71a1d3ebbea80e441f8a64cf1e53c2c55a32",
+      "full_mode": 33188
+    },
+    "different/retention.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d-independent-review/v1/retention.json",
+      "bytes": 214050,
+      "sha256": "3dc7d78f0db71cacebd953057ed4bc54963bc4183eabd0118567108028850fad",
+      "full_mode": 33188
+    },
+    "different/source-findings.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d-independent-review/v1/source-findings.json",
+      "bytes": 839,
+      "sha256": "66841ae6958bbf17e6b950609685d82fd1f37269df3c2f10f42603859e78bb1c",
+      "full_mode": 33188
+    },
+    "different/manifest.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d-independent-review/v1/manifest.json",
+      "bytes": 90354,
+      "sha256": "e803ca94424600fe2d2bbac0c842ce8e80a0ed64dd441c522da549f2e9b11dd7",
+      "full_mode": 33188
+    },
+    "different/proof.tar.gz": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d-independent-review/v1/proof.tar.gz",
+      "bytes": 2619109,
+      "sha256": "11b569540182fa22b43b6e1b5c99e4914ee727c4b1d50922d070112f173b41b9",
+      "full_mode": 33188
+    },
+    "different/SEAL.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d-independent-review/v1/SEAL.json",
+      "bytes": 1570,
+      "sha256": "592dcbebff77a44bbc61792142694b81e696c9fb4abc7056fb52f1e150cc442e",
+      "full_mode": 33188
+    },
+    "actual/collector-closure.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d/collector-closure.json",
+      "bytes": 4146,
+      "sha256": "db810fdb7ed260a6de84687095a546b42f9425fcc18820c6bc46e60ad031ab6b",
+      "full_mode": 33188
+    },
+    "actual/terminal-outcomes.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d/terminal-outcomes.json",
+      "bytes": 12941,
+      "sha256": "489eb58815df6fa94fca15266af0d5cbaff957ed1c7e92ede4784c6664b07e03",
+      "full_mode": 33188
+    },
+    "actual/checkout-source-bindings.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d/checkout-source-bindings.json",
+      "bytes": 2877,
+      "sha256": "5c9189f2f14edb8b91b3973a5ed610a21e527271c2dd0f7ad3bed47016037a78",
+      "full_mode": 33188
+    },
+    "actual/collector-config.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d/collector-config.json",
+      "bytes": 3008,
+      "sha256": "0e2caf07676ccc4dd4d161562784f3afe27ba079627f51bdd7e639ed5007ebf0",
+      "full_mode": 33188
+    },
+    "actual/api-receipts.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d/api-receipts.json",
+      "bytes": 99582,
+      "sha256": "dbf196d8e463beffac3c35b373c94e0d1c2ff7b583d35cf53269beecc16a10cc",
+      "full_mode": 33188
+    },
+    "artifacts/12946898488/metadata.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d/artifacts/12946898488/metadata.json",
+      "bytes": 850,
+      "sha256": "68a298a32816037fb2fa61507854c589ba0d0aa011966ac8907e3de3d00b7c9d",
+      "full_mode": 33188
+    },
+    "artifacts/12947403073/metadata.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d/artifacts/12947403073/metadata.json",
+      "bytes": 851,
+      "sha256": "251a7b5bca448b689a91ef70d0208a8cb44fd407b2fef65656b5cc8da9b02937",
+      "full_mode": 33188
+    },
+    "wheel-source/SOURCE.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-project-wheel-alignment-preparation/v1/SOURCE.json",
+      "bytes": 35914,
+      "sha256": "76103d8f810b94d576d1559bdaaeff2d596fbd2ebda000249ef1f85de1629f04",
+      "full_mode": 33188
+    },
+    "wheel-source/ADOPTION.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-project-wheel-alignment-preparation/v1/ADOPTION.json",
+      "bytes": 2286,
+      "sha256": "7be1ff8b2ee79b593b78b4f645e4e92bec8b07846330f17045b9bbdb2a75a715",
+      "full_mode": 33188
+    },
+    "wheel-source/HANDOFF.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-project-wheel-alignment-preparation/v1/HANDOFF.json",
+      "bytes": 14861,
+      "sha256": "587b62ae7c8978ece1024ce045c4ea14122346206a502e41ae811f507c7b3ac9",
+      "full_mode": 33188
+    },
+    "wheel-source/MANIFEST.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-project-wheel-alignment-preparation/v1/MANIFEST.json",
+      "bytes": 130330,
+      "sha256": "c1e47c4fe98025903b33a853a86c5fec1f6111891552f142cb144003175c4980",
+      "full_mode": 33188
+    },
+    "wheel-source/WHEEL-RECORD-AUDIT.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-project-wheel-alignment-preparation/v1/WHEEL-RECORD-AUDIT.json",
+      "bytes": 31441,
+      "sha256": "020c70e3f99b31f4fd5abe0a6521c2ed89963a98dd58929a8baec81f7f8043c5",
+      "full_mode": 33188
+    },
+    "wheel-source/proof.tar.gz": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-project-wheel-alignment-preparation/v1/proof.tar.gz",
+      "bytes": 2148561,
+      "sha256": "d5485169278f7c68d166012c50a956beed6b22b286214ea9f778a166f8437c23",
+      "full_mode": 33188
+    },
+    "wheel-peer/REVIEW.md": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-project-wheel-alignment-independent-review/v1/REVIEW.md",
+      "bytes": 4141,
+      "sha256": "34e9b0f4551e0509d8bcd1bebdc0c664bc775ecef6dcc8af741ab0a0e5c03ccf",
+      "full_mode": 33188
+    },
+    "wheel-peer/DATA.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-project-wheel-alignment-independent-review/v1/DATA.json",
+      "bytes": 379001,
+      "sha256": "ce7ffdf9672c8db322cc2c2ce0fcf6853c57643ffbe487c8dd55db09809b3b6b",
+      "full_mode": 33188
+    },
+    "wheel-peer/MANIFEST.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-project-wheel-alignment-independent-review/v1/MANIFEST.json",
+      "bytes": 71437,
+      "sha256": "a24901cda2e92326a68bdba0be359138c981e6d114195f93c02c97d4199c4d94",
+      "full_mode": 33188
+    },
+    "wheel-peer/proof.tar.gz": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-project-wheel-alignment-independent-review/v1/proof.tar.gz",
+      "bytes": 1195294,
+      "sha256": "8488d34721ea18c4ec8f76fbf83695af255fe08795a82682e63e36991ab8af06",
+      "full_mode": 33188
+    }
+  },
+  "safe_regular_members": 25,
+  "original_parent_absolute_paths": [
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d-independent-review/v1",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d/artifacts/12946898488",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-cf9b60d/artifacts/12947403073",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-project-wheel-alignment-independent-review/v1",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-project-wheel-alignment-preparation/v1"
+  ],
+  "omissions": "Large original Git/toolchain/runtime/payload binaries, CI ZIPs, expanded tool images and temporary caches remain locally retained at source-pinned parent paths; this compact archive does not claim all-binary self-containment. Nested sealed parent proofs retain full own reader/error/control histories in their stated scopes."
+}

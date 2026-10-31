@@ -1,0 +1,27 @@
+{
+  "artifact_type": "COMPACT_SOURCE_BOUND_CLOSED_ACTUAL_EVIDENCE",
+  "work_package": "M03-W07",
+  "files": {
+    "README.md": {
+      "bytes": 2789,
+      "sha256": "a8305b9ba365e01d57e6cc4b72a4c3d2d1c9a68cf1bab9633c20bf2df540e8ef",
+      "full_mode": 33188
+    },
+    "proof.tar.gz": {
+      "bytes": 6190528,
+      "sha256": "47893dff93e30a0bf3c68db36a5bc5f79ede1085c190ad79a5585891eff27bcd",
+      "full_mode": 33188
+    },
+    "retention-manifest.json": {
+      "bytes": 8616,
+      "sha256": "2495fae202b01f5f260e3bb0ea4b02ba3389af3e460830906e3ad8599f8fe62b",
+      "full_mode": 33188
+    },
+    "summary.json": {
+      "bytes": 1534,
+      "sha256": "f103ed4efcad3322cecf902a0903b0940e204e5548c663b9cd0f983b620a2726",
+      "full_mode": 33188
+    }
+  },
+  "scope": "Compact actual terminal CI failure/source/member evidence; original723MB collector/ZIPs explicitly external."
+}

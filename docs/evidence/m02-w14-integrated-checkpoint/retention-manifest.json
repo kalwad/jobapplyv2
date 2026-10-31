@@ -1,0 +1,234 @@
+{
+  "format": "W14_EXACT_RAW_ARCHIVE_1",
+  "archive_sha256": "dcc0bb606d6254d5b3ec25886ffff4be809253090483bc503d3c06e47aa6dc61",
+  "archive_bytes": 6574014,
+  "regular_members": 46,
+  "raw_log_encoding": "Exact original bytes retained inside archive; no display-normalization claim.",
+  "files": [
+    {
+      "path": "aggregate.log",
+      "bytes": 576230,
+      "sha256": "f984c6925bfd3c3e536a9796cf0d93855075707961dbe1f385ff23cfd323320c"
+    },
+    {
+      "path": "ci-a744-macos.log",
+      "bytes": 991633,
+      "sha256": "d2b6a9a4f0b1a3dfde3f3779741ec88ea1b572712555640d804609538e8a7fb3"
+    },
+    {
+      "path": "ci-a744-summary.json",
+      "bytes": 1449,
+      "sha256": "be53a76061ea470e8605081a5ad0ac3f5c47a1275e64510eea302f8c8d8c80ce"
+    },
+    {
+      "path": "ci-a744-ubuntu-summary.json",
+      "bytes": 1161,
+      "sha256": "897e2c274d79efa7955dc930882fa1a100e922fbb498dffa385b0a38bcd14a02"
+    },
+    {
+      "path": "ci-a744-ubuntu.log",
+      "bytes": 1008307,
+      "sha256": "8952169eb0b0b9de5e171cb60469f5c62940acd3b52baf094e3a3a3e6646bbac"
+    },
+    {
+      "path": "ci-a744-windows-summary.json",
+      "bytes": 1080,
+      "sha256": "66efdb67d1707870d658f70fa883554888c553cbfa5fd52e525c07253f1fae9d"
+    },
+    {
+      "path": "ci-a744-windows.log",
+      "bytes": 1005019,
+      "sha256": "3c867116a87be894fe9909ad6dc20fccf5a5403c01237df5b111528540988e84"
+    },
+    {
+      "path": "doctor-fixture-after.log",
+      "bytes": 472,
+      "sha256": "272d503400ad761452496ab2d09b88e844718fc4c95b6bc233315c0fff051b19"
+    },
+    {
+      "path": "doctor-fixture-format.log",
+      "bytes": 25,
+      "sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50"
+    },
+    {
+      "path": "doctor-fixture-ruff.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "hash-diagnostic.tar.gz",
+      "bytes": 417577,
+      "sha256": "59f4b89a244d7b8087cb4a725dd262572c608c468adff702ed3f327a52002177"
+    },
+    {
+      "path": "native128-target20.log",
+      "bytes": 44106,
+      "sha256": "68ca6fa15df6330ae4e1c9fa2f4f7e3ad0b3bc2335b993f3db6ad123c2cf1a68"
+    },
+    {
+      "path": "retained-failures/extension-extension-w14-sh-0f5a9--open-shadow-late-duplicate-chromium/error-context.md",
+      "bytes": 8806,
+      "sha256": "fd6717c5e63e707aa64b7ad521b372742b0916515a5a972a116b9bb3a0fffe33"
+    },
+    {
+      "path": "retained-failures/extension-extension-w14-sh-0f5a9--open-shadow-late-duplicate-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "retained-failures/extension-extension-w14-sh-0f5a9--open-shadow-late-duplicate-chromium/trace.zip",
+      "bytes": 183915,
+      "sha256": "d7b3e6289563e0043a35e8fde67be5b7d0eb88e17cbb72ad73a8076b62daad5e"
+    },
+    {
+      "path": "retained-failures/extension-extension-w14-sh-4cd15-ed-subtree-refuse-readiness-chromium/error-context.md",
+      "bytes": 9151,
+      "sha256": "f7ee2a38a3b668ff79724a3b39455ec714330d3eb7579006c4923541406cdc94"
+    },
+    {
+      "path": "retained-failures/extension-extension-w14-sh-4cd15-ed-subtree-refuse-readiness-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "retained-failures/extension-extension-w14-sh-4cd15-ed-subtree-refuse-readiness-chromium/trace.zip",
+      "bytes": 173318,
+      "sha256": "8bf1521932e7f71760a5c4e8773b6dc5284dbf8615cd120c1938945238d6cc78"
+    },
+    {
+      "path": "retained-failures/extension-extension-w14-sh-8f02d-open-shadow-focus-duplicate-chromium/error-context.md",
+      "bytes": 8807,
+      "sha256": "e2941c0cde80680c9f0a8b8a06ff5439e6afcd3c99265955a16fb6f3fe5998d3"
+    },
+    {
+      "path": "retained-failures/extension-extension-w14-sh-8f02d-open-shadow-focus-duplicate-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "retained-failures/extension-extension-w14-sh-8f02d-open-shadow-focus-duplicate-chromium/trace.zip",
+      "bytes": 196250,
+      "sha256": "4f4174d75b9cac694eb9f25533d2aca929fac1dbfbc3b28a694a2816d90c4c2a"
+    },
+    {
+      "path": "retained-failures/extension-extension-w14-sh-c4316-dow-during-action-duplicate-chromium/error-context.md",
+      "bytes": 8815,
+      "sha256": "ef2174d6878dc6a1a4cbf420094277519c407a5163fe381f50f262df918d86cc"
+    },
+    {
+      "path": "retained-failures/extension-extension-w14-sh-c4316-dow-during-action-duplicate-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "retained-failures/extension-extension-w14-sh-c4316-dow-during-action-duplicate-chromium/trace.zip",
+      "bytes": 173135,
+      "sha256": "15c7a248aa31e07d778af56834bfa95b63b6bb5cbb38e55e17ff3e77ba3f2bd9"
+    },
+    {
+      "path": "retained-failures/extension-extension-w14-shadow-W14-open-shadow-duplicate-chromium/error-context.md",
+      "bytes": 8801,
+      "sha256": "6aa683325757699a239677d5710dc71de9f4a7eb073c1e259b1f41d76cfb8de3"
+    },
+    {
+      "path": "retained-failures/extension-extension-w14-shadow-W14-open-shadow-duplicate-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "retained-failures/extension-extension-w14-shadow-W14-open-shadow-duplicate-chromium/trace.zip",
+      "bytes": 166146,
+      "sha256": "2c895fe21d8f8e9b2466602e719b501b04a1a968b39f935a5ac323f5e64b675e"
+    },
+    {
+      "path": "shadow-after-artifacts/.last-run.json",
+      "bytes": 45,
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "shadow-after-report.json",
+      "bytes": 62726,
+      "sha256": "a0e408daa06f2acfea624123b1c295408767730c464a171d87d760fb15b22909"
+    },
+    {
+      "path": "shadow-after.log",
+      "bytes": 6919,
+      "sha256": "8b88ff41c2e889a1a29bd7bfe64df32e49f56456dd5e505ddb175e3362f5e255"
+    },
+    {
+      "path": "shadow-assertion-format-fix.log",
+      "bytes": 48,
+      "sha256": "8641a6537319eb1aa6526c56aa5382f68e670cd9317949df1b6d4cc23b4abee0"
+    },
+    {
+      "path": "shadow-assertion-format.log",
+      "bytes": 157,
+      "sha256": "dc7d007197d0effabf43621c3943ec8e8545a6e15c4ce81e3a351addb4fd7605"
+    },
+    {
+      "path": "shadow-assertion-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "shadow-assertion-types.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "shadow-final-format.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "status-fixtures.log",
+      "bytes": 391,
+      "sha256": "568e5fb1775579a9b52d21f4ea22fbeaef636b0cb3fa1973739ef83ea49729e9"
+    },
+    {
+      "path": "w14/assessment.json",
+      "bytes": 54498,
+      "sha256": "8a5ccda92a9dc76fb9471f37e9e613008027a73fb4d591d6309cf4b2daffc9e1"
+    },
+    {
+      "path": "w14/canonical-autofill-run-manifest.json",
+      "bytes": 2528,
+      "sha256": "aafa7d9a390e5032a1215475454bbb5fc681ecc2c7b29ae2de5f669ffaa018be"
+    },
+    {
+      "path": "w14/canonical-execution.json",
+      "bytes": 2900890,
+      "sha256": "434e949f9ca0374b2b1b3275d8170f784fabde3c9d543f9d83e8d2022f8eb279"
+    },
+    {
+      "path": "w14/canonical-report-manifest.json",
+      "bytes": 624,
+      "sha256": "b2b11568e03a44ac31e6c42a8e4f3342b71ab7532046af3b82b6ce858604d0ec"
+    },
+    {
+      "path": "w14/canonical-report.html",
+      "bytes": 297600,
+      "sha256": "b246d2a8732365cf0cbd2a806c910b2a18ac7ae2c016809b68fe38c8ded73e85"
+    },
+    {
+      "path": "w14/canonical-report.json",
+      "bytes": 1997593,
+      "sha256": "b704735e28cbf2bd8d941e08962431673aeab26159e62755a6935c094da6d87a"
+    },
+    {
+      "path": "w14/canonical-report.md",
+      "bytes": 181702,
+      "sha256": "c9ab032ed420843b0ac4d1fbd368e7fb9833f471039186414c439b03f9e2edfe"
+    },
+    {
+      "path": "w14/development-run.json.gz",
+      "bytes": 4176444,
+      "sha256": "9201fefa7572bb8bbc8fde35d3561403ac00fc9f4f901904f3642ade8a772ee6"
+    },
+    {
+      "path": "w14/workday-en-us-contact.png",
+      "bytes": 108547,
+      "sha256": "8cbae9fe1ecf8469db1f01ec2a94992f0dd116b0dbd3b1ae841e34c2ea0c730b"
+    }
+  ]
+}

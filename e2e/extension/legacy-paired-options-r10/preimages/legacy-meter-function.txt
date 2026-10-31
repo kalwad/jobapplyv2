@@ -1,0 +1,29 @@
+delay => {
+    window.legacyPhysicalMeter = {events: [], navigation: [], submissions: 0, rerenders:0};
+    const capture = event => {
+      const node = event.target;
+      if (!(node instanceof HTMLInputElement || node instanceof HTMLSelectElement || node instanceof HTMLTextAreaElement)) return;
+      if ((node instanceof HTMLSelectElement && event.type !== 'change') || (!(node instanceof HTMLSelectElement) && event.type !== 'input')) return;
+      if (!node.closest('[data-japp-application-root]')) return;
+      window.legacyPhysicalMeter.events.push({key: node.id, type: event.type, value: node.type === 'checkbox' || node.type === 'radio' ? (node.checked ? node.value : '') : node.value, at_ms: performance.now()});
+      if (delay > 0) {
+        const value = node.value;
+        setTimeout(() => {
+          if (!node.isConnected) return;
+          const replacement = node.cloneNode(true);
+          replacement.value = value;
+          node.replaceWith(replacement);
+          window.legacyPhysicalMeter.rerenders++;
+        }, delay);
+      }
+    };
+    document.addEventListener('input', capture, true);
+    document.addEventListener('change', capture, true);
+    document.addEventListener('click', event => {
+      if (event.target instanceof Element && event.target.closest('[data-japp-application-root] button,[data-japp-application-root] a')) {
+        window.legacyPhysicalMeter.navigation.push(event.target.closest('button,a')?.id ?? '');
+        event.preventDefault();
+      }
+    }, true);
+    document.addEventListener('submit', event => { window.legacyPhysicalMeter.submissions++; event.preventDefault(); }, true);
+  }

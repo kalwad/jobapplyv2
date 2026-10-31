@@ -1,0 +1,113 @@
+{
+  "actual_result": "FAILURE",
+  "browser_pass": [
+    278,
+    2,
+    62,
+    17
+  ],
+  "closure": {
+    "all_commands_exit_zero": false,
+    "commit_and_tree_equal_at_end_observation": true,
+    "end_utc": "2026-10-29T18:22:24.168311+00:00",
+    "git_status_after": "",
+    "git_status_before": "",
+    "runtime_bytes_modes_unchanged": true,
+    "runtime_count": 40,
+    "source_bytes_modes_unchanged": true,
+    "source_count": 2294
+  },
+  "commands": [
+    {
+      "argv": [
+        "pnpm",
+        "run",
+        "doctor"
+      ],
+      "direct_child_reaped": true,
+      "exit_code": 0,
+      "name": "doctor",
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": [],
+      "seconds": 6.593782125040889,
+      "timeout": false
+    },
+    {
+      "argv": [
+        "pnpm",
+        "verify"
+      ],
+      "direct_child_reaped": true,
+      "exit_code": 1,
+      "name": "verify",
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": [],
+      "seconds": 1211.3647386670345,
+      "timeout": false
+    }
+  ],
+  "context": {
+    "commit": "bd4cffd7f61f99f77520e7dc522f852488cdd9d3",
+    "start_utc": "2026-10-29T18:02:05.919137+00:00",
+    "tree": "75d79ae7fc14e9a02c1f326e5376b16d74a7736e"
+  },
+  "created_utc": "2026-10-29T18:25:58.136150+00:00",
+  "different_review": {
+    "data_joins": 7226,
+    "manifest_sha256": "03efeeaa83fb9c7f97845b70cf3d3aa5277510b9930a349e575e4dcea38dc3dc",
+    "report_sha256": "c342e00247937a30ac7c843454cbdafb213c0ee9f97dd73a1d280b1ba0b07086",
+    "verdict": "CLEAR_AS_RECORDED_FAILURE"
+  },
+  "doctor_pass": 28,
+  "later_fix_native_milestone_or_release_credit": false,
+  "native": {
+    "same_unique_ids_each_three_modes": 342,
+    "separate_contract": 10,
+    "separate_unit": 1
+  },
+  "python": {
+    "collected": 2624,
+    "failed": 1,
+    "failed_id": "scripts/tests/test_windows11_isolation.py::test_exact_windows11_island_and_inactive_workflows",
+    "passed": 2623,
+    "reason": "Strict source-island bytecode validator rejects origin cache relocated by test fixture.",
+    "seconds": 414.65
+  },
+  "suite_results": {
+    "build": "PASS",
+    "contract": "PASS",
+    "contract-gen": "PASS",
+    "e2e-browser": "PASS",
+    "evaluation-corpus": "PASS",
+    "fixture-corpus": "PASS",
+    "format": "PASS",
+    "integrity": "PASS",
+    "lint": "PASS",
+    "portability": "PASS",
+    "python": "FAIL",
+    "rust": "PASS",
+    "status": "PASS",
+    "toolchain": "PASS",
+    "traceability": "PASS",
+    "typecheck": "PASS",
+    "unit-ts": "PASS",
+    "visual": "PASS",
+    "w14-public-contact-controlled": "PASS",
+    "w14-public-controlled": "PASS"
+  },
+  "typescript": {
+    "cached_unit_tasks": 0,
+    "fresh_tasks": 15,
+    "ordinary_typecheck_cached_tasks": 14,
+    "passed": 4006
+  },
+  "visual": {
+    "all19png_equal_prior": true,
+    "all67original_bodies_retained_by_reviewer": true,
+    "manifest_sha256": "5d959ed78e34d2f6d9078b9982a9e622587028bb4205c48b74486f3bc804ae8c",
+    "metadata": 14,
+    "png": 19,
+    "selected_files": 33,
+    "unique_bodies": 29
+  }
+}

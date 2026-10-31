@@ -1,0 +1,236 @@
+{
+  "safe_regular_members": 46,
+  "archive_member_bytes": 4104142,
+  "archive_members": {
+    "actual-clean-full-run/after.json": {
+      "bytes": 431886,
+      "sha256": "95223244187a7c94e6d5f52d2b3606194f142c6700b144b960789ebf6dc6535b",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/before.json": {
+      "bytes": 431886,
+      "sha256": "95223244187a7c94e6d5f52d2b3606194f142c6700b144b960789ebf6dc6535b",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/closure.json": {
+      "bytes": 267,
+      "sha256": "58f68530717ab54420c6976ec837a273987b697d5a6a6d2ec8a05d70dde36dbe",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/context.json": {
+      "bytes": 164,
+      "sha256": "31290a488167b72cd8148aad858c4b027df54e335358fd1d704a1a027b51b121",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/doctor.log": {
+      "bytes": 3222,
+      "sha256": "0b114d3112efd5f0bc52af6b57282085bda1a3c0272edf6774b3952cdbca8cc8",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/results.json": {
+      "bytes": 525,
+      "sha256": "b4c1bcc7568c2ce41001f15fcbaa1d8078b08250743733771d76147738c767c4",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/retention.json": {
+      "bytes": 8590,
+      "sha256": "dea5c2c213856e4069a0a6beafb5fd17bc9c49de23897748723fe1de70456b4b",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-2db12-ure-shell-settings-1120x760-chromium/shell-settings-1120.json": {
+      "bytes": 5251,
+      "sha256": "e5a2e6515ede2294deeea110fa262434bd2217c699e768e9a709740cc3dfc096",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-2db12-ure-shell-settings-1120x760-chromium/shell-settings-1120.png": {
+      "bytes": 43081,
+      "sha256": "3bb920866e9852a0a0d457810e60fc7e9fada1309af84d329c0a2bbc68571808",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-2e2aa--shell-diagnostics-1120x760-chromium/shell-diagnostics-1120.json": {
+      "bytes": 5260,
+      "sha256": "63b88e1687be7d51cabeb1464de57b6710b2a64ebeb1a600935d8ffb477839cb",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-2e2aa--shell-diagnostics-1120x760-chromium/shell-diagnostics-1120.png": {
+      "bytes": 61218,
+      "sha256": "78e2a257bf8fcbcf0fb4479c74c0579f1420ba485c8793bff8294bfd2227dda2",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-4daab-e-shell-diagnostics-320x760-chromium/shell-diagnostics-320.json": {
+      "bytes": 5258,
+      "sha256": "50f9c7e30367b73e58b386b5f7a8f406ad81229de2d117914336317e39b1b3fc",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-4daab-e-shell-diagnostics-320x760-chromium/shell-diagnostics-320.png": {
+      "bytes": 58409,
+      "sha256": "ac925f361fd442e5108cdd7fce664da720a46899ce4a85e85df45cf1a09956d1",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-6cd1d-ture-shell-settings-320x760-chromium/shell-settings-320.json": {
+      "bytes": 5248,
+      "sha256": "bf86f69eea7f68e3117b13eed6ee71c16a76f649c56a0e04fc88b3db6be9dc84",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-6cd1d-ture-shell-settings-320x760-chromium/shell-settings-320.png": {
+      "bytes": 39660,
+      "sha256": "8bbc91ac5d859848da399b99d2b13f883fa88c7e7fb2f889bfa61accbb93617f",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-76a79-re-shell-documents-1120x760-chromium/shell-documents-1120.json": {
+      "bytes": 5254,
+      "sha256": "3d84e84ac0817c33e29738a6a8f5577c24ce00665dbedd970fa199f53afa7dc2",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-76a79-re-shell-documents-1120x760-chromium/shell-documents-1120.png": {
+      "bytes": 45588,
+      "sha256": "c5abede73eb2163ffb83f28420a3c686efdef4fc59025675e2bc402780746ee4",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-7da52-ture-shell-tracker-1120x760-chromium/shell-tracker-1120.json": {
+      "bytes": 5248,
+      "sha256": "6d67d70fa5b17c8de6596a3940994eaed7623fad6ea80e6ed1a9e7d64c627dc5",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-7da52-ture-shell-tracker-1120x760-chromium/shell-tracker-1120.png": {
+      "bytes": 42617,
+      "sha256": "e8c22b5f11a8f51b059130aaca166a6390ffe821d7956b2c9e6b97845a59d38f",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-9d824-ture-shell-profile-1120x760-chromium/shell-profile-1120.json": {
+      "bytes": 5248,
+      "sha256": "32f8be3b592ef0d491732295f94bf6fc2cde581122c9a5c33f05978ca4d27202",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-9d824-ture-shell-profile-1120x760-chromium/shell-profile-1120.png": {
+      "bytes": 41990,
+      "sha256": "30e809acbb1e6953c50f14ea0d388bd4bfee1b72a603a35a3051c0d3a9dd1982",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-9e6e7-ure-shell-documents-320x760-chromium/shell-documents-320.json": {
+      "bytes": 5251,
+      "sha256": "c400aa4561de24fd604b382d586d51ad1ad3590894b1783d0a85675ee93f28fc",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-cat-9e6e7-ure-shell-documents-320x760-chromium/shell-documents-320.png": {
+      "bytes": 42460,
+      "sha256": "4bde482d21691c7c7bf5194fd81fcdb2c8036f8f3c9baa84589b5b263f1c51b3",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-catalog-capture-shell-home-1120x760-chromium/shell-home-1120.json": {
+      "bytes": 5239,
+      "sha256": "1e3d79ae67329e6c590bd25367ee033c8ed3137dc839bf21dd150384334a1134",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-catalog-capture-shell-home-1120x760-chromium/shell-home-1120.png": {
+      "bytes": 53218,
+      "sha256": "1602e6f4945489a435f56af6b8f699340362d2705c3786eccaf7fe83f8e2ffc3",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-catalog-capture-shell-home-320x760-chromium/shell-home-320.json": {
+      "bytes": 5237,
+      "sha256": "d400d0182de24500dfc700cdf4ae5f9acd44837fc611718263a762251ce73fa4",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-catalog-capture-shell-home-320x760-chromium/shell-home-320.png": {
+      "bytes": 50626,
+      "sha256": "d6ffdbe22ddbfeb0f5ede7845e3cb19c4003b49cb0ee030fac86aea953655f1e",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-catalog-capture-shell-jobs-1120x760-chromium/shell-jobs-1120.json": {
+      "bytes": 5239,
+      "sha256": "8dfa180d0ff563931b7d4b46b32de93867d75bd25f82a50597d77ef0f3b1afdc",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-catalog-capture-shell-jobs-1120x760-chromium/shell-jobs-1120.png": {
+      "bytes": 42127,
+      "sha256": "6e23357e947cd4991ed56ddcf6bde3ba81db04898ff386e62ec2ad1a25341bc1",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-catalog-capture-shell-jobs-320x760-chromium/shell-jobs-320.json": {
+      "bytes": 5236,
+      "sha256": "ae9089a2e86dc45f12d00a52ca866febffa40da29ec747fc02df600883a6ac8a",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-catalog-capture-shell-jobs-320x760-chromium/shell-jobs-320.png": {
+      "bytes": 38631,
+      "sha256": "91a5f4792c5b53ee2f24cb853fd971b8b5d7483cd543cae3aff27b4dd28a6219",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-catalog-capture-shell-profile-320x760-chromium/shell-profile-320.json": {
+      "bytes": 5245,
+      "sha256": "614bdca8dbdd2856b7a5f022fb9b878452057167413aed49edc2fa52356d7f5c",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-catalog-capture-shell-profile-320x760-chromium/shell-profile-320.png": {
+      "bytes": 38342,
+      "sha256": "708d99c05cb4ee4a35a2f0510c82d565420dff223dd08fe542d0e71ae037f1c0",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-catalog-capture-shell-tracker-320x760-chromium/shell-tracker-320.json": {
+      "bytes": 5245,
+      "sha256": "a7e88d290f87909165276bdd723e645ad2178a06f49952b814207731475d03a2",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-catalog-catalog-capture-shell-tracker-320x760-chromium/shell-tracker-320.png": {
+      "bytes": 39245,
+      "sha256": "dacbca0b21a170548f7d8174004b18803fa38d2ad04c4c758bc024264e1cd09c",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-shell-deskt-67a1f-and-actual-capture-at-320px-chromium/desktop-diagnostics.png": {
+      "bytes": 58409,
+      "sha256": "ac925f361fd442e5108cdd7fce664da720a46899ce4a85e85df45cf1a09956d1",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-shell-deskt-67a1f-and-actual-capture-at-320px-chromium/desktop-home.png": {
+      "bytes": 50626,
+      "sha256": "d6ffdbe22ddbfeb0f5ede7845e3cb19c4003b49cb0ee030fac86aea953655f1e",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-shell-deskt-9e484-nd-actual-capture-at-1120px-chromium/desktop-diagnostics.png": {
+      "bytes": 61218,
+      "sha256": "78e2a257bf8fcbcf0fb4479c74c0579f1420ba485c8793bff8294bfd2227dda2",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-shell-deskt-9e484-nd-actual-capture-at-1120px-chromium/desktop-home.png": {
+      "bytes": 53218,
+      "sha256": "1602e6f4945489a435f56af6b8f699340362d2705c3786eccaf7fe83f8e2ffc3",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/retained-visual/visual-desktop-shell-shell-8cd33-t-resize-and-reduced-motion-chromium/desktop-text-resize-200.png": {
+      "bytes": 128804,
+      "sha256": "e375e071bae32fe186ec2020cd3f870e435303b92e8ac7697e7cdfc76f54aa3b",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/verify.log": {
+      "bytes": 839128,
+      "sha256": "2addf2ba14a1cd3e6b20f225d95b18f8a9d161bcfea9720f16099a5896942254",
+      "source_mode": 420
+    },
+    "actual-clean-full-run/wrapper-executed.py": {
+      "bytes": 4440,
+      "sha256": "84cc662fd22f6887021c9f4e0da7fdaad4cccf9a681e9c975ee3abf4ee96434d",
+      "source_mode": 420
+    },
+    "independent-review/audit.py": {
+      "bytes": 8869,
+      "sha256": "0b91da3c851940e348df9406bb9fdd506cdf8f2e0e0d856f743e8cf9f3bf154e",
+      "source_mode": 420
+    },
+    "independent-review/actual-data-checks.json": {
+      "bytes": 733127,
+      "sha256": "16f21ccad07868f10019a43563bae70a988feb26848aa89dca1f1dce000e1c3d",
+      "source_mode": 420
+    },
+    "independent-review/REVIEW.md": {
+      "bytes": 2952,
+      "sha256": "4aa7a5d8499b703343097ef2c13bf651c21530112d11c1fee6579042c39772f3",
+      "source_mode": 420
+    },
+    "immutable-source/immutable-git-source-sha256.json": {
+      "bytes": 576140,
+      "sha256": "98725c450538ba0b3f0ed7fba9d6b2a7a1ea8ae630b1337830a0b74d5ab6f915",
+      "source_mode": 420
+    }
+  }
+}

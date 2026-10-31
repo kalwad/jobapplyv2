@@ -1,0 +1,232 @@
+{
+  "archive_bytes": 685911,
+  "archive_path": "proof.tar.gz",
+  "archive_sha256": "310049825bbd8b3624e2ae5eb44b93abcfce8a26948ed4a5db96d2310fb7d661",
+  "authority": "NONE",
+  "embedded_inventory": "retained-members.json",
+  "files": [
+    {
+      "bytes": 1328,
+      "path": "audit-attempt-1/REVIEW.md",
+      "sha256": "12e40133c8fe6902746858af2367d3e56f57bb4fa78125da6b78187b49af9295"
+    },
+    {
+      "bytes": 1066,
+      "path": "audit-attempt-1/audit-member-manifest.json",
+      "sha256": "8e6e9d7ba7e2d3df79378f28738732ea26fb17ee1cb97f8a97f4aae6c00de61e"
+    },
+    {
+      "bytes": 14815,
+      "path": "audit-attempt-1/command-sections.json",
+      "sha256": "0efd9600d66c89b7b106f799e562daf3a665413842cc358a144b785cd7c04997"
+    },
+    {
+      "bytes": 32821,
+      "path": "audit-attempt-1/findings.json",
+      "sha256": "6cc7e5772d63255b5026abdcc3e6c05e2caaff119df259f40e47fc761246756c"
+    },
+    {
+      "bytes": 543952,
+      "path": "audit-attempt-1/immutable-git-blob-closure.json",
+      "sha256": "81ce4c6cb7bea64dd5aa6acc7426b2bc82e624ce53c215e9c9899c3ac6761e07"
+    },
+    {
+      "bytes": 40902,
+      "path": "audit-attempt-1/native-mode-cases.json",
+      "sha256": "cb11f50f0cb7afb83b8d10a413bc12274bf077a8fb7043bbf5b139a8689df6aa"
+    },
+    {
+      "bytes": 212197,
+      "path": "audit-attempt-1/python-collected-node-ids.json",
+      "sha256": "e7d03afe303b20969f668bb5db6e15527ad673d121ff228f9efa3801bf9085c7"
+    },
+    {
+      "bytes": 301,
+      "path": "audit-attempt-1/source-inputs.json",
+      "sha256": "d9617858e4d1c186acebd30df41f6539c2c262f3aa4d63231e295e234797681e"
+    },
+    {
+      "bytes": 3408,
+      "path": "audit-final/REVIEW.md",
+      "sha256": "938fc28975d2ef42e4c8b976735b5ef83ca50c2e80a0229bcc6c87f223caf321"
+    },
+    {
+      "bytes": 1066,
+      "path": "audit-final/audit-member-manifest.json",
+      "sha256": "9bd2496a2765d841cb7cf11847c3e406830031704e462f0f26c6d67a9c23f1eb"
+    },
+    {
+      "bytes": 14815,
+      "path": "audit-final/command-sections.json",
+      "sha256": "0efd9600d66c89b7b106f799e562daf3a665413842cc358a144b785cd7c04997"
+    },
+    {
+      "bytes": 26831,
+      "path": "audit-final/findings.json",
+      "sha256": "956730e80946360be93ad9a1d8a19e08319bd7bdceb06bf791a548768395e981"
+    },
+    {
+      "bytes": 543952,
+      "path": "audit-final/immutable-git-blob-closure.json",
+      "sha256": "81ce4c6cb7bea64dd5aa6acc7426b2bc82e624ce53c215e9c9899c3ac6761e07"
+    },
+    {
+      "bytes": 40902,
+      "path": "audit-final/native-mode-cases.json",
+      "sha256": "cb11f50f0cb7afb83b8d10a413bc12274bf077a8fb7043bbf5b139a8689df6aa"
+    },
+    {
+      "bytes": 212197,
+      "path": "audit-final/python-collected-node-ids.json",
+      "sha256": "e7d03afe303b20969f668bb5db6e15527ad673d121ff228f9efa3801bf9085c7"
+    },
+    {
+      "bytes": 301,
+      "path": "audit-final/source-inputs.json",
+      "sha256": "d9617858e4d1c186acebd30df41f6539c2c262f3aa4d63231e295e234797681e"
+    },
+    {
+      "bytes": 610,
+      "path": "audit-preparation/PARSER-CORRECTION.md",
+      "sha256": "a786a2d0e080a1f046c8e274b551ed5ca721619a71a755fedeb7800d20751f5b"
+    },
+    {
+      "bytes": 1681,
+      "path": "audit-preparation/PLAN.md",
+      "sha256": "aef12615402ee8ea483e0f895bd04d59d8d4e23f21d9b4fbffc7a3c5c0382522"
+    },
+    {
+      "bytes": 30160,
+      "path": "audit-preparation/audit-full.py",
+      "sha256": "fb7fd47770db10e91abbb219fa2b123d6d2d71789169d39e5efc5503af582c81"
+    },
+    {
+      "bytes": 13768,
+      "path": "audit-preparation/auditor-correction.patch",
+      "sha256": "900b86175161f4605e52680c30da61716b3ba54d557af22f9ea0ee720c9c5502"
+    },
+    {
+      "bytes": 1648,
+      "path": "audit-preparation/execution-record.DERIVED.json",
+      "sha256": "c1856f6a011c8c9ad2cef6e25230b810ee8d76af0d001ad3ada249b586c5736a"
+    },
+    {
+      "bytes": 23945,
+      "path": "audit-preparation/history/revision-1/audit-full.py",
+      "sha256": "03f8159427d1eae4cbcf872d25c7e606fd9e66ac71417dea15dff892c457fa39"
+    },
+    {
+      "bytes": 1252,
+      "path": "audit-preparation/history/revision-1/execution-record.initial-derived.json",
+      "sha256": "50a0af0dc73d2774246146bb16351f83b6643e5625baf6246d5fbee1446b461b"
+    },
+    {
+      "bytes": 237,
+      "path": "audit-preparation/history/revision-1/source-precheck.json",
+      "sha256": "3914d61688e1e5b03f20f3cfba350d1345db8cd937d22c96b617b257064b376b"
+    },
+    {
+      "bytes": 1695,
+      "path": "audit-preparation/preparation-member-manifest.json",
+      "sha256": "7f6cd7446ad222eda3cce2a4aaf5b5524e00f426b72aef9f3e1b6abed52befd4"
+    },
+    {
+      "bytes": 443,
+      "path": "audit-preparation/source-precheck-revision-2.json",
+      "sha256": "c0d4c2f3b19161025dc984c29bc8adfca2838eeba1a2dda3abecff26f9086a6c"
+    },
+    {
+      "bytes": 237,
+      "path": "audit-preparation/source-precheck.json",
+      "sha256": "3914d61688e1e5b03f20f3cfba350d1345db8cd937d22c96b617b257064b376b"
+    },
+    {
+      "bytes": 466,
+      "path": "raw-external/closed-outer.log",
+      "sha256": "50f636e717e53a4929ee20552a364b3348314bf73f12009df743bef8525229f7"
+    },
+    {
+      "bytes": 5282,
+      "path": "raw-external/producer-wrapper.py",
+      "sha256": "16282076603546b65b1c5c107b9990f94c3a1e5ff5708cded874a60448c0d530"
+    },
+    {
+      "bytes": 336633,
+      "path": "raw/after.json",
+      "sha256": "24059d460f391577de426a84cfa5430cc90bb77325715142dc079ccb089159f1"
+    },
+    {
+      "bytes": 336633,
+      "path": "raw/before.json",
+      "sha256": "24059d460f391577de426a84cfa5430cc90bb77325715142dc079ccb089159f1"
+    },
+    {
+      "bytes": 265,
+      "path": "raw/closure.json",
+      "sha256": "d4fddb013a8faa6580ad007130e9c2fe73ed5e011d5bf759a91236942b9f7693"
+    },
+    {
+      "bytes": 2362,
+      "path": "raw/doctor-result.json",
+      "sha256": "1b8d9d6a1dc3b9e43a1ef8ffabc6f86cb1c520a921af3061bfbe701e5b93395a"
+    },
+    {
+      "bytes": 2027,
+      "path": "raw/doctor-upfront.json",
+      "sha256": "6ea6766fca12bdaaf824e44f41ae7216677d6d138bc6ba5b3dfdc08fb0c4a965"
+    },
+    {
+      "bytes": 3222,
+      "path": "raw/doctor.log",
+      "sha256": "0b114d3112efd5f0bc52af6b57282085bda1a3c0272edf6774b3952cdbca8cc8"
+    },
+    {
+      "bytes": 3611,
+      "path": "raw/environment.json",
+      "sha256": "a9b303fa00c45d306ba1be84714120f1691269659933d0b4577365a34a8166b0"
+    },
+    {
+      "bytes": 5282,
+      "path": "raw/executed-wrapper.py",
+      "sha256": "16282076603546b65b1c5c107b9990f94c3a1e5ff5708cded874a60448c0d530"
+    },
+    {
+      "bytes": 7817,
+      "path": "raw/runtime-after.json",
+      "sha256": "be91aefed10ab311eab0dd4c9138283caf6e78452dc0c8627e2d7e7ef08b28cf"
+    },
+    {
+      "bytes": 7817,
+      "path": "raw/runtime-before.json",
+      "sha256": "be91aefed10ab311eab0dd4c9138283caf6e78452dc0c8627e2d7e7ef08b28cf"
+    },
+    {
+      "bytes": 2357,
+      "path": "raw/verify-result.json",
+      "sha256": "c1115b1687419f9f796dfcedc0aae450226082ba9d90465a171e9b7802b411d7"
+    },
+    {
+      "bytes": 2017,
+      "path": "raw/verify-upfront.json",
+      "sha256": "95bb9e4da21276a23f792d0d732a2e0c3513b02be74383b993b51492619452e2"
+    },
+    {
+      "bytes": 678970,
+      "path": "raw/verify.log",
+      "sha256": "8b714d14d8110184db7495379d9764ff67fc49fbfde81a0d112b8b866e5f01e5"
+    },
+    {
+      "bytes": 18457,
+      "path": "retained-members.json",
+      "sha256": "b0e421eb1355246c6cc126a2832a6dc0bd4750ce73519cf5f5ac43566cf1b2b3"
+    },
+    {
+      "bytes": 5451,
+      "path": "retention-builder.py",
+      "sha256": "c99f7e32c4c66da7e28ee3671a0c64f314ee4d99f67507388ef8fcb307641e11"
+    }
+  ],
+  "payload_bytes": 3185199,
+  "regular_members": 44,
+  "scope": "Current-root W04 local canonical doctor28/all20ACTIVEPASS, TS4006, Python1679, browser262+2+62+3, same138nativecases per3modes. Immutable1886source/runtime40 closure. No new GUI/nativeCI/20-sampleGateA/milestone decision. First parser false negative and derived-argv correction preserved; no product rerun."
+}

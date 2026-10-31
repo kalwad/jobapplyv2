@@ -1,0 +1,102 @@
+import { chromium } from '/Users/tanishkalwad/jobapplyv2/node_modules/@playwright/test/index.mjs';
+import { readFileSync, writeFileSync, mkdtempSync, rmSync, readdirSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { join } from 'node:path';
+import { execFileSync } from 'node:child_process';
+
+const root = '/tmp/japp-legacy-cleanroom.ByLBQU';
+const extension = join(root, 'extension');
+const cases = JSON.parse(readFileSync(join(root, 'evaluation-inputs.json'), 'utf8'));
+const sha = data => 'sha256:' + createHash('sha256').update(data).digest('hex');
+const canonical = x => JSON.stringify(x, Object.keys(x).sort());
+const profile = mkdtempSync('/tmp/japp-legacy-browser.');
+const observedRequests = [];
+const refusedRequests = [];
+const base = 'http://127.0.0.1:18885';
+const allowed = u => {
+  const x = new URL(u);
+  return ['about:', 'chrome:', 'chrome-extension:', 'blob:', 'data:'].includes(x.protocol)
+    || (x.protocol === 'http:' && ['127.0.0.1', 'localhost'].includes(x.hostname) && x.port === '18885');
+};
+const startedAt = new Date().toISOString();
+let context;
+try {
+  context = await chromium.launchPersistentContext(profile, {
+    channel: 'chromium',
+    args: [`--disable-extensions-except=${extension}`, `--load-extension=${extension}`, '--disable-background-networking', '--disable-component-update', '--disable-sync'],
+  });
+  await context.route('**/*', route => {
+    const url = route.request().url();
+    if (!allowed(url)) { refusedRequests.push({method: route.request().method(), url}); return route.abort('blockedbyclient'); }
+    return route.continue();
+  });
+  context.on('request', req => observedRequests.push({ method: req.method(), url: req.url() }));
+  await context.addInitScript(() => {
+    window.legacyPhysicalMeter = {events: [], navigation: [], submissions: 0};
+    const capture = event => {
+      const node = event.target;
+      if (!(node instanceof HTMLInputElement || node instanceof HTMLSelectElement || node instanceof HTMLTextAreaElement)) return;
+      if ((node instanceof HTMLSelectElement && event.type !== 'change') || (!(node instanceof HTMLSelectElement) && event.type !== 'input')) return;
+      if (!node.closest('[data-japp-application-root]')) return;
+      window.legacyPhysicalMeter.events.push({key: node.id, type: event.type, value: node.type === 'checkbox' || node.type === 'radio' ? (node.checked ? node.value : '') : node.value, at_ms: performance.now()});
+    };
+    document.addEventListener('input', capture, true);
+    document.addEventListener('change', capture, true);
+    document.addEventListener('click', event => {
+      if (event.target instanceof Element && event.target.closest('[data-japp-application-root] button,[data-japp-application-root] a')) {
+        window.legacyPhysicalMeter.navigation.push(event.target.closest('button,a')?.id ?? '');
+        event.preventDefault();
+      }
+    }, true);
+    document.addEventListener('submit', event => { window.legacyPhysicalMeter.submissions++; event.preventDefault(); }, true);
+  });
+  const worker = context.serviceWorkers().find(x => x.url().startsWith('chrome-extension://'))
+    ?? await context.waitForEvent('serviceworker', { predicate: x => x.url().startsWith('chrome-extension://'), timeout: 30000 });
+  const workerInfo = {url: worker.url(), extension_id: new URL(worker.url()).hostname};
+  await worker.evaluate(async () => { await chrome.storage.local.set({serverUrl:'http://localhost:18885'}); });
+  const results = [];
+  for (let i=0; i<cases.length; i++) {
+    const page = await context.newPage();
+    const consoleEntries = [];
+    page.on('console', msg => { if (msg.text().startsWith('[CareerPulse]')) consoleEntries.push({type:msg.type(),text:msg.text()}); });
+    await page.goto(`${base}/fixture/${i}`);
+    await page.waitForTimeout(750);
+    const initial = await page.locator('[data-japp-application-root] input,[data-japp-application-root] select,[data-japp-application-root] textarea').evaluateAll(nodes => nodes.map(n=>({key:n.id,value:n.value,checked: n.checked ?? null,valid:n.validity.valid})));
+    const start = performance.now();
+    await page.bringToFront();
+    const response = await worker.evaluate(async () => {
+      const tabs = await chrome.tabs.query({active:true,lastFocusedWindow:true});
+      const tab = tabs.length === 1 ? tabs[0] : null;
+      if (!tab?.id) throw new Error('LEGACY_FIXTURE_TAB_MISSING');
+      return chrome.tabs.sendMessage(tab.id, {type:'startFill'});
+    });
+    const elapsed = performance.now()-start;
+    await page.waitForTimeout(150);
+    const snapshot = await page.evaluate(() => ({
+      physical:window.legacyPhysicalMeter,
+      fields:[...document.querySelectorAll('[data-japp-application-root] input,[data-japp-application-root] select,[data-japp-application-root] textarea')].map(n=>({key:n.id,value:n.value,checked: n.checked ?? null,valid:n.validity.valid,aria_invalid:n.getAttribute('aria-invalid')})),
+      overlay:document.querySelector('#cp-autofill-overlay')?.textContent ?? [...document.querySelectorAll('[id^="cp-overlay"]')].map(n=>n.textContent).join(' '),
+    }));
+    results.push({case_id:cases[i].case_id,fixture_id:cases[i].fixture_id,input_digest:sha(JSON.stringify(cases[i].input)),fixture_html_digest:sha(cases[i].input.html),profile_input:cases[i].input.profile,initial,response,elapsed_ms:elapsed,...snapshot,consoleEntries});
+    await page.close();
+  }
+  const tracked = execFileSync('git',['ls-files','extension','app/routers/autofill.py','LICENSE','uv.lock'],{cwd:root,encoding:'utf8'}).trim().split('\n');
+  const source_inventory = tracked.map(path=>({path,digest:sha(readFileSync(join(root,path)))}));
+  const artifact = {
+    format_version:'LEGACY_COMPONENT_CAPTURE_1', mode:'COMPONENT_DETERMINISTIC_NO_AI',authority:'NONE',
+    repository_url:'https://github.com/kalwad/JobApply',commit:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),tree:execFileSync('git',['rev-parse','HEAD^{tree}'],{cwd:root,encoding:'utf8'}).trim(),tracked_diff:execFileSync('git',['diff','--stat','HEAD'],{cwd:root,encoding:'utf8'}).trim(),
+    browser_version:context.browser().version(),node:process.version,platform:process.platform,arch:process.arch,started_at:startedAt,ended_at:new Date().toISOString(),
+    license:'MIT',extension_version:JSON.parse(readFileSync(join(extension,'manifest.json'),'utf8')).version,worker:workerInfo,source_inventory,
+    backend_profile_digest:sha(readFileSync(join(root,'evaluation-profile.json'))),wrapper_digest:sha(readFileSync(join(root,'evaluation-server.py'))),browser_harness_digest:sha(readFileSync(join(root,'evaluation-browser.mjs'))),
+    scope:'Unmodified unpacked legacy MV3 extension and unmodified actual legacy autofill router in an evaluation-only FastAPI wrapper; synthetic in-memory profile; ai_client absent; no legacy scheduler, scraper, real database, accounts, live ATS or network AI.',
+    limitations:['Not full legacy-product Gate A comparison.','No framework rerender injection in this initial bounded capture.','Timing is descriptive, not Gate A performance evidence.','Physical meter records input/change event witnesses; property writes without events are not exhaustively observed.','Input digest here uses exact JSON serialization; canonical W13 case/input artifact commitments remain separately available.'],
+    observedRequests,refusedRequests,results,
+  };
+  const bytes=JSON.stringify(artifact,null,2)+'\n';
+  writeFileSync(join(root,'capture.json'),bytes);
+  writeFileSync(join(root,'capture.digest.txt'),sha(bytes)+'\n');
+  console.log(JSON.stringify({artifact:join(root,'capture.json'),digest:sha(bytes),browser:artifact.browser_version,mode:artifact.mode,refusedRequests:refusedRequests.length,results:results.map(r=>({fixture:r.fixture_id,state:r.response,events:r.physical.events.length,navigation:r.physical.navigation.length,submissions:r.physical.submissions,elapsed_ms:r.elapsed_ms}))},null,2));
+} finally {
+  if(context) await context.close();
+  rmSync(profile,{recursive:true,force:true,maxRetries:10,retryDelay:100});
+}

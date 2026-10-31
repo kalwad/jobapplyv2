@@ -1,0 +1,29 @@
+{
+  "format": "W14_EXACT_RAW_ARCHIVE_1",
+  "archive_sha256": "2331c32fdab2cba0c2f14084bf9e818ae2db00810e5717ffc3b6f3b559767ad6",
+  "archive_bytes": 38293,
+  "regular_members": 5,
+  "raw_log_encoding": "Exact original bytes retained inside archive; no display-normalization claim.",
+  "files": [
+    {
+      "path": "format.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "proposal.json",
+      "bytes": 3651,
+      "sha256": "11c9987f7e55908324d04600877ab0026512d5dcdb49e041eff2472b79a722fd"
+    },
+    {
+      "path": "revision6.patch",
+      "bytes": 143231,
+      "sha256": "630193d1cfc6eefa56dfa9214202db52a2562453ab8ee069711e914bd4e388cf"
+    },
+    {
+      "path": "root-preflight.log",
+      "bytes": 107,
+      "sha256": "52d23750ec7bef78d7cba53f83a5ced7ea24ec5832672f8116946a30a23325d6"
+    }
+  ]
+}

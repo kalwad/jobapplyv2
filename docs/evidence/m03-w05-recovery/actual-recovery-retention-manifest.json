@@ -1,0 +1,3055 @@
+{
+  "archive": {
+    "bytes": 18222376,
+    "sha256": "af789d21466b2411b0d7190c8a98ebec0546b7cc4388043dec4e52b724345cf7"
+  },
+  "files": {
+    "binary-images.json": {
+      "bytes": 10023,
+      "sha256": "42fb53387e4791410afd371f764e28150e8f76b87fcb0fae23064bcb95df3ea6"
+    },
+    "execution-control/actor-runtime-before-format.json": {
+      "bytes": 6977,
+      "sha256": "9e53d2bfab7cec94105dfdaa49bc6f88a0f2983a3f432503733cd20148a3b856"
+    },
+    "execution-control/actors-default-v1-gate-closed.json": {
+      "bytes": 1524,
+      "sha256": "46a9cef2e9d2446fa9ec1a0d8989bc033d1f0f4596c8958ca5926d982bd8a48f"
+    },
+    "execution-control/compile-v2-gate-closed.json": {
+      "bytes": 2714,
+      "sha256": "883dedef38d9a48812e1aa20bef9f970695058bb00f778ffa15d0258fd8fc1c4"
+    },
+    "execution-control/config-actors-default-v1.json": {
+      "bytes": 4625,
+      "sha256": "4205db49b59c1afdfb5452edfd967b159f3fefac31f7a2cda526bcf4e5902bbc"
+    },
+    "execution-control/config-actors-features-v1.json": {
+      "bytes": 4649,
+      "sha256": "c7542db580d6e98847ea278047f34751e778a9d5561e22c6fff27448f9a58cf7"
+    },
+    "execution-control/config-compile-v1.json": {
+      "bytes": 4517,
+      "sha256": "8c7425f341a21794a642cb0335d738b9c63f038648b715d42085c3680ff6bc98"
+    },
+    "execution-control/config-compile-v2.json": {
+      "bytes": 4546,
+      "sha256": "82bc173430f593eebdbeba2a09a4e525d343f7357ccc46f66de3b290a7f7e299"
+    },
+    "execution-control/config-compile-v2.pending-review.json": {
+      "bytes": 4452,
+      "sha256": "f96e13b1e190515f7553abcfef19f487a4588c1caf6a4ba2489fbe707c812e20"
+    },
+    "execution-control/config-compile.pending-review.json": {
+      "bytes": 4419,
+      "sha256": "fb9dd147d34086daf13a07ca6326e87b3c450e19895f281cbbc21ce526f518fa"
+    },
+    "execution-control/config-statics-v1.json": {
+      "bytes": 4601,
+      "sha256": "2157b37e5b4dc4b47d991bdbff0213ebe941df36452d496fe2f54303bb1c2e43"
+    },
+    "execution-control/donor-logical-after.json": {
+      "bytes": 315115,
+      "sha256": "5faa3d7b40d7654977b2926ff8a2366309b92452a1b6dbab3644e1d868faae69"
+    },
+    "execution-control/donor-logical-before.json": {
+      "bytes": 315115,
+      "sha256": "5faa3d7b40d7654977b2926ff8a2366309b92452a1b6dbab3644e1d868faae69"
+    },
+    "execution-control/donor-venv-after.json": {
+      "bytes": 567224,
+      "sha256": "7d141cfa925e27dc744952f5aa10886d877b53cea00523df5911addcc3a3f751"
+    },
+    "execution-control/donor-venv-before.json": {
+      "bytes": 567224,
+      "sha256": "7d141cfa925e27dc744952f5aa10886d877b53cea00523df5911addcc3a3f751"
+    },
+    "execution-control/fault-runtime-before-format.json": {
+      "bytes": 6977,
+      "sha256": "9e53d2bfab7cec94105dfdaa49bc6f88a0f2983a3f432503733cd20148a3b856"
+    },
+    "execution-control/finalize-proof.py": {
+      "bytes": 11246,
+      "sha256": "2e941b23a15528064da7a2da9f2fedc4d719b802e6c7286e19c7bde916840269"
+    },
+    "execution-control/finish-setup-bindings.py": {
+      "bytes": 5261,
+      "sha256": "b959db3c166a8425cc7a2d26ab6da590c35ff2e80c9258e6e11c4988a7905f6d"
+    },
+    "execution-control/format-inputs-upfront.json": {
+      "bytes": 2132,
+      "sha256": "12e3b35ae85a822476af6a030a713fdb3e2ff96ce01085c43ab24a07279444c8"
+    },
+    "execution-control/frontend-before-format.json": {
+      "bytes": 537,
+      "sha256": "b9cd2b4929240649abe2414a52332768ff6ddd7eac0ae332f793de6142fa74e1"
+    },
+    "execution-control/launch-stage-v2.py": {
+      "bytes": 2329,
+      "sha256": "4d0b52df4572d91f238f9dabe800101730d2a9a80e1c257114a7601b9e17f00f"
+    },
+    "execution-control/launch-stage.py": {
+      "bytes": 2326,
+      "sha256": "0451750341853d2f2285c06630d0bf8aae72bf27821cc6b68a6ea2fa0440960a"
+    },
+    "execution-control/own-venv-after-reanchor.json": {
+      "bytes": 567224,
+      "sha256": "3f3a154fdb494afca5d783e04e52c12cd60e8549a157549528d36d3b98117004"
+    },
+    "execution-control/own-venv-before-reanchor.json": {
+      "bytes": 567224,
+      "sha256": "7d141cfa925e27dc744952f5aa10886d877b53cea00523df5911addcc3a3f751"
+    },
+    "execution-control/owned-base-before-overlay.json": {
+      "bytes": 315115,
+      "sha256": "5faa3d7b40d7654977b2926ff8a2366309b92452a1b6dbab3644e1d868faae69"
+    },
+    "execution-control/owned-postformat-logical.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution-control/owned-preformat-logical.json": {
+      "bytes": 315288,
+      "sha256": "1fd023e0edff54ae5a82b4e93a71992cf0c54c96518da4adb818d0f2c34d9302"
+    },
+    "execution-control/release-actors-default-v1.json": {
+      "bytes": 1476,
+      "sha256": "262da38a0694667f4b8d8f743052a7ff85ee74cf4f56366c7fd379195e515cd1"
+    },
+    "execution-control/release-actors-features-v1.json": {
+      "bytes": 1689,
+      "sha256": "5eed464c36aa04234cfd82fd2c11583c6ba9ca985a6cebc961130bc29eba0963"
+    },
+    "execution-control/release-compile-v1.json": {
+      "bytes": 805,
+      "sha256": "ac95470c74e882a2b1c4df33eef781bd08ae54e13231dba23314c88100db51c7"
+    },
+    "execution-control/release-compile-v2.json": {
+      "bytes": 1055,
+      "sha256": "cb7856fc950a1c0fe17ee1eb5f5ae925125d8b4c2b409e4ad744f9169b60cef6"
+    },
+    "execution-control/release-context.json": {
+      "bytes": 889,
+      "sha256": "97c3672bf85e5374cc6561caab068dd1812d4555e4525a34979149bac5a2b0d6"
+    },
+    "execution-control/release-statics-v1.json": {
+      "bytes": 1243,
+      "sha256": "de4c781b6f20b2e67464315374309138e190f409f04139dc68a3c768cd972cb1"
+    },
+    "execution-control/root-execution-release-message.json": {
+      "bytes": 1464,
+      "sha256": "cab79a973b35d243b6a51a902446798002a9fbe466cde61b095276353e363c31"
+    },
+    "execution-control/root-setup-correction-release-message.json": {
+      "bytes": 734,
+      "sha256": "a3ecf9c09a1d0900b373eede63aa92818d16bfc78ab976199faadec9cea85ec6"
+    },
+    "execution-control/runtime-before-format.json": {
+      "bytes": 6977,
+      "sha256": "9e53d2bfab7cec94105dfdaa49bc6f88a0f2983a3f432503733cd20148a3b856"
+    },
+    "execution-control/setup-135-runtime40-verified.json": {
+      "bytes": 34116,
+      "sha256": "0713e2e0d29b0ee6186eed2fa5f02a041a84cd6ecc47094023de60359e023d25"
+    },
+    "execution-control/setup-artifacts-quarantine-closed.json": {
+      "bytes": 29209,
+      "sha256": "f7d8feb0cb5260658e47edf59305e77a9456b7f8328916b14fb0d7b56d901f9d"
+    },
+    "execution-control/setup-format-closed.json": {
+      "bytes": 383,
+      "sha256": "1106b39edf9f24e203e7cdf38a986c8abc0027575b97849e14d19ce3b8dcbb8d"
+    },
+    "execution-control/setup-format.py": {
+      "bytes": 7356,
+      "sha256": "a9c28bdb050a48794e494ea76c05a665b1cf869bbcc63c1e603b8b8a33feaa62"
+    },
+    "execution-control/setup-inputs-closed.json": {
+      "bytes": 765,
+      "sha256": "c271c875cdc5d194d23f648ff3abe86e0492b1f3dc93d5583cf0edc573faa9bd"
+    },
+    "execution-control/setup-unlisted-source-inventory.json": {
+      "bytes": 29149,
+      "sha256": "7245bdcacf49347f7a9b6f0cd00b242fd96d0337cd4a0012e0dcc286fcd2a826"
+    },
+    "execution-control/statics-preparation-command-typo.json": {
+      "bytes": 491,
+      "sha256": "edc747278cc9866785241bacc3b8f4ec1f170b62144c4f987c524b4d4defa4e3"
+    },
+    "execution-control/statics-v1-gate-closed.json": {
+      "bytes": 1170,
+      "sha256": "02ae43a8b9e449d8c7e8216f9ee64e715ccd29273fc1fa628297c28bea329147"
+    },
+    "execution-control/venv-reanchors.json": {
+      "bytes": 5175,
+      "sha256": "cb3d80a13a78b0a33b1e76a2dc793e2977d97fed17df5e1d552dd232571bdcf7"
+    },
+    "execution/evidence-actors-default-v1/default-0-ledger.jsonl": {
+      "bytes": 11224,
+      "sha256": "9435bad2c748821b7d1230b03c957317e21b1054d4fe07eca6d670bc30078d60"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/owned-process.json": {
+      "bytes": 410,
+      "sha256": "aaf8e14e9fd71a6b480bc77733811beeba2ec3e205b55813fda52ecf33b2cde7"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/result.json": {
+      "bytes": 2134,
+      "sha256": "729443dbfca7fe95a7b1148c9b22c43f5ec0a9c48eb274dc7ccab80b2ddfd6d3"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/stdout": {
+      "bytes": 236,
+      "sha256": "3582a85ebebc91e0817c313912c547814cb5d0a6f89bddbde2113b6848c4f410"
+    },
+    "execution/evidence-actors-default-v1/default-0-selected-actor/upfront.json": {
+      "bytes": 3405,
+      "sha256": "9709c1190795b809e00e67322d77ca17bdb7618ba77aacbd61364d914e14dad2"
+    },
+    "execution/evidence-actors-default-v1/default-1-ledger.jsonl": {
+      "bytes": 4487,
+      "sha256": "b4c5f7293363f505d01e70a8f8dad96b97f235e3496f9cf3d7d56e3ed0126e7e"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/owned-process.json": {
+      "bytes": 417,
+      "sha256": "4b1fd9507c823d9afcef9db01e937c8407f7f7b7fdcf1b87aa3a9fb08c9260a8"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/result.json": {
+      "bytes": 1835,
+      "sha256": "e386d30dec3c8796fd5969312592ebd9c8b6b1314915321920f2b6d030f96db6"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/stdout": {
+      "bytes": 243,
+      "sha256": "c8e2a61d6429951f8d3ee7acf27a76d532211efe7557c38d6e4fde16f6264bac"
+    },
+    "execution/evidence-actors-default-v1/default-1-selected-actor/upfront.json": {
+      "bytes": 3412,
+      "sha256": "a9f57d34edd0135afaaa1baab0cadc44ac57382b772806fab521a7a6b28d005b"
+    },
+    "execution/evidence-actors-default-v1/default-2-ledger.jsonl": {
+      "bytes": 4684,
+      "sha256": "749479eaf8518144c4e0d8da81caa36939d33c949e9326654cb4fbcdd4377fda"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/owned-process.json": {
+      "bytes": 417,
+      "sha256": "38f9d22a0b772ee22da2ed8f8a84e702aee47dd11e0ce79c9c8b90b147d987df"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/result.json": {
+      "bytes": 1835,
+      "sha256": "4a69d1269302204b20d41014839095c39dbd9373af852305463997d1f5cca291"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/stdout": {
+      "bytes": 244,
+      "sha256": "1c9a4e2acfc146a39d0c7cff30ac1124123d206b75ef1218d97c1573dac1e24e"
+    },
+    "execution/evidence-actors-default-v1/default-2-selected-actor/upfront.json": {
+      "bytes": 3412,
+      "sha256": "7941627ddd5a0ed0cf14f9b2ec32ffd86538b00d1cc69e14383f2dadfb41d756"
+    },
+    "execution/evidence-actors-default-v1/default-3-ledger.jsonl": {
+      "bytes": 5097,
+      "sha256": "dc1d2905ac3997f3b3deb02b6e40630a3a97cdbad3e6c055abd7a338d2eb06f4"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/owned-process.json": {
+      "bytes": 415,
+      "sha256": "a1428e8e2c5f0083e458e8c694c38e8c61f7c06d7ae5da7d6ab252cb94b8e360"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/result.json": {
+      "bytes": 1834,
+      "sha256": "507042daa6ceb91ac0e566ce175c468d343b91c9456faca750d12d001f5e16e8"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/stdout": {
+      "bytes": 241,
+      "sha256": "723e377b890034f617efb08c3ceb2ce85f69ef7b6339040965a9161c79cb7aff"
+    },
+    "execution/evidence-actors-default-v1/default-3-selected-actor/upfront.json": {
+      "bytes": 3410,
+      "sha256": "38b2fe74c3fd88d96171fe083a798f597bc21509f210b1c291061ab290d36939"
+    },
+    "execution/evidence-actors-default-v1/release-inputs.json": {
+      "bytes": 1626,
+      "sha256": "aa94be0be3f77ab99bfeae4e8fc5184786191971220dd572596c698223197028"
+    },
+    "execution/evidence-actors-default-v1/selected-actors-closure.json": {
+      "bytes": 305,
+      "sha256": "175d30e885552048b1c24604f5d823cbba7d74e58fd145f207b7eb6806bd8b9e"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-ledger.jsonl": {
+      "bytes": 11220,
+      "sha256": "9dbd676b29041424bd4046283ce29985ec555a8045b07bc362804ae3a0fae0bd"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/owned-process.json": {
+      "bytes": 415,
+      "sha256": "c3f324913d37d64ecdecf880ea8ac0a3382f97a10267330011ed80a57487f681"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/result.json": {
+      "bytes": 2134,
+      "sha256": "f3cd566d841cf2001e65b86b6e33c612d5ddbd027379127b8acb699c791e34cf"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/stdout": {
+      "bytes": 236,
+      "sha256": "7e8296faf050dcca713f4287d3928032061798291a34c1877b4e87ff6b5ed514"
+    },
+    "execution/evidence-actors-features-v1/all-features-0-selected-actor/upfront.json": {
+      "bytes": 3421,
+      "sha256": "6bfbb37d4cab811cc2a9c7e39f7e96225c895cb64773702e61d23696cc6789b4"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-ledger.jsonl": {
+      "bytes": 4486,
+      "sha256": "1a46b1673add04c4bb6da8aacfc77ac42218b19c47a761902e66d3ce430a469b"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/owned-process.json": {
+      "bytes": 422,
+      "sha256": "1c351a47ecd7f1af943c62ebe279497ccb0c18ed9a5019c24b81c302312b8d50"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/result.json": {
+      "bytes": 1835,
+      "sha256": "8721f2a9ec93b25402b37cb970208b8eea6fb0518896324785bec7f34e3a9bdc"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/stdout": {
+      "bytes": 243,
+      "sha256": "c8e2a61d6429951f8d3ee7acf27a76d532211efe7557c38d6e4fde16f6264bac"
+    },
+    "execution/evidence-actors-features-v1/all-features-1-selected-actor/upfront.json": {
+      "bytes": 3428,
+      "sha256": "2773ef9d6a9fa7675c655471d2e63ec9c01b3c17eb778ff7942953fed0d64ece"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-ledger.jsonl": {
+      "bytes": 4684,
+      "sha256": "02356230b11af09e4ba85fab93afe49d4aa72d794a7598523a40bd382c3beb99"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/owned-process.json": {
+      "bytes": 422,
+      "sha256": "484e1609df35093e4ae611755e0779b5034ab4157bddca9317269c1e748666a3"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/result.json": {
+      "bytes": 1835,
+      "sha256": "b1e8b728a323c03e3dc5df6aadb039cdb93a9dc6ed194290c8d99eb868c43ed9"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/stdout": {
+      "bytes": 244,
+      "sha256": "329a970477c324ddf926cd17dd7ce3a284c57fa080e7754e8b83a49699abe181"
+    },
+    "execution/evidence-actors-features-v1/all-features-2-selected-actor/upfront.json": {
+      "bytes": 3428,
+      "sha256": "7f0641d5e5b532b3e7d07653d24430ec85f97cb36efe3dbf86004cf6c9cb2ae2"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-ledger.jsonl": {
+      "bytes": 5097,
+      "sha256": "f04adf8b2893624573d121953da163176af652a284bc0ad45f37e6f983151cfe"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/owned-process.json": {
+      "bytes": 420,
+      "sha256": "8574c2fe3e2a8d34d743ba08859320d1e02e4ee7e08d5297233d94c911c92764"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/result.json": {
+      "bytes": 1835,
+      "sha256": "b6f0bdf8bf8f1e02dc76e8c937868d11500e28e5db8152d59c623a0c0b82d9a6"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/stdout": {
+      "bytes": 241,
+      "sha256": "eb99f54bea7e458c33b2a19270754973d0e04cdd9d92b5e9180be7e931d55501"
+    },
+    "execution/evidence-actors-features-v1/all-features-3-selected-actor/upfront.json": {
+      "bytes": 3426,
+      "sha256": "a585d24c8f340f014e135de443ef2bba79b77689bc469ed04f94b5f7d4be9beb"
+    },
+    "execution/evidence-actors-features-v1/release-inputs.json": {
+      "bytes": 1626,
+      "sha256": "fffed416fde497f7ef8f06e0ff902dd5b0e2eba9d8569c8de2b6eef839cfd75d"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-ledger.jsonl": {
+      "bytes": 11221,
+      "sha256": "9d0732986156c14fcc00881a38f82113e5b9b139fb0bbb67a256e359a2ad4e50"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/owned-process.json": {
+      "bytes": 413,
+      "sha256": "422c04e8857fc7eb3c7bf4cac7347503c34f2ce8a4ca2dd5907515e1b51ae010"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/result.json": {
+      "bytes": 2134,
+      "sha256": "13e2396c72d554b0ffd323f44951a2c70309aef74a82fc57172127d1e14b7f25"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/stdout": {
+      "bytes": 236,
+      "sha256": "5ce7c197ded2861633dcdd2741dffbbb94b2c41432a00a7312c4be77bea7d117"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-0-selected-actor/upfront.json": {
+      "bytes": 3415,
+      "sha256": "46de6994f197f6f84dbbaf02ed9dc754e652f1c672af56506e1d1e063084e14e"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-ledger.jsonl": {
+      "bytes": 4487,
+      "sha256": "38174c1f2da6e12cbd0161050742805026734a4875f7fdc41ba0f08093b40e5d"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/owned-process.json": {
+      "bytes": 420,
+      "sha256": "1810fc12c74da67d2f4a3a2efc664b67ad1fa7d77e75f6baa475aafa5499ba0f"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/result.json": {
+      "bytes": 1835,
+      "sha256": "9b34afcaeafc96075a70bae5756330f45fd89ef4e983d79647f3c3014015dcc6"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/stdout": {
+      "bytes": 243,
+      "sha256": "7269990550f7511f4e3e2ec3eb14eacd9a639af826b34f13d3ffa87074ec9bdf"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-1-selected-actor/upfront.json": {
+      "bytes": 3422,
+      "sha256": "3c9259ae28f7cc5bfaf457047b2fc98fc7948aa2e5e17d6f67c8f7a249269ef4"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-ledger.jsonl": {
+      "bytes": 4684,
+      "sha256": "3f868d13a0b55e50ece85a37954e1800c146cb3cb6d1334136f9b509ed7cfe00"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/owned-process.json": {
+      "bytes": 420,
+      "sha256": "b9e1321a69b5bdf82a0b56762f393ac45596dfd9bf7046f696fe0762064fd403"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/result.json": {
+      "bytes": 1835,
+      "sha256": "72f19fb38915c1c9963787c7a3a323d60528731c11df1f716a176c10b5a65497"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/stdout": {
+      "bytes": 244,
+      "sha256": "ff9bf26efcda6621fe7834866167f8d60df51b50b2f7cc94df4982b3e4dbed33"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-2-selected-actor/upfront.json": {
+      "bytes": 3422,
+      "sha256": "c62fa7c6bafaf6ad8b211f339378f3e086085447847813bbd2cccec6025571b5"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-ledger.jsonl": {
+      "bytes": 5096,
+      "sha256": "d6f7d49fa1ceb75fe8f532b81508af7914c5cb57880780fb10fb36267caa934d"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/owned-process.json": {
+      "bytes": 418,
+      "sha256": "2801945e423c6b9cc636a29c809087af7491e1966b9856b90568c9a8bd91aee1"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/result.json": {
+      "bytes": 1834,
+      "sha256": "de4e361ea8d72a983f3a4821eb94996b2e85f7c69778b8e90cd8d5c0c25256e2"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/stdout": {
+      "bytes": 241,
+      "sha256": "c5677208bf6a573149ca64d9925a8a0c2974f01344efe0c2dc9543737ac70549"
+    },
+    "execution/evidence-actors-features-v1/sdk-custom-3-selected-actor/upfront.json": {
+      "bytes": 3420,
+      "sha256": "e668f3d01a740ecd2232cbac2bdec58f6f012308ee25fe29870bfdb19e54be46"
+    },
+    "execution/evidence-actors-features-v1/selected-actors-closure.json": {
+      "bytes": 328,
+      "sha256": "42ecc595bdff96b7e3b6742a3841351987394b77fbadbe8d7e36170d2cca8eb0"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/owned-process.json": {
+      "bytes": 254,
+      "sha256": "dc21701403bbba2770db3b669dcc660741c7bc881d0cb932cbca7c62a8369092"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/result.json": {
+      "bytes": 1413,
+      "sha256": "d100db805be9171ac848e9f84a6b15b9911e9aec719e0efc63299ecb15147edf"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/stdout": {
+      "bytes": 22,
+      "sha256": "414c144fa67f1df75f7b14a69af5641637772e81c4c3fa0a171e3228adbb922e"
+    },
+    "execution/evidence-compile-v2/all-features-0-list/upfront.json": {
+      "bytes": 2559,
+      "sha256": "1c31b8a26c766a7c63aa5d2f6239c0fbb0ad41f366e279419e4af95526fc0ebe"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/owned-process.json": {
+      "bytes": 254,
+      "sha256": "468f5f15f0b0ac0d3d648488f3a8f67d4bbf4a7db01f960dad0db4d147c3b92b"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/result.json": {
+      "bytes": 1416,
+      "sha256": "f9f620d77375f835c8d14b4dbceac57defef38211f8a4978dd984ebe5316f227"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/stdout": {
+      "bytes": 18026,
+      "sha256": "8de733f96e9d32e45472313343da1d28529991e95510acbae6303b85c2a23785"
+    },
+    "execution/evidence-compile-v2/all-features-1-list/upfront.json": {
+      "bytes": 2560,
+      "sha256": "a9a0df442911baca394a08ee8473120693be26da3914b53e6d6d28ec045c368b"
+    },
+    "execution/evidence-compile-v2/all-features-artifacts-upfront.json": {
+      "bytes": 3380,
+      "sha256": "16e1de2225384c93f50d3c98b4769ee96caf09cae52bb0405f274aa0cf6146b3"
+    },
+    "execution/evidence-compile-v2/all-features-compile/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/all-features-compile/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/all-features-compile/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/all-features-compile/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/all-features-compile/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/all-features-compile/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/all-features-compile/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/all-features-compile/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/all-features-compile/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/all-features-compile/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/all-features-compile/owned-process.json": {
+      "bytes": 387,
+      "sha256": "032f768fb0cc27bbcee218225939531f658d3082435ab3188ab9b323a9fd8ad0"
+    },
+    "execution/evidence-compile-v2/all-features-compile/result.json": {
+      "bytes": 1418,
+      "sha256": "0c6bfeb90a73c1330bbfdb31ee59eea08c07aa9f689b93236421af6d8e381de7"
+    },
+    "execution/evidence-compile-v2/all-features-compile/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/all-features-compile/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/all-features-compile/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/all-features-compile/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/all-features-compile/stderr": {
+      "bytes": 263,
+      "sha256": "efe6fb80ab7d67d95e57faac46234f3b6763b874acd40893c590359686000fd2"
+    },
+    "execution/evidence-compile-v2/all-features-compile/stdout": {
+      "bytes": 382502,
+      "sha256": "8591e26347a0369dc7a6f4c3c5db8a23f886e6c004dd745627c35b39adb4db39"
+    },
+    "execution/evidence-compile-v2/all-features-compile/upfront.json": {
+      "bytes": 2665,
+      "sha256": "e0634041a1b9e88d5cd8fa76e56d7720a99c027c84de1a9220fd7ae46439dc97"
+    },
+    "execution/evidence-compile-v2/cargo-version/generated-after.json": {
+      "bytes": 354,
+      "sha256": "f97fdd68f3efa393343e683f4fdab94b099742594f9f77c25fffe45893d8d216"
+    },
+    "execution/evidence-compile-v2/cargo-version/generated-before.json": {
+      "bytes": 354,
+      "sha256": "f97fdd68f3efa393343e683f4fdab94b099742594f9f77c25fffe45893d8d216"
+    },
+    "execution/evidence-compile-v2/cargo-version/owned-process.json": {
+      "bytes": 228,
+      "sha256": "21a22572b0a70ccecf32e5156484a92ce57aa65483e0657273e11f4f551f017b"
+    },
+    "execution/evidence-compile-v2/cargo-version/result.json": {
+      "bytes": 1414,
+      "sha256": "1e2dcc9e392ab87fc939fefbd0c0f5cbda30997095614b04085d7b1fb8e2d4a4"
+    },
+    "execution/evidence-compile-v2/cargo-version/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/cargo-version/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/cargo-version/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/cargo-version/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/cargo-version/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-compile-v2/cargo-version/stdout": {
+      "bytes": 36,
+      "sha256": "1aedaa9cce116919d39b1eb303a58865771582bc24fc259aa8e26cb212e0f59e"
+    },
+    "execution/evidence-compile-v2/cargo-version/upfront.json": {
+      "bytes": 2505,
+      "sha256": "e129bffb136d50c0d905b61b3c1f33cd0e3554e2055a58cf63b43b8447792375"
+    },
+    "execution/evidence-compile-v2/compiled187.json": {
+      "bytes": 68772,
+      "sha256": "6a029843b8fced8624fdca57513795f3af88a7f8104478bbbcca802ce32d4b3f"
+    },
+    "execution/evidence-compile-v2/default-0-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/default-0-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/default-0-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/default-0-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/default-0-list/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/default-0-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/default-0-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/default-0-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/default-0-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/default-0-list/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/default-0-list/owned-process.json": {
+      "bytes": 249,
+      "sha256": "5bafc69e0e11fc0ab6a4f65cf65c93afaf892a7aaa5b6c8f7005865497e5c47f"
+    },
+    "execution/evidence-compile-v2/default-0-list/result.json": {
+      "bytes": 1416,
+      "sha256": "af17bfad63407979e6601016099c1f1a1bf98a2a49b1b5c2057ee1b4bb12f157"
+    },
+    "execution/evidence-compile-v2/default-0-list/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/default-0-list/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/default-0-list/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/default-0-list/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/default-0-list/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-compile-v2/default-0-list/stdout": {
+      "bytes": 18026,
+      "sha256": "8de733f96e9d32e45472313343da1d28529991e95510acbae6303b85c2a23785"
+    },
+    "execution/evidence-compile-v2/default-0-list/upfront.json": {
+      "bytes": 2550,
+      "sha256": "ee1d4b915912eefc6fd0ad61d06203e6c6ea79eba4029eb77ae1fcdfd7772867"
+    },
+    "execution/evidence-compile-v2/default-1-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/default-1-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/default-1-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/default-1-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/default-1-list/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/default-1-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/default-1-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/default-1-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/default-1-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/default-1-list/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/default-1-list/owned-process.json": {
+      "bytes": 249,
+      "sha256": "29ef6007670d1d6723e77a7fe503a9d0ebb7ebae86e878068efcfcbe224e446d"
+    },
+    "execution/evidence-compile-v2/default-1-list/result.json": {
+      "bytes": 1413,
+      "sha256": "4da8c344a0c272cf918e73f134ce35c2e28db73b21d8bec2097cc54dc5dccf0a"
+    },
+    "execution/evidence-compile-v2/default-1-list/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/default-1-list/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/default-1-list/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/default-1-list/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/default-1-list/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-compile-v2/default-1-list/stdout": {
+      "bytes": 22,
+      "sha256": "414c144fa67f1df75f7b14a69af5641637772e81c4c3fa0a171e3228adbb922e"
+    },
+    "execution/evidence-compile-v2/default-1-list/upfront.json": {
+      "bytes": 2549,
+      "sha256": "cdd665f110ca6f4183214c3d2c849c513a4a114e731d8ca9075d3902efbf4e8b"
+    },
+    "execution/evidence-compile-v2/default-artifacts-upfront.json": {
+      "bytes": 3316,
+      "sha256": "bcd3030db78171c7e06e5a68e313d7aa63a83341ad0dc4bc60f056e6af66eb0f"
+    },
+    "execution/evidence-compile-v2/default-compile/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/default-compile/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/default-compile/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/default-compile/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/default-compile/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/default-compile/generated-before.json": {
+      "bytes": 354,
+      "sha256": "f97fdd68f3efa393343e683f4fdab94b099742594f9f77c25fffe45893d8d216"
+    },
+    "execution/evidence-compile-v2/default-compile/owned-process.json": {
+      "bytes": 365,
+      "sha256": "7fbaa5b026075a5646a84822f9dd6b4ce692621ce3c3c3f30014c60f5e762c8b"
+    },
+    "execution/evidence-compile-v2/default-compile/result.json": {
+      "bytes": 1421,
+      "sha256": "bddecee55c564923edb5020c7b72bf004d683c6ef7eb9157bc2406f50ca05c4b"
+    },
+    "execution/evidence-compile-v2/default-compile/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/default-compile/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/default-compile/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/default-compile/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/default-compile/stderr": {
+      "bytes": 8646,
+      "sha256": "962287579dfc8668a6a594e4f6a667cd37c3703f5da6c6a758d6b3196d6d7758"
+    },
+    "execution/evidence-compile-v2/default-compile/stdout": {
+      "bytes": 382696,
+      "sha256": "1bd9500e611b12dc854f404af311aa64e86e4c1a2f8207e416fde0371a640059"
+    },
+    "execution/evidence-compile-v2/default-compile/upfront.json": {
+      "bytes": 2643,
+      "sha256": "c241afb4c132b9cec2a14af764f4be1254c527d9a7dc9f49adaf0566e75e3329"
+    },
+    "execution/evidence-compile-v2/release-inputs.json": {
+      "bytes": 1626,
+      "sha256": "4f4859b4730ec21db4ad3fb745413c50c71306b005e69cbecce16e131cafa07d"
+    },
+    "execution/evidence-compile-v2/rustc-version/generated-after.json": {
+      "bytes": 354,
+      "sha256": "f97fdd68f3efa393343e683f4fdab94b099742594f9f77c25fffe45893d8d216"
+    },
+    "execution/evidence-compile-v2/rustc-version/generated-before.json": {
+      "bytes": 354,
+      "sha256": "f97fdd68f3efa393343e683f4fdab94b099742594f9f77c25fffe45893d8d216"
+    },
+    "execution/evidence-compile-v2/rustc-version/owned-process.json": {
+      "bytes": 222,
+      "sha256": "4d4556c845b9f00a809115623c029ad21c548de178e500fb915976566a5e8437"
+    },
+    "execution/evidence-compile-v2/rustc-version/result.json": {
+      "bytes": 1413,
+      "sha256": "c56e24ee7352d0b557ac1a4b0499f20cf3a63a497e230a28390b4d6d0da700c4"
+    },
+    "execution/evidence-compile-v2/rustc-version/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/rustc-version/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/rustc-version/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/rustc-version/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/rustc-version/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-compile-v2/rustc-version/stdout": {
+      "bytes": 192,
+      "sha256": "e794146d99fad54562fdcbd4a7c8b22b0240d2b0312ff6d879d67939b3131850"
+    },
+    "execution/evidence-compile-v2/rustc-version/upfront.json": {
+      "bytes": 2497,
+      "sha256": "b5a5ec679d52ea2c6ca80d0168382359662d548a2ba5c6e793cafcbc40258df0"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/owned-process.json": {
+      "bytes": 252,
+      "sha256": "5e0369de986b35c74cf9aa6206ab35171492172fbfee1e6f1f5622e4f15bf942"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/result.json": {
+      "bytes": 1417,
+      "sha256": "5a7712f59e11c8058d20d1d025d78f01b295838fda3e778e64084d562d07a3f7"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/stdout": {
+      "bytes": 18026,
+      "sha256": "8de733f96e9d32e45472313343da1d28529991e95510acbae6303b85c2a23785"
+    },
+    "execution/evidence-compile-v2/sdk-custom-0-list/upfront.json": {
+      "bytes": 2556,
+      "sha256": "f1adaf12ab197b764ae17de08960ca086b1a0b0deaaf4f1a7ff7961ea627d135"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/owned-process.json": {
+      "bytes": 252,
+      "sha256": "fd25c9323497cacd76f2d12e2e9f1485bc51891b971238e8b187af7d999f6672"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/result.json": {
+      "bytes": 1413,
+      "sha256": "cb019b2825fa9c59761ff0d8ac71eb5345b975ccbc654042ea4a55317212925e"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/stdout": {
+      "bytes": 22,
+      "sha256": "414c144fa67f1df75f7b14a69af5641637772e81c4c3fa0a171e3228adbb922e"
+    },
+    "execution/evidence-compile-v2/sdk-custom-1-list/upfront.json": {
+      "bytes": 2555,
+      "sha256": "229055493ba06e331eaa18e283e225bc2d72a9bbed2ffcf78886bcd5d2c840c3"
+    },
+    "execution/evidence-compile-v2/sdk-custom-artifacts-upfront.json": {
+      "bytes": 3322,
+      "sha256": "aaa794f263b4423d35d347969313896459ebf4474447e72a931b45d8c2e3e3ab"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/owned-process.json": {
+      "bytes": 412,
+      "sha256": "6cd356ad36b829dbdfd125134a89ca2354ae6153670c83950811b14f7dc9a0b5"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/result.json": {
+      "bytes": 1418,
+      "sha256": "79193c9e3dea471ce918771f7940ecd8c967007b4cd097e7ef655b006a56e164"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/stderr": {
+      "bytes": 202,
+      "sha256": "a00b5f25d8e51b93420cee89cf6f048eafd3fe64522203d445c136efed075983"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/stdout": {
+      "bytes": 382426,
+      "sha256": "3d208c4fcb183edd0dc09cf4b0f91383d9f849e3e653f775541ddb304004c47a"
+    },
+    "execution/evidence-compile-v2/sdk-custom-compile/upfront.json": {
+      "bytes": 2690,
+      "sha256": "37053b93f31cfa939f2cf385793c80dddf87954d7080f1b0fb3af028ea7e4b78"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/owned-process.json": {
+      "bytes": 401,
+      "sha256": "1831832e92a390291088be5427619bd10d703349ddaa8c7a11e4cc855d0d8844"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/result.json": {
+      "bytes": 1414,
+      "sha256": "c98dfac7b4acea2ba11f8747aeeacc4b4c44bdfa1ea4849bdb89354f95ad7dcb"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/stderr": {
+      "bytes": 261,
+      "sha256": "a6877e65b23195ef490f76fc1dac12d568694f5cbaa4b343826b9c8e7930c295"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-statics-v1/clippy-all-features/upfront.json": {
+      "bytes": 2679,
+      "sha256": "f55b8b2df77779f17100e5bbbf908c4c31a26cb5b8fe0bc1da515659c41b90b1"
+    },
+    "execution/evidence-statics-v1/clippy-default/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-statics-v1/clippy-default/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-statics-v1/clippy-default/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/clippy-default/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/clippy-default/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-statics-v1/clippy-default/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-statics-v1/clippy-default/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-statics-v1/clippy-default/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/clippy-default/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/clippy-default/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-statics-v1/clippy-default/owned-process.json": {
+      "bytes": 379,
+      "sha256": "e82c93e3d22550b705c68d8d39e4364eddb4557861010377b492f1a4ff206ecc"
+    },
+    "execution/evidence-statics-v1/clippy-default/result.json": {
+      "bytes": 1414,
+      "sha256": "2abbbab964badd637ae048d0a89a750c45f93b220d1f63e8c08911baa93691ff"
+    },
+    "execution/evidence-statics-v1/clippy-default/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-statics-v1/clippy-default/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-statics-v1/clippy-default/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-statics-v1/clippy-default/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-statics-v1/clippy-default/stderr": {
+      "bytes": 6940,
+      "sha256": "ce5d86ca1c6b6dd4ecc8a29634d3bb45cfbde3304dbc14762275337f8da0dfdf"
+    },
+    "execution/evidence-statics-v1/clippy-default/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-statics-v1/clippy-default/upfront.json": {
+      "bytes": 2657,
+      "sha256": "c311c801372938bd0c10091084330bacf2056d8bef7e36069c9901619575ccd4"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/owned-process.json": {
+      "bytes": 426,
+      "sha256": "56643a8e8ee6c95a9d8bef9a0e94a4c56d72ad29cbc625c3670c2a19bebeeac1"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/result.json": {
+      "bytes": 1414,
+      "sha256": "b89cea1e973418dfab3ab9aa0a89117ba2609ac17bcd659275a85af92101c0fd"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/stderr": {
+      "bytes": 201,
+      "sha256": "d772314c8fa809b942bc524dadee140447515ea0b19c945870330dcbca28a205"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-statics-v1/clippy-sdk-custom/upfront.json": {
+      "bytes": 2704,
+      "sha256": "f3773d1e44e90f98a734fb59972254567417569c1f73fea6f08b2ed1be3ffd4a"
+    },
+    "execution/evidence-statics-v1/release-inputs.json": {
+      "bytes": 1626,
+      "sha256": "ab105578bed527ffa9c0e75b3c49a3454c2cc60bca7afabafe5a69149989350d"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/generated-after-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/generated-after-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/generated-after-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/generated-after-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/generated-after.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/generated-before-files/apps/desktop/src-tauri/gen/schemas/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/generated-before-files/apps/desktop/src-tauri/gen/schemas/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/generated-before-files/apps/desktop/src-tauri/gen/schemas/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/generated-before-files/apps/desktop/src-tauri/gen/schemas/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/generated-before.json": {
+      "bytes": 850,
+      "sha256": "1b1023fe333df1c1d27aebf78e0085f96993fde664695dfa94159f8f69b2cd5e"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/owned-process.json": {
+      "bytes": 301,
+      "sha256": "6f25b66da1e02053d3f717aac42e1fab9d813bb673bfdc137ee9f8c032c5b8f6"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/result.json": {
+      "bytes": 1412,
+      "sha256": "f4a400a293611ccc4d3300a3840c31d7d80a6c6d7472ddb8d5bff52bde3e0d58"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/runtime-after.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/runtime-before.json": {
+      "bytes": 643348,
+      "sha256": "c1c5a311295d30f4d9c61fcb5bf761b7b518add9f49b24f01009820c020cbf30"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/source-after.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/source-before.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/evidence-statics-v1/rustfmt-check/upfront.json": {
+      "bytes": 2578,
+      "sha256": "305c6afd9423f03fd936192aa489151c41ba18a8f0a569b6fc64cf5b20baeef4"
+    },
+    "execution/launch-actors-default-v1/child.json": {
+      "bytes": 475,
+      "sha256": "28cfbbfe387c4d47e3fa48c48e25beef0620c63d593aa654e302e09be48c3208"
+    },
+    "execution/launch-actors-default-v1/result.json": {
+      "bytes": 1226,
+      "sha256": "faf74f306d49466f518114c08c7711e394068b1c314680ee8dfd76879ff52c1f"
+    },
+    "execution/launch-actors-default-v1/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/launch-actors-default-v1/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/launch-actors-default-v1/upfront.json": {
+      "bytes": 5459,
+      "sha256": "6369fc3a5587e1f0ea0413047e3f373dcabb383d824166fbca9d7471b3306d39"
+    },
+    "execution/launch-actors-features-v1/child.json": {
+      "bytes": 477,
+      "sha256": "2f36bf775d5b519013671d00d59de5c07d8835fa5f9370ff88673bd15d60302f"
+    },
+    "execution/launch-actors-features-v1/result.json": {
+      "bytes": 1228,
+      "sha256": "fb532c3657f74267829cbc80d0509be0c5be3b9028508a72b4abe20c6062851c"
+    },
+    "execution/launch-actors-features-v1/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/launch-actors-features-v1/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/launch-actors-features-v1/upfront.json": {
+      "bytes": 5463,
+      "sha256": "4b29b08d0d8ced3d974b025443df68cc556e9443940cb13a7ca21ac30ab15116"
+    },
+    "execution/launch-compile-v1/child.json": {
+      "bytes": 459,
+      "sha256": "3e9fc5a3ad900378c6dd88818c8415370a0949f1b212bf2a101934c20f2728ba"
+    },
+    "execution/launch-compile-v1/result.json": {
+      "bytes": 1208,
+      "sha256": "cafaf3edb6b5f35352183ed6c094db1dc11ddf9d051fae2cfebb9e745186b46a"
+    },
+    "execution/launch-compile-v1/stderr": {
+      "bytes": 998,
+      "sha256": "73760fdca6bae761820cc7c87fb42cd183f43a748ca0d657ae3b7ff5475bcdac"
+    },
+    "execution/launch-compile-v1/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/launch-compile-v1/upfront.json": {
+      "bytes": 5422,
+      "sha256": "bbaafd60dbf920b0467f055761061f0f565b8aabe065225cfdffa3c7e9f27e9d"
+    },
+    "execution/launch-compile-v2/child.json": {
+      "bytes": 462,
+      "sha256": "c3e6f941e6402029bd9d5f19190d614d510a7ca97bcfe507f1829081d7d9792c"
+    },
+    "execution/launch-compile-v2/result.json": {
+      "bytes": 1212,
+      "sha256": "46696011670c8c75186b06f2e29754eaed566712f25af70c230ace271847c6b3"
+    },
+    "execution/launch-compile-v2/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/launch-compile-v2/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/launch-compile-v2/upfront.json": {
+      "bytes": 5432,
+      "sha256": "034ada15562fed5cfbef9993a1215181422971522e07c154b69fb2a774960f2f"
+    },
+    "execution/launch-statics-v1/child.json": {
+      "bytes": 462,
+      "sha256": "30644e705ca53e39592e7d74e8f57ca1a4c66081d6394125a6cb260701436c59"
+    },
+    "execution/launch-statics-v1/result.json": {
+      "bytes": 1212,
+      "sha256": "3dc52bf4f7473f9086a4ffffd51d4a203174d86e6e3da9a7e3bc703f510ca37a"
+    },
+    "execution/launch-statics-v1/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/launch-statics-v1/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution/launch-statics-v1/upfront.json": {
+      "bytes": 5432,
+      "sha256": "09830b56eb6e9bdead2837043f030c962b96b6d3bd6cf58fe20e7d56bf887911"
+    },
+    "initial-setup-refusal/donor-logical-before.json": {
+      "bytes": 315115,
+      "sha256": "5faa3d7b40d7654977b2926ff8a2366309b92452a1b6dbab3644e1d868faae69"
+    },
+    "initial-setup-refusal/donor-venv-before.json": {
+      "bytes": 567224,
+      "sha256": "7d141cfa925e27dc744952f5aa10886d877b53cea00523df5911addcc3a3f751"
+    },
+    "initial-setup-refusal/release-context.json": {
+      "bytes": 889,
+      "sha256": "97c3672bf85e5374cc6561caab068dd1812d4555e4525a34979149bac5a2b0d6"
+    },
+    "initial-setup-refusal/setup-format.initial.py": {
+      "bytes": 7347,
+      "sha256": "5b39b8bc374da25c75e59df932bb0676cca02b2f86f22c630adb9fff092975dd"
+    },
+    "initial-setup-refusal/setup-format.py": {
+      "bytes": 7347,
+      "sha256": "5b39b8bc374da25c75e59df932bb0676cca02b2f86f22c630adb9fff092975dd"
+    },
+    "initial-setup-refusal/setup-preparation-failure.json": {
+      "bytes": 493,
+      "sha256": "863ecaf4f6e46f18b11f2db0e370c427e1cfe4213a02ce322d5174c388c3356e"
+    },
+    "members.json": {
+      "bytes": 155173,
+      "sha256": "9316333226f0037682ce334380d430b76940d31b99458e517a6ccabcd7ba264b"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/REVIEW.md": {
+      "bytes": 1401,
+      "sha256": "f2231b0a490ad541564f159a6afaa9ad0b5a65088a308bc6cc3ab825e6c327ec"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/findings.json": {
+      "bytes": 14835,
+      "sha256": "29b9706061ce47e0e138f027d6ed652948720025504b43a8065e2d5a69bfd287"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/history/review.v1.stderr": {
+      "bytes": 1237,
+      "sha256": "41e909702bcfb2ec2d9750687286fe5f373bcc9c8a2e5cc335f14459e11a845a"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/history/review.v1.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/history/review.v2.stderr": {
+      "bytes": 822,
+      "sha256": "85d286efffe52cb9ede61b1dbeb82f1022fd4987270e780dabb080df60a6f04a"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/history/review.v2.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/history/review.v3.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/history/review.v3.stdout": {
+      "bytes": 303,
+      "sha256": "eac5d3a973e359a18f038a2d4789119f50bb05c420beccd970f87e13118dcfb3"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/history/review_source.strip-prefix-preimage.py": {
+      "bytes": 11249,
+      "sha256": "61961afdf0163b3e542613c093fc0ee886751aade69dfb5175760a22462e8313"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/history/review_source.syntax-only-preimage.py": {
+      "bytes": 11250,
+      "sha256": "e151f143394ce065108c67b4472ccfd745c5f75e76ee52baf37eafb3cd43b6a4"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/history/setup-notes.json": {
+      "bytes": 662,
+      "sha256": "17b8789f0294c599eb8f5a15e5a75e59eeab658985067590e80329db9c2f8c06"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/independent-review.json": {
+      "bytes": 450,
+      "sha256": "304efbfdcdd78331f47531d861a071f2dc98561d8a561e95fb63fa78e533d6de"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/input-bindings.json": {
+      "bytes": 26632,
+      "sha256": "3e49156b44c129bafdbfb705bdfe587bd5b5b1f988cdc3748ef6abdfb8bdc5e2"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/retention-manifest.json": {
+      "bytes": 2237,
+      "sha256": "1975023735b7f84362b0dd6e8e8324c0beeeab4d4603535b11e05d1a5bc615a1"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/review_source.py": {
+      "bytes": 11268,
+      "sha256": "3bc2fc02524fa65dc167bee159bdce17362150c9c548ddf7f2c73b1c527b0714"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-postformat-independent-review-20261019/reviewed-collector.py": {
+      "bytes": 24466,
+      "sha256": "da845d9d91e4aa2b190ef827e0e795c9b0a142f8267c981b748dc137142e6df5"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-config-binding-review-20261019/config-compile-v2.json": {
+      "bytes": 4546,
+      "sha256": "82bc173430f593eebdbeba2a09a4e525d343f7357ccc46f66de3b290a7f7e299"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-config-binding-review-20261019/findings.json": {
+      "bytes": 1116,
+      "sha256": "6f5f716bdb6b4d0ce72a56d950076dcc6d33cf2449cb15d54ce8eda15a54f02e"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-config-binding-review-20261019/launch-stage-v2.py": {
+      "bytes": 2329,
+      "sha256": "4d0b52df4572d91f238f9dabe800101730d2a9a80e1c257114a7601b9e17f00f"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-config-binding-review-20261019/release-compile-v2.json": {
+      "bytes": 1055,
+      "sha256": "cb7856fc950a1c0fe17ee1eb5f5ae925125d8b4c2b409e4ad744f9169b60cef6"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-correction-independent-review-20261019/REVIEW.md": {
+      "bytes": 1241,
+      "sha256": "cb00affbb06b3c845a5875f6089e1891fc95b129ff3279adaef046210eef0a3f"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-correction-independent-review-20261019/findings.json": {
+      "bytes": 5210,
+      "sha256": "33d693094e870ac019211874a585f8b72f1fa45cba99c8dc6e0e48130f61459b"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-correction-independent-review-20261019/history/review.v1.stderr": {
+      "bytes": 1258,
+      "sha256": "7e8cbd889d5b07703cec6eac533ebc860f785f11240531446355317dd0bd38c0"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-correction-independent-review-20261019/history/review.v1.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-correction-independent-review-20261019/history/review.v2.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-correction-independent-review-20261019/history/review.v2.stdout": {
+      "bytes": 303,
+      "sha256": "8cda0ee3cb6089066c9986a57141d935a502445d71b61282b52274a9b6b4fb24"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-correction-independent-review-20261019/history/review_source.path-alias-preimage.py": {
+      "bytes": 11207,
+      "sha256": "7162df28f9305dc0f9b3f320d473d4b9410229697e4def97889f67e62cd63b49"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-correction-independent-review-20261019/history/setup-note.json": {
+      "bytes": 402,
+      "sha256": "6a83bf5565e0c736af66c81287907954077d4e95646318d864b246947b63c099"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-correction-independent-review-20261019/independent-review.json": {
+      "bytes": 450,
+      "sha256": "182f55dd0470c979a695c553b62b67509d496ef310e4556a60d7777f9b1f1a34"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-correction-independent-review-20261019/input-bindings.json": {
+      "bytes": 57872,
+      "sha256": "9057e6d0f2d68f1249235dbfaf611b66c11bec7272a8e9bd03c7f3e4f6d0e276"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-correction-independent-review-20261019/retention-manifest.json": {
+      "bytes": 1632,
+      "sha256": "a18dd1d84e9883416490cfb955a79a048854dde7d2b4508c4851a15024814006"
+    },
+    "prior-independent-source-reviews/japp-m03-w05-actual-recovery-setup-correction-independent-review-20261019/review_source.py": {
+      "bytes": 11127,
+      "sha256": "3ae126946e911fe32a3617d5f9293b809d7a45ba74cba5d0be10de938de33740"
+    },
+    "quarantined-generated-before/acl-manifests.json": {
+      "bytes": 67748,
+      "sha256": "a7849758b2dc227b9ec837e692b67f5ee1097f9d358c774c6cdf971ed467fa82"
+    },
+    "quarantined-generated-before/capabilities.json": {
+      "bytes": 316,
+      "sha256": "e8a8ffaad480be1d3073bfc6845f4e905384a2a566ec3830f29a86497fda6405"
+    },
+    "quarantined-generated-before/desktop-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "quarantined-generated-before/macOS-schema.json": {
+      "bytes": 118537,
+      "sha256": "d8d773406844646d4309a20f8d7492a4e3423d9500fc8836e551deb794b92222"
+    },
+    "runtime-final.json": {
+      "bytes": 14643,
+      "sha256": "cc7cdf7e873f803b35d975fce7f635ef5a14213382a727b0e7ac4f32949f7dd7"
+    },
+    "setup/commands/01-source-COW/result.json": {
+      "bytes": 469,
+      "sha256": "ffb292daf8380f8673d30f052f61daf8ade18830016e5d6efcd7fbd58ecbb5f4"
+    },
+    "setup/commands/01-source-COW/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/commands/01-source-COW/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/commands/01-source-COW/upfront.json": {
+      "bytes": 1681,
+      "sha256": "60928702be2e1a4305b1a8ce72e48a1f5605d78800f228f779dd510b9f74f193"
+    },
+    "setup/commands/02-target-COW/result.json": {
+      "bytes": 468,
+      "sha256": "91bb6fb8109090b314bd84f3631c9fde1a9bc7f2a1cd06992c37d88fb93fbe69"
+    },
+    "setup/commands/02-target-COW/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/commands/02-target-COW/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/commands/02-target-COW/upfront.json": {
+      "bytes": 1693,
+      "sha256": "425838def26e8d5f5602c65fd027fbe7a372d1ca8d967b7cf2b889009c1b3481"
+    },
+    "setup/commands/03-owned-registry-COW/result.json": {
+      "bytes": 469,
+      "sha256": "8031a2d63561d388c2097f44e37bd471154969386c3867a2247b555018315d2c"
+    },
+    "setup/commands/03-owned-registry-COW/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/commands/03-owned-registry-COW/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/commands/03-owned-registry-COW/upfront.json": {
+      "bytes": 1663,
+      "sha256": "e3a0285e19ffd8f1145029ea27c2241a525df8f9e4fe08732f005bd33a895a9b"
+    },
+    "setup/commands/04-actor-runtime-COW/result.json": {
+      "bytes": 470,
+      "sha256": "0c70827c3da2752e1006e4c05ca363b3c860723e5798b540cb835208a3db23cc"
+    },
+    "setup/commands/04-actor-runtime-COW/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/commands/04-actor-runtime-COW/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/commands/04-actor-runtime-COW/upfront.json": {
+      "bytes": 1733,
+      "sha256": "c8b6d7e09a83e82fb6cbb4243380fd4613244957f2a99df666f7e6eef9027adb"
+    },
+    "setup/commands/05-fault-runtime-COW/result.json": {
+      "bytes": 471,
+      "sha256": "2027db0f9f7f44a93d6cc735d72143891bfd8d9b91865c224b031a0a5f4f0aa8"
+    },
+    "setup/commands/05-fault-runtime-COW/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/commands/05-fault-runtime-COW/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/commands/05-fault-runtime-COW/upfront.json": {
+      "bytes": 1731,
+      "sha256": "482c29da7eb1b7f113bfea6edb9b2eec4a56547f946764035ef7896aae79ee82"
+    },
+    "setup/commands/06-actual-rustfmt/result.json": {
+      "bytes": 471,
+      "sha256": "d1ac522e093f36c342dbf0ccca78e8ca8bf9f3fc933e0cb2806a1db3b00fca54"
+    },
+    "setup/commands/06-actual-rustfmt/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/commands/06-actual-rustfmt/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/commands/06-actual-rustfmt/upfront.json": {
+      "bytes": 2377,
+      "sha256": "d96a496ba4901ecb9112fe6d91e0f74de69f50a054a4f7424b15ca1a432f47d9"
+    },
+    "setup/provenance/build_requirements.txt": {
+      "bytes": 2681,
+      "sha256": "a61cfea9359f0f0f6fdab4a0d1d3753aa719e73f3404e930adb75d7f99eb9e79"
+    },
+    "setup/provenance/compile_runtime_payload-manifest.json": {
+      "bytes": 6977,
+      "sha256": "9e53d2bfab7cec94105dfdaa49bc6f88a0f2983a3f432503733cd20148a3b856"
+    },
+    "setup/provenance/copy-build_requirements-result.json": {
+      "bytes": 390,
+      "sha256": "bb9891b0635f409de393355ce6135921a3c06c6d8ced1902ead4b982a76fd031"
+    },
+    "setup/provenance/copy-build_requirements-upfront.json": {
+      "bytes": 1803,
+      "sha256": "05dece317af6a00ac2d6f26fd31871044acd69a8150c5700ed9282290e425842"
+    },
+    "setup/provenance/copy-build_requirements.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/provenance/copy-build_requirements.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/provenance/copy-japp_contracts-0.0.1-py3-none-any.whl-result.json": {
+      "bytes": 394,
+      "sha256": "73a2f7303c8d9815f577bfad40883256d7b3518e3c10c0410eb73f709bb4f318"
+    },
+    "setup/provenance/copy-japp_contracts-0.0.1-py3-none-any.whl-upfront.json": {
+      "bytes": 1816,
+      "sha256": "f6b80e1e9a6f5301a119b5f10ae46370132fa123c70e0b68a76f479f601e9a79"
+    },
+    "setup/provenance/copy-japp_contracts-0.0.1-py3-none-any.whl.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/provenance/copy-japp_contracts-0.0.1-py3-none-any.whl.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/provenance/copy-orchestrator-0.0.1-py3-none-any.whl-result.json": {
+      "bytes": 392,
+      "sha256": "03217172f0342fc90eaadf81e6688b40c51a9b1cf41abcafa308645fbac059d8"
+    },
+    "setup/provenance/copy-orchestrator-0.0.1-py3-none-any.whl-upfront.json": {
+      "bytes": 1811,
+      "sha256": "8e9a799418e1ddc8b806a4e611498005fe5cf8ba78aa7b53a470734cbd94c25a"
+    },
+    "setup/provenance/copy-orchestrator-0.0.1-py3-none-any.whl.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/provenance/copy-orchestrator-0.0.1-py3-none-any.whl.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/provenance/copy-runtime_requirements-result.json": {
+      "bytes": 390,
+      "sha256": "0034941e38e7a3886b3b9e1e692c2e829ce91e74ff9e194943fd1d3c3e78b2ef"
+    },
+    "setup/provenance/copy-runtime_requirements-upfront.json": {
+      "bytes": 1798,
+      "sha256": "b94f91109638e3f588bf50f1dbb602d1805b85edd124aa178fe17d56f9e85c5a"
+    },
+    "setup/provenance/copy-runtime_requirements.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/provenance/copy-runtime_requirements.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup/provenance/frontend_dist-manifest.json": {
+      "bytes": 537,
+      "sha256": "b9cd2b4929240649abe2414a52332768ff6ddd7eac0ae332f793de6142fa74e1"
+    },
+    "setup/provenance/python_environment-manifest.json": {
+      "bytes": 567641,
+      "sha256": "b3a064bcbe4621167cb8c0bba32311cac58596c442d97357caefdec7fbfedfdf"
+    },
+    "setup/provenance/runtime-applicability.json": {
+      "bytes": 36486,
+      "sha256": "2285f3bc1bc558fa8a0cbb052a45742acda01ef396a80d247a988c0a1326d145"
+    },
+    "setup/provenance/runtime_requirements.txt": {
+      "bytes": 4750,
+      "sha256": "b02e40a467e53d35159f3bc06d456ca98d83020daac6d6d720e2e4bb2d8fe307"
+    },
+    "setup/provenance/wheels/japp_contracts-0.0.1-py3-none-any.whl": {
+      "bytes": 214204,
+      "sha256": "d1ac6f4725a98bb35dca624192bc80b89d4634a3558467b80b6b2f190b2c6d7c"
+    },
+    "setup/provenance/wheels/orchestrator-0.0.1-py3-none-any.whl": {
+      "bytes": 13591,
+      "sha256": "6ef4e59987a42d0a4b34d9bb8507537616e7d83913133b2d5a55bbb83b5e6052"
+    },
+    "source-review-packet/HANDOFF.md": {
+      "bytes": 2087,
+      "sha256": "79c6d22bf877e7cbfc29f3b630e9c615b88c637ff133d61b347b07c99992540f"
+    },
+    "source-review-packet/collect.py": {
+      "bytes": 26580,
+      "sha256": "736ffe4c9848b6a382d73816daaf976cb3643adb0559a5b988335251e7db7dbd"
+    },
+    "source-review-packet/collector-setup-correction.diff": {
+      "bytes": 5268,
+      "sha256": "785f56914f32c5a065538463299e1aaa25dcd7c2f6c6eea46105ea48be92459f"
+    },
+    "source-review-packet/config-compile-v2.pending-review.json": {
+      "bytes": 4452,
+      "sha256": "f96e13b1e190515f7553abcfef19f487a4588c1caf6a4ba2489fbe707c812e20"
+    },
+    "source-review-packet/config.example.json": {
+      "bytes": 1607,
+      "sha256": "da2d2363fd9a10edbffd37334fdec28c7952af95ddadbcfe38dda1af3e8cc74a"
+    },
+    "source-review-packet/expected187.json": {
+      "bytes": 17817,
+      "sha256": "278f2925709bbe25fa3dccfbce19bb285718c8c90fff4e2008845b0d57404805"
+    },
+    "source-review-packet/format-mechanical-checks.json": {
+      "bytes": 5480,
+      "sha256": "4463bab5cf0e8a990105eac55f42a927087f0aa6f99a732e21ff120976318cf2"
+    },
+    "source-review-packet/format-only.diff": {
+      "bytes": 36411,
+      "sha256": "51eea60efb815f70f25e1ac79f2ddc53a0faabaaec427224894ecb94b3ae12ff"
+    },
+    "source-review-packet/generated-output-policy.json": {
+      "bytes": 837,
+      "sha256": "d39277dd5c4036348e2fec828a6d994832df6b926ad467b7dcc5742444ef32c6"
+    },
+    "source-review-packet/history/preparation-issue.json": {
+      "bytes": 472,
+      "sha256": "f1267c8b93f98bc3d8de6a3a21ae0340639061e4ab78ceeca969f2ae3c686986"
+    },
+    "source-review-packet/history/prepare-postformat.initial.py": {
+      "bytes": 6436,
+      "sha256": "8fa8cbdc28e5cc1ed447db4b5cf5ed01771991a568467d36872c978f8dd2ee88"
+    },
+    "source-review-packet/history/setup-collector-v1/HANDOFF.md": {
+      "bytes": 4537,
+      "sha256": "aa4ee5940a17330e38153c495c060b6872a0d68efee978d4f2d61bf63f0d23bd"
+    },
+    "source-review-packet/history/setup-collector-v1/collect.py": {
+      "bytes": 24466,
+      "sha256": "da845d9d91e4aa2b190ef827e0e795c9b0a142f8267c981b748dc137142e6df5"
+    },
+    "source-review-packet/history/setup-collector-v1/retention-manifest.json": {
+      "bytes": 11307,
+      "sha256": "9eedaea7c15e3e241892cfbf51622cb22ef909fffdacefe3c712fe410302195b"
+    },
+    "source-review-packet/independent-review.example.json": {
+      "bytes": 194,
+      "sha256": "661419c87caa764f0fb08338a2ccc2d3d5909983d2a18e9ecd186cebab63d2e6"
+    },
+    "source-review-packet/inputs/shipping-manifest.json": {
+      "bytes": 315115,
+      "sha256": "ee091e710086c6149d019c9ac58aed68f6b8b8dedee31b572dfabedba36f4f47"
+    },
+    "source-review-packet/logical-after-manifest.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "source-review-packet/overlay-manifest.json": {
+      "bytes": 824,
+      "sha256": "55b10359c2bad1b76381852d5f38f61cb800b8d5d29a37ed01c3c2b08dbe2069"
+    },
+    "source-review-packet/overlay/apps/desktop/src-tauri/src/service/platform.rs": {
+      "bytes": 24138,
+      "sha256": "cb8646488c95547bbd011cec316b5f1ab699b63df8bc702a5b955138c0c6a6c1"
+    },
+    "source-review-packet/overlay/apps/desktop/src-tauri/src/service/proof/actual_recovery.rs": {
+      "bytes": 29632,
+      "sha256": "17a0512943bf892fb3e59e3013a182f34c941a7e20427e02a56dddf0beb9f77d"
+    },
+    "source-review-packet/overlay/apps/desktop/src-tauri/src/service/restart.rs": {
+      "bytes": 54336,
+      "sha256": "87bd888c63f28da4b04b5526f9bf60fb97c73368f96cc00a3cd90ce7df7c112a"
+    },
+    "source-review-packet/overlay/apps/desktop/src-tauri/src/service/supervisor.rs": {
+      "bytes": 47856,
+      "sha256": "ab9ba80a608712248540cd096a5eceb3034a79f0fa57d87868de20a2a7b93952"
+    },
+    "source-review-packet/overlay/apps/desktop/src-tauri/src/service/tauri_lifecycle.rs": {
+      "bytes": 24281,
+      "sha256": "a140654cda6e20194e6b5d9992d5168617d8dabbe0a6a8964c05663cfa47338c"
+    },
+    "source-review-packet/preformat-packet-binding.json": {
+      "bytes": 587,
+      "sha256": "21bc6c1996d0414fbf93ab12343f846bd83766f6ab6b580488b9a3b3203d02ad"
+    },
+    "source-review-packet/prepare-postformat.py": {
+      "bytes": 7302,
+      "sha256": "9b4fbf95f6eee4c2370094897642233a998dcc4ef17caa4adea7f20fc62cf680"
+    },
+    "source-review-packet/release.example.json": {
+      "bytes": 175,
+      "sha256": "05df6bf66ce4a7c9f2b53836e801842feaddcc00ed7c90d083e0f1dba759e344"
+    },
+    "source-review-packet/removal-projection.json": {
+      "bytes": 1024,
+      "sha256": "7d81c366bcf88ce7a9754064f95dba894c2f1aef3cc5468cc3726136945a972c"
+    },
+    "source-review-packet/retention-manifest.json": {
+      "bytes": 13348,
+      "sha256": "72b2e19c930606344ea396c234ef16c363a138956001428ac50b51f7a7f84eee"
+    },
+    "source-review-packet/seal-postformat.py": {
+      "bytes": 1721,
+      "sha256": "e4fdc674184a2b11debfcaf680cf0c78fce863da5ee3b2fe72bf7ad23afbad7b"
+    },
+    "source-review-packet/setup-correction-source-checks.json": {
+      "bytes": 460,
+      "sha256": "3f5f2b8ec3b7abd581ffefd165c09b2cc5e928f1f7c68c1a1a7eb1dfccccd62e"
+    },
+    "source-review-packet/setup-correction/launch-compile-v1/result.json": {
+      "bytes": 1208,
+      "sha256": "cafaf3edb6b5f35352183ed6c094db1dc11ddf9d051fae2cfebb9e745186b46a"
+    },
+    "source-review-packet/setup-correction/launch-compile-v1/stderr": {
+      "bytes": 998,
+      "sha256": "73760fdca6bae761820cc7c87fb42cd183f43a748ca0d657ae3b7ff5475bcdac"
+    },
+    "source-review-packet/setup-correction/launch-compile-v1/upfront.json": {
+      "bytes": 5422,
+      "sha256": "bbaafd60dbf920b0467f055761061f0f565b8aabe065225cfdffa3c7e9f27e9d"
+    },
+    "source-review-packet/setup-correction/quarantine-mode-map.json": {
+      "bytes": 55591,
+      "sha256": "680a1f616cfb9642ffc6287171eb2d4eeb404a8a439e092ef9cd996b4d4f5862"
+    },
+    "source-review-packet/setup-correction/setup-artifacts-quarantine-closed.json": {
+      "bytes": 29209,
+      "sha256": "f7d8feb0cb5260658e47edf59305e77a9456b7f8328916b14fb0d7b56d901f9d"
+    },
+    "source-review-packet/setup-correction/setup-unlisted-source-inventory.json": {
+      "bytes": 29149,
+      "sha256": "7245bdcacf49347f7a9b6f0cd00b242fd96d0337cd4a0012e0dcc286fcd2a826"
+    },
+    "source-review-packet/setup-evidence/actor-runtime-before-format.json": {
+      "bytes": 6977,
+      "sha256": "9e53d2bfab7cec94105dfdaa49bc6f88a0f2983a3f432503733cd20148a3b856"
+    },
+    "source-review-packet/setup-evidence/commands/01-source-COW/result.json": {
+      "bytes": 469,
+      "sha256": "ffb292daf8380f8673d30f052f61daf8ade18830016e5d6efcd7fbd58ecbb5f4"
+    },
+    "source-review-packet/setup-evidence/commands/01-source-COW/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "source-review-packet/setup-evidence/commands/01-source-COW/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "source-review-packet/setup-evidence/commands/01-source-COW/upfront.json": {
+      "bytes": 1681,
+      "sha256": "60928702be2e1a4305b1a8ce72e48a1f5605d78800f228f779dd510b9f74f193"
+    },
+    "source-review-packet/setup-evidence/commands/02-target-COW/result.json": {
+      "bytes": 468,
+      "sha256": "91bb6fb8109090b314bd84f3631c9fde1a9bc7f2a1cd06992c37d88fb93fbe69"
+    },
+    "source-review-packet/setup-evidence/commands/02-target-COW/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "source-review-packet/setup-evidence/commands/02-target-COW/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "source-review-packet/setup-evidence/commands/02-target-COW/upfront.json": {
+      "bytes": 1693,
+      "sha256": "425838def26e8d5f5602c65fd027fbe7a372d1ca8d967b7cf2b889009c1b3481"
+    },
+    "source-review-packet/setup-evidence/commands/03-owned-registry-COW/result.json": {
+      "bytes": 469,
+      "sha256": "8031a2d63561d388c2097f44e37bd471154969386c3867a2247b555018315d2c"
+    },
+    "source-review-packet/setup-evidence/commands/03-owned-registry-COW/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "source-review-packet/setup-evidence/commands/03-owned-registry-COW/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "source-review-packet/setup-evidence/commands/03-owned-registry-COW/upfront.json": {
+      "bytes": 1663,
+      "sha256": "e3a0285e19ffd8f1145029ea27c2241a525df8f9e4fe08732f005bd33a895a9b"
+    },
+    "source-review-packet/setup-evidence/commands/04-actor-runtime-COW/result.json": {
+      "bytes": 470,
+      "sha256": "0c70827c3da2752e1006e4c05ca363b3c860723e5798b540cb835208a3db23cc"
+    },
+    "source-review-packet/setup-evidence/commands/04-actor-runtime-COW/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "source-review-packet/setup-evidence/commands/04-actor-runtime-COW/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "source-review-packet/setup-evidence/commands/04-actor-runtime-COW/upfront.json": {
+      "bytes": 1733,
+      "sha256": "c8b6d7e09a83e82fb6cbb4243380fd4613244957f2a99df666f7e6eef9027adb"
+    },
+    "source-review-packet/setup-evidence/commands/05-fault-runtime-COW/result.json": {
+      "bytes": 471,
+      "sha256": "2027db0f9f7f44a93d6cc735d72143891bfd8d9b91865c224b031a0a5f4f0aa8"
+    },
+    "source-review-packet/setup-evidence/commands/05-fault-runtime-COW/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "source-review-packet/setup-evidence/commands/05-fault-runtime-COW/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "source-review-packet/setup-evidence/commands/05-fault-runtime-COW/upfront.json": {
+      "bytes": 1731,
+      "sha256": "482c29da7eb1b7f113bfea6edb9b2eec4a56547f946764035ef7896aae79ee82"
+    },
+    "source-review-packet/setup-evidence/commands/06-actual-rustfmt/result.json": {
+      "bytes": 471,
+      "sha256": "d1ac522e093f36c342dbf0ccca78e8ca8bf9f3fc933e0cb2806a1db3b00fca54"
+    },
+    "source-review-packet/setup-evidence/commands/06-actual-rustfmt/stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "source-review-packet/setup-evidence/commands/06-actual-rustfmt/stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "source-review-packet/setup-evidence/commands/06-actual-rustfmt/upfront.json": {
+      "bytes": 2377,
+      "sha256": "d96a496ba4901ecb9112fe6d91e0f74de69f50a054a4f7424b15ca1a432f47d9"
+    },
+    "source-review-packet/setup-evidence/donor-logical-after.json": {
+      "bytes": 315115,
+      "sha256": "5faa3d7b40d7654977b2926ff8a2366309b92452a1b6dbab3644e1d868faae69"
+    },
+    "source-review-packet/setup-evidence/donor-logical-before.json": {
+      "bytes": 315115,
+      "sha256": "5faa3d7b40d7654977b2926ff8a2366309b92452a1b6dbab3644e1d868faae69"
+    },
+    "source-review-packet/setup-evidence/donor-venv-after.json": {
+      "bytes": 567224,
+      "sha256": "7d141cfa925e27dc744952f5aa10886d877b53cea00523df5911addcc3a3f751"
+    },
+    "source-review-packet/setup-evidence/donor-venv-before.json": {
+      "bytes": 567224,
+      "sha256": "7d141cfa925e27dc744952f5aa10886d877b53cea00523df5911addcc3a3f751"
+    },
+    "source-review-packet/setup-evidence/fault-runtime-before-format.json": {
+      "bytes": 6977,
+      "sha256": "9e53d2bfab7cec94105dfdaa49bc6f88a0f2983a3f432503733cd20148a3b856"
+    },
+    "source-review-packet/setup-evidence/format-inputs-upfront.json": {
+      "bytes": 2132,
+      "sha256": "12e3b35ae85a822476af6a030a713fdb3e2ff96ce01085c43ab24a07279444c8"
+    },
+    "source-review-packet/setup-evidence/frontend-before-format.json": {
+      "bytes": 537,
+      "sha256": "b9cd2b4929240649abe2414a52332768ff6ddd7eac0ae332f793de6142fa74e1"
+    },
+    "source-review-packet/setup-evidence/initial-preparation/setup-format.initial.py": {
+      "bytes": 7347,
+      "sha256": "5b39b8bc374da25c75e59df932bb0676cca02b2f86f22c630adb9fff092975dd"
+    },
+    "source-review-packet/setup-evidence/initial-preparation/setup-preparation-failure.json": {
+      "bytes": 493,
+      "sha256": "863ecaf4f6e46f18b11f2db0e370c427e1cfe4213a02ce322d5174c388c3356e"
+    },
+    "source-review-packet/setup-evidence/own-venv-after-reanchor.json": {
+      "bytes": 567224,
+      "sha256": "3f3a154fdb494afca5d783e04e52c12cd60e8549a157549528d36d3b98117004"
+    },
+    "source-review-packet/setup-evidence/own-venv-before-reanchor.json": {
+      "bytes": 567224,
+      "sha256": "7d141cfa925e27dc744952f5aa10886d877b53cea00523df5911addcc3a3f751"
+    },
+    "source-review-packet/setup-evidence/owned-base-before-overlay.json": {
+      "bytes": 315115,
+      "sha256": "5faa3d7b40d7654977b2926ff8a2366309b92452a1b6dbab3644e1d868faae69"
+    },
+    "source-review-packet/setup-evidence/owned-postformat-logical.json": {
+      "bytes": 315288,
+      "sha256": "060c2fd8e143b33560e101ac090b0a96c4a545048caa3224b05196cbd27d59f0"
+    },
+    "source-review-packet/setup-evidence/owned-preformat-logical.json": {
+      "bytes": 315288,
+      "sha256": "1fd023e0edff54ae5a82b4e93a71992cf0c54c96518da4adb818d0f2c34d9302"
+    },
+    "source-review-packet/setup-evidence/release-context.json": {
+      "bytes": 889,
+      "sha256": "97c3672bf85e5374cc6561caab068dd1812d4555e4525a34979149bac5a2b0d6"
+    },
+    "source-review-packet/setup-evidence/runtime-before-format.json": {
+      "bytes": 6977,
+      "sha256": "9e53d2bfab7cec94105dfdaa49bc6f88a0f2983a3f432503733cd20148a3b856"
+    },
+    "source-review-packet/setup-evidence/setup-format-closed.json": {
+      "bytes": 383,
+      "sha256": "1106b39edf9f24e203e7cdf38a986c8abc0027575b97849e14d19ce3b8dcbb8d"
+    },
+    "source-review-packet/setup-evidence/setup-format.py": {
+      "bytes": 7356,
+      "sha256": "a9c28bdb050a48794e494ea76c05a665b1cf869bbcc63c1e603b8b8a33feaa62"
+    },
+    "source-review-packet/setup-evidence/venv-reanchors.json": {
+      "bytes": 5175,
+      "sha256": "cb3d80a13a78b0a33b1e76a2dc793e2977d97fed17df5e1d552dd232571bdcf7"
+    },
+    "source-review-packet/setup-format-bindings.json": {
+      "bytes": 994,
+      "sha256": "10e66f255f0d6b99086078511204e2a52153b750243a8cacb0c762e19c7ff2b7"
+    },
+    "source-review-packet/test-body-preservation.json": {
+      "bytes": 71060,
+      "sha256": "77b4960b79658ff11de34e566163d650a472d53a16da9a48db57b6bfbd29c87b"
+    },
+    "source-review-packet/test-only.patch": {
+      "bytes": 36232,
+      "sha256": "ebaf78a079ac71e15579d2410f71ba02c7750fc88973a666cebad3b5a031fc0d"
+    },
+    "summary.derived.json": {
+      "bytes": 294282,
+      "sha256": "215d4c764485a6dc0c1308fbb6804ab1a2efb2827401175d3763895d4ef3fa3c"
+    }
+  },
+  "payload_bytes": 80229740,
+  "safe_regular_members": 761,
+  "scope": "Author-packaged finite raw/data proof; executable/runtime images omitted explicitly; independent actual-data audit still required"
+}

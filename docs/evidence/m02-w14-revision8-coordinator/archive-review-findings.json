@@ -1,0 +1,102 @@
+{
+  "format": "INDEPENDENT_COORDINATOR_FC_ARCHIVE_AUDIT_1",
+  "archive_sha256": "9be801fefecb570931ad717d978cc5c058a2090db7045fae335f723c097fc3ff",
+  "archive_bytes": 28025,
+  "regular_members": 14,
+  "checks": {
+    "archive_sha_exact": true,
+    "archive_bytes_exact": true,
+    "fourteen_unique_safe_regular_members_no_links": true,
+    "outer_inventory_exhaustive_and_exact": true,
+    "embedded_index_exact_excluding_itself": true,
+    "old_script_exact_reviewed_hash": true,
+    "new_script_exact_reviewed_hash": true,
+    "script_bindings_match_plans": true,
+    "old_plan_md_json_exact": true,
+    "revision1_two_source_findings_preserved": true,
+    "revision2_resolved_ids_and_no_new_finding": true,
+    "revision2_twenty_nine_source_checks_true": true,
+    "plans_explicit_source_only_and_gate_false": true,
+    "archive_scope_historical_unexecuted_unreleased": true,
+    "no_actor_output_results_members": true,
+    "coordinator_AST_valid_without_import_or_execution": true
+  },
+  "all_checks_pass": true,
+  "actual_members": [
+    {
+      "path": "independent-review/findings.json",
+      "bytes": 2577,
+      "sha256": "48842e7d1b5f4436bae1ab036880af439d03f9c227cb6e54447b54e891b99ac4"
+    },
+    {
+      "path": "independent-review/report.md",
+      "bytes": 3314,
+      "sha256": "2179e7082f3fb949f0c317b91cbf5245e93a98d3a6dd95fb18589b9a142e0c80"
+    },
+    {
+      "path": "independent-review/revision-2/findings.json",
+      "bytes": 359,
+      "sha256": "e41b689de60393a84d32d6667c0511200c1ac98d8cf6092abafc3ec45065d908"
+    },
+    {
+      "path": "independent-review/revision-2/report.md",
+      "bytes": 2757,
+      "sha256": "29517e6d10c23d1fe40fbbb8802dae9bf7fd5ff0b9292311e4a3188e0b8f1262"
+    },
+    {
+      "path": "independent-review/revision-2/source-checks.json",
+      "bytes": 2787,
+      "sha256": "e343b12797e1bcec00dc9ec7f722935db89820fd8a547247ffde1e21ab52be10"
+    },
+    {
+      "path": "independent-review/source-checks.json",
+      "bytes": 2232,
+      "sha256": "523314b634ceff2ab12c407e768cc843dfb7a9bde9b9234e496f6bcd54b4657c"
+    },
+    {
+      "path": "packaging/retention-builder.py",
+      "bytes": 7441,
+      "sha256": "4fa6190bab0cdd2c96204dfbac1778e6601ef0de49b4720b2de4d45f0c9bde30"
+    },
+    {
+      "path": "proposal/history/revision-1/plan.json",
+      "bytes": 7795,
+      "sha256": "998b46e7b1c9ff22bb2a67467a866fb23e586a175dcaa52449827589c6d31973"
+    },
+    {
+      "path": "proposal/history/revision-1/plan.md",
+      "bytes": 5721,
+      "sha256": "e4a9edd4af216e4b2b065a0d06706bc9bc636e324d7dcffbeed9353ab78a4f3c"
+    },
+    {
+      "path": "proposal/history/revision-1/run-revision8.py",
+      "bytes": 17005,
+      "sha256": "65c39ea803fd746667f4dee28e6d0a8fe969e21394842d1e269e3d9f32fa1861"
+    },
+    {
+      "path": "proposal/plan.json",
+      "bytes": 8367,
+      "sha256": "d42bdfdb58e61beba2b50d7682371bb01a0f601e09fd858a25318bb04fac2e63"
+    },
+    {
+      "path": "proposal/plan.md",
+      "bytes": 6352,
+      "sha256": "312addf309960ad9e3856c79e0c85fbaef9721369a7fb410a796fc5bd1656a01"
+    },
+    {
+      "path": "proposal/run-revision8.py",
+      "bytes": 18740,
+      "sha256": "1caf0c988d1dcc9435c68414556ffc54d4b7fde8827d3f6d712553e4065993d8"
+    },
+    {
+      "path": "retained-members.json",
+      "bytes": 2729,
+      "sha256": "ab14480d9232c5d1b797650d0c3e3d67d3ea029cbb3a6abade9dd8a1449973ff"
+    }
+  ],
+  "unsafe": [],
+  "scope": "Archive/hash/source review only, no wrapper import/invocation or actor result inferred. Historical frozen full exit1 independently audited separately.",
+  "root_writes": false,
+  "tests_builds_browsers_or_benchmark_reruns": false,
+  "gate_approval": false
+}

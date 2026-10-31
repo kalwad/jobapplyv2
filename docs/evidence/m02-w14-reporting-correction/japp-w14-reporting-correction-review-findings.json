@@ -1,0 +1,43 @@
+{
+  "scope": "Independent read-only review of proposed KI0092 reporting correction, no root/proposal writes or tests/build/browser",
+  "checks": {
+    "patch_exact_requested_sha": true,
+    "all_four_root_preimages_exact": true,
+    "all_four_proposed_afterimages_exact": true,
+    "only_four_declared_reporting_fixture_files": true,
+    "python_ast_only_three_issue_constant_additions": true,
+    "all_existing_assertions_ast_exact": true,
+    "all_existing_function_names_exact": true,
+    "raw_unchanged_paired-comparison.json": true,
+    "raw_unchanged_proof.tar.gz": true,
+    "raw_unchanged_retention-manifest.json": true,
+    "r6_raw_legacy_exact_cited_sha": true,
+    "r6_and_r7_one_exact_country_code_activation_per_case": true,
+    "all_four_full_legacy_witness_arrays_identical_r6_r7": true,
+    "r6_r7_other_reported_counts_match": true,
+    "legacy_prior_lock_retained": true,
+    "legacy_current_lock_retained": true,
+    "revision7_retained_archive_exact_cited_sha": true,
+    "revision7_retained_regular_member_count": true,
+    "candidate_unexpected_native_zero_independently_recomputed": true
+  },
+  "all_pass": true,
+  "python_list_constants_added": [
+    "KI-0092",
+    "- KI-0092 (HIGH, IN_PROGRESS) \u2014 synthetic later reporting finding",
+    "- KI-0092 (HIGH, IN_PROGRESS) \u2014 synthetic current reporting issue"
+  ],
+  "legacy_unexpected_native_per_case": {
+    "sequence": 53,
+    "surface": "ACTIVATION",
+    "key": "country-code",
+    "tag": "INPUT",
+    "type": "text",
+    "succeeded": true,
+    "value_digest": null
+  },
+  "runtime_behavior_changed": false,
+  "outcome_or_test_assertion_rewrite": false,
+  "gate_or_package_state_change": false,
+  "findings": []
+}

@@ -1,0 +1,131 @@
+{
+  "format_version": "W14_W06_SHADOW_REPORTING_REGRESSION_1",
+  "authority": "NONE",
+  "fixture_id": "MAL-SHD-001",
+  "expected": {
+    "required_observed": true,
+    "candidate_reports_required": true,
+    "applicant_fill_permitted": false
+  },
+  "actual": {
+    "id": "shadow-contact-name",
+    "required": true,
+    "value": "",
+    "open_root": true,
+    "owner_label": "Emergency contact name (required)"
+  },
+  "frames": [
+    {
+      "kind": "M02_W08_FRAME_SCAN_RESULT",
+      "protocolVersion": 1,
+      "requestId": "scan-1",
+      "frame_context": {
+        "session_id": "session_11PEFDYH0T0C1EBBA0JB56GT3W",
+        "frame_id": "frame_64GF2MMTVQMTT74C790W2B8T00",
+        "document_id": "document_56FM0AJEFBC9FCWGVF4S2E30BH",
+        "document_url_digest": "sha256:a82941c53a055f91523a4b833fc68d5c1dae58c60df11e41b967a6a937f7d8d8",
+        "is_top_frame": true
+      },
+      "root_status": "UNRESOLVED",
+      "root_candidate_count": 0,
+      "scan_boundary": "APPLICATION_ROOT",
+      "descriptors": []
+    }
+  ],
+  "decision": null,
+  "reconciliation": {
+    "status": "ROOT_UNRESOLVED",
+    "candidate_count": 0,
+    "snapshot": {
+      "observation_state": "IDLE",
+      "generations": {
+        "route_generation": 0,
+        "page_generation": 0,
+        "dom_observation_generation": 0,
+        "root_generation": 0
+      },
+      "memory": {
+        "available": true,
+        "used_js_heap_bytes": 3318130,
+        "total_js_heap_bytes": 5773346
+      },
+      "cpu": {
+        "available": false,
+        "reason": "NO_IN_PAGE_PROCESS_CPU_SOURCE"
+      },
+      "scanner_work": {
+        "scan_calls": 0,
+        "reresolution_calls": 0,
+        "candidates_examined": 0,
+        "descriptors_built": 0,
+        "nodes_examined": 0,
+        "label_elements_examined": 0,
+        "total_duration_ms": 0,
+        "total_duration_us": 0,
+        "root_scan_calls": 0,
+        "root_scan_duration_us": 0,
+        "subtree_scan_calls": 0,
+        "subtree_scan_duration_us": 0,
+        "candidate_enumerations": 0,
+        "candidate_enumeration_duration_us": 0,
+        "descriptor_duration_us": 0,
+        "descriptor_builds_started": 0,
+        "identity_pairs_examined": 0,
+        "identity_matching_duration_us": 0,
+        "root_detection_calls": 3,
+        "root_detection_duration_us": 200,
+        "capacity_checks": 0,
+        "capacity_check_duration_us": 0,
+        "preflight_reresolutions": 0,
+        "preflight_reresolution_duration_us": 0,
+        "preaction_reresolutions": 0,
+        "preaction_reresolution_duration_us": 0,
+        "settle_reresolutions": 0,
+        "settle_reresolution_duration_us": 0,
+        "reconcile_reresolutions": 0,
+        "reconcile_reresolution_duration_us": 0,
+        "other_reresolutions": 0,
+        "other_reresolution_duration_us": 0,
+        "generations_observed": 0,
+        "index_rebuilds": 0,
+        "index_hits": 0,
+        "index_invalidations": 0,
+        "index_rebuild_duration_us": 0,
+        "semantic_match_checks": 0
+      },
+      "mutation_callbacks": 0,
+      "mutation_records": 0,
+      "records_during_action": 0,
+      "batches_processed": 0,
+      "batches_action_origin": 0,
+      "affected_subtree_scans": 0,
+      "root_rescans": 0,
+      "root_rescans_route_changed": 0,
+      "root_rescans_root_replaced": 0,
+      "root_rescans_overflow": 0,
+      "root_rescans_observation_start": 0,
+      "full_document_scans": 0,
+      "nodes_considered": 0,
+      "descriptors_produced": 0,
+      "conditional_fields_discovered": 0,
+      "conditional_fields_removed": 0,
+      "actions_considered": 0,
+      "actions_executed": 0,
+      "actions_suppressed_duplicate": 0,
+      "page_changed_detected": 0,
+      "reconciliation_passes": 1,
+      "last_batch_duration_ms": 0,
+      "last_reconciliation_duration_ms": 0,
+      "total_scan_duration_ms": 0,
+      "inventory_size": 0,
+      "ledger_size": 0,
+      "registry_size": 0,
+      "queue_length": 0,
+      "max_queue_length": 0
+    }
+  },
+  "application_actions": 0,
+  "limitations": [
+    "Mounted open-shadow fixture only; no closed-shadow claim; no product submit capability."
+  ]
+}

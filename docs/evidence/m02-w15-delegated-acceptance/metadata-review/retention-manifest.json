@@ -1,0 +1,23 @@
+{
+  "scope": "Exact completed56/56 documentary metadata audit before these retention copies and evidence note. No product actors/tests. Original sealed sources unchanged.",
+  "files": [
+    {
+      "source": "/tmp/japp-od037-metadata-review-20261018/findings.json",
+      "path": "findings.json",
+      "bytes": 9072,
+      "sha256": "e8097ad2cd491b7e89489c6a17c03ea75200758dd29c3b84c359ec49a853aa7e"
+    },
+    {
+      "source": "/tmp/japp-od037-metadata-review-20261018/review.md",
+      "path": "review.md",
+      "bytes": 2805,
+      "sha256": "e828afa06d2bf11b820012079906247240efb3f216310d5a4a45f7561c437c1f"
+    },
+    {
+      "source": "/tmp/japp-od037-metadata-audit-20261018.py",
+      "path": "audit-metadata.py",
+      "bytes": 12995,
+      "sha256": "ec6a605010afa0d931239a02442f7aa492e0d8417672e6e9b9d277b7f2fc3768"
+    }
+  ]
+}

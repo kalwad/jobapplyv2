@@ -1,0 +1,99 @@
+{
+  "archive_path": "docs/evidence/m02-w14-fixture-lifecycle/proof.tar.gz",
+  "archive_sha256": "05a84f35fd7f8bf814b6ce55a2e67e713e2e86b7a00abd07147fe37dfb70c50f",
+  "archive_bytes": 120852,
+  "regular_members": 18,
+  "files": [
+    {
+      "path": "independent-review/findings.json",
+      "bytes": 11777,
+      "sha256": "88d14c7c7d2bda966a65970cc2a85b4ec0b765a9885220e0d34a5159efe624b8"
+    },
+    {
+      "path": "independent-review/report.md",
+      "bytes": 4519,
+      "sha256": "c559c8ed47b02efa47d9bbc49958657d8c90648ff91ecec30e5ea5b6d125b208"
+    },
+    {
+      "path": "initial-integration-helper.py",
+      "bytes": 15033,
+      "sha256": "240d9b008ff6015169f833ee54c4c93eb8d087a65649a3abb539c945b2ba370e"
+    },
+    {
+      "path": "integration-helper-correction.json",
+      "bytes": 572,
+      "sha256": "9cb7aa81e05f424ea0fa92e4d8ce7f6f223be1fd48f0675797052f1321577811"
+    },
+    {
+      "path": "prior-readonly-runtime-audit.md",
+      "bytes": 7762,
+      "sha256": "92621de03565d048158c67e522d2148fb157652ab5d01a3d7328423a8db74445"
+    },
+    {
+      "path": "proposal/README.md",
+      "bytes": 3391,
+      "sha256": "2afba62e65d2e2a451ebe60a4c5d2a7b44b08737242621a88979b895adeebc49"
+    },
+    {
+      "path": "proposal/fixture-lifecycle.patch",
+      "bytes": 1867,
+      "sha256": "186b6a45f9e7ca3636244bcb89c38363a005f74b1022574280dbfd338dcdfde8"
+    },
+    {
+      "path": "proposal/preimages/scripts/tests/test_doctor.py",
+      "bytes": 26251,
+      "sha256": "25bfe7e85d9786a7bceafe196830497c2cc0694869c523fbc3e883efb74dccd4"
+    },
+    {
+      "path": "proposal/preimages/scripts/tests/test_traceability.py",
+      "bytes": 48373,
+      "sha256": "305ad934b36542b4c927735ff4f20c188857a8a89c56bc1b3345a33005fbfde1"
+    },
+    {
+      "path": "proposal/preimages/scripts/tests/test_validate_status.py",
+      "bytes": 106901,
+      "sha256": "b2785ca1e61e25acd0f3fd63a09f184fc3e8436a0beff664f9ed3be66e1ac033"
+    },
+    {
+      "path": "proposal/proposed/scripts/tests/test_doctor.py",
+      "bytes": 26337,
+      "sha256": "a2b8aa1d58b5420f7cea8a192dc33a2ba0c891ba57ffc2f44e978578a9433afd"
+    },
+    {
+      "path": "proposal/proposed/scripts/tests/test_traceability.py",
+      "bytes": 48459,
+      "sha256": "f829ce4da5badcecc9b9f5ea029f201d78e21969e81b2ecb4116b51d7fe19e94"
+    },
+    {
+      "path": "proposal/proposed/scripts/tests/test_validate_status.py",
+      "bytes": 106987,
+      "sha256": "dacde24e1cbf3103760dfcc86520ec0300b788bf84e3c7bd0249f99839856116"
+    },
+    {
+      "path": "proposal/source-manifest.json",
+      "bytes": 4641,
+      "sha256": "bc24bf54291a9c2f320f936cb4feff297a1dd30c93b642b9303db7ad979ed101"
+    },
+    {
+      "path": "root-fixture-boundary.patch",
+      "bytes": 3583,
+      "sha256": "a6979ab7cd5cc702b9ccc719c59b914846c77a6d612094455b374debfe381215"
+    },
+    {
+      "path": "root-integrated-sources/scripts/tests/test_doctor.py",
+      "bytes": 26337,
+      "sha256": "a2b8aa1d58b5420f7cea8a192dc33a2ba0c891ba57ffc2f44e978578a9433afd"
+    },
+    {
+      "path": "root-integrated-sources/scripts/tests/test_traceability.py",
+      "bytes": 48459,
+      "sha256": "f829ce4da5badcecc9b9f5ea029f201d78e21969e81b2ecb4116b51d7fe19e94"
+    },
+    {
+      "path": "root-integrated-sources/scripts/tests/test_validate_status.py",
+      "bytes": 107367,
+      "sha256": "55be5df1b203d2852ae8f77914db84211aa719a5d778937b72bd052e1a1da529"
+    }
+  ],
+  "scope": "Exact fixture cleanup proposal, independent source review, and root finding-list integration; no fresh local/native test pass claimed."
+}

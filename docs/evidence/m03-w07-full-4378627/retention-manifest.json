@@ -1,0 +1,404 @@
+{
+  "members": [
+    {
+      "path": "actual-full/after.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-4378627/after.json",
+      "bytes": 537862,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "52bf1cd0ca901ca83fdb09f81e4ed4e426452502a9c5875cfd574c36c88f03e3"
+    },
+    {
+      "path": "actual-full/before.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-4378627/before.json",
+      "bytes": 537862,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "52bf1cd0ca901ca83fdb09f81e4ed4e426452502a9c5875cfd574c36c88f03e3"
+    },
+    {
+      "path": "actual-full/closure.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-4378627/closure.json",
+      "bytes": 319,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "a02509fee9f527055239e01a3f0109ba483d32527dcfbf25c4fdd0090dc39a7b"
+    },
+    {
+      "path": "actual-full/context.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-4378627/context.json",
+      "bytes": 164,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "73b129e21e9263dbc901f2e5e9a13e507b0262b1a96d23d3481a39c6949d2e56"
+    },
+    {
+      "path": "actual-full/doctor.log",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-4378627/doctor.log",
+      "bytes": 3222,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "0b114d3112efd5f0bc52af6b57282085bda1a3c0272edf6774b3952cdbca8cc8"
+    },
+    {
+      "path": "actual-full/end-context.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-4378627/end-context.json",
+      "bytes": 167,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "25c4d8e169fd1e0e7825698067e2c1bf624f60cb5b1f42d3dfe156f20f65756b"
+    },
+    {
+      "path": "actual-full/results.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-4378627/results.json",
+      "bytes": 807,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "6a7444e210c4b8799d01aa2ea5b349de176c37f4432ea2f328f1deb65a478997"
+    },
+    {
+      "path": "actual-full/retention-observer-executed.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-4378627/retention-observer-executed.py",
+      "bytes": 3266,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "718d5553446070df5b5adc5a9642fea4c0bfb07372c3143b3af905a8480383c8"
+    },
+    {
+      "path": "actual-full/root-retained-visual-retention.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/reference/root-retained-visual/retention.json",
+      "bytes": 43782,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "92ed923709e34d51024289921e4d57046a6a4a04d66193f4e0c46410909cd93a"
+    },
+    {
+      "path": "actual-full/verify.log",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-4378627/verify.log",
+      "bytes": 937334,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "381bbc86fc5385ac8e053fa491fd9431f9d49c15e50dae29587eb9d1a4e64910"
+    },
+    {
+      "path": "actual-full/wrapper-executed.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-4378627/wrapper-executed.py",
+      "bytes": 5318,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "23dc93b9f085d673db19e0afa9c6d88530c1ab8c7f708f543f391f3ff482895f"
+    },
+    {
+      "path": "independent-review-top/PNG-inspection-inventory.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/PNG-inspection-inventory.json",
+      "bytes": 9651,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "fe3d56bf232bb55f560b2e45ee84106c723d256d16320f2b2b435b981bf974a5"
+    },
+    {
+      "path": "independent-review-top/PREDECLARED.md",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/PREDECLARED.md",
+      "bytes": 545,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "d205d80626da9155639c7c3b792712a1fbeadac74e677983e0de8bf7f060a672"
+    },
+    {
+      "path": "independent-review-top/REVIEW.md",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/REVIEW.md",
+      "bytes": 4717,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "6c0526795c3d9b28e710e20673fb8a5bc5d5653dfb9a3885b99e55902d075ab2"
+    },
+    {
+      "path": "independent-review-top/SEAL.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/SEAL.json",
+      "bytes": 1450,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "dc501ac31145842ea3e67598ae3e6e9d8ccf6ef7fd79683b8f8a642eeacb7bc9"
+    },
+    {
+      "path": "independent-review-top/actual-visual-inspection.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/actual-visual-inspection.json",
+      "bytes": 5295,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "193affecb3c8c023286f58f8a85b47c1154bd865c5a4780fd293d6d9a241bbc0"
+    },
+    {
+      "path": "independent-review-top/audit_closed_full.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/audit_closed_full.py",
+      "bytes": 10303,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "f99d1e8ed7afcfd5d662ea70655086f32931b0cdcc469cb929c1e7501949a3dd"
+    },
+    {
+      "path": "independent-review-top/audit_visual.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/audit_visual.py",
+      "bytes": 4691,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "15cafee97be3ae8bc448d782248268d757998557ed81495174494b19e402edc3"
+    },
+    {
+      "path": "independent-review-top/capture_closed_full_references.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/capture_closed_full_references.py",
+      "bytes": 2010,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "ec1f9171fc53eafb21ae45b91db4f3ff1b20c4faa6e8f9ac3173df5040ba840d"
+    },
+    {
+      "path": "independent-review-top/capture_final_endpoints.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/capture_final_endpoints.py",
+      "bytes": 2385,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "4ac9222cc5b9abaf0f7add75f8591428bf6838ef3f1cf34a9a1d733a2ebffa5f"
+    },
+    {
+      "path": "independent-review-top/copied-members.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/copied-members.json",
+      "bytes": 20359,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "24c4433fd4418e365a13d4972e3d1736b3ff594c8fc96bc2891ef8662877ca7e"
+    },
+    {
+      "path": "independent-review-top/data-review.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/data-review.json",
+      "bytes": 738148,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "891f8d7655fadc2f4453045cfcbc21f1ce6ebcbfb4a9f45486d62710bf979e66"
+    },
+    {
+      "path": "independent-review-top/final-git-read-closures.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/final-git-read-closures.json",
+      "bytes": 1020,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "336d000f95eadc5cc8e5a922ae1d62712f6febf411e77245fd5af29185445d4e"
+    },
+    {
+      "path": "independent-review-top/final-source-runtime.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/final-source-runtime.json",
+      "bytes": 494242,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "2cb52578318f038c762ad2e017a4f0da4869a0cad89b6166346d9912156f5ee2"
+    },
+    {
+      "path": "independent-review-top/git-ls-tree.raw",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/git-ls-tree.raw",
+      "bytes": 263456,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "b0b38503ca8bbbe2cd7c5377ec6382880fc2ae1fe9780cfe7abefe48ab60e9d8"
+    },
+    {
+      "path": "independent-review-top/git-read-closures.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/git-read-closures.json",
+      "bytes": 1503,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "429709ce4d407b19a62ac50b05c7fbdae1dd886091aa7d47d9d64fa7c4135f67"
+    },
+    {
+      "path": "independent-review-top/immutable-git-source-sha256.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/immutable-git-source-sha256.json",
+      "bytes": 697279,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "fdc4904daf5ab550e7cc5373c95d354447f50477574cd19d4ddb80f53dc4ade0"
+    },
+    {
+      "path": "independent-review-top/immutable-python-test-inventory.v1.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/immutable-python-test-inventory.v1.json",
+      "bytes": 376845,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "0ba8f7d59ae923cd689e4b9ede780dc588ef1047ea2478426f0f540fefcef31b"
+    },
+    {
+      "path": "independent-review-top/initial-reference-source-pins.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/initial-reference-source-pins.json",
+      "bytes": 1567,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "255b3b0c57912da5dd5e6ac1b40e7a0d71cece8c108b20f48f8739046f74a33a"
+    },
+    {
+      "path": "independent-review-top/initial-root-reference-pins.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/initial-root-reference-pins.json",
+      "bytes": 841,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "252a158d9f0bc6779a1d206389f43cea7861e2152599d1e0e85273dad85cc732"
+    },
+    {
+      "path": "independent-review-top/initial-source-runtime.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/initial-source-runtime.json",
+      "bytes": 494221,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "af2d0131b1336014040c6c379ed2650e440ffd23e02aa20ca845c1f97e86d8b9"
+    },
+    {
+      "path": "independent-review-top/manifest.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/manifest.json",
+      "bytes": 38707,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "7dd6c87a18daa2e66bbb40a935615fcebeceba85f6af797c09d6e7fd218bccbe"
+    },
+    {
+      "path": "independent-review-top/observe_visual_strict_owned.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/observe_visual_strict_owned.py",
+      "bytes": 1427,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "9e90da949ee00b8a642fe14c629cc46737f61f0da30e16e3953e3c72c640a88f"
+    },
+    {
+      "path": "independent-review-top/original-wrapper-pin.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/original-wrapper-pin.json",
+      "bytes": 280,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "dc661c08adc423866bb0a0d611f824ada7382a1f417d1ed810f5022fbcdb7637"
+    },
+    {
+      "path": "independent-review-top/preparation-transition.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/preparation-transition.json",
+      "bytes": 474,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "8f5667da73fbe29fec6fe8e86c97d6473d699a89c95872c7ab232993e50156e2"
+    },
+    {
+      "path": "independent-review-top/prepare_immutable_source.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/prepare_immutable_source.py",
+      "bytes": 5862,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "fee06e1f6c96b02a5ec4a7abc6ae5bdfb7a4d8b42d7d778e0ffb090e3f3e3804"
+    },
+    {
+      "path": "independent-review-top/proof.tar.gz",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/proof.tar.gz",
+      "bytes": 3920238,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "8a6ac867c9dbf13a5e622c409c6017121227547bacff6223e5e423d374b3e25c"
+    },
+    {
+      "path": "independent-review-top/retain_all_visual_strict.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/retain_all_visual_strict.py",
+      "bytes": 2462,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "0fa7fd82e7d607afefdf8e5d4451a968347f3c84f4c824a39d486f81929943cb"
+    },
+    {
+      "path": "independent-review-top/review-helper-transitions.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/review-helper-transitions.json",
+      "bytes": 3696,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "63b4a6918344e93ac780df8a90f6c3bbfcaa09d5f67b09f476009b031b2c1aa4"
+    },
+    {
+      "path": "independent-review-top/root-visual-reference-pins.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/root-visual-reference-pins.json",
+      "bytes": 15704,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "87d8e7e172b645cbd469a1d6a63f6fb6def28bc4b1224062cf073bc5de95bc8d"
+    },
+    {
+      "path": "independent-review-top/run_owned_review.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/run_owned_review.py",
+      "bytes": 2138,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "1fc976cbb71d2376f7423479fe2a8d403d6bafbb23d3a018ecffad759cb3dfd1"
+    },
+    {
+      "path": "independent-review-top/seal-preparation-transition.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/seal-preparation-transition.json",
+      "bytes": 606,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "d9b9024da281508d82948ab758e4c41df06718f821e8a9842411d3307f497730"
+    },
+    {
+      "path": "independent-review-top/seal_review.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/seal_review.py",
+      "bytes": 3694,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "c684cfd621ad83501cc4638b7eeae616dc98f8d0ce4b2825795be4874d1538dc"
+    },
+    {
+      "path": "independent-review-top/seal_review.py.prepared",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/seal_review.py.prepared",
+      "bytes": 3694,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "c684cfd621ad83501cc4638b7eeae616dc98f8d0ce4b2825795be4874d1538dc"
+    },
+    {
+      "path": "independent-review-top/source-findings.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/source-findings.json",
+      "bytes": 465,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "10f4830383245d020cbeaf80247c1e8519288d59a26541e6e0d90fed83fd25c6"
+    },
+    {
+      "path": "independent-review-top/visual-retention.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/visual-retention.json",
+      "bytes": 19308,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "57e910c8f77b0d76222629b5c1b1e83497f685c783c5d8fb420a00013611db48"
+    },
+    {
+      "path": "independent-review-top/visual-review.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1/visual-review.json",
+      "bytes": 100138,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "78910a3bbddd7822a2df14d04e8eed251b6234b9bb15b016d2dc493a52885f9f"
+    }
+  ],
+  "regular_members": 47,
+  "all_selected_original_archive_bytes_full_modes_verified": true,
+  "omissions": [
+    "Full2364Git and40runtime payload bodies are not embedded; complete immutable maps/full-mode endpoints are retained.",
+    "No later source/hosted/native/model/gate/release result is transferred."
+  ],
+  "external_parents": [
+    {
+      "absolute_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-4378627-independent-review/v1",
+      "manifest": {
+        "bytes": 38707,
+        "mode": 420,
+        "full_mode": 33188,
+        "sha256": "7dd6c87a18daa2e66bbb40a935615fcebeceba85f6af797c09d6e7fd218bccbe"
+      },
+      "proof_embedded": {
+        "bytes": 3920238,
+        "mode": 420,
+        "full_mode": 33188,
+        "sha256": "8a6ac867c9dbf13a5e622c409c6017121227547bacff6223e5e423d374b3e25c"
+      }
+    }
+  ],
+  "scope": "Selected compact documentation evidence; omissions are explicit. No whole-source/runtime or absent binary-body claim."
+}

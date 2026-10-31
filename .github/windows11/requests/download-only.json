@@ -1,0 +1,22 @@
+{
+  "schema": "japp-windows11-pr-request-v1",
+  "enabled": true,
+  "mode": "DOWNLOAD_ONLY",
+  "repository": "kalwad/jobapplyv2",
+  "repository_id": 1312360079,
+  "pull_request": 1,
+  "head_branch": "codex/autofill-evaluation-hardening",
+  "request_id": "e737fe654b27f9bcf85c787144da1365",
+  "expected_source_sha": "a5ec1e3a894fc6f11354f5adce1631b1cc262470",
+  "request_parent_sha": "df99cdc1a3f5fd0b9da3f26140ee36353480e740",
+  "package_build_sha": "97e21680432bc20e6e41111b3c42ce90bc3d22cc",
+  "source_tree_sha": "758efac1f9ff9a561283181416101cab2e9a15ff",
+  "artifact": {
+    "run_id": "41149738856",
+    "run_attempt": "1",
+    "run_head_sha": "a5ec1e3a894fc6f11354f5adce1631b1cc262470",
+    "artifact_id": "13024866710",
+    "digest_sha256": "fa1787be48a038c7385f358e4ccdff00535d526db28bcad3123c8b9f6090e6d2",
+    "package_manifest_sha256": "4a061c1f395612c5be7ab58c06b11ca742b4d2c28f51ab673c04db1263b5b4c0"
+  }
+}

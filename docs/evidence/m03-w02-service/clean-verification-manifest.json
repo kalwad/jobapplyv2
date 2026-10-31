@@ -1,0 +1,176 @@
+{
+  "sha256": "931a922d4030921730e3dd38377cff161da6fb5c46a4d4680b4b932986801b5c",
+  "bytes": 887356,
+  "inputs": [
+    {
+      "member": "japp-m03-w02-clean-verification-retry-20261018/after.json",
+      "bytes": 384484,
+      "sha256": "5b7a525585b6ab28f15ec9da6e87f300ec233a10006c4390d94fbf17383ac5ed"
+    },
+    {
+      "member": "japp-m03-w02-clean-verification-retry-20261018/before.json",
+      "bytes": 384484,
+      "sha256": "5b7a525585b6ab28f15ec9da6e87f300ec233a10006c4390d94fbf17383ac5ed"
+    },
+    {
+      "member": "japp-m03-w02-clean-verification-retry-20261018/closure.json",
+      "bytes": 153,
+      "sha256": "96946c4e0dd77d398489f3cf58cf916c0c2fb4d72cbbe1613269e23a16bae0fa"
+    },
+    {
+      "member": "japp-m03-w02-clean-verification-retry-20261018/commands.json",
+      "bytes": 823,
+      "sha256": "fd8d3236f548aeeed33e736ad7c948f5df305440e8269b1e32451367f4887ddd"
+    },
+    {
+      "member": "japp-m03-w02-clean-verification-retry-20261018/doctor.log",
+      "bytes": 3222,
+      "sha256": "0b114d3112efd5f0bc52af6b57282085bda1a3c0272edf6774b3952cdbca8cc8"
+    },
+    {
+      "member": "japp-m03-w02-clean-verification-retry-20261018/environment.json",
+      "bytes": 1444,
+      "sha256": "bff748a5dc5c1b9214e1c37a42696d0c96d2fb0fc029107fe1d7f82e59458122"
+    },
+    {
+      "member": "japp-m03-w02-clean-verification-retry-20261018/executed-wrapper.py",
+      "bytes": 3351,
+      "sha256": "39766594d39e416f87654e6bad2cda4aab4d4d7e7e2c5e28eb70855b737d664b"
+    },
+    {
+      "member": "japp-m03-w02-clean-verification-retry-20261018/verify.log",
+      "bytes": 622365,
+      "sha256": "68f34924d5368f104ec8a6ed0c21b8d9fd66b6478ac6cd9c35ff053d15431468"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/REVIEW.md",
+      "bytes": 962,
+      "sha256": "3a109ef8f7a24375c570219201e47bb5a54a6882d7b87adf7bdf385047095153"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/audit.py",
+      "bytes": 8061,
+      "sha256": "45bd23e917daa0ecc148e4aba11a393795b4d6857bce826ef0fdf496f5d01d63"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/findings.json",
+      "bytes": 9467,
+      "sha256": "b8281070fd646743cf6fb82d738d479fb3c71fe5a86c9b188b90a6e1e7d7bdda"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/prepared-closeout-retry-aa7.py",
+      "bytes": 9981,
+      "sha256": "b3e752c85ac4c27cbc37aa9cb8350cf04d98899b288c72fe4a594d001ea74bc5"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/prepared-review.json",
+      "bytes": 1093,
+      "sha256": "4bfd26e775796a5c2393f1156ce2c33e48548d5606efcc92a6705522b9c8c834"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/result-inputs/after.json",
+      "bytes": 384484,
+      "sha256": "5b7a525585b6ab28f15ec9da6e87f300ec233a10006c4390d94fbf17383ac5ed"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/result-inputs/before.json",
+      "bytes": 384484,
+      "sha256": "5b7a525585b6ab28f15ec9da6e87f300ec233a10006c4390d94fbf17383ac5ed"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/result-inputs/closure.json",
+      "bytes": 153,
+      "sha256": "96946c4e0dd77d398489f3cf58cf916c0c2fb4d72cbbe1613269e23a16bae0fa"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/result-inputs/commands.json",
+      "bytes": 823,
+      "sha256": "fd8d3236f548aeeed33e736ad7c948f5df305440e8269b1e32451367f4887ddd"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/result-inputs/doctor.log",
+      "bytes": 3222,
+      "sha256": "0b114d3112efd5f0bc52af6b57282085bda1a3c0272edf6774b3952cdbca8cc8"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/result-inputs/environment.json",
+      "bytes": 1444,
+      "sha256": "bff748a5dc5c1b9214e1c37a42696d0c96d2fb0fc029107fe1d7f82e59458122"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/result-inputs/executed-wrapper.py",
+      "bytes": 3351,
+      "sha256": "39766594d39e416f87654e6bad2cda4aab4d4d7e7e2c5e28eb70855b737d664b"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/result-inputs/verify.log",
+      "bytes": 622365,
+      "sha256": "68f34924d5368f104ec8a6ed0c21b8d9fd66b6478ac6cd9c35ff053d15431468"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/source-inputs/docs/MASTER_IMPLEMENTATION_SPEC.md",
+      "bytes": 367893,
+      "sha256": "3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/source-inputs/docs/PROJECT_STATUS.md",
+      "bytes": 38209,
+      "sha256": "092a60f95ea4d3badcf05d5fe6025a8f8aa5787b5c8a21dc378c72c76f149cf3"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/source-inputs/docs/traceability.json",
+      "bytes": 713574,
+      "sha256": "77474886bbcb10e06be5ef321b565d8f68c8d76db8559e750b2023564e06e7d6"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/source-inputs/scripts/doctor.py",
+      "bytes": 29216,
+      "sha256": "ce50f8a3906b17847f225ed74c785478e20d9ab8fb988ed37eaf82cd4888a94e"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/source-inputs/scripts/python-test-inventory.v1.json",
+      "bytes": 212326,
+      "sha256": "ba638168907a0f86ebe39a140241b5bd42cea218aac527d5fc9a2aa413849b70"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/source-inputs/scripts/tests/test_integrity.py",
+      "bytes": 98692,
+      "sha256": "799903b58589da9e29896a4eb09755562452aabb89fb3ef3e68dc5ebe3ef31b0"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/source-inputs/scripts/tests/test_validate_status.py",
+      "bytes": 125875,
+      "sha256": "f7f78ac236f06182bf7d2b9fc439402dcb0efb6a4d17052abe0ecf61b70dcf14"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/source-inputs/scripts/traceability.py",
+      "bytes": 82108,
+      "sha256": "1a1dcdc9c3d4cf322e2a0de4bc74e199bca8a63f0ad8c2b15147683b94a9ebd3"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/source-inputs/scripts/validate_status.py",
+      "bytes": 127352,
+      "sha256": "9907f5fd9a59809feb7bb90266315685edcafd6f0c4546b725b3dc4d44620fb3"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/source-inputs/scripts/verification-suites.json",
+      "bytes": 30475,
+      "sha256": "1e1f7857ed37adbdf66c6f05462a030229784a6a291d62874f6d767fbbf45e0d"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review/source-inputs/scripts/verify.py",
+      "bytes": 145793,
+      "sha256": "eca614e1cd32ffa63f7f02f93e992b718c61ed757bec8c702bde315b2a66aae0"
+    },
+    {
+      "member": "japp-m03-w02-retry-precondition-rejected-20261018/attempt.json",
+      "bytes": 337,
+      "sha256": "c8b00ebf6109f4da1971109173f07af69e44c1e1f349d642212aca8ae7718da5"
+    },
+    {
+      "member": "japp-m03-w02-retry-precondition-rejected-20261018/executed-wrapper.py",
+      "bytes": 3351,
+      "sha256": "39766594d39e416f87654e6bad2cda4aab4d4d7e7e2c5e28eb70855b737d664b"
+    }
+  ]
+}

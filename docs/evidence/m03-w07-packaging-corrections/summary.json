@@ -1,0 +1,11 @@
+{
+  "scope": "SCOPED_W07_CORRECTIONS_NOT_NATIVE_PASS_OR_ACCEPTANCE",
+  "source_sha256": "3761bc0366dd18b3a8996e5f2a257be97619dfaa7284056b96b5a62033f96250",
+  "inner_proof_sha256": "0ce803e5145ba9b2775bd17bacea91dddcdf26b2408eada48097b4a883aeb9af",
+  "focused_cases_pass": 134,
+  "actual_collection": 2141,
+  "new_common_ids": 21,
+  "source_peer_checks": 14,
+  "data_peer_checks": 38,
+  "new_hosted_run": "PENDING"
+}

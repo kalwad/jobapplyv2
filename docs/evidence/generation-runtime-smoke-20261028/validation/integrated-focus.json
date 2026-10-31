@@ -1,0 +1,72 @@
+{
+  "scope": "Generation plus read-only runtime metadata integration. Full collection is collection only.",
+  "context": {
+    "start_utc": "2026-10-28T23:43:07.806044+00:00",
+    "head": "35b46287dc754a5987d653490ab49f978647ca26"
+  },
+  "closure": {
+    "end_utc": "2026-10-28T23:43:10.141794+00:00",
+    "source_count": 2065,
+    "source_unchanged": true,
+    "executed_phases": 5,
+    "all_pass": true
+  },
+  "focused_tests_passed": 241,
+  "focused_tests_seconds": 0.34,
+  "repository_tests_collected": 2101,
+  "collection_seconds": 0.4,
+  "collection_raw_log_sha256": "9f6e6771bbc33a562ddee1f40b206cd07a3300d0a6e3c6821224bedc7d192a35",
+  "collection_raw_log_bytes": 266292,
+  "collection_external_locator": "generation-metadata-integrated/focus-v4/collection.log",
+  "source_inventory_sha256_before": "0a886c1e553aba127e6107982912346bc5ee7869225bc102fb00e9b77be565de",
+  "source_inventory_sha256_after": "0a886c1e553aba127e6107982912346bc5ee7869225bc102fb00e9b77be565de",
+  "source_inventory_bytes": 386411,
+  "phases": [
+    {
+      "name": "ruff",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 0.02341333299409598,
+      "direct_child_reaped": true,
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": []
+    },
+    {
+      "name": "format",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 0.02317091601435095,
+      "direct_child_reaped": true,
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": []
+    },
+    {
+      "name": "mypy",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 1.0371175409527496,
+      "direct_child_reaped": true,
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": []
+    },
+    {
+      "name": "tests",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 0.47391562501434237,
+      "direct_child_reaped": true,
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": []
+    },
+    {
+      "name": "collection",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 0.5492005000123754,
+      "direct_child_reaped": true,
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": []
+    }
+  ],
+  "later_separate_collection_count_transferred_here": false
+}

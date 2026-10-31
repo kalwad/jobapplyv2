@@ -5,6 +5,7 @@ import type { FormFieldDescriptorV1 } from "@japp/contracts/generated";
 
 import {
   repeaterObservation,
+  observationsEquivalent,
   type SemanticObservation,
 } from "../driver-evidence.ts";
 import type { DriverIntendedValue } from "../driver-protocol.ts";
@@ -12,8 +13,10 @@ import {
   isElementEnabled,
   isElementVisible,
   normalizeScannerText,
+  type ResolvedFieldTarget,
 } from "../field-scanner.ts";
 import { activateElement, setNativeValue } from "./driver-dom.ts";
+import { mutateCurrent } from "./mutation-guard.ts";
 import type {
   CapturedUndo,
   ControlDriver,
@@ -51,6 +54,18 @@ function repeaterRoot(context: DriverContext): HTMLElement {
     throw new Error("repeater driver invariant: root unavailable");
   }
   return root;
+}
+
+function requireCurrentRepeater(
+  current: ResolvedFieldTarget,
+  root: HTMLElement,
+  action: HTMLElement,
+): void {
+  if (
+    current.anchor.closest("[data-japp-repeater]") !== root ||
+    action.closest("[data-japp-repeater]") !== root
+  )
+    throw new Error("repeater driver invariant: current root changed");
 }
 
 function intendedRepeater(context: DriverContext): RepeaterIntended {
@@ -222,7 +237,7 @@ export const repeaterDriver: ControlDriver = {
       payload: null,
     });
   },
-  execute(context: DriverContext): Promise<void> {
+  async execute(context: DriverContext): Promise<void> {
     const intended = intendedRepeater(context);
     const root = repeaterRoot(context);
     if (intended.kind === "REPEATER_ADD") {
@@ -230,9 +245,19 @@ export const repeaterDriver: ControlDriver = {
       if (!actionable(action)) {
         throw new Error("repeater driver invariant: add action changed");
       }
-      setNativeValue(requireRepeaterAnchor(context), intended.item_label);
-      activateElement(action);
-      return Promise.resolve();
+      const anchor = requireRepeaterAnchor(context);
+      await mutateCurrent(context, anchor, (current) => {
+        requireCurrentRepeater(current, root, anchor);
+        setNativeValue(anchor, intended.item_label);
+      });
+      await mutateCurrent(context, action, (current) => {
+        requireCurrentRepeater(current, root, action);
+        const actions = exactActions(root, "ADD", intended.item_label);
+        if (actions.length !== 1 || actions[0] !== action)
+          throw new Error("repeater driver invariant: add action changed");
+        activateElement(action);
+      });
+      return;
     }
     const item = exactItems(root, intended.item_label)[0];
     if (item === undefined) {
@@ -243,20 +268,35 @@ export const repeaterDriver: ControlDriver = {
       if (editor === null) {
         throw new Error("repeater driver invariant: editor changed");
       }
-      setNativeValue(editor, intended.text);
-      return Promise.resolve();
+      await mutateCurrent(context, editor, (current) => {
+        requireCurrentRepeater(current, root, editor);
+        const items = exactItems(root, intended.item_label);
+        if (
+          items.length !== 1 ||
+          items[0] !== item ||
+          editableHost(item) !== editor
+        )
+          throw new Error("repeater driver invariant: current editor changed");
+        setNativeValue(editor, intended.text);
+      });
+      return;
     }
     const action = exactActions(root, "REMOVE", intended.item_label)[0];
     if (!actionable(action)) {
       throw new Error("repeater driver invariant: remove action changed");
     }
-    activateElement(action);
-    return Promise.resolve();
+    await mutateCurrent(context, action, (current) => {
+      requireCurrentRepeater(current, root, action);
+      const actions = exactActions(root, "REMOVE", intended.item_label);
+      if (actions.length !== 1 || actions[0] !== action)
+        throw new Error("repeater driver invariant: remove action changed");
+      activateElement(action);
+    });
   },
   observe(context: DriverContext): Promise<SemanticObservation> {
     return Promise.resolve(observeRepeater(context));
   },
-  applyUndo(context: DriverContext, payload: unknown): Promise<void> {
+  async applyUndo(context: DriverContext, payload: unknown): Promise<void> {
     const intended = intendedRepeater(context);
     const root = repeaterRoot(context);
     if (
@@ -269,19 +309,41 @@ export const repeaterDriver: ControlDriver = {
       if (!actionable(action)) {
         throw new Error("repeater driver invariant: undo action unavailable");
       }
-      activateElement(action);
-      return Promise.resolve();
+      await mutateCurrent(context, action, (current) => {
+        requireCurrentRepeater(current, root, action);
+        const actions = exactActions(root, "REMOVE", intended.item_label);
+        if (actions.length !== 1 || actions[0] !== action)
+          throw new Error("repeater driver invariant: undo action changed");
+        activateElement(action);
+      });
+      return;
     }
     if (intended.kind === "REPEATER_EDIT" && typeof payload === "string") {
       const item = exactItems(root, intended.item_label)[0];
       const editor = item === undefined ? null : editableHost(item);
-      if (editor === null) {
+      if (item === undefined || editor === null) {
         throw new Error("repeater driver invariant: undo editor unavailable");
       }
-      setNativeValue(editor, payload);
-      return Promise.resolve();
+      await mutateCurrent(context, editor, (current) => {
+        requireCurrentRepeater(current, root, editor);
+        const items = exactItems(root, intended.item_label);
+        if (
+          items.length !== 1 ||
+          items[0] !== item ||
+          editableHost(item) !== editor
+        )
+          throw new Error(
+            "repeater driver invariant: current undo editor changed",
+          );
+        setNativeValue(editor, payload);
+      });
+      return;
     }
     throw new Error("repeater driver invariant: undo payload malformed");
+  },
+  captureObservationWitness(context: DriverContext): () => boolean {
+    const observed = observeRepeater(context);
+    return () => observationsEquivalent(observed, observeRepeater(context));
   },
   acceptanceElements(context: DriverContext): readonly HTMLElement[] {
     return [repeaterRoot(context)];

@@ -90,6 +90,7 @@ export function buildBaseline(
         "packages/contracts/catalog/command-catalog.v1.json",
         "packages/contracts/catalog/error-catalog.v1.json",
         SEMANTIC_CATALOG_PATH,
+        "packages/contracts/catalog/semantic-rules.v2.json",
       ],
       corpus_manifest:
         "packages/contracts/test/contract/corpus/manifest.v1.json",
@@ -269,6 +270,32 @@ function hasCurrentSemanticSignature(value: unknown): boolean {
   ) {
     return false;
   }
+  const currentV2 = value.semantic_rule_catalog_v2;
+  if (
+    currentV2 !== undefined &&
+    (!isRecord(currentV2) ||
+      !hasExactKeys(currentV2, [
+        "repository_path",
+        "catalog_version",
+        "canonical_sha256",
+        "inherited_catalog_sha256",
+        "additive_rule_ids",
+      ]) ||
+      currentV2.repository_path !==
+        "packages/contracts/catalog/semantic-rules.v2.json" ||
+      currentV2.catalog_version !== "1.2.0" ||
+      typeof currentV2.canonical_sha256 !== "string" ||
+      !/^[0-9a-f]{64}$/.test(currentV2.canonical_sha256) ||
+      currentV2.inherited_catalog_sha256 !== catalog.canonical_sha256 ||
+      JSON.stringify(currentV2.additive_rule_ids) !==
+        JSON.stringify([
+          "GATE_DECISION_INERT_TEXT_V2",
+          "GATE_DECISION_INTEGRITY_V2",
+          "GATE_EVIDENCE_COMPLETENESS_V2",
+          "GATE_EVIDENCE_INERT_TEXT_V2",
+        ]))
+  )
+    return false;
   const ids = new Set<string>();
   let previous = "";
   for (const rule of rules) {

@@ -1,0 +1,43 @@
+✔ STRUCTURAL_TEST_ONLY positive join recomputes counts and references actual legacy rows (2.352375ms)
+✔ STRUCTURAL_TEST_ONLY supplied exact booleans cannot inflate or suppress counts (3.979042ms)
+✔ STRUCTURAL_TEST_ONLY phone formatting equivalence remains separate from exact (0.330417ms)
+✔ STRUCTURAL_TEST_ONLY false phone equivalence claim cannot inflate counts (0.221125ms)
+✔ STRUCTURAL_TEST_ONLY rejects wrong candidate lock (0.227709ms)
+✔ STRUCTURAL_TEST_ONLY rejects wrong legacy lock (0.096417ms)
+✔ STRUCTURAL_TEST_ONLY rejects duplicate candidate case (0.099417ms)
+✔ STRUCTURAL_TEST_ONLY rejects missing candidate artifact (0.100666ms)
+✔ STRUCTURAL_TEST_ONLY rejects duplicate legacy case (0.099167ms)
+✔ STRUCTURAL_TEST_ONLY rejects missing legacy row (0.135792ms)
+✔ STRUCTURAL_TEST_ONLY rejects old candidate artifact (0.10875ms)
+✔ STRUCTURAL_TEST_ONLY rejects old legacy artifact (0.111792ms)
+✔ STRUCTURAL_TEST_ONLY rejects candidate native value disagrees (0.1135ms)
+✔ STRUCTURAL_TEST_ONLY rejects missing native surface (0.130541ms)
+✔ STRUCTURAL_TEST_ONLY fixtures are rejected by actual default join mode (0.129333ms)
+✔ STRUCTURAL_TEST_ONLY browser deadline is finite and remains a timeout (1.228042ms)
+✔ STRUCTURAL_TEST_ONLY nonfinite or overflow deadlines refuse (0.264ms)
+✔ STRUCTURAL_TEST_ONLY already exited child needs no signal (0.135125ms)
+✔ STRUCTURAL_TEST_ONLY SIGTERM success requires an actual exit event (0.113625ms)
+✔ STRUCTURAL_TEST_ONLY ignored SIGTERM escalates only owned handle to SIGKILL and waits (0.082708ms)
+✔ STRUCTURAL_TEST_ONLY unconfirmed SIGKILL is explicit cleanup failure, not success (0.0875ms)
+✔ STRUCTURAL_TEST_ONLY live process error never falsely proves termination (0.102125ms)
+✔ STRUCTURAL_TEST_ONLY spawn failure without PID is recorded without signaling (0.082666ms)
+✔ STRUCTURAL_TEST_ONLY successful wait clears deadline timer (0.078958ms)
+✔ STRUCTURAL_TEST_ONLY runner exit alone never proves browser context cleanup (0.316708ms)
+✔ STRUCTURAL_TEST_ONLY normal close evidence keeps OS descendant scope unobserved (0.132416ms)
+✔ STRUCTURAL_TEST_ONLY inventory is deterministic and includes required current runtime and generated sources (12.229667ms)
+✔ STRUCTURAL_TEST_ONLY adding a runtime helper invalidates the old path inventory (6.369833ms)
+✔ STRUCTURAL_TEST_ONLY adding generated source invalidates the old path inventory (5.272625ms)
+✔ STRUCTURAL_TEST_ONLY removing a required helper refuses incomplete runtime coverage (5.12ms)
+✔ STRUCTURAL_TEST_ONLY changing runtime bytes invalidates the source commitment (5.757875ms)
+✔ STRUCTURAL_TEST_ONLY declared Python and build dependency caches never enter the source inventory (5.89725ms)
+✔ STRUCTURAL_TEST_ONLY a source symlink is refused rather than followed (5.054083ms)
+✔ STRUCTURAL_TEST_ONLY an old enumerated inventory without policy is explicitly refused (5.393208ms)
+✔ STRUCTURAL_TEST_ONLY ordinary files named like excluded directories remain bound source additions (6.937167ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 165.978542

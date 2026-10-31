@@ -1,0 +1,68 @@
+$ uv run python scripts/verify.py --suite typecheck
+$ pnpm exec turbo run typecheck
+
+   • Packages in scope: @japp/ats-adapters, @japp/contracts, @japp/desktop, @japp/domain, @japp/evaluation-baselines, @japp/evaluation-corpus, @japp/evaluation-runner, @japp/extension, @japp/form-engine, @japp/mock-ats-lab, @japp/platform, @japp/resume-schema, @japp/security, @japp/test-fixtures, @japp/ui
+   • Running typecheck in 15 packages
+   • Remote caching disabled
+
+@japp/evaluation-baselines:typecheck: cache hit, replaying logs 847c2b3d15eb738f
+@japp/ui:typecheck: cache hit, replaying logs db81ee189fd775e6
+@japp/security:typecheck: cache hit, replaying logs df13eda04d840f92
+@japp/evaluation-corpus:typecheck: cache hit, replaying logs 62948a72e2c95420
+@japp/platform:typecheck: cache hit, replaying logs 6f4581aecd8237e6
+@japp/contracts:typecheck: cache hit, replaying logs 87abfc0d3d194fce
+@japp/test-fixtures:typecheck: cache hit, replaying logs 90581a96864292b5
+@japp/extension:typecheck: cache miss, executing e35b095d271f3676
+@japp/domain:typecheck: cache hit, replaying logs 81439939cc2f989a
+@japp/ui:typecheck: $ tsc -p tsconfig.json
+@japp/evaluation-baselines:typecheck: $ tsc -p tsconfig.json
+@japp/security:typecheck: $ tsc -p tsconfig.json
+@japp/form-engine:typecheck: cache miss, executing 99016ba6d7fdc048
+@japp/test-fixtures:typecheck: $ tsc -p tsconfig.json
+@japp/evaluation-corpus:typecheck: $ tsc -p tsconfig.json
+@japp/contracts:typecheck: $ tsc -p tsconfig.json
+@japp/domain:typecheck: $ tsc -p tsconfig.json
+@japp/platform:typecheck: $ tsc -p tsconfig.json
+@japp/evaluation-runner:typecheck: cache miss, executing 09b0147fe1effe23
+@japp/resume-schema:typecheck: cache hit, replaying logs 1733f9f137efaeed
+@japp/mock-ats-lab:typecheck: cache hit, replaying logs 4b73cf40184c8ee5
+@japp/resume-schema:typecheck: $ tsc -p tsconfig.json
+@japp/ats-adapters:typecheck: cache hit, replaying logs 9db90ab6caaf1320
+@japp/mock-ats-lab:typecheck: $ tsc -p tsconfig.json
+@japp/ats-adapters:typecheck: $ tsc -p tsconfig.json
+@japp/extension:typecheck: $ wxt prepare && tsc -p tsconfig.typecheck.json
+@japp/form-engine:typecheck: $ tsc -p tsconfig.json
+@japp/evaluation-runner:typecheck: $ tsc -p tsconfig.json
+@japp/extension:typecheck: 
+@japp/extension:typecheck: WXT 0.20.27
+@japp/extension:typecheck: ℹ Generating types...
+@japp/extension:typecheck: ✔ Finished in 525 ms
+
+ Tasks:    14 successful, 14 total
+Cached:    11 cached, 14 total
+  Time:    3.103s 
+
+
+• turbo 2.10.7
+$ pnpm exec tsc -p tsconfig.json
+$ uv run mypy services scripts/verify.py scripts/validate_status.py scripts/traceability.py scripts/doctor.py scripts/check_portability.py scripts/portability.py scripts/tests packages/contracts/test/contract/adapters/python_adapter.py
+scripts/tests/test_w14_public_controlled_proof.py:72: error: Incompatible types
+in assignment (expression has type
+"tuple[str, str, str, str, str, str, str] | tuple[str, str, str, str] | tuple[str, str] | tuple[str, str, str, str, str, str, str, str] | tuple[str, str, str, str, str, str, str, str, str, str, str, str]",
+variable has type
+"tuple[str, str, str, str, str, str, str, str, str, str] | tuple[str, str, str, str, str, str] | tuple[str, str, str, str, str, str, str]")
+ [assignment]
+        for argv in denied:
+        ^
+Found 1 error in 1 file (checked 28 source files)
+
+== verification summary ==
+suite          state                result             detail
+------------------------------------------------------------------------------
+typecheck      ACTIVE               FAIL               command failed (exit 1): uv run mypy services scripts/verify.py scripts/validate_status.py
+
+FAILURE typecheck:
+  - command failed (exit 1): uv run mypy services scripts/verify.py scripts/validate_status.py scripts/traceability.py scripts/doctor.py scripts/check_portability.py scripts/portability.py scripts/tests packages/contracts/test/contract/adapters/python_adapter.py
+
+verification exit code: 1
+[ELIFECYCLE] Command failed with exit code 1.

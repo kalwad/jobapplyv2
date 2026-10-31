@@ -1,0 +1,42 @@
+{
+  "schema": "M03_W06_CURRENT_MAC_NATIVE_PACKAGE_V1",
+  "head": "434ba0778fb4bcbf760c3800a10622be35ea255c",
+  "tree": "d09331f88af59a949d469889fa15451164e8c0e5",
+  "campaign_tracked_files": 1988,
+  "exact_test_afterimages": {
+    "apps/desktop/src-tauri/src/api_client/tests/python_runtime.rs": "aab65aab2b022cce409df44f017b4bb774f0f314ccf9abd577de8688216c2020",
+    "scripts/tests/test_windows_builder.py": "636bf6300697dfbfd07a5902f0b2108d358618d778038dc21a654af60f635806"
+  },
+  "app_files": 43,
+  "app_bytes": 80134001,
+  "app_main_sha256": "b0e1032d40247c13529d335eeb9092444eabda9783ad81a6a0d99c9d5dfbdfb8",
+  "runtime_files": 40,
+  "runtime_bytes": 29902565,
+  "runtime_manifest_sha256": "c9049a3f63572c0de9b114700e9326bebc0518166840133cce9548565c58de1d",
+  "native_gui": "Ready/keyboard refresh/service crash and restart/Close/relaunch/6unauth401/Quit/forced parent observed",
+  "service_restart": {
+    "old": 928,
+    "new": 1009,
+    "app": 911
+  },
+  "forced_parent_seconds_to_observed_groups_absent": 0.3338967500021681,
+  "checks": 39,
+  "decision": "CLEAR_SCOPED_ACTUAL_OBSERVATIONS_NOT_PACKAGE_ACCEPTANCE",
+  "later_document_changes": [
+    "docs/KNOWN_ISSUES.md",
+    "docs/PROJECT_STATUS.md",
+    "docs/TEST_EVIDENCE.md"
+  ],
+  "limits": [
+    "Development debug arm64 local/ad-hoc signed app only; no notarization, installation, release signing or platform certification.",
+    "Actual CUA native GUI launch and rendered tauri://localhost are observed. Raw launch API/LaunchServices event and a controlled app PATH/environment experiment are not retained here.",
+    "Bundled service absolute executable, relocated process command and shipping env_clear source support observed runtime discovery; no ambient shell-independence stress experiment is claimed.",
+    "Process snapshots establish only observed app/service identities, exact groups and listeners. Escaped/unobserved descendants and kernel-birth or held-child custody are not proven.",
+    "Forced-parent0.33389675s is signal-to-observed-group-absence wall time including polling; normal Close/Quit observation intervals are not bounded shutdown latency measurements.",
+    "Source-before/after and lifecycle source closure precede later adoption of three documentary changes plus five evidence files. Product-source projection remains exact; no whole-tree neutrality claim extends past metadata adoption.",
+    "No fresh corrected-head all20, whole-native-suite or Windows/Ubuntu package PASS is supplied by this packet. M03-W06 staysIN_PROGRESS;38/300VERIFIED;releaseNOT_READY."
+  ],
+  "work_package_state": "IN_PROGRESS",
+  "verified_packages": 38,
+  "release": "NOT_READY"
+}

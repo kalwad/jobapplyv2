@@ -28,7 +28,14 @@ The complete dimension/threshold table is normative in spec §2.3 Gate C and
 is reproduced with measured results in docs/CRITICAL_GATES.md. Certified
 flows must reach the final review boundary with zero automated final-submit
 clicks and zero protected-boundary automation; no partial thresholds may be
-waived (spec §1.4.6, §2.3 gate decision rules).
+waived without an accepted owner decision (spec §1.4.6, §2.3 gate decision rules); the two accepted ADR-0007 exceptions are recorded separately below.
+
+## Accepted owner evidence waiver — 2026-10-17
+
+Simplify comparison result: WAIVED_BY_OWNER_ADR_0007
+Public-form evidence result: WAIVED_BY_OWNER_ADR_0007
+
+Accepted OD-036 / ADR-0007 removes only direct Simplify comparison and executed public-form evidence prerequisites project-wide. These assessments are not executed or passed observations and provide no public ATS support or competitor parity/superiority claim. Other components of mixed requirements, controlled/absolute thresholds, actual usability/accessibility/visual approval, other baselines, native proof and independent/source-bound owner gate decisions remain required. Original specification, frozen corpus and historical records stay unchanged. This record changes no package/gate state.
 
 ## Evaluation runs
 
@@ -38,10 +45,10 @@ None yet. Every run appended here must record (spec §8.4.2, §5.11.9.14):
 - Workday development-matrix, holdout, and certification-record hashes.
 - Toolchain, browser, extension, adapter, and driver versions.
 - Raw field/repeater/upload/validation/navigation/recovery result JSON.
-- Public no-submit structural dry-run inventory (sanitized).
+- Public no-submit structural dry-run inventory: WAIVED_BY_OWNER_ADR_0007; preserve any actual historical observations.
 - Controlled end-to-review run inventory (no automated submission).
 - Long-session and repeated-flow soak results.
-- Same-input manual Simplify comparison worksheets.
+- Same-input manual Simplify comparison: WAIVED_BY_OWNER_ADR_0007; other baselines remain required.
 - Independent review report reference.
 - Manual inspection checklist reference.
 

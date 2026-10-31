@@ -1,0 +1,27 @@
+{
+  "artifact_type": "COMPACT_SOURCE_BOUND_CLOSED_ACTUAL_EVIDENCE",
+  "work_package": "M04_SOURCE_PREPARATION_NOT_ACTIVATED",
+  "files": {
+    "README.md": {
+      "bytes": 1714,
+      "sha256": "f0bc4612c1627d5937a0aeb095bbde6e950476ff4748fe9a557268b83be8cf0f",
+      "full_mode": 33188
+    },
+    "proof.tar.gz": {
+      "bytes": 4197400,
+      "sha256": "08a6eb4d23d1832277627311a01fc63a8a100069166501c12b1bb8105ee8c86b",
+      "full_mode": 33188
+    },
+    "retention-manifest.json": {
+      "bytes": 31535,
+      "sha256": "31fd403649feded17a176dc202da9f12840280f86b3c789dcfd440f16f67c268",
+      "full_mode": 33188
+    },
+    "summary.json": {
+      "bytes": 1035,
+      "sha256": "c204101f4e759501f3577fcba51e401ee53dad586be9674ac4325c2f9c655900",
+      "full_mode": 33188
+    }
+  },
+  "scope": "Bounded source+headless actual experiment; large native bodies external; original v3/v4 failure histories retained."
+}

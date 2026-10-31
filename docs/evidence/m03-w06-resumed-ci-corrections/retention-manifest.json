@@ -1,0 +1,25 @@
+{
+  "schema": "FINITE_REGULAR_ARCHIVE_V1",
+  "files": [
+    {
+      "path": "ci-434/proof.tar.gz",
+      "bytes": 1619277,
+      "sha256": "a67abe78ebdc84b70434ccd0734b8219e44643293d7420fc6d599da7afce1165"
+    },
+    {
+      "path": "focused-corrections/proof.tar.gz",
+      "bytes": 189920,
+      "sha256": "153620db90f6ada045c87970c238eaa532e077383a78049d8c2c04859af614a6"
+    },
+    {
+      "path": "scope.json",
+      "bytes": 1901,
+      "sha256": "7da85a9fa34f7fb0c2b3cb930743a5dc909613e62e0ca202ac17c2c459944760"
+    },
+    {
+      "path": "root-source-review-message.txt",
+      "bytes": 221,
+      "sha256": "f35583599678c3992aa50f86a84741ae272d6be64db2f90e77e9d54deae022ae"
+    }
+  ]
+}

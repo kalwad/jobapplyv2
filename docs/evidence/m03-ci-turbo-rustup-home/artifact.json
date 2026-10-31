@@ -1,0 +1,40 @@
+{
+  "artifact_type": "COMPACT_REVIEWED_SOURCE_AND_HISTORICAL_CI",
+  "work_package": "M03-W07",
+  "files": {
+    "README.md": {
+      "bytes": 2301,
+      "sha256": "06250dbb97b46fb8b39fe7e384dc56689eb4df79aa375b2e59996cf7b0ba59b4",
+      "full_mode": 33188
+    },
+    "proof.tar.gz": {
+      "bytes": 2332796,
+      "sha256": "85a4cec8c056ad1d9f9b16d7877780c1828869f966f226b2fc5289a3a96dbcd2",
+      "full_mode": 33188
+    },
+    "retention-manifest.json": {
+      "bytes": 8677,
+      "sha256": "59fd1be1e0da138e6d0a9f02d0e3706f93e092ef5b798b1af9b4e7d846c7f72c",
+      "full_mode": 33188
+    },
+    "summary.json": {
+      "bytes": 2780,
+      "sha256": "0c90ff2f0c0ec0b93242c3af99590aa022bad324147bd7ac1d3832f3e809e669",
+      "full_mode": 33188
+    }
+  },
+  "scope": "No root adoption or corrected CI outcome is fabricated; historical failures preserved.",
+  "original_local_parent_paths": [
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-7f7902f",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-7f7902f-independent-review/v1",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-7f7902f/runs/40974739781",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-ab70bdf",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-ab70bdf-independent-review/v1",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-ab70bdf/runs/40970361829",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-rustup-home-turbo-correction-independent-review/v1",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-rustup-home-turbo-correction-preparation/v1",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/python-inventory-canonical-order-canonical-independent-review/v1",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/python-inventory-canonical-order-correction/v1",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/python-inventory-canonical-order-independent-review/v1"
+  ]
+}

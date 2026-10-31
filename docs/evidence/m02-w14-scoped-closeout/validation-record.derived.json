@@ -1,0 +1,79 @@
+{
+  "scope": "Final governance/proof integration checks at dirty730; product source unchanged from full730. This record is derived, not raw tool output or Gate A approval. Four-doc proposal review is historical to exact f838 patch, before appended final command record.",
+  "product_head": "730c641a9855fc3e95620636314a28d0eee8439a",
+  "commands": [
+    {
+      "command": "env PATH=/opt/homebrew/opt/node@24/bin:$PATH uv run python scripts/validate_status.py",
+      "result": "PASS45checkgroups",
+      "raw": "status.log"
+    },
+    {
+      "command": "env PATH=/opt/homebrew/opt/node@24/bin:$PATH pnpm traceability:check",
+      "result": "PASS193requirements300packages",
+      "raw": "traceability.log"
+    },
+    {
+      "command": "env PATH=/opt/homebrew/opt/node@24/bin:$PATH uv run pytest scripts/tests/test_validate_status.py scripts/tests/test_doctor.py scripts/tests/test_traceability.py -q",
+      "result": "314passed105.10s exit0",
+      "raw": "affected-pytest.log"
+    },
+    {
+      "command": "/usr/bin/python3 /tmp/japp-w14-audit-retained-archives.py",
+      "result": "PASS34archives",
+      "raw": "archive-audit.json"
+    },
+    {
+      "command": "env PATH=/opt/homebrew/opt/node@24/bin:$PATH uv run ruff check scripts/tests/test_validate_status.py scripts/tests/test_doctor.py scripts/tests/test_traceability.py",
+      "result": "PASS toolstdout inspected; no raw stdout retained"
+    },
+    {
+      "command": "env PATH=/opt/homebrew/opt/node@24/bin:$PATH uv run ruff format --check scripts/tests/test_validate_status.py scripts/tests/test_doctor.py scripts/tests/test_traceability.py",
+      "result": "PASS3filesalreadyformatted toolstdout inspected; no raw stdout retained"
+    }
+  ],
+  "files": [
+    {
+      "path": "status.log",
+      "bytes": 3563,
+      "sha256": "84b501d18c32b2526bf9e2b72d40d08aa9d87edda83d25ca2cc8bc69a445ec55"
+    },
+    {
+      "path": "traceability.log",
+      "bytes": 68,
+      "sha256": "7d875fde10d13eec2cd13e7528efe8db464ed20524f57291676a9ccb0618e779"
+    },
+    {
+      "path": "affected-pytest.log",
+      "bytes": 432,
+      "sha256": "17b473495f2c54a3192eb1460ddef68f9dcc819f8cc88a47be90f6ce7d70e79c"
+    },
+    {
+      "path": "archive-audit.json",
+      "bytes": 7571,
+      "sha256": "b4bd2a85437e92b84dddcf89b493c416bcaca9599f2f6da958d694f517744e33"
+    },
+    {
+      "path": "governance-review-report.md",
+      "bytes": 2610,
+      "sha256": "bcf3513d8fa077ad31c10a54e3df05759cc9b7c6a00e3d8edce185e34ce3774b"
+    },
+    {
+      "path": "governance-review-findings.json",
+      "bytes": 7522,
+      "sha256": "81b794455f0e2b4211cc566ef747733adaca8231ff29f989245843843a4e8d77"
+    },
+    {
+      "path": "reviewed-governance.patch.gz",
+      "bytes": 13922,
+      "sha256": "2cfe60943771622fedfa249dda066c946fbc3f2888fdf38359740513999f50d5",
+      "uncompressed_bytes": 49263,
+      "uncompressed_sha256": "f838d5da063adae22ade96c2b6b7edd2d5de03f122b5ca2d8aad179e785c0091",
+      "encoding": "gzip with mtime0; preserves original patch including context whitespace"
+    },
+    {
+      "path": "reviewed-governance-manifest.json",
+      "bytes": 2389,
+      "sha256": "6c84790b6ea490c8d2c1112e4a49cf88bba59dcd1aeb783bd9f331521ac0c6dc"
+    }
+  ]
+}

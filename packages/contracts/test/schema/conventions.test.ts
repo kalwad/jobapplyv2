@@ -59,6 +59,9 @@ describe("committed schema source conventions", () => {
       "urn:japp:schema:common:schema-version:v1",
       "urn:japp:schema:common:stable-id:v1",
       "urn:japp:schema:common:timestamp-utc:v1",
+      "urn:japp:schema:desktop:service-cancellation:v1",
+      "urn:japp:schema:desktop:service-diagnostics:v1",
+      "urn:japp:schema:desktop:service-request:v1",
       // M01-W03 error-taxonomy documents joined the canonical catalog.
       "urn:japp:schema:error:catalog:v1",
       "urn:japp:schema:error:record:v1",
@@ -70,7 +73,9 @@ describe("committed schema source conventions", () => {
       "urn:japp:schema:form:field-descriptor:v1",
       "urn:japp:schema:form:reconciliation-inventory:v1",
       "urn:japp:schema:gate:decision:v1",
+      "urn:japp:schema:gate:decision:v2",
       "urn:japp:schema:gate:evidence-bundle:v1",
+      "urn:japp:schema:gate:evidence-bundle:v2",
       // M01-W07 cross-platform capability and platform-service documents
       // joined the canonical catalog.
       "urn:japp:schema:platform:browser-discovery-request:v1",
@@ -117,6 +122,10 @@ describe("committed schema source conventions", () => {
       "urn:japp:schema:security:capability-taxonomy:v1",
       "urn:japp:schema:security:command-taxonomy:v1",
       "urn:japp:schema:semantic:rule-catalog:v1",
+      "urn:japp:schema:semantic:rule-catalog:v2",
+      "urn:japp:schema:service:health:v1",
+      "urn:japp:schema:service:ready:v1",
+      "urn:japp:schema:service:version:v1",
       "urn:japp:schema:session:application-session:v1",
       "urn:japp:schema:session:guided-run-mode:v1",
       "urn:japp:schema:session:navigation-record:v1",

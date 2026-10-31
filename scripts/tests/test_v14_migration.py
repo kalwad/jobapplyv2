@@ -578,8 +578,24 @@ REVIEWED_EVALUATION_RUNNER_IMPORTER = (
         version: 4.1.10(@types/node@24.13.3)"""
     b"(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))\n"
 )
-REVIEWED_PNPM_LOCK_SHA256 = (
+HISTORICAL_PRE_DESKTOP_PNPM_LOCK_SHA256 = (
     "c9d9f2fea650873b806a28058a9f1a8ca88d38fe439ceb3ba9fd7c83d778b565"
+)
+# M03-W01: independently reviewed additive desktop/UI/hooks graph. All591 old
+# package and596 snapshot records are unchanged; original historical proof stays.
+HISTORICAL_PRE_AUTH_CLIENT_PNPM_LOCK_SHA256 = (
+    "9f9f4ec15c2fc55ffe4e32f8ab52f8193aa9e5bd1624a2e9bcf4c1db35e1e019"
+)
+REVIEWED_PNPM_LOCK_SHA256 = (
+    "9f43b4c71bdd795037e92faa83bdff1343281e243871b58a70141d4d27eb35b7"
+)
+HISTORICAL_PRE_SERVICE_UV_LOCK_SHA256 = (
+    "4acf551f60c94aa647903125823cd6b04be6fcb6e0ff03978ec7a2793ffcba9c"
+)
+# M03-W02 preserves every original package/version pin and adds the reviewed
+# authenticated service/workspace graph; retain the immutable prior lock proof.
+REVIEWED_SERVICE_UV_LOCK_SHA256 = (
+    "dcd1aa125c5700002c2dbb8b9b307acd954cc1a6a0ee4525cfbc5e457ffb5163"
 )
 
 
@@ -632,7 +648,33 @@ def test_dependency_lockfiles_preserve_history_except_m02_importer() -> None:
     # the additive M02-W04/W05/W06/W07/W09 importers exist exactly once with
     # their exact reviewed links, and the complete file matches the reviewed
     # digest.
+    frozen_pre_desktop = subprocess.run(
+        ["git", "show", "95f5b09f43d9bef06d6158ea0bb8b9e0e3aa9123:pnpm-lock.yaml"],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+    ).stdout
+    assert _sha256(frozen_pre_desktop) == HISTORICAL_PRE_DESKTOP_PNPM_LOCK_SHA256
+
     current_pnpm = (REPO_ROOT / "pnpm-lock.yaml").read_bytes()
+    # W04 adds only the desktop's existing internal contracts workspace link.
+    # Keep the complete verified W03 lock as an immutable historical preimage.
+    pre_auth_client = subprocess.run(
+        ["git", "show", "d28cfc70feda604c508bc18c778992a0ca559e5a:pnpm-lock.yaml"],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+    ).stdout
+    assert _sha256(pre_auth_client) == HISTORICAL_PRE_AUTH_CLIENT_PNPM_LOCK_SHA256
+    desktop_anchor = b"  apps/desktop:\n    dependencies:\n"
+    assert pre_auth_client.count(desktop_anchor) == 1
+    contracts_link = b"""      '@japp/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
+"""
+    assert current_pnpm == pre_auth_client.replace(
+        desktop_anchor, desktop_anchor + contracts_link
+    )
     assert current_pnpm.count(reviewed_importer) == 1
     assert current_pnpm.count(reviewed_prettier) == historical_pnpm.count(
         reviewed_prettier
@@ -651,8 +693,15 @@ def test_dependency_lockfiles_preserve_history_except_m02_importer() -> None:
     assert current_pnpm.count(b"  packages/evaluation-runner:") == 1
     assert _sha256(current_pnpm) == REVIEWED_PNPM_LOCK_SHA256
 
+    historical_uv = subprocess.run(
+        ["git", "show", "6a08f61e3b677ec21e134aea104c568c2e7b57c2:uv.lock"],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+    ).stdout
+    assert _sha256(historical_uv) == HISTORICAL_PRE_SERVICE_UV_LOCK_SHA256
     unchanged = {
-        "uv.lock": ("4acf551f60c94aa647903125823cd6b04be6fcb6e0ff03978ec7a2793ffcba9c"),
+        "uv.lock": REVIEWED_SERVICE_UV_LOCK_SHA256,
         "services/native-host/Cargo.lock": (
             "7e8a6629c3f66af2b10347e3025c217538ab0bbb0736c76a1f203b11bba0a722"
         ),

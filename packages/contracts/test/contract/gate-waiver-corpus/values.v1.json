@@ -1,0 +1,285 @@
+{
+  "format_version": "1.0.0",
+  "values": {
+    "gate-v2.decision.executed": {
+      "decision_record_id": "decision_1123456789ABCDEFGHJKMNPQRS",
+      "gate_id": "AUTOFILL_FEASIBILITY",
+      "candidate_commit": "0123456789abcdef0123456789abcdef01234567",
+      "candidate_tree": "1111111111111111111111111111111111111111",
+      "evidence_bundle_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "decision": "PASS",
+      "threshold_evidence_summary": {
+        "evidence_complete": true,
+        "required_benchmark_results_complete": true,
+        "thresholds_passed": true,
+        "corpus_valid": true,
+        "holdout_valid": true
+      },
+      "independent_review_state": "COMPLETE",
+      "owner_decision_state": "COMPLETE",
+      "decided_at": "2026-07-27T04:00:00Z",
+      "reason_codes": ["REVIEWED_PASS"],
+      "error_codes": [],
+      "holdout_assessment": {
+        "state": "EXECUTED",
+        "execution_performed": true,
+        "execution_result_ref": "result_0123456789ABCDEFGHJKMNPQRS"
+      }
+    },
+    "gate-v2.decision.not-executed": {
+      "decision_record_id": "decision_1123456789ABCDEFGHJKMNPQRS",
+      "gate_id": "AUTOFILL_FEASIBILITY",
+      "candidate_commit": "0123456789abcdef0123456789abcdef01234567",
+      "candidate_tree": "1111111111111111111111111111111111111111",
+      "evidence_bundle_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "decision": "BLOCKED",
+      "threshold_evidence_summary": {
+        "evidence_complete": true,
+        "required_benchmark_results_complete": true,
+        "thresholds_passed": true,
+        "corpus_valid": true,
+        "holdout_valid": false
+      },
+      "independent_review_state": "COMPLETE",
+      "owner_decision_state": "COMPLETE",
+      "decided_at": "2026-07-27T04:00:00Z",
+      "reason_codes": ["REVIEWED_PASS"],
+      "error_codes": [],
+      "holdout_assessment": {
+        "state": "NOT_EXECUTED",
+        "execution_performed": false
+      }
+    },
+    "gate-v2.decision.v1-false": {
+      "decision_record_id": "decision_1123456789ABCDEFGHJKMNPQRS",
+      "gate_id": "AUTOFILL_FEASIBILITY",
+      "candidate_commit": "0123456789abcdef0123456789abcdef01234567",
+      "candidate_tree": "1111111111111111111111111111111111111111",
+      "evidence_bundle_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "decision": "PASS",
+      "threshold_evidence_summary": {
+        "evidence_complete": true,
+        "required_benchmark_results_complete": true,
+        "thresholds_passed": true,
+        "corpus_valid": true,
+        "holdout_valid": false
+      },
+      "independent_review_state": "COMPLETE",
+      "owner_decision_state": "COMPLETE",
+      "decided_at": "2026-07-27T04:00:00Z",
+      "reason_codes": ["REVIEWED_PASS"],
+      "error_codes": []
+    },
+    "gate-v2.decision.waived": {
+      "decision_record_id": "decision_1123456789ABCDEFGHJKMNPQRS",
+      "gate_id": "AUTOFILL_FEASIBILITY",
+      "candidate_commit": "0123456789abcdef0123456789abcdef01234567",
+      "candidate_tree": "1111111111111111111111111111111111111111",
+      "evidence_bundle_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "decision": "PASS",
+      "threshold_evidence_summary": {
+        "evidence_complete": true,
+        "required_benchmark_results_complete": true,
+        "thresholds_passed": true,
+        "corpus_valid": true,
+        "holdout_valid": false
+      },
+      "independent_review_state": "COMPLETE",
+      "owner_decision_state": "COMPLETE",
+      "decided_at": "2026-07-27T04:00:00Z",
+      "reason_codes": ["REVIEWED_PASS"],
+      "error_codes": [],
+      "holdout_assessment": {
+        "state": "WAIVED_BY_OWNER_ADR_0006",
+        "execution_performed": false,
+        "owner_waiver": {
+          "adr_ref": "ADR-0006",
+          "owner_decision_ref": "OD-035",
+          "source_document_ref": "docs/DECISIONS.md",
+          "source_record_digest": "sha256:a76132ab96294a6e1b69c985ffd7f420ff6df96e3a121a579a734814c276647a"
+        }
+      }
+    },
+    "gate-v2.evidence.executed": {
+      "evidence_bundle_id": "evidence_1123456789ABCDEFGHJKMNPQRS",
+      "gate_id": "AUTOFILL_FEASIBILITY",
+      "candidate_commit": "0123456789abcdef0123456789abcdef01234567",
+      "candidate_tree": "1111111111111111111111111111111111111111",
+      "corpus_manifest_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "holdout_manifest_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "runtime_metadata": {
+        "runtime_family": "NODE",
+        "runtime_version": "22.0.0",
+        "toolchain_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "platform_profile": "UBUNTU_X86_64"
+      },
+      "benchmark_result_refs": ["result_0123456789ABCDEFGHJKMNPQRS"],
+      "raw_artifact_report_digests": [
+        "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      ],
+      "manual_inspection_evidence_refs": ["inspect_0123456789ABCDEFGHJKMNPQRS"],
+      "independent_review_ref": "review_0123456789ABCDEFGHJKMNPQRS",
+      "reviewer_identity_ref": "reviewer_0123456789ABCDEFGHJKMNPQRS",
+      "owner_decision_ref": "owner_0123456789ABCDEFGHJKMNPQRS",
+      "completeness_inventory": {
+        "required_benchmark_count": 1,
+        "present_benchmark_count": 1,
+        "corpus_valid": true,
+        "holdout_valid": true,
+        "raw_artifacts_complete": true,
+        "manual_inspection_complete": true,
+        "independent_review_complete": true,
+        "owner_decision_requirement": "REQUIRED",
+        "owner_decision_complete": true
+      },
+      "known_limitations": [],
+      "bundle_state": "COMPLETE",
+      "evidence_bundle_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z"
+      },
+      "holdout_assessment": {
+        "state": "EXECUTED",
+        "execution_performed": true,
+        "execution_result_ref": "result_0123456789ABCDEFGHJKMNPQRS"
+      }
+    },
+    "gate-v2.evidence.not-executed": {
+      "evidence_bundle_id": "evidence_1123456789ABCDEFGHJKMNPQRS",
+      "gate_id": "AUTOFILL_FEASIBILITY",
+      "candidate_commit": "0123456789abcdef0123456789abcdef01234567",
+      "candidate_tree": "1111111111111111111111111111111111111111",
+      "corpus_manifest_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "runtime_metadata": {
+        "runtime_family": "NODE",
+        "runtime_version": "22.0.0",
+        "toolchain_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "platform_profile": "UBUNTU_X86_64"
+      },
+      "benchmark_result_refs": ["result_0123456789ABCDEFGHJKMNPQRS"],
+      "raw_artifact_report_digests": [
+        "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      ],
+      "manual_inspection_evidence_refs": ["inspect_0123456789ABCDEFGHJKMNPQRS"],
+      "independent_review_ref": "review_0123456789ABCDEFGHJKMNPQRS",
+      "reviewer_identity_ref": "reviewer_0123456789ABCDEFGHJKMNPQRS",
+      "owner_decision_ref": "owner_0123456789ABCDEFGHJKMNPQRS",
+      "completeness_inventory": {
+        "required_benchmark_count": 1,
+        "present_benchmark_count": 1,
+        "corpus_valid": true,
+        "holdout_valid": false,
+        "raw_artifacts_complete": true,
+        "manual_inspection_complete": true,
+        "independent_review_complete": true,
+        "owner_decision_requirement": "REQUIRED",
+        "owner_decision_complete": true
+      },
+      "known_limitations": [],
+      "bundle_state": "INCOMPLETE",
+      "evidence_bundle_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z"
+      },
+      "holdout_assessment": {
+        "state": "NOT_EXECUTED",
+        "execution_performed": false
+      }
+    },
+    "gate-v2.evidence.v1-false": {
+      "evidence_bundle_id": "evidence_1123456789ABCDEFGHJKMNPQRS",
+      "gate_id": "AUTOFILL_FEASIBILITY",
+      "candidate_commit": "0123456789abcdef0123456789abcdef01234567",
+      "candidate_tree": "1111111111111111111111111111111111111111",
+      "corpus_manifest_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "holdout_manifest_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "runtime_metadata": {
+        "runtime_family": "NODE",
+        "runtime_version": "22.0.0",
+        "toolchain_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "platform_profile": "UBUNTU_X86_64"
+      },
+      "benchmark_result_refs": ["result_0123456789ABCDEFGHJKMNPQRS"],
+      "raw_artifact_report_digests": [
+        "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      ],
+      "manual_inspection_evidence_refs": ["inspect_0123456789ABCDEFGHJKMNPQRS"],
+      "independent_review_ref": "review_0123456789ABCDEFGHJKMNPQRS",
+      "reviewer_identity_ref": "reviewer_0123456789ABCDEFGHJKMNPQRS",
+      "owner_decision_ref": "owner_0123456789ABCDEFGHJKMNPQRS",
+      "completeness_inventory": {
+        "required_benchmark_count": 1,
+        "present_benchmark_count": 1,
+        "corpus_valid": true,
+        "holdout_valid": false,
+        "raw_artifacts_complete": true,
+        "manual_inspection_complete": true,
+        "independent_review_complete": true,
+        "owner_decision_requirement": "REQUIRED",
+        "owner_decision_complete": true
+      },
+      "known_limitations": [],
+      "bundle_state": "COMPLETE",
+      "evidence_bundle_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z"
+      }
+    },
+    "gate-v2.evidence.waived": {
+      "evidence_bundle_id": "evidence_1123456789ABCDEFGHJKMNPQRS",
+      "gate_id": "AUTOFILL_FEASIBILITY",
+      "candidate_commit": "0123456789abcdef0123456789abcdef01234567",
+      "candidate_tree": "1111111111111111111111111111111111111111",
+      "corpus_manifest_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "runtime_metadata": {
+        "runtime_family": "NODE",
+        "runtime_version": "22.0.0",
+        "toolchain_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "platform_profile": "UBUNTU_X86_64"
+      },
+      "benchmark_result_refs": ["result_0123456789ABCDEFGHJKMNPQRS"],
+      "raw_artifact_report_digests": [
+        "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      ],
+      "manual_inspection_evidence_refs": ["inspect_0123456789ABCDEFGHJKMNPQRS"],
+      "independent_review_ref": "review_0123456789ABCDEFGHJKMNPQRS",
+      "reviewer_identity_ref": "reviewer_0123456789ABCDEFGHJKMNPQRS",
+      "owner_decision_ref": "owner_0123456789ABCDEFGHJKMNPQRS",
+      "completeness_inventory": {
+        "required_benchmark_count": 1,
+        "present_benchmark_count": 1,
+        "corpus_valid": true,
+        "holdout_valid": false,
+        "raw_artifacts_complete": true,
+        "manual_inspection_complete": true,
+        "independent_review_complete": true,
+        "owner_decision_requirement": "REQUIRED",
+        "owner_decision_complete": true
+      },
+      "known_limitations": [],
+      "bundle_state": "COMPLETE",
+      "evidence_bundle_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z"
+      },
+      "holdout_assessment": {
+        "state": "WAIVED_BY_OWNER_ADR_0006",
+        "execution_performed": false,
+        "owner_waiver": {
+          "adr_ref": "ADR-0006",
+          "owner_decision_ref": "OD-035",
+          "source_document_ref": "docs/DECISIONS.md",
+          "source_record_digest": "sha256:a76132ab96294a6e1b69c985ffd7f420ff6df96e3a121a579a734814c276647a"
+        }
+      }
+    }
+  }
+}

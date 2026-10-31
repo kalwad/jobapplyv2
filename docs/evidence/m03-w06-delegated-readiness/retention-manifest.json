@@ -1,0 +1,46 @@
+{
+  "members": [
+    {
+      "path": "later-host-context.json",
+      "bytes": 982,
+      "sha256": "e8089ac2c518d00d9b979debca7023d61f75d8e9cf27e9627f38be5f294da393",
+      "archive_mode": 420,
+      "original_mode": 420
+    },
+    {
+      "path": "readiness/REVIEW.md",
+      "bytes": 9535,
+      "sha256": "083609112b5154d6ff0bc02e85cd812c827f23fef1620912fe208ce9780164df",
+      "archive_mode": 420,
+      "original_mode": 420
+    },
+    {
+      "path": "readiness/acceptance-matrix.json",
+      "bytes": 7359,
+      "sha256": "797a061ab8c071f53adf314dd3b0566cc0036a189f15e1caa687d73e5a05d6c2",
+      "archive_mode": 420,
+      "original_mode": 420
+    },
+    {
+      "path": "readiness/audit-receipt.json",
+      "bytes": 11039,
+      "sha256": "0ada954d25e847799edf89013693ee13b4be6f089676c76a759593d5f18b0293",
+      "archive_mode": 420,
+      "original_mode": 420
+    },
+    {
+      "path": "readiness/manifest.json",
+      "bytes": 669,
+      "sha256": "bd145eef25e8aaad35beef95a19aa68c10b3aee231ed8c58ff96497941dda9f3",
+      "archive_mode": 420,
+      "original_mode": 420
+    },
+    {
+      "path": "source-delta-from-204bc06.json",
+      "bytes": 7116,
+      "sha256": "76358059631eccfae8d34f7678dd83dba077aeb4c48d9064c5be1023f37f6776",
+      "archive_mode": 420,
+      "original_mode": 420
+    }
+  ]
+}

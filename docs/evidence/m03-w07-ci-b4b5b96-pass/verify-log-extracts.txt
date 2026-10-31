@@ -1,0 +1,95 @@
+# Extracts of the raw job logs of run 41139850970 (gh api repos/kalwad/jobapplyv2/actions/jobs/<id>/logs):
+# the final pytest summary line, the final pnpm verify suite table and the KI-0142 Rust test lines, per job.
+
+## job 124351193203 doctor + verify (ubuntu-24.04)
+======================= 2899 passed in 716.43s (0:11:56) =======================
+toolchain      ACTIVE               PASS
+format         ACTIVE               PASS
+lint           ACTIVE               PASS
+typecheck      ACTIVE               PASS
+unit-ts        ACTIVE               PASS
+contract-gen   ACTIVE               PASS
+fixture-corpus ACTIVE               PASS
+evaluation-corpus ACTIVE               PASS
+contract       ACTIVE               PASS
+build          ACTIVE               PASS
+e2e-browser    ACTIVE               PASS
+w14-public-controlled ACTIVE               PASS
+w14-public-contact-controlled ACTIVE               PASS
+visual         ACTIVE               PASS
+python         ACTIVE               PASS
+rust           ACTIVE               PASS
+portability    ACTIVE               PASS
+traceability   ACTIVE               PASS
+status         ACTIVE               PASS
+integrity      ACTIVE               PASS
+(20 suite rows; 20 PASS)
+test service::windows_policy::tests::service_environment_block_holds_exactly_system_root ... ok
+test service::windows_policy::tests::service_environment_refuses_malformed_or_injected_roots ... ok
+test service::windows_policy::tests::service_environment_block_holds_exactly_system_root ... ok
+test service::windows_policy::tests::service_environment_refuses_malformed_or_injected_roots ... ok
+test service::windows_policy::tests::service_environment_block_holds_exactly_system_root ... ok
+test service::windows_policy::tests::service_environment_refuses_malformed_or_injected_roots ... ok
+
+## job 124351193472 doctor + verify (macos-15)
+======================= 2899 passed in 917.05s (0:15:17) =======================
+toolchain      ACTIVE               PASS
+format         ACTIVE               PASS
+lint           ACTIVE               PASS
+typecheck      ACTIVE               PASS
+unit-ts        ACTIVE               PASS
+contract-gen   ACTIVE               PASS
+fixture-corpus ACTIVE               PASS
+evaluation-corpus ACTIVE               PASS
+contract       ACTIVE               PASS
+build          ACTIVE               PASS
+e2e-browser    ACTIVE               PASS
+w14-public-controlled ACTIVE               PASS
+w14-public-contact-controlled ACTIVE               PASS
+visual         ACTIVE               PASS
+python         ACTIVE               PASS
+rust           ACTIVE               PASS
+portability    ACTIVE               PASS
+traceability   ACTIVE               PASS
+status         ACTIVE               PASS
+integrity      ACTIVE               PASS
+(20 suite rows; 20 PASS)
+test service::windows_policy::tests::service_environment_block_holds_exactly_system_root ... ok
+test service::windows_policy::tests::service_environment_refuses_malformed_or_injected_roots ... ok
+test service::windows_policy::tests::service_environment_block_holds_exactly_system_root ... ok
+test service::windows_policy::tests::service_environment_refuses_malformed_or_injected_roots ... ok
+test service::windows_policy::tests::service_environment_block_holds_exactly_system_root ... ok
+test service::windows_policy::tests::service_environment_refuses_malformed_or_injected_roots ... ok
+
+## job 124351193473 doctor + verify (windows-2025)
+====================== 2897 passed in 1195.82s (0:19:55) ======================
+toolchain      ACTIVE               PASS
+format         ACTIVE               PASS
+lint           ACTIVE               PASS
+typecheck      ACTIVE               PASS
+unit-ts        ACTIVE               PASS
+contract-gen   ACTIVE               PASS
+fixture-corpus ACTIVE               PASS
+evaluation-corpus ACTIVE               PASS
+contract       ACTIVE               PASS
+build          ACTIVE               PASS
+e2e-browser    ACTIVE               PASS
+w14-public-controlled ACTIVE               PASS
+w14-public-contact-controlled ACTIVE               PASS
+visual         ACTIVE               PASS
+python         ACTIVE               PASS
+rust           ACTIVE               PASS
+portability    ACTIVE               PASS
+traceability   ACTIVE               PASS
+status         ACTIVE               PASS
+integrity      ACTIVE               PASS
+(20 suite rows; 20 PASS)
+test service::windows_native::tests::os_windows_directory_forms_the_service_environment ... ok
+test service::windows_policy::tests::service_environment_block_holds_exactly_system_root ... ok
+test service::windows_policy::tests::service_environment_refuses_malformed_or_injected_roots ... ok
+test service::windows_native::tests::os_windows_directory_forms_the_service_environment ... ok
+test service::windows_policy::tests::service_environment_block_holds_exactly_system_root ... ok
+test service::windows_policy::tests::service_environment_refuses_malformed_or_injected_roots ... ok
+test service::windows_native::tests::os_windows_directory_forms_the_service_environment ... ok
+test service::windows_policy::tests::service_environment_block_holds_exactly_system_root ... ok
+test service::windows_policy::tests::service_environment_refuses_malformed_or_injected_roots ... ok

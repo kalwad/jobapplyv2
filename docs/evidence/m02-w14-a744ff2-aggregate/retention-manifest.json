@@ -1,0 +1,137 @@
+{
+  "format": "W14_A744FF2_AGGREGATE_RETENTION_1",
+  "files": [
+    {
+      "path": "aggregate.log",
+      "sha256": "422bdfae64cf6bd783484eef330b324777e4e5101e3ccb545830efb20f27f6d5",
+      "bytes": 545610
+    },
+    {
+      "path": "aggregate.log.gz",
+      "sha256": "9fb0d51abd78e7f4c2b06db5ca5b5711e486dc432bb25a9827d20537717bc895",
+      "bytes": 72520
+    },
+    {
+      "path": "failures/extension-extension-resear-187bd-t-ambiguity-through-W10-W11-chromium/error-context.md",
+      "sha256": "19063bf598ddeadf0d69d38ef8470f88a38eb84288c3c98707b20ef3db7b1e8a",
+      "bytes": 6473
+    },
+    {
+      "path": "failures/extension-extension-resear-187bd-t-ambiguity-through-W10-W11-chromium/test-failed-1.png",
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401",
+      "bytes": 4254
+    },
+    {
+      "path": "failures/extension-extension-resear-187bd-t-ambiguity-through-W10-W11-chromium/test-failed-2.png",
+      "sha256": "000f3b0da95fb3d203435a6e334fd63fb2ecca76691eb4325a9e7a8b3d70ea30",
+      "bytes": 36994
+    },
+    {
+      "path": "failures/extension-extension-resear-187bd-t-ambiguity-through-W10-W11-chromium/test-failed-3.png",
+      "sha256": "ab5fb88ab019f1b7cdea3dd9b947f868ab1eb474fb3741a94ee145914996ce0c",
+      "bytes": 27162
+    },
+    {
+      "path": "failures/extension-extension-resear-187bd-t-ambiguity-through-W10-W11-chromium/trace.zip",
+      "sha256": "247ff541896181aa553566dec269f9bc3633df0b5be8c67a2613c24f7692d75e",
+      "bytes": 338495
+    },
+    {
+      "path": "failures/extension-extension-w14-w0-24e31--real-MV3-contact-execution-chromium/error-context.md",
+      "sha256": "f5f103d8705f990c1308afc05390b02e28c3c5300dc94790dfc37381a3c08bc9",
+      "bytes": 5687
+    },
+    {
+      "path": "failures/extension-extension-w14-w0-24e31--real-MV3-contact-execution-chromium/test-failed-1.png",
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401",
+      "bytes": 4254
+    },
+    {
+      "path": "failures/extension-extension-w14-w0-24e31--real-MV3-contact-execution-chromium/trace.zip",
+      "sha256": "1eb08596b7afcf07685557a40541c1841666d64aa4d937ae263c29f333ac050b",
+      "bytes": 5339736
+    },
+    {
+      "path": "failures/native128/error-context.md",
+      "sha256": "6ec3fdc7ee08857470d268f7c2fce884f87793e135fc876f6c14aeff4924a99e",
+      "bytes": 10093
+    },
+    {
+      "path": "failures/native128/test-failed-1.png",
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401",
+      "bytes": 4254
+    },
+    {
+      "path": "failures/native128/trace.zip",
+      "sha256": "0b3c163442a58e1bd0027903f5e70f2ec8742595088970c22dab72d97240854f",
+      "bytes": 15320353
+    },
+    {
+      "path": "failures/native128-retention.json",
+      "sha256": "036debc2e0ae8384db3e0941dfd42edb1f646aad3ab8c30703ce62c6acfabba4",
+      "bytes": 592
+    },
+    {
+      "path": "native128-scaling.json",
+      "sha256": "e55f03305a8d91b28aa94f1c382c65fa549cb87d8c403c645bfe0152cd61474f",
+      "bytes": 55356
+    },
+    {
+      "path": "summary.json",
+      "sha256": "e4974cbc7c7248addb4916597dd0fa6f1467a201ddabe691bc49899c8ae1a99a",
+      "bytes": 2785
+    },
+    {
+      "path": "w14/assessment.json",
+      "sha256": "c3e1e2548520b49ff123f55ec8857f469596e00c9dc044f22c0ba98ec30b0262",
+      "bytes": 54498
+    },
+    {
+      "path": "w14/canonical-autofill-run-manifest.json",
+      "sha256": "aa283ed8d02a5aed6b46b5859ce8907183018abe9d11a32d990a210520f067ee",
+      "bytes": 2528
+    },
+    {
+      "path": "w14/canonical-execution.json",
+      "sha256": "b356e9814dedf40b2800fb59444a052508c3da4e22e2c42764db62792567d465",
+      "bytes": 2900882
+    },
+    {
+      "path": "w14/canonical-report-manifest.json",
+      "sha256": "9730f5072c966a3f86f851e6ade9aba43528d4d36f6b94334f5317782468e116",
+      "bytes": 624
+    },
+    {
+      "path": "w14/canonical-report.html",
+      "sha256": "018dc1b84d45e46e572e0e256b85cf0f8e3e8ef5554f1c7920e7b7c197da617e",
+      "bytes": 297600
+    },
+    {
+      "path": "w14/canonical-report.json",
+      "sha256": "3c285020d4fd3c101f00e8a1b0921dc2c667a6728b254357fc232aa607a9e257",
+      "bytes": 1997585
+    },
+    {
+      "path": "w14/canonical-report.md",
+      "sha256": "d6a4c324d9367805666cdaab2c1e9061636aebc63921b51f2e1f75edae4b43d6",
+      "bytes": 181702
+    },
+    {
+      "path": "w14/development-run.json.gz",
+      "sha256": "75a75b276f67d37b45dc1c4530642bf74f3d036a28ddee78132a8482bed2550b",
+      "bytes": 4176658
+    },
+    {
+      "path": "w14/workday-en-us-contact.png",
+      "sha256": "8cbae9fe1ecf8469db1f01ec2a94992f0dd116b0dbd3b1ae841e34c2ea0c730b",
+      "bytes": 108547
+    }
+  ],
+  "note": "Raw terminal bytes are retained by log encoding manifest after display normalization. Source runtime remains at the cited commit; no gate approval is claimed.",
+  "original_raw_terminal_stdout": {
+    "path": "aggregate.log",
+    "sha256": "38a1c12addf6500ec392bcd1a17e5779e8d0f5b3f6aead340c4bca05368c5f00",
+    "bytes": 545955
+  },
+  "display_normalization_manifest": "docs/evidence/m02-w14-validation/log-encoding-manifest.json"
+}

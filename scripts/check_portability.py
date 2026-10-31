@@ -12,7 +12,7 @@ REQ-PLAT-025). Two rule families:
   never apply Bash-only steps to Windows, keep frozen/locked installs and
   exact toolchain probes, isolate (and never cache) RUSTUP_HOME, restrict
   caches to an allowlisted dependency set, and upload only failure-scoped
-  Playwright artifacts.
+  Playwright artifacts and the exact Windows-only native-loader exception.
 - ``PORT-SRC-*``: shared runtime scripts and canonical commands must stay
   platform-neutral — no hard-coded /tmp, /bin/, /usr/ system paths, no
   ``shell=True``/``bash -c`` wrappers, no manual ``+ "/" +`` separator
@@ -78,10 +78,17 @@ from __future__ import annotations
 
 import argparse
 import ast
+import hashlib
+import importlib.util
 import json
+import marshal
+import os
 import re
+import stat
 import subprocess
 import sys
+import tomllib
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -103,6 +110,27 @@ PORTABILITY_MODULE_REL = "scripts/portability.py"
 TYPESCRIPT_PORTABILITY_HELPER = Path(__file__).with_name(
     "check_typescript_portability.mjs"
 )
+
+# Exact candidate bodies only. These pins are pending independent source
+# review and root adoption; byte equality is not source/VM authorization.
+CANDIDATE_AUXILIARY_WORKFLOWS = {
+    "ubuntu-gnome-prepare.yml": (
+        6561,
+        "7c1dfff4005e5bbc290a56484836de2babe2f981c5eaa56283c68ebe1bc942e0",
+    ),
+    "ubuntu-gnome-lifecycle.yml": (
+        8044,
+        "60f9545aebfed42c002c8b54087ef355b7891068804e821ecb0233357662523d",
+    ),
+    "windows11-native-prepare.yml": (
+        8555,
+        "565ec8e8b23cbf051b5540d4cae860f356f87851ab08f0b3f26f2be13931000f",
+    ),
+    "windows11-native-lifecycle.yml": (
+        7419,
+        "1821e57da5bfcbd01124a1534ad24ec8e493bff2885f115362811efa7019f4de",
+    ),
+}
 
 REQUIRED_RUNNERS = ("macos-15", "windows-2025", "ubuntu-24.04")
 MATRIX_RUNS_ON = "${{ matrix.os }}"
@@ -443,12 +471,181 @@ def _strip_shell_comments(body: str, shell: str = "") -> str:
     return "\n".join(stripped)
 
 
+NATIVE_PACKAGE_JOB = "native_package_development"
+NATIVE_PACKAGE_TIMEOUT_MINUTES = 60
+NATIVE_PACKAGE_UPLOAD = {
+    "name": "native-development-${{ matrix.os }}-${{ github.sha }}",
+    "path": "${{ runner.temp }}/japp-development-package-proof/retained/",
+    "if-no-files-found": "error",
+    "retention-days": 7,
+}
+NATIVE_PACKAGE_STEPS = (
+    "Check out exact source for read-only package projection",
+    "Activate project Node pin",
+    "Activate pinned pnpm via Corepack (native package)",
+    "Install exact project uv pin (POSIX)",
+    "Install exact project uv pin (Windows)",
+    "Activate exact project Python pin",
+    "Install pinned Rust toolchain for native package (rust-toolchain.toml)",
+    "Install pinned Rust toolchain for native package (rust-toolchain.toml, Windows)",
+    "Install existing CI Linux build prerequisites and retain actual versions",
+    "Build isolated development package and run one owned native service actor",
+    "Curate finite package evidence even on failure",
+    "Retain finite native development evidence",
+)
+NATIVE_PACKAGE_EXPORT_SLOT = 10
+NATIVE_PACKAGE_EXPORT = {
+    "name": "Export exact inspected Ubuntu package for separately reviewed GNOME job",
+    "if": "runner.os == 'Linux'",
+    "shell": "bash",
+    "run": (
+        "set -euo pipefail\n"
+        '"$PACKAGE_PYTHON" -B scripts/linux_gnome/ubuntu_gnome_package_export.py \\\n'
+        '  --proof "$RUNNER_TEMP/japp-development-package-proof" \\\n'
+        '  --output "$RUNNER_TEMP/japp-gnome-package-export" \\\n'
+        '  --expected-head "$GITHUB_SHA"\n'
+    ),
+}
+NATIVE_PACKAGE_EXPORT_UPLOAD = {
+    "name": "Retain exact Ubuntu package export without GUI qualification claim",
+    "if": "runner.os == 'Linux'",
+    "uses": "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
+    "with": {
+        "name": "gnome-package-input-${{ github.sha }}",
+        "path": "${{ runner.temp }}/japp-gnome-package-export/",
+        "if-no-files-found": "error",
+        "retention-days": 7,
+    },
+}
+NATIVE_PACKAGE_EXPORT_NAMES = (
+    NATIVE_PACKAGE_EXPORT["name"],
+    NATIVE_PACKAGE_EXPORT_UPLOAD["name"],
+)
+
+
+def _native_package_header_valid(job: Mapping[object, object]) -> bool:
+    return (
+        job.get("needs") == "verify"
+        and job.get("runs-on") == MATRIX_RUNS_ON
+        and job.get("timeout-minutes") == NATIVE_PACKAGE_TIMEOUT_MINUTES
+        and job.get("strategy")
+        == {
+            "fail-fast": False,
+            "matrix": {"os": ["windows-2025", "ubuntu-24.04"]},
+        }
+        and not any(
+            key in job for key in ("if", "defaults", "permissions", "continue-on-error")
+        )
+    )
+
+
+def _native_package_steps(value: object) -> list[Mapping[object, object]] | None:
+    if not isinstance(value, list):
+        return None
+    steps: list[Mapping[object, object]] = []
+    for step in value:
+        if not isinstance(step, dict):
+            return None
+        steps.append(step)
+    names = tuple(step.get("name") for step in steps)
+    extended_names = (
+        NATIVE_PACKAGE_STEPS[:NATIVE_PACKAGE_EXPORT_SLOT]
+        + NATIVE_PACKAGE_EXPORT_NAMES
+        + NATIVE_PACKAGE_STEPS[NATIVE_PACKAGE_EXPORT_SLOT:]
+    )
+    if names not in (NATIVE_PACKAGE_STEPS, extended_names):
+        return None
+    if any("continue-on-error" in step for step in steps):
+        return None
+    if names == extended_names:
+        slot = NATIVE_PACKAGE_EXPORT_SLOT
+        if steps[slot : slot + 2] != [
+            NATIVE_PACKAGE_EXPORT,
+            NATIVE_PACKAGE_EXPORT_UPLOAD,
+        ]:
+            return None
+        # Validate the original recipe with its unchanged command oracle.
+        # No generic shell/action/artifact check omits these two steps.
+        steps = steps[:slot] + steps[slot + 2 :]
+    return steps
+
+
+def _native_package_commands_valid(steps: list[Mapping[object, object]]) -> bool:
+    build, curator, upload = steps[-3:]
+    command = (
+        "& $env:PACKAGE_PYTHON -I -S scripts/native_package_ci.py "
+        "--source (Get-Location).Path "
+        "--work (Join-Path $env:RUNNER_TEMP 'japp-development-package-work') "
+        "--proof (Join-Path $env:RUNNER_TEMP 'japp-development-package-proof') "
+        "--python $env:PACKAGE_PYTHON"
+    )
+    expected_build = [
+        "$ErrorActionPreference = 'Stop'",
+        "$PSNativeCommandUseErrorActionPreference = $true",
+        command,
+    ]
+    expected_curator = [
+        "$ErrorActionPreference = 'Stop'",
+        "$PSNativeCommandUseErrorActionPreference = $true",
+        "$curatorPython = $env:PACKAGE_PYTHON",
+        "if (-not $curatorPython) { $curatorPython = (Get-Command python3).Path }",
+        (
+            "# Bootstrap fallback is documentary curation only; "
+            "no payload import or launch."
+        ),
+        (
+            "& $curatorPython -I -S scripts/native_package_retention.py "
+            "--proof (Join-Path $env:RUNNER_TEMP 'japp-development-package-proof') "
+            "--sdk (Join-Path $env:RUNNER_TEMP 'japp-development-package-sdk')"
+        ),
+    ]
+    if (
+        "if" in build
+        or build.get("shell") != "pwsh"
+        or str(build.get("run", "")).strip().splitlines() != expected_build
+    ):
+        return False
+    return (
+        curator.get("if") == "always()"
+        and curator.get("shell") == "pwsh"
+        and str(curator.get("run", "")).strip().splitlines() == expected_curator
+        and upload.get("if") == "always()"
+        and upload.get("uses")
+        == "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
+        and upload.get("with") == NATIVE_PACKAGE_UPLOAD
+    )
+
+
+def _native_package_job_valid(workflow: Mapping[str, object]) -> bool:
+    """Only the explicit bounded package recipe can accompany canonical verify."""
+    jobs: object = workflow.get("jobs", {})
+    if not isinstance(jobs, dict) or set(jobs) != {"verify", NATIVE_PACKAGE_JOB}:
+        return False
+    job: object = jobs.get(NATIVE_PACKAGE_JOB)
+    if not isinstance(job, dict) or not _native_package_header_valid(job):
+        return False
+    steps = _native_package_steps(job.get("steps"))
+    return steps is not None and _native_package_commands_valid(steps)
+
+
 def _check_matrix(
     workflow: dict[str, Any], violations: list[Violation]
 ) -> tuple[str, dict[str, Any]] | None:
     jobs = workflow.get("jobs", {})
     matrix_jobs: list[tuple[str, dict[str, Any]]] = []
+    if NATIVE_PACKAGE_JOB in jobs and not _native_package_job_valid(workflow):
+        violations.append(
+            Violation(
+                "PORT-CI-002",
+                "jobs." + NATIVE_PACKAGE_JOB,
+                "native package job must retain its exact bounded contract",
+            )
+        )
     for job_id, job in jobs.items():
+        # Invalid package recipes already fail above. They must never become
+        # baseline candidates and hide a disconnected canonical-command job.
+        if job_id == NATIVE_PACKAGE_JOB:
+            continue
         if not isinstance(job, dict):
             continue
         strategy = job.get("strategy", {})
@@ -1019,10 +1216,54 @@ def _check_chromium(
 
 
 def _check_artifacts(
-    steps: list[tuple[str, dict[str, Any]]], violations: list[Violation]
+    steps: list[tuple[str, dict[str, Any]]],
+    violations: list[Violation],
+    *,
+    approved_package: bool = False,
 ) -> None:
     for where, step in steps:
         if not str(step.get("uses", "")).startswith("actions/upload-artifact@"):
+            continue
+        path = str(step.get("with", {}).get("path", "")).strip().rstrip("/")
+        native_condition = (
+            "${{ failure() && runner.os == 'Windows' && "
+            "steps.canonical_verify.outcome == 'failure' }}"
+        )
+        native_upload = {
+            "name": "windows-native-loader-${{ github.sha }}",
+            "path": "${{ runner.temp }}/windows-native-loader-diagnostics/",
+            "if-no-files-found": "warn",
+            "retention-days": 7,
+        }
+        if (
+            step.get("name") == "Retain Windows native loader failure evidence"
+            and step.get("uses")
+            == "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
+            and step.get("if") == native_condition
+            and step.get("with") == native_upload
+            and any(
+                candidate.get("id") == "canonical_verify"
+                and candidate.get("run") == "pnpm verify"
+                for _location, candidate in steps
+            )
+        ):
+            continue
+        if (
+            approved_package
+            and where
+            == NATIVE_PACKAGE_JOB + ":Retain finite native development evidence"
+            and step.get("uses")
+            == "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
+            and step.get("if") == "always()"
+            and step.get("with") == NATIVE_PACKAGE_UPLOAD
+        ):
+            continue
+        if (
+            approved_package
+            and where
+            == NATIVE_PACKAGE_JOB + ":" + str(NATIVE_PACKAGE_EXPORT_UPLOAD["name"])
+            and step == NATIVE_PACKAGE_EXPORT_UPLOAD
+        ):
             continue
         if str(step.get("if", "")).strip() != "failure()":
             violations.append(
@@ -1032,7 +1273,6 @@ def _check_artifacts(
                     "artifact upload must be failure-scoped (if: failure())",
                 )
             )
-        path = str(step.get("with", {}).get("path", "")).strip().rstrip("/")
         if path != "test-results":
             violations.append(
                 Violation(
@@ -1506,6 +1746,888 @@ def _check_registry_commands(repo: Path, violations: list[Violation]) -> None:
                 )
 
 
+def _check_workflow_files(repo: Path, violations: list[Violation]) -> None:
+    workflows_dir = repo / ".github" / "workflows"
+    names = sorted(
+        p.name for p in [*workflows_dir.glob("*.yml"), *workflows_dir.glob("*.yaml")]
+    )
+    if names == ["ci.yml"]:
+        return
+    legacy = ["ubuntu-gnome-prepare.yml", "ubuntu-gnome-lifecycle.yml"]
+    selected = CANDIDATE_AUXILIARY_WORKFLOWS
+    if names == sorted(["ci.yml", *legacy]):
+        selected = {name: CANDIDATE_AUXILIARY_WORKFLOWS[name] for name in legacy}
+    expected = sorted(["ci.yml", *selected])
+    if names != expected:
+        violations.append(
+            Violation(
+                "PORT-CI-001",
+                ".github/workflows",
+                "workflow files must be only ci.yml or the exact candidate "
+                f"auxiliary pair (found {names})",
+            )
+        )
+        return
+    for name, (expected_size, expected_digest) in selected.items():
+        path = workflows_dir / name
+        try:
+            metadata = path.lstat()
+            valid = stat.S_ISREG(metadata.st_mode) and metadata.st_size == expected_size
+            data = path.read_bytes() if valid else b""
+            valid = (
+                valid
+                and len(data) == expected_size
+                and hashlib.sha256(data).hexdigest() == expected_digest
+            )
+        except OSError:
+            valid = False
+        if not valid:
+            violations.append(
+                Violation(
+                    "PORT-CI-001",
+                    ".github/workflows/" + name,
+                    "auxiliary workflow must be a regular non-symlink file "
+                    "with its exact candidate byte length and SHA256; "
+                    "candidate equality is not source or VM approval",
+                )
+            )
+
+
+# The finite Linux evidence surface is separate from shared runtime tools.
+# This does not authorize any shared runtime import or a Windows fallback.
+LINUX_INFRASTRUCTURE_REL = "scripts/linux_gnome"
+LINUX_INFRASTRUCTURE_MODULES = frozenset(
+    {
+        "ubuntu_gnome_atspi.py",
+        "ubuntu_gnome_guest.py",
+        "ubuntu_gnome_host.py",
+        "ubuntu_gnome_package_export.py",
+        "ubuntu_gnome_platform.py",
+        "ubuntu_gnome_prepare.py",
+        "ubuntu_gnome_process.py",
+        "ubuntu_gnome_provision.py",
+        "ubuntu_gnome_request.py",
+        "ubuntu_gnome_retention.py",
+        "ubuntu_gnome_session_receipt.py",
+        "ubuntu_gnome_signed_indexes.py",
+        "ubuntu_gnome_shell.py",
+        "ubuntu_gnome_vm.py",
+    }
+)
+LINUX_INFRASTRUCTURE_ENTRYPOINTS = frozenset(
+    {
+        "ubuntu_gnome_guest.py",
+        "ubuntu_gnome_host.py",
+        "ubuntu_gnome_package_export.py",
+        "ubuntu_gnome_prepare.py",
+        "ubuntu_gnome_provision.py",
+        "ubuntu_gnome_request.py",
+        "ubuntu_gnome_session_receipt.py",
+        "ubuntu_gnome_vm.py",
+    }
+)
+LINUX_INFRASTRUCTURE_STDLIB = frozenset(
+    {
+        "__future__",
+        "argparse",
+        "collections",
+        "dataclasses",
+        "datetime",
+        "errno",
+        "getpass",
+        "hashlib",
+        "http",
+        "importlib",
+        "ipaddress",
+        "json",
+        "os",
+        "pathlib",
+        "platform",
+        "pwd",
+        "re",
+        "select",
+        "shlex",
+        "shutil",
+        "signal",
+        "socket",
+        "stat",
+        "subprocess",
+        "sys",
+        "tempfile",
+        "time",
+        "types",
+        "typing",
+        "urllib",
+    }
+)
+LINUX_PLATFORM_SHA256 = (
+    "8ea71349dce148662d6a8cb2629760a36ec657f6acc9a7285fd2f7703c0052b8"
+)
+
+
+def _linux_reference(value: str) -> bool:
+    return (
+        any(
+            marker in value
+            for marker in ("linux_gnome", "ubuntu_gnome_", "scripts/windows11")
+        )
+        or re.search(
+            r"(?:^|[\s/\\])windows11_(?:candidate|request|platform|process|vm|"
+            r"deployment|inputs|resources|owned|bootstrap|guest|source_check)(?:$|[.\s])",
+            value,
+        )
+        is not None
+    )
+
+
+def _check_linux_shared_imports(repo: Path, violations: list[Violation]) -> None:
+    for path in _runtime_scripts(repo):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        references = list(_iter_string_constants(tree))
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                references.extend(alias.name for alias in node.names)
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                references.append(node.module)
+                references.extend(alias.name for alias in node.names)
+        if any(_linux_reference(value) for value in references):
+            violations.append(
+                Violation(
+                    "PORT-SRC-009",
+                    path.relative_to(repo).as_posix(),
+                    "shared runtime may not import or execute isolated Linux "
+                    "evidence infrastructure",
+                )
+            )
+
+
+def _linux_quality_failures(
+    repo: Path, isolated_rel: str = LINUX_INFRASTRUCTURE_REL
+) -> list[str]:
+    """Pin coverage, while retaining host-target semantics of shared mypy."""
+    failures = []
+    try:
+        config = tomllib.loads((repo / "pyproject.toml").read_text(encoding="utf-8"))
+        registry = json.loads((repo / REGISTRY_REL).read_text(encoding="utf-8"))
+        package = json.loads((repo / "package.json").read_text(encoding="utf-8"))
+        suites = {row["id"]: row for row in registry["suites"]}
+        commands = {
+            key: suites[key]["commands"] for key in ("format", "typecheck", "python")
+        }
+        required = {
+            "format": ("uv", "run", "ruff", "format", "--check"),
+            "python": ("uv", "run", "ruff", "check"),
+        }
+        for suite, prefix in required.items():
+            if not any(
+                tuple(row[: len(prefix)]) == prefix and isolated_rel in row
+                for row in commands[suite]
+            ):
+                failures.append(f"{suite} does not cover Linux infrastructure")
+        prefix = ("uv", "run", "ruff", "format", "--check")
+        if not any(
+            tuple(row[: len(prefix)]) == prefix and isolated_rel in row
+            for row in commands["python"]
+        ):
+            failures.append("Python format does not cover Linux infrastructure")
+        linux_mypy = [
+            "uv",
+            "run",
+            "mypy",
+            "--platform",
+            "linux",
+            isolated_rel,
+        ]
+        isolated_commands = [
+            ["uv", "run", "mypy", "--platform", "linux", LINUX_INFRASTRUCTURE_REL]
+        ]
+        # Exact registered host-only command; legacy GNU fixtures need not
+        # carry the optional Windows11 island. Unknown commands still fail.
+        isolated_commands.append(
+            ["uv", "run", "mypy", "--platform", "linux", WINDOWS11_INFRASTRUCTURE_REL]
+        )
+        for suite in ("typecheck", "python"):
+            if linux_mypy not in commands[suite]:
+                failures.append(
+                    f"{suite} lacks exact separate Linux-target mypy command"
+                )
+            shared = [
+                row
+                for row in commands[suite]
+                if row[:3] == ["uv", "run", "mypy"] and row not in isolated_commands
+            ]
+            if not shared or any(
+                "--platform" in row or isolated_rel in row for row in shared
+            ):
+                failures.append(f"{suite} changed shared mypy target semantics")
+        if isolated_rel not in config["tool"]["mypy"]["mypy_path"]:
+            failures.append("Linux helper import path is missing from strict mypy")
+        if isolated_rel not in package["scripts"]["format"].split():
+            failures.append("package format does not cover Linux infrastructure")
+    except (OSError, KeyError, TypeError, ValueError) as error:
+        failures.append(f"Linux quality registry is unreadable: {type(error).__name__}")
+    return failures
+
+
+def _linux_file_identity(info: os.stat_result) -> tuple[int, ...]:
+    return (
+        info.st_dev,
+        info.st_ino,
+        info.st_size,
+        info.st_mtime_ns,
+        info.st_ctime_ns,
+        info.st_mode,
+    )
+
+
+_MARSHAL312_MAX_BYTES = 2 * 1024 * 1024
+_MARSHAL312_MAX_TOKENS = 100_000
+_MARSHAL312_MAX_DEPTH = 80
+_MARSHAL312_REF_FLAG = 0x80
+_MARSHAL312_LONG_BASE = 0x8000
+_MARSHAL312_SMALL_INT_MIN = -5
+_MARSHAL312_SMALL_INT_MAX = 256
+
+
+@dataclass(frozen=True, eq=False)
+class _Marshal312Value:
+    kind: str
+    payload: bytes
+    children: tuple[_Marshal312Value, ...]
+    digest: bytes
+    height: int
+
+
+class _Marshal312Reader:
+    """Parse an inert, bounded immutable occurrence graph, never code objects.
+
+    Pinned to Python/marshal.c v3.12.13. Nodes retain actual reference sharing
+    and string interning. Content hashes only order unordered members; the final
+    commitment includes canonical definition/reference IDs. Unused FLAG_REF
+    slots and equivalent string/tuple length spellings alone are ignored.
+    """
+
+    def __init__(self, raw: bytes) -> None:
+        self.raw = raw
+        self.position = 0
+        self.tokens = 0
+        self.references: list[_Marshal312Value | None] = []
+
+    def take(self, count: int) -> bytes:
+        if count < 0 or count > len(self.raw) - self.position:
+            raise ValueError("truncated marshal312 value")
+        start = self.position
+        self.position += count
+        return self.raw[start : self.position]
+
+    def integer(self) -> int:
+        return int.from_bytes(self.take(4), "little", signed=True)
+
+    def count(self) -> int:
+        count = self.integer()
+        if count < 0 or count > _MARSHAL312_MAX_TOKENS - self.tokens:
+            raise ValueError("marshal312 item budget")
+        return count
+
+    @staticmethod
+    def node(
+        kind: str,
+        payload: bytes = b"",
+        children: tuple[_Marshal312Value, ...] = (),
+    ) -> _Marshal312Value:
+        height = 1 + max((value.height for value in children), default=0)
+        if height > _MARSHAL312_MAX_DEPTH:
+            raise ValueError("marshal312 semantic depth")
+        digest = hashlib.sha256(b"CPY312-CODE-COMMITMENT\x00")
+        digest.update(kind.encode("ascii") + b"\x00")
+        digest.update(len(payload).to_bytes(8, "little"))
+        digest.update(payload)
+        digest.update(len(children).to_bytes(4, "little"))
+        for child in children:
+            digest.update(child.digest)
+        return _Marshal312Value(kind, payload, children, digest.digest(), height)
+
+    def objects(self, count: int, depth: int) -> tuple[_Marshal312Value, ...]:
+        if count > _MARSHAL312_MAX_TOKENS - self.tokens:
+            raise ValueError("marshal312 item budget")
+        return tuple(self.object(depth + 1) for _ in range(count))
+
+    def string(self, tag: str) -> _Marshal312Value:
+        count = self.take(1)[0] if tag in {"z", "Z"} else self.integer()
+        payload = self.take(count)
+        if tag == "s":
+            return self.node("bytes", payload)
+        try:
+            text = payload.decode(
+                "ascii" if tag in {"a", "A", "z", "Z"} else "utf-8",
+                errors="surrogatepass",
+            )
+        except UnicodeError as error:
+            raise ValueError("marshal312 string encoding") from error
+        kind = "interned-str" if tag in {"t", "A", "Z"} else "str"
+        return self.node(kind, text.encode("utf-8", errors="surrogatepass"))
+
+    def long_integer(self) -> _Marshal312Value:
+        count = self.integer()
+        digits = abs(count)
+        if digits > _MARSHAL312_MAX_BYTES // 2:
+            raise ValueError("marshal312 integer budget")
+        payload = self.take(digits * 2)
+        for index in range(0, len(payload), 2):
+            if (
+                int.from_bytes(payload[index : index + 2], "little")
+                >= _MARSHAL312_LONG_BASE
+            ):
+                raise ValueError("marshal312 long digit")
+        if digits and payload[-2:] == bytes(2):
+            raise ValueError("marshal312 nonnormalized long")
+        return self.node("long", count.to_bytes(4, "little", signed=True) + payload)
+
+    def code(self, depth: int) -> _Marshal312Value:
+        # argcount, posonlyargcount, kwonlyargcount, stacksize and flags.
+        header = self.take(5 * 4)
+        children = self.objects(8, depth)
+        firstline = self.take(4)
+        children += self.objects(2, depth)
+        kinds = (
+            "bytes",  # code (including inline-cache opcode bytes)
+            "tuple",  # consts: recursively typed, including nested code
+            "tuple",  # names
+            "tuple",  # localsplusnames
+            "bytes",  # localspluskinds
+            "str",  # filename
+            "str",  # name
+            "str",  # qualname
+            "bytes",  # linetable
+            "bytes",  # exceptiontable
+        )
+        if (
+            tuple(
+                "str" if value.kind == "interned-str" else value.kind
+                for value in children
+            )
+            != kinds
+        ):
+            raise ValueError("marshal312 code field types")
+        return self.node("code", header + firstline, children)
+
+    def value(self, tag: str, depth: int) -> _Marshal312Value:
+        if tag in {"N", "F", "T", ".", "S"}:
+            return self.node(tag)
+        fixed = {"i": ("int", 4), "g": ("float-bits", 8), "y": ("complex-bits", 16)}
+        if tag in fixed:
+            kind, count = fixed[tag]
+            return self.node(kind, self.take(count))
+        if tag == "l":
+            return self.long_integer()
+        if tag in {"s", "t", "u", "a", "A", "z", "Z"}:
+            return self.string(tag)
+        if tag in {"(", ")", ">"}:
+            count = self.take(1)[0] if tag == ")" else self.count()
+            children = self.objects(count, depth)
+            ordered = (
+                tuple(sorted(children, key=lambda value: value.digest))
+                if tag == ">"
+                else children
+            )
+            return self.node("frozenset" if tag == ">" else "tuple", children=ordered)
+        if tag == "c":
+            return self.code(depth)
+        # Mutable containers and obsolete/textual scalar forms cannot occur in
+        # compiler-produced marshal4 code constants. No Python object loader runs.
+        raise ValueError("unsupported marshal312 cache tag")
+
+    def object(self, depth: int = 0) -> _Marshal312Value:
+        self.tokens += 1
+        if self.tokens > _MARSHAL312_MAX_TOKENS or depth >= _MARSHAL312_MAX_DEPTH:
+            raise ValueError("marshal312 object budget")
+        token = self.take(1)[0]
+        flagged = bool(token & _MARSHAL312_REF_FLAG)
+        tag = chr(token & ~_MARSHAL312_REF_FLAG)
+        if tag == "r":
+            index = self.integer()
+            if flagged or not 0 <= index < len(self.references):
+                raise ValueError("marshal312 reference index")
+            value = self.references[index]
+            if value is None or depth + value.height > _MARSHAL312_MAX_DEPTH:
+                raise ValueError("marshal312 active reference or semantic depth")
+            return value
+        if flagged and tag in {"N", "F", "T", ".", "S"}:
+            raise ValueError("marshal312 singleton reference flag")
+        slot = len(self.references) if flagged else None
+        if flagged:
+            self.references.append(None)
+        result = self.value(tag, depth)
+        if slot is not None:
+            self.references[slot] = result
+        return result
+
+    @staticmethod
+    def global_value(value: _Marshal312Value) -> bool:
+        # These constructors return process-global objects in pinned CPython.
+        # Do not generalize to other equal scalars (floats, long ints, bytes,
+        # noninterned strings) or to nonempty containers.
+        if value.kind in {"N", "F", "T", ".", "S", "interned-str"}:
+            return True
+        if value.kind == "int":
+            return (
+                _MARSHAL312_SMALL_INT_MIN
+                <= int.from_bytes(value.payload, "little", signed=True)
+                <= _MARSHAL312_SMALL_INT_MAX
+            )
+        return (value.kind == "tuple" and not value.children) or (
+            value.kind == "bytes" and not value.payload
+        )
+
+    def commitment(self, root: _Marshal312Value) -> bytes:
+        # Count graph edges once, never expand shared DAGs. Multiple incoming
+        # edges expose identity even when their content commitment is equal.
+        incoming = {id(root): 1}
+        nodes: dict[int, _Marshal312Value] = {}
+        pending = [root]
+        while pending:
+            value = pending.pop()
+            identity = id(value)
+            if identity in nodes:
+                continue
+            nodes[identity] = value
+            for child in value.children:
+                key = id(child)
+                incoming[key] = incoming.get(key, 0) + 1
+                pending.append(child)
+        work = 0
+        for value in nodes.values():
+            if value.kind != "frozenset":
+                continue
+            children = value.children  # Already ordered by typed content hash.
+            for index, child in enumerate(children):
+                tied = (index > 0 and children[index - 1].digest == child.digest) or (
+                    index + 1 < len(children)
+                    and children[index + 1].digest == child.digest
+                )
+                if not tied:
+                    continue
+                pending = [child]
+                seen: set[int] = set()
+                while pending:
+                    member = pending.pop()
+                    key = id(member)
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    work += 1
+                    if work > _MARSHAL312_MAX_TOKENS:
+                        raise ValueError("marshal312 unordered work budget")
+                    if incoming[key] > 1 and not self.global_value(member):
+                        # Canonicalizing symmetric unordered alias graphs needs
+                        # graph isomorphism. Refuse that unsupported ambiguity.
+                        raise ValueError("marshal312 ambiguous unordered alias")
+                    pending.extend(member.children)
+        digest = hashlib.sha256(b"CPY312-IDENTITY-GRAPH-V2\x00")
+        definitions: dict[int, int] = {}
+
+        def emit(value: _Marshal312Value) -> None:
+            if self.global_value(value):
+                # Global values are leaves. Reuse their typed content hash so
+                # short references cannot repeatedly hash a large string.
+                digest.update(b"G" + value.digest)
+                return
+            identity = id(value)
+            if identity in definitions:
+                digest.update(b"R" + definitions[identity].to_bytes(4, "little"))
+                return
+            serial = len(definitions)
+            definitions[identity] = serial
+            digest.update(b"D" + serial.to_bytes(4, "little"))
+            kind = value.kind.encode("ascii")
+            digest.update(len(kind).to_bytes(1, "little") + kind)
+            digest.update(len(value.payload).to_bytes(8, "little") + value.payload)
+            digest.update(len(value.children).to_bytes(4, "little"))
+            for child in value.children:
+                emit(child)
+
+        emit(root)
+        return digest.digest()
+
+
+def _marshal312_signature(raw: bytes) -> bytes:
+    """Commit every code field without unmarshalling or executing cache bytes."""
+    if type(raw) is not bytes or not 0 < len(raw) <= _MARSHAL312_MAX_BYTES:
+        raise ValueError("marshal312 byte budget")
+    reader = _Marshal312Reader(raw)
+    value = reader.object()
+    if value.kind != "code" or reader.position != len(raw):
+        raise ValueError("marshal312 code root or trailing bytes")
+    return reader.commitment(value)
+
+
+def _check_linux_bytecode(
+    directory: Path, modules: frozenset[str] = LINUX_INFRASTRUCTURE_MODULES
+) -> None:
+    """Accept only ordinary unoptimized bytecode compiled from these sources."""
+    cache = directory / "__pycache__"
+    cache_info = cache.lstat()
+    if not stat.S_ISDIR(cache_info.st_mode):
+        raise ValueError("regular Linux bytecode cache directory required")
+    if sys.implementation.cache_tag != "cpython-312" or sys.flags.optimize != 0:
+        raise ValueError("Linux cache requires pinned unoptimized CPython3.12")
+    names = {f"{Path(name).stem}.cpython-312.pyc": name for name in modules}
+    entries = list(cache.iterdir())
+    if len(entries) > len(names):
+        raise ValueError("finite Linux bytecode cache inventory required")
+    for path in entries:
+        if path.name not in names:
+            raise ValueError("unknown Linux bytecode cache entry")
+        before = path.lstat()
+        if not stat.S_ISREG(before.st_mode) or before.st_size > 2 * 1024 * 1024:
+            raise ValueError("bounded regular Linux bytecode cache file required")
+        source = directory / names[path.name]
+        source_before = source.lstat()
+        if (
+            not stat.S_ISREG(source_before.st_mode)
+            or source_before.st_size > 2 * 1024 * 1024
+        ):
+            raise ValueError("bounded regular Linux cache source required")
+        raw = path.read_bytes()
+        header = (
+            importlib.util.MAGIC_NUMBER
+            + (0).to_bytes(4, "little")
+            + (int(source_before.st_mtime) & 0xFFFFFFFF).to_bytes(4, "little")
+            + (source_before.st_size & 0xFFFFFFFF).to_bytes(4, "little")
+        )
+        compiled = compile(
+            source.read_bytes(), str(source), "exec", dont_inherit=True, optimize=0
+        )
+        expected = marshal.dumps(compiled)
+        equal = raw[:16] == header
+        if equal:
+            try:
+                equal = _marshal312_signature(raw[16:]) == _marshal312_signature(
+                    expected
+                )
+            except ValueError:
+                equal = False
+        if not equal:
+            raise ValueError("Linux bytecode cache differs from exact source compile")
+        if _linux_file_identity(path.lstat()) != _linux_file_identity(
+            before
+        ) or _linux_file_identity(source.lstat()) != _linux_file_identity(
+            source_before
+        ):
+            raise ValueError("Linux bytecode cache/source changed during observation")
+    if _linux_file_identity(cache.lstat()) != _linux_file_identity(cache_info):
+        raise ValueError("Linux bytecode cache directory changed during observation")
+
+
+def _check_linux_infrastructure(repo: Path, violations: list[Violation]) -> None:
+    directory = repo / LINUX_INFRASTRUCTURE_REL
+    expected_present = any(
+        (repo / ".github/workflows" / name).exists()
+        for name in CANDIDATE_AUXILIARY_WORKFLOWS
+    )
+    if not directory.exists() and not directory.is_symlink() and not expected_present:
+        return
+    location = LINUX_INFRASTRUCTURE_REL
+    try:
+        if directory.is_symlink() or not directory.is_dir():
+            raise ValueError("regular isolated Linux infrastructure directory required")
+        entries = {path.name for path in directory.iterdir()}
+        if "__pycache__" in entries:
+            _check_linux_bytecode(directory)
+            entries.remove("__pycache__")
+        if entries != LINUX_INFRASTRUCTURE_MODULES:
+            raise ValueError("exact registered Linux infrastructure inventory required")
+        stems = {Path(name).stem for name in LINUX_INFRASTRUCTURE_MODULES}
+        for name in sorted(entries):
+            path = directory / name
+            info = path.lstat()
+            if not stat.S_ISREG(info.st_mode) or info.st_size > 2 * 1024 * 1024:
+                raise ValueError(f"bounded regular Linux source required: {name}")
+            raw = path.read_bytes()
+            tree = ast.parse(raw)
+            if (
+                name == "ubuntu_gnome_platform.py"
+                and hashlib.sha256(raw).hexdigest() != LINUX_PLATFORM_SHA256
+            ):
+                raise ValueError("Linux host boundary body differs")
+            for node in ast.walk(tree):
+                modules = []
+                if isinstance(node, ast.ImportFrom):
+                    if node.level or not node.module:
+                        raise ValueError(f"relative Linux helper import: {name}")
+                    modules.append(node.module.split(".")[0])
+                elif isinstance(node, ast.Import):
+                    modules.extend(alias.name.split(".")[0] for alias in node.names)
+                for module in modules:
+                    if (
+                        module == "linux_package"
+                        and name == "ubuntu_gnome_package_export.py"
+                    ):
+                        continue
+                    if module not in stems | LINUX_INFRASTRUCTURE_STDLIB:
+                        raise ValueError(f"unknown Linux helper import: {name}")
+            if (
+                name in LINUX_INFRASTRUCTURE_ENTRYPOINTS
+                or name == "ubuntu_gnome_atspi.py"
+            ):
+                entrypoint = (
+                    "load_native" if name == "ubuntu_gnome_atspi.py" else "main"
+                )
+                mains = [
+                    node
+                    for node in tree.body
+                    if isinstance(node, ast.FunctionDef) and node.name == entrypoint
+                ]
+                guard = ast.Expr(
+                    value=ast.Call(
+                        func=ast.Name(id="require_linux", ctx=ast.Load()),
+                        args=[],
+                        keywords=[],
+                    )
+                )
+                imported = any(
+                    isinstance(node, ast.ImportFrom)
+                    and node.module == "ubuntu_gnome_platform"
+                    and node.level == 0
+                    and any(
+                        alias.name == "require_linux" and alias.asname is None
+                        for alias in node.names
+                    )
+                    for node in tree.body
+                )
+                shadowed = any(
+                    (
+                        isinstance(node, ast.Name)
+                        and node.id == "require_linux"
+                        and isinstance(node.ctx, ast.Store)
+                    )
+                    or (
+                        isinstance(node, (ast.FunctionDef, ast.ClassDef))
+                        and node.name == "require_linux"
+                    )
+                    or (isinstance(node, ast.arg) and node.arg == "require_linux")
+                    for node in ast.walk(tree)
+                )
+                shadowed = shadowed or any(
+                    isinstance(node, (ast.Import, ast.ImportFrom))
+                    and any(
+                        (alias.asname or alias.name.split(".")[0]) == "require_linux"
+                        and not (
+                            isinstance(node, ast.ImportFrom)
+                            and node.module == "ubuntu_gnome_platform"
+                            and alias.name == "require_linux"
+                            and alias.asname is None
+                        )
+                        for alias in node.names
+                    )
+                    for node in ast.walk(tree)
+                )
+                if (
+                    len(mains) != 1
+                    or not mains[0].body
+                    or not imported
+                    or shadowed
+                    or ast.dump(mains[0].body[0]) != ast.dump(guard)
+                ):
+                    raise ValueError(
+                        f"Linux guard must precede every CLI operation: {name}"
+                    )
+            # Only system paths and POSIX mode semantics are platform-specific.
+            # Generic shell and separator rules retain their unchanged predicates.
+            generic: list[Violation] = []
+            _check_runtime_script(repo, path, generic)
+            violations.extend(
+                item
+                for item in generic
+                if item.rule not in {"PORT-SRC-001", "PORT-SRC-004"}
+            )
+        for failure in _linux_quality_failures(repo):
+            violations.append(Violation("PORT-SRC-009", location, failure))
+    except (OSError, SyntaxError, ValueError) as error:
+        violations.append(Violation("PORT-SRC-009", location, str(error)))
+    _check_linux_shared_imports(repo, violations)
+
+
+WINDOWS11_INFRASTRUCTURE_REL = "scripts/windows11"
+WINDOWS11_PYTHON_MODULES = frozenset(
+    {
+        "windows11_candidate.py",
+        "windows11_request.py",
+        "windows11_platform.py",
+        "windows11_process.py",
+        "windows11_vm.py",
+        "windows11_deployment.py",
+        "windows11_inputs.py",
+        "windows11_resources.py",
+    }
+)
+WINDOWS11_NATIVE_PINS = {
+    "windows11_owned.cs": (
+        "5337bf5e16c0755d8269cf22d94b86eb39ac0397b71abccc07e27746b4d52b8e"
+    ),
+    "windows11_source_check.ps1": (
+        "8fe860dee981b6392ee291fd63c4d057b4174b3673926e5e385a4f55bed7e822"
+    ),
+    "windows11_guest.ps1": (
+        "f17109ccce05f33cedc39e83b4ca46b699997d184c770f12df65219943c853cf"
+    ),
+    "windows11_bootstrap.ps1": (
+        "723c3afd0d40219353e8f64483ac145ccdc8398dcb96bca37e7091b2e5721e01"
+    ),
+}
+WINDOWS11_MODULES = WINDOWS11_PYTHON_MODULES | WINDOWS11_NATIVE_PINS.keys()
+WINDOWS11_ENTRYPOINTS = frozenset(
+    {"windows11_request.py", "windows11_candidate.py", "windows11_vm.py"}
+)
+WINDOWS11_WORKFLOWS = ("windows11-native-prepare.yml", "windows11-native-lifecycle.yml")
+WINDOWS11_STDLIB = LINUX_INFRASTRUCTURE_STDLIB | {"fcntl", "secrets", "zipfile", "xml"}
+WINDOWS11_SHARED_HELPERS = {
+    "ubuntu_gnome_host",
+    "ubuntu_gnome_prepare",
+    "ubuntu_gnome_vm",
+    "ubuntu_gnome_shell",
+}
+WINDOWS11_PLATFORM_SHA256 = (
+    "fc8949ba1d89314d90b21a027e697e339f77da341a31d9a88a393fd8536d2460"
+)
+
+
+def _check_windows11_infrastructure(repo: Path, violations: list[Violation]) -> None:
+    directory = repo / WINDOWS11_INFRASTRUCTURE_REL
+    expected_present = any(
+        (repo / ".github/workflows" / name).exists() for name in WINDOWS11_WORKFLOWS
+    )
+    if not directory.exists() and not directory.is_symlink() and not expected_present:
+        return
+    location = WINDOWS11_INFRASTRUCTURE_REL
+    try:
+        if directory.is_symlink() or not directory.is_dir():
+            raise ValueError("regular isolated Linux infrastructure directory required")
+        entries = {path.name for path in directory.iterdir()}
+        if "__pycache__" in entries:
+            _check_linux_bytecode(directory, WINDOWS11_PYTHON_MODULES)
+            entries.remove("__pycache__")
+        if entries != WINDOWS11_MODULES:
+            raise ValueError("exact registered Linux infrastructure inventory required")
+        stems = {Path(name).stem for name in WINDOWS11_PYTHON_MODULES}
+        for name in sorted(entries):
+            if name in WINDOWS11_NATIVE_PINS:
+                native_path = directory / name
+                native_info = native_path.lstat()
+                if (
+                    not stat.S_ISREG(native_info.st_mode)
+                    or hashlib.sha256(native_path.read_bytes()).hexdigest()
+                    != WINDOWS11_NATIVE_PINS[name]
+                ):
+                    raise ValueError("Exact reviewed native guest source required")
+                continue
+            path = directory / name
+            info = path.lstat()
+            if not stat.S_ISREG(info.st_mode) or info.st_size > 2 * 1024 * 1024:
+                raise ValueError(f"bounded regular Linux source required: {name}")
+            raw = path.read_bytes()
+            tree = ast.parse(raw)
+            if (
+                name == "windows11_platform.py"
+                and hashlib.sha256(raw).hexdigest() != WINDOWS11_PLATFORM_SHA256
+            ):
+                raise ValueError("Linux host boundary body differs")
+            for node in ast.walk(tree):
+                modules = []
+                if isinstance(node, ast.ImportFrom):
+                    if node.level or not node.module:
+                        raise ValueError(f"relative Linux helper import: {name}")
+                    modules.append(node.module.split(".")[0])
+                elif isinstance(node, ast.Import):
+                    modules.extend(alias.name.split(".")[0] for alias in node.names)
+                for module in modules:
+                    if (
+                        module == "linux_package"
+                        and name == "ubuntu_gnome_package_export.py"
+                    ):
+                        continue
+                    if (
+                        module
+                        not in stems | WINDOWS11_STDLIB | WINDOWS11_SHARED_HELPERS
+                    ):
+                        raise ValueError(f"unknown Linux helper import: {name}")
+            if name in WINDOWS11_ENTRYPOINTS:
+                entrypoint = "main"
+                mains = [
+                    node
+                    for node in tree.body
+                    if isinstance(node, ast.FunctionDef) and node.name == entrypoint
+                ]
+                guard = ast.Expr(
+                    value=ast.Call(
+                        func=ast.Name(id="require_linux", ctx=ast.Load()),
+                        args=[],
+                        keywords=[],
+                    )
+                )
+                imported = any(
+                    isinstance(node, ast.ImportFrom)
+                    and node.module == "windows11_platform"
+                    and node.level == 0
+                    and any(
+                        alias.name == "require_linux" and alias.asname is None
+                        for alias in node.names
+                    )
+                    for node in tree.body
+                )
+                shadowed = any(
+                    (
+                        isinstance(node, ast.Name)
+                        and node.id == "require_linux"
+                        and isinstance(node.ctx, ast.Store)
+                    )
+                    or (
+                        isinstance(node, (ast.FunctionDef, ast.ClassDef))
+                        and node.name == "require_linux"
+                    )
+                    or (isinstance(node, ast.arg) and node.arg == "require_linux")
+                    for node in ast.walk(tree)
+                )
+                shadowed = shadowed or any(
+                    isinstance(node, (ast.Import, ast.ImportFrom))
+                    and any(
+                        (alias.asname or alias.name.split(".")[0]) == "require_linux"
+                        and not (
+                            isinstance(node, ast.ImportFrom)
+                            and node.module == "windows11_platform"
+                            and alias.name == "require_linux"
+                            and alias.asname is None
+                        )
+                        for alias in node.names
+                    )
+                    for node in ast.walk(tree)
+                )
+                if (
+                    len(mains) != 1
+                    or not mains[0].body
+                    or not imported
+                    or shadowed
+                    or ast.dump(mains[0].body[0]) != ast.dump(guard)
+                ):
+                    raise ValueError(
+                        f"Linux guard must precede every CLI operation: {name}"
+                    )
+            # Only system paths and POSIX mode semantics are platform-specific.
+            # Generic shell and separator rules retain their unchanged predicates.
+            generic: list[Violation] = []
+            _check_runtime_script(repo, path, generic)
+            violations.extend(
+                item
+                for item in generic
+                if item.rule not in {"PORT-SRC-001", "PORT-SRC-004"}
+            )
+        for failure in _linux_quality_failures(repo, WINDOWS11_INFRASTRUCTURE_REL):
+            violations.append(Violation("PORT-SRC-009", location, failure))
+    except (OSError, SyntaxError, ValueError) as error:
+        violations.append(Violation("PORT-SRC-009", location, str(error)))
+    _check_linux_shared_imports(repo, violations)
+
+
 def run_checks(repo: Path) -> list[Violation]:
     violations: list[Violation] = []
     workflow, raw = _load_workflow(repo)
@@ -1515,21 +2637,7 @@ def run_checks(repo: Path) -> list[Violation]:
         for _, step in steps
     )
 
-    workflows_dir = repo / ".github" / "workflows"
-    extra = sorted(
-        p.name
-        for p in [*workflows_dir.glob("*.yml"), *workflows_dir.glob("*.yaml")]
-        if p.name != "ci.yml"
-    )
-    if extra:
-        violations.append(
-            Violation(
-                "PORT-CI-001",
-                ".github/workflows",
-                f"unexpected workflow files {extra}; ci.yml is the only "
-                "approved workflow (no deployment/release workflows in M00)",
-            )
-        )
+    _check_workflow_files(repo, violations)
 
     required_matrix_job = _check_matrix(workflow, violations)
     _check_canonical_commands(required_matrix_job, violations)
@@ -1543,9 +2651,13 @@ def run_checks(repo: Path) -> list[Violation]:
     _check_rust_steps(steps, violations)
     _check_caches(steps, violations)
     _check_chromium(steps, violations)
-    _check_artifacts(steps, violations)
+    _check_artifacts(
+        steps, violations, approved_package=_native_package_job_valid(workflow)
+    )
     _check_no_live_sites(steps, violations)
 
+    _check_linux_infrastructure(repo, violations)
+    _check_windows11_infrastructure(repo, violations)
     for script in _runtime_scripts(repo):
         _check_runtime_script(repo, script, violations)
     _check_ts_runtime_sources(repo, _ts_runtime_sources(repo), violations)

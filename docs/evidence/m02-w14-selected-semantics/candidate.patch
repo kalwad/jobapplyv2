@@ -1,0 +1,2648 @@
+--- a/apps/extension/README.md
++++ b/apps/extension/README.md
+@@ -124,6 +124,20 @@
+ current address still matches after excluding `option_fingerprint` and
+ `OPTION_DIGEST`. The own-description hint and every other address signal stay
+ bound, and the actual current value and site rejection are observed again.
++Every initial option approval requires the original W09 option snapshot. A
++pure cache retains at most 64 digest-only snapshots within a 256 KiB payload
++budget, with at most 128 options each and no DOM references. It is keyed by the
++W09-bound full option fingerprint, so ordinary filtering can recover the original
++choice meaning. Missing cached evidence can be reconstructed only from an exact
++current fingerprint; otherwise a fresh decision is required. A mounted intended
++choice retains its exact value digest, label digest and disabled state across
++native selects, radios and ARIA widgets. Later unrelated option
++additions can preserve verification; changed meaning of the chosen option cannot.
++Popup, query and scrolling probes may move an approved ARIA item off the mounted
++window. When the intended item was initially absent, its eventual commit requires
++an exact self-describing visible label: the raw semantic value, or the approved
++field label followed by one space and that value. No extra label text is allowed.
++The actual chosen semantic tuple is then retained for read-only reconciliation.
+ 
+ The current semantic index groups complete address signals by an exact key and
+ retains every duplicate. Addresses omitting optional evidence retain the
+@@ -135,7 +149,11 @@
+ text focus always performs a new currentness/state check before the setter.
+ Direct result publication holds provisional verification until a final live
+ target/index/ownership and observed-record revision check after all result
+-hashes. A changed observation refuses verification and removes undo authority.
++hashes, for execution and undo. A synchronous native-property witness also covers
++value, checked state, selected index/option and immutable File identities that
++MutationObserver cannot observe. The repeater editor supplies its own exact-value
++witness. Reconciliation retains these witnesses through its last inventory hash.
++A changed observation refuses verification and removes undo authority.
+ 
+ Composed ownership context continues past an inner form application root through
+ its shadow host and outer semantic groups. One capture is shared by section
+--- a/apps/extension/src/driver-engine.ts
++++ b/apps/extension/src/driver-engine.ts
+@@ -1,3 +1,7 @@
++import {
++  approvedOptionMeaningSnapshot,
++  selectOptionMeaning,
++} from "./option-meaning.ts";
+ // M02-W10 frame-local transaction kernel. It composes control-specific
+ // drivers around canonical W09 authority and W08 current-document semantic
+ // resolution. No Element reference, selector, or raw value crosses the wire.
+@@ -49,13 +53,20 @@
+ import {
+   checkboxDriver,
+   nativeSelectDriver,
++  optionMeaningApproval,
++  optionMeaningApprovalMatches,
+   radioGroupDriver,
+ } from "./drivers/choice-drivers.ts";
+ import type {
+   ControlDriver,
+   DriverContext,
++  OptionMeaningApproval,
+ } from "./drivers/driver-contract.ts";
+-import { readSiteAcceptance, settleWindow } from "./drivers/driver-dom.ts";
++import {
++  captureNativePropertyWitness,
++  readSiteAcceptance,
++  settleWindow,
++} from "./drivers/driver-dom.ts";
+ import { fileUploadDriver } from "./drivers/file-upload-driver.ts";
+ import { repeaterDriver } from "./drivers/repeater-driver.ts";
+ import { dateDriver, textDriver } from "./drivers/text-like-drivers.ts";
+@@ -103,6 +114,8 @@
+   readonly intendedObservation: SemanticObservation;
+   consumed: boolean;
+   effectiveUndoAddress?: FormFieldAddressV1;
++  readonly optionMeaningApproval?: OptionMeaningApproval;
++  readonly priorOptionMeaningApproval?: OptionMeaningApproval;
+ }
+ 
+ interface ResultInput {
+@@ -131,6 +144,7 @@
+ }
+ export interface DriverExecution {
+   readonly descriptionClearing?: ValidationDescriptionClearingEvidence;
++  readonly optionMeaningApproval?: OptionMeaningApproval;
+   readonly result: FormDriverResultV1;
+   readonly undoAvailable: boolean;
+   readonly diagnostics: DriverDiagnostics;
+@@ -206,10 +220,32 @@
+   intended: DriverIntendedValue,
+   frameContext: FrameContext,
+   approvedAddress: FormFieldAddressV1,
++  approvedOption?: OptionMeaningApproval,
++  restorationOptionApproval?: OptionMeaningApproval,
+ ): DriverContext {
+   let current = target;
+   const allowed = (candidate: ResolvedFieldTarget) =>
+     descriptionApprovalMatches(approvedAddress, candidate.descriptor.address) &&
++    (approvedOption === undefined ||
++      optionMeaningApprovalMatches(approvedOption, candidate.descriptor) ||
++      ((candidate.descriptor.control_kind === "COMBOBOX" ||
++        (candidate.descriptor.control_kind === "SELECT" &&
++          !(candidate.anchor instanceof HTMLSelectElement))) &&
++        !candidate.descriptor.options.some(
++          (option) => option.value_digest === approvedOption.valueDigest,
++        ))) &&
++    (restorationOptionApproval === undefined ||
++      optionMeaningApprovalMatches(
++        restorationOptionApproval,
++        candidate.descriptor,
++      ) ||
++      ((candidate.descriptor.control_kind === "COMBOBOX" ||
++        (candidate.descriptor.control_kind === "SELECT" &&
++          !(candidate.anchor instanceof HTMLSelectElement))) &&
++        !candidate.descriptor.options.some(
++          (option) =>
++            option.value_digest === restorationOptionApproval.valueDigest,
++        ))) &&
+     generationMatches(candidate, approvedAddress) &&
+     targetIsCurrent(document, candidate) &&
+     targetVisible(candidate) &&
+@@ -218,6 +254,10 @@
+     document,
+     target,
+     intended,
++    ...(approvedOption === undefined ? {} : { approvedOption }),
++    ...(restorationOptionApproval === undefined
++      ? {}
++      : { restorationOptionApproval }),
+     mutate: async (action) => {
+       if (synchronousMutationContexts.delete(context)) {
+         action(current);
+@@ -249,6 +289,18 @@
+     },
+   };
+   return context;
++}
++
++export function captureDriverObservationWitness(
++  driver: ControlDriver,
++  context: DriverContext,
++): () => boolean {
++  const nativeCurrent = captureNativePropertyWitness([
++    context.target.anchor,
++    ...context.target.members,
++  ]);
++  const extraCurrent = driver.captureObservationWitness?.(context);
++  return () => nativeCurrent() && (extraCurrent?.() ?? true);
+ }
+ 
+ async function checkedPreconditions(
+@@ -492,8 +544,40 @@
+       target,
+       transaction.intended,
+     );
++    // Native select meanings can change while opaque raw values remain the
++    // same. The first approval must bind the entire W09 option observation;
++    // subsequent checks retain the intended option's exact semantic evidence.
++    const isStaticChoice =
++      target.anchor instanceof HTMLSelectElement ||
++      target.descriptor.control_kind === "RADIO_GROUP";
++    const originalOptionSnapshot = approvedOptionMeaningSnapshot(
++      transaction.address.option_fingerprint,
++    );
++    const currentOptionSnapshotMatches =
++      transaction.address.option_fingerprint ===
++      target.descriptor.address.option_fingerprint;
++    const intendedOptionDigest =
++      transaction.intended.kind === "OPTION"
++        ? transaction.intended.value_digest
++        : undefined;
++    const selectedOptionMeaning =
++      transaction.intended.kind !== "OPTION"
++        ? undefined
++        : originalOptionSnapshot === null
++          ? currentOptionSnapshotMatches
++            ? optionMeaningApproval(target.descriptor, transaction.intended)
++            : undefined
++          : selectOptionMeaning(
++              originalOptionSnapshot,
++              intendedOptionDigest ?? "",
++            );
++    const approvedOption = selectedOptionMeaning ?? undefined;
+     const addressDigest = await fieldAddressDigest(transaction.address);
+     const policyPermitted =
++      (transaction.intended.kind !== "OPTION" ||
++        (selectedOptionMeaning !== null &&
++          (originalOptionSnapshot !== null || currentOptionSnapshotMatches) &&
++          (!isStaticChoice || approvedOption !== undefined))) &&
+       decisionAuthorizesExecution(transaction.decision) &&
+       transaction.decision.policy_decision === "PERMIT" &&
+       transaction.decision.field_address_digest === addressDigest &&
+@@ -576,6 +660,7 @@
+       transaction.intended,
+       frameContext,
+       transaction.address,
++      approvedOption,
+     );
+     if (
+       !preconditions.visible ||
+@@ -658,6 +743,14 @@
+       };
+     }
+     const captured = await driver.captureUndo(initialContext);
++    const priorOptionMeaningApproval =
++      approvedOption === undefined ||
++      captured.priorObservation.presence === "EMPTY"
++        ? undefined
++        : optionMeaningApproval(target.descriptor, {
++            kind: "OPTION",
++            value_digest: captured.priorObservation.parts[0] ?? "",
++          });
+ 
+     // Load-bearing immediately-before-action re-resolution. The action uses
+     // only this fresh target and repeats driver-specific preconditions.
+@@ -702,6 +795,7 @@
+       transaction.intended,
+       frameContext,
+       transaction.address,
++      approvedOption,
+     );
+     const freshCheck =
+       freshCandidates.length === 1 &&
+@@ -769,6 +863,7 @@
+           transaction.intended,
+           frameContext,
+           transaction.address,
++          approvedOption,
+         );
+       }
+     }
+@@ -778,6 +873,12 @@
+         transaction.address,
+         freshTarget.descriptor.address,
+       ) ||
++      (approvedOption !== undefined &&
++        !optionMeaningApprovalMatches(approvedOption, freshTarget.descriptor) &&
++        (isStaticChoice ||
++          freshTarget.descriptor.options.some(
++            (option) => option.value_digest === approvedOption.valueDigest,
++          ))) ||
+       !freshTargetCurrent ||
+       !targetVisible(freshTarget) ||
+       !targetEnabled(freshTarget)
+@@ -845,6 +946,8 @@
+               transaction.intended,
+               frameContext,
+               transaction.address,
++              approvedOption,
++              priorOptionMeaningApproval,
+             );
+             try {
+               await driver.applyUndo(recoveryContext, captured.payload);
+@@ -909,6 +1012,12 @@
+         payload: captured.payload,
+         priorObservation: captured.priorObservation,
+         intendedObservation: intended,
++        ...(approvedOption === undefined
++          ? {}
++          : { optionMeaningApproval: approvedOption }),
++        ...(priorOptionMeaningApproval === undefined
++          ? {}
++          : { priorOptionMeaningApproval }),
+         consumed: false,
+       });
+     }
+@@ -1015,7 +1124,12 @@
+       transaction.intended,
+       frameContext,
+       transaction.address,
++      approvedOption,
+     );
++    const settledPropertiesCurrent = captureDriverObservationWitness(
++      driver,
++      settledContext,
++    );
+     const settled = await driver.observe(settledContext);
+     const acceptance = await readSiteAcceptance(
+       driver.acceptanceElements?.(settledContext) ?? [
+@@ -1040,11 +1154,21 @@
+             settledAddress: settledTarget.descriptor.address,
+           }
+         : undefined;
++    const settledOptionApproval =
++      approvedOption ??
++      optionMeaningApproval(settledTarget.descriptor, transaction.intended);
+     const settledAuthorityCurrent =
+-      descriptionApprovalMatches(
++      (descriptionApprovalMatches(
+         transaction.address,
+         settledTarget.descriptor.address,
+-      ) || descriptionClearing !== undefined;
++      ) ||
++        descriptionClearing !== undefined) &&
++      (transaction.intended.kind !== "OPTION" ||
++        (settledOptionApproval !== undefined &&
++          optionMeaningApprovalMatches(
++            settledOptionApproval,
++            settledTarget.descriptor,
++          )));
+     // A page-owned input/blur handler may change ownership after the single
+     // authorized action. Preserve the observations but do not verify or grant
+     // undo under that changed context, even when the visible value persists.
+@@ -1087,7 +1211,8 @@
+     // last hash before a direct VERIFIED result or undo capability publishes.
+     if (
+       settledAuthorityCurrent &&
+-      !targetIsCurrent(document, settledTarget, publicationEvidenceRevision)
++      (!settledPropertiesCurrent() ||
++        !targetIsCurrent(document, settledTarget, publicationEvidenceRevision))
+     ) {
+       this.#undoRecords.delete(transaction.transaction_id);
+       return {
+@@ -1114,6 +1239,9 @@
+     }
+     return {
+       ...(descriptionClearing === undefined ? {} : { descriptionClearing }),
++      ...(settledOptionApproval === undefined
++        ? {}
++        : { optionMeaningApproval: settledOptionApproval }),
+       result,
+       undoAvailable:
+         settledAuthorityCurrent && actionPerformed && captured.restorable,
+@@ -1186,6 +1314,8 @@
+             transaction.intended,
+             frameContext,
+             record.effectiveUndoAddress ?? transaction.address,
++            record.optionMeaningApproval,
++            record.priorOptionMeaningApproval,
+           );
+     const current =
+       currentContext === null || driver === undefined
+@@ -1321,6 +1451,8 @@
+       transaction.intended,
+       frameContext,
+       record.effectiveUndoAddress ?? transaction.address,
++      record.optionMeaningApproval,
++      record.priorOptionMeaningApproval,
+     );
+     try {
+       await actionDriver.applyUndo(actionContext, record.payload);
+@@ -1389,12 +1521,19 @@
+         diagnostics: diagnostics(1, settle.polls, settle.signalObserved),
+       };
+     }
++    const publicationEvidenceRevision = recordedDomEvidenceRevision(document);
+     const settledContext = driverContext(
+       document,
+       settledResolution.target,
+       transaction.intended,
+       frameContext,
+       record.effectiveUndoAddress ?? transaction.address,
++      record.optionMeaningApproval,
++      record.priorOptionMeaningApproval,
++    );
++    const settledPropertiesCurrent = captureDriverObservationWitness(
++      actionDriver,
++      settledContext,
+     );
+     const settled = await actionDriver.observe(settledContext);
+     const acceptance = await readSiteAcceptance(
+@@ -1403,37 +1542,92 @@
+         ...settledResolution.target.members,
+       ],
+     );
+-    const phase: TransactionPhase = {
+-      phase: "COMPLETE",
+-      immediateMatches: observationsEquivalent(
+-        immediate,
+-        record.priorObservation,
+-      ),
+-      settledMatches: observationsEquivalent(settled, record.priorObservation),
++    const settledAuthorityCurrent =
++      descriptionApprovalMatches(
++        record.effectiveUndoAddress ?? transaction.address,
++        settledResolution.target.descriptor.address,
++      ) &&
++      (record.optionMeaningApproval === undefined ||
++        optionMeaningApprovalMatches(
++          record.optionMeaningApproval,
++          settledResolution.target.descriptor,
++        )) &&
++      (record.priorOptionMeaningApproval === undefined ||
++        optionMeaningApprovalMatches(
++          record.priorOptionMeaningApproval,
++          settledResolution.target.descriptor,
++        ));
++    const phase: TransactionPhase = settledAuthorityCurrent
++      ? {
++          phase: "COMPLETE",
++          immediateMatches: observationsEquivalent(
++            immediate,
++            record.priorObservation,
++          ),
++          settledMatches: observationsEquivalent(
++            settled,
++            record.priorObservation,
++          ),
++          siteAcceptance: acceptance.acceptance,
++          validationMessageCount: acceptance.messageDigests.length,
++          conditionalFieldsDiscovered: false,
++        }
++      : { phase: "SETTLED_TARGET_LOST", resolution: "STALE" };
++    const result = await buildResult({
++      transaction,
++      operation: "UNDO",
++      driverKey: record.driverKey,
++      resolution: settledAuthorityCurrent ? "UNIQUE" : "STALE",
++      preconditions,
++      intended: record.priorObservation,
++      immediate,
++      settled,
+       siteAcceptance: acceptance.acceptance,
+-      validationMessageCount: acceptance.messageDigests.length,
+-      conditionalFieldsDiscovered: false,
+-    };
++      validationMessageDigests: acceptance.messageDigests,
++      conditionalFieldIds: [],
++      settledGeneration:
++        settledResolution.target.descriptor.observed_dom_generation,
++      phase,
++      attemptedAt,
++      durationMs: boundedDuration(started),
++    });
++    // Undo has the same publication authority boundary as execute: neither
++    // its own input handler nor a metadata-hash await may publish stale proof.
++    if (
++      settledAuthorityCurrent &&
++      (!settledPropertiesCurrent() ||
++        !targetIsCurrent(
++          document,
++          settledResolution.target,
++          publicationEvidenceRevision,
++        ))
++    ) {
++      return {
++        status: "COMPLETED",
++        result: await buildResult({
++          transaction,
++          operation: "UNDO",
++          driverKey: record.driverKey,
++          resolution: "STALE",
++          preconditions,
++          intended: record.priorObservation,
++          immediate,
++          settled,
++          siteAcceptance: acceptance.acceptance,
++          validationMessageDigests: acceptance.messageDigests,
++          conditionalFieldIds: [],
++          settledGeneration:
++            settledResolution.target.descriptor.observed_dom_generation,
++          phase: { phase: "SETTLED_TARGET_LOST", resolution: "STALE" },
++          attemptedAt,
++          durationMs: boundedDuration(started),
++        }),
++        diagnostics: diagnostics(1, settle.polls, settle.signalObserved),
++      };
++    }
+     return {
+       status: "COMPLETED",
+-      result: await buildResult({
+-        transaction,
+-        operation: "UNDO",
+-        driverKey: record.driverKey,
+-        resolution: "UNIQUE",
+-        preconditions,
+-        intended: record.priorObservation,
+-        immediate,
+-        settled,
+-        siteAcceptance: acceptance.acceptance,
+-        validationMessageDigests: acceptance.messageDigests,
+-        conditionalFieldIds: [],
+-        settledGeneration:
+-          settledResolution.target.descriptor.observed_dom_generation,
+-        phase,
+-        attemptedAt,
+-        durationMs: boundedDuration(started),
+-      }),
++      result,
+       diagnostics: diagnostics(1, settle.polls, settle.signalObserved),
+     };
+   }
+--- a/apps/extension/src/drivers/choice-drivers.ts
++++ b/apps/extension/src/drivers/choice-drivers.ts
+@@ -9,6 +9,7 @@
+ import type { FormFieldDescriptorV1 } from "@japp/contracts/generated";
+ 
+ import type { DriverIntendedValue } from "../driver-protocol.ts";
++import { normalizeText } from "../field-scanner.ts";
+ import {
+   checkedObservation,
+   optionObservation,
+@@ -25,6 +26,7 @@
+   ControlDriver,
+   DriverContext,
+   PreconditionOutcome,
++  OptionMeaningApproval,
+ } from "./driver-contract.ts";
+ import { mutateCurrent } from "./mutation-guard.ts";
+ 
+@@ -51,8 +53,44 @@
+   return host;
+ }
+ 
++/** Kernel-private meaning of a W09-approved static native choice. A raw
++ * value alone is insufficient when an ATS uses opaque option values. */
++
++export function optionMeaningApproval(
++  descriptor: FormFieldDescriptorV1,
++  intended: DriverIntendedValue,
++): OptionMeaningApproval | undefined {
++  if (intended.kind !== "OPTION") return undefined;
++  const matches = descriptor.options.filter(
++    (option) => option.value_digest === intended.value_digest,
++  );
++  const option = matches.length === 1 ? matches[0] : undefined;
++  return option === undefined
++    ? undefined
++    : {
++        valueDigest: option.value_digest,
++        labelDigest: option.label.text_digest,
++        disabled: option.disabled,
++      };
++}
++
++export function optionMeaningApprovalMatches(
++  approval: OptionMeaningApproval,
++  descriptor: FormFieldDescriptorV1,
++): boolean {
++  const current = optionMeaningApproval(descriptor, {
++    kind: "OPTION",
++    value_digest: approval.valueDigest,
++  });
++  return (
++    current?.labelDigest === approval.labelDigest &&
++    current.disabled === approval.disabled
++  );
++}
++
+ interface SelectMatch {
+   readonly value: string;
++  readonly label: string;
+   readonly enabled: boolean;
+ }
+ 
+@@ -65,12 +103,15 @@
+   for (const option of host.options) {
+     const value = option.value;
+     if (seenValues.has(value)) {
++      // A repeated raw value cannot identify one physical option safely.
++      if (matches.some((match) => match.value === value)) return null;
+       continue;
+     }
+     seenValues.add(value);
+     if ((await optionValueDigest(value)) === digest && option.value === value) {
+       matches.push({
+         value,
++        label: normalizeText(option.textContent),
+         enabled: !(
+           option.disabled || option.closest("optgroup:disabled") !== null
+         ),
+@@ -115,13 +156,28 @@
+   },
+   async captureUndo(context: DriverContext): Promise<CapturedUndo> {
+     const host = requireSelectHost(context);
+-    const priorValue = host.selectedIndex >= 0 ? host.value : null;
++    const prior = host.selectedIndex >= 0 ? host.selectedOptions[0] : undefined;
++    const snapshot =
++      prior === undefined
++        ? null
++        : {
++            value: prior.value,
++            label: normalizeText(prior.textContent),
++            disabled:
++              prior.disabled || prior.closest("optgroup:disabled") !== null,
++          };
++    const priorObservation = optionObservation(
++      snapshot === null ? null : await optionValueDigest(snapshot.value),
++    );
+     return {
+-      restorable: true,
+-      priorObservation: optionObservation(
+-        priorValue === null ? null : await optionValueDigest(priorValue),
+-      ),
+-      payload: priorValue,
++      restorable:
++        snapshot === null ||
++        (prior?.value === snapshot.value &&
++          normalizeText(prior.textContent) === snapshot.label &&
++          (prior.disabled || prior.closest("optgroup:disabled") !== null) ===
++            snapshot.disabled),
++      priorObservation,
++      payload: snapshot,
+     };
+   },
+   async execute(context: DriverContext): Promise<void> {
+@@ -134,11 +190,13 @@
+       throw new Error("select driver invariant: intended option vanished");
+     }
+     await mutateCurrent(context, host, () => {
+-      const option = [...host.options].find(
++      const options = [...host.options].filter(
+         (item) => item.value === match.value,
+       );
++      const option = options.length === 1 ? options[0] : undefined;
+       if (
+         option === undefined ||
++        normalizeText(option.textContent) !== match.label ||
+         option.disabled ||
+         option.closest("optgroup:disabled") !== null
+       )
+@@ -146,6 +204,17 @@
+       setNativeValue(host, match.value);
+     });
+   },
++  captureObservationWitness(context: DriverContext): () => boolean {
++    const host = requireSelectHost(context);
++    return () => {
++      const selected = host.selectedOptions[0];
++      return (
++        selected === undefined ||
++        [...host.options].filter((option) => option.value === selected.value)
++          .length === 1
++      );
++    };
++  },
+   async observe(context: DriverContext): Promise<SemanticObservation> {
+     const host = requireSelectHost(context);
+     return optionObservation(
+@@ -163,18 +232,32 @@
+       });
+       return;
+     }
+-    if (typeof payload !== "string") {
++    if (
++      typeof payload !== "object" ||
++      !("value" in payload) ||
++      typeof payload.value !== "string" ||
++      !("label" in payload) ||
++      typeof payload.label !== "string" ||
++      !("disabled" in payload) ||
++      typeof payload.disabled !== "boolean"
++    ) {
+       throw new Error("select driver invariant: undo payload malformed");
+     }
++    const priorValue = payload.value;
+     await mutateCurrent(context, host, () => {
+-      const option = [...host.options].find((item) => item.value === payload);
++      const options = [...host.options].filter(
++        (item) => item.value === priorValue,
++      );
++      const option = options.length === 1 ? options[0] : undefined;
+       if (
+         option === undefined ||
++        normalizeText(option.textContent) !== payload.label ||
+         option.disabled ||
+-        option.closest("optgroup:disabled") !== null
++        option.closest("optgroup:disabled") !== null ||
++        payload.disabled
+       )
+         throw new Error("select driver invariant: prior option changed");
+-      setNativeValue(host, payload);
++      setNativeValue(host, priorValue);
+     });
+   },
+ };
+@@ -283,6 +366,19 @@
+       if (!member.checked) activateElement(member);
+     });
+   },
++  captureObservationWitness(context: DriverContext): () => boolean {
++    return () => {
++      const members = radioMembers(context) ?? [];
++      const checked = members.filter((member) => member.checked);
++      const selected = checked.length === 1 ? checked[0] : undefined;
++      return (
++        checked.length <= 1 &&
++        (selected === undefined ||
++          members.filter((member) => member.value === selected.value).length ===
++            1)
++      );
++    };
++  },
+   async observe(context: DriverContext): Promise<SemanticObservation> {
+     const members = radioMembers(context) ?? [];
+     const checked = members.find((member) => member.checked);
+--- a/apps/extension/src/drivers/driver-contract.ts
++++ b/apps/extension/src/drivers/driver-contract.ts
+@@ -1,3 +1,5 @@
++import type { OptionMeaningApproval } from "../option-meaning.ts";
++export type { OptionMeaningApproval } from "../option-meaning.ts";
+ // M02-W10 control-driver contract (spec §5.11.5).
+ //
+ // The canonical architecture rejects one monolithic fillField(): each
+@@ -16,6 +18,8 @@
+   readonly document: Document;
+   readonly target: ResolvedFieldTarget;
+   readonly intended: DriverIntendedValue;
++  readonly approvedOption?: OptionMeaningApproval;
++  readonly restorationOptionApproval?: OptionMeaningApproval;
+   /** Engine-bound approval fence. Rechecks live ownership after awaits and
+    * runs the physical mutation synchronously against the current target. */
+   readonly mutate: (
+@@ -53,6 +57,9 @@
+   execute(context: DriverContext): Promise<void>;
+   /** Redacted semantic observation of the control's current value. */
+   observe(context: DriverContext): Promise<SemanticObservation>;
++  /** Extra synchronous property witness when observation uses a native editor
++   * beyond the resolved anchor/members. DOM text/attributes use the index fence. */
++  captureObservationWitness?(context: DriverContext): () => boolean;
+   /** Reverse the captured action on the freshly re-resolved target. */
+   applyUndo(context: DriverContext, payload: unknown): Promise<void>;
+   /** Expected settled resolution for the action (default PRESENT). */
+--- a/apps/extension/src/drivers/driver-dom.ts
++++ b/apps/extension/src/drivers/driver-dom.ts
+@@ -94,6 +94,55 @@
+   return semanticDigest(`option-value-v1\0${value}`);
+ }
+ 
++/** Synchronous final-publication witness for native properties MutationObserver
++ * cannot observe. Only the resolved anchor/members are inspected; no tree walk,
++ * hashes, events or page writes occur. File objects are immutable browser values. */
++export function captureNativePropertyWitness(
++  elements: readonly HTMLElement[],
++): () => boolean {
++  if (elements.length > 129) return () => false;
++  const checks: (() => boolean)[] = [];
++  for (const element of new Set(elements)) {
++    if (element instanceof HTMLInputElement) {
++      if (element.type === "file") {
++        const files = element.files;
++        if (files !== null && files.length > 1) return () => false;
++        const file = files?.item(0) ?? null;
++        const count = files?.length ?? 0;
++        checks.push(
++          () =>
++            (element.files?.length ?? 0) === count &&
++            (element.files?.item(0) ?? null) === file,
++        );
++      } else {
++        const value = element.value;
++        const checked = element.checked;
++        checks.push(
++          () => element.value === value && element.checked === checked,
++        );
++      }
++    } else if (element instanceof HTMLTextAreaElement) {
++      const value = element.value;
++      checks.push(() => element.value === value);
++    } else if (element instanceof HTMLSelectElement) {
++      const value = element.value;
++      const index = element.selectedIndex;
++      const selected = element.selectedOptions[0];
++      const label = selected?.label;
++      const text = selected?.textContent;
++      checks.push(
++        () =>
++          element.value === value &&
++          element.selectedIndex === index &&
++          element.selectedOptions[0] === selected &&
++          selected?.label === label &&
++          selected?.textContent === text,
++      );
++    }
++  }
++  return () => checks.every((check) => check());
++}
++
+ export interface SettleOutcome {
+   readonly polls: number;
+   readonly signalObserved: boolean;
+--- a/apps/extension/src/drivers/repeater-driver.ts
++++ b/apps/extension/src/drivers/repeater-driver.ts
+@@ -5,6 +5,7 @@
+ 
+ import {
+   repeaterObservation,
++  observationsEquivalent,
+   type SemanticObservation,
+ } from "../driver-evidence.ts";
+ import type { DriverIntendedValue } from "../driver-protocol.ts";
+@@ -340,6 +341,10 @@
+     }
+     throw new Error("repeater driver invariant: undo payload malformed");
+   },
++  captureObservationWitness(context: DriverContext): () => boolean {
++    const observed = observeRepeater(context);
++    return () => observationsEquivalent(observed, observeRepeater(context));
++  },
+   acceptanceElements(context: DriverContext): readonly HTMLElement[] {
+     return [repeaterRoot(context)];
+   },
+--- a/apps/extension/src/drivers/widget-drivers.ts
++++ b/apps/extension/src/drivers/widget-drivers.ts
+@@ -16,6 +16,7 @@
+   type SemanticObservation,
+ } from "../driver-evidence.ts";
+ import { normalizeScannerText } from "../field-scanner.ts";
++import { semanticDigest } from "../semantic-identity.ts";
+ import {
+   activateElement,
+   delay,
+@@ -80,6 +81,18 @@
+   return [...new Set(options)];
+ }
+ 
++function optionMeaningUnambiguous(
++  host: HTMLElement,
++  selected: HTMLElement | undefined,
++): boolean {
++  if (selected === undefined) return false;
++  const value = optionSemanticValue(selected);
++  const matches = liveOptionElements(host).filter(
++    (option) => optionSemanticValue(option) === value,
++  );
++  return matches.length === 1 && matches[0] === selected;
++}
++
+ async function matchOptionElements(
+   anchor: HTMLElement,
+   digest: string,
+@@ -100,6 +113,24 @@
+   digest: string,
+ ): Promise<void> {
+   const value = optionSemanticValue(option);
++  const label = normalizeScannerText(option.textContent);
++  const approval = [
++    context.approvedOption,
++    context.restorationOptionApproval,
++  ].find((candidate) => candidate?.valueDigest === digest);
++  const labelDigest = await semanticDigest(`untrusted-text-v1\0${label}`);
++  const rawLabel = normalizeScannerText(value);
++  const fieldLabel = context.target.descriptor.label.normalized_text ?? "";
++  const selfDescribing =
++    rawLabel !== "" &&
++    (label === rawLabel ||
++      (fieldLabel !== "" && label === `${fieldLabel} ${rawLabel}`));
++  if (
++    approval === undefined
++      ? !selfDescribing
++      : approval.labelDigest !== labelDigest || approval.disabled
++  )
++    throw new Error("widget driver invariant: approved option meaning changed");
+   if ((await optionValueDigest(value)) !== digest)
+     throw new Error("widget driver invariant: intended option changed");
+   await mutateCurrent(context, option, () => {
+@@ -108,6 +139,7 @@
+     );
+     if (
+       optionSemanticValue(option) !== value ||
++      normalizeScannerText(option.textContent) !== label ||
+       matches.length !== 1 ||
+       matches[0] !== option ||
+       optionDisabled(option)
+@@ -346,6 +378,17 @@
+     }
+     await commitComboboxOption(requireComboboxHost(context), payload, context);
+   },
++  captureObservationWitness(context: DriverContext): () => boolean {
++    const host = requireComboboxHost(context);
++    return () => {
++      const display = normalizeScannerText(host.value);
++      if (display === "") return true;
++      const matches = liveOptionElements(host).filter(
++        (option) => normalizeScannerText(option.textContent) === display,
++      );
++      return matches.length === 1 && optionMeaningUnambiguous(host, matches[0]);
++    };
++  },
+   acceptanceElements(context: DriverContext): readonly HTMLElement[] {
+     const host = requireComboboxHost(context);
+     const errors = [
+@@ -540,6 +583,18 @@
+       throw new Error("listbox driver invariant: undo payload malformed");
+     }
+     await commitListboxOption(host, payload, context);
++  },
++  captureObservationWitness(context: DriverContext): () => boolean {
++    const host = requireListboxHost(context);
++    return () => {
++      const selected = liveOptionElements(host).filter(
++        (option) => option.getAttribute("aria-selected") === "true",
++      );
++      return (
++        selected.length === 0 ||
++        (selected.length === 1 && optionMeaningUnambiguous(host, selected[0]))
++      );
++    };
+   },
+   acceptanceElements(context: DriverContext): readonly HTMLElement[] {
+     return [requireListboxHost(context)];
+@@ -670,6 +725,15 @@
+     }
+     await commitPromptOption(host, payload, context);
+   },
++  captureObservationWitness(context: DriverContext): () => boolean {
++    const host = requirePromptHost(context);
++    return () => {
++      const id = host.getAttribute("aria-activedescendant");
++      if (id === null || id === "") return true;
++      const selected = host.ownerDocument.getElementById(id);
++      return optionMeaningUnambiguous(host, selected ?? undefined);
++    };
++  },
+   acceptanceElements(context: DriverContext): readonly HTMLElement[] {
+     return [requirePromptHost(context)];
+   },
+--- a/apps/extension/src/dynamic-engine.ts
++++ b/apps/extension/src/dynamic-engine.ts
+@@ -71,16 +71,21 @@
+   defaultControlDrivers,
+   intendedSemanticObservation,
+   matchingControlDrivers,
++  captureDriverObservationWitness,
+   type DriverExecution,
+   type ValidationDescriptionClearingEvidence,
+ } from "./driver-engine.ts";
+ import type { DriverTransactionRequest } from "./driver-protocol.ts";
+ import { readSiteAcceptance } from "./drivers/driver-dom.ts";
++import { optionMeaningApprovalMatches } from "./drivers/choice-drivers.ts";
++import type { OptionMeaningApproval } from "./drivers/driver-contract.ts";
+ import {
+   advanceDomGeneration,
+   currentDomGeneration,
+   currentDomEvidenceRevision,
+   descriptionApprovalMatches,
++  recordedDomEvidenceRevision,
++  targetIsCurrent,
+   detectApplicationRoot,
+   resolveFieldTarget,
+   scanCandidatePairs,
+@@ -135,6 +140,7 @@
+ 
+ interface RegistryEntry {
+   readonly descriptionClearing?: ValidationDescriptionClearingEvidence;
++  readonly optionMeaningApproval?: OptionMeaningApproval;
+   readonly transaction: DriverTransactionRequest;
+   readonly outcome:
+     | "BLOCKED_SENSITIVE"
+@@ -159,6 +165,7 @@
+       readonly status: "OBSERVED";
+       readonly evidence: SemanticValueEvidence;
+       readonly validationRejected: boolean;
++      readonly propertyWitness: () => boolean;
+     }
+   | { readonly status: "UNRESOLVED"; readonly resolution: "MISSING" | "STALE" }
+   | { readonly status: "AMBIGUOUS" };
+@@ -381,6 +388,9 @@
+         ...(execution.descriptionClearing === undefined
+           ? {}
+           : { descriptionClearing: execution.descriptionClearing }),
++        ...(execution.optionMeaningApproval === undefined
++          ? {}
++          : { optionMeaningApproval: execution.optionMeaningApproval }),
+         outcome: execution.result.outcome,
+         settledEvidence: {
+           semantic_digest:
+@@ -968,10 +978,14 @@
+         this.#counters.actions_suppressed_duplicate += 1;
+         return { status: "PRIOR_ATTEMPT_EXISTS", prior_outcome: prior.outcome };
+       }
++      const addressDigest = await fieldAddressDigest(transaction.address);
++      const registryEntry = this.#registry.get(addressDigest);
+       const observation = await this.#observeCurrent(
+         document,
+         frameContext,
+         transaction,
++        undefined,
++        registryEntry?.optionMeaningApproval,
+       );
+       if (observation.status === "AMBIGUOUS") {
+         return { status: "STALE_EVIDENCE", resolution: "AMBIGUOUS" };
+@@ -979,8 +993,7 @@
+       if (observation.status === "UNRESOLVED") {
+         return { status: "STALE_EVIDENCE", resolution: observation.resolution };
+       }
+-      const addressDigest = await fieldAddressDigest(transaction.address);
+-      const settled = this.#registry.get(addressDigest)?.settledEvidence;
++      const settled = registryEntry?.settledEvidence;
+       if (
+         settled?.semantic_digest === observation.evidence.semantic_digest &&
+         settled.presence === observation.evidence.presence
+@@ -1031,6 +1044,7 @@
+     frameContext: FrameContext,
+     transaction: DriverTransactionRequest,
+     clearedDescriptionAddress?: FormFieldAddressV1,
++    approvedOption?: OptionMeaningApproval,
+   ): Promise<CurrentObservation> {
+     const resolved = await resolveFieldTarget(
+       document,
+@@ -1048,6 +1062,7 @@
+       };
+     }
+     const target = resolved.target;
++    const observationRevision = recordedDomEvidenceRevision(document);
+     const descriptionCurrent =
+       descriptionApprovalMatches(
+         transaction.address,
+@@ -1059,7 +1074,12 @@
+           clearedDescriptionAddress,
+           target.descriptor.address,
+         ));
+-    if (!descriptionCurrent)
++    if (
++      !descriptionCurrent ||
++      (transaction.intended.kind === "OPTION" &&
++        (approvedOption === undefined ||
++          !optionMeaningApprovalMatches(approvedOption, target.descriptor)))
++    )
+       return { status: "UNRESOLVED", resolution: "STALE" };
+     const candidates = matchingControlDrivers(
+       this.#drivers,
+@@ -1080,6 +1100,7 @@
+           new Error("read-only observation has no mutation authority"),
+         ),
+     };
++    const propertyWitness = captureDriverObservationWitness(driver, context);
+     const observation = await driver.observe(context);
+     const acceptance = await readSiteAcceptance(
+       driver.acceptanceElements?.(context) ?? [
+@@ -1087,9 +1108,17 @@
+         ...target.members,
+       ],
+     );
++    const evidence = await evidenceFromObservation(observation);
++    if (
++      !propertyWitness() ||
++      (approvedOption !== undefined &&
++        !targetIsCurrent(document, target, observationRevision))
++    )
++      return { status: "UNRESOLVED", resolution: "STALE" };
+     return {
+       status: "OBSERVED",
+-      evidence: await evidenceFromObservation(observation),
++      evidence,
++      propertyWitness,
+       validationRejected: acceptance.acceptance === "REJECTED",
+     };
+   }
+@@ -1194,9 +1223,16 @@
+       this.#observedRoot === null ? null : openRootsWithin(this.#observedRoot);
+     const proofGeneration = currentDomGeneration(document);
+     const evidenceList: ReconcileFieldEvidence[] = [];
++    const propertyWitnesses: (() => boolean)[] = [];
+     for (const entry of this.#inventory.values()) {
+       evidenceList.push(
+-        await this.#evidenceFor(document, frameContext, entry, proofGeneration),
++        await this.#evidenceFor(
++          document,
++          frameContext,
++          entry,
++          proofGeneration,
++          propertyWitnesses,
++        ),
+       );
+     }
+     evidenceList.sort(canonicalEvidenceOrder);
+@@ -1302,7 +1338,8 @@
+       publicationRoot.root !== proofRoot ||
+       publicationTree?.status !== "COMPLETE" ||
+       !sameOpenRoots(proofTree.shadowRoots, publicationTree.shadowRoots) ||
+-      currentDomEvidenceRevision(document) !== proofEvidenceRevision
++      currentDomEvidenceRevision(document) !== proofEvidenceRevision ||
++      !propertyWitnesses.every((witness) => witness())
+     ) {
+       this.#proofUnstable = true;
+       this.#inventory.clear();
+@@ -1339,6 +1376,7 @@
+     frameContext: FrameContext,
+     entry: InventoryEntry,
+     pageGeneration: number,
++    propertyWitnesses: (() => boolean)[],
+   ): Promise<ReconcileFieldEvidence> {
+     const descriptor = entry.descriptor;
+     const base = {
+@@ -1384,8 +1422,10 @@
+         frameContext,
+         registryEntry.transaction,
+         registryEntry.descriptionClearing?.settledAddress,
++        registryEntry.optionMeaningApproval,
+       );
+       if (observation.status === "OBSERVED") {
++        propertyWitnesses.push(observation.propertyWitness);
+         validationRejected = observation.validationRejected;
+         const settled = registryEntry.settledEvidence;
+         currentValue =
+--- a/apps/extension/src/field-scanner.ts
++++ b/apps/extension/src/field-scanner.ts
+@@ -1,3 +1,4 @@
++import { rememberOptionMeaningSnapshot } from "./option-meaning.ts";
+ import {
+   captureOpenTree,
+   currentOpenTopology,
+@@ -957,6 +958,7 @@
+             )
+             .join("\0")}`,
+         );
++  rememberOptionMeaningSnapshot(optionFingerprint, options);
+   const resolutionHints: FormFieldAddressV1["resolution_hints"][number][] = [
+     {
+       kind: "CONTROL_KIND",
+--- /dev/null
++++ b/apps/extension/src/option-meaning.ts
+@@ -0,0 +1,94 @@
++/** Bounded pure option observations. The W09-bound full fingerprint selects
++ * evidence only; the canonical decision and live driver fences grant authority.
++ * No elements, raw applicant values, selectors or action capability are cached. */
++import type { FormFieldDescriptorV1OptionSemantic } from "@japp/contracts/generated";
++
++export interface OptionMeaningApproval {
++  readonly valueDigest: string;
++  readonly labelDigest: string;
++  readonly disabled: boolean;
++}
++export const MAX_OPTION_MEANING_SNAPSHOTS = 64;
++export const MAX_OPTION_MEANING_BYTES = 256 * 1024;
++const MAX_OPTIONS = 128;
++const snapshots = new Map<
++  string,
++  {
++    readonly options: readonly OptionMeaningApproval[];
++    readonly bytes: number;
++  }
++>();
++let retainedBytes = 0;
++
++function retire(fingerprint: string): void {
++  const prior = snapshots.get(fingerprint);
++  if (prior !== undefined) retainedBytes -= prior.bytes;
++  snapshots.delete(fingerprint);
++}
++export function rememberOptionMeaningSnapshot(
++  fingerprint: string | undefined,
++  options: readonly FormFieldDescriptorV1OptionSemantic[],
++): void {
++  if (fingerprint === undefined || options.length > MAX_OPTIONS) return;
++  const prior = snapshots.get(fingerprint);
++  if (prior !== undefined) {
++    snapshots.delete(fingerprint);
++    snapshots.set(fingerprint, prior);
++    return;
++  }
++  const evidence = Object.freeze(
++    options.map((option) =>
++      Object.freeze({
++        valueDigest: option.value_digest,
++        labelDigest: option.label.text_digest,
++        disabled: option.disabled,
++      }),
++    ),
++  );
++  // Account retained UTF-16 digest strings and a fixed per-entry payload
++  // allowance. Entry/option counts independently bound container overhead.
++  const bytes =
++    2 * fingerprint.length +
++    32 +
++    evidence.reduce(
++      (sum, option) =>
++        sum + 2 * (option.valueDigest.length + option.labelDigest.length) + 16,
++      0,
++    );
++  if (bytes > MAX_OPTION_MEANING_BYTES) return;
++  snapshots.set(fingerprint, { options: evidence, bytes });
++  retainedBytes += bytes;
++  while (
++    snapshots.size > MAX_OPTION_MEANING_SNAPSHOTS ||
++    retainedBytes > MAX_OPTION_MEANING_BYTES
++  ) {
++    const oldest = snapshots.keys().next().value;
++    if (oldest === undefined) break;
++    retire(oldest);
++  }
++}
++/** null means unavailable evidence, not an absent intended option. An address
++ * without an option fingerprint explicitly observed an empty option inventory. */
++export function approvedOptionMeaningSnapshot(
++  fingerprint: string | undefined,
++): readonly OptionMeaningApproval[] | null {
++  if (fingerprint === undefined) return [];
++  return snapshots.get(fingerprint)?.options ?? null;
++}
++export function optionMeaningSnapshotCapacity(): {
++  entries: number;
++  retained_bytes: number;
++} {
++  return { entries: snapshots.size, retained_bytes: retainedBytes };
++}
++
++/** A duplicated value never becomes either one selected meaning or known absence. */
++export function selectOptionMeaning(
++  snapshot: readonly OptionMeaningApproval[],
++  valueDigest: string,
++): OptionMeaningApproval | null | undefined {
++  const matches = snapshot.filter(
++    (option) => option.valueDigest === valueDigest,
++  );
++  return matches.length > 1 ? null : matches[0];
++}
+--- /dev/null
++++ b/apps/extension/test/m02-w14/option-meaning.test.ts
+@@ -0,0 +1,83 @@
++import { describe, expect, test } from "vitest";
++import {
++  approvedOptionMeaningSnapshot,
++  rememberOptionMeaningSnapshot,
++  optionMeaningSnapshotCapacity,
++  MAX_OPTION_MEANING_BYTES,
++  MAX_OPTION_MEANING_SNAPSHOTS,
++  selectOptionMeaning,
++} from "../../src/option-meaning.ts";
++
++const digest = (seed: number) =>
++  `sha256:${seed.toString(16).padStart(64, "0")}`;
++function option(seed: number) {
++  return {
++    value_digest: digest(seed),
++    label: { text_digest: digest(seed + 10000), untrusted: true as const },
++    disabled: false,
++  };
++}
++
++describe("W14 bounded original option evidence", () => {
++  test("an old approved fingerprint retains its exact label after caller and newer observation changes", () => {
++    const original = option(100);
++    rememberOptionMeaningSnapshot(digest(1000), [original]);
++    original.label.text_digest = digest(9999);
++    rememberOptionMeaningSnapshot(digest(1001), [original]);
++    expect(approvedOptionMeaningSnapshot(digest(1000))).toEqual([
++      { valueDigest: digest(100), labelDigest: digest(10100), disabled: false },
++    ]);
++    expect(approvedOptionMeaningSnapshot(digest(1001))?.[0]?.labelDigest).toBe(
++      digest(9999),
++    );
++    expect(
++      Object.isFrozen(approvedOptionMeaningSnapshot(digest(1000))?.[0]),
++    ).toBe(true);
++  });
++  test("duplicate selected tuples fail closed rather than becoming known absence", () => {
++    const selected = {
++      valueDigest: digest(6000),
++      labelDigest: digest(6001),
++      disabled: false,
++    };
++    expect(
++      selectOptionMeaning(
++        [selected, { ...selected, labelDigest: digest(6002) }],
++        selected.valueDigest,
++      ),
++    ).toBeNull();
++    expect(selectOptionMeaning([selected], digest(6003))).toBeUndefined();
++    expect(selectOptionMeaning([selected], selected.valueDigest)).toEqual(
++      selected,
++    );
++  });
++  test("unknown or evicted evidence never becomes known absent evidence", () => {
++    expect(approvedOptionMeaningSnapshot(undefined)).toEqual([]);
++    expect(approvedOptionMeaningSnapshot(digest(999999))).toBeNull();
++    for (let seed = 2000; seed <= 2000 + MAX_OPTION_MEANING_SNAPSHOTS; seed++)
++      rememberOptionMeaningSnapshot(digest(seed), [option(seed)]);
++    expect(approvedOptionMeaningSnapshot(digest(2000))).toBeNull();
++    expect(
++      approvedOptionMeaningSnapshot(
++        digest(2000 + MAX_OPTION_MEANING_SNAPSHOTS),
++      ),
++    ).toHaveLength(1);
++    expect(optionMeaningSnapshotCapacity().entries).toBeLessThanOrEqual(
++      MAX_OPTION_MEANING_SNAPSHOTS,
++    );
++  });
++  test("byte pressure evicts whole observations and oversized option prefixes are never retained", () => {
++    const options = Array.from({ length: 128 }, (_, index) =>
++      option(3000 + index),
++    );
++    for (let seed = 4000; seed < 4020; seed++)
++      rememberOptionMeaningSnapshot(digest(seed), options);
++    expect(approvedOptionMeaningSnapshot(digest(4000))).toBeNull();
++    expect(approvedOptionMeaningSnapshot(digest(4019))).toHaveLength(128);
++    expect(optionMeaningSnapshotCapacity().retained_bytes).toBeLessThanOrEqual(
++      MAX_OPTION_MEANING_BYTES,
++    );
++    rememberOptionMeaningSnapshot(digest(5000), [...options, option(5000)]);
++    expect(approvedOptionMeaningSnapshot(digest(5000))).toBeNull();
++  });
++});
+--- /dev/null
++++ b/e2e/extension/extension-w14-independent-native.spec.ts
+@@ -0,0 +1,326 @@
++import { installW14NativeWitness } from "./support/autofill-w14-native-witness.ts";
++import { test, expect } from "./support/extension-test.ts";
++import {
++  openHarness,
++  setFixture,
++  scanFrames,
++  foundTopFrame,
++  descriptorByLabel,
++  dynExecute,
++  buildTransaction,
++  dynReconcile,
++  reconciled,
++  runtimeMessage,
++} from "./support/research-harness.ts";
++import { approvedTransaction } from "./support/research-core.ts";
++import {
++  countryPolicy,
++  firstDriverOutcome,
++  nativeSelectPhysical as physical,
++  recordIndependentEvidence as record,
++  type IndependentEventMeter,
++} from "./support/independent-w14-evidence.ts";
++import {
++  buildUndoTabRequest,
++  parseUndoTabResult,
++} from "../../apps/extension/src/driver-protocol.ts";
++
++for (const stage of ["before-write", "after-verified"] as const) {
++  for (const variant of ["opaque-canada", "us-placeholder"] as const) {
++    test(`independent option ${stage} ${variant}`, async ({
++      extensionContext,
++      extensionId,
++      serviceWorker,
++    }, info) => {
++      const h = await openHarness(
++        extensionContext,
++        extensionId,
++        serviceWorker,
++        "/native/",
++      );
++      const witness = await installW14NativeWitness(
++        extensionContext,
++        h.page,
++        extensionId,
++      );
++      try {
++        const approvedValue = variant === "opaque-canada" ? "17" : "US";
++        await setFixture(
++          h,
++          `<form data-japp-application-root="true"><label for="country">Country</label><select id="country" required><option value="">Choose</option><option value="${approvedValue}">United States</option><option value="18">Canada</option></select></form>`,
++        );
++        await h.page.evaluate(() => {
++          const s = document.querySelector("select");
++          if (s === null) throw new Error("native select missing");
++          const meter = { input: 0, change: 0 };
++          (
++            window as unknown as { independentMeter: IndependentEventMeter }
++          ).independentMeter = meter;
++          s.addEventListener("input", () => meter.input++);
++          s.addEventListener("change", () => meter.change++);
++        });
++        const top = foundTopFrame(await scanFrames(h));
++        const before = descriptorByLabel(top.descriptors, "Country");
++        const approval = await countryPolicy(
++          before,
++          `independent-${stage}-${variant}`,
++          variant === "opaque-canada" ? "United States" : "US",
++        );
++        expect(approval.status).toBe("RESOLVED");
++        if (
++          approval.status !== "RESOLVED" ||
++          approval.resolution.optionResolution?.status !== "RESOLVED"
++        )
++          throw new Error("no approval");
++        expect(approval.resolution.decision.final_decision).toBe("FILL");
++        const tx = await buildTransaction(
++          before,
++          {
++            kind: "OPTION",
++            value_digest: approval.resolution.optionResolution.valueDigest,
++          },
++          approval.resolution.decision,
++          `independent-${stage}-${variant}`,
++        );
++        let initial: Awaited<ReturnType<typeof dynExecute>> | null = null;
++        if (stage === "after-verified") {
++          initial = await dynExecute(h, [tx]);
++          expect(firstDriverOutcome(initial)).toBe("VERIFIED");
++        }
++        const priorPhysical = await physical(h);
++        const priorNative = await witness.snapshot();
++        await h.page.evaluate(
++          ({ approvedValue, variant }) => {
++            const select = document.querySelector("select");
++            if (select === null) throw new Error("native select missing");
++            const o = [...select.options].find(
++              (option) => option.value === approvedValue,
++            );
++            if (o === undefined) throw new Error("approved option missing");
++            o.textContent =
++              variant === "opaque-canada" ? "Canada" : "Select a country";
++          },
++          { approvedValue, variant },
++        );
++        const changed = descriptorByLabel(
++          foundTopFrame(await scanFrames(h)).descriptors,
++          "Country",
++        );
++        const freshPolicy = await countryPolicy(
++          changed,
++          `independent-fresh-${stage}-${variant}`,
++          variant === "opaque-canada" ? "United States" : "US",
++        );
++        expect(freshPolicy.status).toBe("RESOLVED");
++        if (freshPolicy.status !== "RESOLVED")
++          throw new Error("invalid fresh policy");
++        expect(freshPolicy.resolution.decision.final_decision).not.toBe("FILL");
++        const execution =
++          stage === "before-write" ? await dynExecute(h, [tx]) : null;
++        const inventory = await dynReconcile(h, top.frame_context.frame_id);
++        const afterPhysical = await physical(h);
++        await record(info, `${stage}-${variant}`, {
++          before,
++          approval,
++          tx,
++          initial,
++          priorPhysical,
++          priorNative,
++          changed,
++          freshPolicy,
++          execution,
++          inventory,
++          afterPhysical,
++          native: await witness.snapshot(),
++          browserVersion: extensionContext.browser()?.version(),
++        });
++        if (stage === "before-write") {
++          expect(afterPhysical.meter).toEqual(priorPhysical.meter);
++          if (execution === null) throw new Error("execution missing");
++          expect(firstDriverOutcome(execution)).not.toBe("VERIFIED");
++        } else {
++          expect(inventory.status).toBe("RECONCILED");
++          expect(reconciled(inventory).inventory.readiness).toBe("NOT_READY");
++        }
++      } finally {
++        await witness.dispose();
++        await h.page.close();
++        await h.controller.close();
++      }
++    });
++  }
++}
++
++test("independent append unselected native option preserves evidence", async ({
++  extensionContext,
++  extensionId,
++  serviceWorker,
++}, info) => {
++  const h = await openHarness(
++    extensionContext,
++    extensionId,
++    serviceWorker,
++    "/native/",
++  );
++  const witness = await installW14NativeWitness(
++    extensionContext,
++    h.page,
++    extensionId,
++  );
++  try {
++    await setFixture(
++      h,
++      '<form data-japp-application-root="true"><label for="country">Country</label><select id="country" required><option value="">Choose</option><option value="US">United States</option><option value="CA">Canada</option></select></form>',
++    );
++    await h.page.evaluate(() => {
++      const s = document.querySelector("select");
++      if (s === null) throw new Error("native select missing");
++      const meter = { input: 0, change: 0 };
++      (
++        window as unknown as { independentMeter: IndependentEventMeter }
++      ).independentMeter = meter;
++      s.addEventListener("input", () => meter.input++);
++      s.addEventListener("change", () => meter.change++);
++    });
++    const top = foundTopFrame(await scanFrames(h));
++    const f = descriptorByLabel(top.descriptors, "Country");
++    const p = await countryPolicy(f, "append-positive");
++    if (
++      p.status !== "RESOLVED" ||
++      p.resolution.optionResolution?.status !== "RESOLVED"
++    )
++      throw new Error("approval");
++    const tx = await buildTransaction(
++      f,
++      {
++        kind: "OPTION",
++        value_digest: p.resolution.optionResolution.valueDigest,
++      },
++      p.resolution.decision,
++      "append-positive",
++    );
++    const execution = await dynExecute(h, [tx]);
++    expect(firstDriverOutcome(execution)).toBe("VERIFIED");
++    const before = await physical(h);
++    await h.page.evaluate(() => {
++      const select = document.querySelector("select");
++      if (select === null) throw new Error("native select missing");
++      select.add(new Option("Mexico", "MX"));
++    });
++    const inventory = await dynReconcile(h, top.frame_context.frame_id);
++    const after = await physical(h);
++    await record(info, "append-positive", {
++      execution,
++      before,
++      inventory,
++      after,
++      native: await witness.snapshot(),
++      browserVersion: extensionContext.browser()?.version(),
++    });
++    expect(reconciled(inventory).inventory.readiness).toBe("READY");
++    expect(after.meter).toEqual(before.meter);
++  } finally {
++    await witness.dispose();
++    await h.page.close();
++    await h.controller.close();
++  }
++});
++
++test("independent undo refuses ownership changed by its own input handler", async ({
++  extensionContext,
++  extensionId,
++  serviceWorker,
++}, info) => {
++  const h = await openHarness(
++    extensionContext,
++    extensionId,
++    serviceWorker,
++    "/native/",
++  );
++  const witness = await installW14NativeWitness(
++    extensionContext,
++    h.page,
++    extensionId,
++  );
++  try {
++    await setFixture(
++      h,
++      '<form data-japp-application-root="true"><span id="ownership">Your contact</span><label for="first">First name</label><input id="first" name="first" aria-describedby="ownership" value="Prior" required></form>',
++    );
++    const top = foundTopFrame(await scanFrames(h));
++    const f = descriptorByLabel(top.descriptors, "First name");
++    const tx = await approvedTransaction(f, "independent-undo", {
++      kind: "TEXT",
++      text: "Synthetic",
++    });
++    const execution = await dynExecute(h, [tx]);
++    expect(firstDriverOutcome(execution)).toBe("VERIFIED");
++    await h.page.evaluate(() => {
++      const input = document.querySelector("input");
++      if (input === null) throw new Error("native input missing");
++      const meter = { input: 0, change: 0 };
++      (
++        window as unknown as { independentMeter: IndependentEventMeter }
++      ).independentMeter = meter;
++      input.addEventListener("input", () => {
++        meter.input++;
++        const ownership = document.querySelector("#ownership");
++        if (ownership === null)
++          throw new Error("ownership description missing");
++        ownership.textContent = "Employer";
++      });
++      input.addEventListener("change", () => meter.change++);
++    });
++    const undo = parseUndoTabResult(
++      await runtimeMessage(
++        h.controller,
++        buildUndoTabRequest("independent-undo", h.tabId, {
++          transaction_id: tx.transaction_id,
++          address: tx.address,
++          settle: { budget_ms: 75 },
++        }),
++      ),
++    );
++    const changed = descriptorByLabel(
++      foundTopFrame(await scanFrames(h)).descriptors,
++      "First name",
++    );
++    const freshTx = await approvedTransaction(
++      changed,
++      "independent-undo-current",
++    ).catch((error: unknown) => ({ error: String(error) }));
++    const physical = await h.page.evaluate(() => {
++      const input = document.querySelector("input");
++      const ownership = document.querySelector("#ownership");
++      if (input === null || ownership === null)
++        throw new Error("native input or ownership description missing");
++      return {
++        value: input.value,
++        description: ownership.textContent,
++        meter: (
++          window as unknown as { independentMeter: IndependentEventMeter }
++        ).independentMeter,
++      };
++    });
++    await record(info, "undo-ownership", {
++      before: f,
++      tx,
++      execution,
++      undo,
++      changed,
++      freshTx,
++      physical,
++      native: await witness.snapshot(),
++      browserVersion: extensionContext.browser()?.version(),
++    });
++    expect(physical.value).toBe("Prior");
++    expect(physical.description).toBe("Employer");
++    expect(undo?.outcome.status).toBe("COMPLETED");
++    if (undo?.outcome.status === "COMPLETED")
++      expect(undo.outcome.result.outcome).not.toBe("VERIFIED");
++  } finally {
++    await witness.dispose();
++    await h.page.close();
++    await h.controller.close();
++  }
++});
+--- /dev/null
++++ b/e2e/extension/extension-w14-independent-undo-hash.spec.ts
+@@ -0,0 +1,167 @@
++import { installW14NativeWitness } from "./support/autofill-w14-native-witness.ts";
++import { test, expect } from "./support/extension-test.ts";
++import {
++  openHarness,
++  setFixture,
++  scanFrames,
++  foundTopFrame,
++  descriptorByLabel,
++  dynExecute,
++  runtimeMessage,
++} from "./support/research-harness.ts";
++import { approvedTransaction } from "./support/research-core.ts";
++import {
++  buildUndoTabRequest,
++  parseUndoTabResult,
++} from "../../apps/extension/src/driver-protocol.ts";
++import {
++  firstDriverOutcome,
++  recordIndependentEvidence as record,
++} from "./support/independent-w14-evidence.ts";
++
++function installResultHashPause(prefix: string): void {
++  const host = globalThis as unknown as {
++    __JAPP_W14_TEST_RESULT_HASH_PAUSE__?: {
++      reached: boolean;
++      release(): void;
++      restore(): void;
++    };
++  };
++  const subtle = crypto.subtle;
++  const prior = Object.getOwnPropertyDescriptor(subtle, "digest");
++  const nativeDigest = subtle.digest.bind(subtle);
++  let release: (() => void) | undefined;
++  const wait = new Promise<void>((resolve) => {
++    release = resolve;
++  });
++  const gate = {
++    reached: false,
++    release() {
++      release?.();
++    },
++    restore() {
++      release?.();
++      if (prior === undefined) Reflect.deleteProperty(subtle, "digest");
++      else Object.defineProperty(subtle, "digest", prior);
++      Reflect.deleteProperty(host, "__JAPP_W14_TEST_RESULT_HASH_PAUSE__");
++    },
++  };
++  host.__JAPP_W14_TEST_RESULT_HASH_PAUSE__ = gate;
++  Object.defineProperty(subtle, "digest", {
++    configurable: true,
++    writable: true,
++    value(
++      algorithm: AlgorithmIdentifier,
++      data: BufferSource,
++    ): Promise<ArrayBuffer> {
++      const native = nativeDigest(algorithm, data);
++      const seed = new TextDecoder().decode(data);
++      if (!gate.reached && seed.startsWith(prefix)) {
++        gate.reached = true;
++        return native.then(async (digest) => {
++          await wait;
++          return digest;
++        });
++      }
++      return native;
++    },
++  });
++}
++
++test("independent undo final result hash refuses later validation rejection", async ({
++  extensionContext,
++  extensionId,
++  serviceWorker,
++}, info) => {
++  const h = await openHarness(
++    extensionContext,
++    extensionId,
++    serviceWorker,
++    "/native/",
++  );
++  const witness = await installW14NativeWitness(
++    extensionContext,
++    h.page,
++    extensionId,
++  );
++  let pending: ReturnType<typeof runtimeMessage> | undefined;
++  try {
++    await setFixture(
++      h,
++      '<form data-japp-application-root="true"><span id="ownership">Your contact</span><label for="first">First name</label><input id="first" name="first" aria-describedby="ownership" aria-invalid="false" value="Prior" required></form>',
++    );
++    const top = foundTopFrame(await scanFrames(h));
++    const before = descriptorByLabel(top.descriptors, "First name");
++    const tx = await approvedTransaction(before, "independent-undo-last-hash", {
++      kind: "TEXT",
++      text: "Synthetic",
++    });
++    const execution = await dynExecute(h, [tx]);
++    expect(firstDriverOutcome(execution)).toBe("VERIFIED");
++    await witness.session.send("Runtime.evaluate", {
++      contextId: witness.contextId,
++      expression: `(${installResultHashPause.toString()})(${JSON.stringify(`w10-idempotency-v1\0${tx.transaction_id}\0UNDO`)})`,
++    });
++    pending = runtimeMessage(
++      h.controller,
++      buildUndoTabRequest("independent-undo-hash", h.tabId, {
++        transaction_id: tx.transaction_id,
++        address: tx.address,
++        settle: { budget_ms: 75 },
++      }),
++    );
++    await expect
++      .poll(
++        async () => {
++          const r = await witness.session.send("Runtime.evaluate", {
++            contextId: witness.contextId,
++            expression:
++              "globalThis.__JAPP_W14_TEST_RESULT_HASH_PAUSE__?.reached === true",
++            returnByValue: true,
++          });
++          return r.result.value === true;
++        },
++        { timeout: 5000 },
++      )
++      .toBe(true);
++    expect(await h.page.locator("#first").inputValue()).toBe("Prior");
++    await h.page.locator("#first").evaluate((node) => {
++      node.setAttribute("aria-invalid", "true");
++    });
++    await witness.session.send("Runtime.evaluate", {
++      contextId: witness.contextId,
++      expression: "globalThis.__JAPP_W14_TEST_RESULT_HASH_PAUSE__.release()",
++    });
++    const undo = parseUndoTabResult(await pending);
++    pending = undefined;
++    const physical = await h.page.evaluate(() => {
++      const input = document.querySelector("input");
++      if (input === null) throw new Error("native input missing");
++      return {
++        value: input.value,
++        ariaInvalid: input.getAttribute("aria-invalid"),
++      };
++    });
++    await record(info, "undo-last-hash", {
++      before,
++      tx,
++      execution,
++      undo,
++      physical,
++      native: await witness.snapshot(),
++      browserVersion: extensionContext.browser()?.version(),
++    });
++    expect(undo?.outcome.status).toBe("COMPLETED");
++    if (undo?.outcome.status === "COMPLETED")
++      expect(undo.outcome.result.outcome).not.toBe("VERIFIED");
++  } finally {
++    await witness.session.send("Runtime.evaluate", {
++      contextId: witness.contextId,
++      expression: "globalThis.__JAPP_W14_TEST_RESULT_HASH_PAUSE__?.restore()",
++    });
++    await pending?.catch(() => undefined);
++    await witness.dispose();
++    await h.page.close();
++    await h.controller.close();
++  }
++});
+--- /dev/null
++++ b/e2e/extension/extension-w14-independent-extra.spec.ts
+@@ -0,0 +1,337 @@
++import { installW14NativeWitness } from "./support/autofill-w14-native-witness.ts";
++import { test, expect } from "./support/extension-test.ts";
++import {
++  openHarness,
++  setFixture,
++  scanFrames,
++  foundTopFrame,
++  descriptorByLabel,
++  dynExecute,
++  buildTransaction,
++  dynReconcile,
++  reconciled,
++  runtimeMessage,
++} from "./support/research-harness.ts";
++import { approvedTransaction } from "./support/research-core.ts";
++import {
++  buildApprovedRecordSet,
++  resolveFieldDecision,
++  stableSemanticId,
++} from "../../packages/form-engine/src/index.ts";
++import {
++  buildUndoTabRequest,
++  parseUndoTabResult,
++} from "../../apps/extension/src/driver-protocol.ts";
++import {
++  firstDriverOutcome,
++  recordIndependentEvidence as record,
++} from "./support/independent-w14-evidence.ts";
++
++function undoDriverOutcome(result: ReturnType<typeof parseUndoTabResult>) {
++  if (result?.outcome.status !== "COMPLETED")
++    throw new Error("undo driver result missing");
++  return result.outcome.result.outcome;
++}
++
++function installResultHashPause(prefix: string): void {
++  const host = globalThis as unknown as {
++    __JAPP_W14_TEST_RESULT_HASH_PAUSE__?: {
++      reached: boolean;
++      release(): void;
++      restore(): void;
++    };
++  };
++  const subtle = crypto.subtle;
++  const prior = Object.getOwnPropertyDescriptor(subtle, "digest");
++  const nativeDigest = subtle.digest.bind(subtle);
++  let release: (() => void) | undefined;
++  const wait = new Promise<void>((resolve) => {
++    release = resolve;
++  });
++  const gate = {
++    reached: false,
++    release() {
++      release?.();
++    },
++    restore() {
++      release?.();
++      if (prior === undefined) Reflect.deleteProperty(subtle, "digest");
++      else Object.defineProperty(subtle, "digest", prior);
++      Reflect.deleteProperty(host, "__JAPP_W14_TEST_RESULT_HASH_PAUSE__");
++    },
++  };
++  host.__JAPP_W14_TEST_RESULT_HASH_PAUSE__ = gate;
++  Object.defineProperty(subtle, "digest", {
++    configurable: true,
++    writable: true,
++    value(
++      algorithm: AlgorithmIdentifier,
++      data: BufferSource,
++    ): Promise<ArrayBuffer> {
++      const native = nativeDigest(algorithm, data);
++      const seed = new TextDecoder().decode(data);
++      if (!gate.reached && seed.startsWith(prefix)) {
++        gate.reached = true;
++        return native.then(async (digest) => {
++          await wait;
++          return digest;
++        });
++      }
++      return native;
++    },
++  });
++}
++
++for (const operation of ["EXECUTE", "UNDO"] as const) {
++  test(`independent ${operation} final hash eventless value drift`, async ({
++    extensionContext,
++    extensionId,
++    serviceWorker,
++  }, info) => {
++    const h = await openHarness(
++      extensionContext,
++      extensionId,
++      serviceWorker,
++      "/native/",
++    );
++    const witness = await installW14NativeWitness(
++      extensionContext,
++      h.page,
++      extensionId,
++    );
++    let pending: ReturnType<typeof runtimeMessage> | undefined;
++    try {
++      await setFixture(
++        h,
++        '<form data-japp-application-root="true"><label for="first">First name</label><input id="first" name="first" aria-invalid="false" value="Prior" required></form>',
++      );
++      const top = foundTopFrame(await scanFrames(h));
++      const before = descriptorByLabel(top.descriptors, "First name");
++      const tx = await approvedTransaction(
++        before,
++        `independent-value-${operation}`,
++        { kind: "TEXT", text: "Synthetic" },
++      );
++      const initial = operation === "UNDO" ? await dynExecute(h, [tx]) : null;
++      if (initial) expect(firstDriverOutcome(initial)).toBe("VERIFIED");
++      await witness.session.send("Runtime.evaluate", {
++        contextId: witness.contextId,
++        expression: `(${installResultHashPause.toString()})(${JSON.stringify(`w10-idempotency-v1\0${tx.transaction_id}\0${operation}`)})`,
++      });
++      const pendingResult =
++        operation === "EXECUTE"
++          ? { operation: "EXECUTE" as const, promise: dynExecute(h, [tx]) }
++          : {
++              operation: "UNDO" as const,
++              promise: runtimeMessage(
++                h.controller,
++                buildUndoTabRequest("independent-value-undo", h.tabId, {
++                  transaction_id: tx.transaction_id,
++                  address: tx.address,
++                  settle: { budget_ms: 75 },
++                }),
++              ),
++            };
++      pending = pendingResult.promise;
++      await expect
++        .poll(
++          async () => {
++            const r = await witness.session.send("Runtime.evaluate", {
++              contextId: witness.contextId,
++              expression:
++                "globalThis.__JAPP_W14_TEST_RESULT_HASH_PAUSE__?.reached === true",
++              returnByValue: true,
++            });
++            return r.result.value === true;
++          },
++          { timeout: 5000 },
++        )
++        .toBe(true);
++      const observedBeforeDrift = await h.page.locator("#first").inputValue();
++      const mutationRecords = await h.page.evaluate(() => {
++        const observer = new MutationObserver(() => undefined);
++        observer.observe(document, {
++          subtree: true,
++          childList: true,
++          attributes: true,
++          characterData: true,
++        });
++        const input = document.querySelector("input");
++        if (input === null) throw new Error("native input missing");
++        input.value = "Changed by site";
++        const count = observer.takeRecords().length;
++        observer.disconnect();
++        return count;
++      });
++      await witness.session.send("Runtime.evaluate", {
++        contextId: witness.contextId,
++        expression: "globalThis.__JAPP_W14_TEST_RESULT_HASH_PAUSE__.release()",
++      });
++      const completed =
++        pendingResult.operation === "EXECUTE"
++          ? {
++              operation: "EXECUTE" as const,
++              result: await pendingResult.promise,
++            }
++          : {
++              operation: "UNDO" as const,
++              result: parseUndoTabResult(await pendingResult.promise),
++            };
++      pending = undefined;
++      const result = completed.result;
++      const physical = await h.page.evaluate(() => {
++        const input = document.querySelector("input");
++        if (input === null) throw new Error("native input missing");
++        return {
++          value: input.value,
++          ariaInvalid: input.getAttribute("aria-invalid"),
++        };
++      });
++      await record(info, `eventless-value-${operation}`, {
++        operation,
++        before,
++        tx,
++        initial,
++        observedBeforeDrift,
++        mutationRecords,
++        result,
++        physical,
++        native: await witness.snapshot(),
++        browserVersion: extensionContext.browser()?.version(),
++      });
++      expect(mutationRecords).toBe(0);
++      expect(physical.value).toBe("Changed by site");
++      const outcome =
++        completed.operation === "EXECUTE"
++          ? firstDriverOutcome(completed.result)
++          : undoDriverOutcome(completed.result);
++      expect(outcome).not.toBe("VERIFIED");
++    } finally {
++      await witness.session.send("Runtime.evaluate", {
++        contextId: witness.contextId,
++        expression: "globalThis.__JAPP_W14_TEST_RESULT_HASH_PAUSE__?.restore()",
++      });
++      await pending?.catch(() => undefined);
++      await witness.dispose();
++      await h.page.close();
++      await h.controller.close();
++    }
++  });
++}
++for (const stage of ["before-write", "after-verified"] as const) {
++  test(`independent opaque radio label drift ${stage}`, async ({
++    extensionContext,
++    extensionId,
++    serviceWorker,
++  }, info) => {
++    const h = await openHarness(
++      extensionContext,
++      extensionId,
++      serviceWorker,
++      "/native/",
++    );
++    const witness = await installW14NativeWitness(
++      extensionContext,
++      h.page,
++      extensionId,
++    );
++    try {
++      await setFixture(
++        h,
++        '<form data-japp-application-root="true"><fieldset><legend>Work mode</legend><label><input id="remote" type="radio" name="mode" value="17" required><span id="remote-label">Remote</span></label><label><input id="hybrid" type="radio" name="mode" value="18"><span>Hybrid</span></label></fieldset></form>',
++      );
++      const top = foundTopFrame(await scanFrames(h));
++      const before = descriptorByLabel(top.descriptors, "Work mode");
++      const records = buildApprovedRecordSet([
++        {
++          recordId: await stableSemanticId("record", "independent-radio"),
++          concept: "WORK_MODE_PREFERENCE",
++          valueToken: "REMOTE",
++          policy: "FILL_FROM_EXPLICIT_RECORD",
++          confirmation: { state: "MISSING" },
++          valueConfidence: 1,
++        },
++      ]);
++      const approval = await resolveFieldDecision({
++        descriptor: before,
++        records,
++        correlationId: await stableSemanticId("cor", `radio-${stage}`),
++      });
++      if (
++        approval.status !== "RESOLVED" ||
++        approval.resolution.optionResolution?.status !== "RESOLVED"
++      )
++        throw new Error("radio approval prerequisite");
++      expect(approval.resolution.decision.final_decision).toBe("FILL");
++      const tx = await buildTransaction(
++        before,
++        {
++          kind: "OPTION",
++          value_digest: approval.resolution.optionResolution.valueDigest,
++        },
++        approval.resolution.decision,
++        `radio-${stage}`,
++      );
++      const initial =
++        stage === "after-verified" ? await dynExecute(h, [tx]) : null;
++      if (initial) expect(firstDriverOutcome(initial)).toBe("VERIFIED");
++      const priorNative = await witness.snapshot();
++      await h.page
++        .locator("#remote-label")
++        .evaluate((node) => (node.textContent = "Onsite"));
++      const changed = descriptorByLabel(
++        foundTopFrame(await scanFrames(h)).descriptors,
++        "Work mode",
++      );
++      const freshPolicy = await resolveFieldDecision({
++        descriptor: changed,
++        records,
++        correlationId: await stableSemanticId("cor", `radio-fresh-${stage}`),
++      });
++      expect(freshPolicy.status).toBe("RESOLVED");
++      if (freshPolicy.status === "RESOLVED")
++        expect(freshPolicy.resolution.decision.final_decision).not.toBe("FILL");
++      const execution =
++        stage === "before-write" ? await dynExecute(h, [tx]) : null;
++      const inventory = await dynReconcile(h, top.frame_context.frame_id);
++      const physical = await h.page.evaluate(() => ({
++        selected: [
++          ...document.querySelectorAll<HTMLInputElement>("input:checked"),
++        ].map((input) => {
++          const label = input.closest("label");
++          if (label === null) throw new Error("radio label missing");
++          return { id: input.id, value: input.value, label: label.textContent };
++        }),
++      }));
++      const native = await witness.snapshot();
++      await record(info, `radio-${stage}`, {
++        stage,
++        before,
++        approval,
++        tx,
++        initial,
++        priorNative,
++        changed,
++        freshPolicy,
++        execution,
++        inventory,
++        physical,
++        native,
++        browserVersion: extensionContext.browser()?.version(),
++      });
++      if (stage === "before-write") {
++        expect(native.native_mutation_count).toBe(
++          priorNative.native_mutation_count,
++        );
++        if (execution === null) throw new Error("execution missing");
++        expect(firstDriverOutcome(execution)).not.toBe("VERIFIED");
++      } else {
++        expect(reconciled(inventory).inventory.readiness).toBe("NOT_READY");
++      }
++    } finally {
++      await witness.dispose();
++      await h.page.close();
++      await h.controller.close();
++    }
++  });
++}
+--- /dev/null
++++ b/e2e/extension/extension-w14-independent-aria.spec.ts
+@@ -0,0 +1,148 @@
++import { installW14NativeWitness } from "./support/autofill-w14-native-witness.ts";
++import { test, expect } from "./support/extension-test.ts";
++import {
++  openHarness,
++  setFixture,
++  scanFrames,
++  foundTopFrame,
++  descriptorByLabel,
++  dynExecute,
++  buildTransaction,
++  dynReconcile,
++} from "./support/research-harness.ts";
++import {
++  buildApprovedRecordSet,
++  resolveFieldDecision,
++  stableSemanticId,
++} from "../../packages/form-engine/src/index.ts";
++import {
++  firstDriverOutcome,
++  recordIndependentEvidence as record,
++} from "./support/independent-w14-evidence.ts";
++
++test("independent opaque ARIA prompt held W09 approval refuses relabelled option", async ({
++  extensionContext,
++  extensionId,
++  serviceWorker,
++}, info) => {
++  const h = await openHarness(
++    extensionContext,
++    extensionId,
++    serviceWorker,
++    "/native/",
++  );
++  const witness = await installW14NativeWitness(
++    extensionContext,
++    h.page,
++    extensionId,
++  );
++  try {
++    await setFixture(
++      h,
++      '<form data-japp-application-root="true"><div id="mode" role="combobox" aria-label="Work mode" aria-controls="options" aria-expanded="false" aria-invalid="false" tabindex="0">Choose</div><div id="options" role="listbox" style="display:none"><div id="remote" role="option" data-value="17" aria-selected="false"><span id="remote-label">Remote</span></div><div id="hybrid" role="option" data-value="18" aria-selected="false">Hybrid</div></div></form>',
++    );
++    await h.page.evaluate(() => {
++      const host = document.querySelector("#mode");
++      const list = document.querySelector<HTMLElement>("#options");
++      if (host === null || list === null)
++        throw new Error("ARIA fixture missing");
++      host.addEventListener("click", () => {
++        host.setAttribute("aria-expanded", "true");
++        list.style.display = "block";
++      });
++      for (const option of document.querySelectorAll<HTMLElement>(
++        "[role=option]",
++      ))
++        option.addEventListener("click", () => {
++          for (const o of document.querySelectorAll("[role=option]"))
++            o.setAttribute("aria-selected", "false");
++          option.setAttribute("aria-selected", "true");
++          host.setAttribute("aria-activedescendant", option.id);
++          host.setAttribute("aria-expanded", "false");
++          list.style.display = "none";
++        });
++    });
++    const top = foundTopFrame(await scanFrames(h));
++    const before = descriptorByLabel(top.descriptors, "Work mode");
++    const records = buildApprovedRecordSet([
++      {
++        recordId: await stableSemanticId("record", "independent-aria"),
++        concept: "WORK_MODE_PREFERENCE",
++        valueToken: "REMOTE",
++        policy: "FILL_FROM_EXPLICIT_RECORD",
++        confirmation: { state: "MISSING" },
++        valueConfidence: 1,
++      },
++    ]);
++    const approval = await resolveFieldDecision({
++      descriptor: before,
++      records,
++      correlationId: await stableSemanticId("cor", "aria-held"),
++    });
++    if (
++      approval.status !== "RESOLVED" ||
++      approval.resolution.optionResolution?.status !== "RESOLVED"
++    )
++      throw new Error("ARIA approval prerequisite");
++    expect(approval.resolution.decision.final_decision).toBe("FILL");
++    const tx = await buildTransaction(
++      before,
++      {
++        kind: "OPTION",
++        value_digest: approval.resolution.optionResolution.valueDigest,
++      },
++      approval.resolution.decision,
++      "aria-held",
++    );
++    await h.page
++      .locator("#remote-label")
++      .evaluate((node) => (node.textContent = "Onsite"));
++    const changed = descriptorByLabel(
++      foundTopFrame(await scanFrames(h)).descriptors,
++      "Work mode",
++    );
++    const freshPolicy = await resolveFieldDecision({
++      descriptor: changed,
++      records,
++      correlationId: await stableSemanticId("cor", "aria-fresh"),
++    });
++    expect(freshPolicy.status).toBe("RESOLVED");
++    if (freshPolicy.status === "RESOLVED")
++      expect(freshPolicy.resolution.decision.final_decision).not.toBe("FILL");
++    const execution = await dynExecute(h, [tx]);
++    const inventory = await dynReconcile(h, top.frame_context.frame_id);
++    const physical = await h.page.evaluate(() => {
++      const host = document.querySelector("#mode");
++      if (host === null) throw new Error("ARIA host missing");
++      return {
++        activeId: host.getAttribute("aria-activedescendant"),
++        selected: [
++          ...document.querySelectorAll<HTMLElement>("[aria-selected=true]"),
++        ].map((o) => ({
++          id: o.id,
++          value: o.getAttribute("data-value"),
++          label: o.textContent,
++        })),
++      };
++    });
++    const native = await witness.snapshot();
++    await record(info, "aria-before-write", {
++      before,
++      approval,
++      tx,
++      changed,
++      freshPolicy,
++      execution,
++      inventory,
++      physical,
++      native,
++      browserVersion: extensionContext.browser()?.version(),
++    });
++    expect(native.native_mutation_count).toBe(0);
++    expect(firstDriverOutcome(execution)).not.toBe("VERIFIED");
++  } finally {
++    await witness.dispose();
++    await h.page.close();
++    await h.controller.close();
++  }
++});
+--- /dev/null
++++ b/e2e/extension/support/independent-w14-evidence.ts
+@@ -0,0 +1,76 @@
++/** Shared helpers for the independent W14 regression drafts. */
++import { writeFileSync } from "node:fs";
++import type { TestInfo } from "@playwright/test";
++import type { FormFieldDescriptorV1 } from "../../../packages/contracts/generated/typescript/index.ts";
++import {
++  buildApprovedRecordSet,
++  resolveFieldDecision,
++  stableSemanticId,
++} from "../../../packages/form-engine/src/index.ts";
++import type { Harness, dynExecute } from "./research-harness.ts";
++
++export interface IndependentEventMeter {
++  input: number;
++  change: number;
++}
++
++export async function countryPolicy(
++  descriptor: FormFieldDescriptorV1,
++  seed: string,
++  valueToken = "US",
++) {
++  return resolveFieldDecision({
++    descriptor,
++    records: buildApprovedRecordSet([
++      {
++        recordId: await stableSemanticId("record", "independent-country"),
++        concept: "ADDRESS_COUNTRY",
++        valueToken,
++        policy: "FILL_FROM_EXPLICIT_RECORD",
++        confirmation: { state: "MISSING" },
++        valueConfidence: 1,
++      },
++    ]),
++    correlationId: await stableSemanticId("cor", seed),
++  });
++}
++
++export function nativeSelectPhysical(harness: Harness) {
++  return harness.page.evaluate(() => {
++    const select = document.querySelector("select");
++    if (select === null) throw new Error("native select missing");
++    return {
++      value: select.value,
++      label: select.selectedOptions[0]?.textContent,
++      options: [...select.options].map((option) => ({
++        value: option.value,
++        label: option.textContent,
++        selected: option.selected,
++      })),
++      meter: (window as unknown as { independentMeter: IndependentEventMeter })
++        .independentMeter,
++    };
++  });
++}
++
++export async function recordIndependentEvidence(
++  info: TestInfo,
++  name: string,
++  value: Readonly<Record<string, unknown>>,
++): Promise<void> {
++  const body = JSON.stringify(value, null, 2);
++  // Preserve the raw JSON plus its attachment using Playwright's portable
++  // per-test output directory rather than the original probe's /tmp path.
++  writeFileSync(info.outputPath(`native-${name}.json`), body);
++  await info.attach(name, { body, contentType: "application/json" });
++}
++
++/** Preserve the probes' result expectation without treating suppression as success. */
++export function firstDriverOutcome(
++  execution: Awaited<ReturnType<typeof dynExecute>>,
++) {
++  const item = execution.items[0];
++  if (item === undefined) return undefined;
++  if (!("result" in item)) throw new Error("driver result missing");
++  return item.result.outcome;
++}
+--- /dev/null
++++ b/e2e/extension/extension-w14-inventory-property.spec.ts
+@@ -0,0 +1,176 @@
++/** Actual W11 final-inventory publication property-only freshness regression. */
++import { test, expect } from "./support/extension-test.ts";
++import { installW14NativeWitness } from "./support/autofill-w14-native-witness.ts";
++import {
++  openHarness,
++  setFixture,
++  scanFrames,
++  foundTopFrame,
++  descriptorByLabel,
++  dynExecute,
++  dynReconcile,
++  reconciled,
++} from "./support/research-harness.ts";
++import { approvedTransaction } from "./support/research-core.ts";
++import {
++  firstDriverOutcome,
++  recordIndependentEvidence,
++} from "./support/independent-w14-evidence.ts";
++
++function installResultHashPause(prefix: string): void {
++  const host = globalThis as unknown as {
++    __JAPP_W14_TEST_RESULT_HASH_PAUSE__?: {
++      reached: boolean;
++      release(): void;
++      restore(): void;
++    };
++  };
++  const subtle = crypto.subtle;
++  const prior = Object.getOwnPropertyDescriptor(subtle, "digest");
++  const nativeDigest = subtle.digest.bind(subtle);
++  let release: (() => void) | undefined;
++  const wait = new Promise<void>((resolve) => {
++    release = resolve;
++  });
++  const gate = {
++    reached: false,
++    release() {
++      release?.();
++    },
++    restore() {
++      release?.();
++      if (prior === undefined) Reflect.deleteProperty(subtle, "digest");
++      else Object.defineProperty(subtle, "digest", prior);
++      Reflect.deleteProperty(host, "__JAPP_W14_TEST_RESULT_HASH_PAUSE__");
++    },
++  };
++  host.__JAPP_W14_TEST_RESULT_HASH_PAUSE__ = gate;
++  Object.defineProperty(subtle, "digest", {
++    configurable: true,
++    writable: true,
++    value(
++      algorithm: AlgorithmIdentifier,
++      data: BufferSource,
++    ): Promise<ArrayBuffer> {
++      const native = nativeDigest(algorithm, data);
++      const seed = new TextDecoder().decode(data);
++      if (!gate.reached && seed.startsWith(prefix)) {
++        gate.reached = true;
++        return native.then(async (digest) => {
++          await wait;
++          return digest;
++        });
++      }
++      return native;
++    },
++  });
++}
++
++test("W14: final inventory hash refuses eventless native value drift", async ({
++  extensionContext,
++  extensionId,
++  serviceWorker,
++}, info) => {
++  const h = await openHarness(
++    extensionContext,
++    extensionId,
++    serviceWorker,
++    "/native/",
++  );
++  const witness = await installW14NativeWitness(
++    extensionContext,
++    h.page,
++    extensionId,
++  );
++  let pending: ReturnType<typeof dynReconcile> | undefined;
++  try {
++    await setFixture(
++      h,
++      '<form data-japp-application-root="true"><label for="first">First name</label><input id="first" name="first" required></form>',
++    );
++    const top = foundTopFrame(await scanFrames(h));
++    const field = descriptorByLabel(top.descriptors, "First name");
++    const tx = await approvedTransaction(field, "final-inventory-property", {
++      kind: "TEXT",
++      text: "Synthetic",
++    });
++    const execution = await dynExecute(h, [tx]);
++    expect(firstDriverOutcome(execution)).toBe("VERIFIED");
++    const baseline = reconciled(
++      await dynReconcile(h, top.frame_context.frame_id),
++    );
++    expect(baseline.inventory.readiness).toBe("READY");
++    const priorNative = await witness.snapshot();
++    await witness.session.send("Runtime.evaluate", {
++      contextId: witness.contextId,
++      expression: `(${installResultHashPause.toString()})(${JSON.stringify("w11-inventory-v1\0")})`,
++    });
++    pending = dynReconcile(h, top.frame_context.frame_id);
++    await expect
++      .poll(
++        async () => {
++          const result = await witness.session.send("Runtime.evaluate", {
++            contextId: witness.contextId,
++            expression:
++              "globalThis.__JAPP_W14_TEST_RESULT_HASH_PAUSE__?.reached === true",
++            returnByValue: true,
++          });
++          return result.result.value === true;
++        },
++        { timeout: 5000 },
++      )
++      .toBe(true);
++    const mutationRecords = await h.page.evaluate(() => {
++      const observer = new MutationObserver(() => undefined);
++      observer.observe(document, {
++        subtree: true,
++        childList: true,
++        attributes: true,
++        characterData: true,
++      });
++      const input = document.querySelector("input");
++      if (input === null) throw new Error("native input missing");
++      input.value = "Changed by site";
++      const count = observer.takeRecords().length;
++      observer.disconnect();
++      return count;
++    });
++    await witness.session.send("Runtime.evaluate", {
++      contextId: witness.contextId,
++      expression: "globalThis.__JAPP_W14_TEST_RESULT_HASH_PAUSE__.release()",
++    });
++    const publication = await pending;
++    pending = undefined;
++    const current = await dynReconcile(h, top.frame_context.frame_id);
++    const native = await witness.snapshot();
++    const value = await h.page.locator("#first").inputValue();
++    await recordIndependentEvidence(info, "inventory-eventless-value", {
++      field,
++      tx,
++      execution,
++      baseline,
++      priorNative,
++      mutationRecords,
++      publication,
++      current,
++      native,
++      value,
++    });
++    expect(mutationRecords).toBe(0);
++    expect(value).toBe("Changed by site");
++    expect(publication.status).toBe("ROOT_UNRESOLVED");
++    expect(reconciled(current).inventory.readiness).toBe("NOT_READY");
++    expect(native.native_mutation_count).toBe(
++      priorNative.native_mutation_count,
++    );
++  } finally {
++    await witness.session.send("Runtime.evaluate", {
++      contextId: witness.contextId,
++      expression: "globalThis.__JAPP_W14_TEST_RESULT_HASH_PAUSE__?.restore()",
++    });
++    await pending?.catch(() => undefined);
++    await witness.dispose();
++    await h.page.close();
++    await h.controller.close();
++  }
++});
+--- /dev/null
++++ b/e2e/extension/extension-w14-selected-duplicate.spec.ts
+@@ -0,0 +1,116 @@
++/** Actual selected-option ambiguity after a verified transaction. */
++import { test, expect } from "./support/extension-test.ts";
++import { installW14NativeWitness } from "./support/autofill-w14-native-witness.ts";
++import {
++  openHarness,
++  setFixture,
++  scanFrames,
++  foundTopFrame,
++  descriptorByLabel,
++  buildTransaction,
++  dynExecute,
++  dynReconcile,
++  reconciled,
++} from "./support/research-harness.ts";
++import {
++  countryPolicy,
++  firstDriverOutcome,
++  nativeSelectPhysical,
++  recordIndependentEvidence,
++} from "./support/independent-w14-evidence.ts";
++
++test("W14: a duplicate selected raw value cannot retain verified option meaning", async ({
++  extensionContext,
++  extensionId,
++  serviceWorker,
++}, info) => {
++  const h = await openHarness(
++    extensionContext,
++    extensionId,
++    serviceWorker,
++    "/native/",
++  );
++  const witness = await installW14NativeWitness(
++    extensionContext,
++    h.page,
++    extensionId,
++  );
++  try {
++    await setFixture(
++      h,
++      '<form data-japp-application-root="true"><label for="country">Country</label><select id="country" required><option value="">Choose</option><option value="US">United States</option><option value="CA">Canada</option></select></form>',
++    );
++    await h.page.evaluate(() => {
++      const select = document.querySelector("select");
++      if (select === null) throw new Error("native select missing");
++      const meter = { input: 0, change: 0 };
++      (
++        window as unknown as { independentMeter: typeof meter }
++      ).independentMeter = meter;
++      select.addEventListener("input", () => {
++        meter.input++;
++      });
++      select.addEventListener("change", () => {
++        meter.change++;
++      });
++    });
++    const top = foundTopFrame(await scanFrames(h));
++    const field = descriptorByLabel(top.descriptors, "Country");
++    const approval = await countryPolicy(field, "post-verified-duplicate");
++    if (
++      approval.status !== "RESOLVED" ||
++      approval.resolution.optionResolution?.status !== "RESOLVED"
++    )
++      throw new Error("actual W09 option approval missing");
++    expect(approval.resolution.decision.final_decision).toBe("FILL");
++    const tx = await buildTransaction(
++      field,
++      {
++        kind: "OPTION",
++        value_digest: approval.resolution.optionResolution.valueDigest,
++      },
++      approval.resolution.decision,
++      "post-verified-duplicate",
++    );
++    const execution = await dynExecute(h, [tx]);
++    expect(firstDriverOutcome(execution)).toBe("VERIFIED");
++    expect(
++      reconciled(await dynReconcile(h, top.frame_context.frame_id)).inventory
++        .readiness,
++    ).toBe("READY");
++    const prior = await nativeSelectPhysical(h);
++    const priorNative = await witness.snapshot();
++    await h.page.evaluate(() => {
++      const select = document.querySelector("select");
++      if (select === null) throw new Error("native select missing");
++      select.add(new Option("Canada", "US"));
++      select.selectedIndex = select.options.length - 1;
++    });
++    const current = await dynReconcile(h, top.frame_context.frame_id);
++    const after = await nativeSelectPhysical(h);
++    const native = await witness.snapshot();
++    await recordIndependentEvidence(info, "selected-duplicate", {
++      field,
++      approval,
++      tx,
++      execution,
++      prior,
++      priorNative,
++      current,
++      after,
++      native,
++    });
++    expect(after.value).toBe("US");
++    expect(after.label).toBe("Canada");
++    expect(after.meter).toEqual(prior.meter);
++    expect(native.native_mutation_count).toBe(
++      priorNative.native_mutation_count,
++    );
++    expect(reconciled(current).inventory.readiness).toBe("NOT_READY");
++    expect(reconciled(current).inventory.counts.required_unresolved).toBe(1);
++  } finally {
++    await witness.dispose();
++    await h.page.close();
++    await h.controller.close();
++  }
++});

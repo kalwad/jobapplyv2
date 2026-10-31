@@ -1,0 +1,87 @@
+{
+  "archive_sha256": "a0efe039e983a915d86ccf44b8baffb2e2ef8b2228a5ca5935580a6f53df30bb",
+  "archive_bytes": 38529,
+  "regular_members": 17,
+  "files": [
+    {
+      "path": "integrated-source/apps/extension/test/m02-w14/evaluation-resource-cleanup.test.ts",
+      "bytes": 9185,
+      "sha256": "31b2e3413ce96504de333d307d05b3ad75f3a88b9ba0e0cdd83ac562e3ab0586"
+    },
+    {
+      "path": "integrated-source/e2e/extension/public-contact/contact-harness.ts",
+      "bytes": 28687,
+      "sha256": "581856c96dc5afb84a1b1f5561cfb642439fb3373255b44d6b1371e4fce4c3ff"
+    },
+    {
+      "path": "integrated-source/e2e/extension/public-research/inspection-harness.ts",
+      "bytes": 7382,
+      "sha256": "87c26a4895dca733dc90085f49e7830f36e4f30a2601ef51daecac9cfaf40336"
+    },
+    {
+      "path": "root-checks/commands.json",
+      "bytes": 4145,
+      "sha256": "a8d0057adcdd5c48e05b4f08bd29dfc462bf5a4bea64437e73a8018193e80082"
+    },
+    {
+      "path": "root-checks/diff.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "root-checks/extension-unit.log",
+      "bytes": 286,
+      "sha256": "7d40822735744a568b8a7fb096a6dcb9fb98984e79c4c1072a74ee0d5c2dec13"
+    },
+    {
+      "path": "root-checks/format.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "root-checks/japp-m02-w15-cleanup-root-checks-20261017.py",
+      "bytes": 1931,
+      "sha256": "8c695fb331dc1237a8a32ab8e82267cbcdfdfdff67ea8ede8a7320e976fed9ef"
+    },
+    {
+      "path": "root-checks/japp-m02-w15-cleanup-runtime-inventory.json",
+      "bytes": 67848,
+      "sha256": "0d8ccc8c9b56f1e25df6914ed4311d5787389c00bb0b2748a1d9832b41785c64"
+    },
+    {
+      "path": "root-checks/japp-m02-w15-retained-archives-preflight.json",
+      "bytes": 8898,
+      "sha256": "b235bbcdd9b15c9ab308f64bab7057f9e263ecc552f85e8b5cc3f1133ec6cdfb"
+    },
+    {
+      "path": "root-checks/lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "root-checks/status.log",
+      "bytes": 3563,
+      "sha256": "84b501d18c32b2526bf9e2b72d40d08aa9d87edda83d25ca2cc8bc69a445ec55"
+    },
+    {
+      "path": "root-checks/test-policy.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "root-checks/traceability.log",
+      "bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "path": "root-checks/typecheck.log",
+      "bytes": 3067,
+      "sha256": "1a53c024f64c204cd385b474c97fecf836e248ff24fec737dbcfe5fa0e016552"
+    },
+    {
+      "path": "start-history/initial-traceability-failure.json",
+      "bytes": 358,
+      "sha256": "dc8137a6264ad00a70a633ffeacbd19d9af0245ede3882adf99e766cc9ef798f"
+    }
+  ]
+}

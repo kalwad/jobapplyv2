@@ -1,0 +1,322 @@
+{
+  "format_version": "W14_W06_SUPPLEMENTAL_HANDOFF_1",
+  "authority": "NONE",
+  "prepared_at": "2026-10-16T16:10:58.914257+00:00",
+  "isolated_copy": "/tmp/japp-w14-w06-run.xk0qj6t5",
+  "current_repository_mutated": false,
+  "metrics": {
+    "declared_contact_total": 43,
+    "attempted": 40,
+    "correct": 40,
+    "required_expected": 30,
+    "required_correct": 27,
+    "all_visible_required_count": 58,
+    "unreported_required": 1
+  },
+  "commands": [
+    {
+      "command": "/opt/homebrew/Cellar/node@24/24.18.0/bin/node node_modules/typescript/bin/tsc -p tsconfig.json --noEmit",
+      "cwd": "/tmp/japp-w14-w06-run.xk0qj6t5",
+      "exit_code": 0,
+      "log": "typecheck-direct.log"
+    },
+    {
+      "command": "JAPP_W14_W06_ARTIFACT_DIRECTORY=/tmp/japp-w14-w06-draft/before-shadow-fix /opt/homebrew/Cellar/node@24/24.18.0/bin/node node_modules/@playwright/test/cli.js test --config=playwright.w06.config.ts e2e/extension/extension-w14-w06.spec.ts",
+      "cwd": "/tmp/japp-w14-w06-run.xk0qj6t5",
+      "exit_code": 1,
+      "test_counts": {
+        "passed": 0,
+        "failed": 1
+      },
+      "complete_raw_case_rows": 32,
+      "log": "before-shadow-fix32.log"
+    },
+    {
+      "command": "JAPP_W14_W06_ARTIFACT_DIRECTORY=/tmp/japp-w14-w06-draft/before-shadow-fix /opt/homebrew/Cellar/node@24/24.18.0/bin/node node_modules/@playwright/test/cli.js test --config=playwright.w06.config.ts e2e/extension/extension-w14-w06.spec.ts e2e/extension/extension-w14-shadow-gap.spec.ts",
+      "cwd": "/tmp/japp-w14-w06-run.xk0qj6t5",
+      "exit_code": 1,
+      "test_counts": {
+        "passed": 0,
+        "failed": 2
+      },
+      "classification": "Exact mounted shadow gap reproduced; original32 runner stopped at source-inventory EISDIR before anycase. Dependency symlink paths excluded before second run; retained initial output.",
+      "log": "attempt1-before-inventory-correction.log"
+    }
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 5809,
+      "sha256": "8c484e0461b5fcedd143a67f6d2881fb0355b09b7f15d0d26a5a184ae1bd1bb1"
+    },
+    {
+      "path": "after-final-typecheck.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "after-format-hint-source.json",
+      "bytes": 365,
+      "sha256": "34e3edd993eb980ed8e5af180be4fe2c36b7155df5f47f8b8ca200c787935e71"
+    },
+    {
+      "path": "after-format-typecheck.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "after-root.txt",
+      "bytes": 33,
+      "sha256": "6213e038477adf261cec0c15842bfd79dea490df56be414665c5323ad8ce09dd"
+    },
+    {
+      "path": "after-shadow-fix/assessment.json",
+      "bytes": 1360,
+      "sha256": "3c262922b2414f67efcda6ccf24ef937ebe76248b43563baf1dcbe65c308743c"
+    },
+    {
+      "path": "after-shadow-fix/extension-build.tar.gz",
+      "bytes": 39577,
+      "sha256": "c36692784c66e7b0bb9bf4afefa93f03379a49898863f5778263f7f88c7edf50"
+    },
+    {
+      "path": "after-shadow-fix/mounted-run.json.gz",
+      "bytes": 279483,
+      "sha256": "d89861a3f3d382d25c10b7e5bea2f30c48dc14c752bca2e0224cca3ef804d85a"
+    },
+    {
+      "path": "after-shadow-fix/predeclared-cohort.json",
+      "bytes": 19617,
+      "sha256": "88a75ae9e49c9100180047bada3247db2a80b9cd43e75cbd4d1ff2cab49c9778"
+    },
+    {
+      "path": "after-shadow-fix/shadow-required-gap.json",
+      "bytes": 16042,
+      "sha256": "054146a568fb8bb12046dc8f3a3a1a9cd708123d26ee86e563322244c994ba6a"
+    },
+    {
+      "path": "after-shadow-fix/source-preimages.tar.gz",
+      "bytes": 2663732,
+      "sha256": "e7c54206b4ccbc7e024edf4d83152fddcc6a2aa29f3c15e6e92c23ef6059b2fb"
+    },
+    {
+      "path": "after-shadow-fix-diagnostics/.last-run.json",
+      "bytes": 45,
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "after-shadow-fix.log",
+      "bytes": 1770,
+      "sha256": "691a66618271271aa43e71c52c02a066c538fb9695c6dc3c5dd49161a801fbec"
+    },
+    {
+      "path": "after-typecheck.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "applied-shadow-preimages.json",
+      "bytes": 1744,
+      "sha256": "c9ec50cf90e6d8d5ab79bd3a7d9a891499aec2e169a5b0f0fb0b9f218dfc8e18"
+    },
+    {
+      "path": "attempt1-before-inventory-correction.log",
+      "bytes": 7230,
+      "sha256": "5ead69ad23f5f2fb0c21f91b6db96a18a2293de8024d8b6013068a64de55e1a2"
+    },
+    {
+      "path": "attempt1-diagnostics/.last-run.json",
+      "bytes": 145,
+      "sha256": "28d00bee890c3765aafa71b4eadc37fd85a592d030e1a8324b27c3e97a94a2da"
+    },
+    {
+      "path": "attempt1-diagnostics/extension-extension-w14-sh-62c4c-s-reported-and-never-filled-chromium/error-context.md",
+      "bytes": 5465,
+      "sha256": "808479e51d9d24ec3a6b648af4e71792e962efd75be24cb9ede861f010b30698"
+    },
+    {
+      "path": "attempt1-diagnostics/extension-extension-w14-sh-62c4c-s-reported-and-never-filled-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "attempt1-diagnostics/extension-extension-w14-sh-62c4c-s-reported-and-never-filled-chromium/trace.zip",
+      "bytes": 92729,
+      "sha256": "40c6fc3d140cf0037f12b88f45bf4309b3b767658e0077263a53c2ef9f65525b"
+    },
+    {
+      "path": "attempt1-diagnostics/extension-extension-w14-w0-24e31--real-MV3-contact-execution-chromium/error-context.md",
+      "bytes": 13960,
+      "sha256": "d9ea4a2d689de94761bc06c3223a918b4cf652b1d0beaa6cbebf06bfe9c6c5b6"
+    },
+    {
+      "path": "attempt1-diagnostics/extension-extension-w14-w0-24e31--real-MV3-contact-execution-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "attempt1-diagnostics/extension-extension-w14-w0-24e31--real-MV3-contact-execution-chromium/trace.zip",
+      "bytes": 12389,
+      "sha256": "9be31a8eaea26e5f46f407877acf851c37c65e6052371750648fbf6b06020d56"
+    },
+    {
+      "path": "audit.mjs",
+      "bytes": 4294,
+      "sha256": "80e9ce5375c42c26c77b3ca55b7b6d387dc7531a244ff93f9b986a32b9cfda1b"
+    },
+    {
+      "path": "before-after-comparison.json",
+      "bytes": 3774,
+      "sha256": "e7e5dfa29c9a60a5b9df78bcb1ee4b1c9c5488bed974fc2c675379bf006a6ad5"
+    },
+    {
+      "path": "before-shadow-fix/assessment.json",
+      "bytes": 1360,
+      "sha256": "95c7a002160f09266cfc60d3949b59c0a59cddfb36a6bc835cb09ce5f11dec33"
+    },
+    {
+      "path": "before-shadow-fix/extension-build.tar.gz",
+      "bytes": 38351,
+      "sha256": "b92cc1b940670958b3e734b657e3713f67d37feff5e9602c498813cb520a5344"
+    },
+    {
+      "path": "before-shadow-fix/mounted-run.json.gz",
+      "bytes": 277385,
+      "sha256": "84f6cc4705a6aa7893e61dcca1875529e8a0875df1e86221ba32296817637f1d"
+    },
+    {
+      "path": "before-shadow-fix/predeclared-cohort.json",
+      "bytes": 19617,
+      "sha256": "88a75ae9e49c9100180047bada3247db2a80b9cd43e75cbd4d1ff2cab49c9778"
+    },
+    {
+      "path": "before-shadow-fix/shadow-required-gap.json",
+      "bytes": 4137,
+      "sha256": "2aab602da0abe885c4c79b0e5602ce4d18cbdb5d9b0e94f3706094d2cd15b14b"
+    },
+    {
+      "path": "before-shadow-fix/source-preimages.tar.gz",
+      "bytes": 2652052,
+      "sha256": "658d9f353f26f9640c234373203f680495764f43e1238c034594ecffa709b8ce"
+    },
+    {
+      "path": "before-shadow-fix-diagnostics/.last-run.json",
+      "bytes": 96,
+      "sha256": "0a5dc8217e60f896b26b5172f5ee3e478870b5b7bc64ec6535757887645e9adf"
+    },
+    {
+      "path": "before-shadow-fix-diagnostics/extension-extension-w14-w0-24e31--real-MV3-contact-execution-chromium/error-context.md",
+      "bytes": 12521,
+      "sha256": "38958eaa7daa83bfd21c00b956ae58ff4b2fa2381a021b35f07bd8d1a0b2a45b"
+    },
+    {
+      "path": "before-shadow-fix-diagnostics/extension-extension-w14-w0-24e31--real-MV3-contact-execution-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "before-shadow-fix-diagnostics/extension-extension-w14-w0-24e31--real-MV3-contact-execution-chromium/trace.zip",
+      "bytes": 5213094,
+      "sha256": "653bc84cf568189cc4c22aff7c90a12272b40ca16c2b881458ebdc1453b6e892"
+    },
+    {
+      "path": "before-shadow-fix.log",
+      "bytes": 7230,
+      "sha256": "5ead69ad23f5f2fb0c21f91b6db96a18a2293de8024d8b6013068a64de55e1a2"
+    },
+    {
+      "path": "before-shadow-fix32.log",
+      "bytes": 4180,
+      "sha256": "a567944b190e146c0194b2b50bd1c1792104943a689a2accefddd9df0bcbd4d0"
+    },
+    {
+      "path": "build_feature_mapping.py",
+      "bytes": 13047,
+      "sha256": "60656d924023fa4010afa4899c2646207638437d2d6bff16941ed5bf211f02f0"
+    },
+    {
+      "path": "development-gap-audit.json",
+      "bytes": 115180,
+      "sha256": "dc734b44d7f86c99dfa672ebcd6e775f630bf0afefb8401b4ec8c7aae26668ca"
+    },
+    {
+      "path": "feature-evidence-source-map.json",
+      "bytes": 100693,
+      "sha256": "72dc4530ec1a89a2cc42e3b89322d505ab7f828b4c14ce7c746d828fb2b20f05"
+    },
+    {
+      "path": "feature-evidence-source-map.md",
+      "bytes": 34963,
+      "sha256": "96e327d6d82d8bef0f137dda3779af7cb83ab8ff40485bb1f85c9367665edbd5"
+    },
+    {
+      "path": "mounted-w06.patch",
+      "bytes": 27229,
+      "sha256": "854dd9874bf80c48c20871dcbd064545073693cc5bd236605b0112df86063a97"
+    },
+    {
+      "path": "prepare_after.py",
+      "bytes": 1434,
+      "sha256": "e7451b017f248eaaceef1db9d6307fa63690da41ee03754510df2fd4de6cf96a"
+    },
+    {
+      "path": "prepare_copy.py",
+      "bytes": 1430,
+      "sha256": "2752e7469ec405f9ecad9878a84f4f3bdc322276170c63474889029cc1bf3f3f"
+    },
+    {
+      "path": "proposed/e2e/extension/extension-w14-shadow-gap.spec.ts",
+      "bytes": 4191,
+      "sha256": "e47b3bd4976410ecbfbfdd7a5e34c3d41bbd3d4b65bd77a564b8739db8f8a605"
+    },
+    {
+      "path": "proposed/e2e/extension/extension-w14-w06.spec.ts",
+      "bytes": 18237,
+      "sha256": "99ac337416e92e97db9dc4aae4215a60ca13845f99211cfa84a98488447b063e"
+    },
+    {
+      "path": "proposed/e2e/extension/support/autofill-mounted.ts",
+      "bytes": 4168,
+      "sha256": "7e9a00d9a077f6e40bff6cf2a9419ebf0d7e24f29b4260d770369379eafc8ef1"
+    },
+    {
+      "path": "run-root.txt",
+      "bytes": 31,
+      "sha256": "5ef96ddf69b3733a424c769d0723e5b17e5ef8413ef7561727e0809604b731fa"
+    },
+    {
+      "path": "typecheck-before.log",
+      "bytes": 1342,
+      "sha256": "cf6677263ace7b4026b4475e6bf860d30ce72a45936e74927e4cd2db61585178"
+    },
+    {
+      "path": "typecheck-direct.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "typecheck-pinned.log",
+      "bytes": 1672,
+      "sha256": "ab5465ae15faf700f1f17e4fea7c6487d0b4d6ffc828798ba1f111f79aa5f538"
+    }
+  ],
+  "after_commands": [
+    {
+      "command": "/opt/homebrew/Cellar/node@24/24.18.0/bin/node node_modules/typescript/bin/tsc -p tsconfig.json --noEmit",
+      "cwd": "/tmp/japp-w14-w06-after.r670lgkc",
+      "exit_code": 0,
+      "log": "after-final-typecheck.log"
+    },
+    {
+      "command": "JAPP_W14_W06_ARTIFACT_DIRECTORY=/tmp/japp-w14-w06-draft/after-shadow-fix /opt/homebrew/Cellar/node@24/24.18.0/bin/node node_modules/@playwright/test/cli.js test --config=playwright.w06.config.ts e2e/extension/extension-w14-w06.spec.ts e2e/extension/extension-w14-shadow-gap.spec.ts",
+      "cwd": "/tmp/japp-w14-w06-after.r670lgkc",
+      "exit_code": 0,
+      "test_counts": {
+        "passed": 2,
+        "failed": 0
+      },
+      "log": "after-shadow-fix.log",
+      "scope": "Isolated snapshot with exact eight shadow patch files and exact root classifier/format test bytes, unchanged oracle"
+    }
+  ]
+}

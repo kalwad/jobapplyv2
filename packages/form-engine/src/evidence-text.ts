@@ -14,7 +14,9 @@ const QUALIFIER_SUFFIX = /\s*\((required|optional)\)\s*$/i;
  */
 export function normalizeEvidence(value: string): string {
   return value
+    .normalize("NFKC")
     .replace(QUALIFIER_SUFFIX, "")
+    .replaceAll(/[ßẞ]/g, "ss")
     .toLowerCase()
     .replaceAll(/[^a-z0-9]+/g, " ")
     .trim();

@@ -1,0 +1,395 @@
+{
+  "review_scope": "INDEPENDENT_ROOT_RETENTION_PACKAGING_ONLY_NOT_REAUDIT_OF_AUTHORED_INDEX",
+  "verdict": "CLEAR",
+  "authority": "NONE",
+  "archive": {
+    "path": "/tmp/japp-w14-candidate-handoff-retained-20261017/proof.tar.gz",
+    "sha256": "f9a2837336150dcb4d5b8d1781c05e3e4d108ea951c9af178f0f5176a548045f",
+    "bytes": 5653702,
+    "regular_members": 33,
+    "payload_bytes": 8880372
+  },
+  "checks_passed": 32,
+  "checks_failed": 0,
+  "checks": [
+    {
+      "check": "exact supplied archive SHA256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "exact supplied archive length",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "33 unique sorted safe regular members",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "no link/device/FIFO/extraction entry authority",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "deterministic inert member metadata",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "exact total unpacked payload bytes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "outer index exhaustive33 exact bytes/digests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "embedded index exhaustive32 excluding only self",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "mounted-retention exhaustive original directory file set",
+      "passed": true,
+      "detail": {
+        "original": 12,
+        "archived": 12
+      }
+    },
+    {
+      "check": "mounted-retention no original symlinks",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "mounted-retention all original file bytes exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "candidate-index exhaustive original directory file set",
+      "passed": true,
+      "detail": {
+        "original": 18,
+        "archived": 18
+      }
+    },
+    {
+      "check": "candidate-index no original symlinks",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "candidate-index all original file bytes exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "embedded wrapper equals original bytes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "embedded builder equals original bytes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "mounted command binds exact embedded wrapper",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "candidate17 payload seal exact and exhaustive",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "candidate proposal original seal expected hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "lossless200 retained objects/IDs/case/rawdigests indexed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "no gate authority or canonical bundle promotion",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "mounted173 plus separate2 historical read-only audit bytes preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "scope counts support summary without32success inflation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "summary counts match contained audit objects",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "measured safety0 summary matches contained counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "historical730/current1d anchors distinct",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "original checker failure and corrected source retained",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "report scope explicit and approval not invented",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "exactly one retained original trace",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "inner trace ZIP295 safe unique entries/CRC",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "retained trace network observed requests stay loopback/extension GET",
+      "passed": true,
+      "detail": {
+        "origins": {
+          "http://127.0.0.1:4761": 173,
+          "chrome-extension://okadfeoflphahhdjijenjfpjpbdgmcjk": 32
+        },
+        "methods": {
+          "GET": 205
+        },
+        "url_credentials": 0
+      }
+    },
+    {
+      "check": "no extracted code execution needed for retention check",
+      "passed": true,
+      "detail": "Only standard-library archive/data readers used; embedded builder/wrapper/checkers never invoked."
+    }
+  ],
+  "original_file_byte_bindings": [
+    {
+      "archive_member": "mounted-retention/after.json",
+      "original_path": "/tmp/japp-w14-mounted-retention-20261017/after.json",
+      "bytes": 295547,
+      "sha256": "ebcaf78e001c7bb3c75d6656159c8b6172c0aa880c4785c39d1c5897cfc52282"
+    },
+    {
+      "archive_member": "mounted-retention/artifacts/.last-run.json",
+      "original_path": "/tmp/japp-w14-mounted-retention-20261017/artifacts/.last-run.json",
+      "bytes": 45,
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "archive_member": "mounted-retention/artifacts/extension-extension-w14-w0-24e31--real-MV3-contact-execution-chromium/trace.zip",
+      "original_path": "/tmp/japp-w14-mounted-retention-20261017/artifacts/extension-extension-w14-w0-24e31--real-MV3-contact-execution-chromium/trace.zip",
+      "bytes": 5485824,
+      "sha256": "6019f433a74095c0a204769ec062645a698b06de6642a5b39f3c8608248fd498"
+    },
+    {
+      "archive_member": "mounted-retention/before.json",
+      "original_path": "/tmp/japp-w14-mounted-retention-20261017/before.json",
+      "bytes": 295547,
+      "sha256": "16c124db0d639f3f07da10e12c2167bbb61681aaf9bc3374e1abfe4ab5a9fe79"
+    },
+    {
+      "archive_member": "mounted-retention/built-extension-after.json",
+      "original_path": "/tmp/japp-w14-mounted-retention-20261017/built-extension-after.json",
+      "bytes": 529,
+      "sha256": "95b6497c3227de689200ce3a6b3d5593ac80ed1348cb897fbee90792b66b9ed4"
+    },
+    {
+      "archive_member": "mounted-retention/command.json",
+      "original_path": "/tmp/japp-w14-mounted-retention-20261017/command.json",
+      "bytes": 837,
+      "sha256": "a055c1f320d8d5e49842f4b001a29277880e1c8cddc084c3fa11d0c9251fb422"
+    },
+    {
+      "archive_member": "mounted-retention/completion.json",
+      "original_path": "/tmp/japp-w14-mounted-retention-20261017/completion.json",
+      "bytes": 401,
+      "sha256": "5c13f93dbe58202d88dd2c37806b23c3e0a38f4cac9d30108af27089a8a51cab"
+    },
+    {
+      "archive_member": "mounted-retention/payload/assessment.json",
+      "original_path": "/tmp/japp-w14-mounted-retention-20261017/payload/assessment.json",
+      "bytes": 1360,
+      "sha256": "dd2cab78ca6450cd247a3bb39dcd3c8c9aae562b346d73c74a5a03d15bc6414a"
+    },
+    {
+      "archive_member": "mounted-retention/payload/mounted-run.json.gz",
+      "original_path": "/tmp/japp-w14-mounted-retention-20261017/payload/mounted-run.json.gz",
+      "bytes": 316153,
+      "sha256": "835e6d51fff8508850d63cf4073752f8a06278e70ef35d178e3158e8a38b3f38"
+    },
+    {
+      "archive_member": "mounted-retention/payload/predeclared-cohort.json",
+      "original_path": "/tmp/japp-w14-mounted-retention-20261017/payload/predeclared-cohort.json",
+      "bytes": 19617,
+      "sha256": "88a75ae9e49c9100180047bada3247db2a80b9cd43e75cbd4d1ff2cab49c9778"
+    },
+    {
+      "archive_member": "mounted-retention/results.json",
+      "original_path": "/tmp/japp-w14-mounted-retention-20261017/results.json",
+      "bytes": 425391,
+      "sha256": "e57821431a73b39e7b2daf6f5576f9c7d9c955bc81a91d3beb91a5b58125e69b"
+    },
+    {
+      "archive_member": "mounted-retention/run.log",
+      "original_path": "/tmp/japp-w14-mounted-retention-20261017/run.log",
+      "bytes": 1920,
+      "sha256": "e1c68c23fc5c9ac632253d1cba7c3dad03dc4eec839668decd8ca8f8e3eb9d1c"
+    },
+    {
+      "archive_member": "candidate-index/README.md",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/README.md",
+      "bytes": 3954,
+      "sha256": "192af687a35278f4b236a923d76d06f27df0c7e6161082d9ccbd3292cfe66235"
+    },
+    {
+      "archive_member": "candidate-index/aggregate-730.log",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/aggregate-730.log",
+      "bytes": 604581,
+      "sha256": "5260a9056fc95e00fae9d5b66fe980f451b306ae98da0fbfae04ae8ba6bd04af"
+    },
+    {
+      "archive_member": "candidate-index/audit-mounted-retention-first-normalization-assumption.py",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/audit-mounted-retention-first-normalization-assumption.py",
+      "bytes": 9804,
+      "sha256": "ec10f755898332d14c9d305d5a4fbd7aad8e7dbf4060a5b272c9d3b191de5839"
+    },
+    {
+      "archive_member": "candidate-index/audit-mounted-retention-initial-failure.json",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/audit-mounted-retention-initial-failure.json",
+      "bytes": 630,
+      "sha256": "b3e1ba586036c7aaeca688925fb42e7bc612b7e0e718f792691bcd2c093c6069"
+    },
+    {
+      "archive_member": "candidate-index/audit-mounted-retention.py",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/audit-mounted-retention.py",
+      "bytes": 10014,
+      "sha256": "dc412207ba0c7959bd92c5ce417fa03c87ba0e5e1196fa04271902b8c931376f"
+    },
+    {
+      "archive_member": "candidate-index/audit-mounted-validity-mirrors.py",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/audit-mounted-validity-mirrors.py",
+      "bytes": 1943,
+      "sha256": "d38f12006d6699ab0dc3ef655e17fff0229a653d96c295ac66efdf887a4ff752"
+    },
+    {
+      "archive_member": "candidate-index/candidate-evidence-index.json",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/candidate-evidence-index.json",
+      "bytes": 205367,
+      "sha256": "75ba8f38ba99f955cea4b153866ee78e1e3e2ddd60ab7498eea328fa26465324"
+    },
+    {
+      "archive_member": "candidate-index/canonical-benchmark-results-200.json",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/canonical-benchmark-results-200.json",
+      "bytes": 707125,
+      "sha256": "76dabd2e41b40f161b46c0f4778af51857ba40cd0b4754fc700a4a7f98bce1b4"
+    },
+    {
+      "archive_member": "candidate-index/derive-candidate-index.py",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/derive-candidate-index.py",
+      "bytes": 14730,
+      "sha256": "f1a9ea9c41d10c052864bbb1ab2c4b5062dcde79c0c724ff5b488c1381f6a142"
+    },
+    {
+      "archive_member": "candidate-index/feature-crosswalk-clean730.json",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/feature-crosswalk-clean730.json",
+      "bytes": 256830,
+      "sha256": "a1ee6ebaf9ca0997e28851948e1035806abbfca7481be13026e78486cf3174dd"
+    },
+    {
+      "archive_member": "candidate-index/frozen-artifact-integrity-readonly.json",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/frozen-artifact-integrity-readonly.json",
+      "bytes": 42691,
+      "sha256": "77f766dd46f6830d70b5cb4ad6c5799c43d4daa04cff3ed69344da2446c2b0a9"
+    },
+    {
+      "archive_member": "candidate-index/manual-synthetic-inspection-checklist.md",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/manual-synthetic-inspection-checklist.md",
+      "bytes": 4470,
+      "sha256": "a1f8576c44544d05f6315ea48be0989fc76ad991279a144cfb2e9e501278ea7a"
+    },
+    {
+      "archive_member": "candidate-index/mounted32-retention-independent-audit.json",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/mounted32-retention-independent-audit.json",
+      "bytes": 31568,
+      "sha256": "4bf6040df6ab5f7b5193ff6b3a9b3db5590c46b9f6bdd14d70f3213ab89b2078"
+    },
+    {
+      "archive_member": "candidate-index/mounted32-validity-mirrors-supplement.json",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/mounted32-validity-mirrors-supplement.json",
+      "bytes": 6556,
+      "sha256": "643335f702132219bd1101d81be682956e124441318d423ac0218295be0775ef"
+    },
+    {
+      "archive_member": "candidate-index/proposal-manifest.json",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/proposal-manifest.json",
+      "bytes": 3129,
+      "sha256": "a656f972bda125ee25c111c542c71895458cdd56705b90cf004f39dbf846ace5"
+    },
+    {
+      "archive_member": "candidate-index/requirement-to-proof-checklist.md",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/requirement-to-proof-checklist.md",
+      "bytes": 9919,
+      "sha256": "e0d7b5a69e9228591114c3fc76c122cb4429beda08e1fb45c82899870cc31b06"
+    },
+    {
+      "archive_member": "candidate-index/verify-proposal.py",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/verify-proposal.py",
+      "bytes": 2557,
+      "sha256": "1ca8098aef1cce1cff72f91430a1eea965cf50bcafc915a7d5554bf6ff834e3e"
+    },
+    {
+      "archive_member": "candidate-index/workday-en-us-contact.png",
+      "original_path": "/tmp/japp-w14-acceptance-audit-20261017-ao4fj67t/workday-en-us-contact.png",
+      "bytes": 108547,
+      "sha256": "8cbae9fe1ecf8469db1f01ec2a94992f0dd116b0dbd3b1ae841e34c2ea0c730b"
+    }
+  ],
+  "additional_original_bindings": [
+    {
+      "member": "source/run-mounted-retention.py",
+      "path": "/tmp/japp-w14-mounted-retention-run-20261017.py",
+      "sha256": "aba71c7d4c36637322ff7eb1143c8ab8b505ad132bed905e89e1522fefe65883"
+    },
+    {
+      "member": "source/retention-builder.py",
+      "path": "/tmp/japp-retain-w14-candidate-20261017.py",
+      "sha256": "e72f7edba85d16a9f8818e5bd55b2289b45467b5ab8a37c47c709135e5e9f8b9"
+    }
+  ],
+  "limits": [
+    "This review independently checks root packaging only; candidate-index authorship is acknowledged and not rebranded as a new independent product audit.",
+    "No root edits/project commands/product actor/build/browser/network request occurred.",
+    "Contained173+2 read-only checks are preserved historical proof, not newly executed project tests.",
+    "All32 accounts do not imply32fill successes;67fixture clauses are separate direct fixture behavior.",
+    "Manual checklist is retained-image inspection, not new human study/W15 approval.",
+    "Archive scope is historical730/current1d; acceptedADR0007 later changes not evaluated by it.",
+    "Trace URL/method inventory is bounded to captured requests, not proof of absence of arbitrary nonnetwork actions or private-content audit.",
+    "Root report/summary can append this peer verdict without changing the sealed archive or source-owned original index."
+  ]
+}

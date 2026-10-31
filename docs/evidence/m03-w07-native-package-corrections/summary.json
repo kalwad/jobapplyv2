@@ -1,0 +1,174 @@
+{
+  "canonical_focus": {
+    "closure": {
+      "all_six_commands_closed_zero": true,
+      "end_observed_utc": "2026-10-29T16:35:25.843225+00:00",
+      "runtime_files": 40,
+      "source_bytes_fullmodes_status_head_tree_equal": true,
+      "tracked_files": 2240
+    },
+    "commands": [
+      {
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "--offline",
+          "ruff",
+          "check",
+          "--config",
+          "pyproject.toml",
+          "scripts/build-windows-runtime.py",
+          "scripts/tests/test_windows_builder.py"
+        ],
+        "exit_code": 0,
+        "group": "ABSENT",
+        "reaped": true,
+        "seconds": 0.1284712499473244,
+        "signals": [],
+        "timeout": false
+      },
+      {
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "--offline",
+          "ruff",
+          "format",
+          "--check",
+          "--config",
+          "pyproject.toml",
+          "scripts/build-windows-runtime.py",
+          "scripts/tests/test_windows_builder.py"
+        ],
+        "exit_code": 0,
+        "group": "ABSENT",
+        "reaped": true,
+        "seconds": 0.019607165944762528,
+        "signals": [],
+        "timeout": false
+      },
+      {
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "--offline",
+          "mypy",
+          "--config-file",
+          "pyproject.toml",
+          "scripts/build-windows-runtime.py",
+          "scripts/tests/test_windows_builder.py"
+        ],
+        "exit_code": 0,
+        "group": "ABSENT",
+        "reaped": true,
+        "seconds": 0.1817931670229882,
+        "signals": [],
+        "timeout": false
+      },
+      {
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "--offline",
+          "pytest",
+          "-c",
+          "pyproject.toml",
+          "--rootdir=.",
+          "--confcutdir=.",
+          "-o",
+          "addopts=",
+          "-ra",
+          "--strict-markers",
+          "--strict-config",
+          "--disable-plugin-autoload",
+          "-q",
+          "--basetemp",
+          "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/fixtures",
+          "scripts/tests/test_windows_builder.py",
+          "scripts/tests/test_native_package_inputs.py"
+        ],
+        "exit_code": 0,
+        "group": "ABSENT",
+        "reaped": true,
+        "seconds": 0.23940312501508743,
+        "signals": [],
+        "timeout": false
+      },
+      {
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "--offline",
+          "python",
+          "scripts/check_portability.py",
+          "--quiet"
+        ],
+        "exit_code": 0,
+        "group": "ABSENT",
+        "reaped": true,
+        "seconds": 1.137802583980374,
+        "signals": [],
+        "timeout": false
+      },
+      {
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "--offline",
+          "python",
+          "scripts/verify.py",
+          "--suite",
+          "integrity"
+        ],
+        "exit_code": 0,
+        "group": "ABSENT",
+        "reaped": true,
+        "seconds": 7.831261167069897,
+        "signals": [],
+        "timeout": false
+      }
+    ],
+    "pytest_seconds": 0.09,
+    "python_selected_pass": 26
+  },
+  "created_utc": "2026-10-29T16:40:16.426650+00:00",
+  "fresh_corrected_hosted_native_package_windows11_gnome_or_release_credit": false,
+  "nested_preparation": {
+    "canonical_paths": [
+      "scripts/build-windows-runtime.py",
+      "scripts/tests/test_windows_builder.py",
+      "scripts/package_validation.rs"
+    ],
+    "created_utc": "2026-10-29T16:34:38.659561+00:00",
+    "listener": {
+      "actual_final_commands": 8,
+      "independently_compiled_mac_controls_each_pass": 5,
+      "linux_execution": false,
+      "original_ubuntu_cause": "UNOBSERVED",
+      "same_afterimage": "0eda23d489e0f902cfa946e403ca2b60251acd4ab5ebaa07d1a7ff087b331c97",
+      "source_v2": "8f8dca293b618a9a25d1893682426addf0cc2917e0def04dfbf3588338ab8228",
+      "v1_shared_target_HOLD_preserved": true,
+      "v2_review_manifest_sha256": "af223782bd9824c7a0d273a5268aed12c4b783bbd38a76bf7294888ccbaca51a"
+    },
+    "native_gui_package_milestone_or_release_credit": false,
+    "scope": "REVIEWED_BUILD_ENVIRONMENT_AND_ADDITIVE_ACTOR_CORRECTIONS_NOT_NATIVE_ACCEPTANCE",
+    "windows": {
+      "fixed_tests": 3,
+      "independent_checks": 34,
+      "independent_manifest": "929ebb827593ac9702f7905225d18892721377c7821b7add32a40faa2775d867",
+      "original_control": {
+        "fail": 1,
+        "pass": 2
+      },
+      "source": "2342fbc7b4d2648933e24e9aaae094e59f432b607017c6f2654417e2adc9cd77",
+      "strict_commands": 4
+    }
+  },
+  "scope": "REVIEWED_NATIVE_PACKAGE_CORRECTIONS_CANONICALLY_ADOPTED_AND_FOCUSED_CHECKED"
+}

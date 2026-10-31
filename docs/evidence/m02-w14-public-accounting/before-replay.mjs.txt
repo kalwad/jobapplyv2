@@ -1,0 +1,95 @@
+/** Read-only exact-source replay. No browser, imports of runner, or source writes. */
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { runInNewContext } from 'node:vm';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const outputDirectory = dirname(fileURLToPath(import.meta.url));
+const sourcePath = '/Users/tanishkalwad/.codex/worktrees/w14-independent-review/jobapplyv2/e2e/extension/public-contact/run-contact.ts';
+const sourceBytes = readFileSync(sourcePath);
+const source = sourceBytes.toString('utf8');
+const sha256Bytes = bytes => 'sha256:' + createHash('sha256').update(bytes).digest('hex');
+// The replay inputs are strings/plain records; canonical JSON equals JSON.stringify here.
+const sha256Canonical = value => sha256Bytes(JSON.stringify(value));
+const extract = (name, startMarker, endMarker) => {
+  const start = source.indexOf(startMarker);
+  const end = source.indexOf(endMarker, start);
+  if (start < 0 || end < 0 || end <= start) throw Error('REPLAY_SNIPPET_NOT_FOUND');
+  const text = source.slice(start, end);
+  const metadata = {
+    name,
+    start_marker: startMarker,
+    end_marker_exclusive: endMarker,
+    start_line: source.slice(0, start).split('\n').length,
+    end_line: source.slice(0, end - 1).split('\n').length,
+    sha256: sha256Bytes(text),
+  };
+  return { text, metadata };
+};
+const scoring = extract(
+  'positiveScores and changes',
+  '      const positiveScores = expected.positive.map',
+  '      const interference =',
+);
+const metrics = extract('domMetrics', 'function domMetrics(', 'const summary =');
+// Removing only this TypeScript annotation lets Node execute the original function body.
+const originalSignature = 'function domMetrics(items: MeasuredRow[])';
+if (!metrics.text.startsWith(originalSignature)) throw Error('REPLAY_SIGNATURE_CHANGED');
+const executableMetrics = metrics.text.replace(originalSignature, 'function domMetrics(items)');
+
+const first = {
+  label: 'First Name', tag: 'INPUT', type: 'text', role: null,
+  visible: true, required: true, disabled: false, autocomplete: null,
+};
+const added = { ...first, label: 'Social Security Number', required: false };
+const before = [{
+  index: 0, match: first, value_digest: sha256Canonical(''), empty: true, checked: null,
+}];
+const final = [
+  { ...before[0], empty: false, value_digest: sha256Canonical('Synthetic') },
+  { index: 1, match: added, empty: false, value_digest: sha256Canonical('Synthetic'), checked: null },
+];
+const expected = {
+  positive: [{ match: first, value: 'Synthetic', concept: 'FIRST_NAME', source: 'CONTROLLED' }],
+};
+const result = runInNewContext(
+  scoring.text + '\n' + executableMetrics +
+  '\n({before_controls:before.length,final_controls:final.length,changes,metrics:domMetrics([{positive_scores:positiveScores,changes,before_measurements:before,final_measurements:final}])})',
+  {
+    before, final, expected, sha256Canonical,
+    sameLiteral: (left, right) => sha256Canonical(left) === sha256Canonical(right),
+    requireObserved: value => { if (value == null) throw Error('missing'); return value; },
+  },
+);
+const provenance = {
+  format_version: 'W14_PUBLIC_CONTACT_EXACT_SOURCE_REPLAY_1',
+  source_path: sourcePath,
+  source_sha256: sha256Bytes(sourceBytes),
+  snapshot_path: '/tmp/japp-w14-independent-source-snapshot.json',
+  source_snapshot_sha256: JSON.parse(readFileSync('/tmp/japp-w14-independent-source-snapshot.json', 'utf8')).files.find(
+    file => file.path === 'e2e/extension/public-contact/run-contact.ts',
+  )?.sha256,
+  node_version: process.version,
+  snippets: [scoring.metadata, metrics.metadata],
+  transformations: [{
+    snippet: 'domMetrics',
+    from: originalSignature,
+    to: 'function domMetrics(items)',
+    reason: 'Remove TypeScript parameter annotation only; original function body is unchanged.',
+  }],
+  helper_scope: 'JSON-stringifiable string/plain-record inputs; no browser or runner import, side effects, source edits, or gate claims.',
+  inputs: { before, final, expected },
+};
+const persistExact = (name, bytes) => {
+  const path = join(outputDirectory, name);
+  if (existsSync(path)) {
+    if (readFileSync(path, 'utf8') !== bytes) throw Error('REPLAY_ARTIFACT_DRIFT');
+    return;
+  }
+  writeFileSync(path, bytes, { flag: 'wx' });
+};
+persistExact('original-scoring-snippet.js', scoring.text);
+persistExact('original-domMetrics-snippet.ts', metrics.text);
+persistExact('provenance.json', JSON.stringify(provenance, null, 2) + '\n');
+console.log(JSON.stringify({ provenance, result }, null, 2));

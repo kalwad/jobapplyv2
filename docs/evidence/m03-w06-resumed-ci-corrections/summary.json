@@ -1,0 +1,54 @@
+{
+  "schema": "M03_W06_RESUMED_CI_CORRECTIONS_V1",
+  "head": "434ba0778fb4bcbf760c3800a10622be35ea255c",
+  "tree": "d09331f88af59a949d469889fa15451164e8c0e5",
+  "checkout_merge": "38a4f211530e2fafffb90a6e82697c6e8a3f6b95",
+  "source_count": 1988,
+  "hosted_run": 39213957984,
+  "hosted_attempt": 1,
+  "hosted": {
+    "macos": "20PASS;Python1860;native232each3",
+    "ubuntu": "20PASS;Python1860;native231each3",
+    "windows": "18PASS;Python1857PASS1FAIL;nativeDefault220PASS;allFeatures219PASS1FAIL;laterModeAndBuildUNEXECUTED",
+    "native_package_matrix": "SKIPPED"
+  },
+  "focused": {
+    "python_pass": 3,
+    "rust_pass": 6,
+    "rust_filtered": 228,
+    "commands_exit": [
+      0,
+      0
+    ],
+    "source_content_neutral": 1988,
+    "different_data_checks": 24,
+    "review_json_sha256": "87fe20dc92380df1446ed5eb7d2f5bb501baba1cb390b99ab88254cc36b4cfe4"
+  },
+  "source_afterimages": [
+    {
+      "path": "scripts/tests/test_windows_builder.py",
+      "before_sha256": "afdbba41dc17ce55f7594eb6a4c28271e1e41fe65a4117f81367dd752fd6e07f",
+      "after_sha256": "636bf6300697dfbfd07a5902f0b2108d358618d778038dc21a654af60f635806"
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/api_client/tests/python_runtime.rs",
+      "before_sha256": "c3e77babf6704cc97c92453e4b0b1ea2d29c757c29275ff56a8525975d363cda",
+      "after_sha256": "aab65aab2b022cce409df44f017b4bb774f0f314ccf9abd577de8688216c2020"
+    }
+  ],
+  "limits": [
+    "No new Windows outcome after corrections",
+    "No full aggregate or whole native suite PASS after corrections",
+    "Diagnostics artifacts unavailable on resume despite raw upload receipts",
+    "AddrInUse kernel/process cause UNOBSERVED",
+    "GUI and W06 acceptance remain separate"
+  ],
+  "states": {
+    "work_package": "M03-W06",
+    "state": "IN_PROGRESS",
+    "verified": 38,
+    "total": 300,
+    "M03": "IN_PROGRESS",
+    "release": "NOT_READY"
+  }
+}

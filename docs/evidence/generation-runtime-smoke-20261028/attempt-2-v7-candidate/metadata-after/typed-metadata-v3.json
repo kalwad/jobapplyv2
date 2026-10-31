@@ -1,0 +1,38 @@
+{
+  "state": "INSTALLED_UNQUALIFIED",
+  "reason": "EVALUATION_NOT_RUN",
+  "runtime": {
+    "version": "0.40.2",
+    "endpoint": "IPV4_LOOPBACK_FIXED_PORT",
+    "native_identity_verified": false
+  },
+  "model": {
+    "target": "gemma4:12b-mlx",
+    "reported_tag_digest": "ded7a27350032202d9e9b2a6071e8aa89959ab156771b5228f30863c741c4970",
+    "reported_bytes": 7714091504,
+    "format": "safetensors",
+    "tag_runner": "mlx",
+    "show_runner": null,
+    "selected_manifest": null,
+    "declared_requires": "0.31.0",
+    "advertised_capabilities": [
+      "completion",
+      "vision",
+      "audio",
+      "tools",
+      "thinking"
+    ],
+    "advertised_thinking_values": [
+      false,
+      true
+    ],
+    "advertised_thinking_default": true,
+    "runtime_digest_verified": false,
+    "qualification": "NOT_EVALUATED"
+  },
+  "requests_completed": 3,
+  "qualified_full": false,
+  "runtime_digest_verified": false,
+  "deterministic_core": "PRESERVED",
+  "release_permitted": false
+}

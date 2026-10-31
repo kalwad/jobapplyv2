@@ -125,6 +125,7 @@ LOCKFILES = (
     "uv.lock",
     "services/native-host/Cargo.lock",
     "packages/contracts/test/contract/rust-harness/Cargo.lock",
+    "apps/desktop/src-tauri/Cargo.lock",
 )
 
 REQUIRED_SCRIPT_FILES = (
@@ -180,7 +181,7 @@ _VITEST_TEST_SUFFIXES = (
 TS_TEST_GLOBS = tuple(
     f"{root}/**/*.{kind}.{suffix}"
     for root in ("packages/*", "apps/*", "e2e")
-    for kind in ("test", "spec")
+    for kind in ("test", "spec", "proof")
     for suffix in _VITEST_TEST_SUFFIXES
 )
 PY_TEST_FILE_GLOBS = (
@@ -496,6 +497,222 @@ def derive_state(ctx: Context, suite: Suite, states: dict[str, str]) -> SuiteSta
     return SuiteState.REQUIRED_MISSING
 
 
+W14_PUBLIC_PURE_COMMAND = (
+    "pnpm",
+    "--filter",
+    "@japp/extension",
+    "exec",
+    "vitest",
+    "run",
+    "test/m02-w14/public-inspection/scope.test.ts",
+)
+W14_PUBLIC_DEFAULT_BUILD_COMMAND = ("pnpm", "--filter", "@japp/extension", "build")
+W14_PUBLIC_BUILD_COMMAND = (
+    "pnpm",
+    "--filter",
+    "@japp/extension",
+    "exec",
+    "wxt",
+    "build",
+    "-b",
+    "chrome",
+    "-c",
+    "test/m02-w14/public-inspection/wxt.config.ts",
+)
+W14_PUBLIC_CONTROLLED_COMMAND = (
+    "pnpm",
+    "exec",
+    "playwright",
+    "test",
+    "--config",
+    "e2e/extension/public-research/playwright.config.ts",
+)
+W14_PUBLIC_CONTROLLED_COMMANDS = (
+    W14_PUBLIC_PURE_COMMAND,
+    W14_PUBLIC_DEFAULT_BUILD_COMMAND,
+    W14_PUBLIC_BUILD_COMMAND,
+    W14_PUBLIC_CONTROLLED_COMMAND,
+)
+W14_PUBLIC_CONTROLLED_COUNT = 2
+W14_PUBLIC_CONTROLLED_TEST = "e2e/extension/public-research/controlled-scope.proof.ts"
+W14_CONTACT_PURE_COMMAND = (
+    "pnpm",
+    "--filter",
+    "@japp/extension",
+    "exec",
+    "vitest",
+    "run",
+    "test/m02-w14/public-contact/protocol.test.ts",
+)
+W14_CONTACT_BUILD_COMMAND = (
+    "pnpm",
+    "--filter",
+    "@japp/extension",
+    "exec",
+    "wxt",
+    "build",
+    "-b",
+    "chrome",
+    "-c",
+    "test/m02-w14/public-contact/wxt.config.ts",
+)
+W14_CONTACT_CONTROLLED_COMMAND = (
+    "pnpm",
+    "exec",
+    "playwright",
+    "test",
+    "--config",
+    "e2e/extension/public-contact/playwright.config.ts",
+    "--reporter=list,json",
+)
+W14_CONTACT_CONTROLLED_COMMANDS = (
+    W14_CONTACT_PURE_COMMAND,
+    W14_PUBLIC_DEFAULT_BUILD_COMMAND,
+    W14_PUBLIC_BUILD_COMMAND,
+    W14_CONTACT_BUILD_COMMAND,
+    W14_CONTACT_CONTROLLED_COMMAND,
+)
+W14_CONTACT_CONTROLLED_COUNT = 62
+W14_CONTACT_CONTROLLED_TEST = "e2e/extension/public-contact/controlled-contact.proof.ts"
+
+
+@dataclass(frozen=True)
+class W14ControlledInventory:
+    suite_id: str
+    commands: tuple[tuple[str, ...], ...]
+    pure_count: int
+    browser_count: int
+    browser_command: tuple[str, ...]
+    browser_source: str
+
+
+W14_CONTROLLED_INVENTORIES = (
+    W14ControlledInventory(
+        "w14-public-controlled",
+        W14_PUBLIC_CONTROLLED_COMMANDS,
+        4,
+        W14_PUBLIC_CONTROLLED_COUNT,
+        W14_PUBLIC_CONTROLLED_COMMAND,
+        W14_PUBLIC_CONTROLLED_TEST,
+    ),
+    W14ControlledInventory(
+        "w14-public-contact-controlled",
+        W14_CONTACT_CONTROLLED_COMMANDS,
+        2,
+        W14_CONTACT_CONTROLLED_COUNT,
+        W14_CONTACT_CONTROLLED_COMMAND,
+        W14_CONTACT_CONTROLLED_TEST,
+    ),
+)
+
+
+def _w14_controlled_inventory(suite: Suite) -> W14ControlledInventory | None:
+    return next(
+        (
+            item
+            for item in W14_CONTROLLED_INVENTORIES
+            if item.suite_id == suite.suite_id
+        ),
+        None,
+    )
+
+
+def _w14_controlled_inventory_failure(suite: Suite) -> str | None:
+    inventory = _w14_controlled_inventory(suite)
+    if inventory is None:
+        if any(proof.kind == "w14_public_controlled_exact" for proof in suite.proofs):
+            return "W14 controlled proof requires a recognized closed suite inventory"
+        return None
+    expected_proofs = (
+        Proof(kind="vitest_exact_tests", min_count=inventory.pure_count),
+        Proof(kind="w14_public_controlled_exact", min_count=inventory.browser_count),
+    )
+    if (
+        suite.commands != inventory.commands
+        or suite.proofs != expected_proofs
+        or suite.owner != "M02-W14"
+        or not suite.mandatory
+        or suite.activation
+        != Activation(kind="packages_started", packages=("M02-W14",))
+        or suite.builtin != ""
+    ):
+        return (
+            "W14 controlled proof requires its closed command, proof, "
+            "owner and activation inventory"
+        )
+    return None
+
+
+W14_PUBLIC_NONPASSING_RE = re.compile(
+    r"^\s*\d+\s+(?:failed|skipped|flaky|interrupted|did not run|timed out)\b",
+    re.MULTILINE,
+)
+W14_PUBLIC_PASSED_SUMMARY_RE = re.compile(
+    r"^\s*(\d+) passed \([^\r\n]+\)\s*$", re.MULTILINE
+)
+W14_PUBLIC_EXPECTED_FAILURE_RE = re.compile(r"\btest\s*\.\s*fail\b")
+
+
+def _w14_public_controlled_opt_in(argv: tuple[str, ...]) -> bool:
+    """Grant inspect-only mode solely to these closed controlled argv shapes.
+
+    The actual public inspector is intentionally absent. No shell or general
+    registry environment expansion is introduced by this proof suite.
+    """
+    return argv in (
+        W14_PUBLIC_BUILD_COMMAND,
+        W14_PUBLIC_CONTROLLED_COMMAND,
+        (*W14_PUBLIC_CONTROLLED_COMMAND, "--list"),
+    )
+
+
+def _w14_public_contact_opt_in(argv: tuple[str, ...]) -> bool:
+    """Only fixed contact build and synthetic proof/list commands get writes."""
+    return argv in (
+        W14_CONTACT_BUILD_COMMAND,
+        W14_CONTACT_CONTROLLED_COMMAND,
+        (*W14_CONTACT_CONTROLLED_COMMAND, "--list"),
+    )
+
+
+def _w14_contact_inspection_opt_in(argv: tuple[str, ...]) -> bool:
+    """The contact isolation proof also loads the inspect-only build."""
+    return argv in (
+        W14_CONTACT_CONTROLLED_COMMAND,
+        (*W14_CONTACT_CONTROLLED_COMMAND, "--list"),
+    )
+
+
+def _w14_controlled_child_environment(
+    argv: tuple[str, ...], env: dict[str, str]
+) -> None:
+    """Strip ambient authority and grant only exact controlled command modes."""
+    # Ambient public-inspection opt-in never propagates to arbitrary registry
+    # commands. Only the closed build/controlled-proof/list argv above receives it.
+    for public_flag in (
+        "JAPP_W14_PUBLIC_INSPECTION",
+        "JAPP_W14_PUBLIC_CONTACT_EVALUATION",
+        "JAPP_W14_PUBLIC_CONTACT_RUN",
+    ):
+        env.pop(public_flag, None)
+    if _w14_public_controlled_opt_in(argv) or _w14_contact_inspection_opt_in(argv):
+        env["JAPP_W14_PUBLIC_INSPECTION"] = "1"
+    if _w14_public_contact_opt_in(argv):
+        env["JAPP_W14_PUBLIC_CONTACT_EVALUATION"] = "1"
+    if _w14_contact_inspection_opt_in(argv):
+        # The exact contact command owns its built-in JSON result channel.
+        # Playwright assigns FORCE_COLOR to its workers. Node warns on stderr
+        # when NO_COLOR is present too, even when FORCE_COLOR is zero. Keep the
+        # explicit zero alone so that warning cannot follow the strict JSON.
+        env.pop("NO_COLOR", None)
+        for reporter_path in (
+            "PLAYWRIGHT_JSON_OUTPUT_NAME",
+            "PLAYWRIGHT_JSON_OUTPUT_FILE",
+            "PLAYWRIGHT_JSON_OUTPUT_DIR",
+        ):
+            env.pop(reporter_path, None)
+
+
 def run_command(ctx: Context, argv: tuple[str, ...]) -> tuple[int, str]:
     print(f"$ {' '.join(argv)}", flush=True)
     # Deterministic, parseable child output: disable color codes so
@@ -518,6 +735,7 @@ def run_command(ctx: Context, argv: tuple[str, ...]) -> tuple[int, str]:
         # Python-suite argv repeats this boundary as a defense in depth.
         "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
     }
+    _w14_controlled_child_environment(argv, env)
     for external_python_setting in ("PYTEST_ADDOPTS", "PYTEST_PLUGINS", "MYPYPATH"):
         env.pop(external_python_setting, None)
     # Registry commands stay platform-neutral (M00-W09, REQ-PLAT-025):
@@ -768,6 +986,159 @@ def _proof_playwright_min_passed(
     return None
 
 
+def _w14_contact_report_inventory(  # noqa: PLR0911 - independent result-channel refusals
+    output: str, *, executed: bool
+) -> tuple[tuple[tuple[str, ...], ...] | None, str | None]:
+    """Verify the pinned builtin reporter, including expected-failure metadata.
+
+    List-only JSON legitimately has empty results and skipped statuses. Those
+    are inventory metadata; only execution JSON can prove ordinary passes.
+    """
+    starts = list(re.finditer(r"(?m)^\{", output))
+    if not starts:
+        return None, "W14 contact builtin JSON reporter output is unavailable"
+    try:
+        report: object = json.loads(output[starts[-1].start() :])
+    except (ValueError, RecursionError):
+        return None, "W14 contact builtin JSON reporter output is invalid"
+    if not isinstance(report, dict) or report.get("errors") != []:
+        return None, "W14 contact reporter contains errors or an invalid report"
+    stats = report.get("stats")
+    expected_stats = {
+        "expected": W14_CONTACT_CONTROLLED_COUNT if executed else 0,
+        "skipped": 0 if executed else W14_CONTACT_CONTROLLED_COUNT,
+        "unexpected": 0,
+        "flaky": 0,
+    }
+    if not isinstance(stats, dict) or any(
+        type(stats.get(key)) is not int or stats.get(key) != value
+        for key, value in expected_stats.items()
+    ):
+        return None, "W14 contact reporter stats are not the exact ordinary inventory"
+    identities: list[tuple[str, ...]] = []
+
+    def visit(suite: object) -> str | None:  # noqa: PLR0911 - validate each independent wire surface
+        if not isinstance(suite, dict):
+            return "W14 contact reporter suite is invalid"
+        specs = suite.get("specs", [])
+        nested = suite.get("suites", [])
+        if not isinstance(specs, list) or not isinstance(nested, list):
+            return "W14 contact reporter nested inventory is invalid"
+        for spec in specs:
+            if not isinstance(spec, dict) or spec.get("ok") is not True:
+                return "W14 contact reporter spec is not ordinary passing"
+            tests = spec.get("tests")
+            if not isinstance(tests, list) or len(tests) != 1:
+                return "W14 contact reporter spec must have exactly one project test"
+            test = tests[0]
+            if not isinstance(test, dict) or test.get("expectedStatus") != "passed":
+                return "W14 contact reporter contains an expected failure or skip"
+            results = test.get("results")
+            if executed:
+                if (
+                    test.get("status") != "expected"
+                    or not isinstance(results, list)
+                    or len(results) != 1
+                    or not isinstance(results[0], dict)
+                    or results[0].get("status") != "passed"
+                    or results[0].get("retry") != 0
+                    or results[0].get("errors") != []
+                ):
+                    return (
+                        "W14 contact reporter result is not one ordinary passed attempt"
+                    )
+            elif results != [] or test.get("status") != "skipped":
+                return "W14 contact list reporter unexpectedly contains execution"
+            identity = (
+                spec.get("id"),
+                spec.get("title"),
+                spec.get("file"),
+                test.get("projectId"),
+            )
+            if (
+                not all(isinstance(value, str) for value in identity)
+                or not identity[0]
+                or not identity[1]
+                or identity[2] != Path(W14_CONTACT_CONTROLLED_TEST).name
+            ):
+                return "W14 contact reporter test identity or source differs"
+            identities.append(tuple(str(value) for value in identity))
+        for child in nested:
+            failure = visit(child)
+            if failure is not None:
+                return failure
+        return None
+
+    suites = report.get("suites")
+    if not isinstance(suites, list):
+        return None, "W14 contact reporter inventory is unavailable"
+    try:
+        for suite in suites:
+            failure = visit(suite)
+            if failure is not None:
+                return None, failure
+    except RecursionError:
+        return None, "W14 contact reporter nesting exceeds capacity"
+    if len(identities) != W14_CONTACT_CONTROLLED_COUNT or len(
+        {identity[0] for identity in identities}
+    ) != len(identities):
+        return None, "W14 contact reporter test identities are not exact and unique"
+    return tuple(sorted(identities)), None
+
+
+def _proof_w14_public_controlled_exact(  # noqa: PLR0911 - independent refusal checks
+    ctx: Context, suite: Suite, proof: Proof, output: str
+) -> str | None:
+    """Require the exact controlled inventory; this never visits public sites."""
+    inventory = _w14_controlled_inventory(suite)
+    failure = _w14_controlled_inventory_failure(suite)
+    if (
+        inventory is None
+        or failure is not None
+        or proof.min_count != inventory.browser_count
+    ):
+        return failure or "W14 controlled proof requires its exact browser count"
+    # Playwright counts intended failures as passed. These two permission-boundary
+    # proofs must be ordinary tests, so the expected-failure API is forbidden here.
+    try:
+        source = (ctx.repo / inventory.browser_source).read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError):
+        return "W14 controlled proof source is unavailable"
+    if W14_PUBLIC_EXPECTED_FAILURE_RE.search(source):
+        return "W14 controlled proofs may not declare expected failures"
+    passed = W14_PUBLIC_PASSED_SUMMARY_RE.findall(output)
+    if passed != [str(inventory.browser_count)]:
+        return (
+            "W14 controlled Playwright must report exactly one "
+            f"ordinary {inventory.browser_count} passed summary"
+        )
+    if W14_PUBLIC_NONPASSING_RE.search(output):
+        return "W14 controlled Playwright reported a non-passing outcome"
+    execution_ids: tuple[tuple[str, ...], ...] | None = None
+    if inventory.browser_command == W14_CONTACT_CONTROLLED_COMMAND:
+        execution_ids, json_failure = _w14_contact_report_inventory(
+            output, executed=True
+        )
+        if json_failure is not None:
+            return json_failure
+    code, listed = run_command(ctx, (*inventory.browser_command, "--list"))
+    if code != 0:
+        return f"W14 controlled Playwright --list failed with exit {code}"
+    discovered = PLAYWRIGHT_LIST_RE.findall(listed)
+    if discovered != [str(inventory.browser_count)]:
+        return (
+            "W14 controlled Playwright must discover exactly "
+            f"{inventory.browser_count} tests"
+        )
+    if inventory.browser_command == W14_CONTACT_CONTROLLED_COMMAND:
+        listed_ids, json_failure = _w14_contact_report_inventory(listed, executed=False)
+        if json_failure is not None:
+            return json_failure
+        if execution_ids != listed_ids:
+            return "W14 contact executed and listed test identities differ"
+    return None
+
+
 def _pytest_terminal_pass_count(output: str) -> tuple[int | None, str | None]:
     """Parse one final, complete, ordinary-only pinned-pytest summary."""
     normalized = output.replace("\r\n", "\n")
@@ -846,6 +1217,7 @@ PROOF_CHECKS: dict[str, Callable[[Context, Suite, Proof, str], str | None]] = {
     "vitest_exact_tests": _proof_vitest_exact_tests,
     "playwright_list_min": _proof_playwright_list_min,
     "playwright_min_passed": _proof_playwright_min_passed,
+    "w14_public_controlled_exact": _proof_w14_public_controlled_exact,
     "pytest_exact_inventory": _proof_pytest_exact_inventory,
     "cargo_min_passed": _proof_cargo_min_passed,
 }
@@ -2675,7 +3047,7 @@ def _argv_vitest_invocation_kind(argv: tuple[str, ...]) -> str | None:
             and names.count("turbo") == 1
             and argv.count("--") <= 1
             and argv[5 : argv.index("--") if "--" in argv else len(argv)]
-            in ((), ("--force",))
+            in ((), ("--force",), ("--force", "--concurrency=2"))
         ):
             return "turbo"
         return "invalid"
@@ -3286,6 +3658,11 @@ def run_suite(  # noqa: PLR0912 - explicit independent suite outcomes
     ctx: Context, suite: Suite, states: dict[str, str], registry: Registry
 ) -> SuiteOutcome:
     state = derive_state(ctx, suite, states)
+    closed_failure = _w14_controlled_inventory_failure(suite)
+    if closed_failure is not None:
+        return SuiteOutcome(
+            suite=suite, state=state, verdict=Verdict.FAIL, messages=[closed_failure]
+        )
     if state is SuiteState.NOT_YET_APPLICABLE:
         return SuiteOutcome(
             suite=suite,

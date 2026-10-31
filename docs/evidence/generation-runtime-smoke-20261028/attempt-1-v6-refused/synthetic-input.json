@@ -1,0 +1,53 @@
+{
+  "profile": {
+    "profile_ref": "smoke.gemma4-12b-mlx.candidate-only",
+    "provider": "LOCAL_OLLAMA",
+    "model": "sha256-ded7a27350032202d9e9b2a6071e8aa89959ab156771b5228f30863c741c4970",
+    "expected_digest": "ded7a27350032202d9e9b2a6071e8aa89959ab156771b5228f30863c741c4970",
+    "context_tokens": 8192,
+    "max_input_bytes": 8192,
+    "tasks": [
+      "RESUME_CANDIDATE"
+    ],
+    "supports_thinking_off": true
+  },
+  "profile_assertion_scope": "SYNTHETIC_SMOKE_HYPOTHESIS_ONLY_NOT_QUALIFICATION",
+  "request": {
+    "request_id": "smoke.gemma4.synthetic.001",
+    "task": "RESUME_CANDIDATE",
+    "policy": {
+      "prompt_ref": "smoke.resume.synthetic.v1",
+      "context_policy_ref": "smoke.single-approved-synthetic-evidence.v1",
+      "task": "RESUME_CANDIDATE",
+      "temperature": 0.5,
+      "output_tokens": 256
+    },
+    "context": [
+      {
+        "block_ref": "synthetic.evidence.001",
+        "data_class": "APPROVED_EVIDENCE",
+        "text": "Synthetic training exercise only: built a Python reporting script that produced a CSV summary. No employer, dates, performance metrics, or other facts are supplied.",
+        "synthetic": true
+      }
+    ],
+    "evidence_refs": [
+      "synthetic.evidence.001"
+    ],
+    "limits": {
+      "total_seconds": 60.0,
+      "idle_seconds": 10.0,
+      "input_bytes": 8192,
+      "output_bytes": 4096,
+      "wire_bytes": 65536,
+      "frame_bytes": 8192,
+      "frames": 512,
+      "candidates": 1,
+      "candidate_characters": 256,
+      "candidate_words": 32
+    },
+    "provider": "LOCAL_OLLAMA",
+    "profile_ref": "smoke.gemma4-12b-mlx.candidate-only"
+  },
+  "network_attempt_upper_bound": 2,
+  "thinking_off_is_hypothesis_until_response_validated": true
+}

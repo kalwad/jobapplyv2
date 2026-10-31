@@ -1,0 +1,220 @@
+{
+  "all_selected_original_archive_bytes_full_modes_join": true,
+  "members": [
+    {
+      "bytes": 1430,
+      "mode": 420,
+      "path": "canonical-adoption/APPLIED.json",
+      "sha256": "68400f1ddeed055f4162d5fa18315479b6bc72b2a2368015584ffa636a7718ba",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-package-canonical-adoption-v2/APPLIED.json"
+    },
+    {
+      "bytes": 451433,
+      "mode": 420,
+      "path": "canonical-adoption/after.json",
+      "sha256": "686ccb82b22d239ae777fa86ec8d714d7bc7205716845fa90cf7d574a51678d3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-package-canonical-adoption-v2/after.json"
+    },
+    {
+      "bytes": 451322,
+      "mode": 420,
+      "path": "canonical-adoption/before.json",
+      "sha256": "e3d755f1ca383d0ae1508f425ea8356b667d4a3d7a1a2b2add8c15d9583baef5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-package-canonical-adoption-v2/before.json"
+    },
+    {
+      "bytes": 4386,
+      "mode": 420,
+      "path": "canonical-adoption/executed-observer.py",
+      "sha256": "d5d4b6fe1c1d2287d3eca21a3e7d79c3338bc3e5b773002238d7a4ca68018d58",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-package-canonical-adoption-v2/executed-observer.py"
+    },
+    {
+      "bytes": 12923,
+      "mode": 420,
+      "path": "canonical-adoption/preimages/scripts/build-windows-runtime.py",
+      "sha256": "78d32f99c9624bbf6fbe51643c9818d6bd17d276d4843b0db77304bd675eb9ef",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-package-canonical-adoption-v2/preimages/scripts/build-windows-runtime.py"
+    },
+    {
+      "bytes": 8146,
+      "mode": 420,
+      "path": "canonical-adoption/preimages/scripts/package_validation.rs",
+      "sha256": "0b60ac391d27461a476f2185bbb5cecba0ad694053ad0e70b9fad71af8cd918e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-package-canonical-adoption-v2/preimages/scripts/package_validation.rs"
+    },
+    {
+      "bytes": 6400,
+      "mode": 420,
+      "path": "canonical-adoption/preimages/scripts/tests/test_windows_builder.py",
+      "sha256": "636bf6300697dfbfd07a5902f0b2108d358618d778038dc21a654af60f635806",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-package-canonical-adoption-v2/preimages/scripts/tests/test_windows_builder.py"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/01.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/01.stderr"
+    },
+    {
+      "bytes": 19,
+      "mode": 420,
+      "path": "canonical-focus/01.stdout",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/01.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/02.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/02.stderr"
+    },
+    {
+      "bytes": 26,
+      "mode": 420,
+      "path": "canonical-focus/02.stdout",
+      "sha256": "3bc53bf3e981a98a34a852e175bf9b77af841edea74fca595d9aedcbaf9a4938",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/02.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/03.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/03.stderr"
+    },
+    {
+      "bytes": 43,
+      "mode": 420,
+      "path": "canonical-focus/03.stdout",
+      "sha256": "f9b031e5c45aa702cd4fef028d465551cb20a2c4698e0913c7b00766b20ac4d8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/03.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/04.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/04.stderr"
+    },
+    {
+      "bytes": 99,
+      "mode": 420,
+      "path": "canonical-focus/04.stdout",
+      "sha256": "7b2495bd93e2ebabc31e0f4b2c9a4df34834ce9f75c31a3e0bf7d8e527a0faf0",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/04.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/05.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/05.stderr"
+    },
+    {
+      "bytes": 35,
+      "mode": 420,
+      "path": "canonical-focus/05.stdout",
+      "sha256": "b2369f3d044bc4c808b5aa346434aa52316f5d38268cf433815a465cbafca415",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/05.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/06.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/06.stderr"
+    },
+    {
+      "bytes": 131598,
+      "mode": 420,
+      "path": "canonical-focus/06.stdout",
+      "sha256": "e06a237a0e1baa790e304be21ae3f37ae9fcebb5b7db3f492778a0c20daf3554",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/06.stdout"
+    },
+    {
+      "bytes": 451435,
+      "mode": 420,
+      "path": "canonical-focus/after.json",
+      "sha256": "215d902c4a3b9d8f473c4ea81a34b2a0fe5c0cbe10c37e2e40b5b669e3ac1a8e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/after.json"
+    },
+    {
+      "bytes": 451435,
+      "mode": 420,
+      "path": "canonical-focus/before.json",
+      "sha256": "215d902c4a3b9d8f473c4ea81a34b2a0fe5c0cbe10c37e2e40b5b669e3ac1a8e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/before.json"
+    },
+    {
+      "bytes": 206,
+      "mode": 420,
+      "path": "canonical-focus/closure.json",
+      "sha256": "4656d31a38cb06287a371d4353438c768d517d9d8e4d56edb0bb38ba1fea12d9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/closure.json"
+    },
+    {
+      "bytes": 4217,
+      "mode": 420,
+      "path": "canonical-focus/executed-wrapper.py",
+      "sha256": "c734fc03cd5e6520226506f753623e760f21ebaa8cdb0baaee501d2094478a52",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/executed-wrapper.py"
+    },
+    {
+      "bytes": 2480,
+      "mode": 420,
+      "path": "canonical-focus/results.json",
+      "sha256": "e6ef7925937baf75d0c9f452162bf3cdd97699ba1a68833871aba6c00992b5f3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-canonical-focus-v2/results.json"
+    },
+    {
+      "bytes": 6173,
+      "mode": 420,
+      "path": "observer/register-executed.py",
+      "sha256": "64192be951fe03148e41b20f0dfd1b5ddbb61cc16a2cc76aab0f5747147e0e49",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/register-native-closeouts-v3.py"
+    },
+    {
+      "bytes": 2682,
+      "mode": 420,
+      "path": "reviewed-preparation/README.md",
+      "sha256": "061b0118dd51d19e1c46862de9d78926dd48885868d129cd0bf2a1d14fce1ad0",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w07-native-corrections-evidence-v2/README.md"
+    },
+    {
+      "bytes": 129,
+      "mode": 420,
+      "path": "reviewed-preparation/artifact.json",
+      "sha256": "fa81ad10dd0f48867b500ee00e76f3ea3127d248ddb6d8a0dc7722a226c0c7e6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w07-native-corrections-evidence-v2/artifact.json"
+    },
+    {
+      "bytes": 3717017,
+      "mode": 420,
+      "path": "reviewed-preparation/proof.tar.gz",
+      "sha256": "d6441c23316c29976afaf0ccd84ca36624827ca8436acba5486914787ca0cc7c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w07-native-corrections-evidence-v2/proof.tar.gz"
+    },
+    {
+      "bytes": 58831,
+      "mode": 420,
+      "path": "reviewed-preparation/retention-manifest.json",
+      "sha256": "54c71131d11abb6b328db0af24add72905a855b1bfaf755d051ace1ffc7d1965",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w07-native-corrections-evidence-v2/retention-manifest.json"
+    },
+    {
+      "bytes": 1202,
+      "mode": 420,
+      "path": "reviewed-preparation/summary.json",
+      "sha256": "177e456887631ad7a9a49d02424e998daf05b12a52ddebabdde55254f3b59c00",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w07-native-corrections-evidence-v2/summary.json"
+    }
+  ],
+  "omissions": [
+    "Canonical-focus temporary fixture bodies.",
+    "Nested reviewed-preparation archive explicitly omits original package payload ZIPs, complete canonical/runtime bodies, listener compiled binary bodies and private vendor/cache/target trees; their exact bindings remain."
+  ],
+  "regular_members": 30
+}

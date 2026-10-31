@@ -1,0 +1,61 @@
+{
+  "schema": "japp-gnome-root-request-template-v1",
+  "status": "INACTIVE_DOCUMENTATION_NO_AUTHORIZATION",
+  "download_only_disabled": {
+    "schema": "japp-gnome-pr-request-v1",
+    "enabled": false,
+    "mode": "DOWNLOAD_ONLY"
+  },
+  "vm_disabled": {
+    "schema": "japp-gnome-pr-request-v1",
+    "enabled": false,
+    "mode": "ONE_REVIEWED_VM"
+  },
+  "request_paths": {
+    "DOWNLOAD_ONLY": ".github/gnome/requests/download-only.json",
+    "ONE_REVIEWED_VM": ".github/gnome/requests/vm-campaign.json"
+  },
+  "active_common_exact_fields": [
+    "schema",
+    "enabled",
+    "mode",
+    "repository",
+    "repository_id",
+    "pull_request",
+    "head_branch",
+    "request_id",
+    "expected_source_sha",
+    "request_parent_sha",
+    "artifact",
+    "package_build_sha",
+    "source_tree_sha"
+  ],
+  "artifact_exact_fields": [
+    "run_id",
+    "run_attempt",
+    "run_head_sha",
+    "artifact_id",
+    "digest_sha256",
+    "export_sha256"
+  ],
+  "vm_additional_exact_fields": [
+    "release_receipt_sha256",
+    "bundle_sha256",
+    "guest_closure_sha256",
+    "host_tools_sha256",
+    "keyring_sha256"
+  ],
+  "vm_release_path": ".github/gnome/releases/vm-campaign.json",
+  "activation_requirements": [
+    "Root first adopts independently reviewed complete source and protected workflow bodies at source commit S.",
+    "Original package export must bind an actual completed CI pull_request run/attempt for same-repository PR 1: API head S, actual tested/package build merge M, exported original before/after head M and tree T. Pin exact artifact ID, ZIP digest, export manifest SHA256, package_build_sha M and source_tree_sha T; do not relabel M as S. Checkout S is accepted only when its actual clean tree equals T and every original shipping hash still matches.",
+    "Prepare authorization commit R with one parent P. S must be an ancestor of P. Its entire delta is the one active request path; VM additionally requires the exact release receipt path. Disable Git rename detection when checking this delta.",
+    "Set all closed-schema fields using actual observed identities and hashes; request_id is a fresh 32-character lowercase hexadecimal identifier. R is not embedded in itself; request_parent_sha is P and expected_source_sha is S.",
+    "Push R to existing same-repository PR 1 branch codex/autofill-evaluation-hardening. Only synchronize events run this PR route. Missing, disabled, or stale requests perform no package work.",
+    "DOWNLOAD_ONLY resolves/downloads a candidate without installing archives, starting a VM or exercising the product. The resulting closure remains UNREVIEWED.",
+    "A VM request additionally needs an actual different review of complete immutable candidate closure and an exact committed RELEASE_ONE_BOUND_CAMPAIGN receipt, all subject/hash bindings, and root release. No such receipt or closure is supplied by this template.",
+    "workflow_dispatch remains a route after GitHub recognizes the workflow; the same committed request and exact dispatch input cross-checks remain mandatory. Rerun attempts greater than one are refused; prepare a new root request rather than retrying an actor."
+  ],
+  "authorship_limit": "Same-repository opt-in records trusted root/repository-process intent. It does not cryptographically prove the human author or replace independent source/closure review.",
+  "actual_package_downloads_installs_vm_campaigns": 0
+}

@@ -1,0 +1,293 @@
+{
+  "all_regular_safe_unique_hash_readback_equal": true,
+  "files": {
+    "ci/REPORT.md": {
+      "bytes": 3698,
+      "mode": 420,
+      "sha256": "bfbf4b1fcb9563126a6d9f347f4b0ffd76c79334479fb1b31e6aac124f24f9e3"
+    },
+    "ci/proof.tar.gz": {
+      "bytes": 7320211,
+      "mode": 420,
+      "sha256": "1022a4e4fd04cbfc419d724750fad4a603438a01d2133b4587bb4a137178d41a"
+    },
+    "ci/retained-input-audit.json": {
+      "bytes": 6456,
+      "mode": 420,
+      "sha256": "cc31648a908a7e19bf791a7c2bb3103e7d32ddec8957f84dea7457f39dbf8ff1"
+    },
+    "ci/retention-manifest.json": {
+      "bytes": 63022,
+      "mode": 420,
+      "sha256": "0b35b430c8b731143cd2ffbe7c4c1c3d340fed4d56e7aa31707fb2dfae249624"
+    },
+    "ci/summary.json": {
+      "bytes": 293799,
+      "mode": 420,
+      "sha256": "c5dd8b890a14924eae7774dbbc5f3d231389cbd20c5f6784d78423d97e4991ea"
+    },
+    "core-review/REVIEW.md": {
+      "bytes": 1968,
+      "mode": 420,
+      "sha256": "819c7ed46082123f0de3b99467d40c477923717e1ade415ea6b0d4806c1844d0"
+    },
+    "core-review/findings.json": {
+      "bytes": 5879,
+      "mode": 420,
+      "sha256": "cd76194cdb02e8f64de3d8b23d979f5c46118ee1c26b08ab7341b66be10864b9"
+    },
+    "core-source/PREIMAGES.json": {
+      "bytes": 1270,
+      "mode": 420,
+      "sha256": "6518af3f3b3b1441e6fb81bc47b10d580bb72c1e01ca4325c6e4c2e6beccda8a"
+    },
+    "core-source/REPORT.md": {
+      "bytes": 4110,
+      "mode": 420,
+      "sha256": "6d5299a0e27f6e1c29991760b781b39bd6b6b36cc39b7e388c1506f0e80f1414"
+    },
+    "core-source/actual-linker-failure.log": {
+      "bytes": 8834,
+      "mode": 420,
+      "sha256": "9063669e99b8293d656155cf811440eed63c68fc17b0b758f4f8ee08839d3211"
+    },
+    "core-source/actual-typecheck-incomplete.log": {
+      "bytes": 4635,
+      "mode": 420,
+      "sha256": "6d88db88cc49b9ef995a637987db823e00b6faa4b5dbb72b431bdf15948daf94"
+    },
+    "core-source/correction.patch": {
+      "bytes": 3124,
+      "mode": 420,
+      "sha256": "dd322d3f83a973488fefba80f4aaf58aa817a6c0a51091cd6e6bd1663b8a047b"
+    },
+    "core-source/counterproofs/application-resolution.tests.ps1": {
+      "bytes": 2668,
+      "mode": 420,
+      "sha256": "67fa76d4ccd876c08278ff73a55a7380129cf5ddabf2356e216571b18a3e0272"
+    },
+    "core-source/manifest.json": {
+      "bytes": 3464,
+      "mode": 420,
+      "sha256": "47000d04e0d663fb05fc3c7dbeeb69a120f7a64be01ae9f6544160b8ef486f28"
+    },
+    "core-source/preimages/apps/desktop/src-tauri/build.rs": {
+      "bytes": 1989,
+      "mode": 420,
+      "sha256": "6e0ae22dd9499b367943a915a01616d75f5b3adf90ad6bc347534e787258f84f"
+    },
+    "core-source/preimages/apps/desktop/src-tauri/windows-common-controls.manifest": {
+      "bytes": 392,
+      "mode": 420,
+      "sha256": "4636f3ba46080315ac3277d473d433b79c00863c9cdca1c93c0c83554c6a3d43"
+    },
+    "core-source/preimages/scripts/windows-native-loader-diagnostics.ps1": {
+      "bytes": 14597,
+      "mode": 420,
+      "sha256": "003aa4d7eda3c2eeb2b063a858ed80b9e615f457e58b65d5bce505a88dae3f59"
+    },
+    "core-source/primary-source/bindings.json": {
+      "bytes": 1825,
+      "mode": 420,
+      "sha256": "d548cb0f9ccffa06c29f507f1f4bdc7ed0cf1665cb91a5ae7a9416d03045600e"
+    },
+    "core-source/primary-source/embed-resource-3.0.12/src/lib.rs": {
+      "bytes": 2114,
+      "mode": 420,
+      "sha256": "15b58d0c35a45204be9eb308684137be66538235e0a91184a857d7d5c9d52381"
+    },
+    "core-source/primary-source/tauri-build-2.7.3/src/lib.rs": {
+      "bytes": 5008,
+      "mode": 420,
+      "sha256": "19e31b421e97d998f5238ae383c102c442abea512a89568669a289740002e642"
+    },
+    "core-source/primary-source/tauri-build-2.7.3/src/windows-app-manifest.xml": {
+      "bytes": 418,
+      "mode": 420,
+      "sha256": "568797d449b4004158986034f03d2d1bd40b38d3d17bfeea76cff082fff0132b"
+    },
+    "core-source/primary-source/tauri-winres-0.3.6/src/lib.rs": {
+      "bytes": 2218,
+      "mode": 420,
+      "sha256": "98eb02462309f02b22af8e65a387da9ca1b99f4d612ac2013bdc5d92c1c08e43"
+    },
+    "core-source/proposal/apps/desktop/src-tauri/build.rs": {
+      "bytes": 2356,
+      "mode": 420,
+      "sha256": "48b13d593001ac39af9393160910d2675be869a6d28ec219b84b7a16c21a123c"
+    },
+    "core-source/proposal/apps/desktop/src-tauri/windows-common-controls.manifest": {
+      "bytes": 392,
+      "mode": 420,
+      "sha256": "4636f3ba46080315ac3277d473d433b79c00863c9cdca1c93c0c83554c6a3d43"
+    },
+    "core-source/proposal/scripts/windows-native-loader-diagnostics.ps1": {
+      "bytes": 15202,
+      "mode": 420,
+      "sha256": "2f228343661f2f779b99181a41dcf1e3719f7acc21d2eb4b28a0a20520088578"
+    },
+    "local-rust/after.json": {
+      "bytes": 348759,
+      "mode": 420,
+      "sha256": "8c5665154b17a24847b5e5f881fd9a265da8971c7e3463060db9a5ed2faa70b4"
+    },
+    "local-rust/before.json": {
+      "bytes": 348759,
+      "mode": 420,
+      "sha256": "8c5665154b17a24847b5e5f881fd9a265da8971c7e3463060db9a5ed2faa70b4"
+    },
+    "local-rust/closure.json": {
+      "bytes": 266,
+      "mode": 420,
+      "sha256": "ffde197c07b191f6fe6bdac4ea0b194dc4ea217d89fbf102994489eaca6d0d98"
+    },
+    "local-rust/environment.json": {
+      "bytes": 3642,
+      "mode": 420,
+      "sha256": "30fca287113bad26942a0b80f339ff5bcab7ee7494006e6e4a7d5ed690f4471b"
+    },
+    "local-rust/executed-wrapper.py": {
+      "bytes": 6900,
+      "mode": 420,
+      "sha256": "0957f08a40d65578f88a3a0c4d66eca2059d34c191012b84a4354f12adb858b0"
+    },
+    "local-rust/runtime-after.json": {
+      "bytes": 7817,
+      "mode": 420,
+      "sha256": "6e6cbed62df6a7a2453889ec503d2e7aa822d5f65e66a0676c7a237f7f077309"
+    },
+    "local-rust/runtime-before.json": {
+      "bytes": 7817,
+      "mode": 420,
+      "sha256": "6e6cbed62df6a7a2453889ec503d2e7aa822d5f65e66a0676c7a237f7f077309"
+    },
+    "local-rust/rust-launch.json": {
+      "bytes": 106,
+      "mode": 420,
+      "sha256": "172624bfd7f7b11e0124a8b3e83d676b254dfbff33be6d2dc5c0544080172a4c"
+    },
+    "local-rust/rust-result.json": {
+      "bytes": 2532,
+      "mode": 420,
+      "sha256": "3731c2390ebd477f878af55f248a11b907bf890211ec714b19e8f762ebbc4ead"
+    },
+    "local-rust/rust-upfront.json": {
+      "bytes": 2043,
+      "mode": 420,
+      "sha256": "03ce9f08915b7252af6040eb98347cb40e7275a2b754d5e54a70011dd93be776"
+    },
+    "local-rust/rust.log": {
+      "bytes": 77429,
+      "mode": 420,
+      "sha256": "e71b220366aa1b299972fe5a053768916a5bf57e3a040dd880048faf79eac491"
+    },
+    "local-rust/single-command-reconciliation.derived.json": {
+      "bytes": 1553,
+      "mode": 420,
+      "sha256": "5eb082eb86d6bb84f863b3d98a9a76126179d945f3286c605b6660167b787fb6"
+    },
+    "log-review/REVIEW.md": {
+      "bytes": 994,
+      "mode": 420,
+      "sha256": "6a6d123a43d4c73c4e927aa0c598173bc7815d64c0a1764338a79652c9052628"
+    },
+    "log-review/findings.json": {
+      "bytes": 2868,
+      "mode": 420,
+      "sha256": "69de568bce53af9a4d7ef5cc2f3b2911e18964bd4e08e9fc1c75950993baaf85"
+    },
+    "log-source/DECLARED_SELECTION.json": {
+      "bytes": 2925,
+      "mode": 420,
+      "sha256": "d1bd2ae3e179f3b30db8694d211e6174b553db9ada384ba7dd7eb088231ddecf"
+    },
+    "log-source/REPORT.md": {
+      "bytes": 3500,
+      "mode": 420,
+      "sha256": "bebd1f6984e5683f2c923535828dfca963ff31547080555f212b7234804f2e7c"
+    },
+    "log-source/counterproofs/log-retention.tests.ps1": {
+      "bytes": 5613,
+      "mode": 420,
+      "sha256": "c764899b78e754652482ee337780ca7b180601bc87939b93b79b0b9eed8506ae"
+    },
+    "log-source/manifest.json": {
+      "bytes": 1421,
+      "mode": 420,
+      "sha256": "666a84402cb21f752309af5801dd8de591f5c4cab8daced2a8d62366b49a763d"
+    },
+    "log-source/preimages/scripts/windows-native-loader-diagnostics.ps1": {
+      "bytes": 15202,
+      "mode": 420,
+      "sha256": "2f228343661f2f779b99181a41dcf1e3719f7acc21d2eb4b28a0a20520088578"
+    },
+    "log-source/proposal/scripts/windows-native-loader-diagnostics.ps1": {
+      "bytes": 21110,
+      "mode": 420,
+      "sha256": "d592d1b13089c6c497c923648f05aa05376140927ebcb2d3e77f70107dea7dcb"
+    },
+    "log-source/retention.patch": {
+      "bytes": 6726,
+      "mode": 420,
+      "sha256": "75a7258aabe987810ff2451451bf0ff7369c59a18f6396b9ec597c0a40766566"
+    },
+    "log-source/v2-to-v3.patch": {
+      "bytes": 1190,
+      "mode": 420,
+      "sha256": "c8c25861366fbe4e62ba87ee5107efca08d33e5d88fc92719bcbd448dc5f549d"
+    },
+    "log-v2-review/REVIEW.md": {
+      "bytes": 1333,
+      "mode": 420,
+      "sha256": "37352d8a20617f6ff9ee4c4ed1e022e40073cbd09fa2d11ee681de03ba3d9ff7"
+    },
+    "log-v2-review/findings.json": {
+      "bytes": 3716,
+      "mode": 420,
+      "sha256": "e0eca83949b512ff5b7922256a18f949db004fb0a69bf4d005378fc8372c6af0"
+    },
+    "log-v2-source/DECLARED_SELECTION.json": {
+      "bytes": 2925,
+      "mode": 420,
+      "sha256": "d1bd2ae3e179f3b30db8694d211e6174b553db9ada384ba7dd7eb088231ddecf"
+    },
+    "log-v2-source/REPORT.md": {
+      "bytes": 2898,
+      "mode": 420,
+      "sha256": "4d44f460c0d5d2a6384d0a5f483f04f5bcfb51ee39c50d8c72955b3f80169a2a"
+    },
+    "log-v2-source/counterproofs/log-retention.tests.ps1": {
+      "bytes": 5288,
+      "mode": 420,
+      "sha256": "5da77beda83d2ab403dd8aabef9fb6b81489a2db6493f17e733d82b22d325b52"
+    },
+    "log-v2-source/manifest.json": {
+      "bytes": 1242,
+      "mode": 420,
+      "sha256": "015cd73a1d7481bde496f500a27a5b8eeeb95dc39ca3627a4cc29efa3e449363"
+    },
+    "log-v2-source/preimages/scripts/windows-native-loader-diagnostics.ps1": {
+      "bytes": 15202,
+      "mode": 420,
+      "sha256": "2f228343661f2f779b99181a41dcf1e3719f7acc21d2eb4b28a0a20520088578"
+    },
+    "log-v2-source/proposal/scripts/windows-native-loader-diagnostics.ps1": {
+      "bytes": 21059,
+      "mode": 420,
+      "sha256": "2277f6cedd4e37bade783f2f381439d9199153cad1f06ac3bc36f065c6d0f1c5"
+    },
+    "log-v2-source/retention.patch": {
+      "bytes": 6675,
+      "mode": 420,
+      "sha256": "8d2c3679d65a863488e4a26eea50f61881b1428d8de5bcf3d5d4f2e887b3450e"
+    },
+    "producer/executed-builder.py": {
+      "bytes": 7133,
+      "mode": 420,
+      "sha256": "cd7a012c57480b34770102f185f024a4c9329fade55cb03e2ce2163b448e55aa"
+    }
+  },
+  "member_count": 57,
+  "payload_bytes": 8706292,
+  "schema_version": 1
+}

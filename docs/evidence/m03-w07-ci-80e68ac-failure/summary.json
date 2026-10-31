@@ -1,0 +1,28 @@
+{
+  "actual_tested_merge": "6f54aa9e09b6c7356dc00d73469c411ef8bd60b8",
+  "attempt": 1,
+  "canonical_each_active_suites_pass": 20,
+  "conclusion": "failure",
+  "created_utc": "2026-10-29T16:13:17.758867+00:00",
+  "head": "80e68ac9a24cd7ebf2874af625b866a055b9abe6",
+  "independent_data_checks": 5720,
+  "independent_verdict": "CLEAR_AS_RECORDED_FAILURE",
+  "native_package": {
+    "ubuntu": "FAILURE:0PASS1FAIL; actual owned packaged service health/auth/shutdown reached, immediate stdTcpListener rebind AddrInUse after cleanup success; old cause UNKNOWN",
+    "windows": "FAILURE:PyInstaller import Path.home missing scrubbed home, before app/service actor"
+  },
+  "native_platform_certification_or_work_package_promotion": false,
+  "native_unique_cases_each_three_modes": {
+    "macos": 342,
+    "ubuntu": 338,
+    "windows": 316
+  },
+  "python": {
+    "macos": 2141,
+    "ubuntu": 2141,
+    "windows": 2139
+  },
+  "run": 40898412173,
+  "tree": "3ce188444df26df24a9cc24b112c4d0ab03e892b",
+  "typescript_each": 4006
+}

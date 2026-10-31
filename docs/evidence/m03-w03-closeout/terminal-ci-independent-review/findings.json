@@ -1,0 +1,401 @@
+{
+  "result": "PASS_DATA_AND_SOURCE_BINDING_ACTUAL_CI_FAILURE_PRESERVED",
+  "archive_sha256": "637cb8795b5b158794410b20b5d31e27d88deea9941edbac8ae4203aded5cdff",
+  "archive_regular_members": 479,
+  "input_rows_checked": 478,
+  "official_zip_regular_members_crc_checked": 86,
+  "all_source_git_remote_candidate_parent_bindings": 1798,
+  "selected_api_blobs": 24,
+  "raw_command_operation_records": 77,
+  "nonzero_raw_records": [],
+  "summary_raw_evidence_references_checked": 415,
+  "platforms": [
+    {
+      "platform": "ubuntu-24.04",
+      "suite_rows": [
+        {
+          "id": "toolchain",
+          "result": "PASS",
+          "line": 11541
+        },
+        {
+          "id": "format",
+          "result": "PASS",
+          "line": 11542
+        },
+        {
+          "id": "lint",
+          "result": "PASS",
+          "line": 11543
+        },
+        {
+          "id": "typecheck",
+          "result": "PASS",
+          "line": 11544
+        },
+        {
+          "id": "unit-ts",
+          "result": "PASS",
+          "line": 11545
+        },
+        {
+          "id": "contract-gen",
+          "result": "PASS",
+          "line": 11546
+        },
+        {
+          "id": "fixture-corpus",
+          "result": "PASS",
+          "line": 11547
+        },
+        {
+          "id": "evaluation-corpus",
+          "result": "PASS",
+          "line": 11548
+        },
+        {
+          "id": "contract",
+          "result": "PASS",
+          "line": 11549
+        },
+        {
+          "id": "build",
+          "result": "PASS",
+          "line": 11550
+        },
+        {
+          "id": "e2e-browser",
+          "result": "PASS",
+          "line": 11551
+        },
+        {
+          "id": "w14-public-controlled",
+          "result": "PASS",
+          "line": 11552
+        },
+        {
+          "id": "w14-public-contact-controlled",
+          "result": "PASS",
+          "line": 11553
+        },
+        {
+          "id": "visual",
+          "result": "PASS",
+          "line": 11554
+        },
+        {
+          "id": "python",
+          "result": "PASS",
+          "line": 11555
+        },
+        {
+          "id": "rust",
+          "result": "PASS",
+          "line": 11556
+        },
+        {
+          "id": "portability",
+          "result": "PASS",
+          "line": 11557
+        },
+        {
+          "id": "traceability",
+          "result": "PASS",
+          "line": 11558
+        },
+        {
+          "id": "status",
+          "result": "PASS",
+          "line": 11559
+        },
+        {
+          "id": "integrity",
+          "result": "PASS",
+          "line": 11560
+        }
+      ],
+      "doctor_pass": 28,
+      "python_pass": 1653,
+      "python_summary_line": 8834,
+      "native_modes": [
+        {
+          "command": "$ cargo test --locked --manifest-path apps/desktop/src-tauri/Cargo.toml",
+          "passed": 76,
+          "line": 9239
+        },
+        {
+          "command": "$ cargo test --locked --manifest-path apps/desktop/src-tauri/Cargo.toml --all-features",
+          "passed": 76,
+          "line": 9531
+        },
+        {
+          "command": "$ cargo test --locked --manifest-path apps/desktop/src-tauri/Cargo.toml --features tauri/custom-protocol",
+          "passed": 76,
+          "line": 9631
+        }
+      ],
+      "rust_commands": 15,
+      "clippy_commands": 3,
+      "final_native_build_completed": true
+    },
+    {
+      "platform": "windows-2025",
+      "suite_rows": [
+        {
+          "id": "toolchain",
+          "result": "PASS",
+          "line": 10548
+        },
+        {
+          "id": "format",
+          "result": "PASS",
+          "line": 10549
+        },
+        {
+          "id": "lint",
+          "result": "PASS",
+          "line": 10550
+        },
+        {
+          "id": "typecheck",
+          "result": "PASS",
+          "line": 10551
+        },
+        {
+          "id": "unit-ts",
+          "result": "PASS",
+          "line": 10552
+        },
+        {
+          "id": "contract-gen",
+          "result": "PASS",
+          "line": 10553
+        },
+        {
+          "id": "fixture-corpus",
+          "result": "PASS",
+          "line": 10554
+        },
+        {
+          "id": "evaluation-corpus",
+          "result": "PASS",
+          "line": 10555
+        },
+        {
+          "id": "contract",
+          "result": "PASS",
+          "line": 10556
+        },
+        {
+          "id": "build",
+          "result": "PASS",
+          "line": 10557
+        },
+        {
+          "id": "e2e-browser",
+          "result": "FAIL",
+          "line": 10558
+        },
+        {
+          "id": "w14-public-controlled",
+          "result": "PASS",
+          "line": 10559
+        },
+        {
+          "id": "w14-public-contact-controlled",
+          "result": "PASS",
+          "line": 10560
+        },
+        {
+          "id": "visual",
+          "result": "PASS",
+          "line": 10561
+        },
+        {
+          "id": "python",
+          "result": "PASS",
+          "line": 10562
+        },
+        {
+          "id": "rust",
+          "result": "PASS",
+          "line": 10563
+        },
+        {
+          "id": "portability",
+          "result": "PASS",
+          "line": 10564
+        },
+        {
+          "id": "traceability",
+          "result": "PASS",
+          "line": 10565
+        },
+        {
+          "id": "status",
+          "result": "PASS",
+          "line": 10566
+        },
+        {
+          "id": "integrity",
+          "result": "PASS",
+          "line": 10567
+        }
+      ],
+      "doctor_pass": 28,
+      "python_pass": 1651,
+      "python_summary_line": 7925,
+      "native_modes": [
+        {
+          "command": "$ cargo test --locked --manifest-path apps/desktop/src-tauri/Cargo.toml",
+          "passed": 70,
+          "line": 8292
+        },
+        {
+          "command": "$ cargo test --locked --manifest-path apps/desktop/src-tauri/Cargo.toml --all-features",
+          "passed": 70,
+          "line": 8550
+        },
+        {
+          "command": "$ cargo test --locked --manifest-path apps/desktop/src-tauri/Cargo.toml --features tauri/custom-protocol",
+          "passed": 70,
+          "line": 8644
+        }
+      ],
+      "rust_commands": 15,
+      "clippy_commands": 3,
+      "final_native_build_completed": true
+    },
+    {
+      "platform": "macos-15",
+      "suite_rows": [
+        {
+          "id": "toolchain",
+          "result": "PASS",
+          "line": 10266
+        },
+        {
+          "id": "format",
+          "result": "PASS",
+          "line": 10267
+        },
+        {
+          "id": "lint",
+          "result": "PASS",
+          "line": 10268
+        },
+        {
+          "id": "typecheck",
+          "result": "PASS",
+          "line": 10269
+        },
+        {
+          "id": "unit-ts",
+          "result": "PASS",
+          "line": 10270
+        },
+        {
+          "id": "contract-gen",
+          "result": "PASS",
+          "line": 10271
+        },
+        {
+          "id": "fixture-corpus",
+          "result": "PASS",
+          "line": 10272
+        },
+        {
+          "id": "evaluation-corpus",
+          "result": "PASS",
+          "line": 10273
+        },
+        {
+          "id": "contract",
+          "result": "PASS",
+          "line": 10274
+        },
+        {
+          "id": "build",
+          "result": "PASS",
+          "line": 10275
+        },
+        {
+          "id": "e2e-browser",
+          "result": "PASS",
+          "line": 10276
+        },
+        {
+          "id": "w14-public-controlled",
+          "result": "PASS",
+          "line": 10277
+        },
+        {
+          "id": "w14-public-contact-controlled",
+          "result": "PASS",
+          "line": 10278
+        },
+        {
+          "id": "visual",
+          "result": "PASS",
+          "line": 10279
+        },
+        {
+          "id": "python",
+          "result": "PASS",
+          "line": 10280
+        },
+        {
+          "id": "rust",
+          "result": "PASS",
+          "line": 10281
+        },
+        {
+          "id": "portability",
+          "result": "PASS",
+          "line": 10282
+        },
+        {
+          "id": "traceability",
+          "result": "PASS",
+          "line": 10283
+        },
+        {
+          "id": "status",
+          "result": "PASS",
+          "line": 10284
+        },
+        {
+          "id": "integrity",
+          "result": "PASS",
+          "line": 10285
+        }
+      ],
+      "doctor_pass": 28,
+      "python_pass": 1653,
+      "python_summary_line": 7626,
+      "native_modes": [
+        {
+          "command": "$ cargo test --locked --manifest-path apps/desktop/src-tauri/Cargo.toml",
+          "passed": 77,
+          "line": 7989
+        },
+        {
+          "command": "$ cargo test --locked --manifest-path apps/desktop/src-tauri/Cargo.toml --all-features",
+          "passed": 77,
+          "line": 8254
+        },
+        {
+          "command": "$ cargo test --locked --manifest-path apps/desktop/src-tauri/Cargo.toml --features tauri/custom-protocol",
+          "passed": 77,
+          "line": 8355
+        }
+      ],
+      "rust_commands": 15,
+      "clippy_commands": 3,
+      "final_native_build_completed": true
+    }
+  ],
+  "all_three_hosts_pass": false,
+  "official_failure_artifacts_available": 0,
+  "scope": "Static/data/Git-object inspection only; no subject import, execution, CI/network request, source writes or acceptance."
+}
