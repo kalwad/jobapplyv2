@@ -57,7 +57,12 @@ features = ["Win32_Foundation", "Win32_Security", "Win32_Security_Authorization"
 
 [target.'cfg(windows)'.dependencies.windows-sys]
 version = "=0.61.2"
-features = ["Win32_Foundation", "Win32_Security", "Win32_Security_Authorization", "Win32_System_Threading", "Win32_System_JobObjects", "Win32_System_Pipes", "Win32_System_IO", "Win32_Storage_FileSystem", "Win32_System_Memory", "Win32_System_SystemInformation", "Win32_System_SystemServices", "Win32_System_WindowsProgramming"]
+features = ["Win32_Foundation", "Win32_Security", "Win32_Security_Authorization", "Win32_System_Threading", "Win32_System_JobObjects", "Win32_System_Pipes", "Win32_System_IO", "Win32_Storage_FileSystem", "Win32_System_Memory", "Win32_System_SystemInformation", "Win32_System_SystemServices", "Win32_System_WindowsProgramming", "Win32_UI_Input_KeyboardAndMouse"]
+
+# The exact WebView2 binding Tauri already locks; used only to route the File
+# menu's Ctrl+Q accelerator out of the focused WebView2 (KI-0158).
+[target.'cfg(windows)'.dependencies.webview2-com]
+version = "=0.39.1"
 
 # Only this exact dependency version is optimized. Application defaults stay debug.
 [profile.dev.package."sha2:0.10.9"]
