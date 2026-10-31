@@ -1,0 +1,93 @@
+{
+  "retrieved_with": "gh api (2026-10-31UTC); selected fields only",
+  "runs": [
+    {
+      "id": 41147070404,
+      "name": "prepare unreviewed GNOME dependency candidate",
+      "run_attempt": 1,
+      "event": "pull_request",
+      "head_sha": "3f2a7d3d5962fe6bfdd20e23204463fd5311b098",
+      "status": "completed",
+      "conclusion": "failure",
+      "path": ".github/workflows/ubuntu-gnome-prepare.yml",
+      "jobs": [
+        {
+          "id": 124374541423,
+          "name": "authorize",
+          "conclusion": "success"
+        },
+        {
+          "id": 124374850138,
+          "name": "download-only",
+          "conclusion": "failure"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13021462695,
+          "name": "unreviewed-gnome-inputs-b4b5b96cf9014474ea71442581491e9f87f6a6c0-41147070404",
+          "size_in_bytes": 415401233,
+          "digest": "sha256:7d5d3340a5d350a911220ff433ae13ae83dd63e1b6534f85d515a5cf489b02c5",
+          "expires_at": "2026-11-06T23:57:53Z"
+        },
+        {
+          "id": 13021077478,
+          "name": "gnome-download-only-request-41147070404",
+          "size_in_bytes": 21058,
+          "digest": "sha256:c84e6b90bf8a92e1e29a2457879c55acabfaf27f6f19f0e97a60ed40ad45f0fc",
+          "expires_at": "2026-11-06T23:54:05Z"
+        }
+      ]
+    },
+    {
+      "id": 41147235484,
+      "name": "prepare unreviewed Windows11 media and host-tool candidate",
+      "run_attempt": 1,
+      "event": "pull_request",
+      "head_sha": "7ac6bdad8490a9e79d917b512e1c0549d7279439",
+      "status": "completed",
+      "conclusion": "failure",
+      "path": ".github/workflows/windows11-native-prepare.yml",
+      "jobs": [
+        {
+          "id": 124375074665,
+          "name": "authorize",
+          "conclusion": "success"
+        },
+        {
+          "id": 124375333174,
+          "name": "guest-source-checks",
+          "conclusion": "success"
+        },
+        {
+          "id": 124375643569,
+          "name": "download-only",
+          "conclusion": "failure"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13021352506,
+          "name": "win11-source-check-b4b5b96cf9014474ea71442581491e9f87f6a6c0-41147235484",
+          "size_in_bytes": 659,
+          "digest": "sha256:42fe3e27870f3367d1d7b67344cec0619ab5421e8ccedae5651b69dc884fa67c",
+          "expires_at": "2026-11-06T23:56:45Z"
+        },
+        {
+          "id": 13020904333,
+          "name": "unreviewed-windows11-inputs-b4b5b96cf9014474ea71442581491e9f87f6a6c0-41147235484",
+          "size_in_bytes": 667770,
+          "digest": "sha256:9f544f8d95e5c587bc5e9600be7a9eb485a96f4809b03d88a833d59086cee6bf",
+          "expires_at": "2026-11-07T00:01:14Z"
+        },
+        {
+          "id": 13020484903,
+          "name": "win11-download-only-request-41147235484",
+          "size_in_bytes": 106220,
+          "digest": "sha256:170adb5c947c3e6b3f772e20b3065b91a9b7d18ddc642ed5bed0f35ee58a80ab",
+          "expires_at": "2026-11-06T23:55:42Z"
+        }
+      ]
+    }
+  ]
+}

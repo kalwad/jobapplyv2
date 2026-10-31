@@ -2,8 +2,8 @@
   "schema_version": 1,
   "normalization_version": 1,
   "common": {
-    "count": 2897,
-    "sha256": "5b7ff98319d43d5d4ec106ffcb1aff40d2bd4ac4a51c2adf32a556eb70058f52",
+    "count": 2900,
+    "sha256": "cf92a32c7ba649e1ab7b5341f615e27420478f83ea9a2cfabc153806c71a6781",
     "node_ids": [
       "scripts/tests/test_bounded_process.py::test_ordinary_nonzero_exit_preserves_stdout_and_stderr",
       "scripts/tests/test_bounded_process.py::test_over_one_mib_child_is_stopped_and_retained_output_is_bounded",
@@ -1973,6 +1973,7 @@
       "scripts/tests/test_ubuntu_gnome_signed_indexes.py::test_duplicate_continuation_and_oversized_fields_refused[Package: a\\npackage: b\\n]",
       "scripts/tests/test_ubuntu_gnome_signed_indexes.py::test_duplicate_continuation_and_oversized_fields_refused[oversized-field]",
       "scripts/tests/test_ubuntu_gnome_signed_indexes.py::test_empty_packages_index_can_be_retained_exactly",
+      "scripts/tests/test_ubuntu_gnome_signed_indexes.py::test_real_archive_line_length_is_accepted_within_the_stanza_bound",
       "scripts/tests/test_ubuntu_gnome_signed_indexes.py::test_release_index_archive_joins_refuse_each_mismatch[archive_hash]",
       "scripts/tests/test_ubuntu_gnome_signed_indexes.py::test_release_index_archive_joins_refuse_each_mismatch[archive_size]",
       "scripts/tests/test_ubuntu_gnome_signed_indexes.py::test_release_index_archive_joins_refuse_each_mismatch[duplicate_target]",
@@ -1986,6 +1987,8 @@
       "scripts/tests/test_ubuntu_gnome_signed_indexes.py::test_signed_release_identity_and_hash_section_closed[size]",
       "scripts/tests/test_ubuntu_gnome_signed_indexes.py::test_signed_release_identity_and_hash_section_closed[suite]",
       "scripts/tests/test_ubuntu_gnome_signed_indexes.py::test_signed_release_identity_and_hash_section_closed[traversal]",
+      "scripts/tests/test_ubuntu_gnome_signed_indexes.py::test_stanza_bound_resets_between_stanzas",
+      "scripts/tests/test_ubuntu_gnome_signed_indexes.py::test_stanza_bound_still_refuses_many_lines_under_the_line_bound",
       "scripts/tests/test_ubuntu_gnome_source_binding.py::test_different_merge_tree_or_original_shipping_input_is_refused[actual_head]",
       "scripts/tests/test_ubuntu_gnome_source_binding.py::test_different_merge_tree_or_original_shipping_input_is_refused[actual_tree]",
       "scripts/tests/test_ubuntu_gnome_source_binding.py::test_different_merge_tree_or_original_shipping_input_is_refused[build_head]",

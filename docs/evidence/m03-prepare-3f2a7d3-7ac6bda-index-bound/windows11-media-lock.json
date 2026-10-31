@@ -1,0 +1,28 @@
+{
+  "schema": "japp-win11-media-lock-v1",
+  "review_state": "UNREVIEWED",
+  "publisher": {
+    "url": "https://support.microsoft.com/en-us/servicing/os/windows/docs/2026/09/verify-the-authenticity-of-a-windows-11-enterprise-evaluation-iso-file",
+    "bytes": 105775,
+    "sha256": "667f5f0ea500d1bf6ff034b528c140b4dbdd8a29387bdfe5c34d5033eb7213f5",
+    "seconds": 0.20202543199999923,
+    "authenticated_account_used": false
+  },
+  "host_cpu_requires_different_official_support_review": {
+    "model name": "AMD EPYC 9V45 96-Core Processor",
+    "vendor_id": "AuthenticAMD",
+    "cpu family": "26",
+    "model": "2",
+    "stepping": "1"
+  },
+  "media": {
+    "url": "https://software-static.download.prss.microsoft.com/dbazure/26300.9457.260913-1737.26h2_ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso",
+    "bytes": 8225329152,
+    "sha256": "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38",
+    "seconds": 181.33497712400003,
+    "authenticated_account_used": false
+  },
+  "iso_retained_in_artifact": false,
+  "subsequent_campaign_must_redownload_identical_digest": true,
+  "installation_and_native_OS_not_observed": true
+}

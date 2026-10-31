@@ -1,0 +1,15 @@
+{
+  "status": "FAILED",
+  "install_vm_product_actors": 0,
+  "error_type": "ValueError",
+  "message": "Debian index line/stanza exceeds bound",
+  "closure": {
+    "vm_started": false,
+    "pending_commands": []
+  },
+  "source_guard": {
+    "source_files": 2468,
+    "bytes_modes_head_tree_status_unchanged": true,
+    "ignored_runtime_or_whole_filesystem_neutrality_claimed": false
+  }
+}

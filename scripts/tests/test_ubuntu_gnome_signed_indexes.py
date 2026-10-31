@@ -31,7 +31,7 @@ def indexes() -> ModuleType:
     [
         b"Package: a\npackage: b\n",
         b" continuation\n",
-        pytest.param(b"x" * 65537, id="oversized-field"),
+        pytest.param(b"x" * (1024 * 1024 + 1), id="oversized-field"),
     ],
 )
 def test_duplicate_continuation_and_oversized_fields_refused(
@@ -39,6 +39,38 @@ def test_duplicate_continuation_and_oversized_fields_refused(
 ) -> None:
     with pytest.raises(ValueError, match=r"Duplicate|continuation|exceeds bound"):
         list(indexes.paragraphs(payload.splitlines(keepends=True)))
+
+
+def test_real_archive_line_length_is_accepted_within_the_stanza_bound(
+    indexes: ModuleType,
+) -> None:
+    # Ubuntu noble universe librust-winapi-dev has a 70,841-byte Provides line.
+    provides = b", ".join(
+        b"librust-winapi+f%05d-dev (= 0.3.9-1)" % n for n in range(2000)
+    )
+    assert len(provides) > 65536
+    stanza = b"Package: librust-winapi-dev\nProvides: " + provides + b"\n\n"
+    rows = list(indexes.paragraphs(stanza.splitlines(keepends=True)))
+    assert rows == [{"package": "librust-winapi-dev", "provides": provides.decode()}]
+    assert indexes.LINE_CAP == indexes.STANZA_CAP == 1024 * 1024
+
+
+def test_stanza_bound_still_refuses_many_lines_under_the_line_bound(
+    indexes: ModuleType,
+) -> None:
+    line = b"X-Field-%d: " + b"y" * (300 * 1024) + b"\n"
+    stanza = [b"Package: big\n", *(line % n for n in range(4))]
+    assert all(len(row) <= indexes.LINE_CAP for row in stanza)
+    with pytest.raises(ValueError, match="exceeds bound"):
+        list(indexes.paragraphs(stanza))
+
+
+def test_stanza_bound_resets_between_stanzas(indexes: ModuleType) -> None:
+    body = b"Description: " + b"z" * (600 * 1024) + b"\n"
+    lines = [b"Package: one\n", body, b"\n", b"Package: two\n", body]
+    assert sum(map(len, lines)) > indexes.STANZA_CAP
+    rows = list(indexes.paragraphs(lines))
+    assert [row["package"] for row in rows] == ["one", "two"]
 
 
 def test_deb822_casefold_continuations_and_multiple_paragraphs(

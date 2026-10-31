@@ -1,0 +1,94 @@
+{
+  "status": "CANDIDATE_FAILED",
+  "install_vm_product_actors": 0,
+  "resource_preflight": {
+    "schema": "japp-win11-host-capacity-v1",
+    "minimum_free_bytes": 51539607552,
+    "removed": [],
+    "roots_before": {},
+    "roots_after": {},
+    "status": "CAPACITY_OBSERVED",
+    "tools_before": {
+      "/usr/bin/git": {
+        "target": "/usr/bin/git",
+        "sha256": "824d5b2fffef332ec7ba053e579659bb12f26a0b4747da6f9c6dc0e71d36f235",
+        "link": null
+      },
+      "/usr/bin/apt-get": {
+        "target": "/usr/bin/apt-get",
+        "sha256": "eb53b3b66cbb7a90a370e26439e941b7cf146ddd91a5422063c761ce9e59c53b",
+        "link": null
+      },
+      "/usr/bin/dpkg-deb": {
+        "target": "/usr/bin/dpkg-deb",
+        "sha256": "fc9dde782ca8309b65ab92e61d13318bf463cd1aa71daa8967b87b81b48b63d2",
+        "link": null
+      },
+      "/usr/bin/dpkg-query": {
+        "target": "/usr/bin/dpkg-query",
+        "sha256": "cc2a19017c37132e4ad46c1fbddea6472262d0a62a0b8585c383706c20005ea1",
+        "link": null
+      },
+      "/usr/bin/sudo": {
+        "target": "/usr/bin/sudo",
+        "sha256": "6ae6665cc51295ea8aaba94a3377dafa563f950aafc6296c0704fb33401a31ff",
+        "link": null
+      },
+      "/usr/bin/rm": {
+        "target": "/usr/bin/rm",
+        "sha256": "78721a1709e77e74163f73067cef7049496463325adb300f4b7fd6155fca1c62",
+        "link": null
+      },
+      "/usr/bin/python3": {
+        "target": "/usr/bin/python3.12",
+        "sha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+        "link": "python3.12"
+      }
+    },
+    "free_before": 90040102912,
+    "free_after": 90040102912,
+    "tools_after": {
+      "/usr/bin/git": {
+        "target": "/usr/bin/git",
+        "sha256": "824d5b2fffef332ec7ba053e579659bb12f26a0b4747da6f9c6dc0e71d36f235",
+        "link": null
+      },
+      "/usr/bin/apt-get": {
+        "target": "/usr/bin/apt-get",
+        "sha256": "eb53b3b66cbb7a90a370e26439e941b7cf146ddd91a5422063c761ce9e59c53b",
+        "link": null
+      },
+      "/usr/bin/dpkg-deb": {
+        "target": "/usr/bin/dpkg-deb",
+        "sha256": "fc9dde782ca8309b65ab92e61d13318bf463cd1aa71daa8967b87b81b48b63d2",
+        "link": null
+      },
+      "/usr/bin/dpkg-query": {
+        "target": "/usr/bin/dpkg-query",
+        "sha256": "cc2a19017c37132e4ad46c1fbddea6472262d0a62a0b8585c383706c20005ea1",
+        "link": null
+      },
+      "/usr/bin/sudo": {
+        "target": "/usr/bin/sudo",
+        "sha256": "6ae6665cc51295ea8aaba94a3377dafa563f950aafc6296c0704fb33401a31ff",
+        "link": null
+      },
+      "/usr/bin/rm": {
+        "target": "/usr/bin/rm",
+        "sha256": "78721a1709e77e74163f73067cef7049496463325adb300f4b7fd6155fca1c62",
+        "link": null
+      },
+      "/usr/bin/python3": {
+        "target": "/usr/bin/python3.12",
+        "sha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+        "link": "python3.12"
+      }
+    }
+  },
+  "error_type": "ValueError",
+  "message": "Debian index line/stanza exceeds bound",
+  "closure": {
+    "vm_started": false,
+    "pending_commands": []
+  }
+}

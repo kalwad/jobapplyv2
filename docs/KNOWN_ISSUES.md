@@ -32,7 +32,9 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
-## Latest W07/W11 validation scope (2026-10-30UTC)
+## Latest W07/W11 validation scope (2026-10-31UTC)
+
+Download-only requests bound to the b4b5b96 package artifacts were authorized, then both the GNOME and the Windows 11 candidate downloads failed closed at the signed Debian index line bound (KI-0145); no archive was installed and no VM started. Exact docs/evidence/m03-prepare-3f2a7d3-7ac6bda-index-bound.
 
 Hosted b4b5b96/run41139850970 is the first terminal SUCCESS: three verify jobs PASS (20 ACTIVE suites each; Python Mac2899/Ubuntu2899/Windows2897) and both native package jobs PASS, including the first passing Windows packaged service actor (KI-0142 FIXED). Exact docs/evidence/m03-w07-ci-b4b5b96-pass. Native Windows 11 and default GNOME desktop campaigns remain pending.
 
@@ -53,6 +55,17 @@ Clean bd4 is a preserved19PASS/onePythonFAIL aggregate; the narrow cache fixture
 Current scoped correction supersedes the pending source/focus statements: all ten canonical checks pass with693Python/2704collection, different2573joins CLEAR, exact docs/evidence/m03-ci-path-and-bytecode-correction. Actual native Mac zoom/reset/routes/keyboard now passes the prospective policy and different1354data+590pixel checks, exact docs/evidence/m03-w11-macos-native-zoom-v6. Hosted bd4 remains failed with no curated package exports, exact docs/evidence/m03-w07-hosted-bd4-terminal. Fresh corrected full/hosted and native foreign-platform/reader evidence remain pending.
 
 The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
+
+### KI-0145 — Debian index line bound refuses the real Ubuntu noble universe index
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: actual GNOME prepare run41147070404 (failed 2026-10-30T23:57Z) and Windows 11 prepare run41147235484 (failed 2026-10-31T00:01Z), the download-only requests for b4b5b96.
+- Affects: M03-W07 and M03-W08 native campaign preparation; scripts/linux_gnome/ubuntu_gnome_signed_indexes.py (shared by the Windows 11 host-tool candidate through ubuntu_gnome_prepare.resolve).
+- Description: the signed-index parser bounded each deb822 line at 65,536 bytes and each stanza at 1 MiB. Ubuntu noble's universe Packages index (universe/binary-amd64/Packages, 73,379,142 bytes, the size and SHA-256 the signed noble Release lists) carries a 70,841-byte Provides line for librust-winapi-dev (stanza 71,854 bytes), so both download-only jobs failed closed with "Debian index line/stanza exceeds bound" before any candidate was complete. Nothing was installed and no VM started. The Windows 11 run had already downloaded the official evaluation ISO (sha256 bc3f2408…).
+- Reproduction: the retained GNOME indexes reproduce it locally: the old parser refuses packages-003 and the corrected parser reads all 64,755 stanzas. The Windows 11 run's indexes were not retained, but both runs verified the same three signed Release files with identical signing times, so it read the same universe index. Exact docs/evidence/m03-prepare-3f2a7d3-7ac6bda-index-bound.
+- Workaround: none; requests bound to b4b5b96 cannot proceed because the parser is a protected source of both request routes.
+- Resolution + evidence link: LINE_CAP now equals the unchanged 1 MiB STANZA_CAP (a field line cannot exceed its stanza; per-index 256 MiB and total 1 GiB caps are unchanged). The oversized-field refusal case now exceeds the new line cap; new tests accept a realistic >64 KiB Provides line, prove the stanza bound still refuses a stanza of individually acceptable lines (both fail against the old cap), and prove the stanza size resets between stanzas (fails if the reset is removed). Independent review found the parser change sound and checked the retained real data against every other bound on this path (all pass); its only blocking finding, naming the index noble main instead of universe, is corrected (docs/evidence/m03-prepare-3f2a7d3-7ac6bda-index-bound/review.md). New download-only requests must bind a fresh hosted package run of the corrected source.
 
 ### KI-0144 — Status-validator fixtures inherit a new live HIGH blocker
 

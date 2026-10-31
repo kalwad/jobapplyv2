@@ -19,8 +19,10 @@ from typing import Any, Protocol
 INDEX_CAP = 256 * 1024 * 1024
 TOTAL_INDEX_CAP = 1024 * 1024 * 1024
 RELEASE_CAP = 2 * 1024 * 1024
-LINE_CAP = 65536
 STANZA_CAP = 1024 * 1024
+# A deb822 field line may be as long as its stanza: noble universe's
+# librust-winapi-dev Provides line alone is 70,841 bytes.
+LINE_CAP = STANZA_CAP
 MAX_INDEXES = 12
 SUITES = {"noble", "noble-updates", "noble-security"}
 SITES = {"https://archive.ubuntu.com/ubuntu", "https://security.ubuntu.com/ubuntu"}
