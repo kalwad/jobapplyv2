@@ -19,9 +19,10 @@ $A=[Windows.Automation.AutomationElement]
 function Describe($e) { if($null -eq $e){return $null}; @{name=$e.Current.Name;type=$e.Current.ControlType.ProgrammaticName;class=$e.Current.ClassName;pid=$e.Current.ProcessId;hwnd=$e.Current.NativeWindowHandle;patterns=@($e.GetSupportedPatterns()|ForEach-Object { $_.ProgrammaticName })} }
 $window=$A::RootElement.FindFirst([Windows.Automation.TreeScope]::Children,(New-Object Windows.Automation.PropertyCondition($A::ProcessIdProperty,$process.Id)))
 [void][JappWin]::SetForegroundWindow([IntPtr]$window.Current.NativeWindowHandle)
-Step 'menubars' { @($window.FindAll([Windows.Automation.TreeScope]::Children,(New-Object Windows.Automation.PropertyCondition($A::ControlTypeProperty,[Windows.Automation.ControlType]::MenuBar))))|ForEach-Object { Describe $_ } }
+Step 'window-children' { @($window.FindAll([Windows.Automation.TreeScope]::Children,[Windows.Automation.Condition]::TrueCondition))|ForEach-Object { Describe $_ } }
+Step 'named-application-and-file' { @($window.FindAll([Windows.Automation.TreeScope]::Descendants,(New-Object Windows.Automation.OrCondition((New-Object Windows.Automation.PropertyCondition($A::NameProperty,'Application')),(New-Object Windows.Automation.PropertyCondition($A::NameProperty,'File'))))))|ForEach-Object { Describe $_ } }
 $file=$null
-Step 'file-item' { $script:file=$window.FindFirst([Windows.Automation.TreeScope]::Descendants,(New-Object Windows.Automation.AndCondition((New-Object Windows.Automation.PropertyCondition($A::NameProperty,'File')),(New-Object Windows.Automation.PropertyCondition($A::ControlTypeProperty,[Windows.Automation.ControlType]::MenuItem))))); Describe $script:file }
+Step 'file-item' { $script:file=$window.FindFirst([Windows.Automation.TreeScope]::Descendants,(New-Object Windows.Automation.PropertyCondition($A::NameProperty,'File'))); Describe $script:file }
 Step 'expand-file' { ([Windows.Automation.ExpandCollapsePattern]$file.GetCurrentPattern([Windows.Automation.ExpandCollapsePattern]::Pattern)).Expand(); 'expanded' }
 Start-Sleep -Milliseconds 700
 Step 'file-children-after-expand' { @($file.FindAll([Windows.Automation.TreeScope]::Children,[Windows.Automation.Condition]::TrueCondition))|ForEach-Object { Describe $_ } }
