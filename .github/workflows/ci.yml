@@ -25,11 +25,11 @@ jobs:
       - name: Run the guest driver's own lifecycle phases with Windows PowerShell 5.1
         shell: powershell
         run: |
-          powershell.exe -NoProfile -ExecutionPolicy Bypass -File diag\win_guest_probe7.ps1 -Guest diag\win_guest_current.ps1 -Cs diag\win_owned_current.cs -Package (Join-Path $env:RUNNER_TEMP 'fixed') -Out (Join-Path $env:RUNNER_TEMP 'out')
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File diag\win_text_probe14.ps1 -Guest diag\win_guest_current.ps1 -Cs diag\win_owned_current.cs -Package (Join-Path $env:RUNNER_TEMP 'fixed') -Out (Join-Path $env:RUNNER_TEMP 'out')
           Get-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'out\probe.json') -Raw
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag13-win-lifecycle
+          name: diag14-win-text
           path: ${{ runner.temp }}/out
           retention-days: 7
