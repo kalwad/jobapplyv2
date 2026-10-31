@@ -1,0 +1,28 @@
+{
+  "schema": "japp-win11-media-lock-v1",
+  "review_state": "UNREVIEWED",
+  "publisher": {
+    "url": "https://support.microsoft.com/en-us/servicing/os/windows/docs/2026/09/verify-the-authenticity-of-a-windows-11-enterprise-evaluation-iso-file",
+    "bytes": 105788,
+    "sha256": "0657f056abe7be7a11fa89404a41ced11b6f4b4a5dee21a663a1bbe3b304ec9f",
+    "seconds": 0.05121902400000522,
+    "authenticated_account_used": false
+  },
+  "host_cpu_requires_different_official_support_review": {
+    "model name": "AMD EPYC 7763 64-Core Processor",
+    "vendor_id": "AuthenticAMD",
+    "cpu family": "25",
+    "model": "1",
+    "stepping": "1"
+  },
+  "media": {
+    "url": "https://software-static.download.prss.microsoft.com/dbazure/26300.9457.260913-1737.26h2_ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso",
+    "bytes": 8225329152,
+    "sha256": "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38",
+    "seconds": 214.00577305099998,
+    "authenticated_account_used": false
+  },
+  "iso_retained_in_artifact": false,
+  "subsequent_campaign_must_redownload_identical_digest": true,
+  "installation_and_native_OS_not_observed": true
+}

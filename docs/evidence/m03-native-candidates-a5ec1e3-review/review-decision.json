@@ -1,0 +1,50 @@
+{
+  "schema": "japp-native-candidate-review-decision-v1",
+  "reviewed_at_utc": "2026-10-31",
+  "review_process": "Independent multi-agent workflow wf_584b2a27-a96 (29 separate-context read-only agents): nine lenses, two adversarial refuters per actionable finding, one final reviewer per platform; the implementer only launched it and recorded its output (review-workflow-result.json).",
+  "source": {
+    "expected_source_sha": "a5ec1e3a894fc6f11354f5adce1631b1cc262470",
+    "source_tree_sha": "758efac1f9ff9a561283181416101cab2e9a15ff",
+    "package_build_sha": "97e21680432bc20e6e41111b3c42ce90bc3d22cc",
+    "package_run": 41149738856
+  },
+  "gnome": {
+    "decision": "RELEASE_ONE_BOUND_CAMPAIGN",
+    "candidate": {
+      "prepare_run": 41154763996,
+      "run_attempt": 1,
+      "run_head_sha": "df99cdc1a3f5fd0b9da3f26140ee36353480e740",
+      "artifact_id": 13024588558,
+      "digest_sha256": "a807367ba09c9df9cb65a6e469b729cf395dfb079761e3220b050484cd2a9063",
+      "export_sha256": "b258f6d01badb4f697d40a859b2ea692e443e4d9c2d33930cb31312d750562ba"
+    },
+    "bound_hashes": {
+      "bundle_sha256": "415a2f7df65c6d6fdd6fba8a3ddd59cb1250eecba7c02404cc2bfe6a44f481e9",
+      "guest_closure_sha256": "4754901a2b97c43e36075f86c45637ee947fc28aa47e3ac2d6f0015f56e0bd6f",
+      "host_tools_sha256": "23e9cdcb59d19b45de46bbfbe53630680aa3266dfd762cca97d1c2c40354d953",
+      "keyring_sha256": "c2d40d925557dbe9a0745c12ca0dc98bed593ce9a6652f1b2faa1ff0858dbf2f"
+    },
+    "blocking_reasons": []
+  },
+  "windows11": {
+    "decision": "DO_NOT_RELEASE",
+    "candidate": {
+      "prepare_run": 41154871189,
+      "run_attempt": 1,
+      "run_head_sha": "b421351f9cb2025823c6123e24f72c04b2ee5920",
+      "artifact_id": 13023973641,
+      "digest_sha256": "1432e3092283412fbf26ed98c47068fd6cea931e43cfaa25e65b8003c2b29105",
+      "package_manifest_sha256": "4a061c1f395612c5be7ab58c06b11ca742b4d2c28f51ab673c04db1263b5b4c0"
+    },
+    "bound_hashes": {
+      "bundle_sha256": "3971a0688335618d9dbfea97aea20b0ff1e9655129deeda5adaa5c1a7035d462",
+      "media_lock_sha256": "b52a5b82f89c9d2fe08e0c02bba123510f885c955945e3488c0b3c01ec088114",
+      "host_tools_sha256": "38ed61fbb4994bb5fb6cf25d8417eb1c61e2819a2f328634e8fffe7c3a20e62a",
+      "guest_driver_sha256": "98bf8603b3fce04fa4747e4d077bf50241482158b61efa198ada3ba91de41f97"
+    },
+    "blocking_reasons": [
+      "BLOCKING (win-bundle and win-host-tools found it separately; all 4 adversarial votes kept it BLOCKING): the lifecycle workflow at S looks for the bundle at a path this artifact does not have. At S, .github/workflows/windows11-native-lifecycle.yml:135 downloads the candidate into $RUNNER_TEMP/japp-reviewed-win11-inputs, and line 144 passes --bundle \"$RUNNER_TEMP/japp-reviewed-win11-inputs/inputs\". The prepare workflow at S uploads two paths, japp-unreviewed-win11-candidate/retained/ and retention-failure.json. Because of that, upload-artifact used their common parent as the root, and every one of the 1530 members of artifact 13023973641 sits under retained/. After download the bundle is at .../retained/inputs, so audit_bundle() fails with FileNotFoundError before any tool install or VM step. It fails closed and nothing is exposed, but a campaign released on this candidate can never pass. The lifecycle and prepare workflows are PROTECTED and must match S byte for byte, so the fix needs a new S, a new package build and a new candidate. I confirmed this myself: line 144 at S, the two-path upload at S, and the unzipped candidate has only a retained/ top folder.",
+      "BLOCKING (win-bundle; all 4 adversarial votes kept it BLOCKING): seed() runs the package inspector on the Linux host, where the inspector refuses to start. windows11_vm.main() calls require_linux() (line 481) and runs on ubuntu-24.04. seed() (line 231ff; the call is at line 249) then runs scripts/windows_package.py inspect through Owner.command. At S, windows_package.main() raises ValueError('Native Windows x64 host required') whenever platform.system() != 'Windows'. The command exits 1 and Owner.command raises RuntimeError. By then install_tools, KVM setup and the full ISO download have already run, and QEMU is never started. Both files are protected at S, so the fix needs a new S and a new candidate. I confirmed this myself: the guard at S, and both the require_linux call and the windows_package.py call in windows11_vm.py at S."
+    ]
+  }
+}

@@ -34,6 +34,8 @@ broadening a work package (spec §1.5).
 
 ## Latest W07/W11 validation scope (2026-10-31UTC)
 
+Hosted a5ec1e3/run41149738856 (KI-0145 correction) is terminal SUCCESS with the Windows package actor passing again. Fresh download-only candidates were reviewed by an independent multi-agent workflow: the GNOME candidate is released for one bound VM campaign; the Windows 11 candidate is not, because two protected campaign defects (KI-0146 bundle path, KI-0147 host-side package inspector) would stop any campaign. Exact docs/evidence/m03-native-candidates-a5ec1e3-review.
+
 Download-only requests bound to the b4b5b96 package artifacts were authorized, then both the GNOME and the Windows 11 candidate downloads failed closed at the signed Debian index line bound (KI-0145); no archive was installed and no VM started. Exact docs/evidence/m03-prepare-3f2a7d3-7ac6bda-index-bound.
 
 Hosted b4b5b96/run41139850970 is the first terminal SUCCESS: three verify jobs PASS (20 ACTIVE suites each; Python Mac2899/Ubuntu2899/Windows2897) and both native package jobs PASS, including the first passing Windows packaged service actor (KI-0142 FIXED). Exact docs/evidence/m03-w07-ci-b4b5b96-pass. Native Windows 11 and default GNOME desktop campaigns remain pending.
@@ -55,6 +57,28 @@ Clean bd4 is a preserved19PASS/onePythonFAIL aggregate; the narrow cache fixture
 Current scoped correction supersedes the pending source/focus statements: all ten canonical checks pass with693Python/2704collection, different2573joins CLEAR, exact docs/evidence/m03-ci-path-and-bytecode-correction. Actual native Mac zoom/reset/routes/keyboard now passes the prospective policy and different1354data+590pixel checks, exact docs/evidence/m03-w11-macos-native-zoom-v6. Hosted bd4 remains failed with no curated package exports, exact docs/evidence/m03-w07-hosted-bd4-terminal. Fresh corrected full/hosted and native foreign-platform/reader evidence remain pending.
 
 The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
+
+### KI-0147 — Windows 11 campaign runs the Windows-only package inspector on the Linux host
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: independent review of the a5ec1e3 Windows 11 candidate (workflow wf_584b2a27-a96), 2026-10-31UTC.
+- Affects: M03-W07 Windows 11 VM campaign; scripts/windows11/windows11_vm.py seed() and scripts/windows_package.py.
+- Description: windows11_vm.main() runs on the ubuntu-24.04 host (require_linux). seed() runs scripts/windows_package.py inspect through Owner.command, but windows_package.main() raises "Native Windows x64 host required" on any other host, so the campaign would fail after installing host tools and downloading the ISO, before QEMU starts. No campaign has run, so this was found statically.
+- Reproduction: read windows11_vm.py seed() at a5ec1e3 and windows_package.py main(); the guard rejects platform.system() != "Windows".
+- Workaround: none; the Windows 11 candidate for a5ec1e3 is not released.
+- Resolution + evidence link: pending; the host-side inspection must run without relaxing the Windows-only build guard. Exact docs/evidence/m03-native-candidates-a5ec1e3-review.
+
+### KI-0146 — Windows 11 lifecycle passes the wrong bundle path for the prepared artifact
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: independent review of the a5ec1e3 Windows 11 candidate (workflow wf_584b2a27-a96), 2026-10-31UTC.
+- Affects: M03-W07 Windows 11 VM campaign; .github/workflows/windows11-native-prepare.yml and .github/workflows/windows11-native-lifecycle.yml.
+- Description: the prepare workflow uploads two paths (japp-unreviewed-win11-candidate/retained/ and retention-failure.json), so upload-artifact roots the artifact at their common parent and every member sits under retained/. The lifecycle workflow downloads it to japp-reviewed-win11-inputs and passes --bundle .../japp-reviewed-win11-inputs/inputs, which does not exist; the bundle audit would fail before any tool install or VM step.
+- Reproduction: artifact 13023973641 (prepare run41154871189) has only a retained/ top folder; lifecycle line 144 at a5ec1e3 expects inputs/ at the download root.
+- Workaround: none; the Windows 11 candidate for a5ec1e3 is not released.
+- Resolution + evidence link: pending; the consumer path and the producer layout must agree and be pinned by a test. Exact docs/evidence/m03-native-candidates-a5ec1e3-review.
 
 ### KI-0145 — Debian index line bound refuses the real Ubuntu noble universe index
 
