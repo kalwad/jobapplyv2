@@ -30,6 +30,14 @@ $framedPhases=@('ready','keyboard','restart','relaunch','collision')
 $collision=$null;$serviceHandle=$null;$terminal=$null;$phase='setup'
 $packageRoot=Join-Path ([Environment]::GetFolderPath('LocalApplicationData')) ('JobApply '+[char]0x03A9+' space '+$config.nonce.Substring(0,12))
 Copy-Item -Recurse -LiteralPath $Package -Destination $packageRoot
+# upload-artifact drops hidden files; restore the manifest-listed runtime/.gitignore
+# with its exact bytes and check them against the package's own build manifest.
+$ignore=Join-Path $packageRoot 'runtime\.gitignore'
+if(-not (Test-Path -LiteralPath $ignore)) { [IO.File]::WriteAllBytes($ignore,[Text.Encoding]::ASCII.GetBytes("*`n!.gitignore`n")) }
+$build=Get-Content -LiteralPath (Join-Path $packageRoot 'build-manifest.json') -Raw|ConvertFrom-Json
+$expected=$build.files.'runtime/.gitignore'.sha256
+$actual=(Get-FileHash -Algorithm SHA256 -LiteralPath $ignore).Hash.ToLowerInvariant()
+if($actual -cne $expected) { throw ('restored .gitignore differs: '+$actual+' vs '+$expected) }
 ProbeNote 'package' @{root=$packageRoot;files=@(Get-ChildItem -LiteralPath $packageRoot -File -Recurse).Count}
 $text=[IO.File]::ReadAllText($Guest)
 $start=$text.IndexOf("    `$phase='ready'; `$app=Launch")
