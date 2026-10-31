@@ -1,4 +1,4 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 10 (UI Automation view of the open Win32 File popup, by name): compile the committed
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 11 (owned Expand, then the #32768 popup by handle): compile the committed
 # Windows 11 guest driver (windows11_owned.cs at the campaign head) with Windows
 # PowerShell 5.1 on a hosted Windows runner and exercise the reviewed a5ec1e3
 # portable package the way the guest would, to measure the audit's Windows guest
@@ -27,11 +27,11 @@ jobs:
       - name: Explore the open Win32 File popup with UI Automation
         shell: powershell
         run: |
-          powershell.exe -NoProfile -ExecutionPolicy Bypass -File diag\win_menu_probe9.ps1 -Package (Join-Path $env:RUNNER_TEMP 'fixed') -Out (Join-Path $env:RUNNER_TEMP 'out')
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File diag\win_menu_probe11.ps1 -Cs diag\win_owned_current.cs -Package (Join-Path $env:RUNNER_TEMP 'fixed') -Out (Join-Path $env:RUNNER_TEMP 'out')
           Get-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'out\probe.json') -Raw
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag10-win-menu
+          name: diag11-win-menu
           path: ${{ runner.temp }}/out
           retention-days: 7
