@@ -531,7 +531,15 @@ namespace JobApplyValidation {
             }
             return rows.ToArray();
         }
-        System.Windows.Automation.Text.TextPatternRange ShellText(string text,System.Windows.Automation.Text.TextPatternRange scope) {
+        // WebView2's FindText result drifts one character per line break before the match
+        // within its scope (measured: "0.0.1" in the Desktop versions region read ".1\nTau",
+        // KI-0163). Each label is searched only inside its own unique text element, where it
+        // starts the first line, as the route-heading prefix already is.
+        System.Windows.Automation.Text.TextPatternRange ShellText(string text,AutomationElement region,TextPattern pattern) {
+            AutomationElementCollection labels=region.FindAll(TreeScope.Descendants,new AndCondition(new PropertyCondition(AutomationElement.NameProperty,text),new PropertyCondition(AutomationElement.ControlTypeProperty,ControlType.Text)));
+            if(labels.Count!=1) throw new InvalidOperationException("Exact unique whole glyph label required");
+            if(!new HashSet<uint>(Members()).Contains((uint)labels[0].Current.ProcessId)) throw new OwnedInvariantException("Glyph label outside retained job");
+            System.Windows.Automation.Text.TextPatternRange scope=pattern.RangeFromChild(labels[0]);
             System.Windows.Automation.Text.TextPatternRange first=scope.FindText(text,false,false),last=scope.FindText(text,true,false);
             if(first==null||last==null||!first.Compare(last)||first.GetText(text.Length+1)!=text) throw new InvalidOperationException("Exact unique whole glyph label required");
             if(!(first.GetAttributeValue(TextPattern.IsHiddenAttribute) is bool)||(bool)first.GetAttributeValue(TextPattern.IsHiddenAttribute)) throw new InvalidOperationException("Actual glyph range is hidden or unknown");
@@ -564,11 +572,10 @@ namespace JobApplyValidation {
             object raw;if(!documents[0].TryGetCurrentPattern(TextPattern.Pattern,out raw)) throw new InvalidOperationException("Actual UIA text bounds unavailable");
             TextPattern pattern=(TextPattern)raw;
             AutomationElement region=ShellUnique("Desktop versions",ControlType.Group,"region");
-            System.Windows.Automation.Text.TextPatternRange scope=pattern.RangeFromChild(region);
-            ShellText("App version",scope).ScrollIntoView(true);ShellText("Tauri version",scope);
+            ShellText("App version",region,pattern).ScrollIntoView(true);ShellText("Tauri version",region,pattern);
             List<object> anchors=new List<object>();
             foreach(string text in new string[]{"0.0.1","2.12.4"}) {
-                System.Windows.Automation.Text.TextPatternRange range=ShellText(text,scope);System.Windows.Rect[] rectangles=range.GetBoundingRectangles();
+                System.Windows.Automation.Text.TextPatternRange range=ShellText(text,region,pattern);System.Windows.Rect[] rectangles=range.GetBoundingRectangles();
                 if(rectangles.Length!=1) throw new InvalidOperationException("Single visible complete glyph rectangle required");
                 System.Windows.Rect glyph=rectangles[0];double[] glyphBounds=new double[]{glyph.X,glyph.Y,glyph.Width,glyph.Height};
                 foreach(double coordinate in glyphBounds) if(Double.IsNaN(coordinate)||Double.IsInfinity(coordinate)) throw new InvalidOperationException("Finite actual glyph bounds required");
