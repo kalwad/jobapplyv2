@@ -353,6 +353,26 @@ def controls(rows: list[dict[str, Any]], name: str, role: str) -> list[dict[str,
     ]
 
 
+def focus_leaves(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Focused rows with no focused descendant: the element that has the focus.
+
+    WebKitGTK also marks the focused element's scroll pane and named document
+    FOCUSED (measured in diagnostic run 41250366992, KI-0166).
+    """
+    focused = {row["id"] for row in rows if row["focused"]}
+    ancestors: set[int] = set()
+    for row_id in focused:
+        parent = rows[row_id]["parent"]
+        for _ in range(len(rows)):
+            if parent is None:
+                break
+            ancestors.add(parent)
+            parent = rows[parent]["parent"]
+        else:
+            raise ValueError("Native accessibility ancestry is cyclic")
+    return [row for row in rows if row["id"] in focused - ancestors]
+
+
 class Controller:
     def __init__(self) -> None:
         self.atspi, self.gio = load_native()
@@ -694,7 +714,9 @@ class Controller:
             time.sleep(0.1)
         rows, _ = self.tree()
         focused = [row for row in rows if row["focused"]]
-        semantic_focus = {(row["name"], row["role"]) for row in focused if row["name"]}
+        semantic_focus = {
+            (row["name"], row["role"]) for row in focus_leaves(rows) if row["name"]
+        }
         if operation == "keyboard_before":
             if len(semantic_focus) != 1 or next(iter(semantic_focus))[0] != "Home":
                 raise ValueError("Actual keyboard origin is not Home link")
