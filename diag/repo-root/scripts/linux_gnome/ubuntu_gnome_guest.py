@@ -53,6 +53,8 @@ MENU_SECONDS = 3
 # The pre-chord focus record stays small enough to name in a 512-character
 # failure message; it is a diagnosis, never a gate.
 FOCUS_SECONDS = 2
+# After a scroll, WebKitGTK updates a text leaf's SHOWING state within this bound.
+SHELL_SETTLE_SECONDS = 2
 FOCUS_ROWS = 8
 FOCUS_TEXT_CAP = 128
 FOCUS_MESSAGE_ROWS = 4
@@ -334,6 +336,10 @@ def port_excluded(port: int) -> bool:
                 return True
             raise
     return False
+
+
+class OffscreenTextError(ValueError):
+    """A text leaf exists but is not (yet) visible and showing."""
 
 
 def controls(rows: list[dict[str, Any]], name: str, role: str) -> list[dict[str, Any]]:
@@ -1049,7 +1055,7 @@ class Controller:
         if not state.contains(self.atspi.StateType.VISIBLE) or not state.contains(
             self.atspi.StateType.SHOWING
         ):
-            raise ValueError("Actual Text leaf is hidden or offscreen")
+            raise OffscreenTextError("Actual Text leaf is hidden or offscreen")
         interface = node.get_text_iface()
         if interface is None:
             raise ValueError("Actual native Text bounds unavailable")
@@ -1118,7 +1124,6 @@ class Controller:
     def shell_measure(self, stage: str) -> dict[str, Any]:
         rows, objects = self.tree()
         rows = self.shell_version_rows(rows, objects)
-        self.shell_text("Tauri version", versions=True)
         found = [
             row
             for row in rows
@@ -1126,9 +1131,23 @@ class Controller:
         ]
         if len(found) != 1:
             raise ValueError("One exact native version label required")
+        # The largest zoom step stacks the layout and leaves the version rows below
+        # the fold (measured in diagnostic run 41249463049, KI-0164). Scroll first,
+        # then require every label visible and showing.
         component = objects[found[0]["id"]].get_component_iface()
         if component is None or not component.scroll_to(self.atspi.ScrollType.TOP_EDGE):
             raise ValueError("Actual version labels could not scroll into view")
+        deadline = min(self.work_deadline, time.monotonic() + SHELL_SETTLE_SECONDS)
+        while True:
+            self.app_accessible().clear_cache()
+            try:
+                self.shell_text("Tauri version", versions=True)
+                anchors = [self.shell_text(label, versions=True) for label in ANCHORS]
+                break
+            except OffscreenTextError:
+                if time.monotonic() >= deadline:
+                    raise
+                time.sleep(0.1)
         frame, window = self.shell_frame()
         if self.app is None:
             raise ValueError("Actual owned app identity unavailable")
@@ -1138,7 +1157,7 @@ class Controller:
             "app_pid": self.app["pid"],
             "frame": frame,
             "backing": self.shell_backing(),
-            "anchors": [self.shell_text(label, versions=True) for label in ANCHORS],
+            "anchors": anchors,
         }
 
     def shell_operation(self, operation: str) -> dict[str, Any]:
