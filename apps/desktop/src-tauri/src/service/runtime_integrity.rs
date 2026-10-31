@@ -74,33 +74,55 @@ impl RuntimeTree {
     ) -> Result<(), SupervisorError> {
         check()?;
         if !self.root.is_absolute() {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
-        let root =
-            std::fs::symlink_metadata(&self.root).map_err(|_| SupervisorError::InvalidRuntime)?;
+        let root = std::fs::symlink_metadata(&self.root).map_err(|_| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?;
         if root.file_type().is_symlink() || !root.is_dir() {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         let manifest_path = self.root.join("manifest.json");
         let size = std::fs::symlink_metadata(&manifest_path)
-            .map_err(|_| SupervisorError::InvalidRuntime)?
+            .map_err(|_| {
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            })?
             .len();
         if size > MAX_MANIFEST {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         let (hash, bytes) = read_checked(&manifest_path, size, true, &mut check)?;
         if hash != self.manifest_sha256 {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
-        let manifest: Manifest =
-            serde_json::from_slice(&bytes).map_err(|_| SupervisorError::InvalidRuntime)?;
+        let manifest: Manifest = serde_json::from_slice(&bytes).map_err(|_| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?;
         if manifest.schema_version != "1.0.0"
             || manifest.target != self.target
             || manifest.entrypoint != self.entrypoint()
             || manifest.files.is_empty()
             || manifest.files.len() > MAX_FILES
         {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         for hash in [
             &manifest.source_inputs.orchestrator_wheel_sha256,
@@ -119,13 +141,20 @@ impl RuntimeTree {
                 || entry.path == "manifest.json"
                 || !expected.insert(entry.path.clone())
             {
-                return Err(SupervisorError::InvalidRuntime);
+                return Err({
+                    eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                    SupervisorError::InvalidRuntime
+                });
             }
-            total = total
-                .checked_add(entry.bytes)
-                .ok_or(SupervisorError::InvalidRuntime)?;
+            total = total.checked_add(entry.bytes).ok_or_else(|| {
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            })?;
             if total > MAX_PAYLOAD {
-                return Err(SupervisorError::InvalidRuntime);
+                return Err({
+                    eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                    SupervisorError::InvalidRuntime
+                });
             }
             let mut parts = entry.path.split('/').peekable();
             let mut path = self.root.clone();
@@ -137,12 +166,17 @@ impl RuntimeTree {
                     relative.push('/');
                 }
                 relative.push_str(part);
-                let metadata = std::fs::symlink_metadata(&path)
-                    .map_err(|_| SupervisorError::InvalidRuntime)?;
+                let metadata = std::fs::symlink_metadata(&path).map_err(|_| {
+                    eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                    SupervisorError::InvalidRuntime
+                })?;
                 if metadata.file_type().is_symlink()
                     || (parts.peek().is_some() && !metadata.is_dir())
                 {
-                    return Err(SupervisorError::InvalidRuntime);
+                    return Err({
+                        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                        SupervisorError::InvalidRuntime
+                    });
                 }
                 if parts.peek().is_some() {
                     directories.insert(relative.clone());
@@ -150,11 +184,17 @@ impl RuntimeTree {
             }
             if read_checked(&path, entry.bytes, false, &mut check)?.0 != parse_hash(&entry.sha256)?
             {
-                return Err(SupervisorError::InvalidRuntime);
+                return Err({
+                    eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                    SupervisorError::InvalidRuntime
+                });
             }
         }
         if !expected.contains(self.entrypoint()) {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         let mut actual = BTreeSet::new();
         let mut pending = vec![(self.root.clone(), 0usize)];
@@ -162,68 +202,114 @@ impl RuntimeTree {
         while let Some((directory, depth)) = pending.pop() {
             check()?;
             if depth > MAX_DEPTH {
-                return Err(SupervisorError::InvalidRuntime);
+                return Err({
+                    eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                    SupervisorError::InvalidRuntime
+                });
             }
-            for item in std::fs::read_dir(directory).map_err(|_| SupervisorError::InvalidRuntime)? {
+            for item in std::fs::read_dir(directory).map_err(|_| {
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            })? {
                 check()?;
                 nodes += 1;
                 if nodes > MAX_NODES {
-                    return Err(SupervisorError::InvalidRuntime);
+                    return Err({
+                        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                        SupervisorError::InvalidRuntime
+                    });
                 }
-                let item = item.map_err(|_| SupervisorError::InvalidRuntime)?;
-                let kind = item
-                    .file_type()
-                    .map_err(|_| SupervisorError::InvalidRuntime)?;
+                let item = item.map_err(|_| {
+                    eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                    SupervisorError::InvalidRuntime
+                })?;
+                let kind = item.file_type().map_err(|_| {
+                    eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                    SupervisorError::InvalidRuntime
+                })?;
                 let path = item.path();
                 let relative = relative_inventory_path(&self.root, &path)?;
                 if kind.is_symlink() {
-                    return Err(SupervisorError::InvalidRuntime);
+                    return Err({
+                        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                        SupervisorError::InvalidRuntime
+                    });
                 }
                 if kind.is_dir() {
                     if !directories.contains(&relative) {
-                        return Err(SupervisorError::InvalidRuntime);
+                        return Err({
+                            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                            SupervisorError::InvalidRuntime
+                        });
                     }
                     pending.push((path, depth + 1));
                 } else if kind.is_file() {
                     if relative != "manifest.json" && !actual.insert(relative) {
-                        return Err(SupervisorError::InvalidRuntime);
+                        return Err({
+                            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                            SupervisorError::InvalidRuntime
+                        });
                     }
                 } else {
-                    return Err(SupervisorError::InvalidRuntime);
+                    return Err({
+                        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                        SupervisorError::InvalidRuntime
+                    });
                 }
             }
         }
         if expected != actual {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
-        let after =
-            std::fs::symlink_metadata(&self.root).map_err(|_| SupervisorError::InvalidRuntime)?;
+        let after = std::fs::symlink_metadata(&self.root).map_err(|_| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?;
         if !same_identity(&root, &after) {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         check()
     }
 }
 fn relative_inventory_path(root: &Path, path: &Path) -> Result<String, SupervisorError> {
-    let relative = path
-        .strip_prefix(root)
-        .map_err(|_| SupervisorError::InvalidRuntime)?;
+    let relative = path.strip_prefix(root).map_err(|_| {
+        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+        SupervisorError::InvalidRuntime
+    })?;
     let mut names = Vec::new();
     for part in relative.components() {
         let std::path::Component::Normal(name) = part else {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         };
-        let name = name.to_str().ok_or(SupervisorError::InvalidRuntime)?;
+        let name = name.to_str().ok_or_else(|| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?;
         // Native separators are component boundaries. A POSIX filename's literal
         // backslash is data, so it must not alias a declared slash-separated path.
         if name.contains(['\\', '/', ':']) || names.len() >= MAX_DEPTH {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         names.push(name);
     }
     let result = names.join("/");
     if !safe_relative(&result) {
-        return Err(SupervisorError::InvalidRuntime);
+        return Err({
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        });
     }
     Ok(result)
 }
@@ -245,12 +331,17 @@ fn parse_hash(value: &str) -> Result<[u8; 32], SupervisorError> {
             .bytes()
             .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
     {
-        return Err(SupervisorError::InvalidRuntime);
+        return Err({
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        });
     }
     let mut bytes = [0; 32];
     for (index, byte) in bytes.iter_mut().enumerate() {
-        *byte = u8::from_str_radix(&value[index * 2..index * 2 + 2], 16)
-            .map_err(|_| SupervisorError::InvalidRuntime)?;
+        *byte = u8::from_str_radix(&value[index * 2..index * 2 + 2], 16).map_err(|_| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?;
     }
     Ok(bytes)
 }
@@ -279,16 +370,21 @@ fn open_regular_payload(path: &Path, initial: &Metadata) -> Result<File, Supervi
         use std::os::unix::fs::OpenOptionsExt;
         options.custom_flags(libc::O_NOFOLLOW | libc::O_CLOEXEC | libc::O_NONBLOCK);
     }
-    let file: File = options
-        .open(path)
-        .map_err(|_| SupervisorError::InvalidRuntime)?;
+    let file: File = options.open(path).map_err(|_| {
+        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+        SupervisorError::InvalidRuntime
+    })?;
     if !same_identity(
         initial,
-        &file
-            .metadata()
-            .map_err(|_| SupervisorError::InvalidRuntime)?,
+        &file.metadata().map_err(|_| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?,
     ) {
-        return Err(SupervisorError::InvalidRuntime);
+        return Err({
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        });
     }
     Ok(file)
 }
@@ -301,11 +397,20 @@ fn read_checked(
 ) -> Result<([u8; 32], Vec<u8>), SupervisorError> {
     check()?;
     if size > MAX_PAYLOAD {
-        return Err(SupervisorError::InvalidRuntime);
+        return Err({
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        });
     }
-    let initial = std::fs::symlink_metadata(path).map_err(|_| SupervisorError::InvalidRuntime)?;
+    let initial = std::fs::symlink_metadata(path).map_err(|_| {
+        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+        SupervisorError::InvalidRuntime
+    })?;
     if !initial.is_file() || initial.file_type().is_symlink() || initial.len() != size {
-        return Err(SupervisorError::InvalidRuntime);
+        return Err({
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        });
     }
     let file = open_regular_payload(path, &initial)?;
     let mut limited = file.take(size + 1);
@@ -315,15 +420,19 @@ fn read_checked(
     let mut buffer = [0; 16384];
     loop {
         check()?;
-        let count = limited
-            .read(&mut buffer)
-            .map_err(|_| SupervisorError::InvalidRuntime)?;
+        let count = limited.read(&mut buffer).map_err(|_| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?;
         if count == 0 {
             break;
         }
         total += count as u64;
         if total > size {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         hash.update(&buffer[..count]);
         if collect {
@@ -333,17 +442,23 @@ fn read_checked(
     if total != size
         || !same_identity(
             &initial,
-            &limited
-                .get_ref()
-                .metadata()
-                .map_err(|_| SupervisorError::InvalidRuntime)?,
+            &limited.get_ref().metadata().map_err(|_| {
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            })?,
         )
         || !same_identity(
             &initial,
-            &std::fs::symlink_metadata(path).map_err(|_| SupervisorError::InvalidRuntime)?,
+            &std::fs::symlink_metadata(path).map_err(|_| {
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            })?,
         )
     {
-        return Err(SupervisorError::InvalidRuntime);
+        return Err({
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        });
     }
     check()?;
     Ok((hash.finalize().into(), raw))

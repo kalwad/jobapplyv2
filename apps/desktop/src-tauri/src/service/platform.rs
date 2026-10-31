@@ -29,7 +29,10 @@ impl ConfiguredRuntime {
     }
     pub fn approved(executable: PathBuf, sha256: [u8; 32]) -> Result<Self, SupervisorError> {
         if !executable.is_absolute() {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         Ok(Self {
             executable: Some(executable),
@@ -43,16 +46,20 @@ impl ConfiguredRuntime {
         tree: super::runtime_integrity::RuntimeTree,
     ) -> Result<Self, SupervisorError> {
         if !tree.contains_entrypoint(&executable) {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         let mut runtime = Self::approved(executable, sha256)?;
         runtime.tree = Some(tree);
         Ok(runtime)
     }
     fn path(&self) -> Result<&Path, SupervisorError> {
-        self.executable
-            .as_deref()
-            .ok_or(SupervisorError::RuntimeUnavailable)
+        self.executable.as_deref().ok_or_else(|| {
+            eprintln!("JAPP_DIAG RuntimeUnavailable {}:{}", file!(), line!());
+            SupervisorError::RuntimeUnavailable
+        })
     }
 }
 impl ConfiguredRuntime {
@@ -67,20 +74,27 @@ impl ConfiguredRuntime {
             tree.verify(|| permit.map_or(Ok(()), SpawnPermit::check))?;
         }
         let path = self.path()?;
-        let metadata = path
-            .symlink_metadata()
-            .map_err(|_| SupervisorError::InvalidRuntime)?;
+        let metadata = path.symlink_metadata().map_err(|_| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?;
         if metadata.file_type().is_symlink()
             || !metadata.is_file()
             || metadata.len() > 512 * 1024 * 1024
         {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         #[cfg(unix)]
         {
             use std::os::unix::fs::PermissionsExt;
             if metadata.permissions().mode() & 0o111 == 0 {
-                return Err(SupervisorError::InvalidRuntime);
+                return Err({
+                    eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                    SupervisorError::InvalidRuntime
+                });
             }
         }
         let (mut file, opened) = open_regular_runtime(path, &metadata)?;
@@ -91,15 +105,20 @@ impl ConfiguredRuntime {
                 Ok(())
             }
         })?;
-        let final_file = file
-            .metadata()
-            .map_err(|_| SupervisorError::InvalidRuntime)?;
-        let final_path = path
-            .symlink_metadata()
-            .map_err(|_| SupervisorError::InvalidRuntime)?;
+        let final_file = file.metadata().map_err(|_| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?;
+        let final_path = path.symlink_metadata().map_err(|_| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?;
         validate_unchanged(&opened, &final_file, &final_path)?;
         if Some(actual) != self.sha256 {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         if let Some(permit) = permit {
             permit.check()?;
@@ -115,12 +134,17 @@ impl RuntimeAdapter for ConfiguredRuntime {
         self.check_runtime_with_permit(Some(permit))
     }
     fn choose_port(&self) -> Result<u16, SupervisorError> {
-        let listener = TcpListener::bind((std::net::Ipv4Addr::LOCALHOST, 0))
-            .map_err(|_| SupervisorError::SpawnFailed)?;
+        let listener = TcpListener::bind((std::net::Ipv4Addr::LOCALHOST, 0)).map_err(|_| {
+            eprintln!("JAPP_DIAG SpawnFailed {}:{}", file!(), line!());
+            SupervisorError::SpawnFailed
+        })?;
         listener
             .local_addr()
             .map(|address| address.port())
-            .map_err(|_| SupervisorError::SpawnFailed)
+            .map_err(|_| {
+                eprintln!("JAPP_DIAG SpawnFailed {}:{}", file!(), line!());
+                SupervisorError::SpawnFailed
+            })
     }
     fn create_identity(
         &self,
@@ -175,12 +199,18 @@ impl RuntimeAdapter for ConfiguredRuntime {
         }
         #[cfg(all(windows, target_arch = "x86_64"))]
         {
-            let tree = self.tree.as_ref().ok_or(SupervisorError::InvalidRuntime)?;
+            let tree = self.tree.as_ref().ok_or_else(|| {
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            })?;
             let locks = super::windows_native::lock_tree(tree.root(), permit)?;
             self.check_runtime_with_permit(Some(permit))?;
             super::windows_native::spawn(
                 self.path()?,
-                self.sha256.ok_or(SupervisorError::InvalidRuntime)?,
+                self.sha256.ok_or_else(|| {
+                    eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                    SupervisorError::InvalidRuntime
+                })?,
                 permit,
                 locks,
             )
@@ -210,12 +240,14 @@ fn open_regular_runtime(
         use std::os::unix::fs::OpenOptionsExt;
         options.custom_flags(libc::O_NOFOLLOW | libc::O_CLOEXEC | libc::O_NONBLOCK);
     }
-    let file = options
-        .open(path)
-        .map_err(|_| SupervisorError::InvalidRuntime)?;
-    let opened = file
-        .metadata()
-        .map_err(|_| SupervisorError::InvalidRuntime)?;
+    let file = options.open(path).map_err(|_| {
+        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+        SupervisorError::InvalidRuntime
+    })?;
+    let opened = file.metadata().map_err(|_| {
+        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+        SupervisorError::InvalidRuntime
+    })?;
     validate_unchanged(expected, &opened, expected)?;
     Ok((file, opened))
 }
@@ -229,24 +261,29 @@ fn hash_bounded_checked(
     maximum: u64,
     mut check: impl FnMut() -> Result<(), SupervisorError>,
 ) -> Result<[u8; 32], SupervisorError> {
-    let maximum_read = maximum
-        .checked_add(1)
-        .ok_or(SupervisorError::InvalidRuntime)?;
+    let maximum_read = maximum.checked_add(1).ok_or_else(|| {
+        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+        SupervisorError::InvalidRuntime
+    })?;
     let mut bounded = source.take(maximum_read);
     let mut hash = Sha256::new();
     let mut buffer = [0_u8; 16384];
     let mut read = 0_u64;
     loop {
         check()?;
-        let count = bounded
-            .read(&mut buffer)
-            .map_err(|_| SupervisorError::InvalidRuntime)?;
+        let count = bounded.read(&mut buffer).map_err(|_| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?;
         if count == 0 {
             break;
         }
         read += count as u64;
         if read > maximum {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         hash.update(&buffer[..count]);
     }
@@ -262,14 +299,18 @@ fn validate_unchanged(
         if !observed.is_file()
             || observed.file_type().is_symlink()
             || initial.len() != observed.len()
-            || initial
-                .modified()
-                .map_err(|_| SupervisorError::InvalidRuntime)?
-                != observed
-                    .modified()
-                    .map_err(|_| SupervisorError::InvalidRuntime)?
+            || initial.modified().map_err(|_| {
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            })? != observed.modified().map_err(|_| {
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            })?
         {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         #[cfg(unix)]
         {
@@ -278,7 +319,10 @@ fn validate_unchanged(
                 || initial.ino() != observed.ino()
                 || initial.mode() != observed.mode()
             {
-                return Err(SupervisorError::InvalidRuntime);
+                return Err({
+                    eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                    SupervisorError::InvalidRuntime
+                });
             }
         }
     }
@@ -326,22 +370,33 @@ mod native {
     ) -> Result<Box<dyn OwnedProcess>, SupervisorError> {
         let mut command = Command::new(executable);
         command
-            .current_dir(executable.parent().ok_or(SupervisorError::InvalidRuntime)?)
+            .current_dir(executable.parent().ok_or_else(|| {
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            })?)
             .env_clear()
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::null())
             .process_group(0);
         permit.check()?;
-        let mut child = command.spawn().map_err(|_| SupervisorError::SpawnFailed)?;
-        let pid = libc::pid_t::try_from(child.id())
-            .map_err(|_| SupervisorError::ContainmentUnavailable)?;
+        let mut child = command.spawn().map_err(|_| {
+            eprintln!("JAPP_DIAG SpawnFailed {}:{}", file!(), line!());
+            SupervisorError::SpawnFailed
+        })?;
+        let pid = libc::pid_t::try_from(child.id()).map_err(|_| {
+            eprintln!("JAPP_DIAG ContainmentUnavailable {}:{}", file!(), line!());
+            SupervisorError::ContainmentUnavailable
+        })?;
         let lease = child.stdin.take();
         let stdout = child.stdout.take();
         if lease.is_none() || stdout.is_none() {
             let _ = child.kill();
             let _ = child.wait();
-            return Err(SupervisorError::SpawnFailed);
+            return Err({
+                eprintln!("JAPP_DIAG SpawnFailed {}:{}", file!(), line!());
+                SupervisorError::SpawnFailed
+            });
         }
         let (sender, frames) = mpsc::sync_channel(2);
         let mut stdout = stdout.expect("owned stdout checked above");
@@ -430,7 +485,10 @@ mod native {
             )
         };
         if result != 0 {
-            return Err(SupervisorError::CleanupFailed);
+            return Err({
+                eprintln!("JAPP_DIAG CleanupFailed {}:{}", file!(), line!());
+                SupervisorError::CleanupFailed
+            });
         }
         #[cfg(target_os = "macos")]
         {
@@ -472,13 +530,14 @@ mod native {
         }
 
         fn write_bootstrap(&mut self, bootstrap: &Bootstrap<'_>) -> Result<(), SupervisorError> {
-            let lease = self
-                .lease
-                .as_mut()
-                .ok_or(SupervisorError::BootstrapFailed)?;
-            bootstrap
-                .write_to(lease)
-                .map_err(|_| SupervisorError::BootstrapFailed)
+            let lease = self.lease.as_mut().ok_or_else(|| {
+                eprintln!("JAPP_DIAG BootstrapFailed {}:{}", file!(), line!());
+                SupervisorError::BootstrapFailed
+            })?;
+            bootstrap.write_to(lease).map_err(|_| {
+                eprintln!("JAPP_DIAG BootstrapFailed {}:{}", file!(), line!());
+                SupervisorError::BootstrapFailed
+            })
         }
         fn read_ready(&mut self) -> Result<Option<ReadyFrame>, SupervisorError> {
             match self.frames.try_recv() {
@@ -497,7 +556,10 @@ mod native {
                     self.child
                         .wait()
                         .map(|status| status.code().unwrap_or(70))
-                        .map_err(|_| SupervisorError::CleanupFailed)
+                        .map_err(|_| {
+                            eprintln!("JAPP_DIAG CleanupFailed {}:{}", file!(), line!());
+                            SupervisorError::CleanupFailed
+                        })
                 })?;
                 self.containment_terminated = true;
                 self.group_signal_denied = denied;

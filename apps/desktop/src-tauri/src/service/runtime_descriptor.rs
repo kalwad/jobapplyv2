@@ -17,13 +17,19 @@ fn path_for_mode(
 ) -> Result<PathBuf, SupervisorError> {
     let path = if packaged {
         resource_root
-            .ok_or(SupervisorError::InvalidRuntime)?
+            .ok_or_else(|| {
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            })?
             .join(descriptor.resource_relative)
     } else {
         PathBuf::from(descriptor.build_executable)
     };
     if !path.is_absolute() {
-        return Err(SupervisorError::InvalidRuntime);
+        return Err({
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        });
     }
     Ok(path)
 }
@@ -49,11 +55,20 @@ pub(crate) fn configured_runtime(
     };
     #[cfg(not(target_os = "linux"))]
     let resource = app.path().resource_dir().ok();
+    eprintln!(
+        "JAPP_DIAG resource_dir={:?} is_dev={}",
+        resource,
+        tauri::is_dev()
+    );
     let path = path_for_current_mode(descriptor, resource.as_deref())?;
+    eprintln!("JAPP_DIAG runtime_path={:?}", path);
     let root = path
         .parent()
         .and_then(Path::parent)
-        .ok_or(SupervisorError::InvalidRuntime)?
+        .ok_or_else(|| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?
         .to_path_buf();
     ConfiguredRuntime::approved_tree(
         path,

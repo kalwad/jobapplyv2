@@ -26,7 +26,10 @@ pub fn service_environment(system_root: &str) -> Result<Vec<u16>, SupervisorErro
             .split('\\')
             .any(|c| c.is_empty() || c == "." || c == "..")
     {
-        return Err(SupervisorError::SpawnFailed);
+        return Err({
+            eprintln!("JAPP_DIAG SpawnFailed {}:{}", file!(), line!());
+            SupervisorError::SpawnFailed
+        });
     }
     Ok(format!("SystemRoot={system_root}")
         .encode_utf16()
@@ -37,7 +40,10 @@ pub fn launch_plan(path: &str) -> Result<LaunchPlan, SupervisorError> {
     let normalized = path.replace('/', "\\");
     let path = normalized.as_str();
     if path.encode_utf16().count() > 32760 {
-        return Err(SupervisorError::InvalidRuntime);
+        return Err({
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        });
     }
     let bytes = path.as_bytes();
     if bytes.len() < 4
@@ -45,7 +51,10 @@ pub fn launch_plan(path: &str) -> Result<LaunchPlan, SupervisorError> {
         || &bytes[1..3] != b":\\"
         || !path.ends_with(".exe")
     {
-        return Err(SupervisorError::InvalidRuntime);
+        return Err({
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        });
     }
     let components: Vec<_> = path[3..].split('\\').collect();
     if components.is_empty()
@@ -64,11 +73,17 @@ pub fn launch_plan(path: &str) -> Result<LaunchPlan, SupervisorError> {
                 }
         })
     {
-        return Err(SupervisorError::InvalidRuntime);
+        return Err({
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        });
     }
     let directory = path
         .rsplit_once('\\')
-        .ok_or(SupervisorError::InvalidRuntime)?
+        .ok_or_else(|| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?
         .0;
     let root_directory;
     let directory = if directory.len() == 2 {
@@ -99,7 +114,10 @@ pub fn inherited_handles(
         || h[0] == h[2]
         || h[1] == h[2]
     {
-        return Err(SupervisorError::ContainmentUnavailable);
+        return Err({
+            eprintln!("JAPP_DIAG ContainmentUnavailable {}:{}", file!(), line!());
+            SupervisorError::ContainmentUnavailable
+        });
     }
     Ok(h)
 }
@@ -334,7 +352,10 @@ mod tests {
 
 pub fn inventory_key(relative: &str) -> Result<String, SupervisorError> {
     if !relative.is_ascii() || relative.contains('\\') {
-        return Err(SupervisorError::InvalidRuntime);
+        return Err({
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        });
     }
     let native = relative.replace('/', "\\");
     launch_plan(&format!("C:\\{native}\\placeholder.exe"))?;
@@ -397,7 +418,10 @@ mod native_path_tests {
 
 pub fn opened_directory(attributes: u32) -> Result<bool, SupervisorError> {
     if attributes == u32::MAX || attributes & 0x400 != 0 {
-        return Err(SupervisorError::InvalidRuntime);
+        return Err({
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        });
     }
     Ok(attributes & 0x10 != 0)
 }

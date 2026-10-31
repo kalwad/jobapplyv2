@@ -273,6 +273,7 @@ impl<A: RuntimeAdapter, C: Clock> Supervisor<A, C> {
         self.record_failure(SupervisorError::CleanupFailed);
     }
     fn record_failure(&mut self, error: SupervisorError) {
+        eprintln!("JAPP_DIAG record_failure={error:?}");
         self.failure_cause.get_or_insert(error);
         self.revoke_session();
         self.state = ServiceState::Failed;

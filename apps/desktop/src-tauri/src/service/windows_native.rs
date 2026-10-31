@@ -88,7 +88,10 @@ fn private_security_inner(
         check_security_work(permit)?;
         let mut token = null_mut();
         if OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &mut token) == 0 {
-            return Err(SupervisorError::ContainmentUnavailable);
+            return Err({
+                eprintln!("JAPP_DIAG ContainmentUnavailable {}:{}", file!(), line!());
+                SupervisorError::ContainmentUnavailable
+            });
         }
         let token = Handle::new(token)?;
         check_security_work(permit)?;
@@ -96,7 +99,10 @@ fn private_security_inner(
         GetTokenInformation(token.0, TokenUser, null_mut(), 0, &mut bytes);
         check_security_work(permit)?;
         if bytes == 0 || bytes > 65536 {
-            return Err(SupervisorError::ContainmentUnavailable);
+            return Err({
+                eprintln!("JAPP_DIAG ContainmentUnavailable {}:{}", file!(), line!());
+                SupervisorError::ContainmentUnavailable
+            });
         }
         let mut storage = vec![0usize; (bytes as usize).div_ceil(size_of::<usize>())];
         check_security_work(permit)?;
@@ -108,13 +114,19 @@ fn private_security_inner(
             &mut bytes,
         ) == 0
         {
-            return Err(SupervisorError::ContainmentUnavailable);
+            return Err({
+                eprintln!("JAPP_DIAG ContainmentUnavailable {}:{}", file!(), line!());
+                SupervisorError::ContainmentUnavailable
+            });
         }
         check_security_work(permit)?;
         let user = &*storage.as_ptr().cast::<TOKEN_USER>();
         let mut sid = null_mut();
         if ConvertSidToStringSidW(user.User.Sid, &mut sid) == 0 {
-            return Err(SupervisorError::ContainmentUnavailable);
+            return Err({
+                eprintln!("JAPP_DIAG ContainmentUnavailable {}:{}", file!(), line!());
+                SupervisorError::ContainmentUnavailable
+            });
         }
         let sid_owner = Local(sid.cast());
         check_security_work(permit)?;
@@ -123,10 +135,15 @@ fn private_security_inner(
             length += 1
         }
         if length == 256 {
-            return Err(SupervisorError::ContainmentUnavailable);
+            return Err({
+                eprintln!("JAPP_DIAG ContainmentUnavailable {}:{}", file!(), line!());
+                SupervisorError::ContainmentUnavailable
+            });
         }
-        let sid = String::from_utf16(std::slice::from_raw_parts(sid, length))
-            .map_err(|_| SupervisorError::ContainmentUnavailable)?;
+        let sid = String::from_utf16(std::slice::from_raw_parts(sid, length)).map_err(|_| {
+            eprintln!("JAPP_DIAG ContainmentUnavailable {}:{}", file!(), line!());
+            SupervisorError::ContainmentUnavailable
+        })?;
         let descriptor = wide(&format!("D:P(A;;GA;;;{sid})"));
         check_security_work(permit)?;
         let mut security = null_mut();
@@ -137,7 +154,10 @@ fn private_security_inner(
             null_mut(),
         ) == 0
         {
-            return Err(SupervisorError::ContainmentUnavailable);
+            return Err({
+                eprintln!("JAPP_DIAG ContainmentUnavailable {}:{}", file!(), line!());
+                SupervisorError::ContainmentUnavailable
+            });
         }
         drop(sid_owner);
         let security = Local(security);
@@ -363,12 +383,18 @@ impl Attributes {
             InitializeProcThreadAttributeList(null_mut(), 2, 0, &mut bytes);
         }
         if bytes == 0 || bytes > 65536 {
-            return Err(SupervisorError::ContainmentUnavailable);
+            return Err({
+                eprintln!("JAPP_DIAG ContainmentUnavailable {}:{}", file!(), line!());
+                SupervisorError::ContainmentUnavailable
+            });
         }
         let mut storage = vec![0u128; bytes.div_ceil(size_of::<u128>())];
         let pointer = storage.as_mut_ptr().cast();
         if unsafe { InitializeProcThreadAttributeList(pointer, 2, 0, &mut bytes) } == 0 {
-            return Err(SupervisorError::ContainmentUnavailable);
+            return Err({
+                eprintln!("JAPP_DIAG ContainmentUnavailable {}:{}", file!(), line!());
+                SupervisorError::ContainmentUnavailable
+            });
         }
         let value = Self {
             _storage: storage,
@@ -390,7 +416,10 @@ impl Attributes {
                 UpdateProcThreadAttribute(pointer, 0, kind as usize, data, len, null_mut(), null())
             } == 0
             {
-                return Err(SupervisorError::ContainmentUnavailable);
+                return Err({
+                    eprintln!("JAPP_DIAG ContainmentUnavailable {}:{}", file!(), line!());
+                    SupervisorError::ContainmentUnavailable
+                });
             }
         }
         Ok(value)
@@ -411,7 +440,10 @@ impl Job {
             )
         } == 0
         {
-            return Err(SupervisorError::ContainmentUnavailable);
+            return Err({
+                eprintln!("JAPP_DIAG ContainmentUnavailable {}:{}", file!(), line!());
+                SupervisorError::ContainmentUnavailable
+            });
         }
         Ok(job)
     }
@@ -427,7 +459,10 @@ impl Job {
             )
         } == 0
         {
-            return Err(SupervisorError::CleanupFailed);
+            return Err({
+                eprintln!("JAPP_DIAG CleanupFailed {}:{}", file!(), line!());
+                SupervisorError::CleanupFailed
+            });
         }
         Ok(info.ActiveProcesses)
     }
@@ -443,7 +478,10 @@ impl Job {
 /// Lock the executable against writes/replacement through CreateProcess. The
 /// final hash is checked through this same handle, not a fresh path open.
 fn validate_path(path: &Path) -> Result<Handle, SupervisorError> {
-    let text = path.to_str().ok_or(SupervisorError::InvalidRuntime)?;
+    let text = path.to_str().ok_or_else(|| {
+        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+        SupervisorError::InvalidRuntime
+    })?;
     let plan = launch_plan(text)?;
     for end in text
         .match_indices('\\')
@@ -454,7 +492,10 @@ fn validate_path(path: &Path) -> Result<Handle, SupervisorError> {
         let part = wide(&text[..end]);
         let attributes = unsafe { GetFileAttributesW(part.as_ptr()) };
         if attributes == INVALID_FILE_ATTRIBUTES || attributes & FILE_ATTRIBUTE_REPARSE_POINT != 0 {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
     }
     Handle::new(unsafe {
@@ -468,12 +509,18 @@ fn validate_path(path: &Path) -> Result<Handle, SupervisorError> {
             null_mut(),
         )
     })
-    .map_err(|_| SupervisorError::InvalidRuntime)
+    .map_err(|_| {
+        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+        SupervisorError::InvalidRuntime
+    })
 }
 fn file_info(handle: &Handle) -> Result<BY_HANDLE_FILE_INFORMATION, SupervisorError> {
     let mut info = unsafe { zeroed() };
     if unsafe { GetFileInformationByHandle(handle.0, &mut info) } == 0 {
-        return Err(SupervisorError::InvalidRuntime);
+        return Err({
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        });
     }
     Ok(info)
 }
@@ -483,7 +530,10 @@ fn identity(handle: &Handle) -> Result<BY_HANDLE_FILE_INFORMATION, SupervisorErr
         || info.nFileSizeHigh != 0
         || info.nFileSizeLow > 512 * 1024 * 1024
     {
-        return Err(SupervisorError::InvalidRuntime);
+        return Err({
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        });
     }
     Ok(info)
 }
@@ -511,14 +561,20 @@ fn lock_and_hash(
             )
         } == 0
         {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         if count == 0 {
             break;
         }
         bytes += count as u64;
         if bytes > 512 * 1024 * 1024 {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         hash.update(&buffer[..count as usize]);
     }
@@ -532,7 +588,10 @@ fn lock_and_hash(
         || bytes != before.nFileSizeLow as u64
         || <[u8; 32]>::from(hash.finalize()) != expected
     {
-        return Err(SupervisorError::InvalidRuntime);
+        return Err({
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        });
     }
     permit.check()?;
     Ok(handle)
@@ -548,11 +607,17 @@ pub(super) fn lock_tree(
     ancestors.reverse();
     for ancestor in ancestors {
         permit.check()?;
-        let text = ancestor.to_str().ok_or(SupervisorError::InvalidRuntime)?;
+        let text = ancestor.to_str().ok_or_else(|| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?;
         let name = wide(text);
         let attrs = unsafe { GetFileAttributesW(name.as_ptr()) };
         if attrs == INVALID_FILE_ATTRIBUTES || attrs & FILE_ATTRIBUTE_REPARSE_POINT != 0 {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         let handle = Handle::new(unsafe {
             CreateFileW(
@@ -565,9 +630,15 @@ pub(super) fn lock_tree(
                 null_mut(),
             )
         })
-        .map_err(|_| SupervisorError::InvalidRuntime)?;
+        .map_err(|_| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?;
         if !opened_directory(file_info(&handle)?.dwFileAttributes)? {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         handles.push(handle);
     }
@@ -576,14 +647,23 @@ pub(super) fn lock_tree(
     while let Some((path, depth)) = pending.pop() {
         permit.check()?;
         if depth > 32 || handles.len() >= 2048 {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
-        let text = path.to_str().ok_or(SupervisorError::InvalidRuntime)?;
+        let text = path.to_str().ok_or_else(|| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?;
         launch_plan(&format!("{text}\\placeholder.exe"))?;
         let name = wide(text);
         let attributes = unsafe { GetFileAttributesW(name.as_ptr()) };
         if attributes == INVALID_FILE_ATTRIBUTES || attributes & FILE_ATTRIBUTE_REPARSE_POINT != 0 {
-            return Err(SupervisorError::InvalidRuntime);
+            return Err({
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            });
         }
         let handle = Handle::new(unsafe {
             CreateFileW(
@@ -596,24 +676,45 @@ pub(super) fn lock_tree(
                 null_mut(),
             )
         })
-        .map_err(|_| SupervisorError::InvalidRuntime)?;
+        .map_err(|_| {
+            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+            SupervisorError::InvalidRuntime
+        })?;
         if opened_directory(file_info(&handle)?.dwFileAttributes)? {
-            for child in std::fs::read_dir(&path).map_err(|_| SupervisorError::InvalidRuntime)? {
+            for child in std::fs::read_dir(&path).map_err(|_| {
+                eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                SupervisorError::InvalidRuntime
+            })? {
                 permit.check()?;
-                let child = child.map_err(|_| SupervisorError::InvalidRuntime)?.path();
-                let relative = child
-                    .strip_prefix(root)
-                    .map_err(|_| SupervisorError::InvalidRuntime)?;
+                let child = child
+                    .map_err(|_| {
+                        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                        SupervisorError::InvalidRuntime
+                    })?
+                    .path();
+                let relative = child.strip_prefix(root).map_err(|_| {
+                    eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                    SupervisorError::InvalidRuntime
+                })?;
                 let mut names = Vec::new();
                 for component in relative.components() {
                     let std::path::Component::Normal(name) = component else {
-                        return Err(SupervisorError::InvalidRuntime);
+                        return Err({
+                            eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                            SupervisorError::InvalidRuntime
+                        });
                     };
-                    names.push(name.to_str().ok_or(SupervisorError::InvalidRuntime)?);
+                    names.push(name.to_str().ok_or_else(|| {
+                        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                        SupervisorError::InvalidRuntime
+                    })?);
                 }
                 let rel = names.join("/");
                 if !seen.insert(inventory_key(&rel)?) || pending.len() + handles.len() >= 2048 {
-                    return Err(SupervisorError::InvalidRuntime);
+                    return Err({
+                        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+                        SupervisorError::InvalidRuntime
+                    });
                 }
                 pending.push((child, depth + 1));
             }
@@ -646,9 +747,15 @@ fn system_windows_directory() -> Result<String, SupervisorError> {
     let length =
         unsafe { GetSystemWindowsDirectoryW(buffer.as_mut_ptr(), buffer.len() as u32) } as usize;
     if length == 0 || length >= buffer.len() {
-        return Err(SupervisorError::SpawnFailed);
+        return Err({
+            eprintln!("JAPP_DIAG SpawnFailed {}:{}", file!(), line!());
+            SupervisorError::SpawnFailed
+        });
     }
-    String::from_utf16(&buffer[..length]).map_err(|_| SupervisorError::SpawnFailed)
+    String::from_utf16(&buffer[..length]).map_err(|_| {
+        eprintln!("JAPP_DIAG SpawnFailed {}:{}", file!(), line!());
+        SupervisorError::SpawnFailed
+    })
 }
 pub(super) fn spawn(
     path: &Path,
@@ -657,7 +764,10 @@ pub(super) fn spawn(
     payload_locks: PayloadLocks,
 ) -> Result<Box<dyn OwnedProcess>, SupervisorError> {
     let _executable = lock_and_hash(path, expected, permit)?;
-    let mut plan = launch_plan(path.to_str().ok_or(SupervisorError::InvalidRuntime)?)?;
+    let mut plan = launch_plan(path.to_str().ok_or_else(|| {
+        eprintln!("JAPP_DIAG InvalidRuntime {}:{}", file!(), line!());
+        SupervisorError::InvalidRuntime
+    })?)?;
     let environment = service_environment(&system_windows_directory()?)?;
     let job = Job::new()?;
     let input = pipe(true, permit)?;
@@ -713,7 +823,14 @@ pub(super) fn spawn(
         )
     });
     if process_created == 0 {
-        return Err(SupervisorError::SpawnFailed);
+        eprintln!(
+            "JAPP_DIAG CreateProcessW last_error={}",
+            std::io::Error::last_os_error()
+        );
+        return Err({
+            eprintln!("JAPP_DIAG SpawnFailed {}:{}", file!(), line!());
+            SupervisorError::SpawnFailed
+        });
     }
     // From this point the suspended child is retained by Supervisor before any
     // fallible membership/permit/resume/bootstrap work. Job assignment was atomic.
@@ -743,7 +860,10 @@ impl OwnedProcess for NativeChild {
             WaitForSingleObject(
                 self.process
                     .as_ref()
-                    .ok_or(SupervisorError::CleanupFailed)?
+                    .ok_or_else(|| {
+                        eprintln!("JAPP_DIAG CleanupFailed {}:{}", file!(), line!());
+                        SupervisorError::CleanupFailed
+                    })?
                     .0,
                 0,
             )
@@ -762,14 +882,20 @@ impl OwnedProcess for NativeChild {
         permit: &SpawnPermit<'_>,
     ) -> Result<(), SupervisorError> {
         if self.resumed {
-            return Err(SupervisorError::BootstrapFailed);
+            return Err({
+                eprintln!("JAPP_DIAG BootstrapFailed {}:{}", file!(), line!());
+                SupervisorError::BootstrapFailed
+            });
         }
         let mut member = 0;
         if unsafe {
             IsProcessInJob(
                 self.process
                     .as_ref()
-                    .ok_or(SupervisorError::CleanupFailed)?
+                    .ok_or_else(|| {
+                        eprintln!("JAPP_DIAG CleanupFailed {}:{}", file!(), line!());
+                        SupervisorError::CleanupFailed
+                    })?
                     .0,
                 self.job.0.0,
                 &mut member,
@@ -777,20 +903,37 @@ impl OwnedProcess for NativeChild {
         } == 0
             || member == 0
         {
-            return Err(SupervisorError::ContainmentUnavailable);
+            return Err({
+                eprintln!("JAPP_DIAG ContainmentUnavailable {}:{}", file!(), line!());
+                SupervisorError::ContainmentUnavailable
+            });
         }
         let mut frame = Vec::new();
-        bootstrap
-            .write_to(&mut frame)
-            .map_err(|_| SupervisorError::BootstrapFailed)?;
-        let input = self
-            .input
-            .as_mut()
-            .ok_or(SupervisorError::BootstrapFailed)?;
+        bootstrap.write_to(&mut frame).map_err(|_| {
+            eprintln!("JAPP_DIAG BootstrapFailed {}:{}", file!(), line!());
+            SupervisorError::BootstrapFailed
+        })?;
+        let input = self.input.as_mut().ok_or_else(|| {
+            eprintln!("JAPP_DIAG BootstrapFailed {}:{}", file!(), line!());
+            SupervisorError::BootstrapFailed
+        })?;
         permit.check()?;
-        if unsafe { ResumeThread(self.thread.as_ref().ok_or(SupervisorError::SpawnFailed)?.0) } != 1
+        if unsafe {
+            ResumeThread(
+                self.thread
+                    .as_ref()
+                    .ok_or_else(|| {
+                        eprintln!("JAPP_DIAG SpawnFailed {}:{}", file!(), line!());
+                        SupervisorError::SpawnFailed
+                    })?
+                    .0,
+            )
+        } != 1
         {
-            return Err(SupervisorError::SpawnFailed);
+            return Err({
+                eprintln!("JAPP_DIAG SpawnFailed {}:{}", file!(), line!());
+                SupervisorError::SpawnFailed
+            });
         }
         self.resumed = true;
         self.thread = None;
@@ -809,8 +952,10 @@ impl OwnedProcess for NativeChild {
                 .as_mut()
                 .expect("bootstrap pending")
                 .poll()
-                .map_err(|_| SupervisorError::BootstrapFailed)?
-            {
+                .map_err(|_| {
+                    eprintln!("JAPP_DIAG BootstrapFailed {}:{}", file!(), line!());
+                    SupervisorError::BootstrapFailed
+                })? {
                 Some(n) if n == length => {
                     input.pending = None;
                     permit.check()?;
@@ -840,13 +985,19 @@ impl OwnedProcess for NativeChild {
                 GetExitCodeProcess(
                     self.process
                         .as_ref()
-                        .ok_or(SupervisorError::CleanupFailed)?
+                        .ok_or_else(|| {
+                            eprintln!("JAPP_DIAG CleanupFailed {}:{}", file!(), line!());
+                            SupervisorError::CleanupFailed
+                        })?
                         .0,
                     &mut code,
                 )
             } == 0
             {
-                return Err(SupervisorError::CleanupFailed);
+                return Err({
+                    eprintln!("JAPP_DIAG CleanupFailed {}:{}", file!(), line!());
+                    SupervisorError::CleanupFailed
+                });
             }
             self.terminal = Some(i32::try_from(code).unwrap_or(70));
             self.process = None;
