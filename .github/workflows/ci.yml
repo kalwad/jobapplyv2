@@ -1,9 +1,8 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 11 (owned Expand, then the #32768 popup by handle): compile the committed
-# Windows 11 guest driver (windows11_owned.cs at the campaign head) with Windows
-# PowerShell 5.1 on a hosted Windows runner and exercise the reviewed a5ec1e3
-# portable package the way the guest would, to measure the audit's Windows guest
-# findings (TEMP image identity, Ready, 401 body, SetFocus timing, File menu popup,
-# File->Quit, Ctrl+Q with WebView2 focus, refused-connect timing).
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 12: the GNOME harness's own
+# VM functions end to end under KVM (prepare_image, prepare_guest with the
+# working-tree guest scripts, launch_vm, observe_session, run_lifecycle,
+# finalize) with the reviewed a5ec1e3 GNOME candidate's package and closure.
+# Only request authorization and source/package build binding are bypassed.
 name: ci
 on:
   workflow_dispatch:
@@ -11,27 +10,31 @@ permissions:
   contents: read
   actions: read
 jobs:
-  win-guest:
-    name: windows guest driver probe
-    runs-on: windows-2025
-    timeout-minutes: 30
+  gnome-e2e:
+    name: gnome harness end to end (kvm)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
-      - name: Download the fixed development portable package (diag/win-gui-service run 41227766396)
-        shell: pwsh
+      - name: Runner facts
+        run: |
+          echo "ImageVersion=$ImageVersion"; nproc; free -g; df -h /; ls -l /dev/kvm
+      - name: Download the exact a5ec1e3 GNOME candidate
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh run download 41227766396 -R kalwad/jobapplyv2 -n diag-fixed-portable -D "$env:RUNNER_TEMP\fixed"
-      - name: Explore the open Win32 File popup with UI Automation
-        shell: powershell
+        run: gh run download 41154763996 -R kalwad/jobapplyv2 -n unreviewed-gnome-inputs-a5ec1e3a894fc6f11354f5adce1631b1cc262470-41154763996 -D "$RUNNER_TEMP/cand"
+      - name: Local-only install of the reviewed host tools
         run: |
-          powershell.exe -NoProfile -ExecutionPolicy Bypass -File diag\win_menu_probe11.ps1 -Cs diag\win_owned_current.cs -Package (Join-Path $env:RUNNER_TEMP 'fixed') -Out (Join-Path $env:RUNNER_TEMP 'out')
-          Get-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'out\probe.json') -Raw
+          D="$RUNNER_TEMP/cand/inputs/host-debs"; E=$(mktemp -d); L=$(mktemp -d); mkdir -p "$L/partial"
+          sudo -n /usr/bin/apt-get -o Dir::Etc::SourceList=/dev/null -o Dir::Etc::SourceParts="$E" -o Dir::State::Lists="$L" -o Dir::Cache::pkgcache= -o Dir::Cache::srcpkgcache= --no-install-recommends -y install "$D"/*.deb > "$RUNNER_TEMP/apt.txt" 2>&1 || { tail -40 "$RUNNER_TEMP/apt.txt"; exit 1; }
+          tail -3 "$RUNNER_TEMP/apt.txt"
+      - name: Harness end to end
+        run: timeout 4800 python3 -I diag/gnome_e2e.py diag/repo-root/scripts/linux_gnome "$RUNNER_TEMP/cand/inputs" "$RUNNER_TEMP/e2e/proof"
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag11-win-menu
-          path: ${{ runner.temp }}/out
+          name: diag12-gnome-e2e
+          path: ${{ runner.temp }}/e2e/proof
           retention-days: 7

@@ -17,7 +17,14 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-from ubuntu_gnome_host import ARCHIVE_CAP, MAX_FILES, MAX_TOTAL, require_host
+from ubuntu_gnome_host import (
+    ARCHIVE_CAP,
+    MAX_FILES,
+    MAX_TOTAL,
+    local_only_apt,
+    require_host,
+    simulate_install,
+)
 from ubuntu_gnome_platform import require_linux
 from ubuntu_gnome_signed_indexes import retain_signed_chain
 from ubuntu_gnome_vm import (
@@ -218,6 +225,28 @@ def resolve(
     return result
 
 
+def simulate_host_install(
+    owner: Owner, closure: Path, packages: list[dict[str, Any]]
+) -> None:
+    """Retain the lifecycle host install plan, simulated on this same image.
+
+    Unprivileged apt-get -s with the lifecycle's local-only options against the
+    runner's actual dpkg status; a closure that would replace or remove any
+    preinstalled runner package fails the candidate before review.
+    """
+    simulate_install(
+        owner,
+        [
+            "/usr/bin/apt-get",
+            *local_only_apt(owner.work),
+            "--no-install-recommends",
+            "-y",
+        ],
+        [str(closure / "debs" / row["filename"]) for row in packages],
+        packages,
+    )
+
+
 def extract_host_tools(
     owner: Owner, host: Path, lock: dict[str, Any], output: Path
 ) -> None:
@@ -315,6 +344,7 @@ def prepare_candidate(
     )
     host = args.output / "host-candidate"
     host_lock = resolve(owner, owner.work / "host-apt", host, HOST_ROOTS)
+    simulate_host_install(owner, host, host_lock["packages"])
     extract_host_tools(owner, host, host_lock, args.inputs)
     copy_package(args.package, args.inputs / "package", export)
 

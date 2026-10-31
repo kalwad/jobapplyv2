@@ -18,7 +18,9 @@ from pathlib import Path
 from typing import Any
 
 from ubuntu_gnome_platform import require_linux
-from ubuntu_gnome_process import local_only_apt
+from ubuntu_gnome_process import (
+    local_only_apt as local_only_apt,  # noqa: PLC0414 - explicit re-export for Windows 11
+)
 from ubuntu_gnome_vm import (
     LOCK_PACKAGE_CAP,
     RUNNER_IMAGE_VERSION_ENV,
@@ -32,6 +34,26 @@ MAX_FILES = 5000
 MAX_TOTAL = 8 * 1024**3
 ARCHIVE_CAP = 512 * 1024**2
 MANIFEST_CAP = 4 * 1024**2
+PLAN_SECONDS = 60
+# apt-get -s (C locale) prints one summary line and one action line per change:
+# 'Inst name (version origin [arch])' adds a package (measured in diagnostic run
+# 41157694334), while 'Inst name [installed] (...)' replaces and 'Remv'/'Purg'
+# remove one already on the runner.
+#
+# apt 2.8.3's pkgSimulate (apt-pkg/algorithms.cc, read 2026-10-31; not
+# measured) ends an action line with ' [' + each broken package it has not
+# yet touched + ']' whenever its simulated cache is broken after that step,
+# and also prints ' [X on Y]' for an unsatisfied Pre-Depends or a violated
+# negative dependency. A clean add-only plan unpacks a dependency loop with
+# one member's Depends still open: that member is broken but already touched,
+# so the list is empty and the line ends ' []'. Untouched broken packages
+# there could only be runner packages, so a named list stays refused.
+PLAN_SUMMARY = re.compile(
+    r"([0-9]+) upgraded, ([0-9]+) newly installed, "
+    r"([0-9]+) to remove and [0-9]+ not upgraded\."
+)
+PLAN_ADD = re.compile(r"Inst ([^\s\[\]()]+) \(([^\s()]+) [^()]*\)(?: \[\])?")
+PLAN_ACTIONS = ("Inst ", "Remv ", "Purg ")
 
 
 def digest(value: str) -> str:
@@ -91,6 +113,57 @@ def require_host() -> None:
         raise ValueError("Only disposable hosted Ubuntu24.04 x64 job allowed")
 
 
+def closed_install_plan(plan: bytes, packages: list[dict[str, Any]]) -> dict[str, Any]:
+    """A simulated local-only install may only add exact locked packages.
+
+    The host lock is resolved against an empty dpkg status, so a locked version
+    of a package the runner image already carries would replace it, and the
+    runner packages that pin the old version would be removed. Either one is
+    refused, naming the plan lines; the raw plan stays retained as command
+    output.
+    """
+    locked = {(row["package"], row["version"]) for row in packages}
+    added: list[str] = []
+    refused: list[str] = []
+    summaries = []
+    for line in plan.decode("utf-8", "replace").splitlines():
+        summary = PLAN_SUMMARY.fullmatch(line)
+        if summary is not None:
+            summaries.append(summary)
+        if not line.startswith(PLAN_ACTIONS):
+            continue
+        match = PLAN_ADD.fullmatch(line)
+        if match is None or (match[1].split(":", 1)[0], match[2]) not in locked:
+            refused.append(line[:160])
+        else:
+            added.append(match[1] + "=" + match[2])
+    if refused:
+        raise ValueError(
+            "Simulated host install would replace or remove runner packages: "
+            + "; ".join(refused[:6])
+        )
+    if len(summaries) != 1:
+        raise ValueError("Exactly one simulated host install summary required")
+    upgraded, installed, removed = (int(summaries[0][i]) for i in (1, 2, 3))
+    if upgraded or removed or installed != len(added):
+        raise ValueError("Simulated host install summary differs from its actions")
+    return {
+        "schema": "japp-host-install-plan-v1",
+        "newly_installed": added,
+        "upgraded": 0,
+        "removed": 0,
+        "scope": "SIMULATED_LOCAL_ONLY_APT_AGAINST_ACTUAL_RUNNER_DPKG_STATUS",
+    }
+
+
+def simulate_install(
+    owner: Owner, apt: list[str], archives: list[str], packages: list[dict[str, Any]]
+) -> None:
+    """Refuse host drift before any change: same options, apt-get -s first."""
+    plan = owner.command([*apt, "-s", "install", *archives], seconds=PLAN_SECONDS)
+    write(owner.proof / "host-install-plan.json", closed_install_plan(plan, packages))
+
+
 def install_tools(bundle: Path, owner: Owner) -> None:
     lock = json.loads((bundle / "host-tools-lock.json").read_bytes())
     if lock["runner_image_version"] != os.environ.get(RUNNER_IMAGE_VERSION_ENV):
@@ -110,19 +183,16 @@ def install_tools(bundle: Path, owner: Owner) -> None:
         ):
             raise ValueError("Reviewed host archive differs")
         archives.append(str(path))
-    owner.command(
-        [
-            "/usr/bin/sudo",
-            "-n",
-            "/usr/bin/apt-get",
-            *local_only_apt(owner.work),
-            "--no-install-recommends",
-            "-y",
-            "install",
-            *archives,
-        ],
-        seconds=600,
-    )
+    apt = [
+        "/usr/bin/sudo",
+        "-n",
+        "/usr/bin/apt-get",
+        *local_only_apt(owner.work),
+        "--no-install-recommends",
+        "-y",
+    ]
+    simulate_install(owner, apt, archives, packages)
+    owner.command([*apt, "--no-remove", "install", *archives], seconds=600)
     for name, path in TOOLS.items():
         pin = lock["tools"][name]
         if pin["path"] != path or sha(Path(path)) != pin["sha256"]:

@@ -149,6 +149,10 @@ class Gio(Protocol):
     AppInfoCreateFlags: Flags
 
 
+class GLib(Protocol):
+    Error: object
+
+
 class RequireVersion(Protocol):
     def require_version(self, namespace: str, version: str) -> None: ...
 
@@ -162,3 +166,17 @@ def load_native() -> tuple[Atspi, Gio]:
     gio = cast(Gio, importlib.import_module("gi.repository.Gio"))
     atspi.set_timeout(800, 5000)
     return atspi, gio
+
+
+def native_error() -> type[Exception]:
+    """gi's GLib.Error, which a failed AT-SPI or D-Bus call raises."""
+    require_linux()
+    gi = cast(RequireVersion, importlib.import_module("gi"))
+    gi.require_version("GLib", "2.0")
+    glib = cast(GLib, importlib.import_module("gi.repository.GLib"))
+    error: object = glib.Error
+    # PyGObject defines GLib.Error as a RuntimeError subclass, so it is never
+    # mistaken for the TimeoutError of expired operation authority.
+    if not isinstance(error, type) or not issubclass(error, RuntimeError):
+        raise TypeError("PyGObject GLib.Error must be a RuntimeError subclass")
+    return error

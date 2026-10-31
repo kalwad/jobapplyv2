@@ -48,7 +48,51 @@ FRAME_MAX_WIDTH = 1920
 FRAME_MIN_HEIGHT = 480
 FRAME_MAX_HEIGHT = 1200
 FRAME_MIN_COLOR_VALUES = 8
+FRAME_BYTES = 4 * 1024 * 1024
+FAILURE_FRAME = "failure-final.ppm"
 LOCK_PACKAGE_CAP = 2048
+SCOPED_RESULT = "ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS"
+# Closeout reads run under cleanup authority. 10 s per read is over three
+# times the slowest measured KVM SSH poll (3.01 s); 30 s stays reserved for
+# the VM quit and the final source guard after them.
+CLOSEOUT_SECONDS = 10
+CLOSEOUT_RESERVE = 30
+CLOSEOUT_FETCHES = 32
+GUEST_PROOF = "/home/japp-ci/japp-proof/"
+# cloud-init runs provision.py from the 9p mount itself, so a failed mount can
+# never leave provision-failure.json. One fixed runcmd step has the synthetic
+# account create this tiny marker instead; the readiness poll treats it as
+# PROVISION_FAILED.
+INPUT_UNMOUNTED = "input-mount-failure.json"
+INPUT_UNMOUNTED_MARKER = {
+    "status": "PROVISION_FAILED",
+    "phase": "mount_input",
+    "reason": "INPUT_NOT_A_MOUNTPOINT",
+    "writer": "CLOUD_INIT_RUNCMD",
+}
+GUEST_JSON = (
+    "provision-failure.json",
+    INPUT_UNMOUNTED,
+    "provision.json",
+    "actual-gnome-session.json",
+    "observation-closeout.json",
+    "controller-exit.json",
+    "controller-failure.json",
+)
+GUEST_ENDED = {
+    b"PROVISION_FAILED\n": "Guest provisioning failed",
+    b"CONTROLLER_ENDED\n": "Guest controller ended before readiness",
+}
+# Operation names carry digits (shell_scale_step1..5), as shell_request allows.
+GUEST_RECEIPT = re.compile(r"[0-9]{2,3}-[a-z0-9_]+\.json")
+GUEST_LOG = re.compile(r"provision-[a-z-]+\.log")
+LISTING_FIELDS = 3
+CLOSEOUT_LOGS = 8
+SSH_TRANSPORT_FAILURE = 255
+KEY_LINE_MIN = 16
+SERIAL_TAIL = "guest-serial-tail.log"
+SERIAL_TAIL_BYTES = 64 * 1024
+SERIAL_SCAN_CAP = 16 * 1024 * 1024
 
 IMAGE = "https://cloud-images.ubuntu.com/releases/noble/release-20261017/ubuntu-24.04-server-cloudimg-amd64.img"
 IMAGE_SHA = "04e8f2461a16a44e78a370284471f29616cdd9baf1893df25807b71f985b6c94"
@@ -155,6 +199,7 @@ class Owner:
         self.work_deadline = self.started + 3300
         self.cleanup_deadline = self.work_deadline + 60
         self.frames = 0
+        self.failure_framed = False
 
     def vm_output_exceeded(self) -> bool:
         paths = (
@@ -305,14 +350,17 @@ class Owner:
                 stream.write(block)
 
     def qmp_call(
-        self, execute: str, arguments: dict[str, object] | None = None
+        self,
+        execute: str,
+        arguments: dict[str, object] | None = None,
+        cleanup: bool = False,
     ) -> object:
         if self.qmp is None or self.qmp_stream is None:
             raise ValueError("Owned QMP connection required")
         request: dict[str, object] = {"execute": execute, "id": execute}
         if arguments is not None:
             request["arguments"] = arguments
-        if self.vm_output_exceeded():
+        if not cleanup and self.vm_output_exceeded():
             raise ValueError("Owned VM raw output cap exceeded")
         self.qmp.sendall((json.dumps(request) + "\n").encode())
         deadline = time.monotonic() + 5
@@ -355,7 +403,7 @@ class Owner:
         self.frames += 1
         path = self.proof / (name + ".ppm")
         self.qmp_call("screendump", {"filename": str(path)})
-        if path.stat().st_size > 4 * 1024 * 1024:
+        if path.stat().st_size > FRAME_BYTES:
             raise ValueError("Guest frame exceeded cap")
         data = path.read_bytes()
         header = re.match(rb"P6\s+([0-9]+)\s+([0-9]+)\s+255\s", data)
@@ -380,6 +428,36 @@ class Owner:
             "sha256": sha(path),
             "nonblank": True,
             "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX",
+        }
+
+    def failure_frame(self) -> dict[str, object]:
+        """One frame of a failed campaign's screen, outside the success budget.
+
+        A black or console screen is itself the observation, so it is never
+        refused as blank; only its size and RGB shape bound what is retained.
+        """
+        if self.failure_framed:
+            raise ValueError("One failure frame only")
+        self.failure_framed = True
+        path = self.proof / FAILURE_FRAME
+        self.qmp_call("screendump", {"filename": str(path)}, cleanup=True)
+        size = path.stat().st_size
+        data = path.read_bytes() if size <= FRAME_BYTES else b""
+        header = re.match(rb"P6\s+([0-9]+)\s+([0-9]+)\s+255\s", data)
+        width, height = (
+            (int(header.group(1)), int(header.group(2))) if header else (0, 0)
+        )
+        if header is None or len(data) - header.end() != width * height * 3:
+            path.unlink()
+            return {"captured": False, "bytes": size, "reason": "NOT_BOUNDED_RGB_PPM"}
+        return {
+            "captured": True,
+            "file": path.name,
+            "width": width,
+            "height": height,
+            "sha256": sha(path),
+            "distinct_byte_values": len(set(data[header.end() :])),
+            "scope": "FAILURE_DIAGNOSTIC_FRAME_NOT_PHASE_EVIDENCE",
         }
 
     def close(self) -> dict[str, object]:
@@ -558,7 +636,7 @@ def bind_source(
 
 
 def kvm(owner: Owner, device: Path = Path("/dev/kvm")) -> dict[str, Any]:
-    """Hardware acceleration or nothing: TCG missed the session budgets."""
+    """Hardware acceleration or nothing: TCG missed the session budgets (KI-0152)."""
     import fcntl  # noqa: PLC0415 - Linux VM host only; module stays importable
 
     if not stat.S_ISCHR(device.lstat().st_mode):
@@ -777,6 +855,7 @@ def prepare_guest(
                 "jappinput",
                 "/mnt/jappinput",
             ],
+            unmounted_input_step(),
             [
                 "/usr/bin/python3",
                 "/mnt/jappinput/scripts/ubuntu_gnome_provision.py",
@@ -864,6 +943,26 @@ def prepare_guest(
     return VMPlan(argv, qmp_path, ssh)
 
 
+def unmounted_input_step() -> str:
+    """Root checks the mount; only the synthetic account creates the marker.
+
+    cloud-init runs a string runcmd item with sh. The private directory and
+    the marker are created as japp-ci, the marker exclusively (dd conv=excl
+    never follows or replaces an existing name), from fixed bytes only.
+    """
+    return (
+        "/usr/bin/mountpoint -q /mnt/jappinput || "
+        "{ /usr/sbin/runuser -u japp-ci -- /usr/bin/mkdir -m 0700 -p "
+        + GUEST_PROOF.rstrip("/")
+        + " && /usr/bin/printf '%s\\n' "
+        + shlex.quote(json.dumps(INPUT_UNMOUNTED_MARKER, separators=(",", ":")))
+        + " | /usr/sbin/runuser -u japp-ci -- /usr/bin/dd of="
+        + GUEST_PROOF
+        + INPUT_UNMOUNTED
+        + " conv=excl status=none; }"
+    )
+
+
 def require_kvm_acceleration(owner: Owner) -> None:
     """QEMU's own answer, so a silently unaccelerated VM cannot proceed."""
     if owner.qmp_call("query-kvm") != {"enabled": True, "present": True}:
@@ -920,7 +1019,18 @@ def observe_session(
                 [
                     *ssh,
                     (
-                        "if /usr/bin/test -f /home/japp-ci/japp-proof/provision.json; "
+                        "if /usr/bin/test -f "
+                        "/home/japp-ci/japp-proof/provision-failure.json || "
+                        "/usr/bin/test -f "
+                        "/home/japp-ci/japp-proof/input-mount-failure.json; "
+                        "then /usr/bin/printf 'PROVISION_FAILED\\n'; "
+                        "elif /usr/bin/test -f "
+                        "/home/japp-ci/japp-proof/controller-exit.json || "
+                        "/usr/bin/test -f "
+                        "/home/japp-ci/japp-proof/controller-failure.json; "
+                        "then /usr/bin/printf 'CONTROLLER_ENDED\\n'; "
+                        "elif /usr/bin/test -f "
+                        "/home/japp-ci/japp-proof/provision.json; "
                         "then /usr/bin/printf 'PROVISIONED\\n'; fi; "
                         "/usr/bin/test -S /home/japp-ci/japp-proof/controller.sock"
                     ),
@@ -936,6 +1046,12 @@ def observe_session(
         output = (
             args.proof / ("command-" + str(owner.sequence).zfill(3) + ".stdout")
         ).read_bytes()
+        if output in GUEST_ENDED:
+            # The guest's own failure receipt, not a 1800 s timeout, is the cause.
+            for name in GUEST_JSON:
+                with contextlib.suppress(OSError, ValueError, RuntimeError):
+                    fetch_guest_json(owner, name, cleanup=False)
+            raise RuntimeError(GUEST_ENDED[output] + "; guest receipt retained")
         if output == b"PROVISIONED\n" and session_deadline is None:
             session_deadline = min(deadline, time.monotonic() + 120)
         if latest["exit_code"] == 0:
@@ -1085,22 +1201,33 @@ def run_lifecycle(
     frames = [owner.frame("session-before-product")]
     receipts = []
     native_shell: dict[str, Any] | None = None
-    sequence = [
-        ("launch", None),
-        ("keyboard_before", None),
-        ("keyboard_after_tab", ["tab"]),
-        ("keyboard_after_shift_tab", ["shift", "tab"]),
-        ("keyboard_after_enter", ["ret"]),
-        ("auth", None),
-        ("crash_service", None),
-        ("close_observe", ["alt", "f4"]),
-        ("relaunch", None),
-        ("close_observe", ["alt", "f4"]),
-        ("relocated_launch", None),
-        ("force_parent", None),
-        ("finish", None),
+    # (operation, QMP keys sent first, success frame). The frame set is
+    # unchanged, so FRAME_CAP stays exactly 20; the launches added only to
+    # reach the two quit paths, and the focus record taken right before the
+    # Ctrl+Q chord, take no frame.
+    sequence: list[tuple[str, list[str] | None, bool]] = [
+        ("launch", None, True),
+        ("keyboard_before", None, False),
+        ("keyboard_after_tab", ["tab"], False),
+        ("keyboard_after_shift_tab", ["shift", "tab"], False),
+        ("keyboard_after_enter", ["ret"], True),
+        ("auth", None, False),
+        ("crash_service", None, True),
+        ("close_observe", ["alt", "f4"], False),
+        ("relaunch", None, True),
+        ("close_observe", ["alt", "f4"], False),
+        # The pinned product's own File > Quit and its Ctrl+Q accelerator,
+        # as in the Windows quit and accelerator phases.
+        ("relaunch", None, False),
+        ("quit_menu", None, False),
+        ("relaunch", None, False),
+        ("accelerator_focus", None, False),
+        ("quit_accelerator", ["ctrl", "q"], False),
+        ("relocated_launch", None, True),
+        ("force_parent", None, False),
+        ("finish", None, False),
     ]
-    for index, (operation, keys) in enumerate(sequence, 1):
+    for index, (operation, keys, framed) in enumerate(sequence, 1):
         if keys:
             owner.keys(keys)
         response = json.loads(
@@ -1139,13 +1266,7 @@ def run_lifecycle(
             )
         if operation == "launch":
             result["product_launched"] = True
-        if operation in {
-            "launch",
-            "keyboard_after_enter",
-            "crash_service",
-            "relaunch",
-            "relocated_launch",
-        }:
+        if framed:
             frames.append(
                 owner.frame(str(index).zfill(2) + "-" + operation.replace("_", "-"))
             )
@@ -1164,14 +1285,14 @@ def run_lifecycle(
             verify_capture_images(args.proof, native_shell)
             write(args.proof / "native-shell.json", native_shell)
     result.update(
-        status="ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS",
+        status=SCOPED_RESULT,
         frames=frames,
         receipts=receipts,
         guest_closure_sha256=args.guest_closure_sha256,
         package_sha256=export["files"]["package.deb"]["sha256"],
         source_head=args.expected_head,
         default_session_type=session["logind_properties"]["Type"],
-        distinct_quit="NOT_AVAILABLE",
+        distinct_quit="ATSPI_FILE_MENU_QUIT_AND_QMP_CTRL_Q_OBSERVED",
         universal_escaped_descendant_absence_claimed=False,
         forced_startup_collision_recovery_claimed=False,
         platform_certification_claimed=False,
@@ -1241,31 +1362,97 @@ def final_source_guard(
     }
 
 
+def fetch_guest_json(owner: Owner, name: str, cleanup: bool = True) -> bool:
+    """Retain one bounded guest JSON receipt under its own name, if present."""
+    if owner.ssh is None or (
+        name not in GUEST_JSON and GUEST_RECEIPT.fullmatch(name) is None
+    ):
+        raise ValueError("Closed guest receipt name required")
+    if (owner.proof / name).exists():
+        return False
+    raw = owner.command(
+        [*owner.ssh, "/usr/bin/cat " + GUEST_PROOF + shlex.quote(name)],
+        seconds=CLOSEOUT_SECONDS,
+        cap=1024 * 1024,
+        permit_failure=True,
+        cleanup=cleanup,
+    )
+    if not raw:
+        return False
+    write(owner.proof / name, json.loads(raw))
+    return True
+
+
+def guest_proof_files(listing: bytes) -> set[str]:
+    """Regular-file names from the closeout listing ('%M %s %f' per line)."""
+    names = set()
+    for line in listing.decode("utf-8", "replace").splitlines()[:4096]:
+        fields = line.split(" ")
+        if (
+            len(fields) == LISTING_FIELDS
+            and fields[0].startswith("-")
+            and fields[1].isdecimal()
+        ):
+            names.add(fields[2])
+    return names
+
+
 def capture_guest_closeout(owner: Owner) -> None:
-    if (
-        owner.ssh is None
-        or owner.child is None
-        or owner.child.returncode is not None
-        or owner.vm_output_exceeded()
-    ):
+    # Every read is bounded by cleanup authority and its own cap, so a raw VM
+    # output cap no longer suppresses the guest's own failure evidence.
+    if owner.ssh is None or owner.child is None or owner.child.returncode is not None:
         return
-    for name in (
-        "provision.json",
-        "actual-gnome-session.json",
-        "controller-failure.json",
+    ssh = owner.ssh
+    reserve = owner.cleanup_deadline - CLOSEOUT_RESERVE
+    unreadable = (OSError, ValueError, RuntimeError)
+
+    def read(remote: str, cap: int) -> bytes | None:
+        if time.monotonic() + CLOSEOUT_SECONDS > reserve:
+            return None
+        return owner.command(
+            [*ssh, remote],
+            seconds=CLOSEOUT_SECONDS,
+            cap=cap,
+            permit_failure=True,
+            cleanup=True,
+        )
+
+    try:
+        listing = read(
+            "/usr/bin/find /home/japp-ci/japp-proof -maxdepth 1 -printf '%M %s %f\\n'",
+            65536,
+        )
+        record = owner.proof / ("command-" + str(owner.sequence).zfill(3) + ".json")
+        if listing is None or (
+            json.loads(record.read_bytes())["exit_code"] == SSH_TRANSPORT_FAILURE
+        ):
+            return
+    except unreadable:
+        return
+    present = guest_proof_files(listing)
+    receipts = sorted(name for name in present if GUEST_RECEIPT.fullmatch(name))
+    # Usually only the receipts a failed request never returned are missing.
+    wanted = [
+        name
+        for name in (*GUEST_JSON, *receipts)
+        if name in present and not (owner.proof / name).exists()
+    ]
+    for name in wanted[:CLOSEOUT_FETCHES]:
+        if time.monotonic() + CLOSEOUT_SECONDS > reserve:
+            return
+        with contextlib.suppress(*unreadable):
+            fetch_guest_json(owner, name)
+    logs = sorted(name for name in present if GUEST_LOG.fullmatch(name))
+    for remote, cap in (
+        ("/usr/bin/journalctl --user -b --no-pager -n 400", 256 * 1024),
+        *(
+            ("/usr/bin/cat " + GUEST_PROOF + shlex.quote(name), 2 * 1024 * 1024)
+            for name in logs[:CLOSEOUT_LOGS]
+        ),
     ):
-        try:
-            raw = owner.command(
-                [*owner.ssh, "/usr/bin/cat /home/japp-ci/japp-proof/" + name],
-                seconds=3,
-                cap=131072,
-                permit_failure=True,
-                cleanup=True,
-            )
-            if raw and not (owner.proof / name).exists():
-                write(owner.proof / name, json.loads(raw))
-        except (OSError, ValueError, RuntimeError, TimeoutError):
-            continue
+        # Raw output stays retained as its own bounded command-NNN.stdout.
+        with contextlib.suppress(*unreadable):
+            read(remote, cap)
 
 
 def retention_failure(proof: Path, error: BaseException) -> None:
@@ -1279,6 +1466,104 @@ def retention_failure(proof: Path, error: BaseException) -> None:
         write(retained / "retention-failure.json", marker)
 
 
+def private_key_material(data: bytes, work: Path) -> bool:
+    """Key markers, or any body line of this run's own two private keys."""
+    if b"PRIVATE KEY" in data:
+        return True
+    for name in ("client_key", "guest_host_key"):
+        key = work / name
+        if key.is_file():
+            for line in key.read_bytes().splitlines():
+                body = line.strip()
+                if (
+                    len(body) >= KEY_LINE_MIN
+                    and not body.startswith(b"-----")
+                    and body in data
+                ):
+                    return True
+    return False
+
+
+def serial_tail(owner: Owner, serial: Path) -> dict[str, object]:
+    """A bounded tail of the guest console, never any private key material."""
+    observed: dict[str, object] = {
+        "bytes": serial.stat().st_size,
+        "sha256": sha(serial),
+        "full_stream_retained": False,
+        "tail_cap_bytes": SERIAL_TAIL_BYTES,
+    }
+    if serial.stat().st_size > SERIAL_SCAN_CAP:
+        return {**observed, "tail_retained": False, "reason": "EXCEEDS_SCAN_CAP"}
+    data = serial.read_bytes()
+    if private_key_material(data, owner.work):
+        return {
+            **observed,
+            "tail_retained": False,
+            "reason": "PRIVATE_KEY_MATERIAL_PRESENT",
+        }
+    tail = data[-SERIAL_TAIL_BYTES:]
+    with (owner.proof / SERIAL_TAIL).open("xb") as stream:
+        stream.write(tail)
+    return {
+        **observed,
+        "tail_retained": True,
+        "tail_file": SERIAL_TAIL,
+        "tail_bytes": len(tail),
+        "tail_sha256": hashlib.sha256(tail).hexdigest(),
+        "reason": "BOUNDED_TAIL_SCANNED_NO_PRIVATE_KEY_MATERIAL",
+    }
+
+
+def discard_failure_frame(owner: Owner) -> bool:
+    """Remove a failure frame that was never validated; True if one existed."""
+    path = owner.proof / FAILURE_FRAME
+    if not path.exists() and not path.is_symlink():
+        return False
+    path.unlink()
+    return True
+
+
+def failure_frame(owner: Owner, status: object) -> dict[str, object]:
+    """A failed campaign's last screen, before closeout and VM quit."""
+    if status == SCOPED_RESULT:
+        return {}
+    if owner.child is None or owner.child.poll() is not None or owner.qmp is None:
+        return {"failure_frame": {"captured": False, "reason": "VM_NOT_RUNNING"}}
+    try:
+        return {"failure_frame": owner.failure_frame()}
+    except Exception as error:
+        observed: dict[str, object] = {
+            "captured": False,
+            "error_type": type(error).__name__,
+        }
+        # QEMU may have written part or all of the file before the reply failed.
+        try:
+            observed["unvalidated_frame_removed"] = discard_failure_frame(owner)
+        except OSError as cleanup:
+            observed["unvalidated_frame_cleanup_error_type"] = type(cleanup).__name__
+        return {"failure_frame": observed}
+
+
+def settle_failure_frame(
+    owner: Owner, result: dict[str, object], errors: list[dict[str, str]]
+) -> None:
+    """After the VM quit, drop a failure frame QEMU finished after a lost reply.
+
+    QMP runs a queued screendump to completion before the quit, so only a
+    validated failure frame is ever retained.
+    """
+    frame = result.get("failure_frame")
+    if not isinstance(frame, dict) or frame.get("captured") is not False:
+        return
+    try:
+        if discard_failure_frame(owner):
+            frame["late_unvalidated_frame_removed"] = True
+    except OSError as error:
+        errors.append(
+            {"stage": "failure_frame_discard", "error_type": type(error).__name__}
+        )
+
+
 def finalize(
     args: argparse.Namespace,
     owner: Owner,
@@ -1286,6 +1571,7 @@ def finalize(
     result: dict[str, object],
 ) -> None:
     errors: list[dict[str, str]] = []
+    result.update(failure_frame(owner, result["status"]))
     try:
         capture_guest_closeout(owner)
     except BaseException as error:
@@ -1303,6 +1589,7 @@ def finalize(
         errors.append(
             {"stage": "owned_process_closure", "error_type": type(error).__name__}
         )
+    settle_failure_frame(owner, result, errors)
     if prepared is not None:
         try:
             result["source_guard"] = final_source_guard(args, owner, prepared)
@@ -1313,15 +1600,10 @@ def finalize(
     serial = owner.work / "guest-serial.log"
     try:
         if serial.exists():
-            result["serial_stream"] = {
-                "bytes": serial.stat().st_size,
-                "sha256": sha(serial),
-                "retained": False,
-                "reason": "BOOTSTRAP_STREAM_EXCLUDED",
-            }
+            result["serial_stream"] = serial_tail(owner, serial)
     except BaseException as error:
         errors.append(
-            {"stage": "serial_metadata_only", "error_type": type(error).__name__}
+            {"stage": "serial_bounded_tail", "error_type": type(error).__name__}
         )
     reaped = owner.child is None or owner.child.returncode is not None
     if (
@@ -1428,11 +1710,7 @@ def main() -> int:
         )
     finally:
         finalize(args, owner, prepared, result)
-    return (
-        0
-        if result["status"] == "ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS"
-        else 1
-    )
+    return 0 if result["status"] == SCOPED_RESULT else 1
 
 
 if __name__ == "__main__":

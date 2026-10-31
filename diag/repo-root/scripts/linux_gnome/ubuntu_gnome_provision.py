@@ -14,6 +14,7 @@ import shutil
 import stat
 import subprocess
 import time
+from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -28,7 +29,21 @@ PRIVATE_DIRECTORY_MODE = 0o700
 
 INPUT = Path("/mnt/jappinput")
 STATE = Path("/var/lib/japp-ci")
+ACCOUNT_HOME = Path("/home/japp-ci")
 PENDING: list[ChildCustody] = []
+# Root-only STATE logs handed to the synthetic proof directory, each bounded to
+# the locked install's own 2 MiB cap; the host reads them over SSH.
+STATE_LOGS = (
+    "locked-install.log",
+    "locked-versions.log",
+    "relocated-extract.log",
+    "dconf.log",
+    "default-target.log",
+    "restart-gdm.log",
+)
+STATE_LOG_COPY_CAP = 2 * 1024 * 1024
+FAILURE_LOG_TAIL = 8 * 1024
+FAILURE_RECEIPT_CAP = 64 * 1024
 SCRIPTS = (
     "ubuntu_gnome_guest.py",
     "ubuntu_gnome_session_receipt.py",
@@ -37,6 +52,18 @@ SCRIPTS = (
     "ubuntu_gnome_platform.py",
     "ubuntu_gnome_shell.py",
 )
+
+
+@dataclass
+class Progress:
+    """The provisioning step in progress, named in a failure receipt."""
+
+    phase: str = "start"
+    log: Path | None = None
+    log_completed: bool = False
+
+
+PROGRESS = Progress()
 
 
 def sha(path: Path, cap: int) -> str:
@@ -51,6 +78,7 @@ def sha(path: Path, cap: int) -> str:
 
 
 def run(argv: list[str], log: Path, seconds: float, cap: int = 256 * 1024) -> None:
+    PROGRESS.phase, PROGRESS.log, PROGRESS.log_completed = log.stem, log, False
     started = time.monotonic()
     custody: ChildCustody | None = None
     primary: BaseException | None = None
@@ -99,6 +127,7 @@ def run(argv: list[str], log: Path, seconds: float, cap: int = 256 * 1024) -> No
             raise RuntimeError("Guest provision command did not start")
         if custody.child.returncode != 0 or stream.tell() > cap:
             raise RuntimeError("Guest provision command failed; preserve exact raw log")
+    PROGRESS.log_completed = True
 
 
 def private(path: Path, uid: int, gid: int) -> None:
@@ -201,11 +230,110 @@ def activate_configured_desktop() -> None:
     run(["/usr/bin/systemctl", "restart", "gdm3"], STATE / "restart-gdm.log", 30)
 
 
+def tail(path: Path, cap: int) -> tuple[int, bytes] | None:
+    try:
+        info = path.lstat()
+    except FileNotFoundError:
+        return None
+    if not stat.S_ISREG(info.st_mode):
+        raise ValueError("Regular provision log required")
+    with path.open("rb") as stream:
+        stream.seek(max(0, info.st_size - cap))
+        return info.st_size, stream.read(cap)
+
+
+def publish(target: Path, data: bytes, identity: pwd.struct_passwd) -> None:
+    # Exclusive creation never follows a planted name; fchown binds the open file.
+    with target.open("xb") as stream:
+        stream.write(data)
+        os.fchown(stream.fileno(), identity.pw_uid, identity.pw_gid)
+
+
+def failure_receipt(
+    failure: BaseException, copied: list[str], copy_error: Exception | None
+) -> bytes:
+    observed = tail(PROGRESS.log, FAILURE_LOG_TAIL) if PROGRESS.log else None
+    withheld = observed is not None and b"PRIVATE KEY" in observed[1]
+    receipt = {
+        "status": "PROVISION_FAILED",
+        "phase": PROGRESS.phase,
+        "log": PROGRESS.log.name if PROGRESS.log else None,
+        "log_completed": PROGRESS.log_completed,
+        "log_bytes": observed[0] if observed else None,
+        "log_tail": None
+        if observed is None or withheld
+        else observed[1].decode("utf-8", "replace"),
+        "log_tail_cap_bytes": FAILURE_LOG_TAIL,
+        "log_tail_withheld_private_key_marker": withheld,
+        "error_type": type(failure).__name__,
+        "message": str(failure)[:512],
+        "state_logs_copied": copied,
+        "state_log_copy_error_type": type(copy_error).__name__ if copy_error else None,
+    }
+    data = (json.dumps(receipt, indent=2) + "\n").encode()
+    if len(data) > FAILURE_RECEIPT_CAP:
+        raise ValueError("Provision failure receipt exceeds bound")
+    return data
+
+
+def publish_evidence(failure: BaseException | None) -> None:
+    """Hand bounded provisioning evidence to the synthetic proof directory.
+
+    STATE stays root-only. The host reads japp-proof over SSH as japp-ci, so a
+    failed step leaves its cause there and the host fails fast instead of
+    waiting out its whole provisioning window.
+    """
+    import pwd  # noqa: PLC0415 - Linux-only guest account lookup, not needed on import
+
+    identity = pwd.getpwnam("japp-ci")
+    if Path(identity.pw_dir) != ACCOUNT_HOME:
+        raise ValueError("Unexpected synthetic account root")
+    proof = ACCOUNT_HOME / "japp-proof"
+    private(proof, identity.pw_uid, identity.pw_gid)
+    copied: list[str] = []
+    copy_error: Exception | None = None
+    try:
+        for name in STATE_LOGS:
+            observed = tail(STATE / name, STATE_LOG_COPY_CAP)
+            # A log that looks like key material is never handed out.
+            if observed is not None and b"PRIVATE KEY" not in observed[1]:
+                publish(proof / ("provision-" + name), observed[1], identity)
+                copied.append(name)
+    except Exception as error:
+        copy_error = error
+    # Logs first: the failure receipt is the host's signal to collect them.
+    if failure is not None:
+        publish(
+            proof / "provision-failure.json",
+            failure_receipt(failure, copied, copy_error),
+            identity,
+        )
+    if copy_error is not None:
+        raise copy_error
+
+
 def main() -> None:
     require_linux()
-    if os.geteuid() != 0 or not INPUT.is_mount():
+    if os.geteuid() != 0:
         raise ValueError("Only root inside prepared disposable guest may provision")
-    STATE.mkdir(mode=PRIVATE_DIRECTORY_MODE)
+    failure: BaseException | None = None
+    try:
+        provision()
+    except BaseException as error:
+        failure = error
+        raise
+    finally:
+        try:
+            publish_evidence(failure)
+        except Exception as secondary:
+            if failure is None:
+                raise
+            failure.add_note(
+                "Provision evidence publication failed: " + type(secondary).__name__
+            )
+
+
+def locked_closure() -> tuple[bytes, list[str], dict[str, tuple[str, str]]]:
     closure_raw = (INPUT / "guest-closure/lock.json").read_bytes()
     if len(closure_raw) > 2 * 1024 * 1024:
         raise ValueError("Guest closure cap exceeded")
@@ -254,6 +382,19 @@ def main() -> None:
         raise ValueError(
             "Reviewed full Ubuntu GNOME/accessibility closure is incomplete"
         )
+    return closure_raw, archives, expected
+
+
+def provision() -> None:
+    PROGRESS.phase = "verify_inputs"
+    # cloud-init runs this file from INPUT itself, so a failed mount never
+    # reaches here; the VM owner's runcmd marker (input-mount-failure.json)
+    # reports that case. This check stays as a guard for any other caller.
+    if not INPUT.is_mount():
+        raise ValueError("Only root inside prepared disposable guest may provision")
+    STATE.mkdir(mode=PRIVATE_DIRECTORY_MODE)
+    closure_raw, archives, expected = locked_closure()
+    PROGRESS.phase = "verify_product"
     package = INPUT / "package/package.deb"
     export = json.loads((INPUT / "package/export.json").read_bytes())
     if sha(package, 512 * 1024 * 1024) != export["files"]["package.deb"]["sha256"]:
@@ -272,7 +413,7 @@ def main() -> None:
         ],
         STATE / "locked-install.log",
         1200,
-        # The reviewed 808-archive closure logged 242,847 bytes (KI-0149).
+        # The reviewed 808-archive closure logged 242,847 bytes (KI-0153).
         cap=2 * 1024 * 1024,
     )
     versions_log = STATE / "locked-versions.log"
@@ -293,7 +434,9 @@ def main() -> None:
         installed[name] = (version, architecture)
     if installed != expected:
         raise ValueError("Installed package closure versions differ")
+    PROGRESS.phase = "initialize_desktop"
     identity = initialize_desktop(package)
+    PROGRESS.phase = "write_receipt"
     home = Path(identity.pw_dir)
     receipt = {
         "status": "EXACT_LOCKED_INSTALL_COMPLETE_SESSION_AND_PRODUCT_NOT_YET_OBSERVED",

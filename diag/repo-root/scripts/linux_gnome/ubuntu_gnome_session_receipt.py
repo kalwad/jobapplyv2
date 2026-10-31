@@ -28,6 +28,7 @@ PUBLIC_FILE_CAP = 65536
 ENVIRONMENT_VALUE_CAP = 2048
 SHELL_ARGV_CAP = 8192
 SESSION_RECEIPT_CAP = 131072
+GRAPHICAL_TARGET_SECONDS = 30
 X11_SOCKET_ROOT = Path("/tmp/.X11-unix")  # noqa: S108 - prescribed OS socket metadata, never a temporary file
 PRIVATE_DIRECTORY_MODE = 0o700
 
@@ -367,13 +368,29 @@ def observe_shell() -> tuple[dict[str, object], dict[str, object]]:
     return shell, shell_identity
 
 
+def graphical_session_target() -> dict[str, object]:
+    # GNOME starts autostart applications while graphical-session.target is
+    # still being reached; in the real session it became active 2.8 s later
+    # (KI-0156). Wait a bounded time for it; never assume it.
+    deadline = time.monotonic() + GRAPHICAL_TARGET_SECONDS
+    attempts = 0
+    while True:
+        attempts += 1
+        observed = command(
+            ["/usr/bin/systemctl", "--user", "is-active", "graphical-session.target"]
+        )
+        if observed.get("exit_code") == 0 or time.monotonic() >= deadline:
+            return {**observed, "attempts": attempts}
+        time.sleep(1)
+
+
 def session_identifier(
     inherited: str | None, observations: dict[str, dict[str, object]]
 ) -> str | None:
     if inherited:
         return inherited
     # GNOME starts autostart applications in a systemd user scope outside the
-    # login session, without XDG_SESSION_ID (KI-0149). logind itself names the
+    # login session, without XDG_SESSION_ID (KI-0150). logind itself names the
     # user's graphical session; every session check below still applies.
     owner = command(
         [
@@ -439,9 +456,7 @@ def observe_session() -> int:
     shell, shell_identity = observe_shell()
     observations["shell_bus_owner"] = shell
     observations["shell_identity"] = shell_identity
-    observations["graphical_session_target"] = command(
-        ["/usr/bin/systemctl", "--user", "is-active", "graphical-session.target"]
-    )
+    observations["graphical_session_target"] = graphical_session_target()
     observations["package_versions"] = command(
         [
             "/usr/bin/dpkg-query",
