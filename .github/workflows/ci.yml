@@ -1,8 +1,8 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Settles runner and guest facts
-# the static pre-flight audit could only infer: /dev/kvm on standard runners,
-# OVMF COM1 output and the cdboot key window under the Windows 11 campaign's
-# exact QEMU argv, and the GNOME guest's install/session timing, serial volume,
-# autostart environment and AT-SPI Action naming under KVM and under TCG.
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 2: why the GNOME guest's
+# SSH channel dies when GDM starts (COM2 network/session snapshots; variants:
+# as-is, needrestart suspended, NetworkManager masked), the session/AT-SPI
+# facts that round 1 could not retrieve, and the Windows 11 firmware COM1 bytes
+# and cdboot key window with the work directory where the harness puts it.
 name: ci
 on:
   workflow_dispatch:
@@ -36,29 +36,30 @@ jobs:
           python3 -c "import fcntl;f=open('/dev/kvm','r+b',buffering=0);print('KVM API',fcntl.ioctl(f.fileno(),0xAE00,0))"
       - name: Download the pinned Evaluation ISO
         run: |
-          sudo mkdir -p /mnt/diag && sudo chown "$(id -u):$(id -g)" /mnt/diag
+          mkdir -p "$RUNNER_TEMP/diag"
           url=$(python3 -c "import json;print(json.load(open('$RUNNER_TEMP/cand/retained/inputs/media-lock.json'))['media']['url'])")
           want=$(python3 -c "import json;print(json.load(open('$RUNNER_TEMP/cand/retained/inputs/media-lock.json'))['media']['sha256'])")
-          curl -fsSL --proto '=https' --max-time 1500 -o /mnt/diag/win11.iso "$url"
-          got=$(sha256sum /mnt/diag/win11.iso | cut -d' ' -f1); echo "sha256 $got"; test "$got" = "$want"
+          curl -fsSL --proto '=https' --max-time 1500 -o "$RUNNER_TEMP/diag/win11.iso" "$url"
+          got=$(sha256sum "$RUNNER_TEMP/diag/win11.iso" | cut -d' ' -f1); echo "sha256 $got"; test "$got" = "$want"
       - name: Boot with no key (cdboot prompt window)
-        run: python3 -I diag/win11_boot_probe.py /mnt/diag/w-none "$RUNNER_TEMP/out/none" /mnt/diag/win11.iso none 75
+        run: timeout 300 python3 -I diag/win11_boot_probe.py "$RUNNER_TEMP/diag/w-none" "$RUNNER_TEMP/out/none" "$RUNNER_TEMP/diag/win11.iso" none 75
       - name: Boot with the harness's single +8 s space key
-        run: python3 -I diag/win11_boot_probe.py /mnt/diag/w-single8 "$RUNNER_TEMP/out/single8" /mnt/diag/win11.iso single8 360
+        if: always()
+        run: timeout 600 python3 -I diag/win11_boot_probe.py "$RUNNER_TEMP/diag/w-single8" "$RUNNER_TEMP/out/single8" "$RUNNER_TEMP/diag/win11.iso" single8 360
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag-win11-boot
+          name: diag2-win11-boot
           path: ${{ runner.temp }}/out
           retention-days: 7
   gnome-session:
-    name: gnome session (${{ matrix.accel }})
+    name: gnome session (${{ matrix.variant }})
     runs-on: ubuntu-24.04
-    timeout-minutes: 100
+    timeout-minutes: 50
     strategy:
       fail-fast: false
       matrix:
-        accel: [kvm, tcg]
+        variant: [base, nrsuspend, nmmask]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -76,16 +77,16 @@ jobs:
           D="$RUNNER_TEMP/cand/inputs/host-debs"; E=$(mktemp -d); L=$(mktemp -d); mkdir -p "$L/partial"
           sudo -n /usr/bin/apt-get -o Dir::Etc::SourceList=/dev/null -o Dir::Etc::SourceParts="$E" -o Dir::State::Lists="$L" -o Dir::Cache::pkgcache= -o Dir::Cache::srcpkgcache= --no-install-recommends -y install "$D"/*.deb > "$RUNNER_TEMP/apt.txt" 2>&1 || { tail -40 "$RUNNER_TEMP/apt.txt"; exit 1; }
           tail -3 "$RUNNER_TEMP/apt.txt"
-          if [ "${{ matrix.accel }}" = kvm ]; then sudo -n setfacl -m "u:$(id -u):rw" /dev/kvm; ls -l /dev/kvm; fi
+          sudo -n setfacl -m "u:$(id -u):rw" /dev/kvm; ls -l /dev/kvm
       - name: Download the pinned cloud image
         run: |
           curl -fsSL --proto '=https' --max-time 900 -o "$RUNNER_TEMP/cloud.img" https://cloud-images.ubuntu.com/releases/noble/release-20261017/ubuntu-24.04-server-cloudimg-amd64.img
           echo "04e8f2461a16a44e78a370284471f29616cdd9baf1893df25807b71f985b6c94  $RUNNER_TEMP/cloud.img" | sha256sum -c
       - name: Session probe
-        run: python3 -I diag/gnome_host_probe.py "$RUNNER_TEMP/cand/inputs" "$RUNNER_TEMP/cloud.img" "$RUNNER_TEMP/work" "$RUNNER_TEMP/out" "${{ matrix.accel }}" 4800 diag/repo-root
+        run: timeout 2100 python3 -I diag/gnome_host_probe.py "$RUNNER_TEMP/cand/inputs" "$RUNNER_TEMP/cloud.img" "$RUNNER_TEMP/work" "$RUNNER_TEMP/out" kvm 1500 diag/repo-root "${{ matrix.variant }}"
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag-gnome-${{ matrix.accel }}
+          name: diag2-gnome-${{ matrix.variant }}
           path: ${{ runner.temp }}/out
           retention-days: 7

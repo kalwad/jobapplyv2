@@ -20,6 +20,7 @@ HOME = Path("/home/japp-ci")
 PROBE = HOME / "probe"
 STATE = Path("/var/lib/japp-probe")
 T0 = time.monotonic()
+VARIANT = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1] != "--collect" and sys.argv[1] != "--netwatch" else "base"
 UID, GID = pwd.getpwnam("japp-ci").pw_uid, pwd.getpwnam("japp-ci").pw_gid
 timeline: list[dict] = []
 
@@ -53,11 +54,79 @@ def collect() -> None:
     os.chown(PROBE / "collected", UID, GID)
 
 
+NETWATCH = [
+    ("addr", ["/usr/sbin/ip", "-br", "addr"]),
+    ("link", ["/usr/sbin/ip", "-br", "link"]),
+    ("route", ["/usr/sbin/ip", "route"]),
+    ("networkctl", ["/usr/bin/networkctl", "list", "--no-legend", "--no-pager"]),
+    ("active", ["/usr/bin/systemctl", "is-active", "NetworkManager", "systemd-networkd", "ssh.socket", "ssh.service", "gdm", "wpa_supplicant"]),
+    ("nmcli", ["/usr/bin/nmcli", "-t", "-f", "DEVICE,TYPE,STATE,CONNECTION", "dev"]),
+    ("listen", ["/usr/bin/ss", "-ltnH"]),
+    ("sessions", ["/usr/bin/loginctl", "list-sessions", "--no-legend"]),
+    ("load", ["/usr/bin/cat", "/proc/loadavg"]),
+    ("mem", ["/usr/bin/free", "-m"]),
+]
+DEEP = [
+    ("networkctl-status", ["/usr/bin/networkctl", "status", "enp0s2", "--no-pager", "-n", "60"]),
+    ("nm-print-config", ["/usr/sbin/NetworkManager", "--print-config"]),
+    ("nm-conf-dirs", ["/usr/bin/sh", "-c", "ls -la /run/NetworkManager/conf.d /etc/NetworkManager/conf.d /usr/lib/NetworkManager/conf.d /etc/netplan /run/systemd/network 2>&1; for f in /run/NetworkManager/conf.d/* /etc/NetworkManager/conf.d/* /usr/lib/NetworkManager/conf.d/* /etc/netplan/* /run/systemd/network/*; do echo \"== $f\"; cat \"$f\" 2>&1; done"]),
+    ("nmcli-con", ["/usr/bin/nmcli", "-t", "con", "show"]),
+    ("journal-net", ["/usr/bin/journalctl", "-b", "--no-pager", "-o", "short-monotonic", "-u", "systemd-networkd", "-u", "NetworkManager", "-u", "ssh.service", "-u", "ssh.socket", "-u", "gdm", "-u", "systemd-networkd-wait-online", "-n", "400"]),
+    ("journal-kernel", ["/usr/bin/journalctl", "-b", "-k", "--no-pager", "-o", "short-monotonic", "-n", "120"]),
+    ("journal-needrestart", ["/usr/bin/sh", "-c", "journalctl -b --no-pager -o short-monotonic -n 4000 | grep -i -E 'needrestart|restart|NetworkManager|enp0s2|dhcp|carrier' | tail -200"]),
+    ("needrestart-conf", ["/usr/bin/sh", "-c", "ls -la /etc/needrestart/conf.d 2>&1; dpkg -l needrestart network-manager netplan.io systemd 2>&1 | tail -5"]),
+    ("apt-log", ["/usr/bin/sh", "-c", "ls -la /var/lib/japp-probe/; tail -c 6000 /var/lib/japp-probe/locked-install.log"]),
+]
+
+
+def netwatch() -> None:
+    """Root transient unit: periodic network/session snapshots to COM2 (ttyS1),
+    which survives the loss of the SSH channel."""
+    began = time.monotonic()
+    deep_done: set[int] = set()
+    sent_session = False
+    with open("/dev/ttyS1", "wb", buffering=0) as tty:
+        def emit(title: str, argv: list[str]) -> None:
+            try:
+                done = subprocess.run(argv, capture_output=True, timeout=20, check=False)
+                body = done.stdout[-20000:] + (b"\n[stderr] " + done.stderr[-2000:] if done.stderr else b"")
+            except Exception as error:  # noqa: BLE001
+                body = repr(error).encode()
+            tty.write(("\n## " + title + "\n").encode() + body)
+
+        while time.monotonic() - began < 4200:
+            uptime = Path("/proc/uptime").read_text().split()[0]
+            tty.write(("\n\n#### SNAPSHOT uptime=" + uptime + "\n").encode())
+            for title, argv in NETWATCH:
+                emit(title, argv)
+            try:
+                tty.write(b"\n## timeline\n" + (PROBE / "guest-timeline.json").read_bytes()[-3000:])
+            except OSError:
+                pass
+            minute = int(float(uptime) // 60)
+            if minute in (2, 4, 6, 9, 14, 20) and minute not in deep_done:
+                deep_done.add(minute)
+                tty.write(("\n#### DEEP uptime=" + uptime + "\n").encode())
+                for title, argv in DEEP:
+                    emit(title, argv)
+            dump = PROBE / "session" / "session.json"
+            if not sent_session and dump.exists() and (PROBE / "session" / "done").exists():
+                sent_session = True
+                tty.write(b"\n#### SESSION-DUMP\n" + dump.read_bytes() + b"\n#### END-SESSION-DUMP\n")
+                receipt = PROBE / "receipt" / "actual-gnome-session.json"
+                if receipt.exists():
+                    tty.write(b"\n#### RECEIPT\n" + receipt.read_bytes() + b"\n#### END-RECEIPT\n")
+            time.sleep(10)
+
+
 def main() -> None:
     STATE.mkdir(mode=0o700)
     PROBE.mkdir(mode=0o755)
     os.chown(PROBE, UID, GID)
-    mark("probe-start")
+    mark("probe-start", variant=VARIANT)
+    subprocess.run(["/usr/bin/systemd-run", "--unit", "japp-netwatch", "/usr/bin/python3", __file__, "--netwatch"], check=True, timeout=30)
+    if VARIANT == "nmmask":
+        subprocess.run(["/usr/bin/systemctl", "mask", "NetworkManager.service"], check=True, timeout=30)
     lock = json.loads((INPUT / "guest-closure/lock.json").read_bytes())
     archives = []
     for row in lock["packages"]:
@@ -77,6 +146,7 @@ def main() -> None:
              "-o", "Dir::State::Lists=" + str(lists), "-o", "Dir::Cache::pkgcache=", "-o", "Dir::Cache::srcpkgcache=",
              "--no-install-recommends", "-y", "install", *archives, str(package)],
             stdin=subprocess.DEVNULL, stdout=log, stderr=subprocess.STDOUT, timeout=3600, check=False,
+            env={"PATH": "/usr/sbin:/usr/bin:/sbin:/bin", "DEBIAN_FRONTEND": "noninteractive", **({"NEEDRESTART_SUSPEND": "1"} if VARIANT == "nrsuspend" else {})},
         )
     size = (STATE / "locked-install.log").stat().st_size
     mark("installed", exit_code=result.returncode, log_bytes=size)
@@ -119,6 +189,8 @@ def main() -> None:
 if __name__ == "__main__":
     if sys.argv[1:] == ["--collect"]:
         collect()
+    elif sys.argv[1:] == ["--netwatch"]:
+        netwatch()
     else:
         try:
             main()

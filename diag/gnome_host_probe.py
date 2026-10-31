@@ -5,7 +5,7 @@ cloud-init shape, 9p input share and QEMU device set, under ACCEL (kvm or the
 campaign's tcg), with a timeline of serial-log growth, SSH poll latency and
 guest milestones.
 
-usage: gnome_host_probe.py INPUTS IMAGE WORK OUT ACCEL SECONDS REPO
+usage: gnome_host_probe.py INPUTS IMAGE WORK OUT ACCEL SECONDS REPO VARIANT
 """
 
 import json
@@ -17,8 +17,8 @@ import sys
 import time
 from pathlib import Path
 
-inputs, image, work, out, accel, seconds, repo = (
-    Path(sys.argv[1]), Path(sys.argv[2]), Path(sys.argv[3]), Path(sys.argv[4]), sys.argv[5], float(sys.argv[6]), Path(sys.argv[7]),
+inputs, image, work, out, accel, seconds, repo, variant = (
+    Path(sys.argv[1]), Path(sys.argv[2]), Path(sys.argv[3]), Path(sys.argv[4]), sys.argv[5], float(sys.argv[6]), Path(sys.argv[7]), sys.argv[8],
 )
 work.mkdir(parents=True)
 out.mkdir(parents=True)
@@ -50,7 +50,7 @@ cloud = {
         ["/usr/bin/systemctl", "restart", "ssh"],
         ["/usr/bin/mkdir", "-p", "/mnt/jappinput"],
         ["/usr/bin/mount", "-t", "9p", "-o", "trans=virtio,version=9p2000.L,ro", "jappinput", "/mnt/jappinput"],
-        ["/usr/bin/python3", "/mnt/jappinput/scripts/gnome_guest_probe.py"],
+        ["/usr/bin/python3", "/mnt/jappinput/scripts/gnome_guest_probe.py", variant],
     ],
 }
 (work / "user-data").write_text("#cloud-config\n" + json.dumps(cloud))
@@ -69,7 +69,7 @@ argv = [
     "-virtfs", "local,path=" + str(payload) + ",mount_tag=jappinput,security_model=none,readonly=on",
     "-netdev", "user,id=n0,restrict=on,hostfwd=tcp:127.0.0.1:" + str(port) + "-:22", "-device", "virtio-net-pci,netdev=n0",
     "-device", "virtio-vga", "-device", "qemu-xhci", "-device", "usb-tablet", "-display", "none",
-    "-qmp", "unix:" + str(work / "qmp.sock") + ",server=on,wait=off", "-serial", "file:" + str(serial_log), "-no-reboot",
+    "-qmp", "unix:" + str(work / "qmp.sock") + ",server=on,wait=off", "-serial", "file:" + str(serial_log), "-serial", "file:" + str(out / "guest-com2.log"), "-no-reboot",
 ]
 ssh = ["/usr/bin/ssh", "-F", "/dev/null", "-o", "BatchMode=yes", "-o", "IdentitiesOnly=yes", "-o", "StrictHostKeyChecking=yes",
        "-o", "UserKnownHostsFile=" + str(known), "-o", "ConnectTimeout=3", "-i", str(client), "-p", str(port), "japp-ci@127.0.0.1"]
@@ -107,19 +107,25 @@ while time.monotonic() - start < seconds and vm.poll() is None:
         done_at = now
     timeline.append(row)
     (out / "host-timeline.json").write_text(json.dumps({"milestones_first_seen_host_seconds": milestones, "rows": timeline}, indent=1))
-    if now >= next_frame and frames < 60:
+    if now >= next_frame and frames < 90:
         try:
             qmp.call("screendump", {"filename": str(work / "frame.ppm")})
             ppm_to_png(work / "frame.ppm", out / f"frame-{int(now):05d}.png")
             frames += 1
         except Exception as error:  # noqa: BLE001
             timeline.append({"t": round(now, 1), "screendump_error": str(error)[:200]})
-        next_frame = now + 60
+        try:
+            usernet = qmp.call("human-monitor-command", {"command-line": "info usernet"})
+            timeline.append({"t": round(now, 1), "info_usernet": str(usernet)[:3000]})
+        except Exception as error:  # noqa: BLE001
+            timeline.append({"t": round(now, 1), "usernet_error": str(error)[:200]})
+        next_frame = now + (20 if now < 600 else 60)
     if done_at is not None:
         break
     time.sleep(5)
 summary = {
     "accel": accel,
+    "variant": variant,
     "end_seconds": round(time.monotonic() - start, 1),
     "collected_at_seconds": None if done_at is None else round(done_at, 1),
     "vm_exit": vm.poll(),

@@ -40,7 +40,10 @@ tpm = subprocess.Popen(
     ["/usr/bin/swtpm", "socket", "--tpm2", "--tpmstate", "dir=" + str(work / "tpm-state"), "--ctrl", "type=unixio,path=" + str(work / "tpm.sock")],
     stdout=(out / "swtpm.stdout").open("wb"), stderr=(out / "swtpm.stderr").open("wb"), start_new_session=True,
 )
+tpm_deadline = time.monotonic() + 10
 while not (work / "tpm.sock").exists():
+    if tpm.poll() is not None or time.monotonic() > tpm_deadline:
+        raise SystemExit("swtpm did not create its control socket: " + (out / "swtpm.stderr").read_text()[-500:])
     time.sleep(0.05)
 argv = [
     "/usr/bin/qemu-system-x86_64", "-name", "japp-owned-win11", "-machine", "q35,smm=on", "-accel", "kvm",
