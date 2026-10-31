@@ -572,7 +572,11 @@ namespace JobApplyValidation {
             object raw;if(!documents[0].TryGetCurrentPattern(TextPattern.Pattern,out raw)) throw new InvalidOperationException("Actual UIA text bounds unavailable");
             TextPattern pattern=(TextPattern)raw;
             AutomationElement region=ShellUnique("Desktop versions",ControlType.Group,"region");
-            ShellText("App version",region,pattern).ScrollIntoView(true);ShellText("Tauri version",region,pattern);
+            // WebView2 ignores a text range's ScrollIntoView (leaf) or overshoots (region), but
+            // honours the element's ScrollItemPattern (measured at 175% zoom, KI-0163).
+            object scroll;if(!region.TryGetCurrentPattern(ScrollItemPattern.Pattern,out scroll)) throw new InvalidOperationException("Actual scrollable versions region required");
+            ((ScrollItemPattern)scroll).ScrollIntoView();
+            ShellText("App version",region,pattern);ShellText("Tauri version",region,pattern);
             List<object> anchors=new List<object>();
             foreach(string text in new string[]{"0.0.1","2.12.4"}) {
                 System.Windows.Automation.Text.TextPatternRange range=ShellText(text,region,pattern);System.Windows.Rect[] rectangles=range.GetBoundingRectangles();
