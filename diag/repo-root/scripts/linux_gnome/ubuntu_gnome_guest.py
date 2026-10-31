@@ -37,6 +37,14 @@ HTTP_BODY_CAP = 4096
 MIB = 1024 * 1024
 AX_SNAPSHOT_BYTES = 1024 * 1024
 MAX_AX_ACTIONS = 16
+# WebKitGTK gives nearly every web node one unnamed action (measured in the real
+# GDM session, diagnostic run 41248905032: the focused route heading and the
+# navigation link were both "actionable"). Only these named actions activate a
+# control: link "jump", push button "press", GTK menu and menu item "click".
+ACTIVATING_ACTIONS = frozenset({"click", "press", "activate", "jump"})
+# The product's own controls the guest activates or focuses, by exact AT-SPI role.
+LINK = "link"
+BUTTON = "push button"
 # The pinned product installs File > Quit (Ctrl+Q) on every non-macOS target
 # (apps/desktop/src-tauri/src/lib.rs install_shell_quit_menu).
 QUIT_MENU = ("File", "menu")
@@ -328,6 +336,17 @@ def port_excluded(port: int) -> bool:
     return False
 
 
+def controls(rows: list[dict[str, Any]], name: str, role: str) -> list[dict[str, Any]]:
+    """Accessibility rows that are exactly this named control and can activate."""
+    return [
+        row
+        for row in rows
+        if row["name"] == name
+        and row["role"] == role
+        and ACTIVATING_ACTIONS.intersection(row["actions"])
+    ]
+
+
 class Controller:
     def __init__(self) -> None:
         self.atspi, self.gio = load_native()
@@ -514,9 +533,9 @@ class Controller:
         self.fence()
         return rows, objects
 
-    def action(self, name: str) -> None:
+    def action(self, name: str, role: str) -> None:
         rows, objects = self.tree()
-        found = [row for row in rows if row["name"] == name and row["actions"]]
+        found = controls(rows, name, role)
         # Link text may be exposed both by a parent link and static text. Require
         # the one actionable node, never click by guessed coordinates.
         if len(found) != 1:
@@ -528,9 +547,7 @@ class Controller:
         if interface is None:
             raise ValueError("Observed actionable node lost its action interface")
         indices = [
-            i
-            for i, action in enumerate(actions)
-            if action in {"click", "press", "activate", "jump"}
+            i for i, action in enumerate(actions) if action in ACTIVATING_ACTIONS
         ]
         if len(indices) != 1 or not interface.do_action(indices[0]):
             raise ValueError("Actual supported native accessibility action failed")
@@ -628,7 +645,7 @@ class Controller:
         while time.monotonic() < deadline:
             try:
                 self.refresh()
-                self.action("Open Diagnostics")
+                self.action("Open Diagnostics", LINK)
                 return self.await_ready()
             except Exception as error:
                 if not self.transient(error):
@@ -662,9 +679,7 @@ class Controller:
     def keyboard(self, operation: str) -> dict[str, Any]:
         if operation == "keyboard_before":
             rows, objects = self.tree()
-            candidates = [
-                row for row in rows if row["name"] == "Home" and row["actions"]
-            ]
+            candidates = controls(rows, "Home", LINK)
             if len(candidates) != 1:
                 raise ValueError("One actual Home link required")
             component = objects[candidates[0]["id"]].get_component_iface()
@@ -689,7 +704,7 @@ class Controller:
                 row["role"] == "heading" and row["name"] == "Home" for row in rows
             ):
                 raise ValueError("Native Enter did not navigate to Home heading")
-            self.action("Open Diagnostics")
+            self.action("Open Diagnostics", LINK)
             self.await_ready(fresh=True)
         return {"accessibility": rows, "focused": focused}
 
@@ -745,7 +760,7 @@ class Controller:
             try:
                 self.refresh()
                 if self.service != old:
-                    self.action("Check again")
+                    self.action("Check again", BUTTON)
                     return {
                         "terminated_service": result,
                         "replacement": self.await_ready(fresh=True),
@@ -943,7 +958,7 @@ class Controller:
         }
 
     def diagnostics(self) -> dict[str, Any]:
-        self.action("Check again")
+        self.action("Check again", BUTTON)
         return self.await_ready(fresh=True)
 
     def shell_frame(self) -> tuple[list[int], str]:
@@ -1064,9 +1079,9 @@ class Controller:
             "showing": True,
         }
 
-    def shell_focus(self, name: str) -> None:
+    def shell_focus(self, name: str, role: str) -> None:
         rows, objects = self.tree()
-        found = [row for row in rows if row["name"] == name and row["actions"]]
+        found = controls(rows, name, role)
         if len(found) != 1:
             # Name the candidates (role, actions, parent role) so a hosted run shows
             # the real WebKitGTK tree shape; these are the app's own UI labels.
@@ -1131,7 +1146,7 @@ class Controller:
         if operation.startswith("shell_scale_"):
             return self.shell_measure(operation.removeprefix("shell_scale_"))
         if operation == "shell_skip_focus":
-            self.shell_focus("Skip to main content")
+            self.shell_focus("Skip to main content", LINK)
             return {"focused": True}
         if operation == "shell_skip_observe":
             rows, objects = self.tree()
@@ -1147,7 +1162,7 @@ class Controller:
             return {"skip_main": True, "accessibility": rows}
         if operation == "shell_check_focus":
             self.await_ready()
-            self.shell_focus("Check again")
+            self.shell_focus("Check again", BUTTON)
             return {"checked_before": self.checked_at}
         if operation == "shell_check_observe":
             return self.await_ready(fresh=True)
@@ -1157,17 +1172,17 @@ class Controller:
         action, slug = operation.removeprefix("shell_").split("_", 1)
         label = dict(ROUTES)[slug]
         if action == "focus":
-            self.shell_focus(label)
+            self.shell_focus(label, LINK)
             return {"focused": True}
         if action == "tab":
             focused, _ = self.tree()
             if not any(row["focused"] for row in focused) or self.shell_focused(
-                label, "link"
+                label, LINK
             ):
                 raise ValueError("Actual native Tab did not leave the route link")
             return {"tab_moved": True}
         if action == "back":
-            if not self.shell_focused(label, "link"):
+            if not self.shell_focused(label, LINK):
                 raise ValueError("Actual native Shift+Tab did not restore route focus")
             return {"back_returned": True}
         if action != "route":
@@ -1176,11 +1191,7 @@ class Controller:
         headings = [
             row for row in rows if row["role"] == "heading" and row["name"] == label
         ]
-        links = [
-            row
-            for row in rows
-            if row["role"] == "link" and row["name"] == label and row["actions"]
-        ]
+        links = controls(rows, label, LINK)
         if (
             len(headings) != 1
             or not headings[0]["focused"]
