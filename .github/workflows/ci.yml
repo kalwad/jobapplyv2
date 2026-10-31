@@ -35,6 +35,6 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag12-gnome-e2e
+          name: diag16-gnome-e2e
           path: ${{ runner.temp }}/e2e/proof
           retention-days: 7

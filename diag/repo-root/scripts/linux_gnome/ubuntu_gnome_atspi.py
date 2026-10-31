@@ -26,8 +26,11 @@ class TextRange(Protocol):
 
 
 class Text(Protocol):
+    # PyGObject returns the Accessible itself as its Text interface, and
+    # libatspi's deprecated atspi_accessible_get_text() alias shadows
+    # Text.get_text(start, end) on it (measured in the real GDM session,
+    # KI-0162). Read text through the interface class: Atspi.Text.get_text.
     def get_character_count(self) -> int: ...
-    def get_text(self, start: int, end: int) -> str: ...
     def get_character_extents(self, offset: int, coordinates: object) -> Rect: ...
     def get_string_at_offset(self, offset: int, granularity: object) -> TextRange: ...
 
@@ -83,7 +86,12 @@ class Scroll(Protocol):
     TOP_EDGE: object
 
 
+class TextInterface(Protocol):
+    def get_text(self, text: Text, start: int, end: int) -> str: ...
+
+
 class Atspi(Protocol):
+    Text: TextInterface
     CoordType: Coordinates
     TextGranularity: Granularity
     ScrollType: Scroll

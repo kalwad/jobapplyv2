@@ -454,7 +454,7 @@ class Controller:
             count = interface.get_character_count()
             if not 0 <= count <= AX_TEXT_CAP:
                 raise ValueError("Accessibility text exceeds bound")
-            text = interface.get_text(0, count)
+            text = self.atspi.Text.get_text(interface, 0, count)
         except NotImplementedError:
             return ""
         self.fence()
