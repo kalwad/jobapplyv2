@@ -27,6 +27,7 @@ def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+proof.parent.mkdir(parents=True, exist_ok=True)
 proof.mkdir(mode=0o700)
 work = Path(tempfile.mkdtemp(prefix="japp-gnome-e2e-", dir=proof.parent))
 work.chmod(0o700)
