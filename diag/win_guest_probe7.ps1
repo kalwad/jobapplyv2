@@ -51,6 +51,20 @@ try {
 } catch {
     $failure=@{terminal='FAIL';phase=$phase;elapsed_s=[Math]::Round($clock.Elapsed.TotalSeconds,2);error_type=$_.Exception.GetType().FullName;message=$_.Exception.Message;inner=$(if($_.Exception.InnerException){$_.Exception.InnerException.GetType().FullName+': '+$_.Exception.InnerException.Message}else{$null});position=$_.InvocationInfo.PositionMessage}
     ProbeNote 'terminal' $failure
+    try {
+        $A=[Windows.Automation.AutomationElement]
+        $window=$app.Window()
+        $doc=@($window.FindAll([Windows.Automation.TreeScope]::Descendants,(New-Object Windows.Automation.PropertyCondition($A::ControlTypeProperty,[Windows.Automation.ControlType]::Document))))[0]
+        $pattern=[Windows.Automation.TextPattern]$doc.GetCurrentPattern([Windows.Automation.TextPattern]::Pattern)
+        $region=@($window.FindAll([Windows.Automation.TreeScope]::Descendants,(New-Object Windows.Automation.AndCondition((New-Object Windows.Automation.PropertyCondition($A::NameProperty,'Desktop versions')),(New-Object Windows.Automation.PropertyCondition($A::ControlTypeProperty,[Windows.Automation.ControlType]::Group))))))
+        $rows=@{regions=$region.Count;document_rect=@($doc.Current.BoundingRectangle.X,$doc.Current.BoundingRectangle.Y,$doc.Current.BoundingRectangle.Width,$doc.Current.BoundingRectangle.Height)}
+        if($region.Count -ge 1) { foreach($label in @('App version','0.0.1','2.12.4')) {
+            $leaves=@($region[0].FindAll([Windows.Automation.TreeScope]::Descendants,(New-Object Windows.Automation.AndCondition((New-Object Windows.Automation.PropertyCondition($A::NameProperty,$label)),(New-Object Windows.Automation.PropertyCondition($A::ControlTypeProperty,[Windows.Automation.ControlType]::Text))))))
+            $row=@{leaves=$leaves.Count}
+            if($leaves.Count -ge 1) { $scope=$pattern.RangeFromChild($leaves[0]); $first=$scope.FindText($label,$false,$false); $row.leaf_rect=@($leaves[0].Current.BoundingRectangle.X,$leaves[0].Current.BoundingRectangle.Y,$leaves[0].Current.BoundingRectangle.Width,$leaves[0].Current.BoundingRectangle.Height); $row.offscreen=$leaves[0].Current.IsOffscreen; $row.scope_rects=@($scope.GetBoundingRectangles()|ForEach-Object { @($_.X,$_.Y,$_.Width,$_.Height) }); $row.first_rects=$(if($first){@($first.GetBoundingRectangles()|ForEach-Object { @($_.X,$_.Y,$_.Width,$_.Height) })}else{'none'}) }
+            $rows[$label]=$row } }
+        ProbeNote 'anchors-at-failure' $rows
+    } catch { ProbeNote 'anchors-at-failure-error' @{message=$_.Exception.Message} }
     try { Add-Type -AssemblyName UIAutomationClient; Add-Type -AssemblyName UIAutomationTypes; $f=[Windows.Automation.AutomationElement]::FocusedElement; ProbeNote 'focus-at-failure' @{name=$f.Current.Name;type=$f.Current.ControlType.ProgrammaticName;pid=$f.Current.ProcessId;main_focused=$(try{$app.ShellMainFocused()}catch{$_.Exception.Message});names=@($app.Names()|Where-Object { $_ -match 'Skip|main|Checked|Ready|Local service' }|Select-Object -Unique)} } catch { ProbeNote 'focus-at-failure-error' @{message=$_.Exception.Message} }
     try { Add-Type -AssemblyName System.Windows.Forms; $bounds=[Windows.Forms.Screen]::PrimaryScreen.Bounds; $bitmap=New-Object Drawing.Bitmap $bounds.Width,$bounds.Height; $graphics=[Drawing.Graphics]::FromImage($bitmap); $graphics.CopyFromScreen($bounds.Location,[Drawing.Point]::Empty,$bounds.Size); $bitmap.Save((Join-Path $Out 'failure.png')); $graphics.Dispose(); $bitmap.Dispose() } catch {}
 } finally {
