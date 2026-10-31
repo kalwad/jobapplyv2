@@ -97,6 +97,21 @@ fn forward_quit_accelerator(window: &tauri::WebviewWindow) -> tauri::Result<()> 
                 args.VirtualKey(&mut key)?;
                 args.PhysicalKeyStatus(&mut status)?;
             }
+            {
+                use windows_sys::Win32::UI::Input::KeyboardAndMouse::GetAsyncKeyState;
+                eprintln!(
+                    "JAPP_DIAG accelerator kind={} key={:#x} was_down={} menu_down={} repeat={} ctrl_state={} ctrl_async={} shift_state={} alt_state={}",
+                    kind.0,
+                    key,
+                    status.WasKeyDown.as_bool(),
+                    status.IsMenuKeyDown.as_bool(),
+                    status.RepeatCount,
+                    held(VK_CONTROL),
+                    unsafe { GetAsyncKeyState(i32::from(VK_CONTROL)) } < 0,
+                    held(VK_SHIFT),
+                    held(VK_MENU)
+                );
+            }
             if is_quit_accelerator(
                 kind == COREWEBVIEW2_KEY_EVENT_KIND_KEY_DOWN,
                 key,
@@ -113,11 +128,12 @@ fn forward_quit_accelerator(window: &tauri::WebviewWindow) -> tauri::Result<()> 
         }));
         let mut token = 0i64;
         // A refused registration leaves File→Quit and every other key unchanged.
-        let _ = unsafe {
+        let registered = unsafe {
             webview
                 .controller()
                 .add_AcceleratorKeyPressed(&handler, &mut token)
         };
+        eprintln!("JAPP_DIAG accelerator_registration={registered:?} token={token}");
     })
 }
 

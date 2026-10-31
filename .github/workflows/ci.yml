@@ -179,6 +179,17 @@ jobs:
               try { $w = [Windows.Automation.AutomationElement]::RootElement.FindFirst([Windows.Automation.TreeScope]::Children, (New-Object Windows.Automation.PropertyCondition([Windows.Automation.AutomationElement]::ProcessIdProperty, $process.Id))); if ($w) { $t = $w.Current.Name; if ($titles[-1] -cne $t) { $titles += $t } } } catch {}
             }
             "titles for ${root}: $($titles -join ' -> ')" | Tee-Object -FilePath (Join-Path $out ($name + '.titles.txt'))
+            Add-Type -TypeDefinition 'using System; using System.Runtime.InteropServices; public static class JappKeys { [StructLayout(LayoutKind.Sequential)] public struct KI { public ushort vk, scan; public uint flags, time; public UIntPtr extra; } [StructLayout(LayoutKind.Explicit, Size=32)] public struct U { [FieldOffset(0)] public KI k; } [StructLayout(LayoutKind.Sequential)] public struct IN { public uint type; public U u; } [DllImport("user32.dll")] public static extern uint SendInput(uint n, IN[] i, int s); [DllImport("user32.dll")] public static extern bool SetForegroundWindow(IntPtr h); public static uint CtrlQ() { ushort[] k = {0x11, 0x51, 0x51, 0x11}; IN[] a = new IN[4]; for (int i = 0; i < 4; i++) { a[i].type = 1; a[i].u.k.vk = k[i]; a[i].u.k.flags = (uint)(i >= 2 ? 2 : 0); } return SendInput(4, a, Marshal.SizeOf(typeof(IN))); } }' -ErrorAction SilentlyContinue
+            try {
+              $w = [Windows.Automation.AutomationElement]::RootElement.FindFirst([Windows.Automation.TreeScope]::Children, (New-Object Windows.Automation.PropertyCondition([Windows.Automation.AutomationElement]::ProcessIdProperty, $process.Id)))
+              [void][JappKeys]::SetForegroundWindow([IntPtr]$w.Current.NativeWindowHandle); Start-Sleep -Milliseconds 500
+              $link = $w.FindFirst([Windows.Automation.TreeScope]::Descendants, (New-Object Windows.Automation.AndCondition((New-Object Windows.Automation.PropertyCondition([Windows.Automation.AutomationElement]::NameProperty, 'Home')), (New-Object Windows.Automation.PropertyCondition([Windows.Automation.AutomationElement]::ControlTypeProperty, [Windows.Automation.ControlType]::Hyperlink)))))
+              if ($link) { $link.SetFocus() }; Start-Sleep -Milliseconds 500
+              "focused before Ctrl+Q: $([Windows.Automation.AutomationElement]::FocusedElement.Current.Name) pid=$([Windows.Automation.AutomationElement]::FocusedElement.Current.ProcessId)" | Tee-Object -FilePath (Join-Path $out ($name + '.ctrlq.txt'))
+              "sendinput=$([JappKeys]::CtrlQ())" | Tee-Object -FilePath (Join-Path $out ($name + '.ctrlq.txt')) -Append
+              Start-Sleep -Seconds 8
+              "desktop alive after Ctrl+Q: $(-not $process.HasExited)" | Tee-Object -FilePath (Join-Path $out ($name + '.ctrlq.txt')) -Append
+            } catch { "ctrlq error: $($_.Exception.Message)" | Tee-Object -FilePath (Join-Path $out ($name + '.ctrlq.txt')) -Append }
             Get-Process -Name desktop,japp-orchestrator -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
             Start-Sleep -Seconds 2
             "---- stderr $root"; Get-Content -LiteralPath $stderr -ErrorAction SilentlyContinue
