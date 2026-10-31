@@ -52,6 +52,75 @@ fn install_shell_quit_menu(app: &tauri::App) -> tauri::Result<()> {
     Ok(())
 }
 
+/// The File menu's exact Quit chord: a first Ctrl+Q key-down with neither Alt
+/// nor Shift held.
+#[cfg_attr(not(windows), allow(dead_code))]
+fn is_quit_accelerator(
+    key_down: bool,
+    virtual_key: u32,
+    repeat: bool,
+    ctrl: bool,
+    alt: bool,
+    shift: bool,
+) -> bool {
+    key_down && virtual_key == u32::from(b'Q') && !repeat && ctrl && !alt && !shift
+}
+
+/// WebView2 keeps keyboard focus in its own browser process, so the native
+/// menu's Ctrl+Q accelerator never reaches this process's TranslateAcceleratorW
+/// (measured on hosted Windows, KI-0158). Route exactly that chord to the same
+/// shutdown as File→Quit; every other key stays with WebView2.
+#[cfg(windows)]
+fn forward_quit_accelerator(window: &tauri::WebviewWindow) -> tauri::Result<()> {
+    let app = window.app_handle().clone();
+    window.with_webview(move |webview| {
+        use webview2_com::{
+            AcceleratorKeyPressedEventHandler,
+            Microsoft::Web::WebView2::Win32::{
+                COREWEBVIEW2_KEY_EVENT_KIND, COREWEBVIEW2_KEY_EVENT_KIND_KEY_DOWN,
+                COREWEBVIEW2_PHYSICAL_KEY_STATUS,
+            },
+        };
+        use windows_sys::Win32::UI::Input::KeyboardAndMouse::{
+            GetKeyState, VK_CONTROL, VK_MENU, VK_SHIFT,
+        };
+        let held = |key: u16| unsafe { GetKeyState(i32::from(key)) } < 0;
+        let handler = AcceleratorKeyPressedEventHandler::create(Box::new(move |_, args| {
+            let Some(args) = args else {
+                return Ok(());
+            };
+            let mut kind = COREWEBVIEW2_KEY_EVENT_KIND::default();
+            let mut key = 0u32;
+            let mut status = COREWEBVIEW2_PHYSICAL_KEY_STATUS::default();
+            unsafe {
+                args.KeyEventKind(&mut kind)?;
+                args.VirtualKey(&mut key)?;
+                args.PhysicalKeyStatus(&mut status)?;
+            }
+            if is_quit_accelerator(
+                kind == COREWEBVIEW2_KEY_EVENT_KIND_KEY_DOWN,
+                key,
+                status.WasKeyDown.as_bool(),
+                held(VK_CONTROL),
+                held(VK_MENU) || status.IsMenuKeyDown.as_bool(),
+                held(VK_SHIFT),
+            ) {
+                unsafe { args.SetHandled(true)? };
+                app.state::<service::ManagedService>()
+                    .request_shutdown(&app);
+            }
+            Ok(())
+        }));
+        let mut token = 0i64;
+        // A refused registration leaves File→Quit and every other key unchanged.
+        let _ = unsafe {
+            webview
+                .controller()
+                .add_AcceleratorKeyPressed(&handler, &mut token)
+        };
+    })
+}
+
 pub fn run() {
     let app = tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
@@ -68,10 +137,14 @@ pub fn run() {
                 app.config().app.windows.first().ok_or_else(|| {
                     std::io::Error::other("Desktop window configuration is missing")
                 })?;
-            tauri::WebviewWindowBuilder::from_config(app, config)?
+            let window = tauri::WebviewWindowBuilder::from_config(app, config)?
                 .on_navigation(native_navigation_allowed)
                 .on_new_window(|_, _| NewWindowResponse::Deny)
                 .build()?;
+            #[cfg(windows)]
+            forward_quit_accelerator(&window)?;
+            #[cfg(not(windows))]
+            let _ = window;
             let runtime = service::configured_runtime(app.handle())
                 .unwrap_or_else(|_| service::ConfiguredRuntime::unavailable());
             let service = service::ManagedService::new(runtime)
@@ -107,7 +180,23 @@ pub fn run() {
 
 #[cfg(test)]
 mod tests {
-    use super::shell_navigation_allowed;
+    use super::{is_quit_accelerator, shell_navigation_allowed};
+
+    #[test]
+    fn only_a_first_plain_ctrl_q_key_down_is_the_quit_accelerator() {
+        let q = u32::from(b'Q');
+        assert!(is_quit_accelerator(true, q, false, true, false, false));
+        for (down, key, repeat, ctrl, alt, shift) in [
+            (false, q, false, true, false, false),
+            (true, u32::from(b'W'), false, true, false, false),
+            (true, q, true, true, false, false),
+            (true, q, false, false, false, false),
+            (true, q, false, true, true, false),
+            (true, q, false, true, false, true),
+        ] {
+            assert!(!is_quit_accelerator(down, key, repeat, ctrl, alt, shift));
+        }
+    }
     use tauri::Url;
 
     #[test]

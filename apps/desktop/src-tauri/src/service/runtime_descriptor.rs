@@ -33,6 +33,21 @@ fn path_for_mode(
     }
     Ok(path)
 }
+/// Tauri reports the Windows resource directory in verbatim form
+/// (`\\?\C:\...`; measured on hosted Windows, KI-0157), while the launch
+/// policy accepts only drive-absolute paths. A verbatim local-drive path names
+/// the same directory in drive form; every other form is returned unchanged and
+/// is still judged by the launch policy and the runtime integrity check.
+fn drive_form(path: PathBuf) -> PathBuf {
+    let Some(rest) = path.to_str().and_then(|text| text.strip_prefix(r"\\?\")) else {
+        return path;
+    };
+    let bytes = rest.as_bytes();
+    if bytes.len() >= 3 && bytes[0].is_ascii_alphabetic() && &bytes[1..3] == b":\\" {
+        return PathBuf::from(rest);
+    }
+    path
+}
 fn path_for_current_mode(
     descriptor: &BoundRuntime,
     resource_root: Option<&Path>,
@@ -54,7 +69,7 @@ pub(crate) fn configured_runtime(
         None
     };
     #[cfg(not(target_os = "linux"))]
-    let resource = app.path().resource_dir().ok();
+    let resource = app.path().resource_dir().ok().map(drive_form);
     eprintln!(
         "JAPP_DIAG resource_dir={:?} is_dev={}",
         resource,
@@ -113,6 +128,44 @@ mod tests {
             manifest_sha256: [2; 32],
             target: "aarch64-apple-darwin",
         }
+    }
+    #[test]
+    fn verbatim_local_drive_resource_directory_uses_drive_form() {
+        // The exact verbatim forms Tauri returned on hosted Windows (KI-0157).
+        for (verbatim, drive) in [
+            (r"\\?\C:\japp-gui-diag", r"C:\japp-gui-diag"),
+            (
+                "\\\\?\\C:\\Users\\runneradmin\\AppData\\Local\\JobApply \u{3a9} space diag",
+                "C:\\Users\\runneradmin\\AppData\\Local\\JobApply \u{3a9} space diag",
+            ),
+            (r"\\?\d:\", r"d:\"),
+        ] {
+            assert_eq!(drive_form(PathBuf::from(verbatim)), PathBuf::from(drive));
+        }
+    }
+    #[test]
+    fn other_resource_directory_forms_are_left_to_the_launch_policy() {
+        for path in [
+            r"C:\App\resources",
+            r"\\?\UNC\server\share\App",
+            r"\\.\C:\App",
+            r"\\?\C:",
+            r"\\?\1:\App",
+            r"\\?\GLOBALROOT\Device\HarddiskVolume1\App",
+            "/App.app/Contents/Resources",
+        ] {
+            assert_eq!(drive_form(PathBuf::from(path)), PathBuf::from(path));
+        }
+    }
+    #[test]
+    fn drive_form_runtime_path_passes_the_launch_policy_that_refuses_verbatim() {
+        let relative = r"runtime\japp-orchestrator\japp-orchestrator.exe";
+        let verbatim = r"\\?\C:\JobApply space";
+        let refused = format!("{verbatim}\\{relative}");
+        assert!(super::super::windows_policy::launch_plan(&refused).is_err());
+        let drive = drive_form(PathBuf::from(verbatim));
+        let accepted = format!("{}\\{relative}", drive.to_str().unwrap());
+        assert!(super::super::windows_policy::launch_plan(&accepted).is_ok());
     }
     #[test]
     fn packaged_path_uses_only_app_resources() {

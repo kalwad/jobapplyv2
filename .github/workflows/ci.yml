@@ -2,7 +2,8 @@
 # development package with one instrumentation commit (JAPP_DIAG eprintln at each
 # service error construction site) and launches the packaged desktop GUI with its
 # stderr captured, to find why the desktop reports "Local service failed" on a
-# hosted Windows runner while the service alone answers READY.
+# hosted Windows runner while the service alone answers READY. Round 2 adds the
+# drive-form resource directory and WebView2 Ctrl+Q product fixes (KI-0157/0158).
 name: ci
 on:
   workflow_dispatch:
@@ -182,6 +183,13 @@ jobs:
             Start-Sleep -Seconds 2
             "---- stderr $root"; Get-Content -LiteralPath $stderr -ErrorAction SilentlyContinue
           }
+      - name: Retain the fixed development portable package for later GUI probes
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: diag-fixed-portable
+          path: ${{ runner.temp }}/japp-development-package-proof/pipeline/portable
+          retention-days: 7
       - name: Retain GUI diagnostic output
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
