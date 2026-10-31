@@ -1,6 +1,8 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Does a source-less apt install
-# accept the reviewed local archives that apt --no-download refuses, and still
-# refuse any unprovided dependency without downloading?
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Settles runner and guest facts
+# the static pre-flight audit could only infer: /dev/kvm on standard runners,
+# OVMF COM1 output and the cdboot key window under the Windows 11 campaign's
+# exact QEMU argv, and the GNOME guest's install/session timing, serial volume,
+# autostart environment and AT-SPI Action naming under KVM and under TCG.
 name: ci
 on:
   workflow_dispatch:
@@ -8,48 +10,82 @@ permissions:
   contents: read
   actions: read
 jobs:
-  probe:
-    name: local-only apt (${{ matrix.case }})
+  win11-boot:
+    name: win11 firmware and boot key
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Runner facts
+        run: |
+          echo "ImageVersion=$ImageVersion"; id; nproc; free -g; df -h / /mnt
+          ls -l /dev/kvm || echo "NO /dev/kvm"; getfacl /dev/kvm 2>/dev/null || true
+          grep -m1 'model name' /proc/cpuinfo; grep -c -E 'svm|vmx' /proc/cpuinfo
+      - name: Download the exact a5ec1e3 Windows 11 candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh run download 41154871189 -R kalwad/jobapplyv2 -n unreviewed-windows11-inputs-a5ec1e3a894fc6f11354f5adce1631b1cc262470-41154871189 -D "$RUNNER_TEMP/cand"
+      - name: Local-only install of the reviewed host tools
+        run: |
+          D="$RUNNER_TEMP/cand/retained/inputs/host-debs"; E=$(mktemp -d); L=$(mktemp -d); mkdir -p "$L/partial"
+          sudo -n /usr/bin/apt-get -o Dir::Etc::SourceList=/dev/null -o Dir::Etc::SourceParts="$E" -o Dir::State::Lists="$L" -o Dir::Cache::pkgcache= -o Dir::Cache::srcpkgcache= --no-install-recommends -y install "$D"/*.deb > "$RUNNER_TEMP/apt.txt" 2>&1 || { tail -40 "$RUNNER_TEMP/apt.txt"; exit 1; }
+          tail -3 "$RUNNER_TEMP/apt.txt"
+          sudo -n setfacl -m "u:$(id -u):rw" /dev/kvm; ls -l /dev/kvm
+          python3 -c "import fcntl;f=open('/dev/kvm','r+b',buffering=0);print('KVM API',fcntl.ioctl(f.fileno(),0xAE00,0))"
+      - name: Download the pinned Evaluation ISO
+        run: |
+          sudo mkdir -p /mnt/diag && sudo chown "$(id -u):$(id -g)" /mnt/diag
+          url=$(python3 -c "import json;print(json.load(open('$RUNNER_TEMP/cand/retained/inputs/media-lock.json'))['media']['url'])")
+          want=$(python3 -c "import json;print(json.load(open('$RUNNER_TEMP/cand/retained/inputs/media-lock.json'))['media']['sha256'])")
+          curl -fsSL --proto '=https' --max-time 1500 -o /mnt/diag/win11.iso "$url"
+          got=$(sha256sum /mnt/diag/win11.iso | cut -d' ' -f1); echo "sha256 $got"; test "$got" = "$want"
+      - name: Boot with no key (cdboot prompt window)
+        run: python3 -I diag/win11_boot_probe.py /mnt/diag/w-none "$RUNNER_TEMP/out/none" /mnt/diag/win11.iso none 75
+      - name: Boot with the harness's single +8 s space key
+        run: python3 -I diag/win11_boot_probe.py /mnt/diag/w-single8 "$RUNNER_TEMP/out/single8" /mnt/diag/win11.iso single8 360
+      - if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: diag-win11-boot
+          path: ${{ runner.temp }}/out
+          retention-days: 7
+  gnome-session:
+    name: gnome session (${{ matrix.accel }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - case: gnome-host
-            run: "41154763996"
-            artifact: unreviewed-gnome-inputs-a5ec1e3a894fc6f11354f5adce1631b1cc262470-41154763996
-            debs: inputs/host-debs
-          - case: windows11-host
-            run: "41154871189"
-            artifact: unreviewed-windows11-inputs-a5ec1e3a894fc6f11354f5adce1631b1cc262470-41154871189
-            debs: retained/inputs/host-debs
+        accel: [kvm, tcg]
     steps:
-      - name: Download the exact reviewed candidate
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Runner facts
+        run: |
+          echo "ImageVersion=$ImageVersion"; id; nproc; free -g; df -h / /mnt
+          ls -l /dev/kvm || echo "NO /dev/kvm"
+      - name: Download the exact a5ec1e3 GNOME candidate
         env:
           GH_TOKEN: ${{ github.token }}
+        run: gh run download 41154763996 -R kalwad/jobapplyv2 -n unreviewed-gnome-inputs-a5ec1e3a894fc6f11354f5adce1631b1cc262470-41154763996 -D "$RUNNER_TEMP/cand"
+      - name: Local-only install of the reviewed host tools
         run: |
-          gh run download "${{ matrix.run }}" -R kalwad/jobapplyv2 -n "${{ matrix.artifact }}" -D "$RUNNER_TEMP/cand"
-          echo "ImageVersion=$ImageVersion"; apt-get --version | head -1
-          ls "$RUNNER_TEMP/cand/${{ matrix.debs }}" | wc -l
-      - name: Negative control - one archive without its dependencies, sources disabled
+          D="$RUNNER_TEMP/cand/inputs/host-debs"; E=$(mktemp -d); L=$(mktemp -d); mkdir -p "$L/partial"
+          sudo -n /usr/bin/apt-get -o Dir::Etc::SourceList=/dev/null -o Dir::Etc::SourceParts="$E" -o Dir::State::Lists="$L" -o Dir::Cache::pkgcache= -o Dir::Cache::srcpkgcache= --no-install-recommends -y install "$D"/*.deb > "$RUNNER_TEMP/apt.txt" 2>&1 || { tail -40 "$RUNNER_TEMP/apt.txt"; exit 1; }
+          tail -3 "$RUNNER_TEMP/apt.txt"
+          if [ "${{ matrix.accel }}" = kvm ]; then sudo -n setfacl -m "u:$(id -u):rw" /dev/kvm; ls -l /dev/kvm; fi
+      - name: Download the pinned cloud image
         run: |
-          set +e
-          D="$RUNNER_TEMP/cand/${{ matrix.debs }}"
-          E=$(mktemp -d); L=$(mktemp -d); mkdir -p "$L/partial"
-          one=$(ls "$D" | grep -E '^qemu-system-x86_' | head -1)
-          sudo -n /usr/bin/apt-get -o Dir::Etc::SourceList=/dev/null -o Dir::Etc::SourceParts="$E" -o Dir::State::Lists="$L" -o Dir::Cache::pkgcache= -o Dir::Cache::srcpkgcache= --no-install-recommends -y install "$D/$one" > "$RUNNER_TEMP/neg.txt" 2>&1
-          echo "negative-control exit=$?"
-          grep -E "^E:|unmet|Depends:|Need to get|Get:" "$RUNNER_TEMP/neg.txt" | head -12
-          dpkg-query -W -f='${Status}\n' qemu-system-x86 2>&1 | head -1
-      - name: Local-only install of the complete reviewed host closure
-        run: |
-          D="$RUNNER_TEMP/cand/${{ matrix.debs }}"
-          E=$(mktemp -d); L=$(mktemp -d); mkdir -p "$L/partial"
-          set +e
-          sudo -n /usr/bin/apt-get -o Dir::Etc::SourceList=/dev/null -o Dir::Etc::SourceParts="$E" -o Dir::State::Lists="$L" -o Dir::Cache::pkgcache= -o Dir::Cache::srcpkgcache= --no-install-recommends -y install "$D"/*.deb > "$RUNNER_TEMP/pos.txt" 2>&1
-          echo "install exit=$?"
-          set -e
-          grep -E "^E:|^W:|Get:|Need to get|newly installed|upgraded" "$RUNNER_TEMP/pos.txt" | head -20
-          bad=0; for f in "$D"/*.deb; do p=$(dpkg-deb -f "$f" Package); v=$(dpkg-deb -f "$f" Version); i=$(dpkg-query -W -f='${Version}' "$p" 2>/dev/null || echo NONE); if [ "$v" != "$i" ]; then echo "MISMATCH $p locked=$v installed=$i"; bad=1; fi; done; echo "version-mismatch=$bad"
-          ls -la /usr/bin/qemu-system-x86_64 /usr/bin/qemu-img 2>&1 | head -3
+          curl -fsSL --proto '=https' --max-time 900 -o "$RUNNER_TEMP/cloud.img" https://cloud-images.ubuntu.com/releases/noble/release-20261017/ubuntu-24.04-server-cloudimg-amd64.img
+          echo "04e8f2461a16a44e78a370284471f29616cdd9baf1893df25807b71f985b6c94  $RUNNER_TEMP/cloud.img" | sha256sum -c
+      - name: Session probe
+        run: python3 -I diag/gnome_host_probe.py "$RUNNER_TEMP/cand/inputs" "$RUNNER_TEMP/cloud.img" "$RUNNER_TEMP/work" "$RUNNER_TEMP/out" "${{ matrix.accel }}" 4800 diag/repo-root
+      - if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: diag-gnome-${{ matrix.accel }}
+          path: ${{ runner.temp }}/out
+          retention-days: 7
