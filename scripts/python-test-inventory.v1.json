@@ -3,7 +3,7 @@
   "normalization_version": 1,
   "common": {
     "count": 3166,
-    "sha256": "9d0934acf2e841678dac9183dea5d6d2e7b62674360ddb3a5b4f6d9587e2332a",
+    "sha256": "0014936fbddcaea4689cfb54b4aae39286fe74fcc03f01d8cf6cb0c494ab1c34",
     "node_ids": [
       "scripts/tests/test_bounded_process.py::test_ordinary_nonzero_exit_preserves_stdout_and_stderr",
       "scripts/tests/test_bounded_process.py::test_over_one_mib_child_is_stopped_and_retained_output_is_bounded",
@@ -1963,9 +1963,9 @@
       "scripts/tests/test_ubuntu_gnome_guest_runtime.py::test_guest_installs_suspend_the_needrestart_apt_hook",
       "scripts/tests/test_ubuntu_gnome_guest_runtime.py::test_locked_install_alone_receives_the_larger_log_cap",
       "scripts/tests/test_ubuntu_gnome_guest_runtime.py::test_measured_install_log_fits_its_own_cap_but_not_the_default",
-      "scripts/tests/test_ubuntu_gnome_guest_runtime.py::test_root_never_replaces_a_name_the_synthetic_account_planted[dangling-symlink]",
-      "scripts/tests/test_ubuntu_gnome_guest_runtime.py::test_root_never_replaces_a_name_the_synthetic_account_planted[dconf-log]",
-      "scripts/tests/test_ubuntu_gnome_guest_runtime.py::test_root_never_replaces_a_name_the_synthetic_account_planted[failure-receipt]",
+      "scripts/tests/test_ubuntu_gnome_guest_runtime.py::test_root_creates_every_published_name_exclusively",
+      "scripts/tests/test_ubuntu_gnome_guest_runtime.py::test_root_never_replaces_a_name_the_synthetic_account_planted[provision-dconf.log]",
+      "scripts/tests/test_ubuntu_gnome_guest_runtime.py::test_root_never_replaces_a_name_the_synthetic_account_planted[provision-failure.json]",
       "scripts/tests/test_ubuntu_gnome_local_apt.py::test_every_reviewed_installer_uses_local_only_apt[scripts/linux_gnome/ubuntu_gnome_host.py]",
       "scripts/tests/test_ubuntu_gnome_local_apt.py::test_every_reviewed_installer_uses_local_only_apt[scripts/linux_gnome/ubuntu_gnome_provision.py]",
       "scripts/tests/test_ubuntu_gnome_local_apt.py::test_every_reviewed_installer_uses_local_only_apt[scripts/windows11/windows11_vm.py]",

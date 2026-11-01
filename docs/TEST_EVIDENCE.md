@@ -12522,4 +12522,10 @@ Known limitations:
 - Hosted CI at the committed head has not run yet; the new test files have never run on hosted macOS, Ubuntu or Windows.
 - Both VM campaigns are pending at a rebuilt, re-reviewed candidate.
 
+Hosted fff3408/run41350842944 is terminal FAILURE. macos-15 and ubuntu-24.04 doctor+verify PASS (20 ACTIVE suites each; Python `3168 passed in 805.82s` and `3168 passed in 615.48s`, from the raw job logs). windows-2025 passes 19 suites and fails python: `1 failed, 3165 passed in 1283.69s`. The failure is `test_root_never_replaces_a_name_the_synthetic_account_planted[dangling-symlink]` with `DID NOT RAISE FileExistsError`.
+- Cause: on Windows, Python's exclusive create follows a dangling symlink; Linux O_EXCL refuses it, and the provisioner runs only in the Linux guest. The native package jobs were skipped.
+- Correction: the symlink case is replaced by a host-independent test that publish() opens every name with mode `xb`, still killing the exists-check-then-`wb` mutant.
+Every other new test, including the live QMP, socket-pair, fake-clock and symlink-removal tests, passed on hosted Windows.
+Local after the correction (this sentence appended afterwards): `uv run --frozen python scripts/verify.py --suite format|lint|typecheck|portability|traceability|status|integrity|python` each exit 0; python `3168 passed in 515.84s` with the exact inventory (3166 common + 2 POSIX-only).
+
 Next READY package: NONE while M03-W07 is IN_PROGRESS.

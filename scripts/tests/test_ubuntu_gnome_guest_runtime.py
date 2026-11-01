@@ -168,21 +168,12 @@ def test_locked_install_alone_receives_the_larger_log_cap() -> None:
     assert set(caps.values()) == {None}
 
 
-@pytest.mark.parametrize(
-    ("planted", "link"),
-    [
-        ("provision-dconf.log", False),
-        ("provision-failure.json", False),
-        ("provision-dconf.log", True),
-    ],
-    ids=["dconf-log", "failure-receipt", "dangling-symlink"],
-)
+@pytest.mark.parametrize("planted", ["provision-dconf.log", "provision-failure.json"])
 def test_root_never_replaces_a_name_the_synthetic_account_planted(
     provision: ModuleType,
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
     planted: str,
-    link: bool,
 ) -> None:
     home, state = tmp_path / "home", tmp_path / "state"
     home.mkdir()
@@ -196,16 +187,10 @@ def test_root_never_replaces_a_name_the_synthetic_account_planted(
     name = home / "japp-proof" / planted
     planted_bytes = b"planted by the synthetic account\n"
 
-    outside = tmp_path / "outside"
-
     def chown(path: Path, _uid: int, _gid: int) -> None:
         # Once the proof directory is the account's, it can create names there.
         assert path == home / "japp-proof"
-        if link:
-            # A dangling link to a path root could otherwise create.
-            name.symlink_to(outside)
-        else:
-            name.write_bytes(planted_bytes)
+        name.write_bytes(planted_bytes)
 
     published: list[int] = []
     monkeypatch.setattr(provision.os, "chown", chown, raising=False)
@@ -215,12 +200,29 @@ def test_root_never_replaces_a_name_the_synthetic_account_planted(
     failure = RuntimeError("synthetic step failure") if "failure" in planted else None
     with pytest.raises(FileExistsError):
         provision.publish_evidence(failure)
-    if link:
-        assert name.is_symlink()
-        assert not outside.exists()
-    else:
-        assert name.read_bytes() == planted_bytes
+    assert name.read_bytes() == planted_bytes
     assert len(published) == (1 if failure else 0)
+
+
+def test_root_creates_every_published_name_exclusively(
+    provision: ModuleType, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # On the Linux guest, exclusive creation (O_CREAT|O_EXCL) also refuses a
+    # planted symlink, dangling or not; Windows verify hosts follow one, so the
+    # contract is pinned as the open mode itself, never an exists() pre-check.
+    modes: list[str] = []
+    real_open = Path.open
+
+    def spy(path: Path, mode: str = "r", *args: object, **kwargs: object) -> object:
+        modes.append(mode)
+        return real_open(path, mode, *args, **kwargs)  # type: ignore[call-overload]
+
+    monkeypatch.setattr(Path, "open", spy)
+    monkeypatch.setattr(provision.os, "fchown", lambda *_args: None, raising=False)
+    identity = SimpleNamespace(pw_uid=1000, pw_gid=1001)
+    provision.publish(tmp_path / "provision-dconf.log", b"dconf updated\n", identity)
+    assert modes == ["xb"]
+    assert (tmp_path / "provision-dconf.log").read_bytes() == b"dconf updated\n"
 
 
 def test_failure_receipt_keeps_only_the_last_eight_kib_of_the_step_log(
