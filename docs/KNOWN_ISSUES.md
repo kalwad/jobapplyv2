@@ -58,6 +58,250 @@ Current scoped correction supersedes the pending source/focus statements: all te
 
 The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
 
+### KI-0169 — Windows 11 failure-path power-off is refused once the VM output cap has tripped
+
+- Severity: LOW
+- State: OPEN
+- Discovered: implementer report of the combined-review correction round, 2026-11-01UTC.
+- Affects: M03-W07 Windows 11 VM campaign failure path (scripts/windows11/windows11_vm.py main() finally; shared Owner.qmp_call and Owner.close() in scripts/linux_gnome/ubuntu_gnome_vm.py).
+- Description: after a failure, main()'s finally sends `system_powerdown` under work authority and waits 20 s. If the failure was qemu.stdout or qemu.stderr exceeding 256 KiB, Owner.qmp_call refuses that request locally. The 20 s wait is then spent for nothing, and close() ends QEMU by signals rather than by QMP quit. The outcome stays bounded and failed. The post-PASS power-off and quit were moved to cleanup authority in the same round; an existing test pins this failure-path request as non-cleanup.
+- Reproduction: not measured. Drive main() to a failure caused by qemu.stderr growing past VM_OUTPUT_CAP while QEMU still runs; the recorded guest_powerdown_error is the local refusal, and 20 s elapse before close().
+- Workaround: none needed; the campaign fails closed.
+- Resolution + evidence link: open; decide whether the failure-path power-off should use cleanup authority.
+
+### KI-0168 — GNOME File→Quit may activate the last good observation after a later poll fails
+
+- Severity: LOW
+- State: IN_PROGRESS
+- Discovered: implementer report of the combined-review correction round, 2026-11-01UTC.
+- Affects: M03-W08 GNOME VM campaign File→Quit phase (scripts/linux_gnome/ubuntu_gnome_guest.py quit_menu and menu_rows).
+- Description: quit_menu polls menu_rows for up to MENU_SECONDS after opening File. It keeps the last successful observation, which had exactly one actionable Quit under File. If a later poll raises, through a transient AT-SPI error or a second Quit that appears only after the first was seen, it activates that earlier item at the deadline. Resetting on every failed poll would fail closed, but a GLib error on the last poll would then fail an otherwise valid campaign.
+- Reproduction: not measured. A fake tree whose first menu_rows poll shows one Quit under File and whose later polls raise (or add a second Quit) reaches the deadline and activates the first item.
+- Workaround: none; the close is still measured independently by observe_close.
+- Resolution + evidence link: a second File menu or a second Quit item under File is now a MenuInvariantError. It refuses at once, even after a single Quit was seen, so an earlier observation never authorizes activation. Only transient AT-SPI refusals are still retried, and the final "no actionable Quit item" message names the last one. New tests cover a duplicate that appears on the second poll, two File menus and the named last refusal. They kill the no-fail-fast, first-of-many-menus and dropped-cause mutants. The first hosted GNOME campaign is required before closure.
+
+### KI-0167 — GNOME Ctrl+Q close can follow an app exit just after the pre-chord liveness proof
+
+- Severity: LOW
+- State: OPEN
+- Discovered: independent review of the round-3 GNOME guest correction, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign accelerator phase (scripts/linux_gnome/ubuntu_gnome_guest.py focus_before_chord and quit_accelerator; scripts/linux_gnome/ubuntu_gnome_vm.py run_lifecycle).
+- Description: the `accelerator_focus` step now proves at its end that the exact relaunched app is still alive, and `quit_accelerator` accepts a close only with that step's record for the same app identity. A short window remains between that proof and the host's QMP Ctrl+Q: the receipt write, the SSH reply and the receipt read. If the app exited on its own inside that window, the close would still be credited to Ctrl+Q. Diagnostic round 28 shows the expected sequence: the app alive with focus at step 111, then gone at step 112.
+- Reproduction: not observed. Follow ubuntu_gnome_vm.py run_lifecycle from the `accelerator_focus` request to `owner.keys(...)` and then `quit_accelerator`; an app that exits on its own after `focus_before_chord`'s final `same_process` check and before the chord arrives yields the same PASS record.
+- Workaround: none needed for the scoped claim; the File→Quit and forced-parent phases measure closure separately.
+- Resolution + evidence link: open. Holding a pidfd or exit-status witness across the two operations would close it.
+
+### KI-0166 — GNOME keyboard origin counts WebKitGTK's focused ancestors
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic run41250366992, the GNOME harness's own functions under KVM in the real GDM session, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign keyboard phase (scripts/linux_gnome/ubuntu_gnome_guest.py keyboard).
+- Description: the keyboard phase required exactly one named FOCUSED accessible to be the Home link. WebKitGTK also marks the focused element's scroll pane and its named document ("Diagnostics · Desktop app") FOCUSED, as the launch receipts show. So `keyboard_before` refused, "Actual keyboard origin is not Home link", even though its failure frame shows the Home link with the focus ring.
+- Reproduction: diagnostic run41250366992 (receipt 98 and its failure frame).
+- Workaround: none.
+- Resolution + evidence link: the keyboard phase judges focus by `focus_leaves(rows)`, the FOCUSED rows that have no FOCUSED descendant. The origin, Tab, Shift+Tab and Enter checks are otherwise unchanged, and a cyclic ancestry is refused. With this and KI-0164/KI-0165, diagnostic round 28 (run41250875399) reached ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS. That round bypassed request authorization (the authorize job); the bundle audit and the reviewed, simulate-first host install of ubuntu_gnome_host.py (host tools came from the workflow's own apt-get line); prepare_inputs, which checks the host-tool lock, the runner image version, the native tool hashes, the resource preflight, the package export and keyring pins and the source binding; and final_source_guard. The first hosted GNOME campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0165 — GNOME guest picks product controls by name and any action
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic runs 41248054236 and 41248905032, the GNOME harness's own functions under KVM in the real GDM session, 2026-10-31UTC.
+- Affects: M03-W08/M03-W11 GNOME VM campaign native shell capture and lifecycle (scripts/linux_gnome/ubuntu_gnome_guest.py action, shell_focus, keyboard and the route checks).
+- Description: the guest treated any accessible with the wanted name and a non-empty action list as the control. WebKitGTK gives nearly every web node one unnamed action. On the Diagnostics route both the focused route heading (role heading, actions `['']`) and the navigation link (role link, actions `['jump']`) matched "Diagnostics", so `shell_focus_diagnostics` refused the very first shell step.
+- Reproduction: diagnostic run41248905032 records the refusal with its two candidates; the launch receipt holds the whole measured tree.
+- Workaround: none.
+- Resolution + evidence link: one helper, `controls(rows, name, role)`, now requires the exact name, the exact AT-SPI role and an activating named action (`jump`, `press`, `click` or `activate`). Every guest control lookup uses it: the "Open Diagnostics" link, the "Check again" push button, the Home link, the skip link and the route links. The File menu and its Quit item use it too, keeping their own rules: Quit must descend from File, and only one Quit is accepted. A refusal names its bounded candidates. Tests shaped like the measured tree pin the rule; both a no-role and an any-action mutant fail them. Diagnostic round 24 (run41249463049) then passed 49 of 50 shell steps (receipts 02–51). The first hosted GNOME campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0164 — GNOME version labels are checked for visibility before they are scrolled into view
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic run41249463049, the GNOME harness's own functions under KVM in the real GDM session, 2026-10-31UTC.
+- Affects: M03-W08/M03-W11 GNOME VM campaign native shell capture (scripts/linux_gnome/ubuntu_gnome_guest.py shell_measure).
+- Description: at the largest zoom step the product stacks its layout, and the "Desktop versions" rows sit below the fold. shell_measure required the "Tauri version" label to be VISIBLE and SHOWING before it scrolled the "App version" label to the top. So `shell_scale_step4` refused with "Actual Text leaf is hidden or offscreen", after baseline and steps 1–3 had passed. Windows had the same order problem at 175% (KI-0163).
+- Reproduction: diagnostic run41249463049; its failure frame shows the stacked navigation with the versions card cut off at the bottom edge.
+- Workaround: none.
+- Resolution + evidence link: shell_measure now scrolls first. Then, for at most 2 s, it clears the AT-SPI cache and requires every label and anchor to be visible and showing. Only the dedicated offscreen refusal is retried; any other refusal, or the deadline, still fails. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0163 — WebView2 text ranges misplace Windows 11 shell-capture anchors
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic runs 41233069849 and 41248672768 on hosted windows-2025, running the guest driver's own windows11_owned.cs against the KI-0157/KI-0158 corrected build, 2026-10-31UTC.
+- Affects: M03-W07/M03-W11 Windows 11 VM campaign native shell capture (scripts/windows11/windows11_owned.cs ShellMeasure and ShellText).
+- Description: two measured WebView2 behaviours stopped ShellMeasure before any Windows 11 campaign could use it.
+  - TextPattern.FindText on the "Desktop versions" region's range returned ranges shifted one character per preceding line break: "0.0.1" read ".1\nTau" and "2.12.4" read "4". The region's own range text was exact, and the region held exactly one Text element for each label.
+  - At 175% zoom, a text range's ScrollIntoView left the version anchors below the fold (on a leaf range) or overshot them (on the region's range), so the visible-glyph check refused them.
+- Reproduction: the diagnostic folder retains the probes. Round 14 (run41233069849) records the FindText drift; round 20 (run41248672768) records the enlarged-zoom refusal.
+- Workaround: none.
+- Resolution + evidence link: ShellText now searches each label only inside its own unique Text element (RangeFromChild of that element). It keeps the whole-label, single-occurrence, visibility and job-ownership checks. ShellMeasure scrolls the region with its ScrollItemPattern before measuring. Static source tests pin both rules. With this driver, diagnostic rounds 21, 23 and 26 passed the guest's own sliced phase code from `ready` through cleanup on hosted windows-2025: 14 shell routes at baseline and 175%, crash, restart, close, relaunch, collision, menu quit, Ctrl+Q and forced parent. The serial receipts, frame-acceptance waits, environment phase, attestation and the guest's terminal block were replaced or did not run. That host is Windows Server 2025, not Windows 11. The first hosted Windows 11 campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0162 — GNOME AT-SPI text reads hit a deprecated Accessible alias
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic run41233236511, the GNOME harness's own functions under KVM in the real GDM session, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign (scripts/linux_gnome/ubuntu_gnome_guest.py accessible_text; scripts/linux_gnome/ubuntu_gnome_atspi.py); KI-0151.
+- Description: PyGObject returns the Accessible itself as its Text interface. libatspi's deprecated atspi_accessible_get_text() alias then shadows Text.get_text(start, end), so `interface.get_text(0, count)` raised "Atspi.Accessible.get_text() takes exactly 1 argument (3 given)" on the first product launch. KI-0151 is the same shadowing for Action.get_name.
+- Reproduction: diagnostic run41233236511 runs prepare_image, prepare_guest, launch_vm, observe_session and run_lifecycle from the working tree under KVM.
+- Workaround: none.
+- Resolution + evidence link: accessible_text reads through the interface class, `Atspi.Text.get_text(interface, 0, count)`. The typed AT-SPI protocol no longer offers get_text on the Text interface. A test shaped like the measured Accessible pins the call. Later diagnostic GNOME rounds launched the product past this point. The first hosted GNOME campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0161 — Windows runtime paths beyond MAX_PATH fail closed
+
+- Severity: LOW
+- State: OPEN
+- Discovered: independent review of the KI-0157 correction, 2026-10-31UTC.
+- Affects: M03-W07 Windows packaged desktop (apps/desktop/src-tauri/src/service/windows_native.rs, runtime_integrity.rs).
+- Description: after KI-0157 the runtime path reaches GetFileAttributesW, CreateFileW and CreateProcessW in drive form, without `\\?\`, and the application manifest does not declare long-path awareness. So an install folder whose runtime files exceed MAX_PATH gets InvalidRuntime, while std::fs (used by the integrity check) handles long paths. This affects availability only; no check is weakened.
+- Reproduction: not measured. Install the portable package under a folder deep enough that `<folder>\runtime\japp-orchestrator\...` exceeds 260 UTF-16 units and launch it; windows_native.rs passes the drive-form path to GetFileAttributesW/CreateFileW without `\\?\`, and the manifest declares no long-path awareness.
+- Workaround: install to a shorter folder.
+- Resolution + evidence link: open.
+
+### KI-0160 — Windows parent-folder reparse check splits the runtime path on `\` only
+
+- Severity: LOW
+- State: OPEN
+- Discovered: independent review of the KI-0157 correction, 2026-10-31UTC.
+- Affects: M03-W07 Windows packaged desktop (apps/desktop/src-tauri/src/service/windows_native.rs validate_path).
+- Description: the packaged runtime path is the resource folder joined with `runtime/japp-orchestrator/japp-orchestrator.exe` (measured `C:\japp-gui-diag\runtime/japp-orchestrator/japp-orchestrator.exe`). validate_path checks each parent folder for reparse points by splitting on `\` only, so it skips `runtime` and `runtime/japp-orchestrator`. The development path already had this shape. lock_tree runs first, checks every node from the root, and holds handles that block rename or delete while the child runs, so the gap is covered today.
+- Reproduction: read windows_native.rs validate_path with the measured path `C:\japp-gui-diag\runtime/japp-orchestrator/japp-orchestrator.exe`; splitting on `\` yields `C:`, `japp-gui-diag` and one `runtime/japp-orchestrator/japp-orchestrator.exe` component, so the two intermediate folders are never checked for reparse points.
+- Workaround: none needed while lock_tree runs first.
+- Resolution + evidence link: open; normalize `/` inside validate_path in a focused change.
+
+### KI-0159 — A second quit request while the first is running briefly reports "Could not stop local service"
+
+- Severity: LOW
+- State: OPEN
+- Discovered: independent review of the KI-0158 correction, 2026-10-31UTC.
+- Affects: M03-W07 desktop shutdown UX (apps/desktop/src-tauri/src/service/tauri_lifecycle.rs request_shutdown).
+- Description: a second request_shutdown while the first quit is still running publishes CleanupFailed, because the gate refuses the second start. The title then shows "Could not stop local service; retry Quit" until the first quit completes. With KI-0158, pressing Ctrl+Q twice quickly makes this easy to reach. The process still shuts down through the first request.
+- Reproduction: not measured. Press Ctrl+Q (or choose File→Quit) twice within the first quit's shutdown; tauri_lifecycle.rs request_shutdown refuses the second start at its gate and publishes RecoveryState::CleanupFailed, which sets that title.
+- Workaround: none needed; the first quit completes.
+- Resolution + evidence link: open.
+
+### KI-0158 — Windows Ctrl+Q never reaches the File→Quit accelerator while WebView2 has focus
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: pre-flight audit of the a5ec1e3 campaign paths, confirmed by diagnostic run41225412050 on hosted windows-2025, 2026-10-31UTC.
+- Affects: M03-W07 Windows native shell (apps/desktop/src-tauri/src/lib.rs) and its Windows 11 accelerator phase; KI-0127.
+- Description: the product installs File→Quit with the Ctrl+Q accelerator. Tauri 2.12.4 checks menu accelerators only with TranslateAcceleratorW in the desktop process's own message loop, and wry 0.57.0 registers no WebView2 AcceleratorKeyPressed handler. WebView2 keeps keyboard focus in its browser process, so the key never reaches the menu. On a hosted Windows Server 2025 desktop, Ctrl+Q sent to the product's foreground window left all seven job members running after 10 s.
+- Reproduction: diagnostic run41225412050 launches the reviewed a5ec1e3 portable package under the guest driver's job owner and sends Ctrl+Q with SendInput.
+- Workaround: File→Quit.
+- Resolution + evidence link: on Windows the main webview's controller registers an AcceleratorKeyPressed handler. It marks exactly a first Ctrl+Q key-down with neither Alt nor Shift as handled and routes it to the same ManagedService shutdown as File→Quit; every other key stays with WebView2. It uses the exact webview2-com 0.39.1 that Tauri already locks, and adds no IPC command. Pure tests that run on every host cover the chord and how one WebView2 key event is read: AltGr (Ctrl+Alt without the menu flag), the menu flag alone, Alt with the menu flag, auto-repeat, Shift, key-up, another key and GetKeyState's high-order bit (a toggle bit alone is not held). Only the Windows-only wiring that feeds them is untested off Windows. An instrumented Windows build of this change on hosted windows-2025 (scratch branch diag/win-gui-service, run41229600953) registered the handler (Ok, token 20). It received Ctrl key-down and then Q key-down with GetKeyState reporting Ctrl held while focus was in the page, and the app exited after Ctrl+Q from both an ASCII and a Unicode/space install path. The first hosted Windows 11 campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0157 — Packaged Windows desktop refuses its own runtime: Tauri's resource directory is a verbatim `\\?\` path
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: diagnostic runs 41225412050, 41226037122 and 41226305647 on hosted windows-2025, root cause by instrumented build run41226818696, 2026-10-31UTC.
+- Affects: M03-W07 Windows packaged desktop (apps/desktop/src-tauri/src/service/runtime_descriptor.rs, windows_policy.rs launch_plan); every Windows install location.
+- Description: the reviewed a5ec1e3 portable package shows "Desktop App — Local service failed" within about 0.2 s of starting, and the Diagnostics page reports "Unavailable after a service failure". japp-orchestrator.exe never starts, from ASCII and from Unicode/space paths, with or without the guest driver's job owner. Run alone with the product's SystemRoot-only environment, the same service answers READY in 0.97 s. An instrumented build of the same source showed why: Tauri's resource_dir() returns `\\?\C:\...`, and launch_plan accepts only a drive-absolute `X:\` path, so it returns InvalidRuntime (windows_policy.rs lines 43–48; line 55 in the instrumented build's numbering). The CI package actor passed only because it builds a drive-form path itself.
+- Reproduction: the diagnostic folder retains the probes and the instrumented stderr (`JAPP_DIAG resource_dir=Some("\\\\?\\C:\\japp-gui-diag")` … `InvalidRuntime src\service\windows_policy.rs:55`).
+- Workaround: none.
+- Resolution + evidence link: configured_runtime() now rewrites a verbatim local-drive resource directory (`\\?\X:\...`) to the same drive path before the launch policy and runtime integrity check run. UNC, device and any other forms are unchanged and still judged by the strict launch policy. Rust tests cover the measured verbatim forms, the other forms and launch_plan acceptance. A Windows build of this change (run41227766396) went from "Starting local service" to "Desktop App" (service running) from both an ASCII and a Unicode/space path. The guest driver's own functions then reached the running service's 401 envelope, Check again, route focus, close and port release (diagnostic run41229140888). The first hosted Windows 11 campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0156 — GNOME session receipt checks graphical-session.target before it is active
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic run41171253889, measured by run41172293108 in the real GDM session, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign; scripts/linux_gnome/ubuntu_gnome_session_receipt.py (run once by ubuntu_gnome_guest.py --serve from XDG autostart).
+- Description: the receipt asked `systemctl --user is-active graphical-session.target` once. GNOME starts XDG autostart applications before that target is active: with the KI-0150 correction in place, the receipt run at autostart failed only this check, the target became active 2.8 s later, and the same receipt run at +60 s and +120 s was SESSION_READY. Because serve() runs the receipt once and exits on failure, the controller socket would never open.
+- Reproduction: diagnostic run41172293108 samples the target every 2 s from the autostart entry and runs the corrected receipt at +0 s, +60 s and +120 s.
+- Workaround: none.
+- Resolution + evidence link: the receipt now polls the target for up to 30 s (one bounded observation per second, each under the existing custody rules) and records the attempt count; the check still requires `active`, and a target that never becomes active still yields CAPABILITY_UNAVAILABLE. Tests cover active at once, active after two polls and never active; the delayed case fails against the old single observation. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0155 — Windows 11 fixed +8 s boot key misses the installation media prompt
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: pre-flight audit of the a5ec1e3 campaign paths, confirmed by diagnostic run41171253889 (scratch branch, never merged), 2026-10-31UTC.
+- Affects: M03-W07 Windows 11 VM campaign; scripts/windows11/windows11_vm.py observe().
+- Description: observe() pressed one space key 8 s after connecting the serial socket. Under the harness's exact QEMU argv, OVMF first fails the USB result disk, starts the Windows media loader at about 2.3 s, shows "Press any key to boot from CD or DVD" and reports the loader's time-out at about 5.5 s, then falls through to "No bootable option or device was found" at about 9.4 s. The fixed key therefore arrives after the prompt, Windows Setup never starts, and the campaign would wait out its whole work deadline.
+- Reproduction: diagnostic run41171253889 boots the pinned ISO with no key and records every COM1 byte with arrival time and a QMP frame every 0.5 s.
+- Workaround: none; no Windows 11 campaign was released.
+- Resolution + evidence link: observe() now waits for OVMF's own complete console line "BdsDxe: starting Boot… from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x1,0xFFFF,0x0)" (the reviewed media on ide.1), sends one space key BOOT_KEY_DELAY (0.5 s) later, and fails fast if the media loader has not started within 60 s. Diagnostic run41172293108 ran this trigger with the corrected qemu_argv() of that time (it predates the later ICH9-LPC S3/S4 globals): the media-start line arrived at 2.2 s, the key went at 2.7 s, and the frame at 26 s shows the Windows 11 Setup language page. Tests replay the observed console bytes, refuse the seed media, a "loading" line and a partial line, and check the single key and the fail-fast path; they fail against the old fixed-time key. The first hosted Windows 11 campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0154 — Windows 11 firmware console shares COM1 with the strict guest protocol
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: pre-flight audit of the a5ec1e3 campaign paths, confirmed by diagnostic run41171253889, 2026-10-31UTC.
+- Affects: M03-W07 Windows 11 VM campaign; scripts/windows11/windows11_vm.py qemu_argv() and observe(), scripts/windows11/windows11_guest.ps1.
+- Description: the only serial device was COM1, and the host refuses any line that does not begin "JAPP11 ". OVMF writes its console to COM1 within 1.2 s of power-on (ANSI clear-screen sequences and BdsDxe boot lines, 923 bytes in 9.4 s), so the parser would raise "Closed bounded owned-guest protocol required" on the first firmware line, long before Windows Setup.
+- Reproduction: diagnostic run41171253889 records the exact COM1 bytes under the harness's argv.
+- Workaround: none.
+- Resolution + evidence link: COM1 is now a firmware console socket that observe() retains (bounded at 256 KiB) and reads to find the media-start line (KI-0155); the guest protocol is a separate COM2 socket, and windows11_guest.ps1 opens COM2 only (its pin is updated in scripts/check_portability.py). Diagnostic run41172293108 ran the corrected argv and showed OVMF writing exactly the same 440 console bytes to COM2 as to COM1, so a second port alone is not enough: every COM2 line must still begin "JAPP11 " unless it equals, in order, the next complete firmware line seen on COM1 within 10 s. Altered, unmirrored and reordered text is refused. That includes COM2 text still unmatched when the guest's terminal row arrives: the combined review found that such text was accepted, and observe() now settles and refuses it before any verdict. Bytes received together with the terminal row are refused too; the guest closes COM2 after that row, so later bytes are never read. Tests replay the measured bytes and fail against the old single-port argv. They kill permissive, over-strict and order-ignoring mutants, and they pin the 10 s window and the terminal-row refusal on a fake clock. The first hosted Windows 11 campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0153 — GNOME guest locked-install log approaches its 256 KiB bound
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic run41171253889, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign; scripts/linux_gnome/ubuntu_gnome_provision.py run().
+- Description: run() fails any guest command whose output exceeds 256 KiB. Installing the reviewed 808-archive closure plus the product package wrote 242,847 bytes, 93% of the bound, so a slightly larger reviewed closure would fail the install after it succeeded.
+- Reproduction: the diagnostic guest ran the same local-only install of the a5ec1e3 candidate closure and retained the log size.
+- Workaround: none.
+- Resolution + evidence link: run() takes a cap argument; only the locked install uses 2 MiB, and every other guest command keeps 256 KiB. Tests check both caps and that no other call is raised; they fail against the old code. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0152 — GNOME campaign used software emulation and one slow readiness poll was fatal
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: pre-flight audit of the a5ec1e3 campaign paths, confirmed by diagnostic run41165269919, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign; scripts/linux_gnome/ubuntu_gnome_vm.py (also the shared Owner used by the Windows 11 harness).
+- Description: the GNOME VM ran under `-accel tcg,thread=multi -cpu max`. On a standard ubuntu-24.04 runner the reviewed guest then took about 1,000 s to install and 18 of 568 SSH readiness polls exceeded the 6 s poll bound; Owner.command raised TimeoutError for an over-time command even with permit_failure, so a single slow poll ended the campaign. Under KVM the same guest reached the GDM desktop in about 195 s with every poll within 3.01 s, and /dev/kvm on these runners answers KVM API 12 once the runner UID is granted access.
+- Reproduction: diagnostic run41165269919 runs the campaign's cloud image, cloud-init shape and device set under both accelerators.
+- Workaround: none.
+- Resolution + evidence link: the GNOME VM now requires KVM with no software fallback (kvm() grants only the runner UID through the reviewed setfacl, checks KVM API 12, and launch_vm() requires QEMU's own query-kvm answer {enabled, present}); setfacl joins the reviewed host tool lock from the acl archive already in the closure. Owner.command raises the distinct CommandDeadlineError only when its own bound expires and the child and its group are fully reaped; observe_session() records such a slow poll and keeps polling within the existing provision and session deadlines, while output caps, outer authority expiry and unsettled process state stay fatal. Tests fail against the old code. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0151 — GNOME guest reads AT-SPI action names through Accessible.get_name
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: pre-flight audit of the a5ec1e3 campaign paths, confirmed by diagnostic run41171253889 in the real GDM session, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign; scripts/linux_gnome/ubuntu_gnome_guest.py accessible_actions(), scripts/linux_gnome/ubuntu_gnome_atspi.py.
+- Description: PyGObject returns the Accessible itself as its Action interface, so `interface.get_name(i)` resolves to Accessible.get_name() and raised "takes exactly 1 argument (2 given)" in the real session, while `get_action_name(0)` answered 'activate'. Every accessibility tree walk would fail on the first actionable node.
+- Reproduction: the diagnostic session probe walks the real desktop's accessibility tree and calls both forms on the first node with an action.
+- Workaround: none.
+- Resolution + evidence link: accessible_actions() calls get_action_name(i), and the typing protocol names it. A test with an Accessible-shaped fake fails against the old call. Diagnostic run41172293108 repeated the real-session measurement with the same result. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0150 — GNOME autostart session has no XDG_SESSION_ID, so the session receipt is never ready
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: pre-flight audit of the a5ec1e3 campaign paths, confirmed by diagnostic run41171253889 in the real GDM session, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign; scripts/linux_gnome/ubuntu_gnome_session_receipt.py (run by ubuntu_gnome_guest.py --serve from XDG autostart).
+- Description: GNOME starts autostart applications in a systemd user scope outside the login session; the real session gave the autostarted probe no XDG_SESSION_ID and `loginctl show-session self` refused it. The repository's own receipt, run unchanged in that session, returned CAPABILITY_UNAVAILABLE: no logind properties, so the GDM-session and display-socket checks failed, and serve() exits without opening the controller socket, so the host would time out.
+- Reproduction: the diagnostic autostart entry records its environment and runs the unchanged receipt in the real autologin session.
+- Workaround: none.
+- Resolution + evidence link: when XDG_SESSION_ID is absent the receipt asks logind for the user's graphical session (`loginctl show-user <uid> --property=Display --value`, which named session 30 in the real session) and applies every existing check to that session. An inherited XDG_SESSION_ID is still used directly. Tests cover a GDM display session, no display session and a non-GDM display session; they fail against the old code. Diagnostic run41172293108 ran the corrected receipt in the real session: logind named session 25 (gdm-autologin, wayland), every logind and display check passed, and the receipt was SESSION_READY once graphical-session.target was active (KI-0156). Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0149 — needrestart restarts the GNOME guest's network and SSH after the locked install
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic run41165269919, cause confirmed by run41171253889, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign; scripts/linux_gnome/ubuntu_gnome_provision.py run().
+- Description: Ubuntu's needrestart apt hook restarted ssh, systemd-networkd, systemd-udevd and other services after the locked GNOME install. The install had regenerated netplan's backend files without the systemd-networkd .network for enp0s2, and NetworkManager is not part of the reviewed closure, so the restarted networkd left enp0s2 unmanaged with no IPv4 address; from then on the host's only guest channel (SSH through QEMU user networking) never answered again, although the desktop was up: for about 77 minutes under KVM and about 59 minutes under TCG, until the run ended. Masking NetworkManager made no difference. With NEEDRESTART_SUSPEND=1 the same install, GDM autologin and session dump completed over SSH in about 170 s.
+- Reproduction: diagnostic runs 41165269919 and 41171253889 install the reviewed closure exactly as the provision script does and poll SSH every 5 s.
+- Workaround: none.
+- Resolution + evidence link: every guest provision command now runs with NEEDRESTART_SUSPEND=1 next to DEBIAN_FRONTEND=noninteractive. A test checks the exact environment; it fails against the old code. Diagnostic run41172293108 ran the corrected provision environment under KVM: every SSH poll answered within 3.01 s and collection completed at 268 s. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0148 — apt `--no-download` refuses reviewed local archives
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: first released GNOME VM campaign, lifecycle run41157416726 (a5ec1e3 candidate), 2026-10-31UTC.
+- Affects: M03-W07 and M03-W08 VM campaigns; scripts/linux_gnome/ubuntu_gnome_host.py install_tools, scripts/linux_gnome/ubuntu_gnome_provision.py (guest), scripts/windows11/windows11_vm.py install_tools.
+- Description: every reviewed local install ran `apt-get --no-download ... install <local .deb files>` so that an unprovided dependency could not fetch an unreviewed version. On apt 2.8 (ubuntu-24.04 runners and the noble guest) `--no-download` also refuses archives named as local files, so the GNOME host install failed with "Unable to fetch some archives" although its plan was entirely local. The guest and Windows 11 installers use the same form and would fail the same way.
+- Reproduction: diagnostic run41157694334 replays the refusal on a fresh runner with the reviewed candidate; `apt-get -s` shows an all-local plan. Exact docs/evidence/m03-gnome-campaign-a5ec1e3-apt.
+- Workaround: none; no VM started.
+- Resolution + evidence link: ubuntu_gnome_process.local_only_apt() gives APT an empty source list, empty source-parts and package-list directories and no persistent caches, so no repository exists to download from; all three installers use it instead of --no-download. Diagnostic run41157825709 shows both reviewed host sets installing with zero download at exactly their locked versions and a dependency-withheld negative control refused. Tests pin the options, fresh private state and that every reviewed installer uses the helper. Hosted campaign results are required before closure.
+
 ### KI-0147 — Windows 11 campaign runs the Windows-only package inspector on the Linux host
 
 - Severity: MEDIUM
@@ -67,7 +311,7 @@ The reviewed guest/COM/parser composition now passes441canonical Python tests/27
 - Description: windows11_vm.main() runs on the ubuntu-24.04 host (require_linux). seed() runs scripts/windows_package.py inspect through Owner.command, but windows_package.main() raises "Native Windows x64 host required" on any other host, so the campaign would fail after installing host tools and downloading the ISO, before QEMU starts. No campaign has run, so this was found statically.
 - Reproduction: read windows11_vm.py seed() at a5ec1e3 and windows_package.py main(); the guard rejects platform.system() != "Windows".
 - Workaround: none; the Windows 11 candidate for a5ec1e3 is not released.
-- Resolution + evidence link: pending; the host-side inspection must run without relaxing the Windows-only build guard. Exact docs/evidence/m03-native-candidates-a5ec1e3-review.
+- Resolution + evidence link: windows_package.main() now applies the native Windows x64 host guard to `stage` only; `inspect` reads bytes and runs on any host, so seed() can inspect the reviewed portable package on the Linux VM host. Tests run the inspect CLI on a Linux x86_64 host and keep `stage` refused on Linux x86_64 and Windows ARM64; the Linux-inspect test fails against the old guard. Diagnostic run41157825709 did not exercise this path; the first hosted Windows 11 campaign is required before closure. Exact docs/evidence/m03-native-candidates-a5ec1e3-review.
 
 ### KI-0146 — Windows 11 lifecycle passes the wrong bundle path for the prepared artifact
 
@@ -78,7 +322,7 @@ The reviewed guest/COM/parser composition now passes441canonical Python tests/27
 - Description: the prepare workflow uploads two paths (japp-unreviewed-win11-candidate/retained/ and retention-failure.json), so upload-artifact roots the artifact at their common parent and every member sits under retained/. The lifecycle workflow downloads it to japp-reviewed-win11-inputs and passes --bundle .../japp-reviewed-win11-inputs/inputs, which does not exist; the bundle audit would fail before any tool install or VM step.
 - Reproduction: artifact 13023973641 (prepare run41154871189) has only a retained/ top folder; lifecycle line 144 at a5ec1e3 expects inputs/ at the download root.
 - Workaround: none; the Windows 11 candidate for a5ec1e3 is not released.
-- Resolution + evidence link: pending; the consumer path and the producer layout must agree and be pinned by a test. Exact docs/evidence/m03-native-candidates-a5ec1e3-review.
+- Resolution + evidence link: the lifecycle now passes --bundle .../japp-reviewed-win11-inputs/retained/inputs; the workflow body is re-pinned (size and SHA-256) in scripts/check_portability.py and scripts/tests/test_ci_workflow.py. scripts/tests/test_native_vm_artifact_layout.py parses each prepare and lifecycle workflow, computes the upload root as the common ancestor of the uploaded paths, and requires the lifecycle --bundle to equal the download root plus the produced bundle's path below that root, for both GNOME and Windows 11; it fails against the old workflow. The first hosted Windows 11 campaign is required before closure. Exact docs/evidence/m03-native-candidates-a5ec1e3-review.
 
 ### KI-0145 — Debian index line bound refuses the real Ubuntu noble universe index
 

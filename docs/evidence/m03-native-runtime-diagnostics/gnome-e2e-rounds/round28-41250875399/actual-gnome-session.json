@@ -1,0 +1,329 @@
+{
+  "scope": "ACTUAL_DISPOSABLE_GDM_UBUNTU_GNOME_SESSION_OBSERVATION_NOT_PRODUCT_OR_GUI_PASS",
+  "status": "SESSION_READY",
+  "checks": {
+    "observation_children_closed": true,
+    "ubuntu_24_04_x64": true,
+    "actual_user_graphical_GDM_session": true,
+    "ubuntu_GNOME_session": true,
+    "actual_shell_owner": true,
+    "actual_display_socket": true,
+    "actual_graphical_session_target": true,
+    "package_versions_observed": true,
+    "actual_Mutter_display_observed": true
+  },
+  "session_environment_allowlist": {
+    "XDG_SESSION_ID": null,
+    "XDG_SESSION_TYPE": "wayland",
+    "XDG_CURRENT_DESKTOP": "ubuntu:GNOME",
+    "XDG_SESSION_DESKTOP": "ubuntu",
+    "GDMSESSION": "ubuntu",
+    "GNOME_SHELL_SESSION_MODE": "ubuntu",
+    "DISPLAY": ":0",
+    "WAYLAND_DISPLAY": "wayland-0",
+    "XDG_RUNTIME_DIR": "/run/user/1000"
+  },
+  "logind_properties": {
+    "Id": "32",
+    "User": "1000",
+    "Seat": "seat0",
+    "Remote": "no",
+    "Service": "gdm-autologin",
+    "Desktop": "",
+    "Leader": "15296",
+    "Type": "wayland",
+    "Class": "user",
+    "Active": "yes",
+    "State": "active"
+  },
+  "os_release": {
+    "PRETTY_NAME": "Ubuntu 24.04.5 LTS",
+    "NAME": "Ubuntu",
+    "VERSION_ID": "24.04",
+    "VERSION": "24.04.5 LTS (Noble Numbat)",
+    "VERSION_CODENAME": "noble",
+    "ID": "ubuntu",
+    "ID_LIKE": "debian",
+    "HOME_URL": "https://www.ubuntu.com/",
+    "SUPPORT_URL": "https://help.ubuntu.com/",
+    "BUG_REPORT_URL": "https://bugs.launchpad.net/ubuntu/",
+    "PRIVACY_POLICY_URL": "https://www.ubuntu.com/legal/terms-and-policies/privacy-policy",
+    "UBUNTU_CODENAME": "noble",
+    "LOGO": "ubuntu-logo"
+  },
+  "machine": "x86_64",
+  "kernel": "6.8.0-147-generic",
+  "display_socket": {
+    "path": "/run/user/1000/wayland-0",
+    "mode": 509,
+    "uid": 1000,
+    "gid": 1000,
+    "device": 46,
+    "inode": 63,
+    "directory": false,
+    "socket": true,
+    "symlink": false
+  },
+  "observations": {
+    "logind_user_display_session": {
+      "argv": [
+        "/usr/bin/loginctl",
+        "show-user",
+        "1000",
+        "--property=Display",
+        "--value"
+      ],
+      "group_after_reap": "ABSENT",
+      "signals": [],
+      "direct_child_reaped": true,
+      "retained_unreaped_custody": false,
+      "elapsed_seconds": 0.011847716000005448,
+      "exit_code": 0,
+      "stdout": "32\n",
+      "stderr": ""
+    },
+    "loginctl": {
+      "argv": [
+        "/usr/bin/loginctl",
+        "show-session",
+        "32",
+        "--property=Id",
+        "--property=User",
+        "--property=Type",
+        "--property=Desktop",
+        "--property=Class",
+        "--property=Service",
+        "--property=Seat",
+        "--property=Active",
+        "--property=State",
+        "--property=Remote",
+        "--property=Leader"
+      ],
+      "group_after_reap": "ABSENT",
+      "signals": [],
+      "direct_child_reaped": true,
+      "retained_unreaped_custody": false,
+      "elapsed_seconds": 0.013411369000010609,
+      "exit_code": 0,
+      "stdout": "Id=32\nUser=1000\nSeat=seat0\nRemote=no\nService=gdm-autologin\nDesktop=\nLeader=15296\nType=wayland\nClass=user\nActive=yes\nState=active\n",
+      "stderr": ""
+    },
+    "shell_bus_owner": {
+      "argv": [
+        "/usr/bin/gdbus",
+        "call",
+        "--session",
+        "--dest",
+        "org.freedesktop.DBus",
+        "--object-path",
+        "/org/freedesktop/DBus",
+        "--method",
+        "org.freedesktop.DBus.GetConnectionUnixProcessID",
+        "org.gnome.Shell"
+      ],
+      "group_after_reap": "ABSENT",
+      "signals": [],
+      "direct_child_reaped": true,
+      "retained_unreaped_custody": false,
+      "elapsed_seconds": 0.0829441749999944,
+      "exit_code": 0,
+      "stdout": "(uint32 15386,)\n",
+      "stderr": ""
+    },
+    "shell_identity": {
+      "pid": 15386,
+      "executable": "/usr/bin/gnome-shell",
+      "uid": 1000,
+      "starttime_ticks": 16708,
+      "command_line": [
+        "/usr/bin/gnome-shell"
+      ],
+      "headless_or_nested": false
+    },
+    "graphical_session_target": {
+      "argv": [
+        "/usr/bin/systemctl",
+        "--user",
+        "is-active",
+        "graphical-session.target"
+      ],
+      "group_after_reap": "ABSENT",
+      "signals": [],
+      "direct_child_reaped": true,
+      "retained_unreaped_custody": false,
+      "elapsed_seconds": 0.012268450000021858,
+      "exit_code": 0,
+      "stdout": "active\n",
+      "stderr": "",
+      "attempts": 2
+    },
+    "package_versions": {
+      "argv": [
+        "/usr/bin/dpkg-query",
+        "-W",
+        "-f=${Package}\t${Version}\t${Architecture}\n",
+        "ubuntu-desktop-minimal",
+        "ubuntu-session",
+        "ubuntu-settings",
+        "gdm3",
+        "gnome-session-bin",
+        "gnome-shell",
+        "gnome-settings-daemon",
+        "mutter-common",
+        "libgtk-3-0t64",
+        "libwebkit2gtk-4.1-0",
+        "gir1.2-atspi-2.0",
+        "python3-gi",
+        "libgl1-mesa-dri"
+      ],
+      "group_after_reap": "ABSENT",
+      "signals": [],
+      "direct_child_reaped": true,
+      "retained_unreaped_custody": false,
+      "elapsed_seconds": 0.0387593400000128,
+      "exit_code": 0,
+      "stdout": "gdm3\t46.2-1ubuntu1~24.04.9\tamd64\ngir1.2-atspi-2.0\t2.52.0-1build1\tamd64\ngnome-session-bin\t46.0-1ubuntu4\tamd64\ngnome-settings-daemon\t46.0-1ubuntu1.24.04.1\tamd64\ngnome-shell\t46.0-0ubuntu6~24.04.16\tamd64\nlibgl1-mesa-dri\t25.2.8-0ubuntu0.24.04.4\tamd64\nlibgtk-3-0t64\t3.24.41-4ubuntu1.3\tamd64\nlibwebkit2gtk-4.1-0\t2.52.6-0ubuntu0.24.04.1\tamd64\nmutter-common\t46.2-1ubuntu0.24.04.18\tall\npython3-gi\t3.48.2-1\tamd64\nubuntu-desktop-minimal\t1.539.2\tamd64\nubuntu-session\t46.0-1ubuntu4\tall\nubuntu-settings\t24.04.6\tall\n",
+      "stderr": ""
+    },
+    "display_state": {
+      "argv": [
+        "/usr/bin/gdbus",
+        "call",
+        "--session",
+        "--dest",
+        "org.gnome.Mutter.DisplayConfig",
+        "--object-path",
+        "/org/gnome/Mutter/DisplayConfig",
+        "--method",
+        "org.gnome.Mutter.DisplayConfig.GetCurrentState"
+      ],
+      "group_after_reap": "ABSENT",
+      "signals": [],
+      "direct_child_reaped": true,
+      "retained_unreaped_custody": false,
+      "elapsed_seconds": 0.34054166699999655,
+      "exit_code": 0,
+      "stdout": "(uint32 1, [(('Virtual-1', 'RHT', 'QEMU Monitor', '0x00000000'), [('5120x2160@50.000', 5120, 2160, 50.0, 3.0, [1.0, 2.0, 3.0, 4.0], @a{sv} {}), ('4096x2160@50.000', 4096, 2160, 50.0, 3.0, [1.0, 2.0, 3.0, 4.0], {}), ('3840x2160@60.000', 3840, 2160, 60.0, 2.0, [1.0, 2.0, 3.0, 4.0], {}), ('3840x2160@59.940', 3840, 2160, 59.940101623535156, 2.0, [1.0, 2.0, 3.0, 4.0], {}), ('3840x2160@50.000', 3840, 2160, 50.0, 2.0, [1.0, 2.0, 3.0, 4.0], {}), ('2560x1080@50.000', 2560, 1080, 50.0, 1.0, [1.0, 2.0], {}), ('2048x1152@60.000', 2048, 1152, 60.0, 1.0, [1.0, 2.0], {}), ('1920x1440@60.000', 1920, 1440, 60.0, 1.0, [1.0, 2.0], {}), ('1920x1200@59.885', 1920, 1200, 59.884601593017578, 1.0, [1.0, 2.0], {}), ('1920x1080@60.000', 1920, 1080, 60.0, 1.0, [1.0, 2.0], {}), ('1920x1080@50.000', 1920, 1080, 50.0, 1.0, [1.0, 2.0], {}), ('1856x1392@59.995', 1856, 1392, 59.995182037353516, 1.0, [1.0, 2.0], {}), ('1792x1344@60.000', 1792, 1344, 59.999790191650391, 1.0, [1.0, 2.0], {}), ('1680x1050@59.954', 1680, 1050, 59.954250335693359, 1.0, [1.0, 2.0], {}), ('1600x1200@60.000', 1600, 1200, 60.0, 1.0, [1.0, 2.0], {}), ('1440x900@59.887', 1440, 900, 59.887443542480469, 1.0, [1.0], {}), ('1400x1050@59.978', 1400, 1050, 59.978443145751953, 1.0, [1.0], {}), ('1360x768@60.015', 1360, 768, 60.015163421630859, 1.0, [1.0], {}), ('1280x1024@60.020', 1280, 1024, 60.019741058349609, 1.0, [1.0], {}), ('1280x960@60.000', 1280, 960, 60.0, 1.0, [1.0], {}), ('1280x800@74.994', 1280, 800, 74.993850708007812, 1.0, [1.0], {'is-current': <true>, 'is-preferred': <true>}), ('1280x768@59.870', 1280, 768, 59.870227813720703, 1.0, [1.0], {}), ('1024x768@60.004', 1024, 768, 60.003841400146484, 1.0, [1.0], {}), ('800x600@60.317', 800, 600, 60.316539764404297, 1.0, [1.0], {})], {'is-builtin': <false>, 'display-name': <'Red Hat, Inc. 15\"'>})], [(0, 0, 1.0, uint32 0, true, [('Virtual-1', 'RHT', 'QEMU Monitor', '0x00000000')], @a{sv} {})], {'renderer': <'native'>, 'layout-mode': <uint32 2>, 'legacy-ui-scaling-factor': <1>})\n",
+      "stderr": ""
+    }
+  },
+  "secret_service": {
+    "state": "UNAVAILABLE",
+    "name_owner_observation": {
+      "argv": [
+        "/usr/bin/gdbus",
+        "call",
+        "--session",
+        "--dest",
+        "org.freedesktop.DBus",
+        "--object-path",
+        "/org/freedesktop/DBus",
+        "--method",
+        "org.freedesktop.DBus.NameHasOwner",
+        "org.freedesktop.secrets"
+      ],
+      "group_after_reap": "ABSENT",
+      "signals": [],
+      "direct_child_reaped": true,
+      "retained_unreaped_custody": false,
+      "elapsed_seconds": 0.011684641000016427,
+      "exit_code": 0,
+      "stdout": "(false,)\n",
+      "stderr": ""
+    },
+    "scope": "READ_ONLY_ALREADY_RUNNING_SERVICE_DEFAULT_COLLECTION_LOCK_METADATA"
+  },
+  "observation_custody": {
+    "closed": true,
+    "retained_unreaped_count": 0,
+    "groups": [
+      {
+        "pgid": 15571,
+        "direct_child_reaped": true,
+        "group_after_reap": "ABSENT"
+      },
+      {
+        "pgid": 15581,
+        "direct_child_reaped": true,
+        "group_after_reap": "ABSENT"
+      },
+      {
+        "pgid": 15589,
+        "direct_child_reaped": true,
+        "group_after_reap": "ABSENT"
+      },
+      {
+        "pgid": 15621,
+        "direct_child_reaped": true,
+        "group_after_reap": "ABSENT"
+      },
+      {
+        "pgid": 15805,
+        "direct_child_reaped": true,
+        "group_after_reap": "ABSENT"
+      },
+      {
+        "pgid": 15806,
+        "direct_child_reaped": true,
+        "group_after_reap": "ABSENT"
+      },
+      {
+        "pgid": 15809,
+        "direct_child_reaped": true,
+        "group_after_reap": "ABSENT"
+      },
+      {
+        "pgid": 15822,
+        "direct_child_reaped": true,
+        "group_after_reap": "ABSENT"
+      }
+    ],
+    "cleanup_errors": []
+  },
+  "public_session_files": [
+    {
+      "path": "/usr/share/gnome-session/sessions/ubuntu.session",
+      "mode": 420,
+      "uid": 0,
+      "gid": 0,
+      "device": 64769,
+      "inode": 524926,
+      "directory": false,
+      "socket": false,
+      "symlink": false,
+      "bytes": 669,
+      "sha256": "01c284d03f0d7b122c92b71bf70a70b5ad32d6e0813a559ceafbeb77e5e6adbf",
+      "text": "[GNOME Session]\nName=Ubuntu\n# Must be in sync with gnome-session@ubuntu.target.d/ubuntu.session.conf drop-in\nRequiredComponents=org.gnome.Shell;org.gnome.SettingsDaemon.A11ySettings;org.gnome.SettingsDaemon.Color;org.gnome.SettingsDaemon.Datetime;org.gnome.SettingsDaemon.Housekeeping;org.gnome.SettingsDaemon.Keyboard;org.gnome.SettingsDaemon.MediaKeys;org.gnome.SettingsDaemon.Power;org.gnome.SettingsDaemon.PrintNotifications;org.gnome.SettingsDaemon.Rfkill;org.gnome.SettingsDaemon.ScreensaverProxy;org.gnome.SettingsDaemon.Sharing;org.gnome.SettingsDaemon.Smartcard;org.gnome.SettingsDaemon.Sound;org.gnome.SettingsDaemon.Wacom;org.gnome.SettingsDaemon.XSettings;\n"
+    },
+    {
+      "path": "/usr/share/wayland-sessions/ubuntu.desktop",
+      "mode": 420,
+      "uid": 0,
+      "gid": 0,
+      "device": 64769,
+      "inode": 524932,
+      "directory": false,
+      "socket": false,
+      "symlink": false,
+      "bytes": 318,
+      "sha256": "2bc4481c309cb61bea77fa6abfa8d021f3caf45ce124b6176012efd632ee9d3a",
+      "text": "[Desktop Entry]\nName=Ubuntu\nComment=This session logs you into Ubuntu\nExec=env GNOME_SHELL_SESSION_MODE=ubuntu /usr/bin/gnome-session --session=ubuntu\nTryExec=/usr/bin/gnome-shell\nType=Application\nDesktopNames=ubuntu;GNOME\nX-GDM-SessionRegisters=true\nX-GDM-CanRunHeadless=true\nX-Ubuntu-Gettext-Domain=gnome-session-46\n"
+    },
+    {
+      "path": "/usr/share/xsessions/ubuntu-xorg.desktop",
+      "mode": 420,
+      "uid": 0,
+      "gid": 0,
+      "device": 64769,
+      "inode": 524934,
+      "directory": false,
+      "socket": false,
+      "symlink": false,
+      "bytes": 301,
+      "sha256": "e5fd98c9fbcd93b0382a73dfd29042d17f6501f5bc0dab1b99489b860dc9d027",
+      "text": "[Desktop Entry]\nName=Ubuntu on Xorg\nComment=This session logs you into Ubuntu\nExec=env GNOME_SHELL_SESSION_MODE=ubuntu /usr/bin/gnome-session --session=ubuntu\nTryExec=/usr/bin/gnome-shell\nType=Application\nDesktopNames=ubuntu;GNOME;\nX-GDM-SessionRegisters=true\nX-Ubuntu-Gettext-Domain=gnome-session-46\n"
+    }
+  ],
+  "requires_separate_host_QMP_frame": true,
+  "product_launched": false
+}

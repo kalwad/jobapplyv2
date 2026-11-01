@@ -467,3 +467,179 @@ def test_controller_input_copy_refuses_corrupted_receipt_or_script(
     monkeypatch.setattr(provision.shutil, "copyfile", corrupted)
     with pytest.raises(ValueError, match="input bytes changed"):
         provision.copy_controller_inputs(tmp_path / "controller")
+
+
+GDM_SESSION = {
+    "Id": "30",
+    "Class": "user",
+    "Service": "gdm-autologin",
+    "Seat": "seat0",
+    "Active": "yes",
+    "State": "active",
+    "Type": "wayland",
+}
+
+
+@pytest.mark.parametrize(
+    ("display", "named", "ready"),
+    [
+        ("30\n", GDM_SESSION, True),
+        ("\n", None, False),
+        ("31\n", {**GDM_SESSION, "Id": "31", "Service": "sshd", "Type": "tty"}, False),
+    ],
+    ids=["gdm-display-session", "no-display-session", "non-gdm-display-session"],
+)
+def test_autostart_without_inherited_session_id_asks_logind_for_display_session(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    display: str,
+    named: dict[str, str] | None,
+    ready: bool,
+) -> None:
+    # Measured in the real GDM autologin session (diagnostic run 41171253889):
+    # GNOME autostart apps get no XDG_SESSION_ID, and logind's show-user
+    # Display property names the user's graphical session (KI-0150).
+    session, output = session_model(tmp_path, monkeypatch)
+    monkeypatch.delenv("XDG_SESSION_ID")
+    uid = str(tmp_path.stat().st_uid)
+    calls: list[list[str]] = []
+
+    def command(argv: list[str]) -> dict[str, object]:
+        calls.append(argv)
+        if argv[1] == "show-user":
+            return {"exit_code": 0, "stdout": display}
+        if argv[1] == "show-session":
+            assert named is not None
+            assert argv[2] == named["Id"]
+            rows = {**named, "User": uid}
+            return {
+                "exit_code": 0,
+                "stdout": "\n".join(k + "=" + v for k, v in rows.items()),
+            }
+        return {"exit_code": 0, "stdout": ""}
+
+    monkeypatch.setattr(session, "command", command)
+    monkeypatch.setattr(session, "secret_service_capability", dict)
+    monkeypatch.setattr(
+        session.sys if hasattr(session, "sys") else sys,
+        "argv",
+        ["fixture", "--output", str(output)],
+    )
+    code = session.main()
+    receipt = json.loads(output.read_text())
+    assert calls[0] == [
+        "/usr/bin/loginctl",
+        "show-user",
+        uid,
+        "--property=Display",
+        "--value",
+    ]
+    assert receipt["session_environment_allowlist"]["XDG_SESSION_ID"] is None
+    assert "logind_user_display_session" in receipt["observations"]
+    assert (code == 0) is ready
+    assert (receipt["status"] == "SESSION_READY") is ready
+    assert any(argv[1] == "show-session" for argv in calls) is (named is not None)
+
+
+def test_inherited_session_id_is_used_without_a_logind_user_lookup(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    session, output = session_model(tmp_path, monkeypatch)
+    calls: list[list[str]] = []
+    model = session.command
+
+    def command(argv: list[str]) -> dict[str, object]:
+        calls.append(argv)
+        result: dict[str, object] = model(argv)
+        return result
+
+    monkeypatch.setattr(session, "command", command)
+    monkeypatch.setattr(session, "secret_service_capability", dict)
+    monkeypatch.setattr(
+        session.sys if hasattr(session, "sys") else sys,
+        "argv",
+        ["fixture", "--output", str(output)],
+    )
+    assert session.main() == 0
+    assert not any(argv[1] == "show-user" for argv in calls)
+    assert calls[0][1:3] == ["show-session", "fixture"]
+
+
+@pytest.mark.parametrize(
+    ("inactive_polls", "ready"),
+    [(0, True), (2, True), (None, False)],
+    ids=["active-at-once", "active-after-two-polls", "never-active"],
+)
+def test_receipt_waits_a_bounded_time_for_graphical_session_target(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    inactive_polls: int | None,
+    ready: bool,
+) -> None:
+    # In the real autologin session the target became active 2.8 s after the
+    # autostart application started (diagnostic run 41172293108, KI-0156).
+    session, output = session_model(tmp_path, monkeypatch)
+    model = session.command
+    polls: list[int] = []
+
+    def command(argv: list[str]) -> dict[str, object]:
+        if argv[-1] != "graphical-session.target":
+            result: dict[str, object] = model(argv)
+            return result
+        polls.append(len(polls))
+        active = inactive_polls is not None and len(polls) > inactive_polls
+        return {"exit_code": 0 if active else 3, "stdout": "active\n"}
+
+    monkeypatch.setattr(session, "command", command)
+    monkeypatch.setattr(session, "GRAPHICAL_TARGET_SECONDS", 0.05)
+    monkeypatch.setattr(session.time, "sleep", lambda _seconds: None)
+    monkeypatch.setattr(
+        session.sys if hasattr(session, "sys") else sys,
+        "argv",
+        ["fixture", "--output", str(output)],
+    )
+    if inactive_polls is not None:
+        monkeypatch.setattr(session, "GRAPHICAL_TARGET_SECONDS", 60)
+    code = session.main()
+    receipt = json.loads(output.read_text())
+    target = receipt["observations"]["graphical_session_target"]
+    assert (code == 0) is ready
+    assert receipt["checks"]["actual_graphical_session_target"] is ready
+    if inactive_polls is not None:
+        assert target["attempts"] == inactive_polls + 1 == len(polls)
+    else:
+        assert target["attempts"] == len(polls) >= 1
+        assert target["exit_code"] == 3
+
+
+class Clock:
+    """The receipt module's own clock, advanced only by its own sleeps."""
+
+    def __init__(self) -> None:
+        # An integer start keeps start + GRAPHICAL_TARGET_SECONDS exact.
+        self.now = 1000.0
+
+    def monotonic(self) -> float:
+        return self.now
+
+    def sleep(self, seconds: float) -> None:
+        self.now += seconds
+
+
+def test_graphical_session_target_wait_is_thirty_seconds_of_one_second_polls(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    session = load("ubuntu_gnome_session_receipt")
+    clock = Clock()
+    monkeypatch.setattr(session, "time", clock)
+    polls: list[float] = []
+
+    def command(argv: list[str]) -> dict[str, object]:
+        assert argv[-1] == "graphical-session.target"
+        polls.append(clock.now)
+        return {"exit_code": 3, "stdout": "inactive\n"}
+
+    monkeypatch.setattr(session, "command", command)
+    observed = session.graphical_session_target()
+    assert (observed["exit_code"], observed["attempts"]) == (3, 31)
+    assert polls == [1000.0 + second for second in range(31)]

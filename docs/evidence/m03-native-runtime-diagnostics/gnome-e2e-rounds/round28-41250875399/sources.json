@@ -1,0 +1,274 @@
+{
+ "branch_commit": "517e1e8",
+ "files": {
+  "diag/gnome_e2e.py": {
+   "bytes": 2577,
+   "sha256": "f1eaf6722502aa355c5ea68a81bc17141e00d32312afe256982d9ca029837870"
+  },
+  "diag/gnome_guest_probe.py": {
+   "bytes": 10804,
+   "sha256": "14422cc3b4bf5925241465be25e5a581da141c5493622120d13375b0993d3f97"
+  },
+  "diag/gnome_host_probe.py": {
+   "bytes": 7941,
+   "sha256": "ad1041fcb8681f6da2f699fdaa45e0bd55b2301147f9f4900ecf4cc0417db602"
+  },
+  "diag/gnome_session_dump.py": {
+   "bytes": 5927,
+   "sha256": "6cffd721bd078cfe33ae70288a1e08698048591a0b59dc44f187773d0687b29f"
+  },
+  "diag/qmp_probe.py": {
+   "bytes": 2502,
+   "sha256": "7ee6b1ae154bcf0f572c5363dec26f787b82d16b5d9ddde4aedadb9278027d3b"
+  },
+  "diag/repo-root/scripts/linux_gnome/ubuntu_gnome_atspi.py": {
+   "bytes": 5265,
+   "sha256": "8a83b860b4aa26b4797199145e124e6f57b4ad2d30026199c5e5d365c9bc0d7d"
+  },
+  "diag/repo-root/scripts/linux_gnome/ubuntu_gnome_guest.py": {
+   "bytes": 57572,
+   "sha256": "961a9b7bc2abe77668f6f352a9f20900f80a343a02a6d472324e732cae8b5641"
+  },
+  "diag/repo-root/scripts/linux_gnome/ubuntu_gnome_host.py": {
+   "bytes": 10848,
+   "sha256": "a9eeda8475cfc96ed9d908e3cc74f7ef0bdd42d6a48f69cf0a3f3dd89c876c03"
+  },
+  "diag/repo-root/scripts/linux_gnome/ubuntu_gnome_package_export.py": {
+   "bytes": 9620,
+   "sha256": "a71592958c901aa93745b18063a6d0274c3bc5a56bf3d5cccbb4b0dae45769a3"
+  },
+  "diag/repo-root/scripts/linux_gnome/ubuntu_gnome_platform.py": {
+   "bytes": 420,
+   "sha256": "8ea71349dce148662d6a8cb2629760a36ec657f6acc9a7285fd2f7703c0052b8"
+  },
+  "diag/repo-root/scripts/linux_gnome/ubuntu_gnome_prepare.py": {
+   "bytes": 14633,
+   "sha256": "ee1a9d1274c738e5a4b2d06ff9b3d74a53d2020f66879b22049cba4e05bf4720"
+  },
+  "diag/repo-root/scripts/linux_gnome/ubuntu_gnome_process.py": {
+   "bytes": 2467,
+   "sha256": "a6b7a2522943872292809735cf534acadf4c5040b0635b65607efff0d59b17c5"
+  },
+  "diag/repo-root/scripts/linux_gnome/ubuntu_gnome_provision.py": {
+   "bytes": 17212,
+   "sha256": "639c03fc2b8dbe733c46d18b1bc10a63422546cf7d9dc0f25fc7c5b2a0a7a508"
+  },
+  "diag/repo-root/scripts/linux_gnome/ubuntu_gnome_request.py": {
+   "bytes": 25979,
+   "sha256": "29e9500b2757176c1704d15ff1bd103c6f28462533ecfa39813ae41dcdd2ec74"
+  },
+  "diag/repo-root/scripts/linux_gnome/ubuntu_gnome_retention.py": {
+   "bytes": 3706,
+   "sha256": "1a3dca91f61a9a164364c5a944377785ece36cb39662af734e846a8533002cdf"
+  },
+  "diag/repo-root/scripts/linux_gnome/ubuntu_gnome_session_receipt.py": {
+   "bytes": 20463,
+   "sha256": "dbe73ca08cecd4871442ae1c4f80415db9e2ec600b8ed6fe76c5fa0dcb750964"
+  },
+  "diag/repo-root/scripts/linux_gnome/ubuntu_gnome_shell.py": {
+   "bytes": 16354,
+   "sha256": "c07ca3ecab5d9f7e65960077115d8131d0f017fb94f50353c9ed1b1fc06fdda3"
+  },
+  "diag/repo-root/scripts/linux_gnome/ubuntu_gnome_signed_indexes.py": {
+   "bytes": 12056,
+   "sha256": "c1eb1b2d6ae0c1b8eb511ba2aff3021a01f3d669d6f17d3feffb1c1f90870494"
+  },
+  "diag/repo-root/scripts/linux_gnome/ubuntu_gnome_vm.py": {
+   "bytes": 62947,
+   "sha256": "1f4ea2f305361d07d985edeea4d8b9061bd0c37c2352df73ce6c8fa219f2497f"
+  },
+  "diag/win11_boot3.py": {
+   "bytes": 5725,
+   "sha256": "d61b61fac032bd2023d26c6f23cfd02429f5fe80dc2d75dc2a4263fcb609a978"
+  },
+  "diag/win11_boot_probe.py": {
+   "bytes": 6096,
+   "sha256": "08b80087e6fb415b08739a1be4f0dc797f0b5c15c91d8ff16b3038d1c7c89ba1"
+  },
+  "diag/win_guest_current.ps1": {
+   "bytes": 36681,
+   "sha256": "63323c705313540a47e8d86a54957a9f0cb6b9ebc73d275eb447b4869a792edb"
+  },
+  "diag/win_guest_probe.ps1": {
+   "bytes": 11767,
+   "sha256": "676672ad74cd906c77a2507965df2d9ec03a26e30e02698ea2741072c39e6e9e"
+  },
+  "diag/win_guest_probe5.ps1": {
+   "bytes": 11406,
+   "sha256": "6c297998591903b29bcbd5647fe46ba8329fcb8934fa567d3929b65e4d2f6e83"
+  },
+  "diag/win_guest_probe6.ps1": {
+   "bytes": 4924,
+   "sha256": "0aee8bac7cad92b4890b918b3c4f53d1f9c1e7d2bd2058a8d3669fe69b7e69b2"
+  },
+  "diag/win_guest_probe7.ps1": {
+   "bytes": 5244,
+   "sha256": "80f588feca95522622704b15a1d0d568fae9d9eec356a7269e3d00ace3c3bbc8"
+  },
+  "diag/win_guest_probe8.ps1": {
+   "bytes": 7910,
+   "sha256": "81b50d8e8de0b755529cfccec0ffc552731da9e91535e5acc5cad41ac5fc8b04"
+  },
+  "diag/win_menu_probe11.ps1": {
+   "bytes": 4771,
+   "sha256": "56adf919f9e0a06cb7f332d1c9bed36cc022f155fe60dfa5591f9e232f932ea3"
+  },
+  "diag/win_menu_probe9.ps1": {
+   "bytes": 5533,
+   "sha256": "e6eec26c4b0711366f06e8d0a7473294698fec512f8827b86a3f679af636154d"
+  },
+  "diag/win_owned_current.cs": {
+   "bytes": 51778,
+   "sha256": "a868e1bd9ed63a17b164d76dfbbb0f8c0473bb1fafbca98543f283a658269364"
+  },
+  "diag/win_owned_head.cs": {
+   "bytes": 43680,
+   "sha256": "5337bf5e16c0755d8269cf22d94b86eb39ac0397b71abccc07e27746b4d52b8e"
+  },
+  "diag/win_service_env_probe.py": {
+   "bytes": 3549,
+   "sha256": "67a3211538534e3c50f5a5cd3225a0fd86b6e475ed05453648e497471d29053c"
+  }
+ },
+ "retained_from_artifact": {
+  "01-launch.json": {
+   "artifact_bytes": 17550,
+   "artifact_sha256": "868c9f8d395b6edc5ec639697ffb326b14143b7ab33e1cffc2f36c1286392ff4"
+  },
+  "01-launch.png": {
+   "artifact_bytes": 3072016,
+   "artifact_sha256": "f09de7573632916d26e8068e284b33be05c524093c951475066798323850c3ee",
+   "converted_from": "01-launch.ppm"
+  },
+  "05-keyboard-after-enter.png": {
+   "artifact_bytes": 3072016,
+   "artifact_sha256": "046dee0a1a258adf2a2dda6a6f7850c58cc00e804f523b7ca8ad2a1a9a699988",
+   "converted_from": "05-keyboard-after-enter.ppm"
+  },
+  "07-crash-service.png": {
+   "artifact_bytes": 3072016,
+   "artifact_sha256": "697e10694ca51f4049fce6a539a1efc6e07b3aa53b769ea64fe0792253e55366",
+   "converted_from": "07-crash-service.ppm"
+  },
+  "09-relaunch.png": {
+   "artifact_bytes": 3072016,
+   "artifact_sha256": "5f73f4346376956b2bf29070b0eea8b605e2a7b22e854f8463094c2fd83050ad",
+   "converted_from": "09-relaunch.ppm"
+  },
+  "100-keyboard_after_shift_tab.json": {
+   "artifact_bytes": 17578,
+   "artifact_sha256": "3a591e42d836122041b318f01be70946db9797199d0530461732e08c595241ff"
+  },
+  "101-keyboard_after_enter.json": {
+   "artifact_bytes": 13543,
+   "artifact_sha256": "63e79cf774809e812f707800384e5fa4202056f03cd168e8743c1e343604dc9f"
+  },
+  "102-shell_scale_reset.json": {
+   "artifact_bytes": 926,
+   "artifact_sha256": "9749a5f71289599b0f5d5ed240ed5df4ad39bdaf68b4fbd831bffe15d0a96f6e"
+  },
+  "103-auth.json": {
+   "artifact_bytes": 958,
+   "artifact_sha256": "2da873b509b2d9aea3474551cad3cd43dbf70daa6ea721a8cff4923f9fdccb87"
+  },
+  "104-crash_service.json": {
+   "artifact_bytes": 19709,
+   "artifact_sha256": "39ec130ecb7ecd64b25a7ee816e7caef449775ea4e7a4d98f2fc942f3f156e9f"
+  },
+  "105-close_observe.json": {
+   "artifact_bytes": 805,
+   "artifact_sha256": "7064240489fb5e895fd5201ddcb2411031c46bb3ac2d6169da3f76517db48b10"
+  },
+  "106-relaunch.json": {
+   "artifact_bytes": 17250,
+   "artifact_sha256": "14dded264b73587c0b49075f8486a3ecbc67c7f90825c3a4fe2ef82042a1cb05"
+  },
+  "107-close_observe.json": {
+   "artifact_bytes": 805,
+   "artifact_sha256": "38bd1d92c71170b25f35bfead4834477ab2c5d1ed0739575b37b86251ccc91ec"
+  },
+  "108-relaunch.json": {
+   "artifact_bytes": 17256,
+   "artifact_sha256": "52ff5edd0e6d66bf006c7b76afb581497bc82e24d6277144ecf6ae97377c1609"
+  },
+  "109-quit_menu.json": {
+   "artifact_bytes": 1007,
+   "artifact_sha256": "716223d4d4d18b1b8f9f9d317743329dc90dd9cc7f4efa4ebfb672a214ed887e"
+  },
+  "110-relaunch.json": {
+   "artifact_bytes": 17333,
+   "artifact_sha256": "c06a1391599b42c4296c3505c087dfdc2cca8447a3072dcd623249869fd3db35"
+  },
+  "111-accelerator_focus.json": {
+   "artifact_bytes": 680,
+   "artifact_sha256": "8bb8494b6087c57540c1ee267db96c3aff46ac4fe047331ab4cc61b86115b34c"
+  },
+  "112-quit_accelerator.json": {
+   "artifact_bytes": 909,
+   "artifact_sha256": "1e27ec1bc750b31c2e7ef9f8a098970bba54b36344800211a546684211bc2cbb"
+  },
+  "113-relocated_launch.json": {
+   "artifact_bytes": 17347,
+   "artifact_sha256": "10e4e4f820cd14c46b9180e84eb634668b17e2907f0fd78550bb29b84071341a"
+  },
+  "114-force_parent.json": {
+   "artifact_bytes": 1335,
+   "artifact_sha256": "85551c5d8e8c0b94024913b40969acd90ba00219c9dd3edc6f719a710963fbe9"
+  },
+  "115-finish.json": {
+   "artifact_bytes": 279,
+   "artifact_sha256": "ff03b1fc1187f65037834015127570fbaaa72a590d172e7b4e8a0d402ed75e1a"
+  },
+  "16-relocated-launch.png": {
+   "artifact_bytes": 3072016,
+   "artifact_sha256": "43be15ae9e020389bce142a5a18a2d334e4c9536fb477c678bd9b1f1bb662815",
+   "converted_from": "16-relocated-launch.ppm"
+  },
+  "98-keyboard_before.json": {
+   "artifact_bytes": 17570,
+   "artifact_sha256": "6c05624f5fd496ca72de794dd578a40f3c23ad2feaf139410ece932068fffe49"
+  },
+  "99-keyboard_after_tab.json": {
+   "artifact_bytes": 17573,
+   "artifact_sha256": "f446c91846c6e2c3cc726b1727c349bd8171b0832ff47b65465d0930d674095f"
+  },
+  "actual-gnome-session.json": {
+   "artifact_bytes": 12585,
+   "artifact_sha256": "a05f69419a217f9ab0afb0a8b38f948f79567fe0c5680c7d00cb044a296e217c"
+  },
+  "closure.json": {
+   "artifact_bytes": 10311,
+   "artifact_sha256": "e1956e3bbad4b2ad7283818f1e22b8e5f7e7610187b19d4cf03e009227fb66b1"
+  },
+  "image-receipt.json": {
+   "artifact_bytes": 468,
+   "artifact_sha256": "90e4b36dc7773dbf04bd456c8b5361d4a8ebe7b2a4c8c75ff25a5a71b822f6ef"
+  },
+  "kvm.json": {
+   "artifact_bytes": 98,
+   "artifact_sha256": "bd0d3813323d89af7b33f19d95b25e40e35d9bded0377d156746c242535f6bf2"
+  },
+  "native-shell.json": {
+   "artifact_bytes": 21537,
+   "artifact_sha256": "a960009888b745790a410276a99646cfbd88d2253b2e306e8073f3dc19b10954"
+  },
+  "observation-closeout.json": {
+   "artifact_bytes": 927,
+   "artifact_sha256": "7a97e04f5b049cf7fc567f2d547a8981ce2631d800d54e45eb81947e9ad8c897"
+  },
+  "provision.json": {
+   "artifact_bytes": 57079,
+   "artifact_sha256": "80af0f35c92e21d602d86c37c00e035740217e4bd35cb555276ac0a1220b894d"
+  },
+  "session-before-product.png": {
+   "artifact_bytes": 3072016,
+   "artifact_sha256": "6cde89554391fa417f75d01b580f0d7e1bf9a00494b35dec099bd1708fbb244e",
+   "converted_from": "session-before-product.ppm"
+  },
+  "shell-enlarged-diagnostics.png": {
+   "artifact_bytes": 3072016,
+   "artifact_sha256": "b03ac2f38aeb52cb65f874c7e5f0ed58ce61ed410b32a907f26562c800cdc3f7",
+   "converted_from": "shell-enlarged-diagnostics.ppm"
+  }
+ }
+}

@@ -2,7 +2,7 @@
 
 Spec version: 1.4
 Repository revision: M03-W06 VERIFIED at9872aca/treef2d982d; M03-W07 IN_PROGRESS; M02 ACCEPTED / Gate A PASS
-Last updated: 2026-10-30
+Last updated: 2026-10-31
 Current phase: B — Local platform and desktop foundation
 Current milestone: M03
 Current work package: M03-W07
@@ -23,7 +23,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-### Execution checkpoint (2026-10-30UTC, Claude Code controller)
+### Execution checkpoint (2026-10-31UTC, Claude Code controller)
 
 - Branch `codex/autofill-evaluation-hardening` (draft PR kalwad/jobapplyv2#1). Formal state unchanged: M03-W07 sole IN_PROGRESS; 39/300 VERIFIED; M00/M01/M02 ACCEPTED; Gate A PASS; release NOT_READY.
 - Hosted a010835/40989502173: three verify jobs PASS (20 ACTIVE suites each; Python Mac2882/Ubuntu2882/Windows2880), Ubuntu package PASS with owned service actor PASS, Windows package FAIL at 10-tauri-package. KI-0140 FIXED. Exact docs/evidence/m03-w07-ci-a010835-terminal.
@@ -34,7 +34,28 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 - Hosted b4b5b96/run41139850970 (correction commit, merge f4854e2 same tree) is the first terminal SUCCESS: three verify PASS (Python Mac2899/Ubuntu2899/Windows2897; the Windows-only GetSystemWindowsDirectoryW test passes), both native package jobs PASS, and the Windows packaged service actor passes for the first time (health, ready, version, shutdown, authority withdrawal, listener release; cleanup277ms). KI-0142 FIXED; no live release blockers. Exact docs/evidence/m03-w07-ci-b4b5b96-pass. Windows Server CI is not Windows 11 evidence.
 - Download-only requests 3f2a7d3 (GNOME) and 7ac6bda (Windows 11), bound to the b4b5b96 artifacts, were authorized; both candidate downloads then failed closed because the shared signed-index parser's 64 KiB line bound refuses noble universe's 70,841-byte librust-winapi-dev Provides line (KI-0145). No install, VM or product actor ran; the Windows 11 run downloaded the official evaluation ISO (sha256 bc3f2408…). Exact docs/evidence/m03-prepare-3f2a7d3-7ac6bda-index-bound.
 - KI-0145 correction a5ec1e3: local suites PASS (Python 2902) and hosted run41149738856 terminal SUCCESS. Fresh download-only requests df99cdc (GNOME) and b421351 (Windows 11) produced complete candidates without installing anything or starting a VM. An independent 29-agent review released the GNOME candidate for one bound VM campaign and refused the Windows 11 candidate because of two protected campaign defects (KI-0146, KI-0147). Exact docs/evidence/m03-native-candidates-a5ec1e3-review.
-- Next actions: commit the GNOME VM request and release receipt bound to the reviewed candidate and run that campaign (W08 native evidence); correct KI-0146/KI-0147 with tests, run exact-SHA hosted CI, then file, review and release a fresh Windows 11 candidate for the W07 campaign.
+- The released GNOME campaign (request/receipt c00c7eb, lifecycle run41157416726) passed its authorize job and bundle audit, then failed at its first host command: apt 2.8 refuses local archives under `--no-download` (KI-0148). No VM started. Exact docs/evidence/m03-gnome-campaign-a5ec1e3-apt.
+- A multi-agent pre-flight audit of both never-executed campaign paths, and three scratch-branch probe rounds on hosted runners (runs 41165269919, 41171253889, 41172293108), found eight more campaign defects. Every one was reproduced on a runner or in the real GDM session: needrestart drops the GNOME guest's network (KI-0149); autostart has no XDG_SESSION_ID (KI-0150); the AT-SPI action-name call is wrong (KI-0151); TCG misses the budgets and a slow readiness poll was fatal (KI-0152); the install log was near its cap (KI-0153); OVMF writes its console to both serial ports (KI-0154); the fixed boot key misses the media prompt (KI-0155); and graphical-session.target is not yet active at autostart (KI-0156). Round 3 ran the corrected harness code: GNOME reached SESSION_READY over SSH under KVM, and the Windows 11 media booted to Setup with the firmware-triggered key. Exact docs/evidence/m03-native-runtime-diagnostics.
+- Diagnostic rounds 4–28 on hosted runners found two HIGH product defects:
+  - KI-0157: the packaged Windows desktop refuses its verbatim `\\?\` resource path, so its service never starts.
+  - KI-0158: Ctrl+Q is swallowed while WebView2 has focus.
+  They also found harness defects KI-0162 to KI-0166 in the GNOME AT-SPI and Windows UIA capture.
+- With the corrections, the diagnostics pass, within the scope each one actually ran:
+  - Windows (rounds 21, 23 and 26) ran on a hosted windows-2025 desktop: the guest's own phase code from `ready` through cleanup, with the guest's functions and `windows11_owned.cs`. Round 26 used an uninstrumented build of exactly the working-tree product files.
+    - Replaced or not run: the serial receipts and frame-acceptance waits, the COM2 open and preflight row, the config and seed checks, attestation, the environment phase, ZIP extraction and the guest's own terminal/cleanup block. These stay unverified until the first Windows 11 campaign.
+    - That host is Windows Server 2025, not Windows 11.
+  - GNOME (round 28): the harness's own VM functions reached ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS under KVM in the real GDM/Wayland session.
+    - That round bypassed request authorization (the authorize job); the bundle audit and the reviewed, simulate-first host install of ubuntu_gnome_host.py (host tools came from the workflow's own apt-get line); prepare_inputs, which checks the host-tool lock, the runner image version, the native tool hashes, the resource preflight, the package export and keyring pins and the source binding; and final_source_guard.
+  Exact docs/evidence/m03-native-runtime-diagnostics.
+- Uncommitted corrections: KI-0146 to KI-0158 and KI-0162 to KI-0166, each with tests that fail on the old code or on named mutants. These KIs stay IN_PROGRESS until hosted campaigns at the corrected head pass.
+- Further campaign hardening from the pre-flight audits, with no runtime defect measured:
+  - The Windows 11 argv now disables ACPI S3/S4 (ICH9-LPC), so Windows has no Fast Startup hybrid shutdown and `system_powerdown` is a plain power-off. Round 3's measured argv predates this.
+  - The Windows 11 campaign fails fast on a hosted CPU without a reviewed Windows 11 support basis (AMD EPYC 7763 only; the EPYC 9V74 seen in run 41165269919 is refused) and records host-cpu.json.
+  - Both campaigns' host installs are simulated first with the same local-only options. Any plan that replaces, removes or adds a package outside the lock is refused.
+  - The Windows 11 answer file now answers every Setup and OOBE page, because nothing interacts with the VM after its one boot key: the Setup UI language, the OOBE region and keyboard, the licence page (HideEULAPage, within OD-038's acceptance of the pinned Evaluation licence in disposable CI VMs only), the local-account page (replaced by the standard local account) and the wireless page (the VM has no network adapter). No run has used an answer file yet; it is unmeasured until the first Windows 11 campaign.
+  - The Windows 11 lifecycle job timeout went from 65 to 70 minutes. Post-PASS cleanup authority grew to 265 s (power-off, forced quit, collection), so the owner can hold 3,300 + 265 s. A test now requires the job to leave at least 10 minutes beyond that for checkout, the reviewed download and the retention upload.
+- An independent combined review of the whole uncommitted change (four finder dimensions, two refuters per finding, then a completeness critic) confirmed further defects. They included two test failures on hosted Windows, an unmirrored-COM2 acceptance window, post-PASS power-off without cleanup authority, a mypy failure, untested guards and documentation overstatements. All are fixed with tests, and eight per-fix adversarial reviews returned CLEAR_WITH_NOTES.
+- Next actions: run the full local verification, commit and run exact-SHA hosted CI. Then rebuild, review and release fresh GNOME and Windows 11 candidates and run both campaigns.
 
 - Current cf9b60d/tree94fb9c9 local full passes doctor28/all20ACTIVE suites, Python2880PASS440.14s and verify1249.932067s; different4863finite joins CLEAR binds2388source/runtime40/fullmodes/cleanstatus/HEAD-tree. Automated visual17PASS adds no fresh appearance/native/baseline claim. Exact docs/evidence/m03-w07-full-cf9b60d.
 - Hosted cf9/run40981941122 is terminal FAILURE despite all three verify jobs passing20ACTIVE suites: Windows2878Python1100.64s, Mac2880/887.00s and Ubuntu2880/712.62s. Both package jobs fail before their native service actor at the unchanged exact wheel/source gate: all18 orchestrator paths match, but wheel client6613 differs from source977e; contracts110files and other17orchestrator files match. Zero eligible curated exports; four auxiliary workflows remain disabled/SKIP. Different16874joins validate the actual record, not packagePASS; exact docs/evidence/m03-w07-ci-cf9b60d-terminal.
@@ -448,7 +469,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Known release blockers
 
-- NONE
+- KI-0157 (HIGH, IN_PROGRESS) — packaged Windows desktop refuses its own verbatim-path runtime, so its local service never starts
+- KI-0158 (HIGH, IN_PROGRESS) — Windows Ctrl+Q never reaches the File→Quit accelerator while WebView2 has focus
 
 ## Status conventions and update rules
 

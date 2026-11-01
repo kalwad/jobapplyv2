@@ -32,24 +32,53 @@ Copy-Item -LiteralPath (Join-Path $source 'seed-manifest.json') -Destination $ha
 $attestor = @'
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
-$config=Get-Content -LiteralPath 'C:\ProgramData\JappHarness\guest-config.json' -Raw|ConvertFrom-Json
-$os=Get-CimInstance -ClassName Win32_OperatingSystem
-$system=Get-CimInstance -ClassName Win32_ComputerSystem
-if($system.UserName -cne ($env:COMPUTERNAME+'\JappFixture')) { throw 'Exact synthetic interactive fixture required' }
-# Microsoft's LogonCount=1 off-by-one is settled by the protected first-logon task.
-# No interactive account is elevated to perform this setup.
-$winlogon='HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
-Set-ItemProperty -LiteralPath $winlogon -Name AutoLogonCount -Value 0
-Set-ItemProperty -LiteralPath $winlogon -Name AutoAdminLogon -Value '0'
-Remove-ItemProperty -LiteralPath $winlogon -Name DefaultPassword -ErrorAction SilentlyContinue
-$processors=@(Get-CimInstance -ClassName Win32_Processor)
-if($processors.Count -lt 1 -or $processors.Count -gt 2 -or @($processors|Where-Object {$_.Architecture -ne 9 -or $_.Name -cne $processors[0].Name}).Count -ne 0) { throw 'Actual homogeneous AMD64 virtual processors required' }
-$disk=Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DeviceID='C:'"
-$tpm=Get-Tpm
-$spec=Get-CimInstance -Namespace 'root\CIMV2\Security\MicrosoftTpm' -ClassName Win32_Tpm
-$version=Get-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
-$record=[ordered]@{schema='japp-win11-protected-machine-v1';nonce=$config.nonce;boot_time=$os.LastBootUpTime.ToUniversalTime().ToString('o');caption=$os.Caption;product_type=[int]$os.ProductType;architecture=$env:PROCESSOR_ARCHITECTURE;build=[int]$version.CurrentBuildNumber;ubr=[int]$version.UBR;secure_boot=[bool](Confirm-SecureBootUEFI);tpm_present=[bool]$tpm.TpmPresent;tpm_ready=[bool]$tpm.TpmReady;tpm_spec=[string]$spec.SpecVersion;vcpus=[int]$system.NumberOfLogicalProcessors;ram_bytes=[long]$system.TotalPhysicalMemory;disk_bytes=[long]$disk.Size;cpu_name=[string]$processors[0].Name;cpu_architecture='X64';cpu_max_mhz=[int](($processors|Measure-Object -Property MaxClockSpeed -Minimum).Minimum)}
-$record|ConvertTo-Json -Depth 8|Set-Content -LiteralPath 'C:\ProgramData\JappHarness\machine.json' -Encoding UTF8
+$harness='C:\ProgramData\JappHarness'
+# The task runs at every logon. A cause left by an earlier logon (another account,
+# another boot) is never this run's: it is removed before this run starts.
+$errorPath=Join-Path $harness 'machine-error.json'
+if(Test-Path -LiteralPath $errorPath) { Remove-Item -LiteralPath $errorPath -Force }
+$step='configuration'
+$nonce=$null
+$bootTime=$null
+try {
+    $config=Get-Content -LiteralPath (Join-Path $harness 'guest-config.json') -Raw|ConvertFrom-Json
+    if($config.nonce -cmatch '^[0-9a-f]{64}$') { $nonce=[string]$config.nonce }
+    $step='operating-system'
+    $os=Get-CimInstance -ClassName Win32_OperatingSystem
+    $bootTime=$os.LastBootUpTime.ToUniversalTime().ToString('o')
+    $system=Get-CimInstance -ClassName Win32_ComputerSystem
+    $step='interactive-user'
+    if($system.UserName -cne ($env:COMPUTERNAME+'\JappFixture')) { throw ('Exact synthetic interactive fixture required; observed user: '+[string]$system.UserName) }
+    # Microsoft's LogonCount=1 off-by-one is settled by the protected first-logon task.
+    # No interactive account is elevated to perform this setup.
+    $step='autologon'
+    $winlogon='HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
+    Set-ItemProperty -LiteralPath $winlogon -Name AutoLogonCount -Value 0
+    Set-ItemProperty -LiteralPath $winlogon -Name AutoAdminLogon -Value '0'
+    Remove-ItemProperty -LiteralPath $winlogon -Name DefaultPassword -ErrorAction SilentlyContinue
+    $step='processors'
+    $processors=@(Get-CimInstance -ClassName Win32_Processor)
+    if($processors.Count -lt 1 -or $processors.Count -gt 2 -or @($processors|Where-Object {$_.Architecture -ne 9 -or $_.Name -cne $processors[0].Name}).Count -ne 0) { throw 'Actual homogeneous AMD64 virtual processors required' }
+    $step='system-disk'
+    $disk=Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DeviceID='C:'"
+    $step='tpm'
+    $tpm=Get-Tpm
+    $spec=Get-CimInstance -Namespace 'root\CIMV2\Security\MicrosoftTpm' -ClassName Win32_Tpm
+    $step='version'
+    $version=Get-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
+    $step='secure-boot'
+    $secureBoot=[bool](Confirm-SecureBootUEFI)
+    $step='record'
+    $record=[ordered]@{schema='japp-win11-protected-machine-v1';nonce=$config.nonce;boot_time=$bootTime;caption=$os.Caption;product_type=[int]$os.ProductType;architecture=$env:PROCESSOR_ARCHITECTURE;build=[int]$version.CurrentBuildNumber;ubr=[int]$version.UBR;secure_boot=$secureBoot;tpm_present=[bool]$tpm.TpmPresent;tpm_ready=[bool]$tpm.TpmReady;tpm_spec=[string]$spec.SpecVersion;vcpus=[int]$system.NumberOfLogicalProcessors;ram_bytes=[long]$system.TotalPhysicalMemory;disk_bytes=[long]$disk.Size;cpu_name=[string]$processors[0].Name;cpu_architecture='X64';cpu_max_mhz=[int](($processors|Measure-Object -Property MaxClockSpeed -Minimum).Minimum)}
+    $record|ConvertTo-Json -Depth 8|Set-Content -LiteralPath (Join-Path $harness 'machine.json') -Encoding UTF8
+} catch {
+    # A bounded, secret-free cause (step, type, message; never a registry value),
+    # bound to this run's nonce and boot when known, for the guest's retained proof;
+    # then the task still fails.
+    $message=[string]$_.Exception.Message
+    [ordered]@{schema='japp-win11-protected-machine-error-v1';step=$step;nonce=$nonce;boot_time=$bootTime;error_type=$_.Exception.GetType().FullName;message=$message.Substring(0,[Math]::Min(512,$message.Length))}|ConvertTo-Json -Depth 4|Set-Content -LiteralPath (Join-Path $harness 'machine-error.json') -Encoding UTF8
+    throw
+}
 '@
 Set-Content -LiteralPath (Join-Path $harnessRoot 'machine-attestor.ps1') -Value $attestor -Encoding UTF8
 $action = New-ScheduledTaskAction -Execute 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe' -Argument '-NoProfile -ExecutionPolicy RemoteSigned -File C:\ProgramData\JappHarness\machine-attestor.ps1'

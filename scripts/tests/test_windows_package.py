@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import struct
+import sys
 from pathlib import Path
 
 import pytest
@@ -137,3 +138,50 @@ def test_failed_semantics_leave_finite_bound_inspection_receipt(tmp_path: Path) 
     assert (tmp_path / "receipt.inspector.py").read_bytes() == Path(
         module.__file__
     ).read_bytes()
+
+
+def test_static_inspection_cli_runs_on_the_linux_vm_host(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # The Windows 11 campaign seeds its guest from a Linux host (KI-0147).
+    gui, root, expected = fixture(tmp_path)
+    dest = tmp_path / "portable-inspection"
+    module.stage(gui, root, dest, expected)
+    receipt = tmp_path / "proof/portable-inspection.json"
+    monkeypatch.setattr(module.platform, "system", lambda: "Linux")
+    monkeypatch.setattr(module.platform, "machine", lambda: "x86_64")
+    argv = ["windows_package.py", "inspect", "--root", str(dest)]
+    monkeypatch.setattr(sys, "argv", [*argv, "--receipt", str(receipt)])
+    module.main()
+    assert json.loads(receipt.read_text())["result"] == "PASS"
+
+
+@pytest.mark.parametrize(
+    ("system", "machine"), [("Linux", "x86_64"), ("Windows", "ARM64")]
+)
+def test_staging_cli_still_requires_native_windows_x64(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, system: str, machine: str
+) -> None:
+    gui, root, expected = fixture(tmp_path)
+    dest = tmp_path / "out"
+    monkeypatch.setattr(module.platform, "system", lambda: system)
+    monkeypatch.setattr(module.platform, "machine", lambda: machine)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "windows_package.py",
+            "stage",
+            "--application",
+            str(gui),
+            "--runtime",
+            str(root),
+            "--destination",
+            str(dest),
+            "--runtime-manifest-sha256",
+            expected,
+        ],
+    )
+    with pytest.raises(ValueError, match="Native Windows x64 host required"):
+        module.main()
+    assert not dest.exists()

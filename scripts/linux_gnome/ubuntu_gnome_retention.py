@@ -1,4 +1,8 @@
-"""Finite safe regular-file curation; VM disks/keys/bootstrap stay excluded."""
+"""Finite safe regular-file curation; no VM disk, key or seed is retained.
+
+The guest console is retained only as one bounded tail that the VM owner
+scanned for private key material first (guest-serial-tail.log).
+"""
 
 from __future__ import annotations
 
@@ -14,7 +18,11 @@ FILE_CAP = 8 * 1024 * 1024
 FRAME_CAP = 4 * 1024 * 1024
 TOTAL_CAP = 128 * 1024 * 1024
 MAX_FILES = 4096
-SAFE_NAME = re.compile(r"[a-z0-9_-]+\.(?:json|stdout|stderr|ppm)\Z")
+SCOPE = "FINITE_REGULAR_PROOF_ONLY_NO_DISKS_KEYS_OR_SEED_BOUNDED_SCANNED_CONSOLE_TAIL"
+# The one console name is a host-written tail already scanned for key material.
+SAFE_NAME = re.compile(
+    r"(?:[a-z0-9_-]+\.(?:json|stdout|stderr|ppm)|guest-serial-tail\.log)\Z"
+)
 
 
 class ProofRecord(TypedDict):
@@ -92,7 +100,7 @@ def retain(proof: Path) -> dict[str, object]:
             raise ValueError("Evidence input changed during exact retention")
     total = sum(row["bytes"] for row in rows)
     manifest = {
-        "scope": "FINITE_REGULAR_PROOF_ONLY_NO_DISKS_KEYS_SEED_OR_BOOTSTRAP",
+        "scope": SCOPE,
         "files": rows,
         "bytes": total,
         "count": len(rows),

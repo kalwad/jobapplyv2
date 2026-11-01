@@ -1,0 +1,198 @@
+{
+ "uptime": "135.51",
+ "env": {
+  "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/1000/bus",
+  "DESKTOP_AUTOSTART_ID": "109d4ca2c96ff90bb8179342429617929800000151250016",
+  "DESKTOP_SESSION": "ubuntu",
+  "DISPLAY": ":0",
+  "GDMSESSION": "ubuntu",
+  "GNOME_DESKTOP_SESSION_ID": "this-is-deprecated",
+  "GNOME_SETUP_DISPLAY": ":1",
+  "GNOME_SHELL_SESSION_MODE": "ubuntu",
+  "INVOCATION_ID": "d7454c9237e646a394ceacbd8abed6e3",
+  "JOURNAL_STREAM": "8:28457",
+  "MANAGERPID": "1066",
+  "SESSION_MANAGER": "local/japp-gnome-ci:@/tmp/.ICE-unix/15125,unix/japp-gnome-ci:/tmp/.ICE-unix/15125",
+  "SYSTEMD_EXEC_PID": "15125",
+  "WAYLAND_DISPLAY": "wayland-0",
+  "XDG_CONFIG_DIRS": "/etc/xdg/xdg-ubuntu:/etc/xdg",
+  "XDG_CURRENT_DESKTOP": "ubuntu:GNOME",
+  "XDG_DATA_DIRS": "/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop",
+  "XDG_MENU_PREFIX": "gnome-",
+  "XDG_RUNTIME_DIR": "/run/user/1000",
+  "XDG_SESSION_CLASS": "user",
+  "XDG_SESSION_DESKTOP": "ubuntu",
+  "XDG_SESSION_TYPE": "wayland"
+ },
+ "env_keys_all": [
+  "DBUS_SESSION_BUS_ADDRESS",
+  "DESKTOP_AUTOSTART_ID",
+  "DESKTOP_SESSION",
+  "DISPLAY",
+  "GDMSESSION",
+  "GIO_LAUNCHED_DESKTOP_FILE",
+  "GIO_LAUNCHED_DESKTOP_FILE_PID",
+  "GNOME_DESKTOP_SESSION_ID",
+  "GNOME_SETUP_DISPLAY",
+  "GNOME_SHELL_SESSION_MODE",
+  "GSM_SKIP_SSH_AGENT_WORKAROUND",
+  "HOME",
+  "INVOCATION_ID",
+  "JOURNAL_STREAM",
+  "LANG",
+  "LOGNAME",
+  "MANAGERPID",
+  "MEMORY_PRESSURE_WATCH",
+  "MEMORY_PRESSURE_WRITE",
+  "PATH",
+  "PWD",
+  "SESSION_MANAGER",
+  "SHELL",
+  "SHLVL",
+  "SSH_AUTH_SOCK",
+  "SYSTEMD_EXEC_PID",
+  "USER",
+  "USERNAME",
+  "WAYLAND_DISPLAY",
+  "XAUTHORITY",
+  "XDG_CONFIG_DIRS",
+  "XDG_CURRENT_DESKTOP",
+  "XDG_DATA_DIRS",
+  "XDG_MENU_PREFIX",
+  "XDG_RUNTIME_DIR",
+  "XDG_SESSION_CLASS",
+  "XDG_SESSION_DESKTOP",
+  "XDG_SESSION_TYPE",
+  "_"
+ ],
+ "cgroup": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/app-gnome-japp\\x2dci-15274.scope\n",
+ "list_sessions": {
+  "rc": 0,
+  "out": "25 1000 japp-ci seat0 tty2 active no -\n",
+  "err": ""
+ },
+ "show_user": {
+  "rc": 0,
+  "out": "UID=1000\nGID=1000\nName=japp-ci\nTimestamp=Sat 2026-10-31 05:22:55 UTC\nTimestampMonotonic=13583165\nRuntimePath=/run/user/1000\nService=user@1000.service\nSlice=user-1000.slice\nDisplay=25\nState=active\nSessions=25\nIdleHint=no\nIdleSinceHint=0\nIdleSinceHintMonotonic=0\nLinger=no\n",
+  "err": ""
+ },
+ "show_session_noid": {
+  "rc": 0,
+  "out": "EnableWallMessages=yes\nNAutoVTs=6\nKillUserProcesses=no\nRebootToFirmwareSetup=no\nRebootToBootLoaderMenu=18446744073709551615\nIdleHint=no\nIdleSinceHint=0\nIdleSinceHintMonotonic=0\nDelayInhibited=shutdown:sleep\nInhibitDelayMaxUSec=30s\nUserStopDelayUSec=10s\nHandlePowerKey=poweroff\nHandlePowerKeyLongPress=ignore\nHandleRebootKey=reboot\nHandleRebootKeyLongPress=poweroff\nHandleSuspendKey=suspend\nHandleSuspendKeyLongPress=hibernate\nHandleHibernateKey=hibernate\nHandleHibernateKeyLongPress=ignore\nHandleLidSwitch=suspend\nHandleLidSwitchDocked=ignore\nHoldoffTimeoutUSec=30s\nIdleAction=ignore\nIdleActionUSec=30min\nPreparingForShutdown=no\nPreparingForSleep=no\nDocked=no\nLidClosed=no\nOnExternalPower=yes\nRemoveIPC=yes\nRuntimeDirectorySize=410607616\nRuntimeDirectoryInodesMax=100246\nInhibitorsMax=8192\nNCurrentInhibitors=4\nSessionsMax=8192\nNCurrentSessions=1\nStopIdleSessionUSec=infinity\n",
+  "err": ""
+ },
+ "show_session_self": {
+  "rc": 1,
+  "out": "",
+  "err": "Failed to get path for session 'self': Caller does not belong to any known session.\n"
+ },
+ "show_session_auto": {
+  "rc": 0,
+  "out": "Id=25\nUser=1000\nName=japp-ci\nTimestamp=Sat 2026-10-31 05:24:55 UTC\nTimestampMonotonic=133935581\nVTNr=2\nSeat=seat0\nTTY=tty2\nRemote=no\nService=gdm-autologin\nScope=session-25.scope\nLeader=15033\nAudit=25\nType=wayland\nClass=user\nActive=yes\nState=active\nIdleHint=no\nIdleSinceHint=0\nIdleSinceHintMonotonic=0\nLockedHint=no\n",
+  "err": ""
+ },
+ "user_display_session": "25",
+ "show_session_display": {
+  "rc": 0,
+  "out": "Id=25\nUser=1000\nName=japp-ci\nTimestamp=Sat 2026-10-31 05:24:55 UTC\nTimestampMonotonic=133935581\nVTNr=2\nSeat=seat0\nTTY=tty2\nRemote=no\nService=gdm-autologin\nScope=session-25.scope\nLeader=15033\nAudit=25\nType=wayland\nClass=user\nActive=yes\nState=active\nIdleHint=no\nIdleSinceHint=0\nIdleSinceHintMonotonic=0\nLockedHint=no\n",
+  "err": ""
+ },
+ "systemctl_user_environment": {
+  "rc": 0,
+  "out": "HOME=/home/japp-ci\nLANG=C.UTF-8\nLOGNAME=japp-ci\nPATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin\nSHELL=/bin/bash\nUSER=japp-ci\nXDG_RUNTIME_DIR=/run/user/1000\nXDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop\nDBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus\nDESKTOP_SESSION=ubuntu\nDISPLAY=:0\nGDMSESSION=ubuntu\nGNOME_DESKTOP_SESSION_ID=this-is-deprecated\nGNOME_SETUP_DISPLAY=:1\nGNOME_SHELL_SESSION_MODE=ubuntu\nGSM_SKIP_SSH_AGENT_WORKAROUND=true\nPWD=/home/japp-ci\nSESSION_MANAGER=local/japp-gnome-ci:@/tmp/.ICE-unix/15125,unix/japp-gnome-ci:/tmp/.ICE-unix/15125\nSHLVL=0\nSSH_AUTH_SOCK=/run/user/1000/gnupg/S.gpg-agent.ssh\nUSERNAME=japp-ci\nWAYLAND_DISPLAY=wayland-0\nXAUTHORITY=/run/user/1000/.mutter-Xwaylandauth.FZEBY3\nXDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg\nXDG_CURRENT_DESKTOP=ubuntu:GNOME\nXDG_MENU_PREFIX=gnome-\nXDG_SESSION_CLASS=user\nXDG_SESSION_DESKTOP=ubuntu\nXDG_SESSION_TYPE=wayland\n_=/usr/bin/gnome-session\n",
+  "err": ""
+ },
+ "graphical_session_target": {
+  "rc": 3,
+  "out": "inactive\n",
+  "err": ""
+ },
+ "repository_session_receipt": {
+  "rc": 78,
+  "out": "",
+  "err": ""
+ },
+ "atspi": {
+  "Accessible_has_get_action_name": true,
+  "Action_get_name_doc": "None",
+  "Accessible_get_name_doc": "get_name(self) -> str",
+  "nodes_walked": 1414,
+  "node_role": "text",
+  "iface_type": "gi.repository.Atspi.Accessible",
+  "iface_mro": [
+   "Accessible",
+   "Object",
+   "Object",
+   "Object",
+   "GObject",
+   "Action",
+   "Collection",
+   "Component",
+   "Document",
+   "EditableText",
+   "Hypertext",
+   "Image"
+  ],
+  "harness_call_iface_get_name_0": "RAISED TypeError('Atspi.Accessible.get_name() takes exactly 1 argument (2 given)')",
+  "iface_get_action_name_0": "'activate'",
+  "Atspi_Action_get_name_iface_0": "RAISED AttributeError(\"type object 'Action' has no attribute 'get_name'\")"
+ },
+ "targets_0": {
+  "rc": 0,
+  "out": "  basic.target                                       loaded    active   active Basic System\n\u25cf blockdev@dev-vda15.target                          not-found inactive dead   blockdev@dev-vda15.target\n\u25cf blockdev@dev-vda16.target                          not-found inactive dead   blockdev@dev-vda16.target\n  default.target                                     loaded    active   active Main User Target\n  gnome-session-failed.target                        loaded    inactive dead   GNOME Session Failed\n  gnome-session-initialized.target                   loaded    active   active GNOME Session is initialized\n  gnome-session-manager.target                       loaded    active   active GNOME Session Manager is ready\n  gnome-session-pre.target                           loaded    active   active Tasks to be run before GNOME Session starts\n  gnome-session-shutdown.target                      loaded    inactive dead   Shutdown running GNOME Session\n  gnome-session-wayland.target                       loaded    active   active GNOME Wayland Session\n  gnome-session-wayland@ubuntu.target                loaded    active   active GNOME Wayland Session (session: ubuntu)\n  gnome-session-x11-services-ready.target            loaded    inactive dead   GNOME session X11 services\n  gnome-session-x11-services.target                  loaded    inactive dead   GNOME session X11 services\n  gnome-session.target                               loaded    active   active GNOME Session\n  gnome-session@ubuntu.target                        loaded    active   active GNOME Session (session: ubuntu)\n  graphical-session-pre.target                       loaded    active   active Session services which should run early before the graphical session is brought up\n  graphical-session.target                           loaded    active   active Current graphical user session\n  org.gnome.SettingsDaemon.A11ySettings.target       loaded    active   active GNOME accessibility target\n  org.gnome.SettingsDaemon.Color.target              loaded    active   active GNOME color management target\n  org.gnome.SettingsDaemon.Datetime.target           loaded    active   active GNOME date & time target\n  org.gnome.SettingsDaemon.Housekeeping.target       loaded    active   active GNOME maintenance of expirable data target\n  org.gnome.SettingsDaemon.Keyboard.target           loaded    active   active GNOME keyboard configuration target\n  org.gnome.SettingsDaemon.MediaKeys.target          loaded    active   active GNOME keyboard shortcuts target\n  org.gnome.SettingsDaemon.Power.target              loaded    active   active GNOME power management target\n  org.gnome.SettingsDaemon.PrintNotifications.target loaded    active   active GNOME printer notifications target\n  org.gnome.SettingsDaemon.Rfkill.target             loaded    active   active GNOME RFKill support target\n  org.gnome.SettingsDaemon.ScreensaverProxy.target   loaded    active   active GNOME FreeDesktop screensaver target\n  org.gnome.SettingsDaemon.Sharing.target            loaded    active   active GNOME file sharing target\n  org.gnome.SettingsDaemon.Smartcard.target          loaded    active   active GNOME smartcard target\n  org.gnome.SettingsDaemon.Sound.target              loaded    active   active GNOME sound sample caching target\n  org.gnome.SettingsDaemon.Wacom.target              loaded    active   active GNOME Wacom tablet support target\n  org.gnome.SettingsDaemon.XSettings.target          loaded    active   active GNOME XSettings target\n  org.gnome.Shell.target                             loaded    active   active GNOME Shell\n  paths.target                                       loaded    active   active Paths\n  shutdown.target                                    loaded    inactive dead   Shutdown\n  sockets.target                                     loaded    active   active Sockets\n  timers.target                                      loaded    active   active Timers\n",
+  "err": ""
+ },
+ "gnome_session_units_0": {
+  "rc": 0,
+  "out": "  gnome-session-failed.service            loaded inactive dead    GNOME Session Failed lockdown screen (user)\n  gnome-session-manager@ubuntu.service    loaded active   running GNOME Session Manager (session: ubuntu)\n  gnome-session-monitor.service           loaded active   running Monitor Session leader for GNOME Session\n  gnome-session-restart-dbus.service      loaded inactive dead    Restart DBus after GNOME Session shutdown\n  gnome-session-signal-init.service       loaded inactive dead    Signal initialization done to GNOME Session Manager\n  gnome-session-failed.target             loaded inactive dead    GNOME Session Failed\n  gnome-session-initialized.target        loaded active   active  GNOME Session is initialized\n  gnome-session-manager.target            loaded active   active  GNOME Session Manager is ready\n  gnome-session-pre.target                loaded active   active  Tasks to be run before GNOME Session starts\n  gnome-session-shutdown.target           loaded inactive dead    Shutdown running GNOME Session\n  gnome-session-wayland.target            loaded active   active  GNOME Wayland Session\n  gnome-session-wayland@ubuntu.target     loaded active   active  GNOME Wayland Session (session: ubuntu)\n  gnome-session-x11-services-ready.target loaded inactive dead    GNOME session X11 services\n  gnome-session-x11-services.target       loaded inactive dead    GNOME session X11 services\n  gnome-session.target                    loaded active   active  GNOME Session\n  gnome-session@ubuntu.target             loaded active   active  GNOME Session (session: ubuntu)\n",
+  "err": ""
+ },
+ "targets_30": {
+  "rc": 0,
+  "out": "  basic.target                                       loaded    active   active Basic System\n\u25cf blockdev@dev-vda15.target                          not-found inactive dead   blockdev@dev-vda15.target\n\u25cf blockdev@dev-vda16.target                          not-found inactive dead   blockdev@dev-vda16.target\n  default.target                                     loaded    active   active Main User Target\n  gnome-session-failed.target                        loaded    inactive dead   GNOME Session Failed\n  gnome-session-initialized.target                   loaded    active   active GNOME Session is initialized\n  gnome-session-manager.target                       loaded    active   active GNOME Session Manager is ready\n  gnome-session-pre.target                           loaded    active   active Tasks to be run before GNOME Session starts\n  gnome-session-shutdown.target                      loaded    inactive dead   Shutdown running GNOME Session\n  gnome-session-wayland.target                       loaded    active   active GNOME Wayland Session\n  gnome-session-wayland@ubuntu.target                loaded    active   active GNOME Wayland Session (session: ubuntu)\n  gnome-session-x11-services-ready.target            loaded    inactive dead   GNOME session X11 services\n  gnome-session-x11-services.target                  loaded    inactive dead   GNOME session X11 services\n  gnome-session.target                               loaded    active   active GNOME Session\n  gnome-session@ubuntu.target                        loaded    active   active GNOME Session (session: ubuntu)\n  graphical-session-pre.target                       loaded    active   active Session services which should run early before the graphical session is brought up\n  graphical-session.target                           loaded    active   active Current graphical user session\n  org.gnome.SettingsDaemon.A11ySettings.target       loaded    active   active GNOME accessibility target\n  org.gnome.SettingsDaemon.Color.target              loaded    active   active GNOME color management target\n  org.gnome.SettingsDaemon.Datetime.target           loaded    active   active GNOME date & time target\n  org.gnome.SettingsDaemon.Housekeeping.target       loaded    active   active GNOME maintenance of expirable data target\n  org.gnome.SettingsDaemon.Keyboard.target           loaded    active   active GNOME keyboard configuration target\n  org.gnome.SettingsDaemon.MediaKeys.target          loaded    active   active GNOME keyboard shortcuts target\n  org.gnome.SettingsDaemon.Power.target              loaded    active   active GNOME power management target\n  org.gnome.SettingsDaemon.PrintNotifications.target loaded    active   active GNOME printer notifications target\n  org.gnome.SettingsDaemon.Rfkill.target             loaded    active   active GNOME RFKill support target\n  org.gnome.SettingsDaemon.ScreensaverProxy.target   loaded    active   active GNOME FreeDesktop screensaver target\n  org.gnome.SettingsDaemon.Sharing.target            loaded    active   active GNOME file sharing target\n  org.gnome.SettingsDaemon.Smartcard.target          loaded    active   active GNOME smartcard target\n  org.gnome.SettingsDaemon.Sound.target              loaded    active   active GNOME sound sample caching target\n  org.gnome.SettingsDaemon.Wacom.target              loaded    active   active GNOME Wacom tablet support target\n  org.gnome.SettingsDaemon.XSettings.target          loaded    active   active GNOME XSettings target\n  org.gnome.Shell.target                             loaded    active   active GNOME Shell\n  paths.target                                       loaded    active   active Paths\n  shutdown.target                                    loaded    inactive dead   Shutdown\n  sockets.target                                     loaded    active   active Sockets\n  timers.target                                      loaded    active   active Timers\n",
+  "err": ""
+ },
+ "gnome_session_units_30": {
+  "rc": 0,
+  "out": "  gnome-session-failed.service            loaded inactive dead    GNOME Session Failed lockdown screen (user)\n  gnome-session-manager@ubuntu.service    loaded active   running GNOME Session Manager (session: ubuntu)\n  gnome-session-monitor.service           loaded active   running Monitor Session leader for GNOME Session\n  gnome-session-restart-dbus.service      loaded inactive dead    Restart DBus after GNOME Session shutdown\n  gnome-session-signal-init.service       loaded inactive dead    Signal initialization done to GNOME Session Manager\n  gnome-session-failed.target             loaded inactive dead    GNOME Session Failed\n  gnome-session-initialized.target        loaded active   active  GNOME Session is initialized\n  gnome-session-manager.target            loaded active   active  GNOME Session Manager is ready\n  gnome-session-pre.target                loaded active   active  Tasks to be run before GNOME Session starts\n  gnome-session-shutdown.target           loaded inactive dead    Shutdown running GNOME Session\n  gnome-session-wayland.target            loaded active   active  GNOME Wayland Session\n  gnome-session-wayland@ubuntu.target     loaded active   active  GNOME Wayland Session (session: ubuntu)\n  gnome-session-x11-services-ready.target loaded inactive dead    GNOME session X11 services\n  gnome-session-x11-services.target       loaded inactive dead    GNOME session X11 services\n  gnome-session.target                    loaded active   active  GNOME Session\n  gnome-session@ubuntu.target             loaded active   active  GNOME Session (session: ubuntu)\n",
+  "err": ""
+ },
+ "targets_60": {
+  "rc": 0,
+  "out": "  basic.target                                       loaded    active   active Basic System\n\u25cf blockdev@dev-vda15.target                          not-found inactive dead   blockdev@dev-vda15.target\n\u25cf blockdev@dev-vda16.target                          not-found inactive dead   blockdev@dev-vda16.target\n  default.target                                     loaded    active   active Main User Target\n  gnome-session-failed.target                        loaded    inactive dead   GNOME Session Failed\n  gnome-session-initialized.target                   loaded    active   active GNOME Session is initialized\n  gnome-session-manager.target                       loaded    active   active GNOME Session Manager is ready\n  gnome-session-pre.target                           loaded    active   active Tasks to be run before GNOME Session starts\n  gnome-session-shutdown.target                      loaded    inactive dead   Shutdown running GNOME Session\n  gnome-session-wayland.target                       loaded    active   active GNOME Wayland Session\n  gnome-session-wayland@ubuntu.target                loaded    active   active GNOME Wayland Session (session: ubuntu)\n  gnome-session-x11-services-ready.target            loaded    inactive dead   GNOME session X11 services\n  gnome-session-x11-services.target                  loaded    inactive dead   GNOME session X11 services\n  gnome-session.target                               loaded    active   active GNOME Session\n  gnome-session@ubuntu.target                        loaded    active   active GNOME Session (session: ubuntu)\n  graphical-session-pre.target                       loaded    active   active Session services which should run early before the graphical session is brought up\n  graphical-session.target                           loaded    active   active Current graphical user session\n  org.gnome.SettingsDaemon.A11ySettings.target       loaded    active   active GNOME accessibility target\n  org.gnome.SettingsDaemon.Color.target              loaded    active   active GNOME color management target\n  org.gnome.SettingsDaemon.Datetime.target           loaded    active   active GNOME date & time target\n  org.gnome.SettingsDaemon.Housekeeping.target       loaded    active   active GNOME maintenance of expirable data target\n  org.gnome.SettingsDaemon.Keyboard.target           loaded    active   active GNOME keyboard configuration target\n  org.gnome.SettingsDaemon.MediaKeys.target          loaded    active   active GNOME keyboard shortcuts target\n  org.gnome.SettingsDaemon.Power.target              loaded    active   active GNOME power management target\n  org.gnome.SettingsDaemon.PrintNotifications.target loaded    active   active GNOME printer notifications target\n  org.gnome.SettingsDaemon.Rfkill.target             loaded    active   active GNOME RFKill support target\n  org.gnome.SettingsDaemon.ScreensaverProxy.target   loaded    active   active GNOME FreeDesktop screensaver target\n  org.gnome.SettingsDaemon.Sharing.target            loaded    active   active GNOME file sharing target\n  org.gnome.SettingsDaemon.Smartcard.target          loaded    active   active GNOME smartcard target\n  org.gnome.SettingsDaemon.Sound.target              loaded    active   active GNOME sound sample caching target\n  org.gnome.SettingsDaemon.Wacom.target              loaded    active   active GNOME Wacom tablet support target\n  org.gnome.SettingsDaemon.XSettings.target          loaded    active   active GNOME XSettings target\n  org.gnome.Shell.target                             loaded    active   active GNOME Shell\n  paths.target                                       loaded    active   active Paths\n  shutdown.target                                    loaded    inactive dead   Shutdown\n  sockets.target                                     loaded    active   active Sockets\n  timers.target                                      loaded    active   active Timers\n",
+  "err": ""
+ },
+ "gnome_session_units_60": {
+  "rc": 0,
+  "out": "  gnome-session-failed.service            loaded inactive dead    GNOME Session Failed lockdown screen (user)\n  gnome-session-manager@ubuntu.service    loaded active   running GNOME Session Manager (session: ubuntu)\n  gnome-session-monitor.service           loaded active   running Monitor Session leader for GNOME Session\n  gnome-session-restart-dbus.service      loaded inactive dead    Restart DBus after GNOME Session shutdown\n  gnome-session-signal-init.service       loaded inactive dead    Signal initialization done to GNOME Session Manager\n  gnome-session-failed.target             loaded inactive dead    GNOME Session Failed\n  gnome-session-initialized.target        loaded active   active  GNOME Session is initialized\n  gnome-session-manager.target            loaded active   active  GNOME Session Manager is ready\n  gnome-session-pre.target                loaded active   active  Tasks to be run before GNOME Session starts\n  gnome-session-shutdown.target           loaded inactive dead    Shutdown running GNOME Session\n  gnome-session-wayland.target            loaded active   active  GNOME Wayland Session\n  gnome-session-wayland@ubuntu.target     loaded active   active  GNOME Wayland Session (session: ubuntu)\n  gnome-session-x11-services-ready.target loaded inactive dead    GNOME session X11 services\n  gnome-session-x11-services.target       loaded inactive dead    GNOME session X11 services\n  gnome-session.target                    loaded active   active  GNOME Session\n  gnome-session@ubuntu.target             loaded active   active  GNOME Session (session: ubuntu)\n",
+  "err": ""
+ },
+ "repository_session_receipt_60": {
+  "rc": 0,
+  "out": "",
+  "err": ""
+ },
+ "targets_120": {
+  "rc": 0,
+  "out": "  basic.target                                       loaded    active   active Basic System\n\u25cf blockdev@dev-vda15.target                          not-found inactive dead   blockdev@dev-vda15.target\n\u25cf blockdev@dev-vda16.target                          not-found inactive dead   blockdev@dev-vda16.target\n  default.target                                     loaded    active   active Main User Target\n  gnome-session-failed.target                        loaded    inactive dead   GNOME Session Failed\n  gnome-session-initialized.target                   loaded    active   active GNOME Session is initialized\n  gnome-session-manager.target                       loaded    active   active GNOME Session Manager is ready\n  gnome-session-pre.target                           loaded    active   active Tasks to be run before GNOME Session starts\n  gnome-session-shutdown.target                      loaded    inactive dead   Shutdown running GNOME Session\n  gnome-session-wayland.target                       loaded    active   active GNOME Wayland Session\n  gnome-session-wayland@ubuntu.target                loaded    active   active GNOME Wayland Session (session: ubuntu)\n  gnome-session-x11-services-ready.target            loaded    inactive dead   GNOME session X11 services\n  gnome-session-x11-services.target                  loaded    inactive dead   GNOME session X11 services\n  gnome-session.target                               loaded    active   active GNOME Session\n  gnome-session@ubuntu.target                        loaded    active   active GNOME Session (session: ubuntu)\n  graphical-session-pre.target                       loaded    active   active Session services which should run early before the graphical session is brought up\n  graphical-session.target                           loaded    active   active Current graphical user session\n  org.gnome.SettingsDaemon.A11ySettings.target       loaded    active   active GNOME accessibility target\n  org.gnome.SettingsDaemon.Color.target              loaded    active   active GNOME color management target\n  org.gnome.SettingsDaemon.Datetime.target           loaded    active   active GNOME date & time target\n  org.gnome.SettingsDaemon.Housekeeping.target       loaded    active   active GNOME maintenance of expirable data target\n  org.gnome.SettingsDaemon.Keyboard.target           loaded    active   active GNOME keyboard configuration target\n  org.gnome.SettingsDaemon.MediaKeys.target          loaded    active   active GNOME keyboard shortcuts target\n  org.gnome.SettingsDaemon.Power.target              loaded    active   active GNOME power management target\n  org.gnome.SettingsDaemon.PrintNotifications.target loaded    active   active GNOME printer notifications target\n  org.gnome.SettingsDaemon.Rfkill.target             loaded    active   active GNOME RFKill support target\n  org.gnome.SettingsDaemon.ScreensaverProxy.target   loaded    active   active GNOME FreeDesktop screensaver target\n  org.gnome.SettingsDaemon.Sharing.target            loaded    active   active GNOME file sharing target\n  org.gnome.SettingsDaemon.Smartcard.target          loaded    active   active GNOME smartcard target\n  org.gnome.SettingsDaemon.Sound.target              loaded    active   active GNOME sound sample caching target\n  org.gnome.SettingsDaemon.Wacom.target              loaded    active   active GNOME Wacom tablet support target\n  org.gnome.SettingsDaemon.XSettings.target          loaded    active   active GNOME XSettings target\n  org.gnome.Shell.target                             loaded    active   active GNOME Shell\n  paths.target                                       loaded    active   active Paths\n  shutdown.target                                    loaded    inactive dead   Shutdown\n  sockets.target                                     loaded    active   active Sockets\n  timers.target                                      loaded    active   active Timers\n",
+  "err": ""
+ },
+ "gnome_session_units_120": {
+  "rc": 0,
+  "out": "  gnome-session-failed.service            loaded inactive dead    GNOME Session Failed lockdown screen (user)\n  gnome-session-manager@ubuntu.service    loaded active   running GNOME Session Manager (session: ubuntu)\n  gnome-session-monitor.service           loaded active   running Monitor Session leader for GNOME Session\n  gnome-session-restart-dbus.service      loaded inactive dead    Restart DBus after GNOME Session shutdown\n  gnome-session-signal-init.service       loaded inactive dead    Signal initialization done to GNOME Session Manager\n  gnome-session-failed.target             loaded inactive dead    GNOME Session Failed\n  gnome-session-initialized.target        loaded active   active  GNOME Session is initialized\n  gnome-session-manager.target            loaded active   active  GNOME Session Manager is ready\n  gnome-session-pre.target                loaded active   active  Tasks to be run before GNOME Session starts\n  gnome-session-shutdown.target           loaded inactive dead    Shutdown running GNOME Session\n  gnome-session-wayland.target            loaded active   active  GNOME Wayland Session\n  gnome-session-wayland@ubuntu.target     loaded active   active  GNOME Wayland Session (session: ubuntu)\n  gnome-session-x11-services-ready.target loaded inactive dead    GNOME session X11 services\n  gnome-session-x11-services.target       loaded inactive dead    GNOME session X11 services\n  gnome-session.target                    loaded active   active  GNOME Session\n  gnome-session@ubuntu.target             loaded active   active  GNOME Session (session: ubuntu)\n",
+  "err": ""
+ },
+ "repository_session_receipt_120": {
+  "rc": 0,
+  "out": "",
+  "err": ""
+ },
+ "graphical_session_target_timeline": [
+  {
+   "t": 2.8,
+   "uptime": "138.31",
+   "state": "active"
+  }
+ ],
+ "seconds": 125.65
+}

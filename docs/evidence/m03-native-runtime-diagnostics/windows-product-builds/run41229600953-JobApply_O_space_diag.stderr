@@ -1,0 +1,8 @@
+JAPP_DIAG accelerator_registration=Ok(()) token=20
+JAPP_DIAG resource_dir=Some("C:\\Users\\runneradmin\\AppData\\Local\\JobApply Ω space diag") is_dev=false
+JAPP_DIAG runtime_path="C:\\Users\\runneradmin\\AppData\\Local\\JobApply Ω space diag\\runtime/japp-orchestrator/japp-orchestrator.exe"
+JAPP_DIAG accelerator kind=0 key=0x11 was_down=false menu_down=false repeat=1 ctrl_state=true ctrl_async=false shift_state=false alt_state=false
+JAPP_DIAG accelerator kind=0 key=0x51 was_down=false menu_down=false repeat=1 ctrl_state=true ctrl_async=false shift_state=false alt_state=false
+JAPP_DIAG accelerator kind=1 key=0x51 was_down=true menu_down=false repeat=1 ctrl_state=true ctrl_async=false shift_state=false alt_state=false
+JAPP_DIAG accelerator kind=1 key=0x11 was_down=true menu_down=false repeat=1 ctrl_state=false ctrl_async=false shift_state=false alt_state=false
+[1031/183601.939:ERROR:ui\gfx\win\window_impl.cc:172] Failed to unregister class Chrome_WidgetWin_0. Error = 1412

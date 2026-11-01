@@ -8,10 +8,14 @@ No TCG, host block device, public network, account sign-in or capability fallbac
 from __future__ import annotations
 
 import argparse
+import collections
+import contextlib
 import fcntl
 import json
 import os
+import re
 import secrets
+import select
 import shutil
 import socket
 import stat
@@ -19,7 +23,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
-from typing import Any
+from typing import Any, NoReturn
 
 from windows11_candidate import FIRMWARE, TOOLS, download, source_binding, tool_pin
 from windows11_deployment import answer_file
@@ -35,6 +39,7 @@ from windows11_inputs import (
     document,
     hex_pin,
     host_cpu,
+    host_cpu_support,
     lifecycle,
     member,
     original_package,
@@ -46,19 +51,166 @@ from windows11_process import ChildCustody
 from windows11_resources import ensure_capacity
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "linux_gnome"))
-from ubuntu_gnome_host import require_host
+from ubuntu_gnome_host import local_only_apt, require_host, simulate_install
 from ubuntu_gnome_shell import validate_capture, verify_capture_images
-from ubuntu_gnome_vm import Owner, group_exists, write
+from ubuntu_gnome_vm import Owner as SharedOwner
+from ubuntu_gnome_vm import group_exists, validated_frame, write
 
 BUNDLE_MEMBERS = 6000
 HOST_PACKAGE_CAP = 2048
 KVM_API = 12
 MIN_CPUS = 2
 QMP_CAP = 65536
+# Each QMP exchange's own reply budget (the shared owner's 5 s).
+QMP_SECONDS = 5
 RESULT_MEMBER_CAP = 100
 RUNNER_IMAGE_VERSION = "ImageVersion"
+FIRMWARE_CONSOLE_CAP = 256 * 1024
+BOOT_MEDIA_SECONDS = 60
+BOOT_KEY_DELAY = 0.5
+MIRROR_SECONDS = 10
+# OVMF's own console line for the reviewed media on ide.1 in qemu_argv (the
+# system disk is ide.0, the seed ide.2); measured in diagnostic run 41171253889
+# (KI-0155).
+INSTALL_MEDIA_STARTED = (
+    b"BdsDxe: starting Boot",
+    b" from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x1,0xFFFF,0x0)",
+)
 MIN_FREE = 48 * 1024**3
 MIN_MEMORY = 8 * 1024**3
+# Phases whose QMP frame the guest waits for before its next UI action.
+FRAMED_PHASES = (
+    "environment",
+    "ready",
+    "keyboard",
+    "restart",
+    "relaunch",
+    "collision",
+)
+# Diagnostic frames show where Setup/OOBE or a failure stopped. They are kept
+# outside Owner.frame's phase budget and are never phase or acceptance evidence.
+PROGRESS_FRAME_SECONDS = 600
+PROGRESS_FRAME_CAP = 6
+DIAGNOSTIC_FRAME_BYTES = 8 * 1024**2
+# After a validated guest PASS: bounded ACPI power-off (S3/S4 are disabled in
+# qemu_argv), one forced QMP quit if it is slow, then the result copy. These
+# run under cleanup authority, which outlasts the work deadline by enough for
+# all three and the final source endpoint replay.
+POWERDOWN_SECONDS = 180
+FORCED_STOP_SECONDS = 10
+COLLECT_SECONDS = 15
+POST_PASS_SECONDS = POWERDOWN_SECONDS + FORCED_STOP_SECONDS + COLLECT_SECONDS + 60
+# The campaign's own work authority; with POST_PASS_SECONDS it must fit inside
+# the lifecycle job's timeout-minutes with room for its download and upload.
+WORK_SECONDS = 3300
+
+
+class QmpUnusableError(ValueError):
+    """The owned QMP stream can carry no further exchange; its cause is kept."""
+
+
+class QmpClosedError(QmpUnusableError):
+    """QEMU closed QMP; expected only once QEMU has been told to quit."""
+
+
+class Owner(SharedOwner):
+    """The shared VM owner, with QMP replies read by select under a deadline.
+
+    The shared owner reads QMP through a timed socket file, which one socket
+    timeout leaves unreadable for every later exchange. Here each request has
+    its own id and each reply is read into a private buffer: a reply later
+    than its budget is a TimeoutError for that call only and is discarded when
+    it arrives. Only a closed, failed, oversized or malformed stream makes QMP
+    unusable; that cause is recorded and every later call fails fast with it.
+    """
+
+    def __init__(self, work: Path, proof: Path) -> None:
+        super().__init__(work, proof)
+        self.qmp_buffer = b""
+        self.qmp_requests = 0
+        self.qmp_unusable: str | None = None
+
+    def qmp_fail(
+        self, cause: str, error: type[QmpUnusableError] = QmpUnusableError
+    ) -> NoReturn:
+        if self.qmp_unusable is None:
+            self.qmp_unusable = cause
+        raise error("Owned QMP unusable: " + self.qmp_unusable)
+
+    def qmp_open(self, client: socket.socket) -> None:
+        """Adopt QEMU's QMP socket: its greeting, then capability negotiation."""
+        # Requests are tiny; the timeout only bounds sendall. Replies use select.
+        client.settimeout(QMP_SECONDS)
+        self.qmp = client
+        if "QMP" not in self.qmp_message(time.monotonic() + QMP_SECONDS):
+            raise ValueError("Actual owned QMP greeting required")
+        self.qmp_call("qmp_capabilities")
+
+    def qmp_message(self, deadline: float) -> dict[str, Any]:
+        """The next complete QMP message; a TimeoutError keeps the stream intact."""
+        if self.qmp is None:
+            raise ValueError("Owned QMP connection required")
+        while b"\n" not in self.qmp_buffer:
+            if len(self.qmp_buffer) > QMP_CAP:
+                self.qmp_fail("RESPONSE_CAP")
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise TimeoutError("Owned QMP response unavailable")
+            readable, _, _ = select.select([self.qmp], [], [], remaining)
+            if not readable:
+                continue
+            try:
+                chunk = self.qmp.recv(65536)
+            except (BlockingIOError, InterruptedError):
+                continue
+            except OSError as error:
+                self.qmp_fail("RECEIVE_" + type(error).__name__)
+            if not chunk:
+                self.qmp_fail("CLOSED", QmpClosedError)
+            self.qmp_buffer += chunk
+        line, self.qmp_buffer = self.qmp_buffer.split(b"\n", 1)
+        if len(line) > QMP_CAP:
+            self.qmp_fail("RESPONSE_CAP")
+        try:
+            value = json.loads(line)
+        except (ValueError, RecursionError):
+            self.qmp_fail("MALFORMED")
+        if not isinstance(value, dict):
+            self.qmp_fail("MALFORMED")
+        return value
+
+    def qmp_call(
+        self,
+        execute: str,
+        arguments: dict[str, object] | None = None,
+        cleanup: bool = False,
+    ) -> object:
+        if self.qmp is None:
+            raise ValueError("Owned QMP connection required")
+        if self.qmp_unusable is not None:
+            self.qmp_fail(self.qmp_unusable)
+        if not cleanup and self.vm_output_exceeded():
+            raise ValueError("Owned VM raw output cap exceeded")
+        self.qmp_requests += 1
+        ident = execute + "-" + str(self.qmp_requests)
+        request: dict[str, object] = {"execute": execute, "id": ident}
+        if arguments is not None:
+            request["arguments"] = arguments
+        try:
+            self.qmp.sendall((json.dumps(request) + "\n").encode())
+        except OSError as error:
+            self.qmp_fail("SEND_" + type(error).__name__)
+        deadline = time.monotonic() + QMP_SECONDS
+        while True:
+            value = self.qmp_message(deadline)
+            # Events and late replies to earlier exchanges carry other ids.
+            if value.get("id") != ident:
+                continue
+            if "error" in value:
+                raise ValueError("QMP command failed")
+            if "return" not in value:
+                self.qmp_fail("MALFORMED")
+            return value["return"]
 
 
 def audit_bundle(root: Path, pin: str) -> dict[str, Any]:
@@ -130,19 +282,16 @@ def install_tools(bundle: Path, owner: Owner, expected: str) -> None:
         if archive.stat().st_size != row["bytes"] or digest(archive) != row["sha256"]:
             raise ValueError("Reviewed host archive differs")
         archives.append(str(archive))
-    owner.command(
-        [
-            "/usr/bin/sudo",
-            "-n",
-            "/usr/bin/apt-get",
-            "--no-download",
-            "--no-install-recommends",
-            "-y",
-            "install",
-            *archives,
-        ],
-        seconds=600,
-    )
+    apt = [
+        "/usr/bin/sudo",
+        "-n",
+        "/usr/bin/apt-get",
+        *local_only_apt(owner.work),
+        "--no-install-recommends",
+        "-y",
+    ]
+    simulate_install(owner, apt, archives, packages)
+    owner.command([*apt, "--no-remove", "install", *archives], seconds=600)
     for name, executable in {**TOOLS, **FIRMWARE}.items():
         pin = lock["tools"][name]
         if tool_pin(Path("/"), executable) != pin:
@@ -333,6 +482,12 @@ def qemu_argv(work: Path, iso: Path, seed_iso: Path) -> list[str]:
         "6144",
         "-global",
         "driver=cfi.pflash01,property=secure,value=on",
+        # No ACPI sleep or hibernate states, so Windows has no Fast Startup
+        # hybrid shutdown and system_powerdown is a plain power-off.
+        "-global",
+        "ICH9-LPC.disable_s3=1",
+        "-global",
+        "ICH9-LPC.disable_s4=1",
         "-drive",
         "if=pflash,format=raw,unit=0,readonly=on,file=" + FIRMWARE["code"],
         "-drive",
@@ -369,10 +524,19 @@ def qemu_argv(work: Path, iso: Path, seed_iso: Path) -> list[str]:
         "none",
         "-parallel",
         "none",
+        # OVMF writes its console to COM1 within seconds of power-on, so COM1
+        # is a retained firmware console and the guest protocol is COM2 alone
+        # (KI-0154).
+        "-chardev",
+        "socket,id=firmware,path="
+        + str(work / "firmware.sock")
+        + ",server=on,wait=off",
+        "-device",
+        "isa-serial,chardev=firmware,index=0",
         "-chardev",
         "socket,id=proof,path=" + str(work / "serial.sock") + ",server=on,wait=off",
         "-device",
-        "isa-serial,chardev=proof",
+        "isa-serial,chardev=proof,index=1",
         "-qmp",
         "unix:" + str(work / "qmp.sock") + ",server=on,wait=off",
         "-boot",
@@ -380,36 +544,210 @@ def qemu_argv(work: Path, iso: Path, seed_iso: Path) -> list[str]:
     ]
 
 
+class FirmwareMirror:
+    """OVMF writes the same console bytes to every ISA serial port (KI-0154).
+
+    Measured in diagnostic run 41172293108: COM2 received exactly COM1's
+    firmware bytes. A non-protocol line on the guest protocol port must equal,
+    in order, the next complete line OVMF wrote to the COM1 firmware console
+    within MIRROR_SECONDS and before the guest's terminal row; any other text
+    is still refused. The guest closes COM2 after its terminal row, so bytes
+    received with that row are refused and later ones are never read.
+    """
+
+    def __init__(self) -> None:
+        self.partial = b""
+        self.lines: collections.deque[bytes] = collections.deque()
+        self.pending: collections.deque[tuple[float, bytes]] = collections.deque()
+
+    def console(self, chunk: bytes) -> None:
+        *complete, self.partial = (self.partial + chunk).split(b"\n")
+        self.lines.extend(complete)
+        self.settle()
+
+    def protocol_port_line(self, line: bytes) -> None:
+        self.pending.append((time.monotonic(), line))
+        self.settle()
+
+    def settle(self) -> None:
+        while self.pending and self.lines:
+            if self.pending[0][1] != self.lines[0]:
+                raise ValueError("Closed bounded owned-guest protocol required")
+            self.pending.popleft()
+            self.lines.popleft()
+        if self.pending and time.monotonic() - self.pending[0][0] > MIRROR_SECONDS:
+            raise ValueError("Closed bounded owned-guest protocol required")
+
+    def terminal(self) -> None:
+        """The protocol ends: no unmirrored COM2 text is part of its verdict."""
+        self.settle()
+        if self.pending:
+            raise ValueError("Closed bounded owned-guest protocol required")
+
+
+def installation_media_started(console: bytes) -> bool:
+    """A complete OVMF console line reports the reviewed media's loader start."""
+    prefix, path = INSTALL_MEDIA_STARTED
+    return any(
+        prefix in line and line.rstrip(b"\r").endswith(path)
+        for line in console.split(b"\n")[:-1]
+    )
+
+
+def diagnostic_frame(owner: Owner, name: str) -> dict[str, Any]:
+    """One bounded QMP frame of where Setup/OOBE or a failure path stopped."""
+    if re.fullmatch(r"win11-(?:failure|progress-[1-9])", name) is None:
+        raise ValueError("Diagnostic frame name exceeded allowance")
+    # The failure frame runs on failure paths, like the shared owner's own
+    # failure frame, so it is not refused by the VM raw output cap.
+    return validated_frame(
+        owner,
+        owner.proof / (name + ".ppm"),
+        diagnostic_bounds,
+        cleanup=name == "win11-failure",
+    )
+
+
+def diagnostic_bounds(path: Path) -> dict[str, Any]:
+    """A diagnostic frame is bounded RGB; it may be blank or any display size."""
+    size = path.stat().st_size
+    if size > DIAGNOSTIC_FRAME_BYTES:
+        raise ValueError("Diagnostic frame exceeded cap")
+    with path.open("rb") as stream:
+        header = re.match(rb"P6\s+([0-9]+)\s+([0-9]+)\s+255\s", stream.read(64))
+    if header is None:
+        raise ValueError("Actual QMP RGB frame required")
+    return {
+        "file": path.name,
+        "bytes": size,
+        "width": int(header.group(1)),
+        "height": int(header.group(2)),
+        "sha256": digest(path),
+        "scope": "DIAGNOSTIC_FRAME_ONLY_NOT_PHASE_OR_ACCEPTANCE_EVIDENCE",
+    }
+
+
+def stop_after_pass(owner: Owner) -> dict[str, Any]:
+    """Bounded power-off after a validated guest PASS; slowness is recorded.
+
+    A slow power-off is a collection fact, not a verdict: after the bound one
+    QMP quit stops the VM so the result disk is still copied and checked. The
+    waits never depend on a QMP reply: a lost power-off reply still waits for
+    the power-off, and QEMU may close QMP before its quit reply is read. Both
+    requests use cleanup authority, so a raw output cap tripped after the
+    PASS never withholds them.
+    """
+    child = owner.child
+    if child is None:
+        raise ValueError("Owned VM required")
+    started = time.monotonic()
+    row: dict[str, Any] = {
+        "request": "system_powerdown",
+        "bound_seconds": POWERDOWN_SECONDS,
+        "acpi_s3_s4": "DISABLED",
+        "graceful": False,
+        "forced_quit": False,
+    }
+    try:
+        owner.qmp_call("system_powerdown", cleanup=True)
+    except Exception as error:
+        row["powerdown_error"] = type(error).__name__
+    with contextlib.suppress(subprocess.TimeoutExpired):
+        child.wait(timeout=POWERDOWN_SECONDS)
+    row["graceful"] = child.poll() is not None
+    row["seconds"] = round(time.monotonic() - started, 3)
+    if child.poll() is None:
+        row["forced_quit"] = True
+        try:
+            owner.qmp_call("quit", cleanup=True)
+        except QmpClosedError:
+            row["quit_reply"] = "QMP_CLOSED_BY_QUIT"
+        except Exception as error:
+            row["quit_error"] = type(error).__name__
+        with contextlib.suppress(subprocess.TimeoutExpired):
+            child.wait(timeout=FORCED_STOP_SECONDS)
+    row["exit_code"] = child.poll()
+    row["vm_output_cap_exceeded"] = owner.vm_output_exceeded()
+    return row
+
+
 def observe(  # noqa: PLR0912, PLR0915 - bounded ordered receipt protocol
     owner: Owner, nonce: str, package_pin: str, expected_cpu: str
 ) -> dict[str, Any]:
-    owner.qmp = connect(owner.work / "qmp.sock", owner)
-    owner.qmp_stream = owner.qmp.makefile("rb")
-    greeting = owner.qmp_stream.readline(65537)
-    if len(greeting) > QMP_CAP or "QMP" not in json.loads(greeting):
-        raise ValueError("Actual owned QMP greeting required")
-    owner.qmp_call("qmp_capabilities")
+    owner.qmp_open(connect(owner.work / "qmp.sock", owner))
+    firmware = connect(owner.work / "firmware.sock", owner)
     serial = connect(owner.work / "serial.sock", owner)
-    serial.settimeout(1)
     receipts: list[dict[str, Any]] = []
     buffer = b""
+    console = b""
+    mirror = FirmwareMirror()
     total = 0
-    boot_key_at = time.monotonic() + 8
+    started = time.monotonic()
+    media_started: float | None = None
     key_sent = False
-    with serial, (owner.proof / "guest-serial.raw").open("xb") as raw:
+    progress = 0
+    next_progress = started + PROGRESS_FRAME_SECONDS
+    with (
+        firmware,
+        serial,
+        (owner.proof / "firmware-console.raw").open("xb") as console_raw,
+        (owner.proof / "guest-serial.raw").open("xb") as raw,
+    ):
         while time.monotonic() < owner.work_deadline:
             if owner.child is None or owner.child.poll() is not None:
                 raise ValueError(
                     "Owned Windows VM exited before complete guest receipt"
                 )
-            if not key_sent and time.monotonic() >= boot_key_at:
-                # One owned-VM installation boot key; no OOBE/account interaction.
-                owner.keys(["spc"])
-                key_sent = True
-            try:
-                data = serial.recv(65536)
-            except TimeoutError:
+            if not key_sent:
+                if media_started is None and installation_media_started(console):
+                    media_started = time.monotonic()
+                if media_started is None:
+                    if time.monotonic() - started >= BOOT_MEDIA_SECONDS:
+                        raise TimeoutError(
+                            "Firmware never started the reviewed installation media"
+                        )
+                elif time.monotonic() - media_started >= BOOT_KEY_DELAY:
+                    # One owned-VM installation boot key, answering the media
+                    # loader's own prompt; no OOBE/account interaction.
+                    owner.keys(["spc"])
+                    key_sent = True
+            elif (
+                not receipts
+                and progress < PROGRESS_FRAME_CAP
+                and time.monotonic() >= next_progress
+            ):
+                # Low-rate frames through Setup/OOBE until the first receipt,
+                # so a stall shows where it stopped. One failure ends them; a
+                # late reply is discarded by id and never ends the campaign,
+                # but an unusable QMP stream ends it at once with its cause.
+                progress += 1
+                next_progress = time.monotonic() + PROGRESS_FRAME_SECONDS
+                name = "win11-progress-" + str(progress)
+                try:
+                    shot = diagnostic_frame(owner, name)
+                except Exception as error:
+                    shot = {"file": name + ".ppm", "error_type": type(error).__name__}
+                    progress = PROGRESS_FRAME_CAP
+                write(owner.proof / ("frame-" + name + ".json"), shot)
+                if owner.qmp_unusable is not None:
+                    owner.qmp_fail(owner.qmp_unusable)
+            mirror.settle()
+            readable, _, _ = select.select(
+                [firmware, serial], [], [], 1 if key_sent else 0.1
+            )
+            if firmware in readable:
+                chunk = firmware.recv(65536)
+                if not chunk:
+                    raise ValueError("Owned firmware console closed")
+                console += chunk
+                if len(console) > FIRMWARE_CONSOLE_CAP:
+                    raise ValueError("Owned firmware console output exceeds cap")
+                console_raw.write(chunk)
+                console_raw.flush()
+                mirror.console(chunk)
+            if serial not in readable:
                 continue
+            data = serial.recv(65536)
             if not data:
                 raise ValueError("Owned guest serial channel closed")
             total += len(data)
@@ -420,8 +758,11 @@ def observe(  # noqa: PLR0912, PLR0915 - bounded ordered receipt protocol
             buffer += data
             while b"\n" in buffer:
                 line, buffer = buffer.split(b"\n", 1)
-                if len(line) > QMP_CAP or not line.startswith(b"JAPP11 "):
+                if len(line) > QMP_CAP:
                     raise ValueError("Closed bounded owned-guest protocol required")
+                if not line.startswith(b"JAPP11 "):
+                    mirror.protocol_port_line(line)
+                    continue
                 row = json.loads(line[7:].rstrip(b"\r"))
                 if (
                     row.get("nonce") != nonce
@@ -430,6 +771,9 @@ def observe(  # noqa: PLR0912, PLR0915 - bounded ordered receipt protocol
                     raise ValueError("Guest receipt identity differs")
                 if "terminal" in row:
                     write(owner.proof / "guest-terminal.json", row)
+                    mirror.terminal()
+                    if buffer:
+                        raise ValueError("Closed bounded owned-guest protocol required")
                     if row["terminal"] != "PASS":
                         raise ValueError(
                             "Actual Windows guest environment or lifecycle failed"
@@ -453,14 +797,7 @@ def observe(  # noqa: PLR0912, PLR0915 - bounded ordered receipt protocol
                 receipts.append(row)
                 if len(receipts) > len(REQUIRED_PHASES):
                     raise ValueError("Guest phase count exceeds bound")
-                if row["phase"] in {
-                    "environment",
-                    "ready",
-                    "keyboard",
-                    "restart",
-                    "relaunch",
-                    "collision",
-                }:
+                if row["phase"] in FRAMED_PHASES:
                     frame = owner.frame("win11-" + row["phase"])
                     write(owner.proof / ("frame-" + row["phase"] + ".json"), frame)
                     if row["phase"] == "environment":
@@ -471,7 +808,12 @@ def observe(  # noqa: PLR0912, PLR0915 - bounded ordered receipt protocol
                             raise ValueError(
                                 "Actual QMP frame and guest display dimensions differ"
                             )
-                        serial.sendall(("JAPP11-ENV-ACCEPT " + nonce + "\n").encode())
+                        accept = "JAPP11-ENV-ACCEPT " + nonce
+                    else:
+                        # The guest holds its next UI action until the frame
+                        # named for this phase exists.
+                        accept = "JAPP11-FRAME-ACCEPT " + row["phase"] + " " + nonce
+                    serial.sendall((accept + "\n").encode())
     raise TimeoutError(
         "Actual Windows setup/guest deadline expired; no login automation fallback"
     )
@@ -504,8 +846,8 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one retained VM/TPM custody brack
     work = args.proof / "private-work"
     work.mkdir(mode=0o700)
     owner = Owner(work, args.proof)
-    owner.work_deadline = owner.started + 3300
-    owner.cleanup_deadline = owner.work_deadline + 60
+    owner.work_deadline = owner.started + WORK_SECONDS
+    owner.cleanup_deadline = owner.work_deadline + POST_PASS_SECONDS
     tpm: ChildCustody | None = None
     before = None
     package = None
@@ -536,6 +878,18 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one retained VM/TPM custody brack
             or media["iso_retained_in_artifact"] is not False
         ):
             raise ValueError("Exact official publisher/media identity required")
+        # Fail fast on an unreviewed hosted CPU; the observation is kept either way.
+        current_cpu = host_cpu()
+        cpu_row: dict[str, Any] = {
+            "observed": current_cpu,
+            "candidate_recorded": media[
+                "host_cpu_requires_different_official_support_review"
+            ],
+        }
+        try:
+            cpu_row["windows11_support_basis"] = host_cpu_support(current_cpu)
+        finally:
+            write(args.proof / "host-cpu.json", cpu_row)
         package = original_package(
             args.bundle / "original-native-artifact",
             args.manifest_sha256,
@@ -544,12 +898,6 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one retained VM/TPM custody brack
         )
         before = source_binding(args.source, owner, args.expected_head, package)
         write(args.proof / "source-before.json", before)
-        current_cpu = host_cpu()
-        if current_cpu != media["host_cpu_requires_different_official_support_review"]:
-            raise ValueError(
-                "Hosted CPU differs from independently reviewed supported candidate CPU"
-            )
-        write(args.proof / "host-cpu.json", current_cpu)
         result["resource_preflight"] = ensure_capacity(owner)
         actual_capacity = capacity(work)
         write(args.proof / "host-capacity.json", actual_capacity)
@@ -644,10 +992,12 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one retained VM/TPM custody brack
             owner, nonce, package["portable_sha256"], current_cpu["model name"]
         )
         write(args.proof / "lifecycle.json", observation)
-        owner.qmp_call("system_powerdown")
-        owner.child.wait(timeout=30)
-        if owner.child.returncode != 0:
-            raise ValueError("Owned guest graceful shutdown failed")
+        # The validated guest PASS is recorded before collection; power-off
+        # and the result copy are bounded cleanup-authority steps.
+        result["guest_terminal"] = "PASS"
+        result["guest_stop"] = stop_after_pass(owner)
+        if result["guest_stop"]["exit_code"] != 0:
+            raise ValueError("Owned QEMU did not stop cleanly after guest PASS")
         destination = args.proof / "guest-results"
         destination.mkdir()
         owner.command(
@@ -659,7 +1009,8 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one retained VM/TPM custody brack
                 "::/proof",
                 str(destination),
             ],
-            seconds=15,
+            seconds=COLLECT_SECONDS,
+            cleanup=True,
         )
         output = destination / "proof"
         files = list(output.rglob("*"))
@@ -701,12 +1052,28 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one retained VM/TPM custody brack
             and owner.child.returncode is None
             and owner.qmp is not None
         ):
-            try:
-                owner.qmp_call("system_powerdown")
-                owner.child.wait(timeout=20)
-                result["guest_powerdown_before_collection"] = owner.child.returncode
-            except BaseException as error:
-                result["guest_powerdown_error"] = type(error).__name__
+            # A VM still running here is a failure or timeout path: keep one
+            # frame of where it stopped first, never masking the primary error.
+            # An unusable QMP stream skips both; closure then quits or kills.
+            if owner.qmp_unusable is None:
+                try:
+                    result["failure_frame"] = diagnostic_frame(owner, "win11-failure")
+                except BaseException as error:
+                    result["failure_frame_error"] = type(error).__name__
+            if owner.qmp_unusable is None:
+                try:
+                    owner.qmp_call("system_powerdown")
+                except BaseException as error:
+                    result["guest_powerdown_error"] = type(error).__name__
+                try:
+                    owner.child.wait(timeout=20)
+                except subprocess.TimeoutExpired:
+                    pass
+                except BaseException as error:
+                    result["guest_powerdown_error"] = type(error).__name__
+                result["guest_powerdown_before_collection"] = owner.child.poll()
+            else:
+                result["qmp_unusable"] = owner.qmp_unusable
         try:
             result["vm_closure"] = owner.close()
         except BaseException as error:
@@ -726,6 +1093,21 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one retained VM/TPM custody brack
                 "group_observer_error": observer_error,
                 "error_type": type(error).__name__,
             }
+        # Only validated frames are retained with a PASS. A phase or diagnostic
+        # frame whose screendump never answered may have been written since,
+        # and a refused frame whose removal failed is still there: both are
+        # removed here, and one that cannot be removed fails the campaign.
+        try:
+            removed, failed = owner.discard_late_frames()
+        except BaseException as error:
+            removed, failed = [], [type(error).__name__]
+        if removed:
+            result["unvalidated_frames_removed"] = removed
+        if failed:
+            result.update(
+                status="UNVALIDATED_FRAME_CLEANUP_FAILURE",
+                late_frame_cleanup_error=failed[0],
+            )
         if tpm is not None and (
             owner.child is None or owner.child.returncode is not None
         ):
@@ -748,9 +1130,9 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one retained VM/TPM custody brack
                 owner.child is not None
                 and owner.child.returncode is not None
                 and (work / "result.img").is_file()
-                and not destination.exists()
+                and not (destination.is_dir() and any(destination.iterdir()))
             ):
-                destination.mkdir()
+                destination.mkdir(exist_ok=True)
                 owner.command(
                     [
                         TOOLS["mcopy"],

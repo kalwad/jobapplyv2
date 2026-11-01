@@ -12474,3 +12474,52 @@ Review: an independent read-only reviewer (`review.md` in the packet) found the 
 
 Manual/UI validation: none. Security/privacy impact: the parser still reads only APT-authenticated, Release-joined indexes with unchanged per-stanza, per-index and total memory bounds; no credential was used for any download. Known limitations: fresh hosted CI, new download-only requests and the Windows 11/GNOME VM campaigns are pending. Next READY package: NONE while M03-W07 is IN_PROGRESS.
 
+
+## M03-W07/W08 — native campaign runtime corrections from hosted diagnostics and an independent combined review (2026-11-01UTC)
+
+Scope: M03-W07 stays IN_PROGRESS. No VM campaign ran and none was released; Windows Server 2025 hosts are not Windows 11 evidence. This entry covers uncommitted corrections for KI-0146 to KI-0158 and KI-0162 to KI-0168 (KI-0159, KI-0160, KI-0161, KI-0167 and KI-0169 are LOW and open). It records the hosted diagnostic rounds that found and checked them; exact docs/evidence/m03-native-runtime-diagnostics (README, run-metadata.json for 33 runs, per-round sources.json, retention-manifest.json, 241 files).
+
+Diagnostics (scratch branches diag/windows-service-env, diag/win-guest-lifecycle, diag/win-gui-service and diag/win-product-final, never merged):
+- Windows 11 boot console and boot key: rounds 1–3 (KI-0154, KI-0155).
+- The packaged Windows desktop never started its service: rounds 4–6 and instrumented builds. It refused Tauri's verbatim `\\?\` resource directory (KI-0157).
+- WebView2 swallowed Ctrl+Q: rounds 7–11 (KI-0158). Rounds 9–11 also found the `#32768` menu.
+- The guest driver's own sliced phases from `ready` through cleanup reached a probe terminal PASS on hosted windows-2025 in rounds 21, 23 and 26. Round 26 used an uninstrumented build of exactly the working-tree product files (build run41249725017). The serial receipts, frame-acceptance waits, environment phase, attestation and the guest's terminal block were replaced or did not run.
+- The GNOME harness's own VM functions ran under KVM in the real GDM/Wayland session (rounds 12–28), finding KI-0162, KI-0164, KI-0165 and KI-0166. Round 28 reached ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS (115 receipts). It bypassed:
+  - the authorize job;
+  - ubuntu_gnome_host.py;
+  - prepare_inputs;
+  - final_source_guard.
+
+Review: three rounds of independent multi-agent review, each finding with two refuters.
+- Round 2 found per-harness defects; all reviewers returned CLEAR_WITH_NOTES after fixes.
+- Round 3 was a combined review over four dimensions (product Rust, GNOME harness, Windows harness, evidence truthfulness). It confirmed 25 findings, 8 of them blocking:
+  - two tests that fail on hosted Windows (an fcntl import order and a float clock comparison);
+  - unmirrored COM2 text accepted just before the terminal row;
+  - documentation overstatements: 12×401 for GNOME, which makes 6; the GNOME bypass list; the Windows round scope; a stale manifest.
+- Four implementers fixed those findings on disjoint files. Eight adversarial reviews returned CLEAR_WITH_NOTES, and the notes were then fixed here with tests:
+  - KI-0168: a duplicate File menu or Quit item now fails at once;
+  - bytes received with the Windows terminal row are refused;
+  - the stop result records whether the VM output cap was exceeded;
+  - pins for the closed receipt names, the serial scan cap and the planted symlink;
+  - the key-state high bit and further drive_form cases.
+- A rerun completeness critic found four more: a mypy rebinding; unrecorded answer-file and job-timeout changes; an unpinned `upgraded` summary clause. All four are fixed and recorded in PROJECT_STATUS. A job-timeout budget test now requires 70 min × 60 − (3300 + 265) ≥ 600 s.
+- Every new behaviour test was shown to fail on the pre-change code or on a named faithful mutant. Mutant logs are in the session scratch; examples are the label-scroll, no-settle, all-focused-rows, no-escape-cap, unbound-record, R1j/R1g, no-fail-fast, first-of-many-menus, trailing-bytes, `upgraded` and 65-minute mutants.
+
+Commands and observations (macOS arm64, PATH with /opt/homebrew/opt/node@24/bin and /opt/homebrew/opt/rustup/bin, PYTHONDONTWRITEBYTECODE=1). Final uncommitted tree; `git status --porcelain` + `git diff` and the untracked-file hashes were identical before and after the run:
+- `pnpm run doctor` → exit 0, `summary: 27 pass, 1 warning, 0 fail, 0 not-yet-applicable`.
+- `pnpm verify` → `verification exit code: 0`. All 20 ACTIVE suites PASS: toolchain, format, lint, typecheck, unit-ts, contract-gen, fixture-corpus, evaluation-corpus, contract, build, e2e-browser, w14-public-controlled, w14-public-contact-controlled, visual, python, rust, portability, traceability, status, integrity. Python `3168 passed in 507.73s (0:08:27)` against the exact inventory (3166 common + 2 POSIX-only); Rust desktop `351 passed` in each of three runs.
+- In a scratch copy of src-tauri, frontend dist and packages/contracts, with an emptied runtime payload and a no-op llvm-rc, `cargo +1.97.1 clippy --locked --offline --target x86_64-pc-windows-msvc --all-targets --all-features -- -D warnings` on the final lib.rs and runtime_descriptor.rs → `Finished`. The sources were verified identical with `diff -rq`.
+- An earlier run of the same tree before the last fixes failed typecheck/python on three mypy errors (`no-any-return` ×3, then `possibly-undefined`); those were corrected before this run.
+
+This results paragraph was appended after the run. Manual/UI validation: the scoped hosted diagnostics above, with frames retained as PNG. No Windows 11 Setup/OOBE/answer file, attestation or campaign ran, and no reviewed GNOME request ran end to end.
+
+Security/privacy impact:
+- The KI-0158 handler adds no IPC and marks exactly a first plain Ctrl+Q handled.
+- The Windows 11 answer file hides the licence page only within OD-038's scope.
+- Retained evidence holds no credentials: the 401 receipts record only `wrong_token` flags, and secret-pattern scans of the evidence were clean.
+
+Known limitations:
+- Hosted CI at the committed head has not run yet; the new test files have never run on hosted macOS, Ubuntu or Windows.
+- Both VM campaigns are pending at a rebuilt, re-reviewed candidate.
+
+Next READY package: NONE while M03-W07 is IN_PROGRESS.

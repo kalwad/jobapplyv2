@@ -26,15 +26,20 @@ class TextRange(Protocol):
 
 
 class Text(Protocol):
+    # PyGObject returns the Accessible itself as its Text interface, and
+    # libatspi's deprecated atspi_accessible_get_text() alias shadows
+    # Text.get_text(start, end) on it (measured in the real GDM session,
+    # KI-0162). Read text through the interface class: Atspi.Text.get_text.
     def get_character_count(self) -> int: ...
-    def get_text(self, start: int, end: int) -> str: ...
     def get_character_extents(self, offset: int, coordinates: object) -> Rect: ...
     def get_string_at_offset(self, offset: int, granularity: object) -> TextRange: ...
 
 
 class Action(Protocol):
+    # PyGObject returns the Accessible itself as its Action interface, so the
+    # Action name is get_action_name; get_name(index) is Accessible.get_name.
     def get_n_actions(self) -> int: ...
-    def get_name(self, index: int) -> str: ...
+    def get_action_name(self, index: int) -> str: ...
     def do_action(self, index: int) -> bool: ...
 
 
@@ -81,7 +86,12 @@ class Scroll(Protocol):
     TOP_EDGE: object
 
 
+class TextInterface(Protocol):
+    def get_text(self, text: Text, start: int, end: int) -> str: ...
+
+
 class Atspi(Protocol):
+    Text: TextInterface
     CoordType: Coordinates
     TextGranularity: Granularity
     ScrollType: Scroll
@@ -147,6 +157,10 @@ class Gio(Protocol):
     AppInfoCreateFlags: Flags
 
 
+class GLib(Protocol):
+    Error: object
+
+
 class RequireVersion(Protocol):
     def require_version(self, namespace: str, version: str) -> None: ...
 
@@ -160,3 +174,17 @@ def load_native() -> tuple[Atspi, Gio]:
     gio = cast(Gio, importlib.import_module("gi.repository.Gio"))
     atspi.set_timeout(800, 5000)
     return atspi, gio
+
+
+def native_error() -> type[Exception]:
+    """gi's GLib.Error, which a failed AT-SPI or D-Bus call raises."""
+    require_linux()
+    gi = cast(RequireVersion, importlib.import_module("gi"))
+    gi.require_version("GLib", "2.0")
+    glib = cast(GLib, importlib.import_module("gi.repository.GLib"))
+    error: object = glib.Error
+    # PyGObject defines GLib.Error as a RuntimeError subclass, so it is never
+    # mistaken for the TimeoutError of expired operation authority.
+    if not isinstance(error, type) or not issubclass(error, RuntimeError):
+        raise TypeError("PyGObject GLib.Error must be a RuntimeError subclass")
+    return error

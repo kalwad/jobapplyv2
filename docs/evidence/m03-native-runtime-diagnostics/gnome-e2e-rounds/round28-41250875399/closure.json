@@ -1,0 +1,292 @@
+{
+  "status": "ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS",
+  "product_launched": true,
+  "scope": "DIAGNOSTIC_ROUND_12_NOT_CAMPAIGN_EVIDENCE",
+  "frames": [
+    {
+      "file": "session-before-product.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "6cde89554391fa417f75d01b580f0d7e1bf9a00494b35dec099bd1708fbb244e",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "01-launch.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "f09de7573632916d26e8068e284b33be05c524093c951475066798323850c3ee",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "shell-baseline-home.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "b4141fe1cccb3dad3023271d7718eb4c3af37ffc3e5aa14cebf77052ff63d811",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "shell-baseline-jobs.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "44d3b8b40ebebca51e53782bc36dab09dd6a8e4c5b329511e1fa053b24b63a53",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "shell-baseline-tracker.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "626b044f43d1caae84726291536168bcd31b5443786fdee5f0fdbdd191c2de21",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "shell-baseline-documents.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "d9a7e86efba4ae837d551ee8f0c9b27b3a6ab0e63f24a5a1b6bfe1606054e4bc",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "shell-baseline-profile.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "3dae3ce33f8934c3eac90587c15bb3b5c46511d7e1f90ac65b3f692abed47258",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "shell-baseline-settings.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "afdc871a87fd6bbafdf9a87b4baded4bd76f28e9cc139c6befc0dd572f319a46",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "shell-baseline-diagnostics.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "443452c3b7b87b0f83600208c918c535a7af9c193e270034bcdc26fd4edffacb",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "shell-enlarged-home.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "401cf123981295e2c62c00e92738ca097bf348b8a6164c1944f0d196e1dc6b2b",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "shell-enlarged-jobs.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "ba95aaa7f6183c3182f1bb03e534c0078f0fb492fe4cf444bb22794d56ef69c6",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "shell-enlarged-tracker.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "accd7387c7985d5d819b4f8fe3c887c1fd175f31b4e098448d148cac6895f0fe",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "shell-enlarged-documents.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "a77b38ece7957f02d59599b901021603fce5afbecd5ea9239acadb8b0e7beacd",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "shell-enlarged-profile.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "9d959cb986bfad40cc81dc092f87dbf4a81218a362e836471e0254fbf236dbb8",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "shell-enlarged-settings.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "1a7bc40995a47a69a24dda7eb6551d9ba67841765cfe8ca0a5471d78a790a2c7",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "shell-enlarged-diagnostics.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "b03ac2f38aeb52cb65f874c7e5f0ed58ce61ed410b32a907f26562c800cdc3f7",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "05-keyboard-after-enter.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "046dee0a1a258adf2a2dda6a6f7850c58cc00e804f523b7ca8ad2a1a9a699988",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "07-crash-service.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "697e10694ca51f4049fce6a539a1efc6e07b3aa53b769ea64fe0792253e55366",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "09-relaunch.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "5f73f4346376956b2bf29070b0eea8b605e2a7b22e854f8463094c2fd83050ad",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    },
+    {
+      "file": "16-relocated-launch.ppm",
+      "width": 1280,
+      "height": 800,
+      "sha256": "43be15ae9e020389bce142a5a18a2d334e4c9536fb477c678bd9b1f1bb662815",
+      "nonblank": true,
+      "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+    }
+  ],
+  "receipts": [
+    {
+      "file": "01-launch.json",
+      "sha256": "868c9f8d395b6edc5ec639697ffb326b14143b7ab33e1cffc2f36c1286392ff4",
+      "operation": "launch"
+    },
+    {
+      "file": "98-keyboard_before.json",
+      "sha256": "6c05624f5fd496ca72de794dd578a40f3c23ad2feaf139410ece932068fffe49",
+      "operation": "keyboard_before"
+    },
+    {
+      "file": "99-keyboard_after_tab.json",
+      "sha256": "f446c91846c6e2c3cc726b1727c349bd8171b0832ff47b65465d0930d674095f",
+      "operation": "keyboard_after_tab"
+    },
+    {
+      "file": "100-keyboard_after_shift_tab.json",
+      "sha256": "3a591e42d836122041b318f01be70946db9797199d0530461732e08c595241ff",
+      "operation": "keyboard_after_shift_tab"
+    },
+    {
+      "file": "101-keyboard_after_enter.json",
+      "sha256": "63e79cf774809e812f707800384e5fa4202056f03cd168e8743c1e343604dc9f",
+      "operation": "keyboard_after_enter"
+    },
+    {
+      "file": "103-auth.json",
+      "sha256": "2da873b509b2d9aea3474551cad3cd43dbf70daa6ea721a8cff4923f9fdccb87",
+      "operation": "auth"
+    },
+    {
+      "file": "104-crash_service.json",
+      "sha256": "39ec130ecb7ecd64b25a7ee816e7caef449775ea4e7a4d98f2fc942f3f156e9f",
+      "operation": "crash_service"
+    },
+    {
+      "file": "105-close_observe.json",
+      "sha256": "7064240489fb5e895fd5201ddcb2411031c46bb3ac2d6169da3f76517db48b10",
+      "operation": "close_observe"
+    },
+    {
+      "file": "106-relaunch.json",
+      "sha256": "14dded264b73587c0b49075f8486a3ecbc67c7f90825c3a4fe2ef82042a1cb05",
+      "operation": "relaunch"
+    },
+    {
+      "file": "107-close_observe.json",
+      "sha256": "38bd1d92c71170b25f35bfead4834477ab2c5d1ed0739575b37b86251ccc91ec",
+      "operation": "close_observe"
+    },
+    {
+      "file": "108-relaunch.json",
+      "sha256": "52ff5edd0e6d66bf006c7b76afb581497bc82e24d6277144ecf6ae97377c1609",
+      "operation": "relaunch"
+    },
+    {
+      "file": "109-quit_menu.json",
+      "sha256": "716223d4d4d18b1b8f9f9d317743329dc90dd9cc7f4efa4ebfb672a214ed887e",
+      "operation": "quit_menu"
+    },
+    {
+      "file": "110-relaunch.json",
+      "sha256": "c06a1391599b42c4296c3505c087dfdc2cca8447a3072dcd623249869fd3db35",
+      "operation": "relaunch"
+    },
+    {
+      "file": "111-accelerator_focus.json",
+      "sha256": "8bb8494b6087c57540c1ee267db96c3aff46ac4fe047331ab4cc61b86115b34c",
+      "operation": "accelerator_focus"
+    },
+    {
+      "file": "112-quit_accelerator.json",
+      "sha256": "1e27ec1bc750b31c2e7ef9f8a098970bba54b36344800211a546684211bc2cbb",
+      "operation": "quit_accelerator"
+    },
+    {
+      "file": "113-relocated_launch.json",
+      "sha256": "10e4e4f820cd14c46b9180e84eb634668b17e2907f0fd78550bb29b84071341a",
+      "operation": "relocated_launch"
+    },
+    {
+      "file": "114-force_parent.json",
+      "sha256": "85551c5d8e8c0b94024913b40969acd90ba00219c9dd3edc6f719a710963fbe9",
+      "operation": "force_parent"
+    },
+    {
+      "file": "115-finish.json",
+      "sha256": "ff03b1fc1187f65037834015127570fbaaa72a590d172e7b4e8a0d402ed75e1a",
+      "operation": "finish"
+    }
+  ],
+  "guest_closure_sha256": "4754901a2b97c43e36075f86c45637ee947fc28aa47e3ac2d6f0015f56e0bd6f",
+  "package_sha256": "fa69fdb2a67b2eb3a1cb857b7b234a213f987dad7b02475a4866f27bf17a2c51",
+  "source_head": "diagnostic-round-12",
+  "default_session_type": "wayland",
+  "distinct_quit": "ATSPI_FILE_MENU_QUIT_AND_QMP_CTRL_Q_OBSERVED",
+  "universal_escaped_descendant_absence_claimed": false,
+  "forced_startup_collision_recovery_claimed": false,
+  "platform_certification_claimed": false,
+  "outer_closure": {
+    "vm_started": true,
+    "direct_child_reaped": true,
+    "exit_code": 0,
+    "signals": [],
+    "group_authority_verified": true,
+    "group_after_reap": "ABSENT",
+    "qmp_quit_error_type": null,
+    "pending_commands": [],
+    "universal_escaped_descendant_absence_claimed": false
+  },
+  "serial_stream": {
+    "bytes": 71961,
+    "sha256": "3b907ed07d7c47e5aa18b4d3d38fea5184d150df8109254fbd0c27b5c6ae882a",
+    "full_stream_retained": false,
+    "tail_cap_bytes": 65536,
+    "tail_retained": true,
+    "tail_file": "guest-serial-tail.log",
+    "tail_bytes": 65536,
+    "tail_sha256": "b50ab40462980d7c815f6f8f50bb2bb116e6a9c0a850605571a272f9c0d8292a",
+    "reason": "BOUNDED_TAIL_SCANNED_NO_PRIVATE_KEY_MATERIAL"
+  },
+  "campaign_status_before_finalization": "ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS",
+  "finalization_errors": [],
+  "elapsed_seconds": 340.569283361
+}

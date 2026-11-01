@@ -1,0 +1,256 @@
+[
+    {
+        "at":  "2026-10-31T22:33:59.4547980+00:00",
+        "key":  "at-100",
+        "value":  {
+                      "value":  {
+                                    "region_patterns":  [
+                                                            "ScrollItemPatternIdentifiers.Pattern"
+                                                        ],
+                                    "rect":  [
+                                                 207,
+                                                 16
+                                             ],
+                                    "offscreen":  false,
+                                    "leaf_patterns":  [
+                                                          "TextPatternIdentifiers.Pattern",
+                                                          "ScrollItemPatternIdentifiers.Pattern"
+                                                      ],
+                                    "range_rects":  1
+                                },
+                      "ok":  true
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:34:03.1552565+00:00",
+        "key":  "at-175-before",
+        "value":  {
+                      "value":  {
+                                    "region_patterns":  [
+                                                            "ScrollItemPatternIdentifiers.Pattern"
+                                                        ],
+                                    "rect":  [
+                                                 811,
+                                                 28
+                                             ],
+                                    "offscreen":  true,
+                                    "leaf_patterns":  [
+                                                          "TextPatternIdentifiers.Pattern",
+                                                          "ScrollItemPatternIdentifiers.Pattern"
+                                                      ],
+                                    "range_rects":  0
+                                },
+                      "ok":  true
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:34:04.0013822+00:00",
+        "key":  "leaf-range-scroll",
+        "value":  {
+                      "value":  {
+                                    "region_patterns":  [
+                                                            "ScrollItemPatternIdentifiers.Pattern"
+                                                        ],
+                                    "rect":  [
+                                                 811,
+                                                 28
+                                             ],
+                                    "offscreen":  true,
+                                    "leaf_patterns":  [
+                                                          "TextPatternIdentifiers.Pattern",
+                                                          "ScrollItemPatternIdentifiers.Pattern"
+                                                      ],
+                                    "range_rects":  0
+                                },
+                      "ok":  true
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:34:05.2309898+00:00",
+        "key":  "reset-to-top",
+        "value":  {
+                      "value":  {
+                                    "region_patterns":  [
+                                                            "ScrollItemPatternIdentifiers.Pattern"
+                                                        ],
+                                    "rect":  [
+                                                 808,
+                                                 28
+                                             ],
+                                    "offscreen":  true,
+                                    "leaf_patterns":  [
+                                                          "TextPatternIdentifiers.Pattern",
+                                                          "ScrollItemPatternIdentifiers.Pattern"
+                                                      ],
+                                    "range_rects":  0
+                                },
+                      "ok":  true
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:34:06.0626887+00:00",
+        "key":  "region-range-scroll",
+        "value":  {
+                      "value":  {
+                                    "region_patterns":  [
+                                                            "ScrollItemPatternIdentifiers.Pattern"
+                                                        ],
+                                    "rect":  [
+                                                 -55,
+                                                 28
+                                             ],
+                                    "offscreen":  true,
+                                    "leaf_patterns":  [
+                                                          "TextPatternIdentifiers.Pattern",
+                                                          "ScrollItemPatternIdentifiers.Pattern"
+                                                      ],
+                                    "range_rects":  0
+                                },
+                      "ok":  true
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:34:07.3043068+00:00",
+        "key":  "reset-to-top-2",
+        "value":  {
+                      "value":  {
+                                    "region_patterns":  [
+                                                            "ScrollItemPatternIdentifiers.Pattern"
+                                                        ],
+                                    "rect":  [
+                                                 808,
+                                                 28
+                                             ],
+                                    "offscreen":  true,
+                                    "leaf_patterns":  [
+                                                          "TextPatternIdentifiers.Pattern",
+                                                          "ScrollItemPatternIdentifiers.Pattern"
+                                                      ],
+                                    "range_rects":  0
+                                },
+                      "ok":  true
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:34:08.2345754+00:00",
+        "key":  "leaf-scrollitem",
+        "value":  {
+                      "value":  {
+                                    "region_patterns":  [
+                                                            "ScrollItemPatternIdentifiers.Pattern"
+                                                        ],
+                                    "rect":  [
+                                                 405,
+                                                 28
+                                             ],
+                                    "offscreen":  false,
+                                    "leaf_patterns":  [
+                                                          "TextPatternIdentifiers.Pattern",
+                                                          "ScrollItemPatternIdentifiers.Pattern"
+                                                      ],
+                                    "range_rects":  1
+                                },
+                      "ok":  true
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:34:09.4666120+00:00",
+        "key":  "reset-to-top-3",
+        "value":  {
+                      "value":  {
+                                    "region_patterns":  [
+                                                            "ScrollItemPatternIdentifiers.Pattern"
+                                                        ],
+                                    "rect":  [
+                                                 808,
+                                                 28
+                                             ],
+                                    "offscreen":  true,
+                                    "leaf_patterns":  [
+                                                          "TextPatternIdentifiers.Pattern",
+                                                          "ScrollItemPatternIdentifiers.Pattern"
+                                                      ],
+                                    "range_rects":  0
+                                },
+                      "ok":  true
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:34:10.3007235+00:00",
+        "key":  "region-scrollitem",
+        "value":  {
+                      "value":  {
+                                    "region_patterns":  [
+                                                            "ScrollItemPatternIdentifiers.Pattern"
+                                                        ],
+                                    "rect":  [
+                                                 406,
+                                                 28
+                                             ],
+                                    "offscreen":  false,
+                                    "leaf_patterns":  [
+                                                          "TextPatternIdentifiers.Pattern",
+                                                          "ScrollItemPatternIdentifiers.Pattern"
+                                                      ],
+                                    "range_rects":  1
+                                },
+                      "ok":  true
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:34:10.4914359+00:00",
+        "key":  "shell-measure-after",
+        "value":  {
+                      "value":  {
+                                    "stage":  "step4",
+                                    "window_id":  "196754",
+                                    "app_pid":  8004,
+                                    "frame":  [
+                                                  0,
+                                                  0,
+                                                  1044,
+                                                  788
+                                              ],
+                                    "backing":  {
+                                                    "kind":  "WIN32_OWNED_HWND",
+                                                    "dpi":  96,
+                                                    "awareness":  2
+                                                },
+                                    "anchors":  [
+                                                    {
+                                                        "text":  "0.0.1",
+                                                        "rect":  [
+                                                                     388,
+                                                                     406,
+                                                                     63,
+                                                                     28
+                                                                 ],
+                                                        "single_line":  true,
+                                                        "visible":  true,
+                                                        "showing":  true
+                                                    },
+                                                    {
+                                                        "text":  "2.12.4",
+                                                        "rect":  [
+                                                                     388,
+                                                                     487,
+                                                                     75,
+                                                                     28
+                                                                 ],
+                                                        "single_line":  true,
+                                                        "visible":  true,
+                                                        "showing":  true
+                                                    }
+                                                ]
+                                },
+                      "ok":  true
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:34:10.5336235+00:00",
+        "key":  "end",
+        "value":  {
+
+                  }
+    }
+]

@@ -1,0 +1,15 @@
+{
+ "accel": "kvm",
+ "variant": "base",
+ "end_seconds": 1507.0,
+ "collected_at_seconds": null,
+ "vm_exit": null,
+ "serial_bytes": 78194,
+ "max_ssh_seconds": 60.06,
+ "ssh_polls_over_6s": 1,
+ "ssh_polls": 190,
+ "milestones_first_seen_host_seconds": {
+  "probe-start": 48.6,
+  "hashed": 59.2
+ }
+}

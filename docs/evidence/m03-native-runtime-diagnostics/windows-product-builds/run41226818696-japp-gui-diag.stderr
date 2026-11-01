@@ -1,0 +1,4 @@
+JAPP_DIAG resource_dir=Some("\\\\?\\C:\\japp-gui-diag") is_dev=false
+JAPP_DIAG runtime_path="\\\\?\\C:\\japp-gui-diag\\runtime\\japp-orchestrator\\japp-orchestrator.exe"
+JAPP_DIAG InvalidRuntime src\service\windows_policy.rs:55
+JAPP_DIAG record_failure=InvalidRuntime

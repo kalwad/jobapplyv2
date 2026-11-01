@@ -1,0 +1,969 @@
+{
+  "scope": "Exact committed bytes of scratch-branch diagnostic probe sources, selected artifact files and bounded extracts from the 33 runs listed in run-metadata.json, and GitHub API metadata. Text copies are LF-normalized for the repository's eol=lf rule by replacing CRLF with LF repeatedly until none remains; PPM frames are converted to PNG. Original artifact file sizes and hashes are in run-metadata.json (rounds 1-11 and the product builds) and in each later round's sources.json.",
+  "files": {
+    "README.md": {
+      "bytes": 15577,
+      "sha256": "ecd7b940ff5753e5c6d555b4c4417958668addfac1ee3f57a445d03e060fb9d5"
+    },
+    "gnome-e2e-rounds/round12-41233236511/01-launch.json": {
+      "bytes": 197,
+      "sha256": "1f95ec6277c15e149f1558d3b3e6b0f01aa359d43e392fd9346eb302c1fc6c68"
+    },
+    "gnome-e2e-rounds/round12-41233236511/actual-gnome-session.json": {
+      "bytes": 12585,
+      "sha256": "a491f1b62537513bb8e1ebc4c644b2e9196a5d3d422d4d4a8f383e124866d1f3"
+    },
+    "gnome-e2e-rounds/round12-41233236511/closure.json": {
+      "bytes": 1860,
+      "sha256": "4be527b6e46a7ac30fa9121e5697bc1fe10ddd5aa6ba5a3f198973ef347f8c34"
+    },
+    "gnome-e2e-rounds/round12-41233236511/failure-final.png": {
+      "bytes": 65706,
+      "sha256": "68de1ef92bce8b00d61949bfa7a29f272d9ff889ceeb3b9a86a6046da819f0b8"
+    },
+    "gnome-e2e-rounds/round12-41233236511/gnome_e2e.py": {
+      "bytes": 2577,
+      "sha256": "f1eaf6722502aa355c5ea68a81bc17141e00d32312afe256982d9ca029837870"
+    },
+    "gnome-e2e-rounds/round12-41233236511/image-receipt.json": {
+      "bytes": 468,
+      "sha256": "90e4b36dc7773dbf04bd456c8b5361d4a8ebe7b2a4c8c75ff25a5a71b822f6ef"
+    },
+    "gnome-e2e-rounds/round12-41233236511/kvm.json": {
+      "bytes": 98,
+      "sha256": "bd0d3813323d89af7b33f19d95b25e40e35d9bded0377d156746c242535f6bf2"
+    },
+    "gnome-e2e-rounds/round12-41233236511/observation-closeout.json": {
+      "bytes": 927,
+      "sha256": "14ac1cd9dd855035d6f785b1f5842e55b1a356845d44f22b33d2367b19b51f69"
+    },
+    "gnome-e2e-rounds/round12-41233236511/provision.json": {
+      "bytes": 57079,
+      "sha256": "80af0f35c92e21d602d86c37c00e035740217e4bd35cb555276ac0a1220b894d"
+    },
+    "gnome-e2e-rounds/round12-41233236511/session-before-product.png": {
+      "bytes": 730475,
+      "sha256": "9af4725b748f03dbe073586e5aea5bfed2daed34c149ec8c1fada52eeb206aa6"
+    },
+    "gnome-e2e-rounds/round12-41233236511/sources.json": {
+      "bytes": 6313,
+      "sha256": "51d34d58802ee8082ce8ab610c6de0329a5e82923add78f9a96f968d8b3353d9"
+    },
+    "gnome-e2e-rounds/round12-41233236511/workflow.yml": {
+      "bytes": 2028,
+      "sha256": "28da06e31c08524cb88adc9fdf3f5bd5e977fb5c5cf0e277475489731dbcac60"
+    },
+    "gnome-e2e-rounds/round16-41248054236/01-launch.json": {
+      "bytes": 17253,
+      "sha256": "6e8995cc34418b2bd6d650da5e96386eb0d273654b52e7be628f57c863f31f0c"
+    },
+    "gnome-e2e-rounds/round16-41248054236/01-launch.png": {
+      "bytes": 71734,
+      "sha256": "ececc71a07988400e98664184a4fc644bf52206110420ea365049184eaa980a4"
+    },
+    "gnome-e2e-rounds/round16-41248054236/02-shell_focus_diagnostics.json": {
+      "bytes": 202,
+      "sha256": "3a06a6a744dd09be2022b4f89a9efa3563b8249ed83064e624cea911ee1b4fde"
+    },
+    "gnome-e2e-rounds/round16-41248054236/actual-gnome-session.json": {
+      "bytes": 12585,
+      "sha256": "a10f05001745fcd70efcd6d7dc7bc8b19462922dbeb0a035369ed4a97e025c48"
+    },
+    "gnome-e2e-rounds/round16-41248054236/closure.json": {
+      "bytes": 2286,
+      "sha256": "6701d8d3f2f10f8f44782d4f008e579f89113930ac20f2ac4a1ab8ead045daf3"
+    },
+    "gnome-e2e-rounds/round16-41248054236/image-receipt.json": {
+      "bytes": 468,
+      "sha256": "90e4b36dc7773dbf04bd456c8b5361d4a8ebe7b2a4c8c75ff25a5a71b822f6ef"
+    },
+    "gnome-e2e-rounds/round16-41248054236/kvm.json": {
+      "bytes": 98,
+      "sha256": "bd0d3813323d89af7b33f19d95b25e40e35d9bded0377d156746c242535f6bf2"
+    },
+    "gnome-e2e-rounds/round16-41248054236/observation-closeout.json": {
+      "bytes": 927,
+      "sha256": "50d5172b852387421b0342ff440f0244ab5bb0ba12fd9757e3e38f294f282ca4"
+    },
+    "gnome-e2e-rounds/round16-41248054236/provision.json": {
+      "bytes": 57079,
+      "sha256": "80af0f35c92e21d602d86c37c00e035740217e4bd35cb555276ac0a1220b894d"
+    },
+    "gnome-e2e-rounds/round16-41248054236/sources.json": {
+      "bytes": 6257,
+      "sha256": "1dedae83abf949e006da345f9d25ac937ecebf2f5ef205cce8adfb9eae17551b"
+    },
+    "gnome-e2e-rounds/round16-41248054236/workflow.yml": {
+      "bytes": 2028,
+      "sha256": "25c1862dad51c7b77490eae6bda5c86c94f49c635f73f97debed50101483a52b"
+    },
+    "gnome-e2e-rounds/round22-41248905032/01-launch.json": {
+      "bytes": 17254,
+      "sha256": "7d4db618df9f46f3f297916bc80258ab2fc4b008ac4408904ef62b03ccfa3c04"
+    },
+    "gnome-e2e-rounds/round22-41248905032/01-launch.png": {
+      "bytes": 71550,
+      "sha256": "1113119b6fe0f6e84a43d6494dde5ddfa3b18e08da725603284b49194637747b"
+    },
+    "gnome-e2e-rounds/round22-41248905032/02-shell_focus_diagnostics.json": {
+      "bytes": 282,
+      "sha256": "efa2bb8c1c4ff2f258141f189554e0e16d2519d0421a337a9331ffd9e1bdf885"
+    },
+    "gnome-e2e-rounds/round22-41248905032/actual-gnome-session.json": {
+      "bytes": 12585,
+      "sha256": "266e9097bf09786d7aeb7192ba2ac724c93fc0a8a4dfdeb4aca17f6d8a8215da"
+    },
+    "gnome-e2e-rounds/round22-41248905032/closure.json": {
+      "bytes": 2286,
+      "sha256": "e37a9897c04613fc564bd68f6775581f08b6f36f0e95f68962ffad8172d9a288"
+    },
+    "gnome-e2e-rounds/round22-41248905032/gnome_e2e.py": {
+      "bytes": 2577,
+      "sha256": "f1eaf6722502aa355c5ea68a81bc17141e00d32312afe256982d9ca029837870"
+    },
+    "gnome-e2e-rounds/round22-41248905032/image-receipt.json": {
+      "bytes": 468,
+      "sha256": "90e4b36dc7773dbf04bd456c8b5361d4a8ebe7b2a4c8c75ff25a5a71b822f6ef"
+    },
+    "gnome-e2e-rounds/round22-41248905032/kvm.json": {
+      "bytes": 98,
+      "sha256": "bd0d3813323d89af7b33f19d95b25e40e35d9bded0377d156746c242535f6bf2"
+    },
+    "gnome-e2e-rounds/round22-41248905032/observation-closeout.json": {
+      "bytes": 927,
+      "sha256": "97117cc268edea3682740719e284e2fbf5fb5a5a1bdc2339acd58f04f76bc2ed"
+    },
+    "gnome-e2e-rounds/round22-41248905032/provision.json": {
+      "bytes": 57079,
+      "sha256": "80af0f35c92e21d602d86c37c00e035740217e4bd35cb555276ac0a1220b894d"
+    },
+    "gnome-e2e-rounds/round22-41248905032/sources.json": {
+      "bytes": 6257,
+      "sha256": "d5fa5c9bc91afc1f998f57e17a8703781dae5b7634eeb41cf874c8d1615994a6"
+    },
+    "gnome-e2e-rounds/round22-41248905032/workflow.yml": {
+      "bytes": 2028,
+      "sha256": "2c8ae455cd7b9aa7e5ecbbdd9d0bec3ac3946517beaf3c540168cf04c920fad8"
+    },
+    "gnome-e2e-rounds/round24-41249463049/50-shell_scale_step3.json": {
+      "bytes": 926,
+      "sha256": "39afc56a3a6e7b65b74f684b50b3c7ca2c814a4e087d03bc6dab706acab57cfb"
+    },
+    "gnome-e2e-rounds/round24-41249463049/51-shell_scale_step4.json": {
+      "bytes": 187,
+      "sha256": "f2a3ddd9fcdc3b98c246bfd6b2a653ebbdec941dc103dec341e895b4308d7146"
+    },
+    "gnome-e2e-rounds/round24-41249463049/actual-gnome-session.json": {
+      "bytes": 12589,
+      "sha256": "add6a8181c91536eb5a8ed7797d438fb05b26b521aaa22247650fcc7718fae92"
+    },
+    "gnome-e2e-rounds/round24-41249463049/closure.json": {
+      "bytes": 2296,
+      "sha256": "03def0d6c5d50121370aae61b78e3874855a3508c166fd11ad900fba796f2843"
+    },
+    "gnome-e2e-rounds/round24-41249463049/failure-final.png": {
+      "bytes": 59549,
+      "sha256": "215bb6831cbaa7314be498e4ae807ef9c6bedaecd5bd9715291164dff136c460"
+    },
+    "gnome-e2e-rounds/round24-41249463049/kvm.json": {
+      "bytes": 98,
+      "sha256": "bd0d3813323d89af7b33f19d95b25e40e35d9bded0377d156746c242535f6bf2"
+    },
+    "gnome-e2e-rounds/round24-41249463049/observation-closeout.json": {
+      "bytes": 927,
+      "sha256": "64ed42df0475f58f0d853c5b4e841cd6f02679b66eb955d0168c7b538d7f7a59"
+    },
+    "gnome-e2e-rounds/round24-41249463049/sources.json": {
+      "bytes": 5978,
+      "sha256": "81de2ec131d7315f55b5fb105a86878696c3b9be79189cddb0c48dc746034295"
+    },
+    "gnome-e2e-rounds/round24-41249463049/workflow.yml": {
+      "bytes": 2028,
+      "sha256": "54c4c377057f512f1ac6626c9fd1add6f62e0c9c07d8f8393254ea857a144936"
+    },
+    "gnome-e2e-rounds/round25-41249857437/51-shell_scale_step4.json": {
+      "bytes": 193,
+      "sha256": "86b804886c5304a574dfda697fac78fd1c980321056ceba5a7c7b87008d173f3"
+    },
+    "gnome-e2e-rounds/round25-41249857437/closure.json": {
+      "bytes": 2290,
+      "sha256": "68185f0e0e89e3708222ccf5c46ddcf0c0938f6afdecbbf4b64f5cde767f6f38"
+    },
+    "gnome-e2e-rounds/round25-41249857437/failure-final.png": {
+      "bytes": 59622,
+      "sha256": "a1289655cdd32c8a408aa10b772abd20a73a84f4d41ce60700e19b9253230e20"
+    },
+    "gnome-e2e-rounds/round25-41249857437/observation-closeout.json": {
+      "bytes": 927,
+      "sha256": "4205cd6f57fe7902de7bd07dcf3428c456c99cdbde06409f82b14510a2863390"
+    },
+    "gnome-e2e-rounds/round25-41249857437/sources.json": {
+      "bytes": 5535,
+      "sha256": "da1678b4bd56afa85db2a6bf2da3a44f3086831300c4fe17c6eb1e868871a2ee"
+    },
+    "gnome-e2e-rounds/round25-41249857437/workflow.yml": {
+      "bytes": 2028,
+      "sha256": "4f855af71e454f0f4df98023e21b3769adae7b24058a9f14bbb543d6074ace76"
+    },
+    "gnome-e2e-rounds/round27-41250366992/51-shell_scale_step4.json": {
+      "bytes": 925,
+      "sha256": "7a57553a9f3069c65742ad574ac482f97b7c254ebb2bad25306b0a9c68005bd8"
+    },
+    "gnome-e2e-rounds/round27-41250366992/52-shell_scale_step5.json": {
+      "bytes": 925,
+      "sha256": "ca09bb07a3cf9d45c9500736d48b7b2e7b743be606a74328382eeb7d0ea179ac"
+    },
+    "gnome-e2e-rounds/round27-41250366992/98-keyboard_before.json": {
+      "bytes": 185,
+      "sha256": "9ae0f1df5d4805cb7fef4843d53be853a97701a971f078103b8c1da3dee80ab4"
+    },
+    "gnome-e2e-rounds/round27-41250366992/closure.json": {
+      "bytes": 1864,
+      "sha256": "4f9bdbb10644e3e8b1c60806299fc29e5ca53aeb9741ef9ca3062236e9f9eece"
+    },
+    "gnome-e2e-rounds/round27-41250366992/failure-final.png": {
+      "bytes": 72948,
+      "sha256": "ffef57f7c83b129cb659b54418e7903713cf2588bb542a6f99e6446e24344849"
+    },
+    "gnome-e2e-rounds/round27-41250366992/observation-closeout.json": {
+      "bytes": 927,
+      "sha256": "c3d13e227744d58ce711e21463a5b1a068675aa91e49bf0c880523a011b7fb4d"
+    },
+    "gnome-e2e-rounds/round27-41250366992/sources.json": {
+      "bytes": 5839,
+      "sha256": "673db8435b22fd703b5f9c3cefe586def17da1eb54fffa982d0355ccb5dd19b7"
+    },
+    "gnome-e2e-rounds/round27-41250366992/workflow.yml": {
+      "bytes": 2028,
+      "sha256": "d9982590476078a0f047699c820ddfa65ffc1b5283e3ada9ad49f0d380d2bde0"
+    },
+    "gnome-e2e-rounds/round28-41250875399/01-launch.json": {
+      "bytes": 17550,
+      "sha256": "868c9f8d395b6edc5ec639697ffb326b14143b7ab33e1cffc2f36c1286392ff4"
+    },
+    "gnome-e2e-rounds/round28-41250875399/01-launch.png": {
+      "bytes": 71386,
+      "sha256": "8690a9c93b169691e08020f328acbbced024ff2cfa076d9b98d6855b5a16c135"
+    },
+    "gnome-e2e-rounds/round28-41250875399/05-keyboard-after-enter.png": {
+      "bytes": 71799,
+      "sha256": "b216e01daa59312a1b9c7eab8fcd23841a562fdc622ccbcb306d18b6830438d3"
+    },
+    "gnome-e2e-rounds/round28-41250875399/07-crash-service.png": {
+      "bytes": 71794,
+      "sha256": "bd5b0e81f3181ba872ddd5dd534aad6c37027b9d2d9bb20a5e16996f69f0fb02"
+    },
+    "gnome-e2e-rounds/round28-41250875399/09-relaunch.png": {
+      "bytes": 71594,
+      "sha256": "055cb46748f40483420ae81ca6c4803a25cde0ed36f6a6c07598cc9c1ec1bc96"
+    },
+    "gnome-e2e-rounds/round28-41250875399/100-keyboard_after_shift_tab.json": {
+      "bytes": 17578,
+      "sha256": "3a591e42d836122041b318f01be70946db9797199d0530461732e08c595241ff"
+    },
+    "gnome-e2e-rounds/round28-41250875399/101-keyboard_after_enter.json": {
+      "bytes": 13543,
+      "sha256": "63e79cf774809e812f707800384e5fa4202056f03cd168e8743c1e343604dc9f"
+    },
+    "gnome-e2e-rounds/round28-41250875399/102-shell_scale_reset.json": {
+      "bytes": 926,
+      "sha256": "9749a5f71289599b0f5d5ed240ed5df4ad39bdaf68b4fbd831bffe15d0a96f6e"
+    },
+    "gnome-e2e-rounds/round28-41250875399/103-auth.json": {
+      "bytes": 958,
+      "sha256": "2da873b509b2d9aea3474551cad3cd43dbf70daa6ea721a8cff4923f9fdccb87"
+    },
+    "gnome-e2e-rounds/round28-41250875399/104-crash_service.json": {
+      "bytes": 19709,
+      "sha256": "39ec130ecb7ecd64b25a7ee816e7caef449775ea4e7a4d98f2fc942f3f156e9f"
+    },
+    "gnome-e2e-rounds/round28-41250875399/105-close_observe.json": {
+      "bytes": 805,
+      "sha256": "7064240489fb5e895fd5201ddcb2411031c46bb3ac2d6169da3f76517db48b10"
+    },
+    "gnome-e2e-rounds/round28-41250875399/106-relaunch.json": {
+      "bytes": 17250,
+      "sha256": "14dded264b73587c0b49075f8486a3ecbc67c7f90825c3a4fe2ef82042a1cb05"
+    },
+    "gnome-e2e-rounds/round28-41250875399/107-close_observe.json": {
+      "bytes": 805,
+      "sha256": "38bd1d92c71170b25f35bfead4834477ab2c5d1ed0739575b37b86251ccc91ec"
+    },
+    "gnome-e2e-rounds/round28-41250875399/108-relaunch.json": {
+      "bytes": 17256,
+      "sha256": "52ff5edd0e6d66bf006c7b76afb581497bc82e24d6277144ecf6ae97377c1609"
+    },
+    "gnome-e2e-rounds/round28-41250875399/109-quit_menu.json": {
+      "bytes": 1007,
+      "sha256": "716223d4d4d18b1b8f9f9d317743329dc90dd9cc7f4efa4ebfb672a214ed887e"
+    },
+    "gnome-e2e-rounds/round28-41250875399/110-relaunch.json": {
+      "bytes": 17333,
+      "sha256": "c06a1391599b42c4296c3505c087dfdc2cca8447a3072dcd623249869fd3db35"
+    },
+    "gnome-e2e-rounds/round28-41250875399/111-accelerator_focus.json": {
+      "bytes": 680,
+      "sha256": "8bb8494b6087c57540c1ee267db96c3aff46ac4fe047331ab4cc61b86115b34c"
+    },
+    "gnome-e2e-rounds/round28-41250875399/112-quit_accelerator.json": {
+      "bytes": 909,
+      "sha256": "1e27ec1bc750b31c2e7ef9f8a098970bba54b36344800211a546684211bc2cbb"
+    },
+    "gnome-e2e-rounds/round28-41250875399/113-relocated_launch.json": {
+      "bytes": 17347,
+      "sha256": "10e4e4f820cd14c46b9180e84eb634668b17e2907f0fd78550bb29b84071341a"
+    },
+    "gnome-e2e-rounds/round28-41250875399/114-force_parent.json": {
+      "bytes": 1335,
+      "sha256": "85551c5d8e8c0b94024913b40969acd90ba00219c9dd3edc6f719a710963fbe9"
+    },
+    "gnome-e2e-rounds/round28-41250875399/115-finish.json": {
+      "bytes": 279,
+      "sha256": "ff03b1fc1187f65037834015127570fbaaa72a590d172e7b4e8a0d402ed75e1a"
+    },
+    "gnome-e2e-rounds/round28-41250875399/16-relocated-launch.png": {
+      "bytes": 71513,
+      "sha256": "106fb0c82c8e07b6b0f35bd329a568e7d9270a39172a6fcd24d716e4eaaa291a"
+    },
+    "gnome-e2e-rounds/round28-41250875399/98-keyboard_before.json": {
+      "bytes": 17570,
+      "sha256": "6c05624f5fd496ca72de794dd578a40f3c23ad2feaf139410ece932068fffe49"
+    },
+    "gnome-e2e-rounds/round28-41250875399/99-keyboard_after_tab.json": {
+      "bytes": 17573,
+      "sha256": "f446c91846c6e2c3cc726b1727c349bd8171b0832ff47b65465d0930d674095f"
+    },
+    "gnome-e2e-rounds/round28-41250875399/actual-gnome-session.json": {
+      "bytes": 12585,
+      "sha256": "a05f69419a217f9ab0afb0a8b38f948f79567fe0c5680c7d00cb044a296e217c"
+    },
+    "gnome-e2e-rounds/round28-41250875399/closure.json": {
+      "bytes": 10311,
+      "sha256": "e1956e3bbad4b2ad7283818f1e22b8e5f7e7610187b19d4cf03e009227fb66b1"
+    },
+    "gnome-e2e-rounds/round28-41250875399/gnome_e2e.py": {
+      "bytes": 2577,
+      "sha256": "f1eaf6722502aa355c5ea68a81bc17141e00d32312afe256982d9ca029837870"
+    },
+    "gnome-e2e-rounds/round28-41250875399/image-receipt.json": {
+      "bytes": 468,
+      "sha256": "90e4b36dc7773dbf04bd456c8b5361d4a8ebe7b2a4c8c75ff25a5a71b822f6ef"
+    },
+    "gnome-e2e-rounds/round28-41250875399/kvm.json": {
+      "bytes": 98,
+      "sha256": "bd0d3813323d89af7b33f19d95b25e40e35d9bded0377d156746c242535f6bf2"
+    },
+    "gnome-e2e-rounds/round28-41250875399/native-shell.json": {
+      "bytes": 21537,
+      "sha256": "a960009888b745790a410276a99646cfbd88d2253b2e306e8073f3dc19b10954"
+    },
+    "gnome-e2e-rounds/round28-41250875399/observation-closeout.json": {
+      "bytes": 927,
+      "sha256": "7a97e04f5b049cf7fc567f2d547a8981ce2631d800d54e45eb81947e9ad8c897"
+    },
+    "gnome-e2e-rounds/round28-41250875399/provision.json": {
+      "bytes": 57079,
+      "sha256": "80af0f35c92e21d602d86c37c00e035740217e4bd35cb555276ac0a1220b894d"
+    },
+    "gnome-e2e-rounds/round28-41250875399/session-before-product.png": {
+      "bytes": 730436,
+      "sha256": "c56bbc99f7982ca7a9f5a9dd1e9b9e72f6ef3503df3151876682fbf23162def2"
+    },
+    "gnome-e2e-rounds/round28-41250875399/shell-enlarged-diagnostics.png": {
+      "bytes": 54931,
+      "sha256": "638c1ff6132573ba3db39d96490d3af376a32572fdcb26617134198b51dd0aba"
+    },
+    "gnome-e2e-rounds/round28-41250875399/sources.json": {
+      "bytes": 10191,
+      "sha256": "90dfd69a60f1b0676bc50122638742d5e8579b29fad1849a0c878d9abcd3f642"
+    },
+    "gnome-e2e-rounds/round28-41250875399/ubuntu_gnome_guest.py": {
+      "bytes": 57572,
+      "sha256": "961a9b7bc2abe77668f6f352a9f20900f80a343a02a6d472324e732cae8b5641"
+    },
+    "gnome-e2e-rounds/round28-41250875399/workflow.yml": {
+      "bytes": 2028,
+      "sha256": "d113d6aa7c70d80dea492fee19a36df164fe822135c17e7b7d481e6b597ba5d5"
+    },
+    "round1-41165269919/gnome-kvm-desktop-195s.png": {
+      "bytes": 201023,
+      "sha256": "62eb44c1ab1cb888c151db7b33aa43d225cd9b06e77738592e5fde8c5dd67ed2"
+    },
+    "round1-41165269919/gnome-kvm-guest-serial.log": {
+      "bytes": 76381,
+      "sha256": "9ab2ef71abdb57aa377e3ee9b2dc13fe33a0175e5d78156ff0edf32bac4c89ce"
+    },
+    "round1-41165269919/gnome-kvm-ssh-polls.txt": {
+      "bytes": 490,
+      "sha256": "5872382758f91f576bc6afd925829e34909424485d296084c9799f3bebabe07e"
+    },
+    "round1-41165269919/gnome-kvm-summary.json": {
+      "bytes": 271,
+      "sha256": "a3afcb4369e6f00ab6921ba6f2f3063c405c06011a27438c6d87cdcb76f45a7e"
+    },
+    "round1-41165269919/gnome-tcg-ssh-polls.txt": {
+      "bytes": 2081,
+      "sha256": "ac44081afa226905f4e5cc36ce5b2e142fcbed12cc5a4914cfe7c740089f645a"
+    },
+    "round1-41165269919/gnome-tcg-summary.json": {
+      "bytes": 274,
+      "sha256": "09f8a5925be6528a42bf2cada0ac794b58abd160c2dcf6103bb9e78bc7b4e6e8"
+    },
+    "round1-41165269919/probes/gnome_guest_probe.py": {
+      "bytes": 6001,
+      "sha256": "2749d508653f7456731ca2464444cc6530b6954cf601c3fa8036f9693b1149af"
+    },
+    "round1-41165269919/probes/gnome_host_probe.py": {
+      "bytes": 7479,
+      "sha256": "cfb9d8b721fa6a487ad9496297897b7743477a10cc41a49e4c3051562e99a2fc"
+    },
+    "round1-41165269919/probes/gnome_session_dump.py": {
+      "bytes": 4647,
+      "sha256": "b2d4a2ae881f2bb4e01a1769d66ada5045e28fbb9ea1c4333616c751bb099161"
+    },
+    "round1-41165269919/probes/qmp_probe.py": {
+      "bytes": 2502,
+      "sha256": "7ee6b1ae154bcf0f572c5363dec26f787b82d16b5d9ddde4aedadb9278027d3b"
+    },
+    "round1-41165269919/probes/win11_boot_probe.py": {
+      "bytes": 5879,
+      "sha256": "fdd8da84e2cc8e0c1fe852991d8eebdf554132dd3735ca21c39d78315aaa68b0"
+    },
+    "round1-41165269919/runner-facts.txt": {
+      "bytes": 527,
+      "sha256": "1d14459626370147781340194f9732eb14517416fa10cd81eefb70afd0d9f99e"
+    },
+    "round1-41165269919/win11-swtpm-outside-home.stderr": {
+      "bytes": 55,
+      "sha256": "494178a5186b83293eac0d7b327058dff1352f98e8c678ebe49cd9dbc53945fc"
+    },
+    "round1-41165269919/workflow.yml": {
+      "bytes": 5392,
+      "sha256": "36308f0d5a05aeeb399aab59df26609656def8f3b273c01a1d6227fe417cd00e"
+    },
+    "round2-41171253889/gnome-base-com2-network.txt": {
+      "bytes": 6560,
+      "sha256": "0fcea3eb87162345cd4d52f9cb28a6b6ca7f71e2b2f8f836e48d18155506b29a"
+    },
+    "round2-41171253889/gnome-base-ssh-polls.txt": {
+      "bytes": 571,
+      "sha256": "229fefa908e13b3efd1c296cad72c2134e01e92fdd26388db573858ff1cd5bf7"
+    },
+    "round2-41171253889/gnome-base-summary.json": {
+      "bytes": 292,
+      "sha256": "3d9d65b50f5af9767498236f31293b25aa24cdc4abf47d365b8343cc4045ebf4"
+    },
+    "round2-41171253889/gnome-nmmask-com2-network.txt": {
+      "bytes": 6611,
+      "sha256": "a41c7fcd4c4672f48912068467957784765c5863424379d2309c41b6598cfc13"
+    },
+    "round2-41171253889/gnome-nmmask-ssh-polls.txt": {
+      "bytes": 571,
+      "sha256": "72b181ae2e0399ec7ed11477b8b694ffb27ecd34950951bcde13ae0f86dc570c"
+    },
+    "round2-41171253889/gnome-nmmask-summary.json": {
+      "bytes": 294,
+      "sha256": "87a669e46d01a372af030482c5362ab64ad4e10e2bc0276ef860dcfe9dba15b0"
+    },
+    "round2-41171253889/gnome-nrsuspend-guest-timeline.json": {
+      "bytes": 453,
+      "sha256": "d7862a6c5a060255e03f950d3fb4606120b227a330ef47e039e1c0ca632fac28"
+    },
+    "round2-41171253889/gnome-nrsuspend-session.json": {
+      "bytes": 6374,
+      "sha256": "1e6d6bebefdee38203f8cd3c6c555fc133b903dc5b2f957dde46c71b902cc4cb"
+    },
+    "round2-41171253889/gnome-nrsuspend-ssh-polls.txt": {
+      "bytes": 646,
+      "sha256": "909fed70c9365ef87e1fa2e6ca858dfba621d961c405dbfde12955cf62e45847"
+    },
+    "round2-41171253889/gnome-nrsuspend-summary.json": {
+      "bytes": 366,
+      "sha256": "f91b6040961bf771ea9133a3cb08aa181306b46e9812fdff2b322b0db3a3f367"
+    },
+    "round2-41171253889/gnome-nrsuspend-unchanged-receipt.json": {
+      "bytes": 10566,
+      "sha256": "e3242c085f70aee5af601228cb400dedaca3642426970759b1738b52b49bb637"
+    },
+    "round2-41171253889/probes/gnome_guest_probe.py": {
+      "bytes": 10737,
+      "sha256": "48748ead2229c27ffaf789856d5bd395b21ab6b27abcaa114bddf4c8c9cdd82a"
+    },
+    "round2-41171253889/probes/gnome_host_probe.py": {
+      "bytes": 7941,
+      "sha256": "ad1041fcb8681f6da2f699fdaa45e0bd55b2301147f9f4900ecf4cc0417db602"
+    },
+    "round2-41171253889/probes/gnome_session_dump.py": {
+      "bytes": 4647,
+      "sha256": "b2d4a2ae881f2bb4e01a1769d66ada5045e28fbb9ea1c4333616c751bb099161"
+    },
+    "round2-41171253889/probes/qmp_probe.py": {
+      "bytes": 2502,
+      "sha256": "7ee6b1ae154bcf0f572c5363dec26f787b82d16b5d9ddde4aedadb9278027d3b"
+    },
+    "round2-41171253889/probes/win11_boot_probe.py": {
+      "bytes": 6096,
+      "sha256": "08b80087e6fb415b08739a1be4f0dc797f0b5c15c91d8ff16b3038d1c7c89ba1"
+    },
+    "round2-41171253889/win11-no-key-com1-chunks.json": {
+      "bytes": 1573,
+      "sha256": "7fc813fd8ba50612d7df7f4a559ff33f2b7f56da8e07fd715a03bbdfcf9bd1d3"
+    },
+    "round2-41171253889/win11-no-key-com1.raw": {
+      "bytes": 915,
+      "sha256": "c12239fb0358a4587b71ebf0bedb6d37eba31d477ea2a8d02b150fc6bf57474d"
+    },
+    "round2-41171253889/win11-no-key-events.json": {
+      "bytes": 1354,
+      "sha256": "26956f6dcb3214ec88b9bea692153bf4ae019cc2b846c75df87b9b7bcc5f470f"
+    },
+    "round2-41171253889/win11-no-key-frames.png": {
+      "bytes": 8464,
+      "sha256": "74b17127639c7c13bae648b1ae5a9b069d0fc9bf8f4872264963a6d6c5a8c97c"
+    },
+    "round2-41171253889/win11-second-vm-qemu.stderr": {
+      "bytes": 130,
+      "sha256": "15e59433caad26b0f19cad4bec1ce725caba925831e04ea92ba2a4dbd51578eb"
+    },
+    "round2-41171253889/workflow.yml": {
+      "bytes": 5453,
+      "sha256": "fb5e032fee3036f80d1c8f8972d8edf7eff6b771761a7fb55290a6edc05d2bad"
+    },
+    "round3-41172293108/gnome-fixed-receipt-0s.json": {
+      "bytes": 12463,
+      "sha256": "3b8eb0727cfbbf5b7ff46aec47a3105faaf352f9f753c8ab5fd7d6dcaecea20f"
+    },
+    "round3-41172293108/gnome-fixed-receipt-120s.json": {
+      "bytes": 12455,
+      "sha256": "db0385fa0f006e9ed757ee2d94c58092b0fe0dcc553586f0e73d58518092a491"
+    },
+    "round3-41172293108/gnome-fixed-receipt-60s.json": {
+      "bytes": 12455,
+      "sha256": "20d45b466680b7d8d8f6dc4f0111cf0aaf20e640171719daef5b7b64420fa109"
+    },
+    "round3-41172293108/gnome-fixed-session.json": {
+      "bytes": 29535,
+      "sha256": "13ba3ebfa20d9387bfe72cc40bd69614d6be564075628987a183bdfdadfa95e4"
+    },
+    "round3-41172293108/gnome-fixed-ssh-polls.txt": {
+      "bytes": 578,
+      "sha256": "60caca4a769b2d5d274c6b5359d3c0f2b869c303d69f24773709ca81ca79c699"
+    },
+    "round3-41172293108/gnome-fixed-summary.json": {
+      "bytes": 362,
+      "sha256": "a37850474d230ebc589eca4819fe38c946aae912eda462831ba5e4b446b903f6"
+    },
+    "round3-41172293108/kvm-acl-before-after.txt": {
+      "bytes": 285,
+      "sha256": "5dc81b3d63fd101c249f16b3722c3249d1ef204114a1000a1fd9a62a120e6a34"
+    },
+    "round3-41172293108/probes/gnome_guest_probe.py": {
+      "bytes": 10804,
+      "sha256": "14422cc3b4bf5925241465be25e5a581da141c5493622120d13375b0993d3f97"
+    },
+    "round3-41172293108/probes/gnome_host_probe.py": {
+      "bytes": 7941,
+      "sha256": "ad1041fcb8681f6da2f699fdaa45e0bd55b2301147f9f4900ecf4cc0417db602"
+    },
+    "round3-41172293108/probes/gnome_session_dump.py": {
+      "bytes": 5927,
+      "sha256": "6cffd721bd078cfe33ae70288a1e08698048591a0b59dc44f187773d0687b29f"
+    },
+    "round3-41172293108/probes/qmp_probe.py": {
+      "bytes": 2502,
+      "sha256": "7ee6b1ae154bcf0f572c5363dec26f787b82d16b5d9ddde4aedadb9278027d3b"
+    },
+    "round3-41172293108/probes/win11_boot3.py": {
+      "bytes": 5725,
+      "sha256": "d61b61fac032bd2023d26c6f23cfd02429f5fe80dc2d75dc2a4263fcb609a978"
+    },
+    "round3-41172293108/probes/win11_boot_probe.py": {
+      "bytes": 6096,
+      "sha256": "08b80087e6fb415b08739a1be4f0dc797f0b5c15c91d8ff16b3038d1c7c89ba1"
+    },
+    "round3-41172293108/win11-com1-console.raw": {
+      "bytes": 437,
+      "sha256": "cfb796c4fe3d6b6cd00f75bcdbad11818fe0d868280d0c2585ed54eb2e0364c6"
+    },
+    "round3-41172293108/win11-com2-protocol.raw": {
+      "bytes": 437,
+      "sha256": "cfb796c4fe3d6b6cd00f75bcdbad11818fe0d868280d0c2585ed54eb2e0364c6"
+    },
+    "round3-41172293108/win11-events.json": {
+      "bytes": 1270,
+      "sha256": "ff566815ee1588d8ccfe17868db3b8cc87edec894bf9d4bd7dd49b77a90a9c4a"
+    },
+    "round3-41172293108/win11-qemu-argv.json": {
+      "bytes": 1685,
+      "sha256": "d05a63ce01eeb758f0a67e94eb0c8a691908efb118524e752ea9a46ec42b018d"
+    },
+    "round3-41172293108/win11-setup-frame.png": {
+      "bytes": 19394,
+      "sha256": "db09c43cac5ae1f7a503ad392c4c600573d8ba1d8713efb371265217c538186a"
+    },
+    "round3-41172293108/win11-summary.json": {
+      "bytes": 153,
+      "sha256": "9df9235fed022fcb723acbf9c6777e5a7f8423b1b8098eacee9e93f9476f2e52"
+    },
+    "round3-41172293108/workflow.yml": {
+      "bytes": 5382,
+      "sha256": "b092be99f72dbe0f25a953829af8c8e4e35f1b5e225ccd8ffae3d3f0dc4b4fc4"
+    },
+    "run-metadata.json": {
+      "bytes": 44202,
+      "sha256": "6ffc1b21ab7ed39cb8d07f5bb91f4079b35ee887eba5f62817e9439b89a0b36c"
+    },
+    "windows-guest-rounds/round11-41229932862-probe.json": {
+      "bytes": 11116,
+      "sha256": "03c60b34ecda3ff0bd9bb424ea12b466ac77874b4705302e2371abd65cf395ec"
+    },
+    "windows-guest-rounds/round13-41232857330/failure.png": {
+      "bytes": 50383,
+      "sha256": "34beb2eb5e02ab78bdbc415d08ccf7e0bbf0d2ecb6aad24bc9956413ccb3739b"
+    },
+    "windows-guest-rounds/round13-41232857330/probe.json": {
+      "bytes": 3462,
+      "sha256": "ab40b5be8c18015cce62e8b697ea2a14fa96415386ccf8bd9f90513579a9f449"
+    },
+    "windows-guest-rounds/round13-41232857330/sources.json": {
+      "bytes": 5177,
+      "sha256": "c25da9758fc423956ac1bb7f96bcc9cd9becbe579175f331dfa4d64ae8af1f36"
+    },
+    "windows-guest-rounds/round13-41232857330/win_guest_probe7.ps1": {
+      "bytes": 5244,
+      "sha256": "80f588feca95522622704b15a1d0d568fae9d9eec356a7269e3d00ace3c3bbc8"
+    },
+    "windows-guest-rounds/round13-41232857330/workflow.yml": {
+      "bytes": 1557,
+      "sha256": "2b8ce35ecb6ce89f62ecff98faf464c4a02f74c61315f5471706f07bc6a936c1"
+    },
+    "windows-guest-rounds/round14-41233069849/probe.json": {
+      "bytes": 15024,
+      "sha256": "7923a2587c3a3a4c866bff05af9d0ea93145f86d420e125a4b8cef6820433b64"
+    },
+    "windows-guest-rounds/round14-41233069849/sources.json": {
+      "bytes": 5173,
+      "sha256": "7dcbd8dd0c81a189d728ce537e7aff846a78bc883468b3ba5663733d589b97a4"
+    },
+    "windows-guest-rounds/round14-41233069849/win_text_probe14.ps1": {
+      "bytes": 4465,
+      "sha256": "cd4faa529dc159e784edb007cbed9aa7c65d9210ff292182818de9e73e6640c2"
+    },
+    "windows-guest-rounds/round14-41233069849/workflow.yml": {
+      "bytes": 1546,
+      "sha256": "2f95d932ffc6df5f8b35d5b5851bc579ad5fb91422931fea47280cbb2b53cae1"
+    },
+    "windows-guest-rounds/round15-41248050820/failure.png": {
+      "bytes": 52259,
+      "sha256": "f8f23934790225435a0a64abc378403a2089bc2da7a683119670c7835c3d924b"
+    },
+    "windows-guest-rounds/round15-41248050820/probe.json": {
+      "bytes": 3360,
+      "sha256": "55f64ab7397bc9b3515e563c0a49641695d9df49b1289ce5295172b4b42cb99b"
+    },
+    "windows-guest-rounds/round15-41248050820/sources.json": {
+      "bytes": 5313,
+      "sha256": "fe16c35c6340130d6c4ff523029a69c5f16c38dcba3e84cbb89a9c199a0ace9e"
+    },
+    "windows-guest-rounds/round15-41248050820/workflow.yml": {
+      "bytes": 1551,
+      "sha256": "e609a18c697708379a94e5a14f0623b17a0298ba2a3a20209574e826c6db33a4"
+    },
+    "windows-guest-rounds/round17-41248210751/failure.png": {
+      "bytes": 50654,
+      "sha256": "62037ba10795c56018668d2be1b123fbb62d5242889e9f825716a222d2e2450e"
+    },
+    "windows-guest-rounds/round17-41248210751/probe.json": {
+      "bytes": 4053,
+      "sha256": "cbbd3200a6c6f41f3c9e6027c8ac4f39823b8e8dd302a1dd5cb6a14423b9674e"
+    },
+    "windows-guest-rounds/round17-41248210751/sources.json": {
+      "bytes": 5313,
+      "sha256": "0822ce44888d3a48059c21b3fd76f4b45de47287a19d077417bae3272305daeb"
+    },
+    "windows-guest-rounds/round17-41248210751/workflow.yml": {
+      "bytes": 1551,
+      "sha256": "86114ae6e290d13211052d2a0ed6b12e5c2bfce084790f83153ce01a5e7b2d70"
+    },
+    "windows-guest-rounds/round18-41248352997/probe.json": {
+      "bytes": 28365,
+      "sha256": "6ee5357e0027d4707748959d4f3b230722c8472eac4b578552836e2ebc89e857"
+    },
+    "windows-guest-rounds/round18-41248352997/sources.json": {
+      "bytes": 5173,
+      "sha256": "c8aa3dff96a82a6e6080093e7ba9fafa3dd63c11fa38246027f9214ecc944324"
+    },
+    "windows-guest-rounds/round18-41248352997/win_text_probe14.ps1": {
+      "bytes": 6370,
+      "sha256": "dc2000bd0a8229119332e94b2588ac59c843810cb1d1bc589574c53885438e3e"
+    },
+    "windows-guest-rounds/round18-41248352997/workflow.yml": {
+      "bytes": 1546,
+      "sha256": "7932d419d29ad15bf48eeaa748a99c5a3460f75530040828c048d603ba82b9ed"
+    },
+    "windows-guest-rounds/round19-41248474580/failure.png": {
+      "bytes": 50654,
+      "sha256": "f713b182c5a351cba9b4e05ef5cf82b65a7c259249f00412485526b301645935"
+    },
+    "windows-guest-rounds/round19-41248474580/probe.json": {
+      "bytes": 6641,
+      "sha256": "c1a4a3c501277418c374dc74a6627786eeed38b58366363cada97b8d2914f8bc"
+    },
+    "windows-guest-rounds/round19-41248474580/sources.json": {
+      "bytes": 5313,
+      "sha256": "62fc224b9401c76b419a272c6df815bb32ddd859e616e15e1ab76f550fcc807d"
+    },
+    "windows-guest-rounds/round19-41248474580/workflow.yml": {
+      "bytes": 1551,
+      "sha256": "21d9f466577a80c3ec3da3eb58e7749aa5d305abd0a50b74483fab257a8dd1ee"
+    },
+    "windows-guest-rounds/round20-41248672768/probe.json": {
+      "bytes": 12590,
+      "sha256": "2adc37a0bdc48a2a06a8ab0a46b44dc0a2b1f7f255073eecdc73d3d3df027d9f"
+    },
+    "windows-guest-rounds/round20-41248672768/sources.json": {
+      "bytes": 5311,
+      "sha256": "47b8f447ed4e0e2d76065636019cd448c13b81333784fbbe74cb14d537f8c4b1"
+    },
+    "windows-guest-rounds/round20-41248672768/win_scroll_probe20.ps1": {
+      "bytes": 5184,
+      "sha256": "cd88d795d6470b96aaccf69871749d734e35cc49ad3b3409af3dbee9523e87bf"
+    },
+    "windows-guest-rounds/round20-41248672768/workflow.yml": {
+      "bytes": 1550,
+      "sha256": "0b2b6ac4497d671665aa49adcfa4c3cfb967bf3bf7ec5eacc61698a51f8a3273"
+    },
+    "windows-guest-rounds/round21-41248844718/native-shell.json": {
+      "bytes": 43409,
+      "sha256": "cdd0fb1233d41ab17604aae0138a8eead2a142d3de04d1ff576b3c24d96a8c57"
+    },
+    "windows-guest-rounds/round21-41248844718/probe.json": {
+      "bytes": 98969,
+      "sha256": "7edf091494a5a537ed481546e5242dc684040145840f7f063f6133aecb6a0f7e"
+    },
+    "windows-guest-rounds/round21-41248844718/shell-baseline-diagnostics.png": {
+      "bytes": 53527,
+      "sha256": "6b4f720dc748a352c08d6db42d438209f782aecf2b2143d1495f53838ea2cbc9"
+    },
+    "windows-guest-rounds/round21-41248844718/shell-enlarged-diagnostics.png": {
+      "bytes": 48345,
+      "sha256": "0c37afa95ac11396f5ee707c61ed8a1a1bd19e205e8215337431948cf6e9bbc1"
+    },
+    "windows-guest-rounds/round21-41248844718/sources.json": {
+      "bytes": 5779,
+      "sha256": "4e923f1ccc092b2fbb06fe204ad6f4a4763c47bd0a586e046b569f68b938f7c7"
+    },
+    "windows-guest-rounds/round21-41248844718/workflow.yml": {
+      "bytes": 1551,
+      "sha256": "c04c671f544480e49d3b6274f0f1deb44e4e13887fc4a7f3cac56efc115010d8"
+    },
+    "windows-guest-rounds/round23-41249084652/native-shell.json": {
+      "bytes": 43408,
+      "sha256": "f578190cb147491ae5c3fe9ecf0dc38903717f03af25b29895d10151e21e41ba"
+    },
+    "windows-guest-rounds/round23-41249084652/probe.json": {
+      "bytes": 98967,
+      "sha256": "3aec2de8ef660398a0e5a9f10fd7388b8c7cbaae454a0529e5c1791525f1c43e"
+    },
+    "windows-guest-rounds/round23-41249084652/shell-baseline-diagnostics.png": {
+      "bytes": 53543,
+      "sha256": "41283e43214556bee26da5d3bf368c82779b7d5d093756d99224aa16138c4aea"
+    },
+    "windows-guest-rounds/round23-41249084652/shell-enlarged-diagnostics.png": {
+      "bytes": 48356,
+      "sha256": "0670c1f176db84b80e1281a5b3323e4b487f75811db0e1858f7334598dea8f35"
+    },
+    "windows-guest-rounds/round23-41249084652/sources.json": {
+      "bytes": 5779,
+      "sha256": "1055e902afeed74cec3454b85257e837149a921bbb2566eb3168e2c924aac644"
+    },
+    "windows-guest-rounds/round23-41249084652/win_guest_probe7.ps1": {
+      "bytes": 7921,
+      "sha256": "329827df01e77e9e59f5714283b06586a97b31ba39f65eaad5561230c970216f"
+    },
+    "windows-guest-rounds/round23-41249084652/workflow.yml": {
+      "bytes": 1551,
+      "sha256": "46de2c7a0a7b0faeb1b51ab1a49cfd2039df505a3b8d0b3cda4e62b85305becf"
+    },
+    "windows-guest-rounds/round26-41250313459/native-shell.json": {
+      "bytes": 43409,
+      "sha256": "e0183ea24669b6370c354c56139f53c6acfe356efb7e230d949643d410f63344"
+    },
+    "windows-guest-rounds/round26-41250313459/probe.json": {
+      "bytes": 98964,
+      "sha256": "b8d54d9af56cac5f535e3547a117c954c3d96f673581c3a02d76e043a542efd7"
+    },
+    "windows-guest-rounds/round26-41250313459/shell-baseline-diagnostics.png": {
+      "bytes": 53474,
+      "sha256": "3d90756d68139d0585e8a7af8e690b124817737492c0152492840b1d7368c82d"
+    },
+    "windows-guest-rounds/round26-41250313459/shell-enlarged-diagnostics.png": {
+      "bytes": 48332,
+      "sha256": "6810b80260e96a90bb7d03f84293f20c8fa79de4c116d80465db92246b18a238"
+    },
+    "windows-guest-rounds/round26-41250313459/sources.json": {
+      "bytes": 5779,
+      "sha256": "c388fb0ccd0c898ab372026139d211c4825060f8fbbb128a5d0d2be09b922b7e"
+    },
+    "windows-guest-rounds/round26-41250313459/workflow.yml": {
+      "bytes": 1551,
+      "sha256": "d7bc89c2c45deb7ec4c62d64924d4650d4eb71170ea84a02d0324ce100b9ef63"
+    },
+    "windows-guest-rounds/round4-41225412050-probe.json": {
+      "bytes": 155561,
+      "sha256": "c359464fdf2c3686b9cda0e4c093e0e5e41d73e1278dedd24cd88f291215c036"
+    },
+    "windows-guest-rounds/round4-menu-open.png": {
+      "bytes": 50355,
+      "sha256": "f3ae2cdd2e3aad0e5c3edc43c76f679024b8809c440475c400e871064e906291"
+    },
+    "windows-guest-rounds/round5-41226037122-probe.json": {
+      "bytes": 18710,
+      "sha256": "a52a791a49b528cbb37b3ce428ee2cc7d36ce1ebfd0dd827b52ac0abf4fb53d1"
+    },
+    "windows-guest-rounds/round5-service-failure-diagnostics.png": {
+      "bytes": 55793,
+      "sha256": "3a4eb3d308eca10527384ab69e6969f434c9f36b3b743f9b6ee2fff973a69493"
+    },
+    "windows-guest-rounds/round6-41226305647-probe.json": {
+      "bytes": 2562,
+      "sha256": "c7d7fccb2b3455886ce2c36ae2a4349849dd0a2363232cb1a29d2e00187615f7"
+    },
+    "windows-guest-rounds/round6-service-alone.txt": {
+      "bytes": 2627,
+      "sha256": "374e689ab767f329189bcd4062d5352b104d1c861ea56df75d55841321347ccd"
+    },
+    "windows-guest-rounds/round7-41228853420-probe.json": {
+      "bytes": 1437,
+      "sha256": "0a967644b429d4ddac1253428dd64f6f80c7370612f08d11ad5585836ab42151"
+    },
+    "windows-guest-rounds/round8-41229140888-probe.json": {
+      "bytes": 14530,
+      "sha256": "d4dd96456806fd915f29860856991af670e2ae305af664b5e305072a3f25b220"
+    },
+    "windows-guest-rounds/win_guest_probe.ps1": {
+      "bytes": 11767,
+      "sha256": "676672ad74cd906c77a2507965df2d9ec03a26e30e02698ea2741072c39e6e9e"
+    },
+    "windows-guest-rounds/win_guest_probe5.ps1": {
+      "bytes": 11406,
+      "sha256": "6c297998591903b29bcbd5647fe46ba8329fcb8934fa567d3929b65e4d2f6e83"
+    },
+    "windows-guest-rounds/win_guest_probe6.ps1": {
+      "bytes": 4924,
+      "sha256": "0aee8bac7cad92b4890b918b3c4f53d1f9c1e7d2bd2058a8d3669fe69b7e69b2"
+    },
+    "windows-guest-rounds/win_guest_probe7.ps1": {
+      "bytes": 5244,
+      "sha256": "80f588feca95522622704b15a1d0d568fae9d9eec356a7269e3d00ace3c3bbc8"
+    },
+    "windows-guest-rounds/win_guest_probe8.ps1": {
+      "bytes": 7910,
+      "sha256": "81b50d8e8de0b755529cfccec0ffc552731da9e91535e5acc5cad41ac5fc8b04"
+    },
+    "windows-guest-rounds/win_menu_probe11.ps1": {
+      "bytes": 4771,
+      "sha256": "56adf919f9e0a06cb7f332d1c9bed36cc022f155fe60dfa5591f9e232f932ea3"
+    },
+    "windows-guest-rounds/win_menu_probe9.ps1": {
+      "bytes": 5533,
+      "sha256": "e6eec26c4b0711366f06e8d0a7473294698fec512f8827b86a3f679af636154d"
+    },
+    "windows-guest-rounds/win_service_env_probe.py": {
+      "bytes": 3549,
+      "sha256": "67a3211538534e3c50f5a5cd3225a0fd86b6e475ed05453648e497471d29053c"
+    },
+    "windows-guest-rounds/workflow-last.yml": {
+      "bytes": 1743,
+      "sha256": "a029a0dc629714445d34061245cb0d890b3dc28acee346739902943039770c7d"
+    },
+    "windows-product-builds/accelerator-logging-head.patch": {
+      "bytes": 1760,
+      "sha256": "9c636cf7cb98d7254a7aab8198e844a72ea2add2b30d080df44005521bead63f"
+    },
+    "windows-product-builds/instrumentation-2d11cfa.patch": {
+      "bytes": 58843,
+      "sha256": "a30c2a2152a92e26dab5de2dc2f37bbdcc0c1bcc19994285f51f9d4206064ea7"
+    },
+    "windows-product-builds/product-final-sources.json": {
+      "bytes": 1035,
+      "sha256": "16da3e1165e50282a7d4c385dfd5f50b6143af180d07734cb77c531099c5509e"
+    },
+    "windows-product-builds/product-fix-7f1534f.patch": {
+      "bytes": 9971,
+      "sha256": "9c90d06908586d7a0052d848e7336d7e0e7e7f34851be62e8dbf23363a837d52"
+    },
+    "windows-product-builds/run41226818696-JobApply_O_space_diag.stderr": {
+      "bytes": 358,
+      "sha256": "464d7fca28d3432f0339f9d147fc5c7ef01e2128bb819d2c30a34a766492b427"
+    },
+    "windows-product-builds/run41226818696-JobApply_O_space_diag.titles.txt": {
+      "bytes": 242,
+      "sha256": "779f5b6ffa647323e532ac4ab402c91991025a5d3a2200c7664d5225052237b3"
+    },
+    "windows-product-builds/run41226818696-japp-gui-diag.stderr": {
+      "bytes": 268,
+      "sha256": "9897a9f011fca760b6e4bfef37b6cd466086f426148acda65cf5aaa8c0d3fdd8"
+    },
+    "windows-product-builds/run41226818696-japp-gui-diag.titles.txt": {
+      "bytes": 162,
+      "sha256": "0d12db7cb42f61ee1a0df73dd0b3d828253c76a4f7d40b3bbcfd852ec003cf90"
+    },
+    "windows-product-builds/run41227766396-JobApply_O_space_diag.stderr": {
+      "bytes": 244,
+      "sha256": "c21045dd586c2217d19ce1ba190ecadcb98dd277d9e21279c92d25ddceaeac20"
+    },
+    "windows-product-builds/run41227766396-JobApply_O_space_diag.titles.txt": {
+      "bytes": 276,
+      "sha256": "1d36f24dfa37b5bc489608b93a95d4fc26434217b810575971b9c69ec0bc5765"
+    },
+    "windows-product-builds/run41227766396-japp-gui-diag.stderr": {
+      "bytes": 154,
+      "sha256": "f87c9aaed2330b17a4e65cf55b7c9812b9516c72396c724fc2ccbaa555fd6d24"
+    },
+    "windows-product-builds/run41227766396-japp-gui-diag.titles.txt": {
+      "bytes": 196,
+      "sha256": "3c1068ef4f24200bf00e788e01e515d8db651e5cbb12e2b7e499eae2585e83c5"
+    },
+    "windows-product-builds/run41229600953-JobApply_O_space_diag.ctrlq.txt": {
+      "bytes": 174,
+      "sha256": "11e48cee35e6a801d706b9f7d312984ae31524f6758c0e8f81028c4a8bb34961"
+    },
+    "windows-product-builds/run41229600953-JobApply_O_space_diag.stderr": {
+      "bytes": 988,
+      "sha256": "acd23ac9bdf53bba48a4dd80ee52ec1b54996c395b3dda14ac7f788bf2e28184"
+    },
+    "windows-product-builds/run41229600953-JobApply_O_space_diag.titles.txt": {
+      "bytes": 276,
+      "sha256": "1d36f24dfa37b5bc489608b93a95d4fc26434217b810575971b9c69ec0bc5765"
+    },
+    "windows-product-builds/run41229600953-japp-gui-diag.ctrlq.txt": {
+      "bytes": 202,
+      "sha256": "b4aa11d31903de14000d538882ce354f41e56e866eda91bf7b1b4d6010438de4"
+    },
+    "windows-product-builds/run41229600953-japp-gui-diag.stderr": {
+      "bytes": 898,
+      "sha256": "7f1814bd7b99ea75d887d639c15672b839106a74deab3fa2efda2e7224d746cd"
+    },
+    "windows-product-builds/run41229600953-japp-gui-diag.titles.txt": {
+      "bytes": 196,
+      "sha256": "3c1068ef4f24200bf00e788e01e515d8db651e5cbb12e2b7e499eae2585e83c5"
+    },
+    "windows-product-builds/run41249725017-JobApply_O_space_diag.titles.txt": {
+      "bytes": 276,
+      "sha256": "1d36f24dfa37b5bc489608b93a95d4fc26434217b810575971b9c69ec0bc5765"
+    },
+    "windows-product-builds/run41249725017-japp-gui-diag.titles.txt": {
+      "bytes": 196,
+      "sha256": "3c1068ef4f24200bf00e788e01e515d8db651e5cbb12e2b7e499eae2585e83c5"
+    },
+    "windows-product-builds/workflow-head.yml": {
+      "bytes": 14245,
+      "sha256": "701d71ace8bd01f5a482fa54fbf54183d27bb197921e47b803c20f2dca83faad"
+    },
+    "windows-product-builds/workflow-product-final.yml": {
+      "bytes": 11553,
+      "sha256": "f9e0fe7b7903ca9a7ad24e4b051f83715eb8aeb0bfcc4e9efc1f5acb81f3f974"
+    }
+  }
+}

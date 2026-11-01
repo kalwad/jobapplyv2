@@ -52,6 +52,112 @@ fn install_shell_quit_menu(app: &tauri::App) -> tauri::Result<()> {
     Ok(())
 }
 
+/// The File menu's exact Quit chord: a first Ctrl+Q key-down with neither Alt
+/// nor Shift held.
+#[cfg_attr(not(windows), allow(dead_code))]
+fn is_quit_accelerator(
+    key_down: bool,
+    virtual_key: u32,
+    repeat: bool,
+    ctrl: bool,
+    alt: bool,
+    shift: bool,
+) -> bool {
+    key_down && virtual_key == u32::from(b'Q') && !repeat && ctrl && !alt && !shift
+}
+
+/// Win32 virtual-key codes of the modifiers whose key state is read.
+const VK_SHIFT: u16 = 0x10;
+const VK_CONTROL: u16 = 0x11;
+const VK_MENU: u16 = 0x12;
+#[cfg(windows)]
+const _: () = {
+    use windows_sys::Win32::UI::Input::KeyboardAndMouse as win32;
+    assert!(VK_SHIFT == win32::VK_SHIFT);
+    assert!(VK_CONTROL == win32::VK_CONTROL);
+    assert!(VK_MENU == win32::VK_MENU);
+};
+
+/// GetKeyState's high-order bit means the key is held; its low-order bit only
+/// reports a toggle (for example Caps Lock), never a held key.
+#[cfg_attr(not(windows), allow(dead_code))]
+fn key_state_held(state: i16) -> bool {
+    state < 0
+}
+
+/// Reads one WebView2 accelerator event as the quit chord. Alt counts as held
+/// when either the key state or the event's menu flag reports it (AltGr holds
+/// Ctrl+Alt without the menu flag), and an auto-repeat is never a first press.
+#[cfg_attr(not(windows), allow(dead_code))]
+fn quit_accelerator_event(
+    key_down: bool,
+    virtual_key: u32,
+    was_key_down: bool,
+    is_menu_key_down: bool,
+    held: impl Fn(u16) -> bool,
+) -> bool {
+    is_quit_accelerator(
+        key_down,
+        virtual_key,
+        was_key_down,
+        held(VK_CONTROL),
+        held(VK_MENU) || is_menu_key_down,
+        held(VK_SHIFT),
+    )
+}
+
+/// WebView2 keeps keyboard focus in its own browser process, so the native
+/// menu's Ctrl+Q accelerator never reaches this process's TranslateAcceleratorW
+/// (measured on hosted Windows, KI-0158). Route exactly that chord to the same
+/// shutdown as File→Quit; every other key stays with WebView2.
+#[cfg(windows)]
+fn forward_quit_accelerator(window: &tauri::WebviewWindow) -> tauri::Result<()> {
+    let app = window.app_handle().clone();
+    window.with_webview(move |webview| {
+        use webview2_com::{
+            AcceleratorKeyPressedEventHandler,
+            Microsoft::Web::WebView2::Win32::{
+                COREWEBVIEW2_KEY_EVENT_KIND, COREWEBVIEW2_KEY_EVENT_KIND_KEY_DOWN,
+                COREWEBVIEW2_PHYSICAL_KEY_STATUS,
+            },
+        };
+        use windows_sys::Win32::UI::Input::KeyboardAndMouse::GetKeyState;
+        let handler = AcceleratorKeyPressedEventHandler::create(Box::new(move |_, args| {
+            let Some(args) = args else {
+                return Ok(());
+            };
+            let mut kind = COREWEBVIEW2_KEY_EVENT_KIND::default();
+            let mut key = 0u32;
+            let mut status = COREWEBVIEW2_PHYSICAL_KEY_STATUS::default();
+            unsafe {
+                args.KeyEventKind(&mut kind)?;
+                args.VirtualKey(&mut key)?;
+                args.PhysicalKeyStatus(&mut status)?;
+            }
+            if quit_accelerator_event(
+                kind == COREWEBVIEW2_KEY_EVENT_KIND_KEY_DOWN,
+                key,
+                status.WasKeyDown.as_bool(),
+                status.IsMenuKeyDown.as_bool(),
+                |vk| key_state_held(unsafe { GetKeyState(i32::from(vk)) }),
+            ) && let Some(service) = app.try_state::<service::ManagedService>()
+            {
+                unsafe { args.SetHandled(true)? };
+                service.request_shutdown(&app);
+            }
+            Ok(())
+        }));
+        let mut token = 0i64;
+        // A refused registration is ignored: File→Quit and every other key are
+        // unchanged, and the Windows 11 accelerator phase observes the gap.
+        let _ = unsafe {
+            webview
+                .controller()
+                .add_AcceleratorKeyPressed(&handler, &mut token)
+        };
+    })
+}
+
 pub fn run() {
     let app = tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
@@ -68,10 +174,14 @@ pub fn run() {
                 app.config().app.windows.first().ok_or_else(|| {
                     std::io::Error::other("Desktop window configuration is missing")
                 })?;
-            tauri::WebviewWindowBuilder::from_config(app, config)?
+            let window = tauri::WebviewWindowBuilder::from_config(app, config)?
                 .on_navigation(native_navigation_allowed)
                 .on_new_window(|_, _| NewWindowResponse::Deny)
                 .build()?;
+            #[cfg(windows)]
+            forward_quit_accelerator(&window)?;
+            #[cfg(not(windows))]
+            let _ = window;
             let runtime = service::configured_runtime(app.handle())
                 .unwrap_or_else(|_| service::ConfiguredRuntime::unavailable());
             let service = service::ManagedService::new(runtime)
@@ -107,7 +217,63 @@ pub fn run() {
 
 #[cfg(test)]
 mod tests {
-    use super::shell_navigation_allowed;
+    use super::{
+        is_quit_accelerator, key_state_held, quit_accelerator_event, shell_navigation_allowed,
+    };
+
+    fn holding(keys: &[u16]) -> impl Fn(u16) -> bool + '_ {
+        move |key| keys.contains(&key)
+    }
+
+    #[test]
+    fn a_webview_key_event_quits_only_on_a_first_plain_ctrl_q() {
+        // Win32 virtual-key codes for Shift, Ctrl and Alt (VK_MENU).
+        const SHIFT: u16 = 0x10;
+        const CTRL: u16 = 0x11;
+        const ALT: u16 = 0x12;
+        let (q, w) = (u32::from(b'Q'), u32::from(b'W'));
+        let plain = quit_accelerator_event(true, q, false, false, holding(&[CTRL]));
+        assert!(plain, "plain first Ctrl+Q");
+        for (case, down, key, was_key_down, is_menu_key_down, held) in [
+            ("AltGr", true, q, false, false, &[CTRL, ALT][..]),
+            ("menu flag only", true, q, false, true, &[CTRL][..]),
+            ("Alt and menu flag", true, q, false, true, &[CTRL, ALT][..]),
+            ("auto-repeat", true, q, true, false, &[CTRL][..]),
+            ("Shift", true, q, false, false, &[CTRL, SHIFT][..]),
+            ("key-up", false, q, false, false, &[CTRL][..]),
+            ("other key", true, w, false, false, &[CTRL][..]),
+            ("no Ctrl", true, q, false, false, &[][..]),
+        ] {
+            assert!(
+                !quit_accelerator_event(down, key, was_key_down, is_menu_key_down, holding(held)),
+                "{case}"
+            );
+        }
+    }
+
+    #[test]
+    fn only_the_high_order_key_state_bit_means_held() {
+        // 0x8000 held, 0x8001 held and toggled, 0x0001 toggled only, 0 up.
+        for (state, held) in [(i16::MIN, true), (-32767, true), (1, false), (0, false)] {
+            assert_eq!(key_state_held(state), held, "{state:#06x}");
+        }
+    }
+
+    #[test]
+    fn only_a_first_plain_ctrl_q_key_down_is_the_quit_accelerator() {
+        let q = u32::from(b'Q');
+        assert!(is_quit_accelerator(true, q, false, true, false, false));
+        for (down, key, repeat, ctrl, alt, shift) in [
+            (false, q, false, true, false, false),
+            (true, u32::from(b'W'), false, true, false, false),
+            (true, q, true, true, false, false),
+            (true, q, false, false, false, false),
+            (true, q, false, true, true, false),
+            (true, q, false, true, false, true),
+        ] {
+            assert!(!is_quit_accelerator(down, key, repeat, ctrl, alt, shift));
+        }
+    }
     use tauri::Url;
 
     #[test]

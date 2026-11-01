@@ -13,6 +13,7 @@ import xml.etree.ElementTree as ET
 NAMESPACE = "urn:schemas-microsoft-com:unattend"
 WCM = "http://schemas.microsoft.com/WMIConfig/2002/State"
 ACCOUNT = "JappFixture"
+LOCALES = ("InputLocale", "SystemLocale", "UILanguage", "UserLocale")
 ET.register_namespace("", NAMESPACE)
 ET.register_namespace("wcm", WCM)
 
@@ -44,7 +45,10 @@ def answer_file(password: str, image_name: str) -> bytes:  # noqa: PLR0915 - clo
 
     pe = element(root, "settings", **{"pass": "windowsPE"})
     international = component(pe, "Microsoft-Windows-International-Core-WinPE")
-    for name in ("InputLocale", "SystemLocale", "UILanguage", "UserLocale"):
+    # Every Setup and OOBE page is answered here: nothing interacts with the VM
+    # after its one boot key, so an unanswered page would wait out the deadline.
+    element(element(international, "SetupUILanguage"), "UILanguage", "en-US")
+    for name in LOCALES:
         element(international, name, "en-US")
     setup = component(pe, "Microsoft-Windows-Setup")
     disk_config = element(setup, "DiskConfiguration")
@@ -112,10 +116,20 @@ def answer_file(password: str, image_name: str) -> bytes:  # noqa: PLR0915 - clo
     )
 
     oobe = element(root, "settings", **{"pass": "oobeSystem"})
+    # OOBE asks region and keyboard again unless oobeSystem names them.
+    regional = component(oobe, "Microsoft-Windows-International-Core")
+    for name in LOCALES:
+        element(regional, name, "en-US")
     shell = component(oobe, "Microsoft-Windows-Shell-Setup")
     settings = element(shell, "OOBE")
+    # OD-038 accepts the pinned Evaluation licence only in disposable CI VMs. The
+    # standard local account below replaces the local-account page; there is no
+    # network adapter (-nic none), so the wireless page is hidden too.
+    element(settings, "HideEULAPage", "true")
+    element(settings, "HideLocalAccountScreen", "true")
     element(settings, "HideOnlineAccountScreens", "true")
     element(settings, "HideOEMRegistrationScreen", "true")
+    element(settings, "HideWirelessSetupInOOBE", "true")
     element(settings, "ProtectYourPC", "1")
     account = element(
         element(element(shell, "UserAccounts"), "LocalAccounts"),

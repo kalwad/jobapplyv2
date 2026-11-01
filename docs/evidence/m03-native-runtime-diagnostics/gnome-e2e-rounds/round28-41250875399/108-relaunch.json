@@ -1,0 +1,867 @@
+{
+  "status": "PASS",
+  "operation": "relaunch",
+  "result": {
+    "app": {
+      "pid": 30273,
+      "ppid": 1034,
+      "starttime_ticks": 31550,
+      "state": "R",
+      "uid": 1000,
+      "executable": "/usr/bin/japp-desktop",
+      "device": 64769,
+      "inode": 86381
+    },
+    "service": {
+      "pid": 30329,
+      "ppid": 30273,
+      "starttime_ticks": 31594,
+      "state": "R",
+      "uid": 1000,
+      "executable": "/usr/lib/Desktop App/runtime/japp-orchestrator/japp-orchestrator",
+      "device": 64769,
+      "inode": 278467
+    },
+    "port": 34331,
+    "checked_at": "2026-10-31T23:09:26.110255748Z",
+    "listeners": [
+      {
+        "family": "IPv4",
+        "address": "127.0.0.1",
+        "port": 34331,
+        "inode": "64473"
+      }
+    ],
+    "accessibility": [
+      {
+        "id": 0,
+        "parent": null,
+        "name": "japp-desktop",
+        "text": "",
+        "role": "application",
+        "pid": 30273,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 1,
+        "parent": 0,
+        "name": "Desktop App",
+        "text": "",
+        "role": "frame",
+        "pid": 30273,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 2,
+        "parent": 1,
+        "name": "",
+        "text": "",
+        "role": "panel",
+        "pid": 30273,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 3,
+        "parent": 1,
+        "name": "",
+        "text": "",
+        "role": "filler",
+        "pid": 30273,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 4,
+        "parent": 2,
+        "name": "",
+        "text": "",
+        "role": "filler",
+        "pid": 30273,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 5,
+        "parent": 2,
+        "name": "",
+        "text": "",
+        "role": "filler",
+        "pid": 30273,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 6,
+        "parent": 3,
+        "name": "",
+        "text": "",
+        "role": "menu bar",
+        "pid": 30273,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 7,
+        "parent": 3,
+        "name": "",
+        "text": "",
+        "role": "filler",
+        "pid": 30273,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 8,
+        "parent": 4,
+        "name": "",
+        "text": "",
+        "role": "separator",
+        "pid": 30273,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 9,
+        "parent": 4,
+        "name": "Minimize",
+        "text": "",
+        "role": "push button",
+        "pid": 30273,
+        "focused": false,
+        "actions": [
+          "click"
+        ]
+      },
+      {
+        "id": 10,
+        "parent": 4,
+        "name": "Restore",
+        "text": "",
+        "role": "push button",
+        "pid": 30273,
+        "focused": false,
+        "actions": [
+          "click"
+        ]
+      },
+      {
+        "id": 11,
+        "parent": 4,
+        "name": "Close",
+        "text": "",
+        "role": "push button",
+        "pid": 30273,
+        "focused": false,
+        "actions": [
+          "click"
+        ]
+      },
+      {
+        "id": 12,
+        "parent": 5,
+        "name": "Desktop App",
+        "text": "Desktop App",
+        "role": "label",
+        "pid": 30273,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 13,
+        "parent": 5,
+        "name": "",
+        "text": "",
+        "role": "label",
+        "pid": 30273,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 14,
+        "parent": 6,
+        "name": "File",
+        "text": "",
+        "role": "menu",
+        "pid": 30273,
+        "focused": false,
+        "actions": [
+          "click"
+        ]
+      },
+      {
+        "id": 15,
+        "parent": 7,
+        "name": "",
+        "text": "",
+        "role": "filler",
+        "pid": 30304,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 16,
+        "parent": 14,
+        "name": "Quit",
+        "text": "",
+        "role": "menu item",
+        "pid": 30273,
+        "focused": false,
+        "actions": [
+          "click"
+        ]
+      },
+      {
+        "id": 17,
+        "parent": 15,
+        "name": "",
+        "text": "",
+        "role": "scroll pane",
+        "pid": 30304,
+        "focused": true,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 18,
+        "parent": 17,
+        "name": "Diagnostics \u00b7 Desktop app",
+        "text": "",
+        "role": "document web",
+        "pid": 30304,
+        "focused": true,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 19,
+        "parent": 18,
+        "name": "Skip to main content",
+        "text": "Skip to main content",
+        "role": "link",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 20,
+        "parent": 18,
+        "name": "",
+        "text": "",
+        "role": "landmark",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 21,
+        "parent": 18,
+        "name": "",
+        "text": "",
+        "role": "landmark",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 22,
+        "parent": 20,
+        "name": "Primary",
+        "text": "",
+        "role": "landmark",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 23,
+        "parent": 20,
+        "name": "",
+        "text": "Development build",
+        "role": "paragraph",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 24,
+        "parent": 21,
+        "name": "",
+        "text": "",
+        "role": "header",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 25,
+        "parent": 21,
+        "name": "",
+        "text": "Desktop versions\nNative app\nApp version\n0.0.1\nTauri version\n2.12.4\nLocal service\nLast check\nChecking the local service\u2026\n\ufffc\nLocal capabilities\nAI provider\nUnavailable in this build\nPlatform certification\nNot evaluated\n",
+        "role": "section",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 26,
+        "parent": 21,
+        "name": "",
+        "text": "Local workspace \u00b7 No application submission is available in this build.",
+        "role": "footer",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 27,
+        "parent": 22,
+        "name": "",
+        "text": "",
+        "role": "list",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 28,
+        "parent": 24,
+        "name": "Diagnostics",
+        "text": "Diagnostics",
+        "role": "heading",
+        "pid": 30304,
+        "focused": true,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 29,
+        "parent": 25,
+        "name": "Desktop versions",
+        "text": "",
+        "role": "landmark",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 30,
+        "parent": 25,
+        "name": "Local service",
+        "text": "",
+        "role": "landmark",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 31,
+        "parent": 25,
+        "name": "Local capabilities",
+        "text": "",
+        "role": "landmark",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 32,
+        "parent": 27,
+        "name": "",
+        "text": "\ufffc",
+        "role": "list item",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "select"
+        ]
+      },
+      {
+        "id": 33,
+        "parent": 27,
+        "name": "",
+        "text": "\ufffc",
+        "role": "list item",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "select"
+        ]
+      },
+      {
+        "id": 34,
+        "parent": 27,
+        "name": "",
+        "text": "\ufffc",
+        "role": "list item",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "select"
+        ]
+      },
+      {
+        "id": 35,
+        "parent": 27,
+        "name": "",
+        "text": "\ufffc",
+        "role": "list item",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "select"
+        ]
+      },
+      {
+        "id": 36,
+        "parent": 27,
+        "name": "",
+        "text": "\ufffc",
+        "role": "list item",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "select"
+        ]
+      },
+      {
+        "id": 37,
+        "parent": 27,
+        "name": "",
+        "text": "\ufffc",
+        "role": "list item",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "select"
+        ]
+      },
+      {
+        "id": 38,
+        "parent": 27,
+        "name": "",
+        "text": "\ufffc",
+        "role": "list item",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "select"
+        ]
+      },
+      {
+        "id": 39,
+        "parent": 29,
+        "name": "Desktop versions",
+        "text": "Desktop versions",
+        "role": "heading",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 40,
+        "parent": 29,
+        "name": "",
+        "text": "",
+        "role": "description list",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 41,
+        "parent": 30,
+        "name": "Local service",
+        "text": "Local service",
+        "role": "heading",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 42,
+        "parent": 30,
+        "name": "",
+        "text": "",
+        "role": "description list",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 43,
+        "parent": 30,
+        "name": "",
+        "text": "\ufffc",
+        "role": "section",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 44,
+        "parent": 31,
+        "name": "Local capabilities",
+        "text": "Local capabilities",
+        "role": "heading",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 45,
+        "parent": 31,
+        "name": "",
+        "text": "",
+        "role": "description list",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 46,
+        "parent": 32,
+        "name": "Home",
+        "text": "Home\n",
+        "role": "link",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 47,
+        "parent": 33,
+        "name": "Jobs",
+        "text": "Jobs\n",
+        "role": "link",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 48,
+        "parent": 34,
+        "name": "Tracker",
+        "text": "Tracker\n",
+        "role": "link",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 49,
+        "parent": 35,
+        "name": "Documents / Resumes",
+        "text": "Documents / Resumes\n",
+        "role": "link",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 50,
+        "parent": 36,
+        "name": "Profile",
+        "text": "Profile\n",
+        "role": "link",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 51,
+        "parent": 37,
+        "name": "Settings",
+        "text": "Settings\n",
+        "role": "link",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 52,
+        "parent": 38,
+        "name": "Diagnostics",
+        "text": "Diagnostics\n",
+        "role": "link",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 53,
+        "parent": 40,
+        "name": "",
+        "text": "App version",
+        "role": "description term",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 54,
+        "parent": 40,
+        "name": "",
+        "text": "0.0.1",
+        "role": "description value",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 55,
+        "parent": 40,
+        "name": "",
+        "text": "Tauri version",
+        "role": "description term",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 56,
+        "parent": 40,
+        "name": "",
+        "text": "2.12.4",
+        "role": "description value",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 57,
+        "parent": 42,
+        "name": "",
+        "text": "Service status",
+        "role": "description term",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 58,
+        "parent": 42,
+        "name": "",
+        "text": "Ready",
+        "role": "description value",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 59,
+        "parent": 42,
+        "name": "",
+        "text": "Service version",
+        "role": "description term",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 60,
+        "parent": 42,
+        "name": "",
+        "text": "0.0.1",
+        "role": "description value",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 61,
+        "parent": 42,
+        "name": "",
+        "text": "API version",
+        "role": "description term",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 62,
+        "parent": 42,
+        "name": "",
+        "text": "1.0.0",
+        "role": "description value",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 63,
+        "parent": 42,
+        "name": "",
+        "text": "Checked at",
+        "role": "description term",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 64,
+        "parent": 42,
+        "name": "",
+        "text": "2026-10-31T23:09:26.110255748Z",
+        "role": "description value",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 65,
+        "parent": 43,
+        "name": "Check again",
+        "text": "",
+        "role": "push button",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          "press"
+        ]
+      },
+      {
+        "id": 66,
+        "parent": 45,
+        "name": "",
+        "text": "AI provider",
+        "role": "description term",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 67,
+        "parent": 45,
+        "name": "",
+        "text": "Unavailable in this build",
+        "role": "description value",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 68,
+        "parent": 45,
+        "name": "",
+        "text": "Platform certification",
+        "role": "description term",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 69,
+        "parent": 45,
+        "name": "",
+        "text": "Not evaluated",
+        "role": "description value",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 70,
+        "parent": 64,
+        "name": "",
+        "text": "2026-10-31T23:09:26.110255748Z",
+        "role": "static",
+        "pid": 30304,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      }
+    ]
+  },
+  "elapsed_seconds": 1.7947918120000281
+}

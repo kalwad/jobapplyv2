@@ -9,6 +9,11 @@ using System.Threading;
 using System.Windows.Automation;
 
 namespace JobApplyValidation {
+    // The driver's own ownership, uniqueness and bound assertions. It is not an
+    // InvalidOperationException, so no bounded wait ever treats it as 'not yet'.
+    public sealed class OwnedInvariantException : Exception {
+        public OwnedInvariantException(string message) : base(message) { }
+    }
     // This test owner never accepts arbitrary process IDs for termination.
     // Processes are suspended, assigned to our retained job, then resumed.
     public sealed class OwnedApp : IDisposable {
@@ -41,7 +46,12 @@ namespace JobApplyValidation {
         [DllImport("kernel32.dll", SetLastError=true)] static extern bool IsProcessInJob(IntPtr process,IntPtr job,out bool member);
         [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)] static extern bool QueryFullProcessImageName(IntPtr process,uint flags,StringBuilder path,ref uint length);
         [DllImport("kernel32.dll", SetLastError=true)] static extern bool GetProcessTimes(IntPtr process,out FileTime created,out FileTime exited,out FileTime kernel,out FileTime user);
+        [StructLayout(LayoutKind.Sequential)] struct FileIdentityInfo { public uint attributes; public FileTime created,accessed,written; public uint volume,sizeHigh,sizeLow,links,indexHigh,indexLow; }
+        [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)] static extern IntPtr CreateFile(string name,uint access,uint share,IntPtr security,uint disposition,uint flags,IntPtr template);
+        [DllImport("kernel32.dll", SetLastError=true)] static extern bool GetFileInformationByHandle(IntPtr file,out FileIdentityInfo info);
         [DllImport("user32.dll")] static extern uint GetWindowThreadProcessId(IntPtr window,out uint pid);
+        [DllImport("user32.dll",CharSet=CharSet.Unicode)] static extern IntPtr FindWindowEx(IntPtr parent,IntPtr after,string className,string windowName);
+        [DllImport("user32.dll")] static extern bool IsWindowVisible(IntPtr window);
         [DllImport("user32.dll")] static extern bool SetForegroundWindow(IntPtr window);
         [DllImport("user32.dll")] static extern IntPtr GetForegroundWindow();
         [StructLayout(LayoutKind.Sequential)] struct KeyboardInput { public ushort key,scan; public uint flags,time; public UIntPtr extra; }
@@ -114,7 +124,7 @@ namespace JobApplyValidation {
                 uint returned;
                 if(!QueryInformationJobObject(job,3,data,(uint)(8+64*IntPtr.Size),out returned)) throw new Win32Exception();
                 int assigned=Marshal.ReadInt32(data),count=Marshal.ReadInt32(data,4);
-                if(count<0||count>64||assigned!=count) throw new InvalidOperationException("Finite complete owned job list required");
+                if(count<0||count>64||assigned!=count) throw new OwnedInvariantException("Finite complete owned job list required");
                 uint[] ids=new uint[count];
                 for(int i=0;i<count;i++) ids[i]=checked((uint)Marshal.ReadIntPtr(data,8+i*IntPtr.Size).ToInt64());
                 return ids;
@@ -132,6 +142,21 @@ namespace JobApplyValidation {
                 return value.ToString();
             } finally { CloseHandle(handle); }
         }
+        // One file by volume serial and file ID, whatever path text names it: an 8.3
+        // short name, other case or a long form all resolve to the same identity.
+        static string FileIdentity(string path) {
+            if(String.IsNullOrEmpty(path)||path.Length>32767||path.IndexOf('\0')>=0) throw new ArgumentException("Bounded exact file path required");
+            IntPtr file=CreateFile(path,0x80,7,IntPtr.Zero,3,0,IntPtr.Zero);
+            if(file==new IntPtr(-1)) throw new Win32Exception();
+            try {
+                FileIdentityInfo info;
+                if(!GetFileInformationByHandle(file,out info)) throw new Win32Exception();
+                if((info.attributes&0x10)!=0) throw new OwnedInvariantException("Regular file identity required");
+                return info.volume.ToString("x8")+":"+info.indexHigh.ToString("x8")+info.indexLow.ToString("x8");
+            } finally { CloseHandle(file); }
+        }
+        static bool SameFile(string first,string second) { return String.Equals(FileIdentity(first),FileIdentity(second),StringComparison.Ordinal); }
+        public bool MemberIsImage(uint pid,string image) { return SameFile(MemberImage(pid),image); }
         public Member OpenMember(uint pid,string exactImage) {
             bool found=false; foreach(uint id in Members()) if(id==pid) found=true;
             if(!found) throw new InvalidOperationException("Only an owned job member may be opened");
@@ -147,58 +172,119 @@ namespace JobApplyValidation {
             return false;
         }
         public AutomationElement Window() {
-            if(process==IntPtr.Zero||WaitForSingleObject(process,0)==0) throw new InvalidOperationException("Owned app already exited");
+            if(process==IntPtr.Zero||WaitForSingleObject(process,0)==0) throw new OwnedInvariantException("Owned app already exited");
             IntPtr hwnd;
             using(Process view=Process.GetProcessById((int)Pid)) { hwnd=view.MainWindowHandle; }
             uint pid; GetWindowThreadProcessId(hwnd,out pid);
             if(hwnd==IntPtr.Zero||pid!=Pid) throw new InvalidOperationException("Owned window unavailable");
             AutomationElement window=AutomationElement.FromHandle(hwnd);
-            if(window.Current.ProcessId!=(int)Pid) throw new InvalidOperationException("Window ownership changed");
+            if(window.Current.ProcessId!=(int)Pid) throw new OwnedInvariantException("Window ownership changed");
             return window;
         }
         public string[] Names() {
             AutomationElement window=Window();
             AutomationElementCollection nodes=window.FindAll(TreeScope.Subtree,Condition.TrueCondition);
-            if(nodes.Count>2048) throw new InvalidOperationException("Owned accessibility tree exceeds bound");
+            if(nodes.Count>2048) throw new OwnedInvariantException("Owned accessibility tree exceeds bound");
             HashSet<uint> ids=new HashSet<uint>(Members()); List<string> names=new List<string>();
             foreach(AutomationElement node in nodes) {
-                if(!ids.Contains((uint)node.Current.ProcessId)) throw new InvalidOperationException("Accessibility node outside retained job");
+                if(!ids.Contains((uint)node.Current.ProcessId)) throw new OwnedInvariantException("Accessibility node outside retained job");
                 string name=node.Current.Name;
-                if(name.Length>8192) throw new InvalidOperationException("Accessibility text exceeds bound");
+                if(name.Length>8192) throw new OwnedInvariantException("Accessibility text exceeds bound");
                 names.Add(name);
             }
             return names.ToArray();
         }
-        AutomationElement OwnedControl(string name) {
+        // A route's ListItem, its Hyperlink and its heading share one exact Name, and
+        // only the Hyperlink invokes (measured: Diagnostics). Every exact-name node is
+        // owned; exactly one enabled node supports the pattern, or the call refuses.
+        AutomationElement OwnedControl(string name,AutomationPattern pattern) {
             if(String.IsNullOrEmpty(name)||name.Length>256) throw new ArgumentException("Finite exact control name required");
-            AutomationElement element=Window().FindFirst(TreeScope.Descendants,new PropertyCondition(AutomationElement.NameProperty,name));
-            if(element==null) throw new InvalidOperationException("Owned control unavailable: "+name);
-            HashSet<uint> ids=new HashSet<uint>(Members());
-            if(!ids.Contains((uint)element.Current.ProcessId)||!element.Current.IsEnabled) throw new InvalidOperationException("Owned control unavailable");
-            return element;
+            AutomationElementCollection nodes=Window().FindAll(TreeScope.Descendants,new PropertyCondition(AutomationElement.NameProperty,name));
+            if(nodes.Count>32) throw new OwnedInvariantException("Finite exact control query required: "+name);
+            HashSet<uint> ids=new HashSet<uint>(Members()); List<AutomationElement> found=new List<AutomationElement>();
+            foreach(AutomationElement node in nodes) {
+                if(!ids.Contains((uint)node.Current.ProcessId)) throw new OwnedInvariantException("Control node outside retained job: "+name);
+                object supported;
+                if(node.Current.IsEnabled&&node.TryGetCurrentPattern(pattern,out supported)) found.Add(node);
+            }
+            if(found.Count>1) throw new OwnedInvariantException("Unique owned control required: "+name+" ("+found.Count+" enabled with "+pattern.ProgrammaticName+")");
+            if(found.Count==0) throw new InvalidOperationException("Owned control unavailable: "+name+" ("+nodes.Count+" exact-name nodes, none enabled with "+pattern.ProgrammaticName+")");
+            return found[0];
         }
         public void Expand(string name) {
-            AutomationElement element=OwnedControl(name);
-            object pattern;
-            if(!element.TryGetCurrentPattern(ExpandCollapsePattern.Pattern,out pattern)) throw new InvalidOperationException("Owned control has no native expansion pattern");
-            ExpandCollapsePattern menu=(ExpandCollapsePattern)pattern;
+            ExpandCollapsePattern menu=(ExpandCollapsePattern)OwnedControl(name,ExpandCollapsePattern.Pattern).GetCurrentPattern(ExpandCollapsePattern.Pattern);
             if(menu.Current.ExpandCollapseState==ExpandCollapseState.LeafNode) throw new InvalidOperationException("Owned control is not expandable");
             if(menu.Current.ExpandCollapseState!=ExpandCollapseState.Expanded) menu.Expand();
         }
         public void Invoke(string name) {
-            AutomationElement element=OwnedControl(name);
-            object pattern;
-            if(!element.TryGetCurrentPattern(InvokePattern.Pattern,out pattern)) throw new InvalidOperationException("Owned control has no native invocation pattern");
-            ((InvokePattern)pattern).Invoke();
+            ((InvokePattern)OwnedControl(name,InvokePattern.Pattern).GetCurrentPattern(InvokePattern.Pattern)).Invoke();
+        }
+        // WebView2 applies UIA focus in its renderer and Win32 opens a menu popup after
+        // Expand returns, so an observation that is not yet true, or a node replaced
+        // meanwhile, is retried within a fixed bound; callers still assert strictly.
+        const int SettleMilliseconds=3000;
+        // Only a replaced or changing UIA node is 'not yet': never an
+        // OwnedInvariantException and never a disposed owner.
+        static bool Transient(Exception error) {
+            return !(error is ObjectDisposedException)&&(error is ElementNotAvailableException||error is COMException||error is InvalidOperationException);
+        }
+        // The last 'not yet' cause of the most recent Settles, named by its refusal.
+        [ThreadStatic] static string settleLast;
+        static bool Settles(Func<bool> observation) {
+            Stopwatch clock=Stopwatch.StartNew(); settleLast="";
+            while(true) {
+                try { if(observation()) return true; }
+                catch(Exception error) { if(!Transient(error)) throw; settleLast="; last: "+error.GetType().FullName+": "+Bounded(error.Message,256); }
+                if(clock.ElapsedMilliseconds>=SettleMilliseconds) return false;
+                Thread.Sleep(25);
+            }
+        }
+        const int PopupWindowBound=64;
+        // A Win32 menu-bar popup is a visible top-level '#32768' window that UIA does
+        // not list among the desktop root's children (measured on hosted Windows: the
+        // File popup's thread belongs to the job's root member). Only the one visible
+        // popup owned by a current job member is read, through its own handle.
+        AutomationElement OwnedPopupItem(string name) {
+            HashSet<uint> ids=new HashSet<uint>(Members());
+            IntPtr popup=IntPtr.Zero,handle=IntPtr.Zero; int seen=0;
+            while((handle=FindWindowEx(IntPtr.Zero,handle,"#32768",null))!=IntPtr.Zero) {
+                if(++seen>PopupWindowBound) throw new OwnedInvariantException("Finite desktop popup menu enumeration required");
+                uint owner;
+                if(GetWindowThreadProcessId(handle,out owner)==0||!IsWindowVisible(handle)||!ids.Contains(owner)) continue;
+                if(popup!=IntPtr.Zero) throw new OwnedInvariantException("Unique visible owned popup menu required");
+                popup=handle;
+            }
+            if(popup==IntPtr.Zero) return null;
+            AutomationElement menu=AutomationElement.FromHandle(popup);
+            if(!ids.Contains((uint)menu.Current.ProcessId)||menu.Current.ControlType!=ControlType.Menu) throw new OwnedInvariantException("Owned popup window is not an owned native menu");
+            AutomationElementCollection items=menu.FindAll(TreeScope.Descendants,new AndCondition(new PropertyCondition(AutomationElement.NameProperty,name),new PropertyCondition(AutomationElement.ControlTypeProperty,ControlType.MenuItem)));
+            if(items.Count>32) throw new OwnedInvariantException("Finite owned popup menu query required");
+            AutomationElement found=null;
+            foreach(AutomationElement item in items) {
+                if(!ids.Contains((uint)item.Current.ProcessId)) throw new OwnedInvariantException("Popup menu item outside retained job");
+                object supported;
+                if(!item.Current.IsEnabled||!item.TryGetCurrentPattern(InvokePattern.Pattern,out supported)) continue;
+                if(found!=null) throw new OwnedInvariantException("Unique enabled owned popup menu item required: "+name);
+                found=item;
+            }
+            return found;
+        }
+        public void InvokePopupItem(string name) {
+            if(String.IsNullOrEmpty(name)||name.Length>256) throw new ArgumentException("Finite exact control name required");
+            AutomationElement item=null;
+            if(!Settles(()=>{ item=OwnedPopupItem(name); return item!=null; })) throw new OwnedInvariantException("Owned popup menu item unavailable: "+name+settleLast);
+            ((InvokePattern)item.GetCurrentPattern(InvokePattern.Pattern)).Invoke();
         }
         // Closed key sequences only, in this isolated guest's retained foreground window.
         void Keys(bool quit) {
             AutomationElement window=Window(); IntPtr hwnd=new IntPtr(window.Current.NativeWindowHandle);
             if(!SetForegroundWindow(hwnd)||GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Owned keyboard foreground acknowledgment required");
             if(!quit) {
-                AutomationElement button=OwnedControl("Check again"); button.SetFocus();
-                AutomationElement focused=AutomationElement.FocusedElement;
-                if(focused==null||focused.Current.Name!="Check again"||!new HashSet<uint>(Members()).Contains((uint)focused.Current.ProcessId)) throw new InvalidOperationException("Owned button focus required");
+                AutomationElement button=OwnedControl("Check again",InvokePattern.Pattern); button.SetFocus();
+                if(!Settles(()=>{
+                    AutomationElement focused=AutomationElement.FocusedElement;
+                    return focused!=null&&focused.Current.Name=="Check again"&&new HashSet<uint>(Members()).Contains((uint)focused.Current.ProcessId);
+                })) throw new OwnedInvariantException("Owned button focus required"+settleLast);
             }
             ushort[] keys=quit?new ushort[]{0x11,0x51,0x51,0x11}:new ushort[]{0x0D,0x0D};
             Input[] sequence=new Input[keys.Length];
@@ -208,6 +294,19 @@ namespace JobApplyValidation {
         }
         public void KeyboardCheckAgain() { Keys(false); }
         public void KeyboardQuit() { Keys(true); }
+        static string Bounded(string value,int limit) { return value==null?"":(value.Length>limit?value.Substring(0,limit):value); }
+        // Diagnostic text only, never a pass condition (KI-0127): which owned process
+        // held UIA keyboard focus before a fixed chord, e.g. a WebView2 job member.
+        public string FocusOwner() {
+            try {
+                AutomationElement focused=AutomationElement.FocusedElement;
+                if(focused==null) return "none";
+                uint pid=(uint)focused.Current.ProcessId;
+                string role=(pid==Pid?"root:":"member:");
+                if(pid!=Pid&&Array.IndexOf(Members(),pid)<0) return "outside-owned-job";
+                return role+Bounded(System.IO.Path.GetFileName(MemberImage(pid)),128)+"/"+Bounded(focused.Current.ClassName,64);
+            } catch(Exception error) { return "unavailable:"+error.GetType().Name; }
+        }
         // Official UIAutomationClient.h IUnknown prefixes. Unused slots preserve ABI;
         // the only UIA root query used below is ElementFromHandle(our retained HWND).
         [StructLayout(LayoutKind.Sequential)] struct NativePoint { public int x,y; }
@@ -259,7 +358,7 @@ namespace JobApplyValidation {
             public NativeRoleRecord(int processId,string role) { ProcessId=processId;Role=role; }
         }
         static string NativeRuntimeKey(int[] runtimeId) {
-            if(runtimeId==null||runtimeId.Length<1||runtimeId.Length>64) throw new InvalidOperationException("Finite exact native runtime ID required");
+            if(runtimeId==null||runtimeId.Length<1||runtimeId.Length>64) throw new OwnedInvariantException("Finite exact native runtime ID required");
             string[] parts=new string[runtimeId.Length];
             for(int i=0;i<parts.Length;i++) parts[i]=runtimeId[i].ToString(System.Globalization.CultureInfo.InvariantCulture);
             return String.Join(",",parts);
@@ -267,19 +366,19 @@ namespace JobApplyValidation {
         static string NativeRoleString(object value) {
             string text=value as string;
             if(text==null||text.Length==0) return null; // Unknown is data, never a substitute role.
-            if(text.Length>128) throw new InvalidOperationException("Bounded actual ARIA role required");
+            if(text.Length>128) throw new OwnedInvariantException("Bounded actual ARIA role required");
             return text;
         }
         static void AddNativeRole(Dictionary<string,NativeRoleRecord> rows,int[] runtimeId,int processId,string role) {
-            if(processId<=0||rows.Count>=2048) throw new InvalidOperationException("Finite actual native role inventory required");
+            if(processId<=0||rows.Count>=2048) throw new OwnedInvariantException("Finite actual native role inventory required");
             string key=NativeRuntimeKey(runtimeId);
-            if(rows.ContainsKey(key)) throw new InvalidOperationException("Ambiguous native runtime ID refused");
+            if(rows.ContainsKey(key)) throw new OwnedInvariantException("Ambiguous native runtime ID refused");
             rows.Add(key,new NativeRoleRecord(processId,role));
         }
         static string BindNativeRole(Dictionary<string,NativeRoleRecord> rows,int[] runtimeId,int processId,bool required) {
             NativeRoleRecord row;
             if(processId<=0||!rows.TryGetValue(NativeRuntimeKey(runtimeId),out row)||row.ProcessId!=processId) throw new InvalidOperationException("Managed/native owned element identity differs");
-            if(required&&row.Role==null) throw new InvalidOperationException("Required actual ARIA role is unsupported");
+            if(required&&row.Role==null) throw new OwnedInvariantException("Required actual ARIA role is unsupported");
             return row.Role;
         }
         // END PURE NATIVE ROLE DATA.
@@ -321,14 +420,14 @@ namespace JobApplyValidation {
                 object instance=Activator.CreateInstance(nativeType);acquired.Add(instance);NativeAutomation automation=(NativeAutomation)instance;
                 NativeElement root;int result=automation.ElementFromHandle(hwnd,out root);if(root!=null) acquired.Add(root);NativeSuccess(result);if(root==null) throw new InvalidOperationException("Actual owned UIA root unavailable");
                 object rootHandle=NativeValue(root,30020,acquired);
-                if(NativeProcessId(root,acquired)!=(int)Pid||!(rootHandle is int)||new IntPtr((int)rootHandle)!=hwnd||NativeKey(root)!=rootKey) throw new InvalidOperationException("Native root escaped retained HWND/PID/runtime ID");
+                if(NativeProcessId(root,acquired)!=(int)Pid||!(rootHandle is int)||new IntPtr((int)rootHandle)!=hwnd||NativeKey(root)!=rootKey) throw new OwnedInvariantException("Native root escaped retained HWND/PID/runtime ID");
                 NativeCondition condition;result=automation.CreateTrueCondition(out condition);if(condition!=null) acquired.Add(condition);NativeSuccess(result);if(condition==null) throw new InvalidOperationException("Actual native condition unavailable");
                 NativeElements nodes;result=root.FindAll(7,condition,out nodes);if(nodes!=null) acquired.Add(nodes);NativeSuccess(result);if(nodes==null) throw new InvalidOperationException("Actual owned native subtree unavailable");
-                int count;NativeSuccess(nodes.get_Length(out count));if(count<1||count>2048) throw new InvalidOperationException("Owned native subtree exceeds bound");
+                int count;NativeSuccess(nodes.get_Length(out count));if(count<1||count>2048) throw new OwnedInvariantException("Owned native subtree exceeds bound");
                 Dictionary<string,NativeRoleRecord> rows=new Dictionary<string,NativeRoleRecord>(StringComparer.Ordinal);
                 for(int i=0;i<count;i++) {
                     NativeElement node;result=nodes.GetElement(i,out node);if(node!=null) acquired.Add(node);NativeSuccess(result);if(node==null) throw new InvalidOperationException("Actual native element unavailable");
-                    int processId=NativeProcessId(node,acquired);if(!members.Contains((uint)processId)) throw new InvalidOperationException("Native role node outside retained job");
+                    int processId=NativeProcessId(node,acquired);if(!members.Contains((uint)processId)) throw new OwnedInvariantException("Native role node outside retained job");
                     int[] id;NativeSuccess(node.GetRuntimeId(out id));object role=NativeValue(node,30101,acquired);
                     AddNativeRole(rows,id,processId,NativeRoleString(role));
                     if(NativeKey(node)!=NativeRuntimeKey(id)||NativeProcessId(node,acquired)!=processId) throw new InvalidOperationException("Native element changed during ARIA observation");
@@ -342,7 +441,7 @@ namespace JobApplyValidation {
         string ReadNativeRole(AutomationElement node,NativeRoleSnapshot snapshot,bool required) {
             AutomationElement root=Window();if(new IntPtr(root.Current.NativeWindowHandle)!=snapshot.Hwnd||NativeRuntimeKey(root.GetRuntimeId())!=snapshot.RootKey) throw new InvalidOperationException("Retained root changed before managed/native role join");
             int processId=node.Current.ProcessId;int[] id=node.GetRuntimeId();
-            if(processId<=0||!new HashSet<uint>(Members()).Contains((uint)processId)) throw new InvalidOperationException("Managed ARIA query outside retained job");
+            if(processId<=0||!new HashSet<uint>(Members()).Contains((uint)processId)) throw new OwnedInvariantException("Managed ARIA query outside retained job");
             string role=BindNativeRole(snapshot.Rows,id,processId,required);
             if(node.Current.ProcessId!=processId||NativeRuntimeKey(node.GetRuntimeId())!=NativeRuntimeKey(id)) throw new InvalidOperationException("Managed element changed during ARIA join");
             root=Window();if(new IntPtr(root.Current.NativeWindowHandle)!=snapshot.Hwnd||NativeRuntimeKey(root.GetRuntimeId())!=snapshot.RootKey) throw new InvalidOperationException("Retained root changed after managed/native role join");
@@ -359,14 +458,14 @@ namespace JobApplyValidation {
         }
         AutomationElement ShellUnique(string name,ControlType type,string role,bool requireVisible=true) {
             AutomationElementCollection nodes=Window().FindAll(TreeScope.Descendants,new PropertyCondition(AutomationElement.NameProperty,name));
-            if(nodes.Count>32) throw new InvalidOperationException("Finite exact shell query required");
+            if(nodes.Count>32) throw new OwnedInvariantException("Finite exact shell query required");
             HashSet<uint> ids=new HashSet<uint>(Members()); AutomationElement found=null;
             NativeRoleSnapshot roles=role==null?null:NativeRoles();
             foreach(AutomationElement node in nodes) {
-                if(!ids.Contains((uint)node.Current.ProcessId)) throw new InvalidOperationException("Shell node outside retained job");
+                if(!ids.Contains((uint)node.Current.ProcessId)) throw new OwnedInvariantException("Shell node outside retained job");
                 string actualRole=roles==null?null:ReadNativeRole(node,roles,false);
                 if(node.Current.ControlType!=type||(role!=null&&actualRole!=role)) continue;
-                if(found!=null) throw new InvalidOperationException("Unique exact native shell element required");
+                if(found!=null) throw new OwnedInvariantException("Unique exact native shell element required");
                 found=node;
             }
             if(found==null||!found.Current.IsEnabled||(requireVisible&&found.Current.IsOffscreen)) throw new InvalidOperationException("Visible exact owned shell element unavailable");
@@ -375,18 +474,18 @@ namespace JobApplyValidation {
         public void ShellFocusRoute(string label) {
             if(Array.IndexOf(ShellRoutes,label)<0) throw new ArgumentException("Closed source-bound route required");
             ShellForeground(); AutomationElement link=ShellUnique(label,ControlType.Hyperlink,null,false);link.SetFocus();
-            if(!link.Current.HasKeyboardFocus) throw new InvalidOperationException("Owned route link focus unavailable");
+            if(!Settles(()=>link.Current.HasKeyboardFocus)) throw new OwnedInvariantException("Owned route link focus unavailable"+settleLast);
         }
         public void ShellFocusSkip() {
             ShellForeground();AutomationElement link=ShellUnique("Skip to main content",ControlType.Hyperlink,null,false);link.SetFocus();
-            if(!link.Current.HasKeyboardFocus||link.Current.IsOffscreen) throw new InvalidOperationException("Actual skip link focus unavailable");
+            if(!Settles(()=>link.Current.HasKeyboardFocus&&!link.Current.IsOffscreen)) throw new OwnedInvariantException("Actual skip link focus unavailable"+settleLast);
         }
         public bool ShellMainFocused() {
             AutomationElementCollection nodes=Window().FindAll(TreeScope.Descendants,Condition.TrueCondition);
-            if(nodes.Count>2048) throw new InvalidOperationException("Finite owned shell tree required");
+            if(nodes.Count>2048) throw new OwnedInvariantException("Finite owned shell tree required");
             HashSet<uint> ids=new HashSet<uint>(Members());int count=0;NativeRoleSnapshot roles=NativeRoles();
             foreach(AutomationElement node in nodes) {
-                if(!ids.Contains((uint)node.Current.ProcessId)) throw new InvalidOperationException("Shell node outside retained job");
+                if(!ids.Contains((uint)node.Current.ProcessId)) throw new OwnedInvariantException("Shell node outside retained job");
                 if(ReadNativeRole(node,roles,false)=="main"&&node.Current.HasKeyboardFocus) count++;
             }
             return count==1;
@@ -423,27 +522,36 @@ namespace JobApplyValidation {
         }
         public object[] ShellTree() {
             AutomationElementCollection nodes=Window().FindAll(TreeScope.Subtree,Condition.TrueCondition);
-            if(nodes.Count>2048) throw new InvalidOperationException("Finite owned shell tree required");
+            if(nodes.Count>2048) throw new OwnedInvariantException("Finite owned shell tree required");
             HashSet<uint> ids=new HashSet<uint>(Members());List<object> rows=new List<object>();NativeRoleSnapshot roles=NativeRoles();
             foreach(AutomationElement node in nodes) {
-                if(!ids.Contains((uint)node.Current.ProcessId)||node.Current.Name.Length>8192) throw new InvalidOperationException("Bounded owned shell node required");
+                if(!ids.Contains((uint)node.Current.ProcessId)||node.Current.Name.Length>8192) throw new OwnedInvariantException("Bounded owned shell node required");
                 System.Windows.Rect r=node.Current.BoundingRectangle;
                 rows.Add(new Dictionary<string,object>{{"name",node.Current.Name},{"control_type",node.Current.ControlType.ProgrammaticName},{"aria_role",ReadNativeRole(node,roles,false)},{"focused",node.Current.HasKeyboardFocus},{"offscreen",node.Current.IsOffscreen},{"rect",new double[]{r.X,r.Y,r.Width,r.Height}}});
             }
             return rows.ToArray();
         }
-        System.Windows.Automation.Text.TextPatternRange ShellText(string text,System.Windows.Automation.Text.TextPatternRange scope) {
+        // WebView2's FindText result drifts one character per line break before the match
+        // within its scope (measured: "0.0.1" in the Desktop versions region read ".1\nTau",
+        // KI-0163). Each label is searched only inside its own unique text element, where it
+        // starts the first line, as the route-heading prefix already is.
+        System.Windows.Automation.Text.TextPatternRange ShellText(string text,AutomationElement region,TextPattern pattern) {
+            AutomationElementCollection labels=region.FindAll(TreeScope.Descendants,new AndCondition(new PropertyCondition(AutomationElement.NameProperty,text),new PropertyCondition(AutomationElement.ControlTypeProperty,ControlType.Text)));
+            if(labels.Count!=1) throw new InvalidOperationException("Exact unique whole glyph label required");
+            if(!new HashSet<uint>(Members()).Contains((uint)labels[0].Current.ProcessId)) throw new OwnedInvariantException("Glyph label outside retained job");
+            System.Windows.Automation.Text.TextPatternRange scope=pattern.RangeFromChild(labels[0]);
             System.Windows.Automation.Text.TextPatternRange first=scope.FindText(text,false,false),last=scope.FindText(text,true,false);
             if(first==null||last==null||!first.Compare(last)||first.GetText(text.Length+1)!=text) throw new InvalidOperationException("Exact unique whole glyph label required");
             if(!(first.GetAttributeValue(TextPattern.IsHiddenAttribute) is bool)||(bool)first.GetAttributeValue(TextPattern.IsHiddenAttribute)) throw new InvalidOperationException("Actual glyph range is hidden or unknown");
-            if(!new HashSet<uint>(Members()).Contains((uint)first.GetEnclosingElement().Current.ProcessId)) throw new InvalidOperationException("Glyph range outside retained job");
+            if(!new HashSet<uint>(Members()).Contains((uint)first.GetEnclosingElement().Current.ProcessId)) throw new OwnedInvariantException("Glyph range outside retained job");
             return first;
         }
         public Dictionary<string,object> ShellRouteGeometry(string label) {
             AutomationElement heading=ShellUnique(label,ControlType.Text,"heading");
             AutomationElement window=Window();IntPtr hwnd=new IntPtr(window.Current.NativeWindowHandle);
             AutomationElementCollection documents=window.FindAll(TreeScope.Descendants,new PropertyCondition(AutomationElement.ControlTypeProperty,ControlType.Document));
-            if(documents.Count!=1||!new HashSet<uint>(Members()).Contains((uint)documents[0].Current.ProcessId)) throw new InvalidOperationException("One actual owned native text provider required");
+            if(documents.Count!=1) throw new InvalidOperationException("One actual owned native text provider required");
+            if(!new HashSet<uint>(Members()).Contains((uint)documents[0].Current.ProcessId)) throw new OwnedInvariantException("Native text provider outside retained job");
             object raw;if(!documents[0].TryGetCurrentPattern(TextPattern.Pattern,out raw)) throw new InvalidOperationException("Actual UIA text bounds unavailable");
             string text=label.Substring(0,4);
             System.Windows.Automation.Text.TextPatternRange range=((TextPattern)raw).RangeFromChild(heading).FindText(text,false,false);
@@ -451,7 +559,7 @@ namespace JobApplyValidation {
             System.Windows.Rect[] rectangles=range.GetBoundingRectangles();if(rectangles.Length!=1) throw new InvalidOperationException("Route prefix must be one complete visible line");
             System.Windows.Rect glyph=rectangles[0];double[] glyphBounds=new double[]{glyph.X,glyph.Y,glyph.Width,glyph.Height};
             uint dpi=GetDpiForWindow(hwnd);int awareness=GetAwarenessFromDpiAwarenessContext(GetWindowDpiAwarenessContext(hwnd));
-            if(dpi==0||awareness!=2) throw new InvalidOperationException("Actual per-monitor owned-window DPI required");
+            if(dpi==0||awareness!=2) throw new OwnedInvariantException("Actual per-monitor owned-window DPI required");
             System.Windows.Rect frame=window.Current.BoundingRectangle;
             return new Dictionary<string,object>{{"glyph",new Dictionary<string,object>{{"text",text},{"rect",glyphBounds},{"single_line",true},{"visible",true},{"showing",true}}},{"frame",new double[]{frame.X,frame.Y,frame.Width,frame.Height}},{"window_id",hwnd.ToInt64().ToString()},{"app_pid",Pid},{"backing",new Dictionary<string,object>{{"kind","WIN32_OWNED_HWND"},{"dpi",dpi},{"awareness",awareness}}}};
         }
@@ -459,22 +567,26 @@ namespace JobApplyValidation {
             if(Array.IndexOf(new string[]{"baseline","step1","step2","step3","step4","step5","reset"},stage)<0) throw new ArgumentException("Closed scale measurement stage required");
             ShellForeground();AutomationElement window=Window();IntPtr hwnd=new IntPtr(window.Current.NativeWindowHandle);
             AutomationElementCollection documents=window.FindAll(TreeScope.Descendants,new PropertyCondition(AutomationElement.ControlTypeProperty,ControlType.Document));
-            if(documents.Count!=1||!new HashSet<uint>(Members()).Contains((uint)documents[0].Current.ProcessId)) throw new InvalidOperationException("One actual owned native text provider required");
+            if(documents.Count!=1) throw new InvalidOperationException("One actual owned native text provider required");
+            if(!new HashSet<uint>(Members()).Contains((uint)documents[0].Current.ProcessId)) throw new OwnedInvariantException("Native text provider outside retained job");
             object raw;if(!documents[0].TryGetCurrentPattern(TextPattern.Pattern,out raw)) throw new InvalidOperationException("Actual UIA text bounds unavailable");
             TextPattern pattern=(TextPattern)raw;
             AutomationElement region=ShellUnique("Desktop versions",ControlType.Group,"region");
-            System.Windows.Automation.Text.TextPatternRange scope=pattern.RangeFromChild(region);
-            ShellText("App version",scope).ScrollIntoView(true);ShellText("Tauri version",scope);
+            // WebView2 ignores a text range's ScrollIntoView (leaf) or overshoots (region), but
+            // honours the element's ScrollItemPattern (measured at 175% zoom, KI-0163).
+            object scroll;if(!region.TryGetCurrentPattern(ScrollItemPattern.Pattern,out scroll)) throw new InvalidOperationException("Actual scrollable versions region required");
+            ((ScrollItemPattern)scroll).ScrollIntoView();
+            ShellText("App version",region,pattern);ShellText("Tauri version",region,pattern);
             List<object> anchors=new List<object>();
             foreach(string text in new string[]{"0.0.1","2.12.4"}) {
-                System.Windows.Automation.Text.TextPatternRange range=ShellText(text,scope);System.Windows.Rect[] rectangles=range.GetBoundingRectangles();
+                System.Windows.Automation.Text.TextPatternRange range=ShellText(text,region,pattern);System.Windows.Rect[] rectangles=range.GetBoundingRectangles();
                 if(rectangles.Length!=1) throw new InvalidOperationException("Single visible complete glyph rectangle required");
                 System.Windows.Rect glyph=rectangles[0];double[] glyphBounds=new double[]{glyph.X,glyph.Y,glyph.Width,glyph.Height};
                 foreach(double coordinate in glyphBounds) if(Double.IsNaN(coordinate)||Double.IsInfinity(coordinate)) throw new InvalidOperationException("Finite actual glyph bounds required");
                 anchors.Add(new Dictionary<string,object>{{"text",text},{"rect",glyphBounds},{"single_line",true},{"visible",true},{"showing",true}});
             }
             uint dpi=GetDpiForWindow(hwnd);IntPtr context=GetWindowDpiAwarenessContext(hwnd);int awareness=GetAwarenessFromDpiAwarenessContext(context);
-            if(dpi==0||context==IntPtr.Zero||awareness!=2) throw new InvalidOperationException("Actual per-monitor owned-window DPI required");
+            if(dpi==0||context==IntPtr.Zero||awareness!=2) throw new OwnedInvariantException("Actual per-monitor owned-window DPI required");
             System.Windows.Rect frame=window.Current.BoundingRectangle;
             return new Dictionary<string,object>{{"stage",stage},{"window_id",hwnd.ToInt64().ToString()},{"app_pid",Pid},{"frame",new double[]{frame.X,frame.Y,frame.Width,frame.Height}},{"backing",new Dictionary<string,object>{{"kind","WIN32_OWNED_HWND"},{"dpi",dpi},{"awareness",awareness}}},{"anchors",anchors.ToArray()}};
         }
@@ -483,7 +595,7 @@ namespace JobApplyValidation {
             AutomationElement window=Window(); IntPtr hwnd=new IntPtr(window.Current.NativeWindowHandle);
             if(!SetForegroundWindow(hwnd)||GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Actual owned foreground window required for capture");
             System.Windows.Rect r=window.Current.BoundingRectangle;
-            if(r.Width<640||r.Height<480||r.Width>1920||r.Height>1200) throw new InvalidOperationException("Owned window capture geometry outside bounds");
+            if(r.Width<640||r.Height<480||r.Width>1920||r.Height>1200) throw new OwnedInvariantException("Owned window capture geometry outside bounds");
             using(System.Drawing.Bitmap image=new System.Drawing.Bitmap((int)r.Width,(int)r.Height))
             using(System.Drawing.Graphics graphics=System.Drawing.Graphics.FromImage(image)) {
                 graphics.CopyFromScreen((int)r.X,(int)r.Y,0,0,image.Size);
@@ -514,7 +626,7 @@ namespace JobApplyValidation {
                     uint length=32768; StringBuilder path=new StringBuilder((int)length);
                     if(!QueryFullProcessImageName(handle,0,path,ref length)) throw new Win32Exception();
                     Path=path.ToString();
-                    if(!String.Equals(Path,System.IO.Path.GetFullPath(image),StringComparison.OrdinalIgnoreCase)) throw new InvalidOperationException("Owned executable path mismatch");
+                    if(!SameFile(Path,image)) throw new InvalidOperationException("Owned executable path mismatch");
                     FileTime created,exited,kernel,user; if(!GetProcessTimes(handle,out created,out exited,out kernel,out user)) throw new Win32Exception();
                     CreationTime=((long)created.high<<32)|created.low; Pid=pid;
                 } catch { CloseHandle(handle); handle=IntPtr.Zero; throw; }

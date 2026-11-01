@@ -1,0 +1,6 @@
+{
+  "device": "/dev/kvm",
+  "api_version": 12,
+  "acceleration": "KVM",
+  "tcg_fallback": false
+}

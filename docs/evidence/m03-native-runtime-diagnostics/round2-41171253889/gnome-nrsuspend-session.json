@@ -1,0 +1,141 @@
+{
+ "uptime": "164.40",
+ "env": {
+  "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/1000/bus",
+  "DESKTOP_AUTOSTART_ID": "101ee04a07c71df95c17934234192952700000153810016",
+  "DESKTOP_SESSION": "ubuntu",
+  "DISPLAY": ":0",
+  "GDMSESSION": "ubuntu",
+  "GNOME_DESKTOP_SESSION_ID": "this-is-deprecated",
+  "GNOME_SETUP_DISPLAY": ":1",
+  "GNOME_SHELL_SESSION_MODE": "ubuntu",
+  "INVOCATION_ID": "5858ef24454941c2a1fa3d595715f61c",
+  "JOURNAL_STREAM": "8:28479",
+  "MANAGERPID": "1032",
+  "SESSION_MANAGER": "local/japp-gnome-ci:@/tmp/.ICE-unix/15381,unix/japp-gnome-ci:/tmp/.ICE-unix/15381",
+  "SYSTEMD_EXEC_PID": "15381",
+  "WAYLAND_DISPLAY": "wayland-0",
+  "XDG_CONFIG_DIRS": "/etc/xdg/xdg-ubuntu:/etc/xdg",
+  "XDG_CURRENT_DESKTOP": "ubuntu:GNOME",
+  "XDG_DATA_DIRS": "/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop",
+  "XDG_MENU_PREFIX": "gnome-",
+  "XDG_RUNTIME_DIR": "/run/user/1000",
+  "XDG_SESSION_CLASS": "user",
+  "XDG_SESSION_DESKTOP": "ubuntu",
+  "XDG_SESSION_TYPE": "wayland"
+ },
+ "env_keys_all": [
+  "DBUS_SESSION_BUS_ADDRESS",
+  "DESKTOP_AUTOSTART_ID",
+  "DESKTOP_SESSION",
+  "DISPLAY",
+  "GDMSESSION",
+  "GIO_LAUNCHED_DESKTOP_FILE",
+  "GIO_LAUNCHED_DESKTOP_FILE_PID",
+  "GNOME_DESKTOP_SESSION_ID",
+  "GNOME_SETUP_DISPLAY",
+  "GNOME_SHELL_SESSION_MODE",
+  "GSM_SKIP_SSH_AGENT_WORKAROUND",
+  "HOME",
+  "INVOCATION_ID",
+  "JOURNAL_STREAM",
+  "LANG",
+  "LOGNAME",
+  "MANAGERPID",
+  "MEMORY_PRESSURE_WATCH",
+  "MEMORY_PRESSURE_WRITE",
+  "PATH",
+  "PWD",
+  "SESSION_MANAGER",
+  "SHELL",
+  "SHLVL",
+  "SSH_AUTH_SOCK",
+  "SYSTEMD_EXEC_PID",
+  "USER",
+  "USERNAME",
+  "WAYLAND_DISPLAY",
+  "XAUTHORITY",
+  "XDG_CONFIG_DIRS",
+  "XDG_CURRENT_DESKTOP",
+  "XDG_DATA_DIRS",
+  "XDG_MENU_PREFIX",
+  "XDG_RUNTIME_DIR",
+  "XDG_SESSION_CLASS",
+  "XDG_SESSION_DESKTOP",
+  "XDG_SESSION_TYPE",
+  "_"
+ ],
+ "cgroup": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/app-gnome-japp\\x2dci-15573.scope\n",
+ "list_sessions": {
+  "rc": 0,
+  "out": "30 1000 japp-ci seat0 tty2 active no -\n",
+  "err": ""
+ },
+ "show_user": {
+  "rc": 0,
+  "out": "UID=1000\nGID=1000\nName=japp-ci\nTimestamp=Sat 2026-10-31 05:07:49 UTC\nTimestampMonotonic=13449873\nRuntimePath=/run/user/1000\nService=user@1000.service\nSlice=user-1000.slice\nDisplay=30\nState=active\nSessions=30\nIdleHint=no\nIdleSinceHint=0\nIdleSinceHintMonotonic=0\nLinger=no\n",
+  "err": ""
+ },
+ "show_session_noid": {
+  "rc": 0,
+  "out": "EnableWallMessages=yes\nNAutoVTs=6\nKillUserProcesses=no\nRebootToFirmwareSetup=no\nRebootToBootLoaderMenu=18446744073709551615\nIdleHint=no\nIdleSinceHint=0\nIdleSinceHintMonotonic=0\nDelayInhibited=shutdown:sleep\nInhibitDelayMaxUSec=30s\nUserStopDelayUSec=10s\nHandlePowerKey=poweroff\nHandlePowerKeyLongPress=ignore\nHandleRebootKey=reboot\nHandleRebootKeyLongPress=poweroff\nHandleSuspendKey=suspend\nHandleSuspendKeyLongPress=hibernate\nHandleHibernateKey=hibernate\nHandleHibernateKeyLongPress=ignore\nHandleLidSwitch=suspend\nHandleLidSwitchDocked=ignore\nHoldoffTimeoutUSec=30s\nIdleAction=ignore\nIdleActionUSec=30min\nPreparingForShutdown=no\nPreparingForSleep=no\nDocked=no\nLidClosed=no\nOnExternalPower=yes\nRemoveIPC=yes\nRuntimeDirectorySize=410607616\nRuntimeDirectoryInodesMax=100246\nInhibitorsMax=8192\nNCurrentInhibitors=4\nSessionsMax=8192\nNCurrentSessions=1\nStopIdleSessionUSec=infinity\n",
+  "err": ""
+ },
+ "show_session_self": {
+  "rc": 1,
+  "out": "",
+  "err": "Failed to get path for session 'self': Caller does not belong to any known session.\n"
+ },
+ "show_session_auto": {
+  "rc": 0,
+  "out": "Id=30\nUser=1000\nName=japp-ci\nTimestamp=Sat 2026-10-31 05:10:18 UTC\nTimestampMonotonic=162783162\nVTNr=2\nSeat=seat0\nTTY=tty2\nRemote=no\nService=gdm-autologin\nScope=session-30.scope\nLeader=15298\nAudit=30\nType=wayland\nClass=user\nActive=yes\nState=active\nIdleHint=no\nIdleSinceHint=0\nIdleSinceHintMonotonic=0\nLockedHint=no\n",
+  "err": ""
+ },
+ "user_display_session": "30",
+ "show_session_display": {
+  "rc": 0,
+  "out": "Id=30\nUser=1000\nName=japp-ci\nTimestamp=Sat 2026-10-31 05:10:18 UTC\nTimestampMonotonic=162783162\nVTNr=2\nSeat=seat0\nTTY=tty2\nRemote=no\nService=gdm-autologin\nScope=session-30.scope\nLeader=15298\nAudit=30\nType=wayland\nClass=user\nActive=yes\nState=active\nIdleHint=no\nIdleSinceHint=0\nIdleSinceHintMonotonic=0\nLockedHint=no\n",
+  "err": ""
+ },
+ "systemctl_user_environment": {
+  "rc": 0,
+  "out": "HOME=/home/japp-ci\nLANG=C.UTF-8\nLOGNAME=japp-ci\nPATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin\nSHELL=/bin/bash\nUSER=japp-ci\nXDG_RUNTIME_DIR=/run/user/1000\nXDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop\nDBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus\nDESKTOP_SESSION=ubuntu\nDISPLAY=:0\nGDMSESSION=ubuntu\nGNOME_DESKTOP_SESSION_ID=this-is-deprecated\nGNOME_SETUP_DISPLAY=:1\nGNOME_SHELL_SESSION_MODE=ubuntu\nGSM_SKIP_SSH_AGENT_WORKAROUND=true\nPWD=/home/japp-ci\nSESSION_MANAGER=local/japp-gnome-ci:@/tmp/.ICE-unix/15381,unix/japp-gnome-ci:/tmp/.ICE-unix/15381\nSHLVL=0\nSSH_AUTH_SOCK=/run/user/1000/gnupg/S.gpg-agent.ssh\nUSERNAME=japp-ci\nWAYLAND_DISPLAY=wayland-0\nXAUTHORITY=/run/user/1000/.mutter-Xwaylandauth.B44WX3\nXDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg\nXDG_CURRENT_DESKTOP=ubuntu:GNOME\nXDG_MENU_PREFIX=gnome-\nXDG_SESSION_CLASS=user\nXDG_SESSION_DESKTOP=ubuntu\nXDG_SESSION_TYPE=wayland\n_=/usr/bin/gnome-session\n",
+  "err": ""
+ },
+ "graphical_session_target": {
+  "rc": 3,
+  "out": "inactive\n",
+  "err": ""
+ },
+ "repository_session_receipt": {
+  "rc": 78,
+  "out": "",
+  "err": ""
+ },
+ "atspi": {
+  "Accessible_has_get_action_name": true,
+  "Action_get_name_doc": "None",
+  "Accessible_get_name_doc": "get_name(self) -> str",
+  "nodes_walked": 1414,
+  "node_role": "text",
+  "iface_type": "gi.repository.Atspi.Accessible",
+  "iface_mro": [
+   "Accessible",
+   "Object",
+   "Object",
+   "Object",
+   "GObject",
+   "Action",
+   "Collection",
+   "Component",
+   "Document",
+   "EditableText",
+   "Hypertext",
+   "Image"
+  ],
+  "harness_call_iface_get_name_0": "RAISED TypeError('Atspi.Accessible.get_name() takes exactly 1 argument (2 given)')",
+  "iface_get_action_name_0": "'activate'",
+  "Atspi_Action_get_name_iface_0": "RAISED AttributeError(\"type object 'Action' has no attribute 'get_name'\")"
+ },
+ "seconds": 2.72
+}

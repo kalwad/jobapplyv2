@@ -130,8 +130,8 @@ def test_workflows_dir_contains_only_ci() -> None:
             "565ec8e8b23cbf051b5540d4cae860f356f87851ab08f0b3f26f2be13931000f",
         ),
         "windows11-native-lifecycle.yml": (
-            7419,
-            "1821e57da5bfcbd01124a1534ad24ec8e493bff2885f115362811efa7019f4de",
+            7428,
+            "2dee0eddaf80d39f09d028749359efd02355ece2ae22a58936519bd33654fba7",
         ),
     }
     legacy = ["ubuntu-gnome-prepare.yml", "ubuntu-gnome-lifecycle.yml"]

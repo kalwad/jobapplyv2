@@ -1,0 +1,231 @@
+diff --git a/apps/desktop/src-tauri/Cargo.lock b/apps/desktop/src-tauri/Cargo.lock
+index a0df6eb..bd5c453 100644
+--- a/apps/desktop/src-tauri/Cargo.lock
++++ b/apps/desktop/src-tauri/Cargo.lock
+@@ -1616,6 +1616,7 @@ dependencies = [
+  "time",
+  "tokio",
+  "url",
++ "webview2-com",
+  "windows-sys 0.61.2",
+ ]
+ 
+diff --git a/apps/desktop/src-tauri/Cargo.toml b/apps/desktop/src-tauri/Cargo.toml
+index 4faf79e..78eefb2 100644
+--- a/apps/desktop/src-tauri/Cargo.toml
++++ b/apps/desktop/src-tauri/Cargo.toml
+@@ -57,7 +57,12 @@ features = ["Win32_Foundation", "Win32_Security", "Win32_Security_Authorization"
+ 
+ [target.'cfg(windows)'.dependencies.windows-sys]
+ version = "=0.61.2"
+-features = ["Win32_Foundation", "Win32_Security", "Win32_Security_Authorization", "Win32_System_Threading", "Win32_System_JobObjects", "Win32_System_Pipes", "Win32_System_IO", "Win32_Storage_FileSystem", "Win32_System_Memory", "Win32_System_SystemInformation", "Win32_System_SystemServices", "Win32_System_WindowsProgramming"]
++features = ["Win32_Foundation", "Win32_Security", "Win32_Security_Authorization", "Win32_System_Threading", "Win32_System_JobObjects", "Win32_System_Pipes", "Win32_System_IO", "Win32_Storage_FileSystem", "Win32_System_Memory", "Win32_System_SystemInformation", "Win32_System_SystemServices", "Win32_System_WindowsProgramming", "Win32_UI_Input_KeyboardAndMouse"]
++
++# The exact WebView2 binding Tauri already locks; used only to route the File
++# menu's Ctrl+Q accelerator out of the focused WebView2 (KI-0158).
++[target.'cfg(windows)'.dependencies.webview2-com]
++version = "=0.39.1"
+ 
+ # Only this exact dependency version is optimized. Application defaults stay debug.
+ [profile.dev.package."sha2:0.10.9"]
+diff --git a/apps/desktop/src-tauri/src/lib.rs b/apps/desktop/src-tauri/src/lib.rs
+index 9fc7d5b..2e92ee4 100644
+--- a/apps/desktop/src-tauri/src/lib.rs
++++ b/apps/desktop/src-tauri/src/lib.rs
+@@ -52,6 +52,75 @@ fn install_shell_quit_menu(app: &tauri::App) -> tauri::Result<()> {
+     Ok(())
+ }
+ 
++/// The File menu's exact Quit chord: a first Ctrl+Q key-down with neither Alt
++/// nor Shift held.
++#[cfg_attr(not(windows), allow(dead_code))]
++fn is_quit_accelerator(
++    key_down: bool,
++    virtual_key: u32,
++    repeat: bool,
++    ctrl: bool,
++    alt: bool,
++    shift: bool,
++) -> bool {
++    key_down && virtual_key == u32::from(b'Q') && !repeat && ctrl && !alt && !shift
++}
++
++/// WebView2 keeps keyboard focus in its own browser process, so the native
++/// menu's Ctrl+Q accelerator never reaches this process's TranslateAcceleratorW
++/// (measured on hosted Windows, KI-0158). Route exactly that chord to the same
++/// shutdown as File→Quit; every other key stays with WebView2.
++#[cfg(windows)]
++fn forward_quit_accelerator(window: &tauri::WebviewWindow) -> tauri::Result<()> {
++    let app = window.app_handle().clone();
++    window.with_webview(move |webview| {
++        use webview2_com::{
++            AcceleratorKeyPressedEventHandler,
++            Microsoft::Web::WebView2::Win32::{
++                COREWEBVIEW2_KEY_EVENT_KIND, COREWEBVIEW2_KEY_EVENT_KIND_KEY_DOWN,
++                COREWEBVIEW2_PHYSICAL_KEY_STATUS,
++            },
++        };
++        use windows_sys::Win32::UI::Input::KeyboardAndMouse::{
++            GetKeyState, VK_CONTROL, VK_MENU, VK_SHIFT,
++        };
++        let held = |key: u16| unsafe { GetKeyState(i32::from(key)) } < 0;
++        let handler = AcceleratorKeyPressedEventHandler::create(Box::new(move |_, args| {
++            let Some(args) = args else {
++                return Ok(());
++            };
++            let mut kind = COREWEBVIEW2_KEY_EVENT_KIND::default();
++            let mut key = 0u32;
++            let mut status = COREWEBVIEW2_PHYSICAL_KEY_STATUS::default();
++            unsafe {
++                args.KeyEventKind(&mut kind)?;
++                args.VirtualKey(&mut key)?;
++                args.PhysicalKeyStatus(&mut status)?;
++            }
++            if is_quit_accelerator(
++                kind == COREWEBVIEW2_KEY_EVENT_KIND_KEY_DOWN,
++                key,
++                status.WasKeyDown.as_bool(),
++                held(VK_CONTROL),
++                held(VK_MENU) || status.IsMenuKeyDown.as_bool(),
++                held(VK_SHIFT),
++            ) {
++                unsafe { args.SetHandled(true)? };
++                app.state::<service::ManagedService>()
++                    .request_shutdown(&app);
++            }
++            Ok(())
++        }));
++        let mut token = 0i64;
++        // A refused registration leaves File→Quit and every other key unchanged.
++        let _ = unsafe {
++            webview
++                .controller()
++                .add_AcceleratorKeyPressed(&handler, &mut token)
++        };
++    })
++}
++
+ pub fn run() {
+     let app = tauri::Builder::default()
+         .invoke_handler(tauri::generate_handler![
+@@ -68,10 +137,14 @@ pub fn run() {
+                 app.config().app.windows.first().ok_or_else(|| {
+                     std::io::Error::other("Desktop window configuration is missing")
+                 })?;
+-            tauri::WebviewWindowBuilder::from_config(app, config)?
++            let window = tauri::WebviewWindowBuilder::from_config(app, config)?
+                 .on_navigation(native_navigation_allowed)
+                 .on_new_window(|_, _| NewWindowResponse::Deny)
+                 .build()?;
++            #[cfg(windows)]
++            forward_quit_accelerator(&window)?;
++            #[cfg(not(windows))]
++            let _ = window;
+             let runtime = service::configured_runtime(app.handle())
+                 .unwrap_or_else(|_| service::ConfiguredRuntime::unavailable());
+             let service = service::ManagedService::new(runtime)
+@@ -107,7 +180,23 @@ pub fn run() {
+ 
+ #[cfg(test)]
+ mod tests {
+-    use super::shell_navigation_allowed;
++    use super::{is_quit_accelerator, shell_navigation_allowed};
++
++    #[test]
++    fn only_a_first_plain_ctrl_q_key_down_is_the_quit_accelerator() {
++        let q = u32::from(b'Q');
++        assert!(is_quit_accelerator(true, q, false, true, false, false));
++        for (down, key, repeat, ctrl, alt, shift) in [
++            (false, q, false, true, false, false),
++            (true, u32::from(b'W'), false, true, false, false),
++            (true, q, true, true, false, false),
++            (true, q, false, false, false, false),
++            (true, q, false, true, true, false),
++            (true, q, false, true, false, true),
++        ] {
++            assert!(!is_quit_accelerator(down, key, repeat, ctrl, alt, shift));
++        }
++    }
+     use tauri::Url;
+ 
+     #[test]
+diff --git a/apps/desktop/src-tauri/src/service/runtime_descriptor.rs b/apps/desktop/src-tauri/src/service/runtime_descriptor.rs
+index b8713c8..6fe03bf 100644
+--- a/apps/desktop/src-tauri/src/service/runtime_descriptor.rs
++++ b/apps/desktop/src-tauri/src/service/runtime_descriptor.rs
+@@ -33,6 +33,21 @@ fn path_for_mode(
+     }
+     Ok(path)
+ }
++/// Tauri reports the Windows resource directory in verbatim form
++/// (`\\?\C:\...`; measured on hosted Windows, KI-0157), while the launch
++/// policy accepts only drive-absolute paths. A verbatim local-drive path names
++/// the same directory in drive form; every other form is returned unchanged and
++/// is still judged by the launch policy and the runtime integrity check.
++fn drive_form(path: PathBuf) -> PathBuf {
++    let Some(rest) = path.to_str().and_then(|text| text.strip_prefix(r"\\?\")) else {
++        return path;
++    };
++    let bytes = rest.as_bytes();
++    if bytes.len() >= 3 && bytes[0].is_ascii_alphabetic() && &bytes[1..3] == b":\\" {
++        return PathBuf::from(rest);
++    }
++    path
++}
+ fn path_for_current_mode(
+     descriptor: &BoundRuntime,
+     resource_root: Option<&Path>,
+@@ -54,7 +69,7 @@ pub(crate) fn configured_runtime(
+         None
+     };
+     #[cfg(not(target_os = "linux"))]
+-    let resource = app.path().resource_dir().ok();
++    let resource = app.path().resource_dir().ok().map(drive_form);
+     eprintln!(
+         "JAPP_DIAG resource_dir={:?} is_dev={}",
+         resource,
+@@ -115,6 +130,44 @@ mod tests {
+         }
+     }
+     #[test]
++    fn verbatim_local_drive_resource_directory_uses_drive_form() {
++        // The exact verbatim forms Tauri returned on hosted Windows (KI-0157).
++        for (verbatim, drive) in [
++            (r"\\?\C:\japp-gui-diag", r"C:\japp-gui-diag"),
++            (
++                "\\\\?\\C:\\Users\\runneradmin\\AppData\\Local\\JobApply \u{3a9} space diag",
++                "C:\\Users\\runneradmin\\AppData\\Local\\JobApply \u{3a9} space diag",
++            ),
++            (r"\\?\d:\", r"d:\"),
++        ] {
++            assert_eq!(drive_form(PathBuf::from(verbatim)), PathBuf::from(drive));
++        }
++    }
++    #[test]
++    fn other_resource_directory_forms_are_left_to_the_launch_policy() {
++        for path in [
++            r"C:\App\resources",
++            r"\\?\UNC\server\share\App",
++            r"\\.\C:\App",
++            r"\\?\C:",
++            r"\\?\1:\App",
++            r"\\?\GLOBALROOT\Device\HarddiskVolume1\App",
++            "/App.app/Contents/Resources",
++        ] {
++            assert_eq!(drive_form(PathBuf::from(path)), PathBuf::from(path));
++        }
++    }
++    #[test]
++    fn drive_form_runtime_path_passes_the_launch_policy_that_refuses_verbatim() {
++        let relative = r"runtime\japp-orchestrator\japp-orchestrator.exe";
++        let verbatim = r"\\?\C:\JobApply space";
++        let refused = format!("{verbatim}\\{relative}");
++        assert!(super::super::windows_policy::launch_plan(&refused).is_err());
++        let drive = drive_form(PathBuf::from(verbatim));
++        let accepted = format!("{}\\{relative}", drive.to_str().unwrap());
++        assert!(super::super::windows_policy::launch_plan(&accepted).is_ok());
++    }
++    #[test]
+     fn packaged_path_uses_only_app_resources() {
+         assert_eq!(
+             path_for_mode(&descriptor(), true, Some(Path::new(RESOURCE_ROOT))),

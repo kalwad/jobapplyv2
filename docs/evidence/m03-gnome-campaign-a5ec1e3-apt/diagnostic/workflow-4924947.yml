@@ -1,0 +1,55 @@
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Does a source-less apt install
+# accept the reviewed local archives that apt --no-download refuses, and still
+# refuse any unprovided dependency without downloading?
+name: ci
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  probe:
+    name: local-only apt (${{ matrix.case }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - case: gnome-host
+            run: "41154763996"
+            artifact: unreviewed-gnome-inputs-a5ec1e3a894fc6f11354f5adce1631b1cc262470-41154763996
+            debs: inputs/host-debs
+          - case: windows11-host
+            run: "41154871189"
+            artifact: unreviewed-windows11-inputs-a5ec1e3a894fc6f11354f5adce1631b1cc262470-41154871189
+            debs: retained/inputs/host-debs
+    steps:
+      - name: Download the exact reviewed candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download "${{ matrix.run }}" -R kalwad/jobapplyv2 -n "${{ matrix.artifact }}" -D "$RUNNER_TEMP/cand"
+          echo "ImageVersion=$ImageVersion"; apt-get --version | head -1
+          ls "$RUNNER_TEMP/cand/${{ matrix.debs }}" | wc -l
+      - name: Negative control - one archive without its dependencies, sources disabled
+        run: |
+          set +e
+          D="$RUNNER_TEMP/cand/${{ matrix.debs }}"
+          E=$(mktemp -d); L=$(mktemp -d); mkdir -p "$L/partial"
+          one=$(ls "$D" | grep -E '^qemu-system-x86_' | head -1)
+          sudo -n /usr/bin/apt-get -o Dir::Etc::SourceList=/dev/null -o Dir::Etc::SourceParts="$E" -o Dir::State::Lists="$L" -o Dir::Cache::pkgcache= -o Dir::Cache::srcpkgcache= --no-install-recommends -y install "$D/$one" > "$RUNNER_TEMP/neg.txt" 2>&1
+          echo "negative-control exit=$?"
+          grep -E "^E:|unmet|Depends:|Need to get|Get:" "$RUNNER_TEMP/neg.txt" | head -12
+          dpkg-query -W -f='${Status}\n' qemu-system-x86 2>&1 | head -1
+      - name: Local-only install of the complete reviewed host closure
+        run: |
+          D="$RUNNER_TEMP/cand/${{ matrix.debs }}"
+          E=$(mktemp -d); L=$(mktemp -d); mkdir -p "$L/partial"
+          set +e
+          sudo -n /usr/bin/apt-get -o Dir::Etc::SourceList=/dev/null -o Dir::Etc::SourceParts="$E" -o Dir::State::Lists="$L" -o Dir::Cache::pkgcache= -o Dir::Cache::srcpkgcache= --no-install-recommends -y install "$D"/*.deb > "$RUNNER_TEMP/pos.txt" 2>&1
+          echo "install exit=$?"
+          set -e
+          grep -E "^E:|^W:|Get:|Need to get|newly installed|upgraded" "$RUNNER_TEMP/pos.txt" | head -20
+          bad=0; for f in "$D"/*.deb; do p=$(dpkg-deb -f "$f" Package); v=$(dpkg-deb -f "$f" Version); i=$(dpkg-query -W -f='${Version}' "$p" 2>/dev/null || echo NONE); if [ "$v" != "$i" ]; then echo "MISMATCH $p locked=$v installed=$i"; bad=1; fi; done; echo "version-mismatch=$bad"
+          ls -la /usr/bin/qemu-system-x86_64 /usr/bin/qemu-img 2>&1 | head -3

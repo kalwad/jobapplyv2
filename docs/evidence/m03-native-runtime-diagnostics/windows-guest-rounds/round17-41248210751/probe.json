@@ -1,0 +1,97 @@
+[
+    {
+        "at":  "2026-10-31T22:27:33.2317373+00:00",
+        "key":  "parse",
+        "value":  {
+                      "errors":  [
+
+                                 ]
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:27:35.5510340+00:00",
+        "key":  "package",
+        "value":  {
+                      "files":  64,
+                      "root":  "C:\\Users\\runneradmin\\AppData\\Local\\JobApply Ω space aaaaaaaaaaaa"
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:27:35.5834600+00:00",
+        "key":  "phase-body",
+        "value":  {
+                      "bytes":  3727,
+                      "sha256":  "FE805E1D84CC02738A940F2D2D7974197FE7063EFCE6AFA733DE0D89407C7F02"
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:27:43.6379948+00:00",
+        "key":  "receipt-ready",
+        "value":  {
+                      "elapsed_s":  8.63,
+                      "details":  {
+                                      "api_version":  "1.0.0",
+                                      "pid":  4968,
+                                      "unicode_spaces_path":  true,
+                                      "service":  {
+                                                      "port":  50909,
+                                                      "pid":  1372,
+                                                      "creation_time":  134379592592385096
+                                                  },
+                                      "version":  "0.0.1"
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:27:43.7862320+00:00",
+        "key":  "receipt-unauthorized12",
+        "value":  {
+                      "elapsed_s":  8.78,
+                      "details":  {
+                                      "statuses":  [
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401
+                                                   ]
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:27:58.2024910+00:00",
+        "key":  "terminal",
+        "value":  {
+                      "position":  "At line:17 char:5\r\n+     throw (\u0027Actual visible complete glyph measurement unavailable or  ...\r\n+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+                      "message":  "Actual visible complete glyph measurement unavailable or unchanged after chord; last: System.InvalidOperationException: Single visible complete glyph rectangle required",
+                      "inner":  null,
+                      "error_type":  "System.Management.Automation.RuntimeException",
+                      "elapsed_s":  23.19,
+                      "phase":  "keyboard",
+                      "terminal":  "FAIL"
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:27:58.6290355+00:00",
+        "key":  "focus-at-failure",
+        "value":  {
+                      "main_focused":  true,
+                      "pid":  5768,
+                      "name":  "",
+                      "type":  "ControlType.Group",
+                      "names":  [
+                                    "Skip to main content",
+                                    "Local service",
+                                    "Ready",
+                                    "Checked at"
+                                ]
+                  }
+    }
+]

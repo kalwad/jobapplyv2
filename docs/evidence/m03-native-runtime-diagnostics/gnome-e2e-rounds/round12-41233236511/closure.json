@@ -1,0 +1,42 @@
+{
+  "status": "FAILED_OR_CAPABILITY_UNAVAILABLE",
+  "product_launched": false,
+  "scope": "DIAGNOSTIC_ROUND_12_NOT_CAMPAIGN_EVIDENCE",
+  "error_type": "ValueError",
+  "message": "Actual guest operation failed; first raw receipt preserved",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/runner/work/jobapplyv2/jobapplyv2/diag/gnome_e2e.py\", line 57, in <module>\n    vm.run_lifecycle(args, owner, session, export, result)\n  File \"/home/runner/work/jobapplyv2/jobapplyv2/diag/repo-root/scripts/linux_gnome/ubuntu_gnome_vm.py\", line 1264, in run_lifecycle\n    raise ValueError(\nValueError: Actual guest operation failed; first raw receipt preserved\n",
+  "failure_frame": {
+    "captured": true,
+    "file": "failure-final.ppm",
+    "width": 1280,
+    "height": 800,
+    "sha256": "b4379429893e415371c2d139370eeafec0cb3c104a941a9b58d57b3d7f09b710",
+    "distinct_byte_values": 253,
+    "scope": "FAILURE_DIAGNOSTIC_FRAME_NOT_PHASE_EVIDENCE"
+  },
+  "outer_closure": {
+    "vm_started": true,
+    "direct_child_reaped": true,
+    "exit_code": 0,
+    "signals": [],
+    "group_authority_verified": true,
+    "group_after_reap": "ABSENT",
+    "qmp_quit_error_type": null,
+    "pending_commands": [],
+    "universal_escaped_descendant_absence_claimed": false
+  },
+  "serial_stream": {
+    "bytes": 72832,
+    "sha256": "fa2ff05b51d7e10e27c4f417c7f256f098802454c88f99fa7ab8c47aa8dc2adb",
+    "full_stream_retained": false,
+    "tail_cap_bytes": 65536,
+    "tail_retained": true,
+    "tail_file": "guest-serial-tail.log",
+    "tail_bytes": 65536,
+    "tail_sha256": "7b917beae07421f2b2cc053b47892cb909e8aaf880eb142c2d94a70601a4a618",
+    "reason": "BOUNDED_TAIL_SCANNED_NO_PRIVATE_KEY_MATERIAL"
+  },
+  "campaign_status_before_finalization": "FAILED_OR_CAPABILITY_UNAVAILABLE",
+  "finalization_errors": [],
+  "elapsed_seconds": 200.461108614
+}

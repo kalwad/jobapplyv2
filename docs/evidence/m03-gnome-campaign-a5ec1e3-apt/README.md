@@ -1,0 +1,12 @@
+# First GNOME VM campaign (a5ec1e3): refused at the host-tool install; apt `--no-download` cannot install local archives
+
+The released GNOME campaign (lifecycle run [41157416726](https://github.com/kalwad/jobapplyv2/actions/runs/41157416726), request/receipt commit `c00c7eb`, reviewed candidate artifact 13024588558) passed its authorize job and its bundle audit (`campaign/input-binding.json`: manifest `415a2f7d…`, 991 members), then failed at its first host command. No VM started (`campaign/closure.json`).
+
+The refused command (`campaign/command-001.json`) was `sudo -n apt-get --no-download --no-install-recommends -y install <131 reviewed host .deb files>`; apt exited 100 with `E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?` (`campaign/command-001.stderr`).
+
+Two diagnostic runs on fresh ubuntu-24.04 runners (ImageVersion `20261026.354.1`, the version the lock pins; apt 2.8.3) used the same reviewed candidate (scratch branch `diag/windows-service-env`, never merged):
+
+- [41157694334](https://github.com/kalwad/jobapplyv2/actions/runs/41157694334) (`diagnostic/workflow-afb40d4.yml`, `diagnostic/apt-plan-probe-41157694334.txt`): `apt-get -s` plans 19 new packages, every one `local-deb` (every other locked package is already installed at exactly its locked version), yet the real `--no-download` install refuses with the same error. So apt 2.8 refuses archives named as local files under `--no-download`; the reviewed closure is not at fault.
+- [41157825709](https://github.com/kalwad/jobapplyv2/actions/runs/41157825709) (`diagnostic/workflow-4924947.yml`, `diagnostic/local-only-apt-probe-41157825709.txt`): with no repository configured (`-o Dir::Etc::SourceList=/dev/null`, an empty `Dir::Etc::SourceParts` directory, an empty `Dir::State::Lists` directory, no persistent caches) and no `--no-download`, the complete GNOME host set (131 archives) installs with `Need to get 0 B`, 19 newly installed, and every locked package at exactly its locked version; the Windows 11 host set (117 archives) likewise (27 newly installed). In both jobs a negative control naming `qemu-system-x86` alone exits 100 with its unmet dependencies listed and installs nothing.
+
+The correction (KI-0148) uses that source-less form at every reviewed local install: the GNOME host and guest installers and the Windows 11 host installer. Any unprovided dependency still fails instead of fetching an unreviewed version.

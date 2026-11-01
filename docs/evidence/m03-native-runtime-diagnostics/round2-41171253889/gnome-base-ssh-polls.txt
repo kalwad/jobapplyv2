@@ -1,0 +1,7 @@
+{"t": 0.1, "ssh_rc": 255, "ssh_seconds": 3.02, "serial_bytes": 15283}
+{"t": 16.2, "ssh_rc": 1, "ssh_seconds": 0.56, "serial_bytes": 67924}
+{"t": 48.6, "ssh_rc": 1, "ssh_seconds": 0.32, "serial_bytes": 68313, "guest_last": "probe-start"}
+{"t": 59.2, "ssh_rc": 1, "ssh_seconds": 0.32, "serial_bytes": 68313, "guest_last": "hashed"}
+{"t": 165.9, "ssh_rc": "TIMEOUT60", "ssh_seconds": 60.06, "serial_bytes": 78009}
+{"t": 230.9, "ssh_rc": 255, "ssh_seconds": 3.01, "serial_bytes": 78009}
+polls=190 last={"t": 1499.0, "ssh_rc": 255, "ssh_seconds": 3.01, "serial_bytes": 78194}

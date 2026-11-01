@@ -1,0 +1,353 @@
+﻿[
+    {
+        "at":  "2026-10-31T18:24:03.9145443+00:00",
+        "key":  "one-diagnostics-link",
+        "value":  {
+                      "ok":  true,
+                      "value":  1,
+                      "ms":  8700
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:24:35.1189027+00:00",
+        "key":  "one-ready",
+        "value":  {
+                      "error_type":  "System.Management.Automation.RuntimeException",
+                      "ok":  false,
+                      "inner":  null,
+                      "message":  "not Ready: Desktop App |  | Diagnostics · Desktop app | Diagnostics · Desktop app - Web content | Skip to main content | Workspace | Desktop app | Primary | Home | Jobs | Tracker | Documents / Resumes | Profile | Settings | Diagnostics | Development build | Desktop versions | Native app | App version | 0.0.1 | Tauri version | 2.12.4 | Local service | Last check | Service status | Starting | Checked at | 2026-10-31T18:24:03.9258561Z | Check again | Local capabilities | AI provider | Unavailable in this build | Platform certification | Not evaluated | Local workspace · No application submission is available in this build. | System Menu Bar | System | Minimize | Maximize | Close | Application | File",
+                      "ms":  30328
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:24:36.1463383+00:00",
+        "key":  "endpoint",
+        "value":  {
+                      "ok":  true,
+                      "value":  {
+                                    "port":  61848,
+                                    "pid":  3220,
+                                    "creation_time":  134379446436843786
+                                },
+                      "ms":  1024
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:24:36.3051613+00:00",
+        "key":  "diagnostics-candidates",
+        "value":  {
+                      "ok":  true,
+                      "value":  [
+                                    {
+                                        "type":  "ControlType.ListItem",
+                                        "invoke":  false
+                                    },
+                                    {
+                                        "type":  "ControlType.Hyperlink",
+                                        "invoke":  true
+                                    },
+                                    {
+                                        "type":  "ControlType.Text",
+                                        "invoke":  false
+                                    }
+                                ],
+                      "ms":  154
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:24:36.3388994+00:00",
+        "key":  "invoke-diagnostics-current-driver",
+        "value":  {
+                      "error_type":  "System.Management.Automation.MethodInvocationException",
+                      "ok":  false,
+                      "inner":  "System.InvalidOperationException: Owned control has no native invocation pattern",
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\"",
+                      "ms":  26
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:24:36.5460509+00:00",
+        "key":  "unauthorized-guest-function",
+        "value":  {
+                      "ok":  true,
+                      "value":  [
+                                    401,
+                                    401,
+                                    401,
+                                    401,
+                                    401,
+                                    401,
+                                    401,
+                                    401,
+                                    401,
+                                    401,
+                                    401,
+                                    401
+                                ],
+                      "ms":  204
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:24:36.5571550+00:00",
+        "key":  "unauthorized-raw-body",
+        "value":  {
+                      "ok":  true,
+                      "value":  "{\"envelope\":{\"schema_id\":\"urn:japp:schema:error:record:v1\",\"schema_version\":\"1.0.0\",\"message_id\":\"msg_5QWZHMMW89KJBTTE99TGYE6H2G\",\"created_at\":\"2026-10-31T18:24:36.552Z\",\"correlation_id\":\"corr_1R1TT9APWKHKFHPKQ0G80WNEDJ\"},\"payload\":{\"error_id\":\"err_76QVMNSKYT4APJG4PEPQAJZZNM\",\"code\":\"TRANSPORT_UNAUTHENTICATED\",\"occurred_at\":\"2026-10-31T18:24:36.552Z\",\"origin\":\"ORCHESTRATOR\",\"correlation_id\":\"corr_1R1TT9APWKHKFHPKQ0G80WNEDJ\"}}",
+                      "ms":  9
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:24:36.6289783+00:00",
+        "key":  "focus-timing",
+        "value":  {
+                      "ok":  true,
+                      "value":  {
+                                    "before":  "Diagnostics",
+                                    "settled_ms":  4,
+                                    "immediate":  "Check again"
+                                },
+                      "ms":  70
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:24:36.7130432+00:00",
+        "key":  "wait-checked-at",
+        "value":  {
+                      "ok":  true,
+                      "value":  "2026-10-31T18:24:03.9258561Z",
+                      "ms":  82
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:24:36.8030369+00:00",
+        "key":  "keyboard-check-again",
+        "value":  {
+                      "ok":  true,
+                      "value":  "sent",
+                      "ms":  88
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:24:37.1438726+00:00",
+        "key":  "checked-advance",
+        "value":  {
+                      "ok":  true,
+                      "value":  "2026-10-31T18:24:36.8413345Z",
+                      "ms":  338
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:24:37.3907040+00:00",
+        "key":  "route-home",
+        "value":  {
+                      "ok":  true,
+                      "value":  "focused",
+                      "ms":  245
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:24:37.6239299+00:00",
+        "key":  "route-back-diagnostics",
+        "value":  {
+                      "ok":  true,
+                      "value":  "focused",
+                      "ms":  231
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:24:37.6289640+00:00",
+        "key":  "close-window",
+        "value":  {
+                      "ok":  true,
+                      "value":  "requested",
+                      "ms":  3
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:24:40.6636399+00:00",
+        "key":  "closed-guest-function",
+        "value":  {
+                      "ok":  true,
+                      "value":  "drained and released",
+                      "ms":  3032
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:24:41.3571064+00:00",
+        "key":  "two-diagnostics-link",
+        "value":  {
+                      "ok":  true,
+                      "value":  1,
+                      "ms":  688
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:25:11.5781391+00:00",
+        "key":  "two-ready",
+        "value":  {
+                      "error_type":  "System.Management.Automation.RuntimeException",
+                      "ok":  false,
+                      "inner":  null,
+                      "message":  "not Ready: Desktop App |  | Diagnostics · Desktop app | Diagnostics · Desktop app - Web content | Skip to main content | Workspace | Desktop app | Primary | Home | Jobs | Tracker | Documents / Resumes | Profile | Settings | Diagnostics | Development build | Desktop versions | Native app | App version | 0.0.1 | Tauri version | 2.12.4 | Local service | Last check | Service status | Starting | Checked at | 2026-10-31T18:24:41.3789917Z | Check again | Local capabilities | AI provider | Unavailable in this build | Platform certification | Not evaluated | Local workspace · No application submission is available in this build. | System Menu Bar | System | Minimize | Maximize | Close | Application | File",
+                      "ms":  30213
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:25:11.6638331+00:00",
+        "key":  "endpoint-two",
+        "value":  {
+                      "ok":  true,
+                      "value":  {
+                                    "port":  61160,
+                                    "pid":  2512,
+                                    "creation_time":  134379446813265231
+                                },
+                      "ms":  84
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:25:11.7731085+00:00",
+        "key":  "menu-expand-file",
+        "value":  {
+                      "ok":  true,
+                      "value":  "expanded",
+                      "ms":  108
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:25:14.7960694+00:00",
+        "key":  "menu-invoke-popup-quit",
+        "value":  {
+                      "error_type":  "System.Management.Automation.MethodInvocationException",
+                      "ok":  false,
+                      "inner":  "System.InvalidOperationException: Owned popup menu item unavailable: Quit",
+                      "message":  "Exception calling \"InvokePopupItem\" with \"1\" argument(s): \"Owned popup menu item unavailable: Quit\"",
+                      "ms":  3021
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:25:20.8333253+00:00",
+        "key":  "menu-closed",
+        "value":  {
+                      "error_type":  "System.Management.Automation.RuntimeException",
+                      "ok":  false,
+                      "inner":  null,
+                      "message":  "Native owned shutdown left job members",
+                      "ms":  6034
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:25:21.5416373+00:00",
+        "key":  "three-diagnostics-link",
+        "value":  {
+                      "ok":  true,
+                      "value":  1,
+                      "ms":  702
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:25:51.8194441+00:00",
+        "key":  "three-ready",
+        "value":  {
+                      "error_type":  "System.Management.Automation.RuntimeException",
+                      "ok":  false,
+                      "inner":  null,
+                      "message":  "not Ready: Desktop App |  | Diagnostics · Desktop app | Diagnostics · Desktop app - Web content | Skip to main content | Workspace | Desktop app | Primary | Home | Jobs | Tracker | Documents / Resumes | Profile | Settings | Diagnostics | Development build | Desktop versions | Native app | App version | 0.0.1 | Tauri version | 2.12.4 | Local service | Last check | Service status | Starting | Checked at | 2026-10-31T18:25:21.5613071Z | Check again | Local capabilities | AI provider | Unavailable in this build | Platform certification | Not evaluated | Local workspace · No application submission is available in this build. | System Menu Bar | System | Minimize | Maximize | Close | Application | File",
+                      "ms":  30272
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:25:51.9005210+00:00",
+        "key":  "endpoint-three",
+        "value":  {
+                      "ok":  true,
+                      "value":  {
+                                    "port":  55418,
+                                    "pid":  9088,
+                                    "creation_time":  134379447215732574
+                                },
+                      "ms":  78
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:25:57.9175772+00:00",
+        "key":  "ctrl-q",
+        "value":  {
+                      "ok":  true,
+                      "value":  {
+                                    "drained":  false,
+                                    "focus_owner":  "member:msedgewebview2.exe/"
+                                },
+                      "ms":  6015
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:26:03.9470695+00:00",
+        "key":  "ctrl-q-closed",
+        "value":  {
+                      "error_type":  "System.Management.Automation.RuntimeException",
+                      "ok":  false,
+                      "inner":  null,
+                      "message":  "Native owned shutdown left job members",
+                      "ms":  6028
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:26:04.4984647+00:00",
+        "key":  "four-diagnostics-link",
+        "value":  {
+                      "ok":  true,
+                      "value":  1,
+                      "ms":  545
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:26:34.6369232+00:00",
+        "key":  "four-ready",
+        "value":  {
+                      "error_type":  "System.Management.Automation.MethodInvocationException",
+                      "ok":  false,
+                      "inner":  "System.InvalidOperationException: Accessibility node outside retained job",
+                      "message":  "Exception calling \"Names\" with \"0\" argument(s): \"Accessibility node outside retained job\"",
+                      "ms":  30134
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:26:34.7211978+00:00",
+        "key":  "endpoint-four",
+        "value":  {
+                      "ok":  true,
+                      "value":  {
+                                    "port":  55439,
+                                    "pid":  8840,
+                                    "creation_time":  134379447643845311
+                                },
+                      "ms":  82
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:26:34.7252233+00:00",
+        "key":  "kill-root",
+        "value":  {
+                      "ok":  true,
+                      "value":  "killed",
+                      "ms":  2
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:26:36.7870990+00:00",
+        "key":  "kill-root-closed",
+        "value":  {
+                      "ok":  true,
+                      "value":  "drained and released",
+                      "ms":  2058
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:26:36.8575343+00:00",
+        "key":  "end",
+        "value":  {
+                      "elapsed_s":  161.95
+                  }
+    }
+]

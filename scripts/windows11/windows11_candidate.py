@@ -31,7 +31,7 @@ from windows11_resources import ensure_capacity
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "linux_gnome"))
 from ubuntu_gnome_host import require_host
-from ubuntu_gnome_prepare import resolve
+from ubuntu_gnome_prepare import resolve, simulate_host_install
 from ubuntu_gnome_vm import Owner, write
 
 HTTP_OK = 200
@@ -316,6 +316,7 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one custody/endpoint bracket
         )
         host = work / "host-candidate"
         lock = resolve(owner, work / "apt", host, HOST_ROOTS)
+        simulate_host_install(owner, host, lock["packages"])
         stage_host(owner, host, lock, inputs)
         shutil.copytree(args.artifact, inputs / "original-native-artifact")
         driver = inputs / "guest-driver"

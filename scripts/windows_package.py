@@ -329,12 +329,14 @@ def main() -> None:
     check.add_argument("--root", type=Path, required=True)
     check.add_argument("--receipt", type=Path, required=True)
     args = parser.parse_args()
-    if platform.system() != "Windows" or platform.machine().lower() not in (
-        "amd64",
-        "x86_64",
-    ):
-        raise ValueError("Native Windows x64 host required")
     if args.operation == "stage":
+        # Staging builds the Windows package; static inspection reads bytes
+        # only and also runs on the Linux VM host before seeding (KI-0147).
+        if platform.system() != "Windows" or platform.machine().lower() not in (
+            "amd64",
+            "x86_64",
+        ):
+            raise ValueError("Native Windows x64 host required")
         stage(
             args.application,
             args.runtime,

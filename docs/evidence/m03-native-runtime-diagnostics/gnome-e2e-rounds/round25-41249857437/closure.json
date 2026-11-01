@@ -1,0 +1,42 @@
+{
+  "status": "FAILED_OR_CAPABILITY_UNAVAILABLE",
+  "product_launched": true,
+  "scope": "DIAGNOSTIC_ROUND_12_NOT_CAMPAIGN_EVIDENCE",
+  "error_type": "ValueError",
+  "message": "Actual shell operation failed; retained first raw observation",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/runner/work/jobapplyv2/jobapplyv2/diag/gnome_e2e.py\", line 57, in <module>\n    vm.run_lifecycle(args, owner, session, export, result)\n  File \"/home/runner/work/jobapplyv2/jobapplyv2/diag/repo-root/scripts/linux_gnome/ubuntu_gnome_vm.py\", line 1274, in run_lifecycle\n    native_shell = capture_native_shell(\n                   ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/jobapplyv2/jobapplyv2/diag/repo-root/scripts/linux_gnome/ubuntu_gnome_vm.py\", line 1135, in capture_native_shell\n    shell_request(owner, \"shell_scale_step\" + str(increment))\n  File \"/home/runner/work/jobapplyv2/jobapplyv2/diag/repo-root/scripts/linux_gnome/ubuntu_gnome_vm.py\", line 1112, in shell_request\n    raise ValueError(\nValueError: Actual shell operation failed; retained first raw observation\n",
+  "failure_frame": {
+    "captured": true,
+    "file": "failure-final.ppm",
+    "width": 1280,
+    "height": 800,
+    "sha256": "7c2a4e47d35c9391482614886118f729a54b27380badacb2d5a3973608257920",
+    "distinct_byte_values": 253,
+    "scope": "FAILURE_DIAGNOSTIC_FRAME_NOT_PHASE_EVIDENCE"
+  },
+  "outer_closure": {
+    "vm_started": true,
+    "direct_child_reaped": true,
+    "exit_code": 0,
+    "signals": [],
+    "group_authority_verified": true,
+    "group_after_reap": "ABSENT",
+    "qmp_quit_error_type": null,
+    "pending_commands": [],
+    "universal_escaped_descendant_absence_claimed": false
+  },
+  "serial_stream": {
+    "bytes": 72204,
+    "sha256": "c9d6ffd0e628ce39f8ceab647d86219fca5e2994aa96d9b3ebf82226e7f98c10",
+    "full_stream_retained": false,
+    "tail_cap_bytes": 65536,
+    "tail_retained": true,
+    "tail_file": "guest-serial-tail.log",
+    "tail_bytes": 65536,
+    "tail_sha256": "2e9f4dbbe5fc564c54a258ad2b818411299c0dfaf85ea88c1d33bc9627a1fafc",
+    "reason": "BOUNDED_TAIL_SCANNED_NO_PRIVATE_KEY_MATERIAL"
+  },
+  "campaign_status_before_finalization": "FAILED_OR_CAPABILITY_UNAVAILABLE",
+  "finalization_errors": [],
+  "elapsed_seconds": 254.05545295
+}

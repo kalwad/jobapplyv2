@@ -489,3 +489,51 @@ def host_cpu() -> dict[str, str]:
     if not all(fields.get(key) for key in names):
         raise ValueError("Actual host CPU identity unavailable")
     return {key: fields[key] for key in names}
+
+
+WINDOWS11_AMD_LISTS = (
+    "https://learn.microsoft.com/en-us/windows-hardware/design/minimum/supported/"
+)
+# Reviewed hosted CPU identities, each with the official Microsoft Windows 11
+# processor list entry that names it (lists read 2026-10-31; Microsoft has no
+# 26H2 list, so 25H2 is the latest). Microsoft lists models, not steppings, so
+# stepping is recorded but not matched. The AMD EPYC 9V74 seen on a standard
+# ubuntu-24.04 runner in diagnostic run 41165269919 is named by neither list,
+# and no official source places it in a listed series: it stays refused.
+SUPPORTED_HOST_CPUS: tuple[dict[str, Any], ...] = (
+    {
+        "identity": {
+            "model name": "AMD EPYC 7763 64-Core Processor",
+            "vendor_id": "AuthenticAMD",
+            "cpu family": "25",
+            "model": "1",
+        },
+        "windows11_support_basis": [
+            {
+                "list": WINDOWS11_AMD_LISTS
+                + "windows-11-24h2-supported-amd-processors",
+                "list_date": "2025-08-08",
+                "entry": "AMD EPYC 7763",
+            },
+            {
+                "list": WINDOWS11_AMD_LISTS
+                + "windows-11-25h2-supported-amd-processors",
+                "list_date": "2025-10-16",
+                "entry": "AMD EPYC 7003 Series",
+            },
+        ],
+    },
+)
+
+
+def host_cpu_support(cpu: dict[str, str]) -> list[dict[str, str]]:
+    """Reviewed Windows 11 support basis of the actual hosted CPU, else refusal."""
+    for row in SUPPORTED_HOST_CPUS:
+        if all(cpu.get(key) == value for key, value in row["identity"].items()):
+            return [dict(entry) for entry in row["windows11_support_basis"]]
+    raise ValueError(
+        "Hosted CPU "
+        + repr(cpu.get("model name"))
+        + " has no reviewed Windows 11 support basis; reviewed: "
+        + ", ".join(repr(row["identity"]["model name"]) for row in SUPPORTED_HOST_CPUS)
+    )

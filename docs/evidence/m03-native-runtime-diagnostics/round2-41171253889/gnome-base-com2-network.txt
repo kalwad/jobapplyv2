@@ -1,0 +1,146 @@
+----- uptime=43.91
+addr: lo               UNKNOWN        127.0.0.1/8 ::1/128  | enp0s2           UP             10.0.2.15/24 metric 100 fec0::5054:ff:fe12:3456/64 fe80::5054:ff:fe12:3456/64
+route: 10.0.2.0/24 dev enp0s2 proto kernel scope link src 10.0.2.15 metric 100
+is-active NetworkManager systemd-networkd ssh.socket ssh.service gdm wpa_supplicant: inactive active active active inactive inactive
+networkctl: 1 lo     loopback carrier  unmanaged |   2 enp0s2 ether    routable configured
+----- uptime=155.40
+addr: lo               UNKNOWN        127.0.0.1/8 ::1/128  | enp0s2           UP             10.0.2.15/24 metric 100 fec0::5054:ff:fe12:3456/64 fe80::5054:ff:fe12:3456/64
+route: 10.0.2.0/24 dev enp0s2 proto kernel scope link src 10.0.2.15 metric 100
+is-active NetworkManager systemd-networkd ssh.socket ssh.service gdm wpa_supplicant: inactive active active active inactive active
+networkctl: 1 lo     loopback carrier  unmanaged |   2 enp0s2 ether    routable configured
+----- uptime=163.25
+addr: lo               UNKNOWN        127.0.0.1/8 ::1/128  | enp0s2           UP             10.0.2.15/24 metric 100 fec0::5054:ff:fe12:3456/64 fe80::5054:ff:fe12:3456/64
+route: 10.0.2.0/24 dev enp0s2 proto kernel scope link src 10.0.2.15 metric 100
+is-active NetworkManager systemd-networkd ssh.socket ssh.service gdm wpa_supplicant: inactive activating active active inactive active
+networkctl: 1 lo     loopback - unmanaged |   2 enp0s2 ether    - unmanaged
+----- uptime=174.28
+addr: lo               UNKNOWN        127.0.0.1/8 ::1/128  | enp0s2           UP             fe80::5054:ff:fe12:3456/64
+route: 
+is-active NetworkManager systemd-networkd ssh.socket ssh.service gdm wpa_supplicant: inactive active active active active active
+networkctl: 1 lo     loopback carrier  unmanaged |   2 enp0s2 ether    degraded unmanaged
+
+===== netplan/networkd/NetworkManager configuration at uptime=124.55
+ls: cannot access '/run/NetworkManager/conf.d': No such file or directory
+ls: cannot access '/etc/NetworkManager/conf.d': No such file or directory
+ls: cannot access '/usr/lib/NetworkManager/conf.d': No such file or directory
+/etc/netplan:
+total 20
+drwxr-xr-x   2 root root  4096 Oct 31 05:07 .
+drwxr-xr-x 124 root root 12288 Oct 31 05:09 ..
+-rw-------   1 root root   161 Oct 31 05:07 50-cloud-init.yaml
+
+/run/systemd/network:
+total 8
+drwxr-xr-x  2 root root             80 Oct 31 05:07 .
+drwxr-xr-x 24 root root            620 Oct 31 05:08 ..
+-rw-r-----  1 root root             80 Oct 31 05:07 10-netplan-enp0s2.link
+-rw-r-----  1 root systemd-network 139 Oct 31 05:07 10-netplan-enp0s2.network
+== /run/NetworkManager/conf.d/*
+cat: '/run/NetworkManager/conf.d/*': No such file or directory
+== /etc/NetworkManager/conf.d/*
+cat: '/etc/NetworkManager/conf.d/*': No such file or directory
+== /usr/lib/NetworkManager/conf.d/*
+cat: '/usr/lib/NetworkManager/conf.d/*': No such file or directory
+== /etc/netplan/50-cloud-init.yaml
+network:
+  version: 2
+  ethernets:
+    enp0s2:
+      match:
+        macaddress: "52:54:00:12:34:56"
+      dhcp4: true
+      dhcp6: true
+      set-name: "enp0s2"
+== /run/systemd/network/10-netplan-enp0s2.link
+[Match]
+PermanentMACAddress=52:54:00:12:34:56
+
+[Link]
+Name=enp0s2
+WakeOnLan=off
+== /run/systemd/network/10-netplan-enp0s2.network
+[Match]
+PermanentMACAddress=52:54:00:12:34:56
+Name=enp0s2
+
+[Network]
+DHCP=yes
+LinkLocalAddressing=ipv6
+
+[DHCP]
+RouteMetric=100
+UseMTU=true
+----- systemd-networkd journal lines
+[    7.223103] japp-gnome-ci systemd-networkd[700]: lo: Gained carrier
+[    7.233575] japp-gnome-ci systemd-networkd[700]: enp0s2: Configuring with /run/systemd/network/10-netplan-enp0s2.network.
+[    7.233975] japp-gnome-ci systemd-networkd[700]: enp0s2: Link UP
+[    7.234408] japp-gnome-ci systemd-networkd[700]: enp0s2: Gained carrier
+[    7.248399] japp-gnome-ci systemd-networkd[700]: enp0s2: DHCPv4 address 10.0.2.15/24 acquired from 10.0.2.2
+[    8.395284] japp-gnome-ci systemd-networkd[700]: enp0s2: Gained IPv6LL
+
+===== netplan/networkd/NetworkManager configuration at uptime=163.25
+ls: cannot access '/etc/NetworkManager/conf.d': No such file or directory
+/etc/netplan:
+total 20
+drwxr-xr-x   2 root root  4096 Oct 31 05:07 .
+drwxr-xr-x 127 root root 12288 Oct 31 05:10 ..
+-rw-------   1 root root   161 Oct 31 05:07 50-cloud-init.yaml
+
+/run/NetworkManager/conf.d:
+total 0
+drwxr-xr-x 2 root root 60 Oct 31 05:10 .
+drwxr-xr-x 4 root root 80 Oct 31 05:09 ..
+-rw-r--r-- 1 root root  0 Oct 31 05:10 10-globally-managed-devices.conf
+
+/run/systemd/network:
+total 4
+drwxr-xr-x  2 root root  60 Oct 31 05:10 .
+drwxr-xr-x 24 root root 620 Oct 31 05:10 ..
+-rw-r-----  1 root root  80 Oct 31 05:10 10-netplan-enp0s2.link
+
+/usr/lib/NetworkManager/conf.d:
+total 12
+drwxr-xr-x 2 root root 4096 Oct 31 05:09 .
+drwxr-xr-x 3 root root 4096 Oct 31 05:09 ..
+-rw-r--r-- 1 root root  306 Aug  5  2025 no-mac-addr-change.conf
+== /run/NetworkManager/conf.d/10-globally-managed-devices.conf
+== /etc/NetworkManager/conf.d/*
+cat: '/etc/NetworkManager/conf.d/*': No such file or directory
+== /usr/lib/NetworkManager/conf.d/no-mac-addr-change.conf
+# Certain drivers are known not to support changing the MAC address.
+# Disable touching the MAC address on such devices.
+#
+# See man NetworkManager.conf
+#
+# https://bugzilla.gnome.org/show_bug.cgi?id=777523
+[device-31-mac-addr-change]
+match-device=driver:eagle_sdio,driver:wl
+wifi.scan-rand-mac-address=no
+== /etc/netplan/50-cloud-init.yaml
+network:
+  version: 2
+  ethernets:
+    enp0s2:
+      match:
+        macaddress: "52:54:00:12:34:56"
+      dhcp4: true
+      dhcp6: true
+      set-name: "enp0s2"
+== /run/systemd/network/10-netplan-enp0s2.link
+[Match]
+PermanentMACAddress=52:54:00:12:34:56
+
+[Link]
+Name=enp0s2
+WakeOnLan=off
+----- systemd-networkd journal lines
+[    7.223103] japp-gnome-ci systemd-networkd[700]: lo: Gained carrier
+[    7.233575] japp-gnome-ci systemd-networkd[700]: enp0s2: Configuring with /run/systemd/network/10-netplan-enp0s2.network.
+[    7.233975] japp-gnome-ci systemd-networkd[700]: enp0s2: Link UP
+[    7.234408] japp-gnome-ci systemd-networkd[700]: enp0s2: Gained carrier
+[    7.248399] japp-gnome-ci systemd-networkd[700]: enp0s2: DHCPv4 address 10.0.2.15/24 acquired from 10.0.2.2
+[    8.395284] japp-gnome-ci systemd-networkd[700]: enp0s2: Gained IPv6LL
+[  163.394409] japp-gnome-ci systemd-networkd[15283]: lo: Gained carrier
+[  163.394462] japp-gnome-ci systemd-networkd[15283]: enp0s2: Link UP
+[  163.394530] japp-gnome-ci systemd-networkd[15283]: enp0s2: Gained carrier
+[  163.398779] japp-gnome-ci systemd-networkd[15283]: enp0s2: Gained IPv6LL

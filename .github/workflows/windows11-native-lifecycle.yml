@@ -107,7 +107,7 @@ jobs:
           retention-days: 7
   win11:
     runs-on: ubuntu-24.04
-    timeout-minutes: 65
+    timeout-minutes: 70
     env:
       EXPECTED_HEAD: ${{ needs.authorize.outputs.source_sha }}
       PACKAGE_BUILD_HEAD: ${{ needs.authorize.outputs.package_build_sha }}
@@ -141,7 +141,7 @@ jobs:
           test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
           python3 -B scripts/windows11/windows11_vm.py \
             --source "$GITHUB_WORKSPACE" \
-            --bundle "$RUNNER_TEMP/japp-reviewed-win11-inputs/inputs" \
+            --bundle "$RUNNER_TEMP/japp-reviewed-win11-inputs/retained/inputs" \
             --proof "$RUNNER_TEMP/japp-win11-vm-proof" \
             --manifest-sha256 "$MANIFEST_SHA256" \
             --bundle-sha256 "$BUNDLE_SHA256" \

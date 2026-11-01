@@ -25,7 +25,7 @@ from pathlib import Path
 from types import FrameType
 from typing import Any
 
-from ubuntu_gnome_atspi import Accessible, load_native
+from ubuntu_gnome_atspi import Accessible, load_native, native_error
 from ubuntu_gnome_platform import require_linux
 from ubuntu_gnome_session_receipt import main as session_main
 from ubuntu_gnome_shell import ANCHORS, ROUTES, STAGES, mutter_backing
@@ -37,9 +37,35 @@ HTTP_BODY_CAP = 4096
 MIB = 1024 * 1024
 AX_SNAPSHOT_BYTES = 1024 * 1024
 MAX_AX_ACTIONS = 16
-DISTINCT_QUIT_SOURCE_LIMIT = (
-    "NOT_AVAILABLE_NO_EXPLICIT_LINUX_APP_ACTION_IN_PINNED_SOURCE"
-)
+# After a scroll, WebKitGTK updates a text leaf's SHOWING state within this bound.
+SHELL_SETTLE_SECONDS = 2
+# WebKitGTK gives nearly every web node one unnamed action (measured in the real
+# GDM session, diagnostic run 41248905032: the focused route heading and the
+# navigation link were both "actionable"). Only these named actions activate a
+# control: link "jump", push button "press", GTK menu and menu item "click".
+ACTIVATING_ACTIONS = frozenset({"click", "press", "activate", "jump"})
+# The product's own controls the guest activates or focuses, by exact AT-SPI role.
+LINK = "link"
+BUTTON = "push button"
+# The pinned product installs File > Quit (Ctrl+Q) on every non-macOS target
+# (apps/desktop/src-tauri/src/lib.rs install_shell_quit_menu).
+QUIT_MENU = ("File", "menu")
+QUIT_ITEM = ("Quit", "menu item")
+MENU_SECONDS = 3
+# The pre-chord focus record stays small enough to name in a 512-character
+# failure message. Its focus content is a diagnosis, never a gate; only its
+# end-of-poll liveness proof for this exact app lets one Ctrl+Q close count.
+FOCUS_SECONDS = 2
+FOCUS_ROWS = 8
+FOCUS_TEXT_CAP = 128
+FOCUS_MESSAGE_ROWS = 4
+FOCUS_MESSAGE_TEXT = 40
+# The former 600 s lifetime was set for about 110 operations before any
+# product actor ran. 1500 s stays below the host's 3300 s work deadline less
+# its 900 s image download bound and the measured 268 s KVM readiness
+# (docs/evidence/m03-native-runtime-diagnostics); per-operation 30 s limits
+# are unchanged.
+CONTROLLER_SECONDS = 1500
 SOCKET_TABLE_CAP = 262144
 PRIVATE_DIRECTORY_MODE = 0o700
 REQUEST_CAP = 1024
@@ -67,6 +93,9 @@ OPERATIONS: tuple[str, ...] = (
     "crash_service",
     "close_observe",
     "relaunch",
+    "quit_menu",
+    "accelerator_focus",
+    "quit_accelerator",
     "relocated_launch",
     "force_parent",
     "finish",
@@ -310,9 +339,49 @@ def port_excluded(port: int) -> bool:
     return False
 
 
+class MenuInvariantError(ValueError):
+    """Two File menus, or two Quit items under File: structural, never retried."""
+
+
+class OffscreenTextError(ValueError):
+    """A text leaf exists but is not (yet) visible and showing."""
+
+
+def controls(rows: list[dict[str, Any]], name: str, role: str) -> list[dict[str, Any]]:
+    """Accessibility rows that are exactly this named control and can activate."""
+    return [
+        row
+        for row in rows
+        if row["name"] == name
+        and row["role"] == role
+        and ACTIVATING_ACTIONS.intersection(row["actions"])
+    ]
+
+
+def focus_leaves(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Focused rows with no focused descendant: the element that has the focus.
+
+    WebKitGTK also marks the focused element's scroll pane and named document
+    FOCUSED (measured in diagnostic run 41250366992, KI-0166).
+    """
+    focused = {row["id"] for row in rows if row["focused"]}
+    ancestors: set[int] = set()
+    for row_id in focused:
+        parent = rows[row_id]["parent"]
+        for _ in range(len(rows)):
+            if parent is None:
+                break
+            ancestors.add(parent)
+            parent = rows[parent]["parent"]
+        else:
+            raise ValueError("Native accessibility ancestry is cyclic")
+    return [row for row in rows if row["id"] in focused - ancestors]
+
+
 class Controller:
     def __init__(self) -> None:
         self.atspi, self.gio = load_native()
+        self.native_error = native_error()
         self.root = INSTALLED
         self.app: dict[str, Any] | None = None
         self.service: dict[str, Any] | None = None
@@ -320,12 +389,13 @@ class Controller:
         self.listeners: list[dict[str, str | int]] = []
         self.checked_at: str | None = None
         self.sequence = 0
-        self.work_deadline = time.monotonic() + 600
+        self.work_deadline = time.monotonic() + CONTROLLER_SECONDS
         self.operation_deadline = self.work_deadline
         self.before = self.package_binding(INSTALLED)
         self.relocated_before = self.package_binding(RELOCATED)
         self.known: list[dict[str, Any]] = []
         self.keyboard_origin: tuple[str, str] | None = None
+        self.accelerator_focus: dict[str, Any] | None = None
 
     def package_binding(self, root: Path) -> dict[str, object]:
         inspection = document(INPUT / "export.json", 8 * MIB)
@@ -358,6 +428,18 @@ class Controller:
     def fence(self) -> None:
         if time.monotonic() >= min(self.work_deadline, self.operation_deadline):
             raise TimeoutError("Guest operation work authority expired")
+
+    def transient(self, error: Exception) -> bool:
+        """A 'not yet' observation, retried within the operation's deadline.
+
+        fence() and the SIGALRM handler raise TimeoutError, itself an OSError:
+        expired authority always propagates. gi's GLib.Error (a RuntimeError)
+        is a failed AT-SPI/D-Bus call, such as an accessible WebKit destroyed
+        during a re-render or an 800 ms AT-SPI call timeout.
+        """
+        if isinstance(error, TimeoutError):
+            return False
+        return isinstance(error, (ValueError, OSError, self.native_error))
 
     def refresh(self) -> None:
         self.fence()
@@ -422,7 +504,7 @@ class Controller:
             count = interface.get_character_count()
             if not 0 <= count <= AX_TEXT_CAP:
                 raise ValueError("Accessibility text exceeds bound")
-            text = interface.get_text(0, count)
+            text = self.atspi.Text.get_text(interface, 0, count)
         except NotImplementedError:
             return ""
         self.fence()
@@ -437,7 +519,7 @@ class Controller:
             count = interface.get_n_actions()
             if not 0 <= count <= MAX_AX_ACTIONS:
                 raise ValueError("Accessibility action count exceeds bound")
-            actions = [interface.get_name(i) for i in range(count)]
+            actions = [interface.get_action_name(i) for i in range(count)]
         except NotImplementedError:
             return []
         self.fence()
@@ -482,24 +564,25 @@ class Controller:
         self.fence()
         return rows, objects
 
-    def action(self, name: str) -> None:
+    def action(self, name: str, role: str) -> None:
         rows, objects = self.tree()
-        found = [row for row in rows if row["name"] == name and row["actions"]]
+        found = controls(rows, name, role)
         # Link text may be exposed both by a parent link and static text. Require
         # the one actionable node, never click by guessed coordinates.
         if len(found) != 1:
             raise ValueError("One actionable named native accessibility node required")
-        node = objects[found[0]["id"]]
+        self.activate(objects[found[0]["id"]], found[0]["actions"])
+
+    def activate(self, node: Accessible, actions: list[str]) -> str:
         interface = node.get_action_iface()
         if interface is None:
             raise ValueError("Observed actionable node lost its action interface")
         indices = [
-            i
-            for i, action in enumerate(found[0]["actions"])
-            if action in {"click", "press", "activate", "jump"}
+            i for i, action in enumerate(actions) if action in ACTIVATING_ACTIONS
         ]
         if len(indices) != 1 or not interface.do_action(indices[0]):
             raise ValueError("Actual supported native accessibility action failed")
+        return actions[indices[0]]
 
     def await_ready(self, fresh: bool = False) -> dict[str, Any]:
         deadline = min(self.work_deadline, time.monotonic() + 20)
@@ -542,7 +625,9 @@ class Controller:
                             "listeners": self.listeners,
                             "accessibility": rows,
                         }
-            except (ValueError, OSError) as error:
+            except Exception as error:
+                if not self.transient(error):
+                    raise
                 last = type(error).__name__
             time.sleep(0.1)
         raise TimeoutError("Actual native Diagnostics Ready unavailable: " + str(last))
@@ -591,9 +676,11 @@ class Controller:
         while time.monotonic() < deadline:
             try:
                 self.refresh()
-                self.action("Open Diagnostics")
+                self.action("Open Diagnostics", LINK)
                 return self.await_ready()
-            except (ValueError, OSError):
+            except Exception as error:
+                if not self.transient(error):
+                    raise
                 time.sleep(0.1)
         raise TimeoutError("Actual package launch/accessibility unavailable")
 
@@ -623,9 +710,7 @@ class Controller:
     def keyboard(self, operation: str) -> dict[str, Any]:
         if operation == "keyboard_before":
             rows, objects = self.tree()
-            candidates = [
-                row for row in rows if row["name"] == "Home" and row["actions"]
-            ]
+            candidates = controls(rows, "Home", LINK)
             if len(candidates) != 1:
                 raise ValueError("One actual Home link required")
             component = objects[candidates[0]["id"]].get_component_iface()
@@ -634,7 +719,9 @@ class Controller:
             time.sleep(0.1)
         rows, _ = self.tree()
         focused = [row for row in rows if row["focused"]]
-        semantic_focus = {(row["name"], row["role"]) for row in focused if row["name"]}
+        semantic_focus = {
+            (row["name"], row["role"]) for row in focus_leaves(rows) if row["name"]
+        }
         if operation == "keyboard_before":
             if len(semantic_focus) != 1 or next(iter(semantic_focus))[0] != "Home":
                 raise ValueError("Actual keyboard origin is not Home link")
@@ -650,7 +737,7 @@ class Controller:
                 row["role"] == "heading" and row["name"] == "Home" for row in rows
             ):
                 raise ValueError("Native Enter did not navigate to Home heading")
-            self.action("Open Diagnostics")
+            self.action("Open Diagnostics", LINK)
             self.await_ready(fresh=True)
         return {"accessibility": rows, "focused": focused}
 
@@ -706,15 +793,208 @@ class Controller:
             try:
                 self.refresh()
                 if self.service != old:
-                    self.action("Check again")
+                    self.action("Check again", BUTTON)
                     return {
                         "terminated_service": result,
                         "replacement": self.await_ready(fresh=True),
                     }
-            except (ValueError, OSError):
-                pass
+            except Exception as error:
+                if not self.transient(error):
+                    raise
             time.sleep(0.1)
         raise TimeoutError("Production service replacement unavailable")
+
+    def menu_rows(
+        self,
+    ) -> tuple[list[Accessible], dict[str, Any], dict[str, Any] | None]:
+        rows, objects = self.tree()
+        # The same activating-action rule as every other control: an unnamed
+        # action never makes a File menu or Quit item.
+        menus = controls(rows, *QUIT_MENU)
+        if len(menus) > 1:
+            raise MenuInvariantError("One actionable native File menu required")
+        if not menus:
+            raise ValueError("One actionable native File menu required")
+        items = []
+        for row in controls(rows, *QUIT_ITEM):
+            parent = row["parent"]
+            for _ in range(len(rows)):
+                if parent is None or parent == menus[0]["id"]:
+                    break
+                parent = rows[parent]["parent"]
+            if parent == menus[0]["id"]:
+                items.append(row)
+        if len(items) > 1:
+            raise MenuInvariantError(
+                "One native Quit item under the File menu required"
+            )
+        return objects, menus[0], items[0] if items else None
+
+    def quit_menu(self) -> dict[str, Any]:
+        """The product's own File > Quit, activated through its AT-SPI actions.
+
+        Mirrors the Windows quit phase: open File, wait a bounded time for its
+        Quit item, activate it, then observe the same close as a window close.
+        """
+        self.refresh()
+        objects, menu, _item = self.menu_rows()
+        opened = self.activate(objects[menu["id"]], menu["actions"])
+        deadline = min(self.work_deadline, time.monotonic() + MENU_SECONDS)
+        item: dict[str, Any] | None = None
+        showing = False
+        last = ""
+        while True:
+            try:
+                objects, _menu, item = self.menu_rows()
+                if item is not None:
+                    state = objects[item["id"]].get_state_set()
+                    showing = state.contains(
+                        self.atspi.StateType.SHOWING
+                    ) and state.contains(self.atspi.StateType.VISIBLE)
+            except MenuInvariantError:
+                # A second File menu or Quit item, even after one was seen,
+                # refuses at once: an earlier observation never authorizes it.
+                raise
+            except Exception as error:
+                if not self.transient(error):
+                    raise
+                last = "; last: " + type(error).__name__ + ": " + str(error)[:120]
+            if showing or time.monotonic() >= deadline:
+                break
+            time.sleep(0.1)
+        if item is None:
+            raise ValueError("Native File menu exposed no actionable Quit item" + last)
+        # GTK activates a menu item it has not mapped; whether the menu was
+        # observed open is recorded, never assumed.
+        try:
+            activated = self.activate(objects[item["id"]], item["actions"])
+        except self.native_error as error:
+            # The quitting app may drop its AT-SPI reply. Only the close
+            # observation below decides, and the missing reply is recorded.
+            # A refused action (do_action False) is a ValueError and fails.
+            activated = "NO_REPLY_" + type(error).__name__
+        return {
+            "menu": QUIT_MENU[0],
+            "menu_action": opened,
+            "item": QUIT_ITEM[0],
+            "item_action": activated,
+            "item_showing_before_activation": showing,
+            "closure": self.observe_close(),
+        }
+
+    def focus_before_chord(self) -> dict[str, Any]:
+        """Window and keyboard focus just before the host sends Ctrl+Q.
+
+        The relaunched app must be the same live process at both ends of the
+        poll, or the close after the chord proves nothing; a death inside it
+        only surfaces as a retried transient. Only then is the record kept for
+        quit_accelerator. Focus itself is an observation, not a gate: the close
+        decides, and a failed close names what this recorded. The Windows
+        accelerator phase records its keyboard focus owner the same way.
+        """
+        self.accelerator_focus = None
+        app = self.app
+        if app is None or not same_process(app):
+            raise ValueError("Relaunched application must be alive before Ctrl+Q")
+        deadline = min(self.work_deadline, time.monotonic() + FOCUS_SECONDS)
+        record: dict[str, Any] = {
+            "focus_observed": False,
+            "app": f"{app['pid']}:{app['starttime_ticks']}",
+            "error_type": None,
+        }
+        while time.monotonic() < deadline:
+            try:
+                record = self.window_focus()
+            except Exception as error:
+                if not self.transient(error):
+                    raise
+                record["error_type"] = type(error).__name__
+            else:
+                break
+            time.sleep(0.1)
+        if not same_process(app):
+            raise ValueError("Relaunched application died during its focus poll")
+        self.accelerator_focus = record
+        return record
+
+    def window_focus(self) -> dict[str, Any]:
+        if self.app is None:
+            raise ValueError("Relaunched application identity required")
+        self.app_accessible().clear_cache()
+        rows, objects = self.tree()
+        types = self.atspi.StateType
+        frames = []
+        for row in rows:
+            if row["role"] not in {"frame", "window"}:
+                continue
+            state = objects[row["id"]].get_state_set()
+            frames.append(
+                {
+                    "name": row["name"][:FOCUS_TEXT_CAP],
+                    "role": row["role"],
+                    "active": state.contains(types.ACTIVE),
+                    "visible": state.contains(types.VISIBLE),
+                    "showing": state.contains(types.SHOWING),
+                }
+            )
+        focused = [
+            {
+                "name": row["name"][:FOCUS_TEXT_CAP],
+                "role": row["role"][:FOCUS_TEXT_CAP],
+            }
+            for row in rows
+            if row["focused"]
+        ]
+        return {
+            "focus_observed": True,
+            "app": f"{self.app['pid']}:{self.app['starttime_ticks']}",
+            "owned_frame_active": len(frames) == 1 and frames[0]["active"],
+            "frame_count": len(frames),
+            "frames": frames[:FOCUS_ROWS],
+            "focused_count": len(focused),
+            "focused": focused[:FOCUS_ROWS],
+        }
+
+    def focus_summary(self, record: dict[str, Any]) -> str:
+        if not record["focus_observed"]:
+            error = str(record["error_type"])[:FOCUS_MESSAGE_TEXT]
+            return "focus before Ctrl+Q was not observed: " + error
+        focused = ", ".join(
+            row["role"][:FOCUS_MESSAGE_TEXT]
+            + " "
+            # Cap after escaping too: repr() expands a control character to 10.
+            + repr(row["name"][:FOCUS_MESSAGE_TEXT])[: FOCUS_MESSAGE_TEXT + 2]
+            for row in record["focused"][:FOCUS_MESSAGE_ROWS]
+        )
+        return (
+            "before Ctrl+Q: owned frame active="
+            + str(record["owned_frame_active"])
+            + ", frames="
+            + str(record["frame_count"])
+            + ", focused="
+            + (focused or "none")
+        )
+
+    def quit_accelerator(self) -> dict[str, Any]:
+        # The host sent Ctrl+Q through QMP right after accelerator_focus. Only
+        # its record, kept once it proved this exact app still alive, lets the
+        # close count; each record answers one chord.
+        record, self.accelerator_focus = self.accelerator_focus, None
+        if (
+            record is None
+            or self.app is None
+            or record["app"] != f"{self.app['pid']}:{self.app['starttime_ticks']}"
+        ):
+            raise ValueError(
+                "Ctrl+Q refused: focus before Ctrl+Q was not recorded for this app"
+            )
+        try:
+            closure = self.observe_close()
+        except TimeoutError as error:
+            raise TimeoutError(
+                str(error) + "; " + self.focus_summary(record)
+            ) from error
+        return {"accelerator": "Ctrl+Q", "closure": closure}
 
     def force_parent(self) -> dict[str, Any]:
         self.refresh()
@@ -733,12 +1013,12 @@ class Controller:
         return {
             "package_bytes_modes_unchanged": True,
             "known_processes_absent": True,
-            "distinct_quit": DISTINCT_QUIT_SOURCE_LIMIT,
+            "distinct_quit_measured_separately": True,
             "normal_close_measured_separately": True,
         }
 
     def diagnostics(self) -> dict[str, Any]:
-        self.action("Check again")
+        self.action("Check again", BUTTON)
         return self.await_ready(fresh=True)
 
     def shell_frame(self) -> tuple[list[int], str]:
@@ -829,7 +1109,7 @@ class Controller:
         if not state.contains(self.atspi.StateType.VISIBLE) or not state.contains(
             self.atspi.StateType.SHOWING
         ):
-            raise ValueError("Actual Text leaf is hidden or offscreen")
+            raise OffscreenTextError("Actual Text leaf is hidden or offscreen")
         interface = node.get_text_iface()
         if interface is None:
             raise ValueError("Actual native Text bounds unavailable")
@@ -859,11 +1139,27 @@ class Controller:
             "showing": True,
         }
 
-    def shell_focus(self, name: str) -> None:
+    def shell_focus(self, name: str, role: str) -> None:
         rows, objects = self.tree()
-        found = [row for row in rows if row["name"] == name and row["actions"]]
+        found = controls(rows, name, role)
         if len(found) != 1:
-            raise ValueError("One exact native actionable shell target required")
+            # Name the candidates (role, actions, parent role) so a hosted run shows
+            # the real WebKitGTK tree shape; these are the app's own UI labels.
+            named = [row for row in rows if row["name"] == name][:6]
+            shape = [
+                (
+                    row["role"],
+                    row["actions"][:4],
+                    None if row["parent"] is None else rows[row["parent"]]["role"],
+                )
+                for row in named
+            ]
+            raise ValueError(
+                "One exact native actionable shell target required: "
+                + str(len(found))
+                + " actionable of "
+                + str(shape)[:900]
+            )
         component = objects[found[0]["id"]].get_component_iface()
         if component is None or not component.grab_focus():
             raise ValueError("Actual native shell focus unavailable")
@@ -882,7 +1178,6 @@ class Controller:
     def shell_measure(self, stage: str) -> dict[str, Any]:
         rows, objects = self.tree()
         rows = self.shell_version_rows(rows, objects)
-        self.shell_text("Tauri version", versions=True)
         found = [
             row
             for row in rows
@@ -890,9 +1185,33 @@ class Controller:
         ]
         if len(found) != 1:
             raise ValueError("One exact native version label required")
-        component = objects[found[0]["id"]].get_component_iface()
+        # The largest zoom step stacks the layout and leaves the version rows below
+        # the fold (measured in diagnostic run 41249463049, KI-0164). WebKitGTK
+        # scrolls a target only until it is visible (run 41249857437: TOP_EDGE on
+        # the label left the rows below it offscreen), so scroll the whole region,
+        # then require every label visible and showing.
+        regions = [
+            row
+            for row in rows
+            if row["name"] == "Desktop versions"
+            and objects[row["id"]].get_attributes().get("xml-roles") == "region"
+        ]
+        if len(regions) != 1:
+            raise ValueError("One source-bound Desktop versions native region required")
+        component = objects[regions[0]["id"]].get_component_iface()
         if component is None or not component.scroll_to(self.atspi.ScrollType.TOP_EDGE):
             raise ValueError("Actual version labels could not scroll into view")
+        deadline = min(self.work_deadline, time.monotonic() + SHELL_SETTLE_SECONDS)
+        anchors: list[dict[str, Any]] | None = None
+        while anchors is None:
+            self.app_accessible().clear_cache()
+            try:
+                self.shell_text("Tauri version", versions=True)
+                anchors = [self.shell_text(label, versions=True) for label in ANCHORS]
+            except OffscreenTextError:
+                if time.monotonic() >= deadline:
+                    raise
+                time.sleep(0.1)
         frame, window = self.shell_frame()
         if self.app is None:
             raise ValueError("Actual owned app identity unavailable")
@@ -902,7 +1221,7 @@ class Controller:
             "app_pid": self.app["pid"],
             "frame": frame,
             "backing": self.shell_backing(),
-            "anchors": [self.shell_text(label, versions=True) for label in ANCHORS],
+            "anchors": anchors,
         }
 
     def shell_operation(self, operation: str) -> dict[str, Any]:
@@ -910,7 +1229,7 @@ class Controller:
         if operation.startswith("shell_scale_"):
             return self.shell_measure(operation.removeprefix("shell_scale_"))
         if operation == "shell_skip_focus":
-            self.shell_focus("Skip to main content")
+            self.shell_focus("Skip to main content", LINK)
             return {"focused": True}
         if operation == "shell_skip_observe":
             rows, objects = self.tree()
@@ -926,7 +1245,7 @@ class Controller:
             return {"skip_main": True, "accessibility": rows}
         if operation == "shell_check_focus":
             self.await_ready()
-            self.shell_focus("Check again")
+            self.shell_focus("Check again", BUTTON)
             return {"checked_before": self.checked_at}
         if operation == "shell_check_observe":
             return self.await_ready(fresh=True)
@@ -936,17 +1255,17 @@ class Controller:
         action, slug = operation.removeprefix("shell_").split("_", 1)
         label = dict(ROUTES)[slug]
         if action == "focus":
-            self.shell_focus(label)
+            self.shell_focus(label, LINK)
             return {"focused": True}
         if action == "tab":
             focused, _ = self.tree()
             if not any(row["focused"] for row in focused) or self.shell_focused(
-                label, "link"
+                label, LINK
             ):
                 raise ValueError("Actual native Tab did not leave the route link")
             return {"tab_moved": True}
         if action == "back":
-            if not self.shell_focused(label, "link"):
+            if not self.shell_focused(label, LINK):
                 raise ValueError("Actual native Shift+Tab did not restore route focus")
             return {"back_returned": True}
         if action != "route":
@@ -955,11 +1274,7 @@ class Controller:
         headings = [
             row for row in rows if row["role"] == "heading" and row["name"] == label
         ]
-        links = [
-            row
-            for row in rows
-            if row["role"] == "link" and row["name"] == label and row["actions"]
-        ]
+        links = controls(rows, label, LINK)
         if (
             len(headings) != 1
             or not headings[0]["focused"]
@@ -996,6 +1311,9 @@ class Controller:
             "auth": self.authentication,
             "crash_service": self.restart_service,
             "close_observe": self.observe_close,
+            "quit_menu": self.quit_menu,
+            "accelerator_focus": self.focus_before_chord,
+            "quit_accelerator": self.quit_accelerator,
             "force_parent": self.force_parent,
             "finish": self.finish,
         }
@@ -1072,6 +1390,38 @@ def handle_connection(controller: Controller, connection: socket.socket) -> int 
     return None
 
 
+def controller_exit(reason: str, sequence: int, code: int) -> None:
+    """Bounded terminal marker for an exit that leaves no operation receipt."""
+    with (PROOF / "controller-exit.json").open("x", encoding="utf-8") as stream:
+        json.dump(
+            {
+                "status": "CONTROLLER_EXITED",
+                "reason": reason,
+                "last_sequence": sequence,
+                "exit_code": code,
+            },
+            stream,
+        )
+
+
+def controller_failure(error: Exception) -> None:
+    """The --serve controller's own failure marker; never a request client's."""
+    if not PROOF.is_dir() or PROOF.is_symlink():
+        return
+    try:
+        with (PROOF / "controller-failure.json").open("x", encoding="utf-8") as stream:
+            json.dump(
+                {
+                    "status": "CONTROLLER_FAILED",
+                    "error_type": type(error).__name__,
+                    "message": str(error)[:512],
+                },
+                stream,
+            )
+    except FileExistsError:
+        error.add_note("controller-failure.json already existed; it was kept")
+
+
 def serve() -> int:
 
     info = PROOF.lstat()
@@ -1090,6 +1440,7 @@ def serve() -> int:
     finally:
         sys.argv = saved
     if code != 0:
+        controller_exit("SESSION_NOT_READY", 0, code)
         return code
     controller = Controller()
     with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as server:
@@ -1108,6 +1459,7 @@ def serve() -> int:
                     terminal = handle_connection(controller, connection)
                     if terminal is not None:
                         return terminal
+            controller_exit("WORK_DEADLINE_EXPIRED", controller.sequence, 1)
         finally:
             SOCKET.unlink(missing_ok=True)
     return 1
@@ -1135,22 +1487,15 @@ def main() -> int:
     arguments = parser.parse_args()
     if os.geteuid() == 0 or Path.home() != HOME:
         raise ValueError("Only synthetic non-root guest account may operate controller")
-    return serve() if arguments.serve else request(arguments.request)
+    if not arguments.serve:
+        # A request client reports its own failure on stderr only.
+        return request(arguments.request)
+    try:
+        return serve()
+    except Exception as error:
+        controller_failure(error)
+        raise
 
 
 if __name__ == "__main__":
-    try:
-        raise SystemExit(main())
-    except Exception as error:
-        if PROOF.is_dir() and not PROOF.is_symlink():
-            failure = PROOF / "controller-failure.json"
-            with failure.open("x", encoding="utf-8") as stream:
-                json.dump(
-                    {
-                        "status": "CONTROLLER_FAILED",
-                        "error_type": type(error).__name__,
-                        "message": str(error)[:512],
-                    },
-                    stream,
-                )
-        raise
+    raise SystemExit(main())

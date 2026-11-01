@@ -1,0 +1,7 @@
+{
+  "status": "FAIL",
+  "operation": "shell_focus_diagnostics",
+  "error_type": "ValueError",
+  "message": "One exact native actionable shell target required: 2 actionable of [('heading', [''], 'header'), ('link', ['jump'], 'list item')]",
+  "elapsed_seconds": 0.5704239419999908
+}

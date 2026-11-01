@@ -1,0 +1,7 @@
+{
+  "status": "FAIL",
+  "operation": "shell_scale_step4",
+  "error_type": "OffscreenTextError",
+  "message": "Actual Text leaf is hidden or offscreen",
+  "elapsed_seconds": 2.448488377000018
+}

@@ -1,0 +1,23 @@
+{"t": 0.1, "ssh_rc": 255, "ssh_seconds": 3.05, "serial_bytes": 0}
+{"t": 114.3, "ssh_rc": 1, "ssh_seconds": 9.82, "serial_bytes": 65514}
+{"t": 162.7, "ssh_rc": 1, "ssh_seconds": 4.31, "serial_bytes": 65663, "guest_last": "probe-start"}
+{"t": 200.6, "ssh_rc": 1, "ssh_seconds": 5.36, "serial_bytes": 65663, "guest_last": "hashed"}
+{"t": 292.2, "ssh_rc": 1, "ssh_seconds": 9.41, "serial_bytes": 65663, "guest_last": "hashed"}
+{"t": 358.5, "ssh_rc": 1, "ssh_seconds": 8.4, "serial_bytes": 65663, "guest_last": "hashed"}
+{"t": 423.9, "ssh_rc": 1, "ssh_seconds": 9.13, "serial_bytes": 65663, "guest_last": "hashed"}
+{"t": 653.6, "ssh_rc": 1, "ssh_seconds": 8.58, "serial_bytes": 65663, "guest_last": "hashed"}
+{"t": 728.6, "ssh_rc": 1, "ssh_seconds": 9.03, "serial_bytes": 65663, "guest_last": "hashed"}
+{"t": 793.9, "ssh_rc": 1, "ssh_seconds": 13.72, "serial_bytes": 65753, "guest_last": "hashed"}
+{"t": 812.6, "ssh_rc": 1, "ssh_seconds": 6.85, "serial_bytes": 66009, "guest_last": "hashed"}
+{"t": 869.1, "ssh_rc": 1, "ssh_seconds": 9.69, "serial_bytes": 66549, "guest_last": "hashed"}
+{"t": 964.4, "ssh_rc": 1, "ssh_seconds": 8.99, "serial_bytes": 67654, "guest_last": "hashed"}
+{"t": 995.4, "ssh_rc": 1, "ssh_seconds": 16.9, "serial_bytes": 69130, "guest_last": "hashed"}
+{"t": 1034.5, "ssh_rc": 1, "ssh_seconds": 6.46, "serial_bytes": 69404, "guest_last": "hashed"}
+{"t": 1045.9, "ssh_rc": 1, "ssh_seconds": 9.92, "serial_bytes": 69656, "guest_last": "hashed"}
+{"t": 1069.9, "ssh_rc": 1, "ssh_seconds": 7.38, "serial_bytes": 69840, "guest_last": "hashed"}
+{"t": 1137.6, "ssh_rc": 1, "ssh_seconds": 10.41, "serial_bytes": 70484, "guest_last": "hashed"}
+{"t": 1215.9, "ssh_rc": 1, "ssh_seconds": 8.66, "serial_bytes": 71417, "guest_last": "hashed"}
+{"t": 1255.9, "ssh_rc": 1, "ssh_seconds": 7.9, "serial_bytes": 71943, "guest_last": "hashed"}
+{"t": 1268.8, "ssh_rc": "TIMEOUT60", "ssh_seconds": 60.0, "serial_bytes": 79694}
+{"t": 1333.8, "ssh_rc": 255, "ssh_seconds": 3.01, "serial_bytes": 79858}
+polls=568 last={"t": 4797.7, "ssh_rc": 255, "ssh_seconds": 3.01, "serial_bytes": 80205}

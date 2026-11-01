@@ -127,8 +127,8 @@ CANDIDATE_AUXILIARY_WORKFLOWS = {
         "565ec8e8b23cbf051b5540d4cae860f356f87851ab08f0b3f26f2be13931000f",
     ),
     "windows11-native-lifecycle.yml": (
-        7419,
-        "1821e57da5bfcbd01124a1534ad24ec8e493bff2885f115362811efa7019f4de",
+        7428,
+        "2dee0eddaf80d39f09d028749359efd02355ece2ae22a58936519bd33654fba7",
     ),
 }
 
@@ -1831,9 +1831,11 @@ LINUX_INFRASTRUCTURE_STDLIB = frozenset(
         "__future__",
         "argparse",
         "collections",
+        "contextlib",
         "dataclasses",
         "datetime",
         "errno",
+        "fcntl",
         "getpass",
         "hashlib",
         "http",
@@ -2463,16 +2465,16 @@ WINDOWS11_PYTHON_MODULES = frozenset(
 )
 WINDOWS11_NATIVE_PINS = {
     "windows11_owned.cs": (
-        "5337bf5e16c0755d8269cf22d94b86eb39ac0397b71abccc07e27746b4d52b8e"
+        "5b2e50706692e1814087362f56cf3abeb8b92e4ca0bb8266903bfb25faf7f540"
     ),
     "windows11_source_check.ps1": (
         "8fe860dee981b6392ee291fd63c4d057b4174b3673926e5e385a4f55bed7e822"
     ),
     "windows11_guest.ps1": (
-        "f17109ccce05f33cedc39e83b4ca46b699997d184c770f12df65219943c853cf"
+        "63323c705313540a47e8d86a54957a9f0cb6b9ebc73d275eb447b4869a792edb"
     ),
     "windows11_bootstrap.ps1": (
-        "723c3afd0d40219353e8f64483ac145ccdc8398dcb96bca37e7091b2e5721e01"
+        "e6df96a0141419ced3e61522d434a7a05b8877c770e1a365db190d4dd9a062dd"
     ),
 }
 WINDOWS11_MODULES = WINDOWS11_PYTHON_MODULES | WINDOWS11_NATIVE_PINS.keys()

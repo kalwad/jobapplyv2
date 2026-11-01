@@ -1,0 +1,49 @@
+{
+  "scope": "Exact committed (LF-normalized) bytes of the failed GNOME lifecycle run 41157416726 campaign record, the scratch-branch APT probe sources and observations (runs 41157694334 and 41157825709), and GitHub API metadata",
+  "files": {
+    "README.md": {
+      "bytes": 2454,
+      "sha256": "2fd559b2a0e4f9f7eb2cc678ec5ae6a07a23c1bad35f2d105754b3e347e9e358"
+    },
+    "campaign/closure.json": {
+      "bytes": 196,
+      "sha256": "d383008e7a565ac2ef4b0057c7500c0710db86837561e07b9d178d0a50176c98"
+    },
+    "campaign/command-001.json": {
+      "bytes": 15582,
+      "sha256": "4f942d7cb39608d07783039099b93634b16ada723e57c5c968af10c13e1e024b"
+    },
+    "campaign/command-001.stderr": {
+      "bytes": 86,
+      "sha256": "2c683d53a7a4b2a83e8419b72b4199526dae034013b60f1476a4a48a6dc168d8"
+    },
+    "campaign/command-001.stdout": {
+      "bytes": 11083,
+      "sha256": "593b83443b7a4a1493d48b6c0588ce88285fb33bb85c6e50842761a315767a25"
+    },
+    "campaign/input-binding.json": {
+      "bytes": 110,
+      "sha256": "e7cdfa279265555a12b9718ffd33412810e751e6c6b9c46d3e898e65cdccf308"
+    },
+    "diagnostic/apt-plan-probe-41157694334.txt": {
+      "bytes": 8501,
+      "sha256": "f3371f9647a0b3e5e3209c5d39d97b30d9fb7e64a22da7caa7edf8a2597fd5be"
+    },
+    "diagnostic/local-only-apt-probe-41157825709.txt": {
+      "bytes": 13498,
+      "sha256": "70d2ab2f31f2f4ae1fc889bd4bbb1d99db7fe39e424af3c00d4278acc61dc663"
+    },
+    "diagnostic/workflow-4924947.yml": {
+      "bytes": 3007,
+      "sha256": "57a550aeffdbfa3dffdb596b3cb28f44b25c83ad64727b3e9acdb67d60918fc6"
+    },
+    "diagnostic/workflow-afb40d4.yml": {
+      "bytes": 1932,
+      "sha256": "6b33c6b47ab7205712349d91eb9dbe2aca791c58e6083cf5580d3d7ef3666658"
+    },
+    "run-metadata.json": {
+      "bytes": 2321,
+      "sha256": "17400db77378e31dfbf390b690354fb4647d6741d666648b99cca09b1551960c"
+    }
+  }
+}

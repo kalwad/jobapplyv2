@@ -1,0 +1,7 @@
+{
+  "status": "FAIL",
+  "operation": "launch",
+  "error_type": "TypeError",
+  "message": "Atspi.Accessible.get_text() takes exactly 1 argument (3 given)",
+  "elapsed_seconds": 1.2691972030000045
+}
