@@ -1,0 +1,28 @@
+{
+  "observed": {
+    "model name": "AMD EPYC 7763 64-Core Processor",
+    "vendor_id": "AuthenticAMD",
+    "cpu family": "25",
+    "model": "1",
+    "stepping": "1"
+  },
+  "candidate_recorded": {
+    "model name": "AMD EPYC 7763 64-Core Processor",
+    "vendor_id": "AuthenticAMD",
+    "cpu family": "25",
+    "model": "1",
+    "stepping": "1"
+  },
+  "windows11_support_basis": [
+    {
+      "list": "https://learn.microsoft.com/en-us/windows-hardware/design/minimum/supported/windows-11-24h2-supported-amd-processors",
+      "list_date": "2025-08-08",
+      "entry": "AMD EPYC 7763"
+    },
+    {
+      "list": "https://learn.microsoft.com/en-us/windows-hardware/design/minimum/supported/windows-11-25h2-supported-amd-processors",
+      "list_date": "2025-10-16",
+      "entry": "AMD EPYC 7003 Series"
+    }
+  ]
+}

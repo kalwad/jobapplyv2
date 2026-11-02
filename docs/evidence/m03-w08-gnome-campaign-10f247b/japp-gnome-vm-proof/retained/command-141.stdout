@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "operation": "shell_scale_step2",
+  "result": {
+    "stage": "step2",
+    "window_id": "16069:18057",
+    "app_pid": 16069,
+    "frame": [
+      0,
+      0,
+      1214,
+      768
+    ],
+    "backing": {
+      "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+      "serial": 1,
+      "connector": "Virtual-1",
+      "width": 1280,
+      "height": 800,
+      "scale": 1.0,
+      "transform": 0,
+      "layout_mode": 2
+    },
+    "anchors": [
+      {
+        "text": "0.0.1",
+        "rect": [
+          671,
+          280,
+          57,
+          22
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      {
+        "text": "2.12.4",
+        "rect": [
+          671,
+          345,
+          68,
+          22
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      }
+    ]
+  },
+  "elapsed_seconds": 1.021878259999994
+}

@@ -1,0 +1,42 @@
+{
+  "status": "EXACT_HOST_TOOL_BYTES_OBSERVED_NO_VM_OR_PRODUCT_ACTOR",
+  "runner_image_version": "20261026.354.1",
+  "tools": {
+    "qemu": {
+      "path": "/usr/bin/qemu-system-x86_64",
+      "sha256": "8a35ccba41582fc6c38b9df85fc9e35fa1d42f414d2d7d8090ee9b2f5e7c0854"
+    },
+    "qemu_img": {
+      "path": "/usr/bin/qemu-img",
+      "sha256": "634320b91165669917123e8e79cce1c4d00cee0a4aa4d662d7c0a8186479b3fb"
+    },
+    "seed": {
+      "path": "/usr/bin/cloud-localds",
+      "sha256": "936eeaf470b208418689a604a1ae7d0dac3f45ea24d68c2c187eac8957543157"
+    },
+    "ssh": {
+      "path": "/usr/bin/ssh",
+      "sha256": "fc47ea24323fdd5687c5aefae6fd0060faabfa8f2944c6a68f6a442fbe0dd131"
+    },
+    "scp": {
+      "path": "/usr/bin/scp",
+      "sha256": "db6ec05b03d10c1bdd986c38c2dad138b43184a6d42e678d0cef27e1fb5adcca"
+    },
+    "keygen": {
+      "path": "/usr/bin/ssh-keygen",
+      "sha256": "f0b9e19ffa077d62ef6795a44d50c721f03456067a874395e015ec69c276dca6"
+    },
+    "gpgv": {
+      "path": "/usr/bin/gpgv",
+      "sha256": "f14d026b9eae172c432e015bce227483293b4966f2f3fdcfa582f71d3dbb2ae8"
+    },
+    "dpkg_query": {
+      "path": "/usr/bin/dpkg-query",
+      "sha256": "cc2a19017c37132e4ad46c1fbddea6472262d0a62a0b8585c383706c20005ea1"
+    },
+    "setfacl": {
+      "path": "/usr/bin/setfacl",
+      "sha256": "8c6e90b674671cd3b9d0e61d9177cbd022e1eb9380a2241a189c3d9a51d15922"
+    }
+  }
+}

@@ -1,0 +1,562 @@
+{
+  "status": "PASS",
+  "operation": "shell_skip_observe",
+  "result": {
+    "skip_main": true,
+    "accessibility": [
+      {
+        "id": 0,
+        "parent": null,
+        "name": "japp-desktop",
+        "text": "",
+        "role": "application",
+        "pid": 16069,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 1,
+        "parent": 0,
+        "name": "Desktop App",
+        "text": "",
+        "role": "frame",
+        "pid": 16069,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 2,
+        "parent": 1,
+        "name": "",
+        "text": "",
+        "role": "panel",
+        "pid": 16069,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 3,
+        "parent": 1,
+        "name": "",
+        "text": "",
+        "role": "filler",
+        "pid": 16069,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 4,
+        "parent": 2,
+        "name": "",
+        "text": "",
+        "role": "filler",
+        "pid": 16069,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 5,
+        "parent": 2,
+        "name": "",
+        "text": "",
+        "role": "filler",
+        "pid": 16069,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 6,
+        "parent": 3,
+        "name": "",
+        "text": "",
+        "role": "menu bar",
+        "pid": 16069,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 7,
+        "parent": 3,
+        "name": "",
+        "text": "",
+        "role": "filler",
+        "pid": 16069,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 8,
+        "parent": 4,
+        "name": "",
+        "text": "",
+        "role": "separator",
+        "pid": 16069,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 9,
+        "parent": 4,
+        "name": "Minimize",
+        "text": "",
+        "role": "push button",
+        "pid": 16069,
+        "focused": false,
+        "actions": [
+          "click"
+        ]
+      },
+      {
+        "id": 10,
+        "parent": 4,
+        "name": "Restore",
+        "text": "",
+        "role": "push button",
+        "pid": 16069,
+        "focused": false,
+        "actions": [
+          "click"
+        ]
+      },
+      {
+        "id": 11,
+        "parent": 4,
+        "name": "Close",
+        "text": "",
+        "role": "push button",
+        "pid": 16069,
+        "focused": false,
+        "actions": [
+          "click"
+        ]
+      },
+      {
+        "id": 12,
+        "parent": 5,
+        "name": "Desktop App",
+        "text": "Desktop App",
+        "role": "label",
+        "pid": 16069,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 13,
+        "parent": 5,
+        "name": "",
+        "text": "",
+        "role": "label",
+        "pid": 16069,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 14,
+        "parent": 6,
+        "name": "File",
+        "text": "",
+        "role": "menu",
+        "pid": 16069,
+        "focused": false,
+        "actions": [
+          "click"
+        ]
+      },
+      {
+        "id": 15,
+        "parent": 7,
+        "name": "",
+        "text": "",
+        "role": "filler",
+        "pid": 16102,
+        "focused": false,
+        "actions": []
+      },
+      {
+        "id": 16,
+        "parent": 14,
+        "name": "Quit",
+        "text": "",
+        "role": "menu item",
+        "pid": 16069,
+        "focused": false,
+        "actions": [
+          "click"
+        ]
+      },
+      {
+        "id": 17,
+        "parent": 15,
+        "name": "",
+        "text": "",
+        "role": "scroll pane",
+        "pid": 16102,
+        "focused": true,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 18,
+        "parent": 17,
+        "name": "Documents / Resumes \u00b7 Desktop app",
+        "text": "",
+        "role": "document web",
+        "pid": 16102,
+        "focused": true,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 19,
+        "parent": 17,
+        "name": "",
+        "text": "",
+        "role": "scroll bar",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 20,
+        "parent": 18,
+        "name": "Skip to main content",
+        "text": "Skip to main content",
+        "role": "link",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 21,
+        "parent": 18,
+        "name": "",
+        "text": "",
+        "role": "landmark",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 22,
+        "parent": 18,
+        "name": "",
+        "text": "",
+        "role": "landmark",
+        "pid": 16102,
+        "focused": true,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 23,
+        "parent": 21,
+        "name": "Primary",
+        "text": "",
+        "role": "landmark",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 24,
+        "parent": 21,
+        "name": "",
+        "text": "Development build",
+        "role": "paragraph",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 25,
+        "parent": 22,
+        "name": "",
+        "text": "",
+        "role": "header",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 26,
+        "parent": 22,
+        "name": "",
+        "text": "Document and resume tools are not available in this build.\n\nCheck Diagnostics for the capabilities available in this desktop app.\n",
+        "role": "section",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 27,
+        "parent": 22,
+        "name": "",
+        "text": "Local workspace \u00b7 No application submission is available in this build.",
+        "role": "footer",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 28,
+        "parent": 23,
+        "name": "",
+        "text": "",
+        "role": "list",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 29,
+        "parent": 25,
+        "name": "Documents / Resumes",
+        "text": "Documents / Resumes",
+        "role": "heading",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 30,
+        "parent": 25,
+        "name": "Open Diagnostics",
+        "text": "Open Diagnostics",
+        "role": "link",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 31,
+        "parent": 26,
+        "name": "Documents / Resumes availability",
+        "text": "",
+        "role": "landmark",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 32,
+        "parent": 28,
+        "name": "",
+        "text": "\ufffc",
+        "role": "list item",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "select"
+        ]
+      },
+      {
+        "id": 33,
+        "parent": 28,
+        "name": "",
+        "text": "\ufffc",
+        "role": "list item",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "select"
+        ]
+      },
+      {
+        "id": 34,
+        "parent": 28,
+        "name": "",
+        "text": "\ufffc",
+        "role": "list item",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "select"
+        ]
+      },
+      {
+        "id": 35,
+        "parent": 28,
+        "name": "",
+        "text": "\ufffc",
+        "role": "list item",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "select"
+        ]
+      },
+      {
+        "id": 36,
+        "parent": 28,
+        "name": "",
+        "text": "\ufffc",
+        "role": "list item",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "select"
+        ]
+      },
+      {
+        "id": 37,
+        "parent": 28,
+        "name": "",
+        "text": "\ufffc",
+        "role": "list item",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "select"
+        ]
+      },
+      {
+        "id": 38,
+        "parent": 28,
+        "name": "",
+        "text": "\ufffc",
+        "role": "list item",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "select"
+        ]
+      },
+      {
+        "id": 39,
+        "parent": 31,
+        "name": "",
+        "text": "Document and resume tools are not available in this build.",
+        "role": "paragraph",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 40,
+        "parent": 31,
+        "name": "",
+        "text": "Check Diagnostics for the capabilities available in this desktop app.",
+        "role": "paragraph",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          ""
+        ]
+      },
+      {
+        "id": 41,
+        "parent": 32,
+        "name": "Home",
+        "text": "Home\n",
+        "role": "link",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 42,
+        "parent": 33,
+        "name": "Jobs",
+        "text": "Jobs\n",
+        "role": "link",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 43,
+        "parent": 34,
+        "name": "Tracker",
+        "text": "Tracker\n",
+        "role": "link",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 44,
+        "parent": 35,
+        "name": "Documents / Resumes",
+        "text": "Documents / Resumes\n",
+        "role": "link",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 45,
+        "parent": 36,
+        "name": "Profile",
+        "text": "Profile\n",
+        "role": "link",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 46,
+        "parent": 37,
+        "name": "Settings",
+        "text": "Settings\n",
+        "role": "link",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      },
+      {
+        "id": 47,
+        "parent": 38,
+        "name": "Diagnostics",
+        "text": "Diagnostics\n",
+        "role": "link",
+        "pid": 16102,
+        "focused": false,
+        "actions": [
+          "jump"
+        ]
+      }
+    ]
+  },
+  "elapsed_seconds": 0.31054922999999235
+}

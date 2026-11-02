@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/usr/bin/git",
+    "-C",
+    "/home/runner/work/jobapplyv2/jobapplyv2",
+    "status",
+    "--porcelain=v1",
+    "-z",
+    "--untracked-files=all"
+  ],
+  "exit_code": 0,
+  "signals": [],
+  "elapsed_seconds": 0.02056919899996501,
+  "direct_child_reaped": true,
+  "group_authority_verified": true,
+  "group_after_reap": "ABSENT",
+  "raw_bytes": 0,
+  "output_cap_bytes": 262144,
+  "output_cap_exceeded": false,
+  "primary_error_type": null,
+  "cleanup_error_type": null,
+  "retained_unreaped_custody": false,
+  "scope": "EXACT_OWN_CHILD_NO_SIGNAL_AFTER_REAP"
+}

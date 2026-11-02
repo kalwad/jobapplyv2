@@ -1,0 +1,9 @@
+{
+  "ram_bytes": 16760344576,
+  "available_ram_bytes": 15342391296,
+  "free_disk_bytes": 89287004160,
+  "runner_image_version": "20261026.354.1",
+  "acceleration": "KVM_NO_SOFTWARE_FALLBACK",
+  "guest_ram_MiB": 4096,
+  "guest_vcpus": 2
+}

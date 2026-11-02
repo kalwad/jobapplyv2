@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "operation": "shell_check_focus",
+  "result": {
+    "checked_before": "2026-11-02T01:17:21.496284765Z"
+  },
+  "elapsed_seconds": 0.7644202019999966
+}

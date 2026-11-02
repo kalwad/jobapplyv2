@@ -1,0 +1,37 @@
+# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Read the install image metadata
+# of the exact pinned Windows 11 Enterprise Evaluation ISO (no VM, no install
+# into Windows): download, verify the pinned SHA-256, mount read-only, wiminfo.
+name: ci
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  wim:
+    name: windows11 iso image metadata
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Download, verify and read the install image metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          out="$RUNNER_TEMP/out"; mkdir -p "$out"
+          sudo apt-get install -y --no-install-recommends wimtools > "$out/apt.log" 2>&1
+          url='https://software-static.download.prss.microsoft.com/dbazure/26300.9457.260913-1737.26h2_ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso'
+          curl -fsSL --retry 3 -o "$RUNNER_TEMP/win11.iso" "$url"
+          echo "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38  $RUNNER_TEMP/win11.iso" | sha256sum -c - | tee "$out/sha256.txt"
+          sudo mkdir -p /mnt/iso && sudo mount -o loop,ro "$RUNNER_TEMP/win11.iso" /mnt/iso
+          ls -la /mnt/iso/sources | grep -i "install\|boot.wim" | tee "$out/sources.txt"
+          img=/mnt/iso/sources/install.wim
+          test -f "$img"
+          wiminfo "$img" | tee "$out/wiminfo.txt"
+          wiminfo "$img" --xml | iconv -f UTF-16LE -t UTF-8 > "$out/wiminfo.xml" || true
+          wiminfo /mnt/iso/sources/boot.wim | tee "$out/boot-wiminfo.txt"
+          sudo umount /mnt/iso
+      - if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: diag30-win11-wim
+          path: ${{ runner.temp }}/out
+          retention-days: 7

@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "operation": "shell_tab_jobs",
+  "result": {
+    "tab_moved": true
+  },
+  "elapsed_seconds": 0.31491713899998786
+}

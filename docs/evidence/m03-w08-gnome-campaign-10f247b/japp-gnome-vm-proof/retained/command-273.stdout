@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "operation": "finish",
+  "result": {
+    "package_bytes_modes_unchanged": true,
+    "known_processes_absent": true,
+    "distinct_quit_measured_separately": true,
+    "normal_close_measured_separately": true
+  },
+  "elapsed_seconds": 0.5021999819999792
+}

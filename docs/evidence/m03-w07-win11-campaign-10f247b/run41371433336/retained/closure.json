@@ -1,0 +1,10 @@
+{
+  "status": "FAILED",
+  "actual_native_Windows11_acceptance": false,
+  "error_type": "ValueError",
+  "message": "Hosted CPU 'INTEL(R) XEON(R) PLATINUM 8573C' has no reviewed Windows 11 support basis; reviewed: 'AMD EPYC 7763 64-Core Processor'",
+  "vm_closure": {
+    "vm_started": false,
+    "pending_commands": []
+  }
+}

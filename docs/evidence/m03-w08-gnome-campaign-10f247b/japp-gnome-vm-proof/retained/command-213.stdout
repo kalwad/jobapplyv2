@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "operation": "shell_back_settings",
+  "result": {
+    "back_returned": true
+  },
+  "elapsed_seconds": 0.41066933199999767
+}

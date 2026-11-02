@@ -1,0 +1,400 @@
+Nov 02 01:16:01 japp-gnome-ci sshd[19913]: Received disconnect from 10.0.2.2 port 39746:11: disconnected by user
+Nov 02 01:16:01 japp-gnome-ci sshd[19913]: Disconnected from user japp-ci 10.0.2.2 port 39746
+Nov 02 01:16:01 japp-gnome-ci sshd[19973]: Received disconnect from 10.0.2.2 port 39760:11: disconnected by user
+Nov 02 01:16:01 japp-gnome-ci sshd[19973]: Disconnected from user japp-ci 10.0.2.2 port 39760
+Nov 02 01:16:02 japp-gnome-ci sshd[20033]: Received disconnect from 10.0.2.2 port 39776:11: disconnected by user
+Nov 02 01:16:02 japp-gnome-ci sshd[20033]: Disconnected from user japp-ci 10.0.2.2 port 39776
+Nov 02 01:16:02 japp-gnome-ci sshd[20093]: Received disconnect from 10.0.2.2 port 39784:11: disconnected by user
+Nov 02 01:16:02 japp-gnome-ci sshd[20093]: Disconnected from user japp-ci 10.0.2.2 port 39784
+Nov 02 01:16:03 japp-gnome-ci sshd[20153]: Received disconnect from 10.0.2.2 port 39796:11: disconnected by user
+Nov 02 01:16:03 japp-gnome-ci sshd[20153]: Disconnected from user japp-ci 10.0.2.2 port 39796
+Nov 02 01:16:04 japp-gnome-ci sshd[20213]: Received disconnect from 10.0.2.2 port 39678:11: disconnected by user
+Nov 02 01:16:04 japp-gnome-ci sshd[20213]: Disconnected from user japp-ci 10.0.2.2 port 39678
+Nov 02 01:16:04 japp-gnome-ci sshd[20275]: Received disconnect from 10.0.2.2 port 39684:11: disconnected by user
+Nov 02 01:16:04 japp-gnome-ci sshd[20275]: Disconnected from user japp-ci 10.0.2.2 port 39684
+Nov 02 01:16:05 japp-gnome-ci sshd[20335]: Received disconnect from 10.0.2.2 port 39698:11: disconnected by user
+Nov 02 01:16:05 japp-gnome-ci sshd[20335]: Disconnected from user japp-ci 10.0.2.2 port 39698
+Nov 02 01:16:05 japp-gnome-ci sshd[20393]: Received disconnect from 10.0.2.2 port 39702:11: disconnected by user
+Nov 02 01:16:05 japp-gnome-ci sshd[20393]: Disconnected from user japp-ci 10.0.2.2 port 39702
+Nov 02 01:16:06 japp-gnome-ci sshd[20453]: Received disconnect from 10.0.2.2 port 39716:11: disconnected by user
+Nov 02 01:16:06 japp-gnome-ci sshd[20453]: Disconnected from user japp-ci 10.0.2.2 port 39716
+Nov 02 01:16:06 japp-gnome-ci sshd[20511]: Received disconnect from 10.0.2.2 port 39730:11: disconnected by user
+Nov 02 01:16:06 japp-gnome-ci sshd[20511]: Disconnected from user japp-ci 10.0.2.2 port 39730
+Nov 02 01:16:07 japp-gnome-ci sshd[20571]: Received disconnect from 10.0.2.2 port 39746:11: disconnected by user
+Nov 02 01:16:07 japp-gnome-ci sshd[20571]: Disconnected from user japp-ci 10.0.2.2 port 39746
+Nov 02 01:16:07 japp-gnome-ci sshd[20631]: Received disconnect from 10.0.2.2 port 39748:11: disconnected by user
+Nov 02 01:16:07 japp-gnome-ci sshd[20631]: Disconnected from user japp-ci 10.0.2.2 port 39748
+Nov 02 01:16:08 japp-gnome-ci sshd[20691]: Received disconnect from 10.0.2.2 port 39762:11: disconnected by user
+Nov 02 01:16:08 japp-gnome-ci sshd[20691]: Disconnected from user japp-ci 10.0.2.2 port 39762
+Nov 02 01:16:08 japp-gnome-ci sshd[20753]: Received disconnect from 10.0.2.2 port 39766:11: disconnected by user
+Nov 02 01:16:08 japp-gnome-ci sshd[20753]: Disconnected from user japp-ci 10.0.2.2 port 39766
+Nov 02 01:16:09 japp-gnome-ci sshd[20813]: Received disconnect from 10.0.2.2 port 39780:11: disconnected by user
+Nov 02 01:16:09 japp-gnome-ci sshd[20813]: Disconnected from user japp-ci 10.0.2.2 port 39780
+Nov 02 01:16:09 japp-gnome-ci sshd[20871]: Received disconnect from 10.0.2.2 port 39790:11: disconnected by user
+Nov 02 01:16:09 japp-gnome-ci sshd[20871]: Disconnected from user japp-ci 10.0.2.2 port 39790
+Nov 02 01:16:10 japp-gnome-ci sshd[20929]: Received disconnect from 10.0.2.2 port 39804:11: disconnected by user
+Nov 02 01:16:10 japp-gnome-ci sshd[20929]: Disconnected from user japp-ci 10.0.2.2 port 39804
+Nov 02 01:16:10 japp-gnome-ci sshd[20989]: Received disconnect from 10.0.2.2 port 39810:11: disconnected by user
+Nov 02 01:16:10 japp-gnome-ci sshd[20989]: Disconnected from user japp-ci 10.0.2.2 port 39810
+Nov 02 01:16:11 japp-gnome-ci sshd[21049]: Received disconnect from 10.0.2.2 port 39812:11: disconnected by user
+Nov 02 01:16:11 japp-gnome-ci sshd[21049]: Disconnected from user japp-ci 10.0.2.2 port 39812
+Nov 02 01:16:12 japp-gnome-ci sshd[21109]: Received disconnect from 10.0.2.2 port 39818:11: disconnected by user
+Nov 02 01:16:12 japp-gnome-ci sshd[21109]: Disconnected from user japp-ci 10.0.2.2 port 39818
+Nov 02 01:16:13 japp-gnome-ci sshd[21169]: Received disconnect from 10.0.2.2 port 39822:11: disconnected by user
+Nov 02 01:16:13 japp-gnome-ci sshd[21169]: Disconnected from user japp-ci 10.0.2.2 port 39822
+Nov 02 01:16:13 japp-gnome-ci sshd[21229]: Received disconnect from 10.0.2.2 port 60916:11: disconnected by user
+Nov 02 01:16:13 japp-gnome-ci sshd[21229]: Disconnected from user japp-ci 10.0.2.2 port 60916
+Nov 02 01:16:14 japp-gnome-ci sshd[21291]: Received disconnect from 10.0.2.2 port 60918:11: disconnected by user
+Nov 02 01:16:14 japp-gnome-ci sshd[21291]: Disconnected from user japp-ci 10.0.2.2 port 60918
+Nov 02 01:16:15 japp-gnome-ci sshd[21351]: Received disconnect from 10.0.2.2 port 60926:11: disconnected by user
+Nov 02 01:16:15 japp-gnome-ci sshd[21351]: Disconnected from user japp-ci 10.0.2.2 port 60926
+Nov 02 01:16:15 japp-gnome-ci systemd[1033]: Started app-gnome-ubuntu\x2dadvantage\x2dnotification-21413.scope - Application launched by gnome-session-binary.
+Nov 02 01:16:15 japp-gnome-ci systemd[1033]: Started app-gnome-update\x2dnotifier-21417.scope - Application launched by gnome-session-binary.
+Nov 02 01:16:16 japp-gnome-ci sshd[21411]: Received disconnect from 10.0.2.2 port 60930:11: disconnected by user
+Nov 02 01:16:16 japp-gnome-ci sshd[21411]: Disconnected from user japp-ci 10.0.2.2 port 60930
+Nov 02 01:16:16 japp-gnome-ci sshd[21514]: Received disconnect from 10.0.2.2 port 60932:11: disconnected by user
+Nov 02 01:16:16 japp-gnome-ci sshd[21514]: Disconnected from user japp-ci 10.0.2.2 port 60932
+Nov 02 01:16:17 japp-gnome-ci sshd[21615]: Received disconnect from 10.0.2.2 port 60946:11: disconnected by user
+Nov 02 01:16:17 japp-gnome-ci sshd[21615]: Disconnected from user japp-ci 10.0.2.2 port 60946
+Nov 02 01:16:18 japp-gnome-ci sshd[21675]: Received disconnect from 10.0.2.2 port 60956:11: disconnected by user
+Nov 02 01:16:18 japp-gnome-ci sshd[21675]: Disconnected from user japp-ci 10.0.2.2 port 60956
+Nov 02 01:16:19 japp-gnome-ci sshd[21735]: Received disconnect from 10.0.2.2 port 60970:11: disconnected by user
+Nov 02 01:16:19 japp-gnome-ci sshd[21735]: Disconnected from user japp-ci 10.0.2.2 port 60970
+Nov 02 01:16:20 japp-gnome-ci sshd[21796]: Received disconnect from 10.0.2.2 port 60978:11: disconnected by user
+Nov 02 01:16:20 japp-gnome-ci sshd[21796]: Disconnected from user japp-ci 10.0.2.2 port 60978
+Nov 02 01:16:21 japp-gnome-ci sshd[21856]: Received disconnect from 10.0.2.2 port 60988:11: disconnected by user
+Nov 02 01:16:21 japp-gnome-ci sshd[21856]: Disconnected from user japp-ci 10.0.2.2 port 60988
+Nov 02 01:16:22 japp-gnome-ci sshd[21915]: Received disconnect from 10.0.2.2 port 32770:11: disconnected by user
+Nov 02 01:16:22 japp-gnome-ci sshd[21915]: Disconnected from user japp-ci 10.0.2.2 port 32770
+Nov 02 01:16:23 japp-gnome-ci sshd[21975]: Received disconnect from 10.0.2.2 port 32780:11: disconnected by user
+Nov 02 01:16:23 japp-gnome-ci sshd[21975]: Disconnected from user japp-ci 10.0.2.2 port 32780
+Nov 02 01:16:24 japp-gnome-ci sshd[22035]: Received disconnect from 10.0.2.2 port 43134:11: disconnected by user
+Nov 02 01:16:24 japp-gnome-ci sshd[22035]: Disconnected from user japp-ci 10.0.2.2 port 43134
+Nov 02 01:16:26 japp-gnome-ci sshd[22093]: Received disconnect from 10.0.2.2 port 43148:11: disconnected by user
+Nov 02 01:16:26 japp-gnome-ci sshd[22093]: Disconnected from user japp-ci 10.0.2.2 port 43148
+Nov 02 01:16:26 japp-gnome-ci sshd[22153]: Received disconnect from 10.0.2.2 port 43158:11: disconnected by user
+Nov 02 01:16:26 japp-gnome-ci sshd[22153]: Disconnected from user japp-ci 10.0.2.2 port 43158
+Nov 02 01:16:28 japp-gnome-ci sshd[22213]: Received disconnect from 10.0.2.2 port 43166:11: disconnected by user
+Nov 02 01:16:28 japp-gnome-ci sshd[22213]: Disconnected from user japp-ci 10.0.2.2 port 43166
+Nov 02 01:16:28 japp-gnome-ci sshd[22271]: Received disconnect from 10.0.2.2 port 43172:11: disconnected by user
+Nov 02 01:16:28 japp-gnome-ci sshd[22271]: Disconnected from user japp-ci 10.0.2.2 port 43172
+Nov 02 01:16:30 japp-gnome-ci sshd[22332]: Received disconnect from 10.0.2.2 port 43180:11: disconnected by user
+Nov 02 01:16:30 japp-gnome-ci sshd[22332]: Disconnected from user japp-ci 10.0.2.2 port 43180
+Nov 02 01:16:30 japp-gnome-ci sshd[22390]: Received disconnect from 10.0.2.2 port 43182:11: disconnected by user
+Nov 02 01:16:30 japp-gnome-ci sshd[22390]: Disconnected from user japp-ci 10.0.2.2 port 43182
+Nov 02 01:16:31 japp-gnome-ci sshd[22448]: Received disconnect from 10.0.2.2 port 43184:11: disconnected by user
+Nov 02 01:16:31 japp-gnome-ci sshd[22448]: Disconnected from user japp-ci 10.0.2.2 port 43184
+Nov 02 01:16:31 japp-gnome-ci sshd[22508]: Received disconnect from 10.0.2.2 port 43198:11: disconnected by user
+Nov 02 01:16:31 japp-gnome-ci sshd[22508]: Disconnected from user japp-ci 10.0.2.2 port 43198
+Nov 02 01:16:32 japp-gnome-ci sshd[22570]: Received disconnect from 10.0.2.2 port 43212:11: disconnected by user
+Nov 02 01:16:32 japp-gnome-ci sshd[22570]: Disconnected from user japp-ci 10.0.2.2 port 43212
+Nov 02 01:16:33 japp-gnome-ci sshd[22630]: Received disconnect from 10.0.2.2 port 43224:11: disconnected by user
+Nov 02 01:16:33 japp-gnome-ci sshd[22630]: Disconnected from user japp-ci 10.0.2.2 port 43224
+Nov 02 01:16:34 japp-gnome-ci sshd[22690]: Received disconnect from 10.0.2.2 port 39414:11: disconnected by user
+Nov 02 01:16:34 japp-gnome-ci sshd[22690]: Disconnected from user japp-ci 10.0.2.2 port 39414
+Nov 02 01:16:34 japp-gnome-ci sshd[22754]: Received disconnect from 10.0.2.2 port 39416:11: disconnected by user
+Nov 02 01:16:34 japp-gnome-ci sshd[22754]: Disconnected from user japp-ci 10.0.2.2 port 39416
+Nov 02 01:16:36 japp-gnome-ci sshd[22819]: Received disconnect from 10.0.2.2 port 39422:11: disconnected by user
+Nov 02 01:16:36 japp-gnome-ci sshd[22819]: Disconnected from user japp-ci 10.0.2.2 port 39422
+Nov 02 01:16:36 japp-gnome-ci sshd[22879]: Received disconnect from 10.0.2.2 port 39424:11: disconnected by user
+Nov 02 01:16:36 japp-gnome-ci sshd[22879]: Disconnected from user japp-ci 10.0.2.2 port 39424
+Nov 02 01:16:36 japp-gnome-ci update-notifier.desktop[21441]: WARNING:root:timeout reached, exiting
+Nov 02 01:16:36 japp-gnome-ci update-notifier.desktop[21441]: Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+Nov 02 01:16:37 japp-gnome-ci sshd[22947]: Received disconnect from 10.0.2.2 port 39434:11: disconnected by user
+Nov 02 01:16:37 japp-gnome-ci sshd[22947]: Disconnected from user japp-ci 10.0.2.2 port 39434
+Nov 02 01:16:37 japp-gnome-ci sshd[23005]: Received disconnect from 10.0.2.2 port 39440:11: disconnected by user
+Nov 02 01:16:37 japp-gnome-ci sshd[23005]: Disconnected from user japp-ci 10.0.2.2 port 39440
+Nov 02 01:16:38 japp-gnome-ci sshd[23063]: Received disconnect from 10.0.2.2 port 39448:11: disconnected by user
+Nov 02 01:16:38 japp-gnome-ci sshd[23063]: Disconnected from user japp-ci 10.0.2.2 port 39448
+Nov 02 01:16:39 japp-gnome-ci sshd[23123]: Received disconnect from 10.0.2.2 port 39460:11: disconnected by user
+Nov 02 01:16:39 japp-gnome-ci sshd[23123]: Disconnected from user japp-ci 10.0.2.2 port 39460
+Nov 02 01:16:39 japp-gnome-ci sshd[23183]: Received disconnect from 10.0.2.2 port 39462:11: disconnected by user
+Nov 02 01:16:39 japp-gnome-ci sshd[23183]: Disconnected from user japp-ci 10.0.2.2 port 39462
+Nov 02 01:16:39 japp-gnome-ci sshd[23243]: Received disconnect from 10.0.2.2 port 39468:11: disconnected by user
+Nov 02 01:16:39 japp-gnome-ci sshd[23243]: Disconnected from user japp-ci 10.0.2.2 port 39468
+Nov 02 01:16:40 japp-gnome-ci sshd[23303]: Received disconnect from 10.0.2.2 port 39470:11: disconnected by user
+Nov 02 01:16:40 japp-gnome-ci sshd[23303]: Disconnected from user japp-ci 10.0.2.2 port 39470
+Nov 02 01:16:41 japp-gnome-ci sshd[23363]: Received disconnect from 10.0.2.2 port 39474:11: disconnected by user
+Nov 02 01:16:41 japp-gnome-ci sshd[23363]: Disconnected from user japp-ci 10.0.2.2 port 39474
+Nov 02 01:16:42 japp-gnome-ci sshd[23421]: Received disconnect from 10.0.2.2 port 39482:11: disconnected by user
+Nov 02 01:16:42 japp-gnome-ci sshd[23421]: Disconnected from user japp-ci 10.0.2.2 port 39482
+Nov 02 01:16:42 japp-gnome-ci sshd[23481]: Received disconnect from 10.0.2.2 port 39492:11: disconnected by user
+Nov 02 01:16:42 japp-gnome-ci sshd[23481]: Disconnected from user japp-ci 10.0.2.2 port 39492
+Nov 02 01:16:44 japp-gnome-ci sshd[23539]: Received disconnect from 10.0.2.2 port 39498:11: disconnected by user
+Nov 02 01:16:44 japp-gnome-ci sshd[23539]: Disconnected from user japp-ci 10.0.2.2 port 39498
+Nov 02 01:16:44 japp-gnome-ci sshd[23599]: Received disconnect from 10.0.2.2 port 41382:11: disconnected by user
+Nov 02 01:16:44 japp-gnome-ci sshd[23599]: Disconnected from user japp-ci 10.0.2.2 port 41382
+Nov 02 01:16:45 japp-gnome-ci sshd[23659]: Received disconnect from 10.0.2.2 port 41394:11: disconnected by user
+Nov 02 01:16:45 japp-gnome-ci sshd[23659]: Disconnected from user japp-ci 10.0.2.2 port 41394
+Nov 02 01:16:45 japp-gnome-ci sshd[23730]: Received disconnect from 10.0.2.2 port 41402:11: disconnected by user
+Nov 02 01:16:45 japp-gnome-ci sshd[23730]: Disconnected from user japp-ci 10.0.2.2 port 41402
+Nov 02 01:16:46 japp-gnome-ci sshd[23790]: Received disconnect from 10.0.2.2 port 41404:11: disconnected by user
+Nov 02 01:16:46 japp-gnome-ci sshd[23790]: Disconnected from user japp-ci 10.0.2.2 port 41404
+Nov 02 01:16:47 japp-gnome-ci sshd[23850]: Received disconnect from 10.0.2.2 port 41410:11: disconnected by user
+Nov 02 01:16:47 japp-gnome-ci sshd[23850]: Disconnected from user japp-ci 10.0.2.2 port 41410
+Nov 02 01:16:47 japp-gnome-ci sshd[23910]: Received disconnect from 10.0.2.2 port 41420:11: disconnected by user
+Nov 02 01:16:47 japp-gnome-ci sshd[23910]: Disconnected from user japp-ci 10.0.2.2 port 41420
+Nov 02 01:16:48 japp-gnome-ci sshd[23968]: Received disconnect from 10.0.2.2 port 41432:11: disconnected by user
+Nov 02 01:16:48 japp-gnome-ci sshd[23968]: Disconnected from user japp-ci 10.0.2.2 port 41432
+Nov 02 01:16:49 japp-gnome-ci sshd[24026]: Received disconnect from 10.0.2.2 port 41436:11: disconnected by user
+Nov 02 01:16:49 japp-gnome-ci sshd[24026]: Disconnected from user japp-ci 10.0.2.2 port 41436
+Nov 02 01:16:49 japp-gnome-ci sshd[24086]: Received disconnect from 10.0.2.2 port 41446:11: disconnected by user
+Nov 02 01:16:49 japp-gnome-ci sshd[24086]: Disconnected from user japp-ci 10.0.2.2 port 41446
+Nov 02 01:16:50 japp-gnome-ci sshd[24148]: Received disconnect from 10.0.2.2 port 41448:11: disconnected by user
+Nov 02 01:16:50 japp-gnome-ci sshd[24148]: Disconnected from user japp-ci 10.0.2.2 port 41448
+Nov 02 01:16:50 japp-gnome-ci sshd[24208]: Received disconnect from 10.0.2.2 port 41454:11: disconnected by user
+Nov 02 01:16:50 japp-gnome-ci sshd[24208]: Disconnected from user japp-ci 10.0.2.2 port 41454
+Nov 02 01:16:52 japp-gnome-ci sshd[24272]: Received disconnect from 10.0.2.2 port 41470:11: disconnected by user
+Nov 02 01:16:52 japp-gnome-ci sshd[24272]: Disconnected from user japp-ci 10.0.2.2 port 41470
+Nov 02 01:16:52 japp-gnome-ci sshd[24332]: Received disconnect from 10.0.2.2 port 41474:11: disconnected by user
+Nov 02 01:16:52 japp-gnome-ci sshd[24332]: Disconnected from user japp-ci 10.0.2.2 port 41474
+Nov 02 01:16:53 japp-gnome-ci sshd[24394]: Received disconnect from 10.0.2.2 port 41486:11: disconnected by user
+Nov 02 01:16:53 japp-gnome-ci sshd[24394]: Disconnected from user japp-ci 10.0.2.2 port 41486
+Nov 02 01:16:53 japp-gnome-ci sshd[24454]: Received disconnect from 10.0.2.2 port 41492:11: disconnected by user
+Nov 02 01:16:53 japp-gnome-ci sshd[24454]: Disconnected from user japp-ci 10.0.2.2 port 41492
+Nov 02 01:16:54 japp-gnome-ci sshd[24512]: Received disconnect from 10.0.2.2 port 56936:11: disconnected by user
+Nov 02 01:16:54 japp-gnome-ci sshd[24512]: Disconnected from user japp-ci 10.0.2.2 port 56936
+Nov 02 01:16:54 japp-gnome-ci sshd[24570]: Received disconnect from 10.0.2.2 port 56940:11: disconnected by user
+Nov 02 01:16:54 japp-gnome-ci sshd[24570]: Disconnected from user japp-ci 10.0.2.2 port 56940
+Nov 02 01:16:55 japp-gnome-ci sshd[24630]: Received disconnect from 10.0.2.2 port 56944:11: disconnected by user
+Nov 02 01:16:55 japp-gnome-ci sshd[24630]: Disconnected from user japp-ci 10.0.2.2 port 56944
+Nov 02 01:16:55 japp-gnome-ci sshd[24690]: Received disconnect from 10.0.2.2 port 56948:11: disconnected by user
+Nov 02 01:16:55 japp-gnome-ci sshd[24690]: Disconnected from user japp-ci 10.0.2.2 port 56948
+Nov 02 01:16:56 japp-gnome-ci sshd[24750]: Received disconnect from 10.0.2.2 port 56964:11: disconnected by user
+Nov 02 01:16:56 japp-gnome-ci sshd[24750]: Disconnected from user japp-ci 10.0.2.2 port 56964
+Nov 02 01:16:56 japp-gnome-ci sshd[24808]: Received disconnect from 10.0.2.2 port 56968:11: disconnected by user
+Nov 02 01:16:56 japp-gnome-ci sshd[24808]: Disconnected from user japp-ci 10.0.2.2 port 56968
+Nov 02 01:16:57 japp-gnome-ci sshd[24870]: Received disconnect from 10.0.2.2 port 56984:11: disconnected by user
+Nov 02 01:16:57 japp-gnome-ci sshd[24870]: Disconnected from user japp-ci 10.0.2.2 port 56984
+Nov 02 01:16:58 japp-gnome-ci sshd[24934]: Received disconnect from 10.0.2.2 port 56988:11: disconnected by user
+Nov 02 01:16:58 japp-gnome-ci sshd[24934]: Disconnected from user japp-ci 10.0.2.2 port 56988
+Nov 02 01:16:59 japp-gnome-ci sshd[24998]: Received disconnect from 10.0.2.2 port 56992:11: disconnected by user
+Nov 02 01:16:59 japp-gnome-ci sshd[24998]: Disconnected from user japp-ci 10.0.2.2 port 56992
+Nov 02 01:17:00 japp-gnome-ci sshd[25058]: Received disconnect from 10.0.2.2 port 57004:11: disconnected by user
+Nov 02 01:17:00 japp-gnome-ci sshd[25058]: Disconnected from user japp-ci 10.0.2.2 port 57004
+Nov 02 01:17:00 japp-gnome-ci sshd[25120]: Received disconnect from 10.0.2.2 port 57020:11: disconnected by user
+Nov 02 01:17:00 japp-gnome-ci sshd[25120]: Disconnected from user japp-ci 10.0.2.2 port 57020
+Nov 02 01:17:01 japp-gnome-ci sshd[25178]: Received disconnect from 10.0.2.2 port 57030:11: disconnected by user
+Nov 02 01:17:01 japp-gnome-ci sshd[25178]: Disconnected from user japp-ci 10.0.2.2 port 57030
+Nov 02 01:17:02 japp-gnome-ci sshd[25239]: Received disconnect from 10.0.2.2 port 57036:11: disconnected by user
+Nov 02 01:17:02 japp-gnome-ci sshd[25239]: Disconnected from user japp-ci 10.0.2.2 port 57036
+Nov 02 01:17:02 japp-gnome-ci sshd[25299]: Received disconnect from 10.0.2.2 port 57038:11: disconnected by user
+Nov 02 01:17:02 japp-gnome-ci sshd[25299]: Disconnected from user japp-ci 10.0.2.2 port 57038
+Nov 02 01:17:02 japp-gnome-ci sshd[25359]: Received disconnect from 10.0.2.2 port 57044:11: disconnected by user
+Nov 02 01:17:02 japp-gnome-ci sshd[25359]: Disconnected from user japp-ci 10.0.2.2 port 57044
+Nov 02 01:17:03 japp-gnome-ci sshd[25419]: Received disconnect from 10.0.2.2 port 57058:11: disconnected by user
+Nov 02 01:17:03 japp-gnome-ci sshd[25419]: Disconnected from user japp-ci 10.0.2.2 port 57058
+Nov 02 01:17:04 japp-gnome-ci sshd[25481]: Received disconnect from 10.0.2.2 port 46026:11: disconnected by user
+Nov 02 01:17:04 japp-gnome-ci sshd[25481]: Disconnected from user japp-ci 10.0.2.2 port 46026
+Nov 02 01:17:04 japp-gnome-ci sshd[25541]: Received disconnect from 10.0.2.2 port 46034:11: disconnected by user
+Nov 02 01:17:04 japp-gnome-ci sshd[25541]: Disconnected from user japp-ci 10.0.2.2 port 46034
+Nov 02 01:17:05 japp-gnome-ci sshd[25601]: Received disconnect from 10.0.2.2 port 46046:11: disconnected by user
+Nov 02 01:17:05 japp-gnome-ci sshd[25601]: Disconnected from user japp-ci 10.0.2.2 port 46046
+Nov 02 01:17:05 japp-gnome-ci sshd[25663]: Received disconnect from 10.0.2.2 port 46048:11: disconnected by user
+Nov 02 01:17:05 japp-gnome-ci sshd[25663]: Disconnected from user japp-ci 10.0.2.2 port 46048
+Nov 02 01:17:07 japp-gnome-ci sshd[25723]: Received disconnect from 10.0.2.2 port 46050:11: disconnected by user
+Nov 02 01:17:07 japp-gnome-ci sshd[25723]: Disconnected from user japp-ci 10.0.2.2 port 46050
+Nov 02 01:17:07 japp-gnome-ci sshd[25783]: Received disconnect from 10.0.2.2 port 46062:11: disconnected by user
+Nov 02 01:17:07 japp-gnome-ci sshd[25783]: Disconnected from user japp-ci 10.0.2.2 port 46062
+Nov 02 01:17:08 japp-gnome-ci sshd[25845]: Received disconnect from 10.0.2.2 port 46066:11: disconnected by user
+Nov 02 01:17:08 japp-gnome-ci sshd[25845]: Disconnected from user japp-ci 10.0.2.2 port 46066
+Nov 02 01:17:08 japp-gnome-ci sshd[25905]: Received disconnect from 10.0.2.2 port 46082:11: disconnected by user
+Nov 02 01:17:08 japp-gnome-ci sshd[25905]: Disconnected from user japp-ci 10.0.2.2 port 46082
+Nov 02 01:17:09 japp-gnome-ci sshd[25967]: Received disconnect from 10.0.2.2 port 46098:11: disconnected by user
+Nov 02 01:17:09 japp-gnome-ci sshd[25967]: Disconnected from user japp-ci 10.0.2.2 port 46098
+Nov 02 01:17:10 japp-gnome-ci sshd[26027]: Received disconnect from 10.0.2.2 port 46100:11: disconnected by user
+Nov 02 01:17:10 japp-gnome-ci sshd[26027]: Disconnected from user japp-ci 10.0.2.2 port 46100
+Nov 02 01:17:10 japp-gnome-ci sshd[26087]: Received disconnect from 10.0.2.2 port 46106:11: disconnected by user
+Nov 02 01:17:10 japp-gnome-ci sshd[26087]: Disconnected from user japp-ci 10.0.2.2 port 46106
+Nov 02 01:17:10 japp-gnome-ci sshd[26145]: Received disconnect from 10.0.2.2 port 46108:11: disconnected by user
+Nov 02 01:17:10 japp-gnome-ci sshd[26145]: Disconnected from user japp-ci 10.0.2.2 port 46108
+Nov 02 01:17:11 japp-gnome-ci sshd[26205]: Received disconnect from 10.0.2.2 port 46110:11: disconnected by user
+Nov 02 01:17:11 japp-gnome-ci sshd[26205]: Disconnected from user japp-ci 10.0.2.2 port 46110
+Nov 02 01:17:12 japp-gnome-ci sshd[26263]: Received disconnect from 10.0.2.2 port 46122:11: disconnected by user
+Nov 02 01:17:12 japp-gnome-ci sshd[26263]: Disconnected from user japp-ci 10.0.2.2 port 46122
+Nov 02 01:17:13 japp-gnome-ci sshd[26321]: Received disconnect from 10.0.2.2 port 46128:11: disconnected by user
+Nov 02 01:17:13 japp-gnome-ci sshd[26321]: Disconnected from user japp-ci 10.0.2.2 port 46128
+Nov 02 01:17:13 japp-gnome-ci sshd[26383]: Received disconnect from 10.0.2.2 port 46136:11: disconnected by user
+Nov 02 01:17:13 japp-gnome-ci sshd[26383]: Disconnected from user japp-ci 10.0.2.2 port 46136
+Nov 02 01:17:15 japp-gnome-ci sshd[26444]: Received disconnect from 10.0.2.2 port 60114:11: disconnected by user
+Nov 02 01:17:15 japp-gnome-ci sshd[26444]: Disconnected from user japp-ci 10.0.2.2 port 60114
+Nov 02 01:17:15 japp-gnome-ci sshd[26504]: Received disconnect from 10.0.2.2 port 60130:11: disconnected by user
+Nov 02 01:17:15 japp-gnome-ci sshd[26504]: Disconnected from user japp-ci 10.0.2.2 port 60130
+Nov 02 01:17:16 japp-gnome-ci sshd[26564]: Received disconnect from 10.0.2.2 port 60142:11: disconnected by user
+Nov 02 01:17:16 japp-gnome-ci sshd[26564]: Disconnected from user japp-ci 10.0.2.2 port 60142
+Nov 02 01:17:16 japp-gnome-ci sshd[26624]: Received disconnect from 10.0.2.2 port 60148:11: disconnected by user
+Nov 02 01:17:16 japp-gnome-ci sshd[26624]: Disconnected from user japp-ci 10.0.2.2 port 60148
+Nov 02 01:17:17 japp-gnome-ci sshd[26684]: Received disconnect from 10.0.2.2 port 60162:11: disconnected by user
+Nov 02 01:17:17 japp-gnome-ci sshd[26684]: Disconnected from user japp-ci 10.0.2.2 port 60162
+Nov 02 01:17:17 japp-gnome-ci sshd[26746]: Received disconnect from 10.0.2.2 port 60178:11: disconnected by user
+Nov 02 01:17:17 japp-gnome-ci sshd[26746]: Disconnected from user japp-ci 10.0.2.2 port 60178
+Nov 02 01:17:18 japp-gnome-ci sshd[26806]: Received disconnect from 10.0.2.2 port 60194:11: disconnected by user
+Nov 02 01:17:18 japp-gnome-ci sshd[26806]: Disconnected from user japp-ci 10.0.2.2 port 60194
+Nov 02 01:17:18 japp-gnome-ci sshd[26866]: Received disconnect from 10.0.2.2 port 60208:11: disconnected by user
+Nov 02 01:17:18 japp-gnome-ci sshd[26866]: Disconnected from user japp-ci 10.0.2.2 port 60208
+Nov 02 01:17:19 japp-gnome-ci sshd[26924]: Received disconnect from 10.0.2.2 port 60224:11: disconnected by user
+Nov 02 01:17:19 japp-gnome-ci sshd[26924]: Disconnected from user japp-ci 10.0.2.2 port 60224
+Nov 02 01:17:19 japp-gnome-ci sshd[26982]: Received disconnect from 10.0.2.2 port 60228:11: disconnected by user
+Nov 02 01:17:19 japp-gnome-ci sshd[26982]: Disconnected from user japp-ci 10.0.2.2 port 60228
+Nov 02 01:17:21 japp-gnome-ci sshd[27042]: Received disconnect from 10.0.2.2 port 60238:11: disconnected by user
+Nov 02 01:17:21 japp-gnome-ci sshd[27042]: Disconnected from user japp-ci 10.0.2.2 port 60238
+Nov 02 01:17:21 japp-gnome-ci sshd[27102]: Received disconnect from 10.0.2.2 port 60254:11: disconnected by user
+Nov 02 01:17:21 japp-gnome-ci sshd[27102]: Disconnected from user japp-ci 10.0.2.2 port 60254
+Nov 02 01:17:23 japp-gnome-ci sshd[27165]: Received disconnect from 10.0.2.2 port 60260:11: disconnected by user
+Nov 02 01:17:23 japp-gnome-ci sshd[27165]: Disconnected from user japp-ci 10.0.2.2 port 60260
+Nov 02 01:17:23 japp-gnome-ci sshd[27225]: Received disconnect from 10.0.2.2 port 59570:11: disconnected by user
+Nov 02 01:17:23 japp-gnome-ci sshd[27225]: Disconnected from user japp-ci 10.0.2.2 port 59570
+Nov 02 01:17:24 japp-gnome-ci sshd[27285]: Received disconnect from 10.0.2.2 port 59576:11: disconnected by user
+Nov 02 01:17:24 japp-gnome-ci sshd[27285]: Disconnected from user japp-ci 10.0.2.2 port 59576
+Nov 02 01:17:25 japp-gnome-ci sshd[27346]: Received disconnect from 10.0.2.2 port 59584:11: disconnected by user
+Nov 02 01:17:25 japp-gnome-ci sshd[27346]: Disconnected from user japp-ci 10.0.2.2 port 59584
+Nov 02 01:17:26 japp-gnome-ci sshd[27407]: Received disconnect from 10.0.2.2 port 59590:11: disconnected by user
+Nov 02 01:17:26 japp-gnome-ci sshd[27407]: Disconnected from user japp-ci 10.0.2.2 port 59590
+Nov 02 01:17:26 japp-gnome-ci sshd[27467]: Received disconnect from 10.0.2.2 port 59596:11: disconnected by user
+Nov 02 01:17:26 japp-gnome-ci sshd[27467]: Disconnected from user japp-ci 10.0.2.2 port 59596
+Nov 02 01:17:27 japp-gnome-ci sshd[27525]: Received disconnect from 10.0.2.2 port 59606:11: disconnected by user
+Nov 02 01:17:27 japp-gnome-ci sshd[27525]: Disconnected from user japp-ci 10.0.2.2 port 59606
+Nov 02 01:17:27 japp-gnome-ci sshd[27585]: Received disconnect from 10.0.2.2 port 59614:11: disconnected by user
+Nov 02 01:17:27 japp-gnome-ci sshd[27585]: Disconnected from user japp-ci 10.0.2.2 port 59614
+Nov 02 01:17:28 japp-gnome-ci sshd[27643]: Received disconnect from 10.0.2.2 port 59626:11: disconnected by user
+Nov 02 01:17:28 japp-gnome-ci sshd[27643]: Disconnected from user japp-ci 10.0.2.2 port 59626
+Nov 02 01:17:29 japp-gnome-ci sshd[27705]: Received disconnect from 10.0.2.2 port 59630:11: disconnected by user
+Nov 02 01:17:29 japp-gnome-ci sshd[27705]: Disconnected from user japp-ci 10.0.2.2 port 59630
+Nov 02 01:17:31 japp-gnome-ci sshd[27765]: Received disconnect from 10.0.2.2 port 59636:11: disconnected by user
+Nov 02 01:17:31 japp-gnome-ci sshd[27765]: Disconnected from user japp-ci 10.0.2.2 port 59636
+Nov 02 01:17:31 japp-gnome-ci sshd[27825]: Received disconnect from 10.0.2.2 port 59642:11: disconnected by user
+Nov 02 01:17:31 japp-gnome-ci sshd[27825]: Disconnected from user japp-ci 10.0.2.2 port 59642
+Nov 02 01:17:32 japp-gnome-ci sshd[27885]: Received disconnect from 10.0.2.2 port 59658:11: disconnected by user
+Nov 02 01:17:32 japp-gnome-ci sshd[27885]: Disconnected from user japp-ci 10.0.2.2 port 59658
+Nov 02 01:17:32 japp-gnome-ci sshd[27947]: Received disconnect from 10.0.2.2 port 59670:11: disconnected by user
+Nov 02 01:17:32 japp-gnome-ci sshd[27947]: Disconnected from user japp-ci 10.0.2.2 port 59670
+Nov 02 01:17:33 japp-gnome-ci sshd[28009]: Received disconnect from 10.0.2.2 port 59672:11: disconnected by user
+Nov 02 01:17:33 japp-gnome-ci sshd[28009]: Disconnected from user japp-ci 10.0.2.2 port 59672
+Nov 02 01:17:33 japp-gnome-ci sshd[28071]: Received disconnect from 10.0.2.2 port 58794:11: disconnected by user
+Nov 02 01:17:33 japp-gnome-ci sshd[28071]: Disconnected from user japp-ci 10.0.2.2 port 58794
+Nov 02 01:17:35 japp-gnome-ci sshd[28131]: Received disconnect from 10.0.2.2 port 58808:11: disconnected by user
+Nov 02 01:17:35 japp-gnome-ci sshd[28131]: Disconnected from user japp-ci 10.0.2.2 port 58808
+Nov 02 01:17:35 japp-gnome-ci sshd[28193]: Received disconnect from 10.0.2.2 port 58822:11: disconnected by user
+Nov 02 01:17:35 japp-gnome-ci sshd[28193]: Disconnected from user japp-ci 10.0.2.2 port 58822
+Nov 02 01:17:36 japp-gnome-ci sshd[28253]: Received disconnect from 10.0.2.2 port 58824:11: disconnected by user
+Nov 02 01:17:36 japp-gnome-ci sshd[28253]: Disconnected from user japp-ci 10.0.2.2 port 58824
+Nov 02 01:17:36 japp-gnome-ci sshd[28311]: Received disconnect from 10.0.2.2 port 58840:11: disconnected by user
+Nov 02 01:17:36 japp-gnome-ci sshd[28311]: Disconnected from user japp-ci 10.0.2.2 port 58840
+Nov 02 01:17:38 japp-gnome-ci sshd[28373]: Received disconnect from 10.0.2.2 port 58844:11: disconnected by user
+Nov 02 01:17:38 japp-gnome-ci sshd[28373]: Disconnected from user japp-ci 10.0.2.2 port 58844
+Nov 02 01:17:38 japp-gnome-ci sshd[28437]: Received disconnect from 10.0.2.2 port 58856:11: disconnected by user
+Nov 02 01:17:38 japp-gnome-ci sshd[28437]: Disconnected from user japp-ci 10.0.2.2 port 58856
+Nov 02 01:17:39 japp-gnome-ci sshd[28497]: Received disconnect from 10.0.2.2 port 58872:11: disconnected by user
+Nov 02 01:17:39 japp-gnome-ci sshd[28497]: Disconnected from user japp-ci 10.0.2.2 port 58872
+Nov 02 01:17:39 japp-gnome-ci sshd[28559]: Received disconnect from 10.0.2.2 port 58878:11: disconnected by user
+Nov 02 01:17:39 japp-gnome-ci sshd[28559]: Disconnected from user japp-ci 10.0.2.2 port 58878
+Nov 02 01:17:42 japp-gnome-ci sshd[28627]: Received disconnect from 10.0.2.2 port 58890:11: disconnected by user
+Nov 02 01:17:42 japp-gnome-ci sshd[28627]: Disconnected from user japp-ci 10.0.2.2 port 58890
+Nov 02 01:17:42 japp-gnome-ci sshd[28693]: Received disconnect from 10.0.2.2 port 58892:11: disconnected by user
+Nov 02 01:17:42 japp-gnome-ci sshd[28693]: Disconnected from user japp-ci 10.0.2.2 port 58892
+Nov 02 01:17:42 japp-gnome-ci systemd[1033]: launchpadlib-cache-clean.service - Clean up old files in the Launchpadlib cache was skipped because of an unmet condition check (ConditionPathExists=/home/japp-ci/.launchpadlib/api.launchpad.net/cache).
+Nov 02 01:17:43 japp-gnome-ci sshd[28771]: Received disconnect from 10.0.2.2 port 58900:11: disconnected by user
+Nov 02 01:17:43 japp-gnome-ci sshd[28771]: Disconnected from user japp-ci 10.0.2.2 port 58900
+Nov 02 01:17:43 japp-gnome-ci sshd[28829]: Received disconnect from 10.0.2.2 port 58916:11: disconnected by user
+Nov 02 01:17:43 japp-gnome-ci sshd[28829]: Disconnected from user japp-ci 10.0.2.2 port 58916
+Nov 02 01:17:44 japp-gnome-ci Desktop App.desktop[28892]: libEGL warning: failed to get driver name for fd -1
+Nov 02 01:17:44 japp-gnome-ci Desktop App.desktop[28892]: libEGL warning: MESA-LOADER: failed to retrieve device information
+Nov 02 01:17:44 japp-gnome-ci Desktop App.desktop[28892]: libEGL warning: failed to get driver name for fd -1
+Nov 02 01:17:44 japp-gnome-ci Desktop App.desktop[28892]: MESA: error: ZINK: vkCreateInstance failed (VK_ERROR_INCOMPATIBLE_DRIVER)
+Nov 02 01:17:44 japp-gnome-ci Desktop App.desktop[28892]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:44 japp-gnome-ci Desktop App.desktop[28892]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:44 japp-gnome-ci Desktop App.desktop[28892]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:44 japp-gnome-ci Desktop App.desktop[28892]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:44 japp-gnome-ci Desktop App.desktop[28892]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:44 japp-gnome-ci Desktop App.desktop[28925]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:44 japp-gnome-ci Desktop App.desktop[28925]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:44 japp-gnome-ci Desktop App.desktop[28925]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:44 japp-gnome-ci Desktop App.desktop[28925]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:45 japp-gnome-ci sshd[28889]: Received disconnect from 10.0.2.2 port 43566:11: disconnected by user
+Nov 02 01:17:45 japp-gnome-ci sshd[28889]: Disconnected from user japp-ci 10.0.2.2 port 43566
+Nov 02 01:17:45 japp-gnome-ci sshd[29030]: Received disconnect from 10.0.2.2 port 43568:11: disconnected by user
+Nov 02 01:17:45 japp-gnome-ci sshd[29030]: Disconnected from user japp-ci 10.0.2.2 port 43568
+Nov 02 01:17:46 japp-gnome-ci sshd[29112]: Received disconnect from 10.0.2.2 port 43572:11: disconnected by user
+Nov 02 01:17:46 japp-gnome-ci sshd[29112]: Disconnected from user japp-ci 10.0.2.2 port 43572
+Nov 02 01:17:46 japp-gnome-ci sshd[29181]: Received disconnect from 10.0.2.2 port 43582:11: disconnected by user
+Nov 02 01:17:46 japp-gnome-ci sshd[29181]: Disconnected from user japp-ci 10.0.2.2 port 43582
+Nov 02 01:17:47 japp-gnome-ci Desktop App.desktop[29251]: libEGL warning: failed to get driver name for fd -1
+Nov 02 01:17:47 japp-gnome-ci Desktop App.desktop[29251]: libEGL warning: MESA-LOADER: failed to retrieve device information
+Nov 02 01:17:47 japp-gnome-ci Desktop App.desktop[29251]: libEGL warning: failed to get driver name for fd -1
+Nov 02 01:17:47 japp-gnome-ci Desktop App.desktop[29251]: MESA: error: ZINK: vkCreateInstance failed (VK_ERROR_INCOMPATIBLE_DRIVER)
+Nov 02 01:17:47 japp-gnome-ci Desktop App.desktop[29251]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:47 japp-gnome-ci Desktop App.desktop[29251]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:47 japp-gnome-ci Desktop App.desktop[29251]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:47 japp-gnome-ci Desktop App.desktop[29251]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:47 japp-gnome-ci Desktop App.desktop[29251]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:47 japp-gnome-ci Desktop App.desktop[29283]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:47 japp-gnome-ci Desktop App.desktop[29283]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:47 japp-gnome-ci Desktop App.desktop[29283]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:47 japp-gnome-ci Desktop App.desktop[29283]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:49 japp-gnome-ci sshd[29248]: Received disconnect from 10.0.2.2 port 43592:11: disconnected by user
+Nov 02 01:17:49 japp-gnome-ci sshd[29248]: Disconnected from user japp-ci 10.0.2.2 port 43592
+Nov 02 01:17:49 japp-gnome-ci sshd[29386]: Received disconnect from 10.0.2.2 port 43600:11: disconnected by user
+Nov 02 01:17:49 japp-gnome-ci sshd[29386]: Disconnected from user japp-ci 10.0.2.2 port 43600
+Nov 02 01:17:49 japp-gnome-ci japp-desktop[29251]: no trigger event for menu popup
+Nov 02 01:17:49 japp-gnome-ci japp-desktop[29251]: no trigger event for menu popup
+Nov 02 01:17:50 japp-gnome-ci sshd[29453]: Received disconnect from 10.0.2.2 port 43616:11: disconnected by user
+Nov 02 01:17:50 japp-gnome-ci sshd[29453]: Disconnected from user japp-ci 10.0.2.2 port 43616
+Nov 02 01:17:51 japp-gnome-ci sshd[29537]: Received disconnect from 10.0.2.2 port 43624:11: disconnected by user
+Nov 02 01:17:51 japp-gnome-ci sshd[29537]: Disconnected from user japp-ci 10.0.2.2 port 43624
+Nov 02 01:17:51 japp-gnome-ci Desktop App.desktop[29607]: libEGL warning: failed to get driver name for fd -1
+Nov 02 01:17:51 japp-gnome-ci Desktop App.desktop[29607]: libEGL warning: MESA-LOADER: failed to retrieve device information
+Nov 02 01:17:51 japp-gnome-ci Desktop App.desktop[29607]: libEGL warning: failed to get driver name for fd -1
+Nov 02 01:17:51 japp-gnome-ci Desktop App.desktop[29607]: MESA: error: ZINK: vkCreateInstance failed (VK_ERROR_INCOMPATIBLE_DRIVER)
+Nov 02 01:17:51 japp-gnome-ci Desktop App.desktop[29607]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:51 japp-gnome-ci Desktop App.desktop[29607]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:51 japp-gnome-ci Desktop App.desktop[29607]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:51 japp-gnome-ci Desktop App.desktop[29607]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:51 japp-gnome-ci Desktop App.desktop[29607]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:51 japp-gnome-ci Desktop App.desktop[29637]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:51 japp-gnome-ci Desktop App.desktop[29637]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:51 japp-gnome-ci Desktop App.desktop[29637]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:51 japp-gnome-ci Desktop App.desktop[29637]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:53 japp-gnome-ci sshd[29604]: Received disconnect from 10.0.2.2 port 43628:11: disconnected by user
+Nov 02 01:17:53 japp-gnome-ci sshd[29604]: Disconnected from user japp-ci 10.0.2.2 port 43628
+Nov 02 01:17:53 japp-gnome-ci sshd[29742]: Received disconnect from 10.0.2.2 port 37926:11: disconnected by user
+Nov 02 01:17:53 japp-gnome-ci sshd[29742]: Disconnected from user japp-ci 10.0.2.2 port 37926
+Nov 02 01:17:54 japp-gnome-ci sshd[29809]: Received disconnect from 10.0.2.2 port 37938:11: disconnected by user
+Nov 02 01:17:54 japp-gnome-ci sshd[29809]: Disconnected from user japp-ci 10.0.2.2 port 37938
+Nov 02 01:17:54 japp-gnome-ci sshd[29876]: Received disconnect from 10.0.2.2 port 37952:11: disconnected by user
+Nov 02 01:17:54 japp-gnome-ci sshd[29876]: Disconnected from user japp-ci 10.0.2.2 port 37952
+Nov 02 01:17:55 japp-gnome-ci sshd[29964]: Received disconnect from 10.0.2.2 port 37956:11: disconnected by user
+Nov 02 01:17:55 japp-gnome-ci sshd[29964]: Disconnected from user japp-ci 10.0.2.2 port 37956
+Nov 02 01:17:55 japp-gnome-ci sshd[30033]: Received disconnect from 10.0.2.2 port 37968:11: disconnected by user
+Nov 02 01:17:55 japp-gnome-ci sshd[30033]: Disconnected from user japp-ci 10.0.2.2 port 37968
+Nov 02 01:17:56 japp-gnome-ci japp-desktop[30105]: libEGL warning: failed to get driver name for fd -1
+Nov 02 01:17:56 japp-gnome-ci japp-desktop[30105]: libEGL warning: MESA-LOADER: failed to retrieve device information
+Nov 02 01:17:56 japp-gnome-ci japp-desktop[30105]: libEGL warning: failed to get driver name for fd -1
+Nov 02 01:17:56 japp-gnome-ci japp-desktop[30105]: MESA: error: ZINK: vkCreateInstance failed (VK_ERROR_INCOMPATIBLE_DRIVER)
+Nov 02 01:17:56 japp-gnome-ci japp-desktop[30105]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:56 japp-gnome-ci japp-desktop[30105]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:56 japp-gnome-ci japp-desktop[30105]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:56 japp-gnome-ci japp-desktop[30105]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:56 japp-gnome-ci japp-desktop[30105]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:56 japp-gnome-ci japp-desktop[30137]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:56 japp-gnome-ci japp-desktop[30137]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:56 japp-gnome-ci japp-desktop[30137]: libEGL warning: egl: failed to create dri2 screen
+Nov 02 01:17:56 japp-gnome-ci japp-desktop[30137]: libEGL warning: DRI2: failed to create screen
+Nov 02 01:17:58 japp-gnome-ci sshd[30102]: Received disconnect from 10.0.2.2 port 37972:11: disconnected by user
+Nov 02 01:17:58 japp-gnome-ci sshd[30102]: Disconnected from user japp-ci 10.0.2.2 port 37972
+Nov 02 01:17:58 japp-gnome-ci sshd[30239]: Received disconnect from 10.0.2.2 port 37988:11: disconnected by user
+Nov 02 01:17:58 japp-gnome-ci sshd[30239]: Disconnected from user japp-ci 10.0.2.2 port 37988
+Nov 02 01:17:59 japp-gnome-ci sshd[30306]: Received disconnect from 10.0.2.2 port 38000:11: disconnected by user
+Nov 02 01:17:59 japp-gnome-ci sshd[30306]: Disconnected from user japp-ci 10.0.2.2 port 38000
+Nov 02 01:17:59 japp-gnome-ci sshd[30385]: Received disconnect from 10.0.2.2 port 38016:11: disconnected by user
+Nov 02 01:17:59 japp-gnome-ci sshd[30385]: Disconnected from user japp-ci 10.0.2.2 port 38016
+Nov 02 01:18:00 japp-gnome-ci sshd[30454]: Received disconnect from 10.0.2.2 port 38020:11: disconnected by user
+Nov 02 01:18:00 japp-gnome-ci sshd[30454]: Disconnected from user japp-ci 10.0.2.2 port 38020
+Nov 02 01:18:00 japp-gnome-ci systemd[1033]: app-gnome-japp\x2dci-15557.scope: Consumed 1min 27.733s CPU time.
+Nov 02 01:18:00 japp-gnome-ci sshd[30524]: Received disconnect from 10.0.2.2 port 38034:11: disconnected by user
+Nov 02 01:18:00 japp-gnome-ci sshd[30524]: Disconnected from user japp-ci 10.0.2.2 port 38034
+Nov 02 01:18:00 japp-gnome-ci sshd[30591]: Received disconnect from 10.0.2.2 port 38040:11: disconnected by user
+Nov 02 01:18:00 japp-gnome-ci sshd[30591]: Disconnected from user japp-ci 10.0.2.2 port 38040
+Nov 02 01:18:01 japp-gnome-ci sshd[30656]: Received disconnect from 10.0.2.2 port 38044:11: disconnected by user
+Nov 02 01:18:01 japp-gnome-ci sshd[30656]: Disconnected from user japp-ci 10.0.2.2 port 38044
+Nov 02 01:18:01 japp-gnome-ci sshd[30725]: Received disconnect from 10.0.2.2 port 38052:11: disconnected by user
+Nov 02 01:18:01 japp-gnome-ci sshd[30725]: Disconnected from user japp-ci 10.0.2.2 port 38052

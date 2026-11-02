@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "/usr/bin/cloud-localds",
+    "/home/runner/work/_temp/japp-gnome-owned-c8y57szz/seed.img",
+    "/home/runner/work/_temp/japp-gnome-owned-c8y57szz/user-data",
+    "/home/runner/work/_temp/japp-gnome-owned-c8y57szz/meta-data"
+  ],
+  "exit_code": 0,
+  "signals": [],
+  "elapsed_seconds": 0.020494769999999107,
+  "direct_child_reaped": true,
+  "group_authority_verified": true,
+  "group_after_reap": "ABSENT",
+  "raw_bytes": 0,
+  "output_cap_bytes": 262144,
+  "output_cap_exceeded": false,
+  "primary_error_type": null,
+  "cleanup_error_type": null,
+  "retained_unreaped_custody": false,
+  "scope": "EXACT_OWN_CHILD_NO_SIGNAL_AFTER_REAP"
+}

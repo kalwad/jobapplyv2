@@ -1,0 +1,126 @@
+{
+ "ppm_frames_converted_to_png": {
+  "japp-gnome-vm-proof/retained/01-launch.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/01-launch.ppm",
+   "bytes": 3072016,
+   "sha256": "b27b26908ffe5d17bba47084c561ea39b60843d744bb636e255fc4bb59a90c60"
+  },
+  "japp-gnome-vm-proof/retained/05-keyboard-after-enter.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/05-keyboard-after-enter.ppm",
+   "bytes": 3072016,
+   "sha256": "8f316418bbee8581a7895973ed08a1cc5249e7092d5f91d6734da472daa51b24"
+  },
+  "japp-gnome-vm-proof/retained/07-crash-service.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/07-crash-service.ppm",
+   "bytes": 3072016,
+   "sha256": "4b02bdcb63cdf9957b80677605fe746b21ab8c2dba51a96887f8b6fb023070f6"
+  },
+  "japp-gnome-vm-proof/retained/09-relaunch.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/09-relaunch.ppm",
+   "bytes": 3072016,
+   "sha256": "2aa4f6e782cfa4803f0f7d3721a21defd7de32f25883bf62f7e5e123226db9b7"
+  },
+  "japp-gnome-vm-proof/retained/16-relocated-launch.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/16-relocated-launch.ppm",
+   "bytes": 3072016,
+   "sha256": "bbfedb19788ea3b2130ae358804647e814496320013af45bf8be2e53cd3f16de"
+  },
+  "japp-gnome-vm-proof/retained/session-before-product.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/session-before-product.ppm",
+   "bytes": 3072016,
+   "sha256": "ddd1bb62814b3a1f31a04414e9360729146b36701700e5a9984df380d2ef972d"
+  },
+  "japp-gnome-vm-proof/retained/shell-baseline-diagnostics.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/shell-baseline-diagnostics.ppm",
+   "bytes": 3072016,
+   "sha256": "0d5ac75ed4b2d2b8ed818879ab4ceb830589b4797353bd18a2e023d7cbbef058"
+  },
+  "japp-gnome-vm-proof/retained/shell-baseline-documents.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/shell-baseline-documents.ppm",
+   "bytes": 3072016,
+   "sha256": "0853694288046b1de63ab63e81b2e563b5e1605ec40bb652feec865ade6420e9"
+  },
+  "japp-gnome-vm-proof/retained/shell-baseline-home.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/shell-baseline-home.ppm",
+   "bytes": 3072016,
+   "sha256": "3911ab5a0920ea9c911e1936c82210c6199ece3a4cf3174fcb14b83166cc5b9d"
+  },
+  "japp-gnome-vm-proof/retained/shell-baseline-jobs.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/shell-baseline-jobs.ppm",
+   "bytes": 3072016,
+   "sha256": "cfec5bc3ea54282fb7444b9b305dcf24d2c006e46368d21694329244d976f106"
+  },
+  "japp-gnome-vm-proof/retained/shell-baseline-profile.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/shell-baseline-profile.ppm",
+   "bytes": 3072016,
+   "sha256": "b4e301df0f1a2d98ce376ca0154256a63e341a38d955a0ad6bbccee6ec83c90d"
+  },
+  "japp-gnome-vm-proof/retained/shell-baseline-settings.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/shell-baseline-settings.ppm",
+   "bytes": 3072016,
+   "sha256": "e1de5c3eed508a90ce2a5eded6726ec96c102f214b771f9b1411f427559f2acd"
+  },
+  "japp-gnome-vm-proof/retained/shell-baseline-tracker.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/shell-baseline-tracker.ppm",
+   "bytes": 3072016,
+   "sha256": "42eda4199cd9244dca9c35fc621784ce8e4fe032c1b0fe0eac01a122529f9271"
+  },
+  "japp-gnome-vm-proof/retained/shell-enlarged-diagnostics.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/shell-enlarged-diagnostics.ppm",
+   "bytes": 3072016,
+   "sha256": "88de441920e5fafda1b422ef61ac539a93c4459cdc1dadf0c3b40efbea25f568"
+  },
+  "japp-gnome-vm-proof/retained/shell-enlarged-documents.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/shell-enlarged-documents.ppm",
+   "bytes": 3072016,
+   "sha256": "d1ba283a190775d0dad6a2ef09be1b12ce8f2e3bfbdd4731dd7520a6c9d20d4f"
+  },
+  "japp-gnome-vm-proof/retained/shell-enlarged-home.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/shell-enlarged-home.ppm",
+   "bytes": 3072016,
+   "sha256": "f0b17847df4b00691382bdc65e9ec4ce6df90f72030f189da502010e2fc15f2b"
+  },
+  "japp-gnome-vm-proof/retained/shell-enlarged-jobs.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/shell-enlarged-jobs.ppm",
+   "bytes": 3072016,
+   "sha256": "82629beddd5446825f6e642f73b9d905cbb01295dc643b13a9d64695c0b43238"
+  },
+  "japp-gnome-vm-proof/retained/shell-enlarged-profile.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/shell-enlarged-profile.ppm",
+   "bytes": 3072016,
+   "sha256": "f1dbaaa7544b2e891e8d64194839c2e6b7c7afa3c3d1981842e4cd5a19772651"
+  },
+  "japp-gnome-vm-proof/retained/shell-enlarged-settings.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/shell-enlarged-settings.ppm",
+   "bytes": 3072016,
+   "sha256": "616dae657eb2d8d4c81a7e480d2b789f04b1ee34feee062763224936ec450f0a"
+  },
+  "japp-gnome-vm-proof/retained/shell-enlarged-tracker.png": {
+   "artifact_member": "japp-gnome-vm-proof/retained/shell-enlarged-tracker.ppm",
+   "bytes": 3072016,
+   "sha256": "3508d7ce81e4e545a4659b06e51e8713bb63970caf9287af9985ac8b9b6b5189"
+  }
+ },
+ "text_files_crlf_reduced_to_lf_repeatedly": {
+  "japp-gnome-host-proof/command-002.stdout": {
+   "bytes": 20006,
+   "sha256": "505c03913094e3ec89c63b7c666fdd28f381f5812b6673b1d9f3ba042302b2f9"
+  },
+  "japp-gnome-vm-proof/retained/command-009.stderr": {
+   "bytes": 91,
+   "sha256": "6481af3fdcce9d1be17a72aa5e982014f2d5296eb59b132ab408a5a791e9b833"
+  },
+  "japp-gnome-vm-proof/retained/command-010.stderr": {
+   "bytes": 91,
+   "sha256": "6481af3fdcce9d1be17a72aa5e982014f2d5296eb59b132ab408a5a791e9b833"
+  },
+  "japp-gnome-vm-proof/retained/command-280.stdout": {
+   "bytes": 242847,
+   "sha256": "d4e21694851a8fcd07a5649d2c168fc231afadfdc0bfadf5104b241c8851a6f6"
+  },
+  "japp-gnome-vm-proof/retained/guest-serial-tail.log": {
+   "bytes": 65536,
+   "sha256": "66501644fb5dab6cba3009d3af189aac3253b6b7ac25437f02ef1c608acde03a"
+  }
+ }
+}

@@ -12548,4 +12548,27 @@ Candidate review (2026-11-02UTC):
 
 No VM campaign has run yet.
 
+
+## M03-W08 — first reviewed GNOME VM campaign PASS at 10f247b (2026-11-02UTC)
+
+Scope: one bound campaign released by docs/evidence/m03-native-candidates-10f247b-review (request and release commit `0e241ba`). Lifecycle run 41371114075 is terminal SUCCESS on a hosted ubuntu-24.04 runner (ImageVersion 20261026.354.1).
+- Host proof: `REVIEWED_HOST_INSTALL_AND_EXACT_TOOL_BYTES_PASS`. The bundle audit, the simulate-first host plan with only locked exact adds, the reviewed local-only install and the exact tool bytes all passed.
+- VM proof: `ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS` in 352.99 s, under KVM (API 12, no TCG fallback), in the default GDM autologin Wayland session. All 115 guest receipts are PASS. They cover:
+  - launch and native shell capture: 14 routes and 7 zoom measurements through AT-SPI;
+  - keyboard Tab, Shift+Tab, Enter and the skip link;
+  - 6×401 from the unauthenticated endpoints;
+  - service crash with Check again, and two close/relaunch cycles;
+  - AT-SPI File→Quit and QMP Ctrl+Q;
+  - relaunch from a relocated Unicode/space path, and a forced parent kill.
+- Integrity: source guard unchanged over 2777 files, the outer QEMU group reaped with exit 0, no finalization errors, and the serial tail scanned with no private key material.
+- The closure claims no platform certification, universal descendant absence or forced startup-collision recovery.
+
+Evidence: docs/evidence/m03-w08-gnome-campaign-10f247b retains the complete artifact, with frames converted to PNG and transformations listed. KI-0148 to KI-0153, KI-0156, KI-0162, KI-0164 to KI-0166 and KI-0168 are closed by this run; KI-0167 (LOW) stays open.
+
+Windows 11 lifecycle attempts on the same release:
+- Run 41371207016 drew an AMD EPYC 9V74 and refused before any download or VM start. Host-cpu.json and the closure are retained in the run's artifact.
+- Run 41371433336, after a fresh request, drew an Intel Xeon Platinum 8573C and refused the same way.
+- Run 41371604274, the third release, passed the CPU gate (AMD EPYC 7763). It re-downloaded and verified the ISO in 95.09 s, booted Windows Setup, then timed out at "Select location to install Windows 11" (KI-0171) with no guest protocol row. The closure is FAILED with no acceptance claim, and QEMU and the TPM emulator were reaped. Exact docs/evidence/m03-w07-win11-campaign-10f247b.
+- Scratch-branch run 41377083648 verified the pinned ISO's SHA-256 and read its install.wim with wimlib: one image, index 1, "Windows 11 Enterprise Evaluation", build 26300.9457.
+
 Next READY package: NONE while M03-W07 is IN_PROGRESS.
