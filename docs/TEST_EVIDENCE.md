@@ -12589,4 +12589,10 @@ Commands (macOS arm64; same PATH): `uv run --frozen python scripts/verify.py --s
 
 The protected source changed, so a new Windows 11 candidate, independent review and campaign are required. The GNOME campaign evidence at 10f247b is unaffected, because windows11_deployment.py is not used by the GNOME harness.
 
+Hosted a03aadf/run41384168159 (pull_request merge d9412fd0):
+- Attempt 1: macOS and Ubuntu verify PASS (20 ACTIVE suites each; Python `3169 passed in 1119.21s` and `3169 passed in 849.76s`). Windows verify was cancelled by the 60-minute job limit at 60m13s, during the desktop Rust tests, with no failing test (KI-0172).
+- Attempt 2 (failed job rerun on the same SHA) is terminal SUCCESS: Windows verify PASS in 39m31s (20 ACTIVE suites, Python `3167 passed in 922.58s`), and both native package jobs PASS. Artifacts:
+  - native-development-windows-2025-d9412fd0… (13118745719, sha256 109ddf4d…);
+  - gnome-package-input-d9412fd0… (13118059567, sha256 434e4de9…).
+
 Next READY package: NONE while M03-W07 is IN_PROGRESS.

@@ -58,6 +58,17 @@ Current scoped correction supersedes the pending source/focus statements: all te
 
 The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
 
+### KI-0172 — Hosted Windows verify job runs within minutes of its 60-minute limit
+
+- Severity: MEDIUM
+- State: OPEN
+- Discovered: hosted CI a03aadf/run41384168159 attempt 1, 2026-11-02UTC.
+- Affects: CI `doctor + verify (windows-2025)` in .github/workflows/ci.yml (`timeout-minutes: 60`, pinned at or below 60 by scripts/tests/test_ci_workflow.py::test_job_has_timeout_and_no_global_shell_default); the exact-SHA hosted gate for every package.
+- Description: the Windows verify job took 57m19s (fff3408), 58m59s and 58m48s (10f247b attempts 1 and 2), then 60m13s at a03aadf. That last run was cancelled by the job limit during the desktop Rust tests, after every earlier suite had passed; no test failed. The Python suite alone takes about 21.5 minutes on Windows (3166 tests) and e2e-browser about 13 minutes. Each new test brings the job closer to the limit, so exact-SHA results now depend on runner speed.
+- Reproduction: the four runs above; job start and finish times come from the GitHub API.
+- Workaround: rerun the cancelled job on the same SHA. a03aadf attempt 2 passed in 39m31s, which shows the variance comes largely from runner speed.
+- Resolution + evidence link: open. A focused change should restore headroom, either by reducing Windows verify time or by revisiting the 60-minute job policy with the timing evidence. A policy change also changes the pinned test, so it needs its own reviewed decision.
+
 ### KI-0171 — Windows 11 Setup stops at "Select location to install Windows 11" in the reviewed campaign
 
 - Severity: MEDIUM
