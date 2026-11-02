@@ -1,0 +1,27 @@
+{
+  "schema": "japp-windows11-pr-request-v1",
+  "enabled": true,
+  "mode": "ONE_REVIEWED_VM",
+  "repository": "kalwad/jobapplyv2",
+  "repository_id": 1312360079,
+  "pull_request": 1,
+  "head_branch": "codex/autofill-evaluation-hardening",
+  "request_id": "0307c1107dd98ef95f905de8f32485af",
+  "request_parent_sha": "0e241ba288efae0c078db0fd3340b747de6a2959",
+  "expected_source_sha": "10f247bc441036233963004d1d663cd80e3a0212",
+  "package_build_sha": "c25742ef0af8421bc4bfc7a3a6533506dbf8be10",
+  "source_tree_sha": "bb8fb0d4677f5d1726a9fe9902748bcf299cf7d7",
+  "artifact": {
+    "run_id": "41367514098",
+    "run_attempt": "1",
+    "run_head_sha": "060882cdb0af7711962240b1e895ef94c8288dc3",
+    "artifact_id": "13109055698",
+    "digest_sha256": "71bae73b85dd137903053d59086ed872a985ed52992594adb3189d43cd89545c",
+    "package_manifest_sha256": "6fe7ec97c1c6bcd06f23ed3d21bb1440895516d10e39348c0735c365cdd9a2b5"
+  },
+  "release_receipt_sha256": "df5fbcb15fa7d505a7a670ea5b731b48868a1be434450d9ddc88d5e8829bf024",
+  "bundle_sha256": "902c783d23abc9c7d64900a154a6268b4763559e670695332da0c6759bf7b2ed",
+  "media_lock_sha256": "c18dc337b3073a7ef28fcc7b24611c9c714dfa36822d490785c732a1ab36c19c",
+  "host_tools_sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06",
+  "guest_driver_sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+}
