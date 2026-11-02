@@ -36,10 +36,19 @@ def note(key, value=None):
 t0 = time.monotonic()
 
 xml = answer_file(secrets.token_urlsafe(40), "Windows 11 Enterprise Evaluation")
-if variant == "noletter":
+if variant in ("noletter", "orderseq-noletter"):
     before = xml.count(b"<Letter>")
     xml = re.sub(rb"\s*<Letter>C</Letter>", b"", xml)
     note("removed_letters", before - xml.count(b"<Letter>"))
+if variant in ("orderseq", "orderseq-noletter"):
+    # Microsoft's samples number ModifyPartition Order 1, 2 while PartitionID is 1, 3.
+    count = len(re.findall(rb"<Order>3</Order>(\s*)<PartitionID>3</PartitionID>", xml))
+    xml = re.sub(rb"<Order>3</Order>(\s*)<PartitionID>3</PartitionID>", rb"<Order>2</Order>\1<PartitionID>3</PartitionID>", xml)
+    note("renumbered_modify_orders", count)
+if variant == "nomodify":
+    count = len(re.findall(rb"<ModifyPartitions>.*?</ModifyPartitions>", xml, flags=re.S))
+    xml = re.sub(rb"\s*<ModifyPartitions>.*?</ModifyPartitions>", b"", xml, flags=re.S)
+    note("removed_modify_partitions", count)
 seed_dir = work / "seed"
 seed_dir.mkdir()
 (seed_dir / "Autounattend.xml").write_bytes(xml)
@@ -97,8 +106,8 @@ time.sleep(vm.BOOT_KEY_DELAY)
 note("boot_key", qmp_call("send-key", {"keys": [{"type": "qcode", "data": "spc"}]}))
 for socket_ in (firmware, serial):
     socket_.setblocking(False)
-for minute in range(1, minutes + 1):
-    end = time.monotonic() + 60
+for minute in range(1, minutes * 3 + 1):
+    end = time.monotonic() + 20
     while time.monotonic() < end:
         for socket_ in (firmware, serial):
             try:

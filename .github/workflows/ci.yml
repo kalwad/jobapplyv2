@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        variant: [baseline, noletter]
+        variant: [orderseq, orderseq-noletter, nomodify]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -34,10 +34,10 @@ jobs:
           echo "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38  $RUNNER_TEMP/win11.iso" | sha256sum -c -
       - name: Setup probe
         shell: bash
-        run: python3 -B diag/win11_setup_probe.py "$GITHUB_WORKSPACE/diag/repo-root/scripts" "$RUNNER_TEMP/win11.iso" "$RUNNER_TEMP/work" "$RUNNER_TEMP/out" "${{ matrix.variant }}" 30
+        run: python3 -B diag/win11_setup_probe.py "$GITHUB_WORKSPACE/diag/repo-root/scripts" "$RUNNER_TEMP/win11.iso" "$RUNNER_TEMP/work" "$RUNNER_TEMP/out" "${{ matrix.variant }}" 15
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag31-win11-setup-${{ matrix.variant }}
+          name: diag32-win11-setup-${{ matrix.variant }}
           path: ${{ runner.temp }}/out
           retention-days: 7
