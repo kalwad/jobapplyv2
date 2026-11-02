@@ -1,0 +1,48 @@
+{
+ "schema": "japp-native-candidate-review-decision-v1",
+ "reviewed_at_utc": "2026-11-02",
+ "review_process": "Independent multi-agent workflow wf_e21fb658-815 (19 separate-context read-only agents): nine lenses, two adversarial refuters per actionable finding, one final reviewer per platform; the implementer only launched it and recorded its output (review-workflow-result.json).",
+ "source": {
+  "expected_source_sha": "10f247bc441036233963004d1d663cd80e3a0212",
+  "source_tree_sha": "bb8fb0d4677f5d1726a9fe9902748bcf299cf7d7",
+  "package_build_sha": "c25742ef0af8421bc4bfc7a3a6533506dbf8be10",
+  "package_run": 41356786386,
+  "package_run_attempt": 2
+ },
+ "gnome": {
+  "decision": "RELEASE_ONE_BOUND_CAMPAIGN",
+  "candidate": {
+   "prepare_run": 41367416097,
+   "run_attempt": 1,
+   "run_head_sha": "4938c1137e9f2a402bfd75c77a429f4db1754928",
+   "artifact_id": 13106829926,
+   "digest_sha256": "ac3e3f9118bb0170dcc019fefb42bae3f569d86f7c802a97bbf83b97b31a7ff3",
+   "export_sha256": "56f18b2614e9337728b5e2e866622eb288a3ac356c72cb83eedc19a11b9e02c6"
+  },
+  "bound_hashes": {
+   "bundle_sha256": "ac34c8969aa7b0fbd5b955e25c01707bf3fdf25bfdf1b0d5963616683a69e14c",
+   "guest_closure_sha256": "193416ec73e4ea05e70a463ff6bfc7a5ddadc00aa7709fd9e4d3480acbfbd41e",
+   "host_tools_sha256": "4c3552e228f806afae9b4dc794e2b6ca37fc65190ef6e45fbd10ea9d9ceda447",
+   "keyring_sha256": "c2d40d925557dbe9a0745c12ca0dc98bed593ce9a6652f1b2faa1ff0858dbf2f"
+  },
+  "blocking_reasons": []
+ },
+ "windows11": {
+  "decision": "RELEASE_ONE_BOUND_CAMPAIGN",
+  "candidate": {
+   "prepare_run": 41367514098,
+   "run_attempt": 1,
+   "run_head_sha": "060882cdb0af7711962240b1e895ef94c8288dc3",
+   "artifact_id": 13109055698,
+   "digest_sha256": "71bae73b85dd137903053d59086ed872a985ed52992594adb3189d43cd89545c",
+   "package_manifest_sha256": "6fe7ec97c1c6bcd06f23ed3d21bb1440895516d10e39348c0735c365cdd9a2b5"
+  },
+  "bound_hashes": {
+   "bundle_sha256": "902c783d23abc9c7d64900a154a6268b4763559e670695332da0c6759bf7b2ed",
+   "media_lock_sha256": "c18dc337b3073a7ef28fcc7b24611c9c714dfa36822d490785c732a1ab36c19c",
+   "host_tools_sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06",
+   "guest_driver_sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+  },
+  "blocking_reasons": []
+ }
+}

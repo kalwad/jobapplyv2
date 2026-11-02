@@ -1,0 +1,65 @@
+{
+  "scope": "Exact committed bytes: the files each release receipt pins (bound/), the review decision record, the full review workflow output, the pre-release attestor parse check, and GitHub API metadata",
+  "files": {
+    "README.md": {
+      "bytes": 4478,
+      "sha256": "d36a8a5861cad9bc1ef88cc59377ab710249ee15ea580f6e32a3006c07e8e463"
+    },
+    "bound/gnome/guest-closure-lock.json": {
+      "bytes": 933442,
+      "sha256": "193416ec73e4ea05e70a463ff6bfc7a5ddadc00aa7709fd9e4d3480acbfbd41e"
+    },
+    "bound/gnome/host-tools-lock.json": {
+      "bytes": 161109,
+      "sha256": "4c3552e228f806afae9b4dc794e2b6ca37fc65190ef6e45fbd10ea9d9ceda447"
+    },
+    "bound/gnome/reviewed-inputs.json": {
+      "bytes": 177665,
+      "sha256": "ac34c8969aa7b0fbd5b955e25c01707bf3fdf25bfdf1b0d5963616683a69e14c"
+    },
+    "bound/gnome/ubuntu-cloudimage-keyring.gpg": {
+      "bytes": 2444,
+      "sha256": "c2d40d925557dbe9a0745c12ca0dc98bed593ce9a6652f1b2faa1ff0858dbf2f"
+    },
+    "bound/windows11/guest-driver.json": {
+      "bytes": 487,
+      "sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+    },
+    "bound/windows11/host-tools-lock.json": {
+      "bytes": 145798,
+      "sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06"
+    },
+    "bound/windows11/media-lock.json": {
+      "bytes": 1160,
+      "sha256": "c18dc337b3073a7ef28fcc7b24611c9c714dfa36822d490785c732a1ab36c19c"
+    },
+    "bound/windows11/reviewed-inputs.json": {
+      "bytes": 75185,
+      "sha256": "902c783d23abc9c7d64900a154a6268b4763559e670695332da0c6759bf7b2ed"
+    },
+    "pre-release-check/parse-result.json": {
+      "bytes": 222,
+      "sha256": "f13e2bbd47eb302963e3e286da57838e7d7c8ab02e405254619fdeac33b6cd12"
+    },
+    "pre-release-check/parse_attestor.ps1": {
+      "bytes": 1332,
+      "sha256": "25198df9b5d38445168d7e3a6af9c1d3c0027a11b40f0529fb910100362235f6"
+    },
+    "pre-release-check/workflow.yml": {
+      "bytes": 708,
+      "sha256": "7741dbffbbe0471ab720009d42c717b794926c1a60ee95158e6c0fe8c7a91e64"
+    },
+    "review-decision.json": {
+      "bytes": 2309,
+      "sha256": "efe60987ef881d59f8f7893f08e8a13bff189f30c13b471ec22664bd531ab67a"
+    },
+    "review-workflow-result.json": {
+      "bytes": 191032,
+      "sha256": "93bf9fe4735997c31e8d6217a0d10d1150c5ff6504798cf56b24fca79b9f94b8"
+    },
+    "run-metadata.json": {
+      "bytes": 7984,
+      "sha256": "018cf929c535333906e49b22fa3f074a4c1ad019064bd795e6204abe6499e386"
+    }
+  }
+}

@@ -12539,4 +12539,13 @@ Attempt 2 reran the failed job on the same SHA and is terminal SUCCESS:
 
 Windows Server CI is not Windows 11 evidence.
 
+Candidate review (2026-11-02UTC):
+- Download-only requests were committed: GNOME `4938c11`, Windows 11 `060882c`. Both bind S 10f247b, package merge c25742ef and run 41356786386 attempt 2.
+- Prepare runs 41367416097 (GNOME) and 41367514098 (Windows 11, including passing hosted guest-source checks) produced candidate artifacts 13106829926 (ZIP `ac3e3f91…`) and 13109055698 (ZIP `71bae73b…`). Neither installed anything or started a VM.
+- Independent workflow wf_e21fb658-815 (19 read-only agents, nine lenses, two refuters per actionable finding, a final reviewer per platform) decided RELEASE_ONE_BOUND_CAMPAIGN for both, with no surviving blocking finding. The final reviewers recomputed the bound hashes; the packet's `bound/` files hash to the same values.
+- Pre-release check: scratch-branch run 41370879234 parsed, without running, the bootstrap's embedded 49-line SYSTEM attestor and the outer file with Windows PowerShell 5.1.26100 on hosted windows-2025. Both have zero parse errors.
+- Exact docs/evidence/m03-native-candidates-10f247b-review.
+
+No VM campaign has run yet.
+
 Next READY package: NONE while M03-W07 is IN_PROGRESS.

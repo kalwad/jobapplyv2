@@ -1,0 +1,20 @@
+# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Parse the 10f247b bootstrap's
+# embedded SYSTEM attestor with Windows PowerShell 5.1 before the one bound
+# Windows 11 campaign spends its attempt.
+name: ci
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  parse:
+    name: parse windows11 attestor (PowerShell 5.1)
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Parse only, never execute
+        shell: powershell
+        run: powershell.exe -NoProfile -ExecutionPolicy Bypass -File diag\parse_attestor.ps1 -Bootstrap diag\bootstrap_10f247b.ps1
