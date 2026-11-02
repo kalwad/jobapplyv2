@@ -52,7 +52,21 @@ if variant == "nomodify":
 seed_dir = work / "seed"
 seed_dir.mkdir()
 (seed_dir / "Autounattend.xml").write_bytes(xml)
-(seed_dir / "windows11_bootstrap.ps1").write_text("exit 0\r\n")
+if variant == "attestor":
+    import hashlib, zipfile
+    # The real reviewed bootstrap; the observing probe takes windows11_guest.ps1's place.
+    shutil.copyfile(scripts / "windows11" / "windows11_bootstrap.ps1", seed_dir / "windows11_bootstrap.ps1")
+    shutil.copyfile(Path(__file__).parent / "attestor_probe.ps1", seed_dir / "windows11_guest.ps1")
+    (seed_dir / "windows11_owned.cs").write_text("// diagnostic placeholder\n")
+    with zipfile.ZipFile(seed_dir / "windows-portable.zip", "w") as z:
+        z.writestr("placeholder.txt", "diagnostic\n")
+    nonce = secrets.token_hex(32)
+    (seed_dir / "guest-config.json").write_text(json.dumps({"schema": "japp-win11-guest-config-v1", "nonce": nonce}))
+    files = {n: {"bytes": (seed_dir / n).stat().st_size, "sha256": hashlib.sha256((seed_dir / n).read_bytes()).hexdigest()} for n in ("windows11_guest.ps1", "windows11_owned.cs", "windows-portable.zip", "guest-config.json")}
+    (seed_dir / "seed-manifest.json").write_text(json.dumps({"schema": "japp-win11-seed-v1", "nonce": nonce, "files": files}))
+    note("seed", {"nonce": nonce, "files": sorted(files)})
+else:
+    (seed_dir / "windows11_bootstrap.ps1").write_text("exit 0\r\n")
 (out / "answer-file-structure.txt").write_text(
     re.sub(rb"<Value>[^<]*</Value>|<Password>.*?</Password>", b"<redacted/>", xml, flags=re.S).decode())
 subprocess.run(["xorriso", "-as", "mkisofs", "-J", "-R", "-V", "JAPP-SEED", "-o", str(work / "seed.iso"), str(seed_dir)], check=True, capture_output=True)
@@ -111,7 +125,10 @@ for minute in range(1, minutes * 3 + 1):
     while time.monotonic() < end:
         for socket_ in (firmware, serial):
             try:
-                socket_.recv(65536)
+                chunk = socket_.recv(65536)
+                if socket_ is serial and chunk:
+                    with (out / "guest-serial.raw").open("ab") as raw:
+                        raw.write(chunk)
             except (BlockingIOError, socket.timeout):
                 pass
         if qemu.poll() is not None:
