@@ -58,6 +58,17 @@ Current scoped correction supersedes the pending source/focus statements: all te
 
 The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
 
+### KI-0170 — Hosted Windows Playwright navigation failed once with net::ERR_NO_BUFFER_SPACE
+
+- Severity: LOW
+- State: OPEN
+- Discovered: hosted CI 10f247b/run41356786386 attempt 1, windows-2025 doctor+verify, 2026-11-01UTC.
+- Affects: CI e2e-browser suite on hosted windows-2025 (e2e/mock-ats-lab/react-controlled.spec.ts against the local preview server on 127.0.0.1:4761); no product or harness code.
+- Description: one Playwright test failed at its first `page.goto("/react/")` with `net::ERR_NO_BUFFER_SPACE`, Windows' WSAENOBUFS for exhausted socket buffers or ports. The other 277 browser tests passed. The same test passed on hosted Windows at fff3408 (run41350842944), and the change between the two commits touched only a Python test file, the test inventory and docs. In that job the e2e-browser suite ran before the Python suite, so the new socket tests ran after it.
+- Reproduction: not reproduced. The failed job's log retains the error and the Playwright screenshot/video paths.
+- Workaround: the failed job was rerun on the same SHA (attempt 2).
+- Resolution + evidence link: open; watch for recurrence on hosted Windows before treating it as more than a runner resource fault.
+
 ### KI-0169 — Windows 11 failure-path power-off is refused once the VM output cap has tripped
 
 - Severity: LOW

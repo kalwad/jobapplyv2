@@ -12528,4 +12528,15 @@ Hosted fff3408/run41350842944 is terminal FAILURE. macos-15 and ubuntu-24.04 doc
 Every other new test, including the live QMP, socket-pair, fake-clock and symlink-removal tests, passed on hosted Windows.
 Local after the correction (this sentence appended afterwards): `uv run --frozen python scripts/verify.py --suite format|lint|typecheck|portability|traceability|status|integrity|python` each exit 0; python `3168 passed in 515.84s` with the exact inventory (3166 common + 2 POSIX-only).
 
+Hosted 10f247b/run41356786386 (pull_request merge c25742ef) attempt 1: macOS and Ubuntu verify passed. Windows verify failed only e2e-browser: one Playwright navigation hit `net::ERR_NO_BUFFER_SPACE` against 127.0.0.1:4761 (KI-0170), with 277 passed and Python `3166 passed in 1301.25s`.
+
+Attempt 2 reran the failed job on the same SHA and is terminal SUCCESS:
+- Three doctor+verify jobs PASS, 20 ACTIVE suites each. Python Windows `3166 passed in 1290.58s`, Ubuntu `3168 passed in 779.32s`, macOS `3168 passed in 1169.28s`, from the raw job logs.
+- Both native development package jobs PASS. The Windows job includes the packaged service actor built with the KI-0157/KI-0158 product changes.
+- Package artifacts:
+  - gnome-package-input-c25742ef… (artifact 13107582320, sha256 f85b648b…);
+  - native-development-windows-2025-c25742ef… (13107428378, sha256 31d0d26b…).
+
+Windows Server CI is not Windows 11 evidence.
+
 Next READY package: NONE while M03-W07 is IN_PROGRESS.
