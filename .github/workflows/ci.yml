@@ -23,7 +23,8 @@ jobs:
           echo "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38  $RUNNER_TEMP/win11.iso" | sha256sum -c - | tee "$out/sha256.txt"
           sudo mkdir -p /mnt/iso && sudo mount -o loop,ro "$RUNNER_TEMP/win11.iso" /mnt/iso
           ls -la /mnt/iso/sources | grep -i "install\|boot.wim" | tee "$out/sources.txt"
-          img=$(ls /mnt/iso/sources/install.wim /mnt/iso/sources/install.esd 2>/dev/null | head -1)
+          img=/mnt/iso/sources/install.wim
+          test -f "$img"
           wiminfo "$img" | tee "$out/wiminfo.txt"
           wiminfo "$img" --xml | iconv -f UTF-16LE -t UTF-8 > "$out/wiminfo.xml" || true
           wiminfo /mnt/iso/sources/boot.wim | tee "$out/boot-wiminfo.txt"
@@ -31,6 +32,6 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag29-win11-wim
+          name: diag30-win11-wim
           path: ${{ runner.temp }}/out
           retention-days: 7
