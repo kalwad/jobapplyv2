@@ -1,43 +1,32 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Windows 11 Setup with the
-# harness's own qemu_argv()/answer_file(): does it stop at "Select location"
-# because <Letter>C</Letter> conflicts with the JAPP-RESULT USB volume?
+# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. KI-0175 round 36: Windows
+# PowerShell 5.1 parse of the exact candidate bootstrap, guest and attestor body,
+# then the exact attestor body and the guest's receipt and trace-retention code
+# run against real files on a hosted Windows Server runner (not Windows 11).
 name: ci
 on:
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  setup:
-    name: windows11 setup ${{ matrix.variant }}
-    runs-on: ubuntu-24.04
-    timeout-minutes: 75
-    strategy:
-      fail-fast: false
-      matrix:
-        variant: [attestor]
+  primitives:
+    name: attestor primitives
+    runs-on: windows-2025
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
-      - name: Host tools and KVM
-        shell: bash
+      - name: Attestor primitives
+        shell: pwsh
         run: |
-          set -euo pipefail
-          sudo apt-get install -y --no-install-recommends qemu-system-x86 qemu-utils ovmf swtpm swtpm-tools xorriso mtools > /dev/null
-          sudo setfacl -m "u:$(id -u):rw" /dev/kvm
-          grep -m1 "model name" /proc/cpuinfo
-      - name: Pinned ISO
-        shell: bash
-        run: |
-          set -euo pipefail
-          curl -fsSL --retry 3 -o "$RUNNER_TEMP/win11.iso" 'https://software-static.download.prss.microsoft.com/dbazure/26300.9457.260913-1737.26h2_ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso'
-          echo "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38  $RUNNER_TEMP/win11.iso" | sha256sum -c -
-      - name: Setup probe
-        shell: bash
-        run: python3 -B diag/win11_setup_probe.py "$GITHUB_WORKSPACE/diag/repo-root/scripts" "$RUNNER_TEMP/win11.iso" "$RUNNER_TEMP/work" "$RUNNER_TEMP/out" "${{ matrix.variant }}" 32
+          $ErrorActionPreference = 'Stop'
+          git -C "$env:GITHUB_WORKSPACE" config --get core.autocrlf
+          Get-FileHash -Algorithm SHA256 diag/repo-root/scripts/windows11/windows11_bootstrap.ps1, diag/repo-root/scripts/windows11/windows11_guest.ps1 | Format-Table -AutoSize | Out-String -Width 200
+          & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File diag/attestor_primitives.ps1 -Scripts "$env:GITHUB_WORKSPACE\diag\repo-root\scripts" -Out "$env:RUNNER_TEMP\out"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag35-win11-setup-${{ matrix.variant }}
+          name: diag36-attestor-primitives
           path: ${{ runner.temp }}/out
           retention-days: 7

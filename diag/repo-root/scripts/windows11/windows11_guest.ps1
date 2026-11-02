@@ -111,8 +111,11 @@ function MachineScalar($Value,[string]$Name) {
 }
 function ProtectedReceipt([string]$Path) {
     # One bounded protected receipt, or $null while it is absent, partial or unreadable.
-    if(-not (Test-Path -LiteralPath $Path)) { return $null }
-    if((Get-Item -LiteralPath $Path).Length -gt 64KB) { throw 'Bounded protected machine receipt required' }
+    # A file removed between two reads (an attestor clearing an earlier run's error)
+    # is 'not yet', like an absent one.
+    $item=Get-Item -LiteralPath $Path -ErrorAction SilentlyContinue
+    if($null -eq $item) { return $null }
+    if($item.Length -gt 64KB) { throw 'Bounded protected machine receipt required' }
     try { return (Get-Content -LiteralPath $Path -Raw|ConvertFrom-Json) } catch { return $null }
 }
 function MachineDiffers($Record,[string]$Schema,[string]$Boot) {
@@ -337,14 +340,21 @@ try {
     $machinePath='C:\ProgramData\JappHarness\machine.json'
     $machineErrorPath='C:\ProgramData\JappHarness\machine-error.json'
     $machineSchema='japp-win11-protected-machine-v1'
-    $machineLimit=$clock.Elapsed.TotalSeconds+30
+    # A completed attestor run took about 10 s (KI-0175 round 35), but a first-logon run
+    # can be far slower. 150 s tolerates that variance and leaves half of the guest's
+    # 300 s work deadline for the phases that follow; the attestor task's own limit is
+    # 10 minutes.
+    $machineLimit=$clock.Elapsed.TotalSeconds+150
     $machine=$null
-    # Only a parsable receipt bound to this nonce and boot ends the wait. A partial
-    # receipt, one from another run or boot, or an attestor error from an earlier
-    # logon is 'not yet' for the full bound and never overrides a later current one.
+    # A parsable receipt bound to this nonce and boot ends the wait, and so does an
+    # attestor error bound to this nonce and boot (which then fails below). A partial
+    # receipt, one from another run or boot, or an attestor error from another run or
+    # boot is 'not yet' for the full bound; a current receipt is read first.
     do {
         $current=ProtectedReceipt $machinePath
         if($null -ne $current) { $machine=$current; if((MachineDiffers $machine $machineSchema $boot).Count -eq 0) { break } }
+        $failed=ProtectedReceipt $machineErrorPath
+        if($null -ne $failed -and (MachineDiffers $failed 'japp-win11-protected-machine-error-v1' $boot).Count -eq 0) { break }
         Start-Sleep -Milliseconds 250
     } while($clock.Elapsed.TotalSeconds -lt $machineLimit)
     # Both protected receipts hold no secret. They are retained before any check, so a
@@ -356,10 +366,23 @@ try {
             Copy-Item -LiteralPath $retainedPath -Destination (Join-Path $proof $retainedName)
         }
     }
+    # The attestor's trace holds only step names and UTC times; it names the step a
+    # stalled run reached. Its run may still be appending, so it is read with shared
+    # access and a fixed bound, never copied by path, and retained before any check.
+    $tracePath='C:\ProgramData\JappHarness\attestor-trace.txt'
+    if(Test-Path -LiteralPath $tracePath) {
+        $traceBytes=New-Object byte[] (64KB+1)
+        $traceCount=0
+        $traceStream=[IO.File]::Open($tracePath,[IO.FileMode]::Open,[IO.FileAccess]::Read,([IO.FileShare]::ReadWrite -bor [IO.FileShare]::Delete))
+        try { do { $traceRead=$traceStream.Read($traceBytes,$traceCount,$traceBytes.Length-$traceCount); $traceCount+=$traceRead } while($traceRead -gt 0 -and $traceCount -lt $traceBytes.Length) } finally { $traceStream.Dispose() }
+        if($traceCount -gt 64KB) { throw 'Bounded protected attestor trace required' }
+        $traceCopy=[IO.File]::Open((Join-Path $proof 'attestor-trace.txt'),[IO.FileMode]::CreateNew,[IO.FileAccess]::Write)
+        try { $traceCopy.Write($traceBytes,0,$traceCount) } finally { $traceCopy.Dispose() }
+    }
     $mismatch=@()
     if($null -ne $machine) { $mismatch=MachineDiffers $machine $machineSchema $boot }
     if($null -eq $machine -or $mismatch.Count -gt 0) {
-        # No current receipt at the deadline: only an attestor error bound to this
+        # No current receipt when the wait ended: only an attestor error bound to this
         # nonce and boot names the attestor as the cause.
         $attestorError=ProtectedReceipt $machineErrorPath
         if($null -ne $attestorError -and (MachineDiffers $attestorError 'japp-win11-protected-machine-error-v1' $boot).Count -eq 0) { throw 'Protected machine attestor failed; its named step is retained' }
