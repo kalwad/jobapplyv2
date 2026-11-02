@@ -22,6 +22,7 @@ import tempfile
 import time
 import urllib.parse
 import urllib.request
+from collections.abc import Callable
 from dataclasses import dataclass
 from http.client import HTTPMessage
 from pathlib import Path
@@ -200,6 +201,8 @@ class Owner:
         self.cleanup_deadline = self.work_deadline + 60
         self.frames = 0
         self.failure_framed = False
+        # Frames never validated that may still exist; removed after closure.
+        self.late_frames: list[Path] = []
 
     def vm_output_exceeded(self) -> bool:
         paths = (
@@ -318,11 +321,15 @@ class Owner:
                 "scope": "EXACT_OWN_CHILD_NO_SIGNAL_AFTER_REAP",
             },
         )
-        if primary is not None:
-            if isinstance(primary, CommandDeadlineError) and (
-                present or code is None or cleanup_error is not None
-            ):
-                raise RuntimeError("Timed-out command left owned process state")
+        if isinstance(primary, CommandDeadlineError) and (
+            present or code is None or cleanup_error is not None
+        ):
+            raise RuntimeError("Timed-out command left owned process state")
+        # A reaped deadline is tolerated only within its cap; output past it,
+        # even during the reap, takes the fatal path below (KI-0152).
+        if primary is not None and not (
+            isinstance(primary, CommandDeadlineError) and size > cap
+        ):
             raise primary
         if cleanup_error is not None:
             raise cleanup_error
@@ -401,34 +408,23 @@ class Owner:
         if self.frames >= FRAME_CAP or not re.fullmatch(r"[a-z0-9-]+", name):
             raise ValueError("Frame count/name exceeded allowance")
         self.frames += 1
-        path = self.proof / (name + ".ppm")
-        self.qmp_call("screendump", {"filename": str(path)})
-        if path.stat().st_size > FRAME_BYTES:
-            raise ValueError("Guest frame exceeded cap")
-        data = path.read_bytes()
-        header = re.match(rb"P6\s+([0-9]+)\s+([0-9]+)\s+255\s", data)
-        if header is None:
-            raise ValueError("Actual QMP RGB frame required")
-        width, height = int(header.group(1)), int(header.group(2))
-        pixels = data[header.end() :]
-        if (
-            not FRAME_MIN_WIDTH <= width <= FRAME_MAX_WIDTH
-            or not FRAME_MIN_HEIGHT <= height <= FRAME_MAX_HEIGHT
-            or len(pixels) != width * height * 3
-        ):
-            raise ValueError("Actual guest display size is invalid")
-        if len(set(pixels)) < FRAME_MIN_COLOR_VALUES:
-            raise ValueError(
-                "Actual guest frame is blank/insufficient display evidence"
-            )
-        return {
-            "file": path.name,
-            "width": width,
-            "height": height,
-            "sha256": sha(path),
-            "nonblank": True,
-            "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX",
-        }
+        return validated_frame(self, self.proof / (name + ".ppm"), phase_frame)
+
+    def discard_late_frames(self) -> tuple[list[str], list[str]]:
+        """Once the VM is closed, remove every frame that was never validated.
+
+        Returns the removed names and the error type of each failed removal.
+        """
+        removed: list[str] = []
+        failed: list[str] = []
+        for path in self.late_frames:
+            try:
+                if path.exists() or path.is_symlink():
+                    path.unlink()
+                    removed.append(path.name)
+            except OSError as error:
+                failed.append(type(error).__name__)
+        return removed, failed
 
     def failure_frame(self) -> dict[str, object]:
         """One frame of a failed campaign's screen, outside the success budget.
@@ -508,6 +504,59 @@ class Owner:
             "pending_commands": pending_results,
             "universal_escaped_descendant_absence_claimed": False,
         }
+
+
+def validated_frame(
+    owner: Owner,
+    path: Path,
+    check: Callable[[Path], dict[str, Any]],
+    cleanup: bool = False,
+) -> dict[str, Any]:
+    """One QMP frame, retained only once check() accepted it.
+
+    A screendump without its reply may still be written, so it is left to the
+    late removal after closure. A refused frame is removed before its refusal
+    is raised; a failed removal propagates and is retried after closure too.
+    """
+    try:
+        owner.qmp_call("screendump", {"filename": str(path)}, cleanup=cleanup)
+    except BaseException:
+        owner.late_frames.append(path)
+        raise
+    try:
+        return check(path)
+    except BaseException:
+        owner.late_frames.append(path)
+        path.unlink(missing_ok=True)
+        raise
+
+
+def phase_frame(path: Path) -> dict[str, Any]:
+    """A phase frame: bounded RGB of a plausible display that is not blank."""
+    if path.stat().st_size > FRAME_BYTES:
+        raise ValueError("Guest frame exceeded cap")
+    data = path.read_bytes()
+    header = re.match(rb"P6\s+([0-9]+)\s+([0-9]+)\s+255\s", data)
+    if header is None:
+        raise ValueError("Actual QMP RGB frame required")
+    width, height = int(header.group(1)), int(header.group(2))
+    pixels = data[header.end() :]
+    if (
+        not FRAME_MIN_WIDTH <= width <= FRAME_MAX_WIDTH
+        or not FRAME_MIN_HEIGHT <= height <= FRAME_MAX_HEIGHT
+        or len(pixels) != width * height * 3
+    ):
+        raise ValueError("Actual guest display size is invalid")
+    if len(set(pixels)) < FRAME_MIN_COLOR_VALUES:
+        raise ValueError("Actual guest frame is blank/insufficient display evidence")
+    return {
+        "file": path.name,
+        "width": width,
+        "height": height,
+        "sha256": sha(path),
+        "nonblank": True,
+        "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX",
+    }
 
 
 def validate_closure(path: Path, expected: str) -> dict[str, Any]:
@@ -637,10 +686,11 @@ def bind_source(
 
 def kvm(owner: Owner, device: Path = Path("/dev/kvm")) -> dict[str, Any]:
     """Hardware acceleration or nothing: TCG missed the session budgets (KI-0152)."""
-    import fcntl  # noqa: PLC0415 - Linux VM host only; module stays importable
-
     if not stat.S_ISCHR(device.lstat().st_mode):
         raise ValueError("Actual KVM character device required")
+    # Only after the device check, so a host without KVM refuses before fcntl.
+    import fcntl  # noqa: PLC0415 - Linux VM host only; module stays importable
+
     # Current-runner UID ACL only after root release; never world writable.
     if not os.access(device, os.R_OK | os.W_OK):
         owner.command(
@@ -1564,6 +1614,21 @@ def settle_failure_frame(
         )
 
 
+def settle_late_frames(
+    owner: Owner, result: dict[str, object], errors: list[dict[str, str]]
+) -> None:
+    """After the VM quit, drop every phase frame that was never validated."""
+    try:
+        removed, failed = owner.discard_late_frames()
+    except BaseException as error:
+        removed, failed = [], [type(error).__name__]
+    if removed:
+        result["unvalidated_frames_removed"] = removed
+    errors.extend(
+        {"stage": "late_frame_discard", "error_type": name} for name in failed
+    )
+
+
 def finalize(
     args: argparse.Namespace,
     owner: Owner,
@@ -1590,6 +1655,7 @@ def finalize(
             {"stage": "owned_process_closure", "error_type": type(error).__name__}
         )
     settle_failure_frame(owner, result, errors)
+    settle_late_frames(owner, result, errors)
     if prepared is not None:
         try:
             result["source_guard"] = final_source_guard(args, owner, prepared)

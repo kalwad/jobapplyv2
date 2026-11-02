@@ -1,37 +1,43 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Read the install image metadata
-# of the exact pinned Windows 11 Enterprise Evaluation ISO (no VM, no install
-# into Windows): download, verify the pinned SHA-256, mount read-only, wiminfo.
+# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Windows 11 Setup with the
+# harness's own qemu_argv()/answer_file(): does it stop at "Select location"
+# because <Letter>C</Letter> conflicts with the JAPP-RESULT USB volume?
 name: ci
 on:
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  wim:
-    name: windows11 iso image metadata
+  setup:
+    name: windows11 setup ${{ matrix.variant }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 75
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [baseline, noletter]
     steps:
-      - name: Download, verify and read the install image metadata
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Host tools and KVM
         shell: bash
         run: |
           set -euo pipefail
-          out="$RUNNER_TEMP/out"; mkdir -p "$out"
-          sudo apt-get install -y --no-install-recommends wimtools > "$out/apt.log" 2>&1
-          url='https://software-static.download.prss.microsoft.com/dbazure/26300.9457.260913-1737.26h2_ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso'
-          curl -fsSL --retry 3 -o "$RUNNER_TEMP/win11.iso" "$url"
-          echo "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38  $RUNNER_TEMP/win11.iso" | sha256sum -c - | tee "$out/sha256.txt"
-          sudo mkdir -p /mnt/iso && sudo mount -o loop,ro "$RUNNER_TEMP/win11.iso" /mnt/iso
-          ls -la /mnt/iso/sources | grep -i "install\|boot.wim" | tee "$out/sources.txt"
-          img=/mnt/iso/sources/install.wim
-          test -f "$img"
-          wiminfo "$img" | tee "$out/wiminfo.txt"
-          wiminfo "$img" --xml | iconv -f UTF-16LE -t UTF-8 > "$out/wiminfo.xml" || true
-          wiminfo /mnt/iso/sources/boot.wim | tee "$out/boot-wiminfo.txt"
-          sudo umount /mnt/iso
+          sudo apt-get install -y --no-install-recommends qemu-system-x86 qemu-utils ovmf swtpm swtpm-tools xorriso mtools > /dev/null
+          sudo setfacl -m "u:$(id -u):rw" /dev/kvm
+          grep -m1 "model name" /proc/cpuinfo
+      - name: Pinned ISO
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 3 -o "$RUNNER_TEMP/win11.iso" 'https://software-static.download.prss.microsoft.com/dbazure/26300.9457.260913-1737.26h2_ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso'
+          echo "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38  $RUNNER_TEMP/win11.iso" | sha256sum -c -
+      - name: Setup probe
+        shell: bash
+        run: python3 -B diag/win11_setup_probe.py "$GITHUB_WORKSPACE/diag/repo-root/scripts" "$RUNNER_TEMP/win11.iso" "$RUNNER_TEMP/work" "$RUNNER_TEMP/out" "${{ matrix.variant }}" 30
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag30-win11-wim
+          name: diag31-win11-setup-${{ matrix.variant }}
           path: ${{ runner.temp }}/out
           retention-days: 7

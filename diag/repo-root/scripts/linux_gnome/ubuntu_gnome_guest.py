@@ -37,6 +37,8 @@ HTTP_BODY_CAP = 4096
 MIB = 1024 * 1024
 AX_SNAPSHOT_BYTES = 1024 * 1024
 MAX_AX_ACTIONS = 16
+# After a scroll, WebKitGTK updates a text leaf's SHOWING state within this bound.
+SHELL_SETTLE_SECONDS = 2
 # WebKitGTK gives nearly every web node one unnamed action (measured in the real
 # GDM session, diagnostic run 41248905032: the focused route heading and the
 # navigation link were both "actionable"). Only these named actions activate a
@@ -51,10 +53,9 @@ QUIT_MENU = ("File", "menu")
 QUIT_ITEM = ("Quit", "menu item")
 MENU_SECONDS = 3
 # The pre-chord focus record stays small enough to name in a 512-character
-# failure message; it is a diagnosis, never a gate.
+# failure message. Its focus content is a diagnosis, never a gate; only its
+# end-of-poll liveness proof for this exact app lets one Ctrl+Q close count.
 FOCUS_SECONDS = 2
-# After a scroll, WebKitGTK updates a text leaf's SHOWING state within this bound.
-SHELL_SETTLE_SECONDS = 2
 FOCUS_ROWS = 8
 FOCUS_TEXT_CAP = 128
 FOCUS_MESSAGE_ROWS = 4
@@ -336,6 +337,10 @@ def port_excluded(port: int) -> bool:
                 return True
             raise
     return False
+
+
+class MenuInvariantError(ValueError):
+    """Two File menus, or two Quit items under File: structural, never retried."""
 
 
 class OffscreenTextError(ValueError):
@@ -803,17 +808,15 @@ class Controller:
         self,
     ) -> tuple[list[Accessible], dict[str, Any], dict[str, Any] | None]:
         rows, objects = self.tree()
-        menus = [
-            row
-            for row in rows
-            if (row["name"], row["role"]) == QUIT_MENU and row["actions"]
-        ]
-        if len(menus) != 1:
+        # The same activating-action rule as every other control: an unnamed
+        # action never makes a File menu or Quit item.
+        menus = controls(rows, *QUIT_MENU)
+        if len(menus) > 1:
+            raise MenuInvariantError("One actionable native File menu required")
+        if not menus:
             raise ValueError("One actionable native File menu required")
         items = []
-        for row in rows:
-            if (row["name"], row["role"]) != QUIT_ITEM or not row["actions"]:
-                continue
+        for row in controls(rows, *QUIT_ITEM):
             parent = row["parent"]
             for _ in range(len(rows)):
                 if parent is None or parent == menus[0]["id"]:
@@ -822,7 +825,9 @@ class Controller:
             if parent == menus[0]["id"]:
                 items.append(row)
         if len(items) > 1:
-            raise ValueError("One native Quit item under the File menu required")
+            raise MenuInvariantError(
+                "One native Quit item under the File menu required"
+            )
         return objects, menus[0], items[0] if items else None
 
     def quit_menu(self) -> dict[str, Any]:
@@ -837,6 +842,7 @@ class Controller:
         deadline = min(self.work_deadline, time.monotonic() + MENU_SECONDS)
         item: dict[str, Any] | None = None
         showing = False
+        last = ""
         while True:
             try:
                 objects, _menu, item = self.menu_rows()
@@ -845,14 +851,19 @@ class Controller:
                     showing = state.contains(
                         self.atspi.StateType.SHOWING
                     ) and state.contains(self.atspi.StateType.VISIBLE)
+            except MenuInvariantError:
+                # A second File menu or Quit item, even after one was seen,
+                # refuses at once: an earlier observation never authorizes it.
+                raise
             except Exception as error:
                 if not self.transient(error):
                     raise
+                last = "; last: " + type(error).__name__ + ": " + str(error)[:120]
             if showing or time.monotonic() >= deadline:
                 break
             time.sleep(0.1)
         if item is None:
-            raise ValueError("Native File menu exposed no actionable Quit item")
+            raise ValueError("Native File menu exposed no actionable Quit item" + last)
         # GTK activates a menu item it has not mapped; whether the menu was
         # observed open is recorded, never assumed.
         try:
@@ -860,6 +871,7 @@ class Controller:
         except self.native_error as error:
             # The quitting app may drop its AT-SPI reply. Only the close
             # observation below decides, and the missing reply is recorded.
+            # A refused action (do_action False) is a ValueError and fails.
             activated = "NO_REPLY_" + type(error).__name__
         return {
             "menu": QUIT_MENU[0],
@@ -873,27 +885,37 @@ class Controller:
     def focus_before_chord(self) -> dict[str, Any]:
         """Window and keyboard focus just before the host sends Ctrl+Q.
 
-        The relaunched app must be alive, or the close after the chord proves
-        nothing. Focus itself is an observation, not a gate: the close decides,
-        and a failed close names what this recorded. The Windows accelerator
-        phase records its keyboard focus owner the same way.
+        The relaunched app must be the same live process at both ends of the
+        poll, or the close after the chord proves nothing; a death inside it
+        only surfaces as a retried transient. Only then is the record kept for
+        quit_accelerator. Focus itself is an observation, not a gate: the close
+        decides, and a failed close names what this recorded. The Windows
+        accelerator phase records its keyboard focus owner the same way.
         """
-        if self.app is None or not same_process(self.app):
-            raise ValueError("Relaunched application must be alive before Ctrl+Q")
         self.accelerator_focus = None
+        app = self.app
+        if app is None or not same_process(app):
+            raise ValueError("Relaunched application must be alive before Ctrl+Q")
         deadline = min(self.work_deadline, time.monotonic() + FOCUS_SECONDS)
-        last: str | None = None
+        record: dict[str, Any] = {
+            "focus_observed": False,
+            "app": f"{app['pid']}:{app['starttime_ticks']}",
+            "error_type": None,
+        }
         while time.monotonic() < deadline:
             try:
-                self.accelerator_focus = self.window_focus()
+                record = self.window_focus()
             except Exception as error:
                 if not self.transient(error):
                     raise
-                last = type(error).__name__
+                record["error_type"] = type(error).__name__
             else:
-                return self.accelerator_focus
+                break
             time.sleep(0.1)
-        return {"focus_observed": False, "error_type": last}
+        if not same_process(app):
+            raise ValueError("Relaunched application died during its focus poll")
+        self.accelerator_focus = record
+        return record
 
     def window_focus(self) -> dict[str, Any]:
         if self.app is None:
@@ -933,18 +955,15 @@ class Controller:
             "focused": focused[:FOCUS_ROWS],
         }
 
-    def focus_summary(self) -> str:
-        record = self.accelerator_focus
-        if (
-            record is None
-            or self.app is None
-            or record["app"] != f"{self.app['pid']}:{self.app['starttime_ticks']}"
-        ):
-            return "focus before Ctrl+Q was not recorded for this app"
+    def focus_summary(self, record: dict[str, Any]) -> str:
+        if not record["focus_observed"]:
+            error = str(record["error_type"])[:FOCUS_MESSAGE_TEXT]
+            return "focus before Ctrl+Q was not observed: " + error
         focused = ", ".join(
             row["role"][:FOCUS_MESSAGE_TEXT]
             + " "
-            + repr(row["name"][:FOCUS_MESSAGE_TEXT])
+            # Cap after escaping too: repr() expands a control character to 10.
+            + repr(row["name"][:FOCUS_MESSAGE_TEXT])[: FOCUS_MESSAGE_TEXT + 2]
             for row in record["focused"][:FOCUS_MESSAGE_ROWS]
         )
         return (
@@ -957,11 +976,24 @@ class Controller:
         )
 
     def quit_accelerator(self) -> dict[str, Any]:
-        # The host sent Ctrl+Q through QMP right after accelerator_focus.
+        # The host sent Ctrl+Q through QMP right after accelerator_focus. Only
+        # its record, kept once it proved this exact app still alive, lets the
+        # close count; each record answers one chord.
+        record, self.accelerator_focus = self.accelerator_focus, None
+        if (
+            record is None
+            or self.app is None
+            or record["app"] != f"{self.app['pid']}:{self.app['starttime_ticks']}"
+        ):
+            raise ValueError(
+                "Ctrl+Q refused: focus before Ctrl+Q was not recorded for this app"
+            )
         try:
             closure = self.observe_close()
         except TimeoutError as error:
-            raise TimeoutError(str(error) + "; " + self.focus_summary()) from error
+            raise TimeoutError(
+                str(error) + "; " + self.focus_summary(record)
+            ) from error
         return {"accelerator": "Ctrl+Q", "closure": closure}
 
     def force_parent(self) -> dict[str, Any]:
@@ -1170,12 +1202,12 @@ class Controller:
         if component is None or not component.scroll_to(self.atspi.ScrollType.TOP_EDGE):
             raise ValueError("Actual version labels could not scroll into view")
         deadline = min(self.work_deadline, time.monotonic() + SHELL_SETTLE_SECONDS)
-        while True:
+        anchors: list[dict[str, Any]] | None = None
+        while anchors is None:
             self.app_accessible().clear_cache()
             try:
                 self.shell_text("Tauri version", versions=True)
                 anchors = [self.shell_text(label, versions=True) for label in ANCHORS]
-                break
             except OffscreenTextError:
                 if time.monotonic() >= deadline:
                     raise
