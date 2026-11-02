@@ -110,13 +110,15 @@ function MachineScalar($Value,[string]$Name) {
     return $property.Value
 }
 function ProtectedReceipt([string]$Path) {
-    # One bounded protected receipt, or $null while it is absent, partial or unreadable.
-    # A file removed between two reads (an attestor clearing an earlier run's error)
-    # is 'not yet', like an absent one.
-    $item=Get-Item -LiteralPath $Path -ErrorAction SilentlyContinue
-    if($null -eq $item) { return $null }
-    if($item.Length -gt 64KB) { throw 'Bounded protected machine receipt required' }
-    try { return (Get-Content -LiteralPath $Path -Raw|ConvertFrom-Json) } catch { return $null }
+    # One bounded protected receipt, or $null while it is absent, partial, still being
+    # written or unreadable. It is read through one shared handle, never by path, so a
+    # poll never blocks an attestor removing an earlier run's file (KI-0175).
+    try { $stream=[IO.File]::Open($Path,[IO.FileMode]::Open,[IO.FileAccess]::Read,([IO.FileShare]::ReadWrite -bor [IO.FileShare]::Delete)) } catch { return $null }
+    $bytes=New-Object byte[] (64KB+1)
+    $count=0
+    try { do { $read=$stream.Read($bytes,$count,$bytes.Length-$count); $count+=$read } while($read -gt 0 -and $count -lt $bytes.Length) } finally { $stream.Dispose() }
+    if($count -gt 64KB) { throw 'Bounded protected machine receipt required' }
+    try { return ([Text.Encoding]::UTF8.GetString($bytes,0,$count).TrimStart([char]0xFEFF)|ConvertFrom-Json) } catch { return $null }
 }
 function MachineDiffers($Record,[string]$Schema,[string]$Boot) {
     # The members that bind a protected record to this run's nonce and this boot.
@@ -341,10 +343,11 @@ try {
     $machineErrorPath='C:\ProgramData\JappHarness\machine-error.json'
     $machineSchema='japp-win11-protected-machine-v1'
     # A completed attestor run took about 10 s (KI-0175 round 35), but a first-logon run
-    # can be far slower. 150 s tolerates that variance and leaves half of the guest's
-    # 300 s work deadline for the phases that follow; the attestor task's own limit is
-    # 10 minutes.
-    $machineLimit=$clock.Elapsed.TotalSeconds+150
+    # can be far slower. The attestor task starts at the same logon as this guest, so
+    # the wait ends at the guest clock's 150 s mark (after at least one poll), and the
+    # rest of the 300 s work deadline is kept for the phases that follow. The attestor
+    # task's own limit is 10 minutes.
+    $machineLimit=150
     $machine=$null
     # A parsable receipt bound to this nonce and boot ends the wait, and so does an
     # attestor error bound to this nonce and boot (which then fails below). A partial

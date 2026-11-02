@@ -33,12 +33,13 @@ $attestor = @'
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
 $harness='C:\ProgramData\JappHarness'
-# The task runs at every logon. A cause or trace left by an earlier logon (another
-# account, another boot) is never this run's: both are removed before this run starts.
-$errorPath=Join-Path $harness 'machine-error.json'
-if(Test-Path -LiteralPath $errorPath) { Remove-Item -LiteralPath $errorPath -Force }
+# The task runs at every logon. A trace or cause left by an earlier logon (another
+# account, another boot) is never this run's: both are removed before this run starts,
+# the trace first, so a run that stops here never leaves an earlier run's trace.
 $tracePath=Join-Path $harness 'attestor-trace.txt'
 if(Test-Path -LiteralPath $tracePath) { Remove-Item -LiteralPath $tracePath -Force }
+$errorPath=Join-Path $harness 'machine-error.json'
+if(Test-Path -LiteralPath $errorPath) { Remove-Item -LiteralPath $errorPath -Force }
 # One trace line per call: the UTC time and a fixed step name, never a value read.
 # The append opens the trace with shared read access, so the guest's shared read never collides with it.
 function TraceStep([string]$Name) { try { [IO.File]::AppendAllText($tracePath,([DateTime]::UtcNow.ToString('o')+' '+$Name+"`r`n"),[Text.Encoding]::ASCII) } catch { } }

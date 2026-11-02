@@ -101,7 +101,20 @@ Row 'receipt whole is parsed' ($null -ne $value -and $value.schema -ceq 'x') ''
 $refused=$false
 try { [void](ProtectedReceipt $probe) } catch { $refused=$_.Exception.Message -ceq 'Bounded protected machine receipt required' }
 Row 'receipt over 64 KB is refused' $refused ''
-Remove-Item -LiteralPath $probe
+# A Set-Content writer (it shares only write access) is still writing: 'not yet', never a throw.
+'{"schema":"x"}'|Set-Content -LiteralPath $probe -Encoding UTF8
+$writer=[IO.File]::Open($probe,[IO.FileMode]::Open,[IO.FileAccess]::Write,[IO.FileShare]::Write)
+try { $value=ProtectedReceipt $probe; $threw=$false } catch { $threw=$true } finally { $writer.Dispose() }
+Row 'receipt held by a writer is null' ((-not $threw) -and $null -eq $value) ''
+# The guest's read handle never blocks an attestor removing the file (KI-0175 review).
+$reader=[IO.File]::Open($probe,[IO.FileMode]::Open,[IO.FileAccess]::Read,([IO.FileShare]::ReadWrite -bor [IO.FileShare]::Delete))
+try { Remove-Item -LiteralPath $probe -Force; $removed=$true } catch { $removed=$false } finally { $reader.Dispose() }
+Row 'removal succeeds while the receipt reader holds the file' ($removed -and -not (Test-Path -LiteralPath $probe)) ''
+Row 'removed receipt is null' ($null -eq (ProtectedReceipt $probe)) ''
+# A receipt written by the attestor's own Set-Content -Encoding UTF8 (with a BOM).
+$bom=[IO.File]::ReadAllBytes((Join-Path $harness 'machine-error.json'))
+$parsed=ProtectedReceipt (Join-Path $harness 'machine-error.json')
+Row 'attestor-written receipt with BOM parses' ($bom[0] -eq 0xEF -and $null -ne $parsed -and $parsed.schema -ceq 'japp-win11-protected-machine-error-v1') ('first byte='+$bom[0])
 
 # The guest's trace retention block, run from the guest's own source text.
 $guestText=[IO.File]::ReadAllText($guestPath)
@@ -125,6 +138,20 @@ Remove-Item -LiteralPath $tracePath
 $result=Retain 'absent'
 Row 'retention without a trace writes nothing' ($result -ceq 'ok' -and @(Get-ChildItem -LiteralPath (Join-Path $Out 'proof-absent')).Count -eq 0) $result
 
+# Removal order: an earlier error held open without delete sharing (the old Get-Content
+# poll) stops the run before its try; the earlier trace must already be gone.
+'stale-trace-line'|Set-Content -LiteralPath (Join-Path $harness 'attestor-trace.txt') -Encoding ASCII
+$blocker=[IO.File]::Open((Join-Path $harness 'machine-error.json'),[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::ReadWrite)
+try { $run=RunAttestor 'attestor-run3' } finally { $blocker.Dispose() }
+Row 'a run stopped on the error removal leaves no earlier trace' ($run[0] -ne 0 -and -not (Test-Path -LiteralPath (Join-Path $harness 'attestor-trace.txt'))) ('exit='+$run[0])
+# The same earlier error held by the guest's own receipt reader no longer stops the run.
+$holder=[IO.File]::Open((Join-Path $harness 'machine-error.json'),[IO.FileMode]::Open,[IO.FileAccess]::Read,([IO.FileShare]::ReadWrite -bor [IO.FileShare]::Delete))
+try { $run=RunAttestor 'attestor-run4' } finally { $holder.Dispose() }
+$trace4=if(Test-Path -LiteralPath (Join-Path $harness 'attestor-trace.txt')) { [IO.File]::ReadAllText((Join-Path $harness 'attestor-trace.txt')) } else { '' }
+$names4=@(@($trace4 -split "`r`n" | Where-Object { $_ -ne '' })|ForEach-Object { $_.Substring($_.IndexOf(' ')+1) })
+$err4=Get-Content -LiteralPath (Join-Path $harness 'machine-error.json') -Raw|ConvertFrom-Json
+Row 'a run with its earlier error held by the guest reader completes its own receipt' (($names4 -join '|') -ceq 'start|configuration|operating-system|interactive-user|caught at interactive-user' -and $err4.nonce -ceq $nonce -and $err4.step -ceq 'interactive-user') ('exit='+$run[0]+' names='+($names4 -join '|'))
+
 $failed=@($rows|Where-Object { -not $_.pass })
-[ordered]@{schema='diag36-attestor-primitives';host='hosted Windows Server runner, Windows PowerShell 5.1, administrator not SYSTEM, not Windows 11';rows=$rows;failed=$failed.Count}|ConvertTo-Json -Depth 5|Set-Content -LiteralPath (Join-Path $Out 'attestor-primitives.json') -Encoding UTF8
+[ordered]@{schema='diag37-attestor-primitives';host='hosted Windows Server runner, Windows PowerShell 5.1, administrator not SYSTEM, not Windows 11';rows=$rows;failed=$failed.Count}|ConvertTo-Json -Depth 5|Set-Content -LiteralPath (Join-Path $Out 'attestor-primitives.json') -Encoding UTF8
 if($failed.Count -ne 0) { exit 1 }

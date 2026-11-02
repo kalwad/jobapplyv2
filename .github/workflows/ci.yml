@@ -1,7 +1,8 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. KI-0175 round 36: Windows
+# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. KI-0175 round 37: Windows
 # PowerShell 5.1 parse of the exact candidate bootstrap, guest and attestor body,
 # then the exact attestor body and the guest's receipt and trace-retention code
-# run against real files on a hosted Windows Server runner (not Windows 11).
+# run against real files on a hosted Windows Server runner (not Windows 11), after
+# the review corrections (shared receipt reader, trace removed first).
 name: ci
 on:
   workflow_dispatch:
@@ -27,6 +28,6 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag36-attestor-primitives
+          name: diag37-attestor-primitives
           path: ${{ runner.temp }}/out
           retention-days: 7
