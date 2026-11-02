@@ -1,0 +1,37 @@
+{
+  "scope": "Exact committed bytes: the files the release receipt pins (bound/), the review decision record, the full review workflow output, and GitHub API metadata",
+  "files": {
+    "README.md": {
+      "bytes": 2988,
+      "sha256": "8579491181bebdbd05ff778bfdd21b08f1b7c040bb202104a99814d52fe228ac"
+    },
+    "bound/windows11/guest-driver.json": {
+      "bytes": 487,
+      "sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+    },
+    "bound/windows11/host-tools-lock.json": {
+      "bytes": 145798,
+      "sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06"
+    },
+    "bound/windows11/media-lock.json": {
+      "bytes": 1159,
+      "sha256": "d1aa8e327b90e292cb309ba1dc7ba448ba7981f2b4fdbd2829c6c083ad804533"
+    },
+    "bound/windows11/reviewed-inputs.json": {
+      "bytes": 75185,
+      "sha256": "ce73edddbfdb0f8fb46e9adedf25aa5c31f1b450a6757ac14928bfe07e2b2a2e"
+    },
+    "review-decision.json": {
+      "bytes": 1557,
+      "sha256": "3cbd8f3790cf2d04253ae6602a9450a73d022a20de6b999d7ec33f5e281d79e6"
+    },
+    "review-workflow-result.json": {
+      "bytes": 117369,
+      "sha256": "b1540a62b6002c43fd0b33396698047182e476e411d00357773f9b8646a591f9"
+    },
+    "run-metadata.json": {
+      "bytes": 5098,
+      "sha256": "1262b52b955ad8d4500bd25f6cc521e3f609e39c5bc8839dc427ca8888d2e5e8"
+    }
+  }
+}

@@ -58,6 +58,28 @@ Current scoped correction supersedes the pending source/focus statements: all te
 
 The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
 
+### KI-0174 — Prepare-time gpgv accepts any key in the runner archive keyring
+
+- Severity: LOW
+- State: OPEN
+- Discovered: independent reviews of the 10f247b and a03aadf native candidates, 2026-11-02UTC.
+- Affects: M03-W07/M03-W08 download-only preparation (scripts/linux_gnome/ubuntu_gnome_signed_indexes.py retain_releases, used by both candidates).
+- Description: retain_releases accepts a gpgv exit status 0 without pinning the signer (no `--status-fd` VALIDSIG check). The copied archive keyring holds three Canonical keys: Archive 2012, CD Image 2012 and Archive 2018. Independent pure-Python checks in both reviews found every retained InRelease signed only by the 2018 archive key (F6ECB376…C93C). The campaigns rely on the bound locks' per-file SHA-256 pins, not on gpgv, so this only narrows the defence-in-depth at preparation time.
+- Reproduction: read retain_releases at a03aadf; the reviews' outputs are in docs/evidence/m03-native-candidates-10f247b-review and docs/evidence/m03-native-candidates-a03aadf-review.
+- Workaround: none needed; each reviewed candidate's signatures were independently verified.
+- Resolution + evidence link: open. Pin VALIDSIG to the 2018 archive fingerprint and record the signer in the lock, as prepare_image already pins the UEC image key.
+
+### KI-0173 — The pinned Windows 11 Enterprise Evaluation guest shows "Windows License is expired"
+
+- Severity: LOW
+- State: OPEN
+- Discovered: diagnostic run41380947763 (Setup rounds), raised by the a03aadf candidate review, 2026-11-02UTC.
+- Affects: M03-W07 Windows 11 VM campaign guest state; OD-038 (evaluation licence acceptance).
+- Description: about 15 minutes after an unattended install of the pinned ISO (build 26300.9457), the desktop watermark read "Windows 11 Enterprise Evaluation / Windows License is expired". The cause is unexplained: the VM is offline (`-nic none`), but that being the cause is a guess. The campaign's attestation does not depend on activation state; it checks caption, build and update revision. The run would fail closed if the VM shut down early. Any M03-W07 evidence must state this guest licensing state.
+- Reproduction: diagnostic run41380947763, variant orderseq, frame 45 (docs/evidence/m03-native-runtime-diagnostics/windows-setup-rounds).
+- Workaround: none needed for the scoped campaign.
+- Resolution + evidence link: open; the owner should know the evaluation guest runs in this state under OD-038.
+
 ### KI-0172 — Hosted Windows verify job runs within minutes of its 60-minute limit
 
 - Severity: MEDIUM

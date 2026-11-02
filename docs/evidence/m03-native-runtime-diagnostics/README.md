@@ -224,7 +224,7 @@ So ModifyPartition `Order` must number the modifications contiguously; it is not
 
 These are diagnostics on hosted build runners, not campaign evidence:
 
-- No Windows 11 unattended install, guest bootstrap, attestation or VM lifecycle ran.
+- Windows 11 Setup rounds 31–32 ran the unattended install with a no-op bootstrap. No guest bootstrap, attestation or VM lifecycle ran.
 - The Windows rounds ran only the sliced guest phases listed above.
 - No reviewed request released either campaign.
 - The GNOME rounds bypassed request authorization (the authorize job); the bundle audit and the reviewed, simulate-first host install of ubuntu_gnome_host.py (host tools came from the workflow's own apt-get line); prepare_inputs, which checks the host-tool lock, the runner image version, the native tool hashes, the resource preflight, the package export and keyring pins and the source binding; and final_source_guard.

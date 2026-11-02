@@ -1,0 +1,813 @@
+{
+ "workflow": "review-windows11-candidate-a03aadf",
+ "run_id": "wf_4950a2f8-86c",
+ "agent_count": 11,
+ "note": "The first launch was interrupted after two lenses; the run was resumed with the same script and run id, and completed agents replayed from cache.",
+ "result": {
+  "windows11": {
+   "verdict": {
+    "decision": "RELEASE_ONE_BOUND_CAMPAIGN",
+    "blocking_reasons": [],
+    "bound_hashes": {
+     "bundle_sha256": "ce73edddbfdb0f8fb46e9adedf25aa5c31f1b450a6757ac14928bfe07e2b2a2e",
+     "media_lock_sha256": "d1aa8e327b90e292cb309ba1dc7ba448ba7981f2b4fdbd2829c6c083ad804533",
+     "host_tools_sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06",
+     "guest_driver_sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+    },
+    "conditions_and_notes": [
+     "Scope: one bound campaign only, for candidate artifact 13119257518 (ZIP sha256 1940176ffa079820a8422bcac0d9e2aa223d8033584dd8005b0b9c9bb84b56d4) from prepare run 41395340494 at source S = a03aadf22ab83c9b39bc03f5387eaa0a702ebf27 (tree 7a96092b2b7738d3dce8f27b5ddb004b1a2ff81a). The original Windows package artifact is 13118745719 (ZIP sha256 109ddf4de5da696d38273b08552a2415656194c764bc415c76c64836df7d56ea, manifest.json b7697ee47f0e0df7e38d9185929da943f23362c7c61b632f774bec3e91f1298b) from merge d9412fd07ce7088ea2a5df5515230bd778567cd7. I recomputed all four bound hashes and both ZIP hashes myself with shasum. They equal every lens's values; no lens disagreed on any hash.",
+     "Release window: the campaign must finish before the earlier artifact expires. The original package artifact 13118745719 expires 2026-11-09T05:26:14Z; the candidate 13119257518 expires 2026-11-09T05:43:29Z. Both dates are from read-only gh api calls made by the lenses.",
+     "Environment gates fail closed but limit when the campaign can run. host-tools-lock pins runner_image_version 20261026.354.1, taken from the ImageVersion env value; the job-log banner showed 20261025.353.1. The live CPU must be AMD EPYC 7763 (AuthenticAMD, family 25, model 1). Two of the three 10f247b lifecycle runs were refused at the CPU gate before any VM started. A refusal costs nothing unsafe, but it may use up the window.",
+     "NON_BLOCKING (survived two verifier votes): the round-32 desktop frames of the same pinned Enterprise Evaluation ISO show 'Windows License is expired' about 15 minutes after a fresh install. It is recorded only as an observation in docs/evidence/m03-native-runtime-diagnostics/README.md:221. There is no KNOWN_ISSUES entry and no OD-038 note. The cause is unexplained; lack of online activation (-nic none) is an unverified guess. It cannot cause a false PASS: WORK_SECONDS is 3300, observe() fails closed if the VM exits early, and the caption, build and UBR attestation does not depend on activation state. Recommended with or before this release: file a KI or add an OD-038 note so the owner sees that the evaluation is running in an expired or unactivated state. The M03-W07 evidence must state this guest licensing state honestly.",
+     "Downgraded to NOTE by both verifiers: prepare-time gpgv in ubuntu_gnome_signed_indexes.retain_releases does not pin the signer (no VALIDSIG check). The copied keyring trusts the 2012 archive key, the 2012 CD image key and the 2018 archive key. Pure-Python checks by three independent reviewers show that each of the three InRelease signatures verifies only under F6ECB3762474EDA9D21B7022871920D1991BC93C (the 2018 archive key); that fingerprint comes from reviewer knowledge, not a file. The campaign relies on the bound lock's per-deb sha256 pins, not on gpgv. Recommended: file a KNOWN_ISSUES entry and pin VALIDSIG later; today it is recorded only in the 10f247b review README.",
+     "First real execution: the specialize RunSynchronous bootstrap, the JAPP-SEED label lookup and windows11_bootstrap.ps1 running as SYSTEM have never run in a Windows 11 VM. The round 31/32 probes used a no-op bootstrap, and the 10f247b campaign stopped in WinPE. A failure costs this campaign and fails closed at the deadline; it cannot produce a false PASS.",
+     "The KI-0171 fix (contiguous ModifyPartition Order 1,2) was confirmed. The generated XML differs from 10f247b's by exactly one byte, and it is byte-identical to the redacted round-32 orderseq structure, which reached the auto-logged-on desktop. Round 32 used unpinned runner-apt QEMU/OVMF/swtpm and one run per variant. That the pinned tools behave the same is inferred from the 10f247b campaign's identical WinPE disk view.",
+     "Host closure: byte-identical to the 10f247b-reviewed lock and already installed on a real runner. Of the 117 locked packages, 27 are newly installed and their maintainer scripts run as root (qemu-kvm.service, the swtpm AppArmor reload, the swtpm user/group). The other 90 come from the runner image and are covered only by the dpkg-query version check (plus the setfacl byte pin). wimtools/libwim15t64 (universe) and swtpm-tools are installed but never used. Signed indexes have no Valid-Until; the locked versions are the newest in the retained indexes.",
+     "The host runs mtools 'mcopy -s' on the 128 MiB guest-written result.img before member and size caps are checked. This is guest-controlled FAT parsed on the disposable runner; the VM has -nic none. Inferred from reading the code, not tested.",
+     "Guest controller: no off-host network use, credentials or exfiltration was found. There is a small, theoretical TOCTOU between the GetForegroundWindow check and SendInput in windows11_owned.cs. guest-source-check.json proves PowerShell 5.1 parsing and C# compilation on the hosted Windows runner (5.1.26100.x), not on the 26300 guest.",
+     "Answer-file hygiene notes: ProtectYourPC=1 is 'recommended', not the minimal value 3; this is harmless with -nic none. The bypass-guard test at scripts/tests/test_windows11_guest_driver.py:590 matches 'BYPASSNRO' case-sensitively; a case-insensitive scan found no bypass keys today. The RunSynchronous Path is 243 characters; the 259-character limit comes from reviewer knowledge. DiskID 0 as the AHCI system disk is measured, not guaranteed; a swap would fail closed. The limits bullet at docs/evidence/m03-native-runtime-diagnostics/README.md:227 is stale after round 32.",
+     "Media: the locked ISO sha256 bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38 (8,225,329,152 bytes) equals the single EN-US x64 Enterprise Eval digest on the retained Microsoft publisher page (KB 5130867) and windows11_inputs.MEDIA_SHA256. The ISO was not retained; the campaign must re-download it and match the digest before the seed or QEMU is created. Build 26300 / 26H2 is beyond reviewer knowledge and rests only on the retained page and the URL. OD-038 covers exactly this pinned image, with AcceptEula only for 'Windows 11 Enterprise Evaluation' and no product key.",
+     "Read-only confirmation by the final reviewer: git status --porcelain of /Users/tanishkalwad/jobapplyv2 is empty; a03aadf and its tree resolve as stated; git diff a03aadf HEAD over scripts and .github/workflows is empty. Lens notes about ImageVersion and the source binding rely on the executing lifecycle workflow being pinned to S's bytes by windows11_request.py PROTECTED."
+    ],
+    "summary": "I'm releasing exactly one bound VM campaign for the Windows 11 candidate (artifact 13119257518, source a03aadf).\n\n**Lenses:** all six ran to completion (win-bundle, win-media, win-host-tools, win-guest-driver, win-answer-file, win-preparation), and each returned CLEAR_WITH_NOTES. No BLOCKING finding survived.\n\n**Findings that survived adversarial checking:**\n1. **NON_BLOCKING:** the pinned Enterprise Evaluation guest showed \"Windows License is expired\" in round-32 screenshots. The only record is one line in an evidence README; there is no KNOWN_ISSUES entry and no note under OD-038, the owner's licence decision.\n2. **gpgv signer (verifiers lowered it to NOTE):** the prepare step's gpgv check accepts any key in the keyring rather than one pinned key. Pure-Python checks show all three Ubuntu index signatures come from the 2018 Ubuntu archive key only.\n\nBoth should be filed in KNOWN_ISSUES. Neither changes a bound input or can produce a false PASS.\n\n**Hashes:** I recomputed the four bound hashes myself and they match every lens:\n- bundle_sha256: ce73eddd…\n- media_lock_sha256: d1aa8e32…\n- host_tools_sha256: b6f70b31…\n- guest_driver_sha256: 1a31fd23…\n\nThe candidate ZIP hash (1940176f…) and the original package ZIP hash (109ddf4d…) also match.\n\n**Constraints on the campaign:**\n- It must finish before 2026-11-09T05:26:14Z, when the original package artifact expires.\n- It needs runner image 20261026.354.1 and an AMD EPYC 7763 CPU.\n- This will be the first real run of the SYSTEM bootstrap in a Windows 11 VM."
+   },
+   "lenses": [
+    {
+     "lens": "win-bundle",
+     "review_failed": false,
+     "verdict": "CLEAR_WITH_NOTES",
+     "checks": [
+      "Read windows11_vm.py, windows11_inputs.py and windows11_candidate.py at a03aadf via git show, plus windows_package.py, windows11_request.py (PROTECTED list and workflow-body binding), and the lifecycle and prepare workflows at S",
+      "Extracted S's scripts/windows11, scripts/linux_gnome, scripts/windows_package.py, .github/workflows and the artifact-layout test with git archive into review4-work/win11-bundle-integrity/S. Ran only that trusted copy, with -I -B and data paths passed as arguments.",
+      "sha256 of review4/win11.zip = 1940176f… and req4/win/artifact.zip = 109ddf4d…, cross-checked against the GitHub artifact digests via read-only gh api (artifacts 13119257518 and 13118745719)",
+      "Compared every member of the candidate ZIP with the unzipped tree byte for byte (1534 files, one top-level retained/)",
+      "Ran S's audit_bundle(inputs, sha256(reviewed-inputs.json)): PASS. Independently reimplemented it (member(), lstat regular-only, FILE_CAP, 2 GiB total, 6000 members, METADATA_CAP, exact dict equality).",
+      "Compared every member of the original artifact ZIP with inputs/original-native-artifact (279 files, all byte-identical). Checked manifest.json sha256 = b7697ee4…. Ran S's original_package with the d9412fd merge and 7a96092b tree: PASS.",
+      "Computed sha256 and size of all 3939 blobs in a03aadf's tree with read-only git cat-file and compared them to the package's source projection and to the candidate's source-before/after/finally",
+      "Unpacked windows-portable.zip with S's unpack() into a fresh work directory and ran S's windows_package.py inspect on it on Darwin arm64: PASS/INVENTORY_VERIFIED. Checked the required layout and the runtime manifest hash.",
+      "Checked the curator sha256 in the original manifest against S's scripts/native_package_retention.py, and checked the package job log (gh api job logs, read-only) for the 279-file upload and its digest",
+      "Checked that retention.json covers all 1533 retained files except itself, and that its inputs/* rows equal the reviewed-inputs rows",
+      "Checked guest-driver.json and guest-source-check.json against S's guest sources. Checked media-lock.json URL, sha and iso_retained flag, and publisher_digest on publisher.html. Checked host-tools-lock tool keys and each deb's size and sha.",
+      "KI-0146 trace: upload common-ancestor root, then ZIP top-level retained/, then download-artifact@9000827 with the artifact-ids path, then --bundle .../retained/inputs. Confirmed empirically by this prepare run's own original-artifact download layout and by the bundle audit passing in the 10f247b campaign (run 41371604274). Ran S's test_native_vm_artifact_layout.py: 3 passed.",
+      "KI-0147 trace: read the stage-only guard in windows_package.main and grepped the VM-path modules for Windows-only APIs. Reviewed all 15 command records of the 10f247b Linux campaign: inspector exit 0 with a PASS receipt and source sha 67d667d6…. Confirmed that windows_package.py, windows11_vm.py, windows11_inputs.py, windows11_candidate.py and both workflows are byte-identical between 10f247b and S.",
+      "Confirmed read-only behaviour: the repository's git status --porcelain is empty, and every scratch file is under review4-work/win11-bundle-integrity"
+     ],
+     "hashes": [
+      {
+       "file": "review4/win11/retained/inputs/reviewed-inputs.json (bundle_sha256)",
+       "sha256": "ce73edddbfdb0f8fb46e9adedf25aa5c31f1b450a6757ac14928bfe07e2b2a2e"
+      },
+      {
+       "file": "review4/win11/retained/inputs/media-lock.json (media_lock_sha256)",
+       "sha256": "d1aa8e327b90e292cb309ba1dc7ba448ba7981f2b4fdbd2829c6c083ad804533"
+      },
+      {
+       "file": "review4/win11/retained/inputs/host-tools-lock.json (host_tools_sha256)",
+       "sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06"
+      },
+      {
+       "file": "review4/win11/retained/inputs/guest-driver.json (guest_driver_sha256)",
+       "sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+      },
+      {
+       "file": "review4/win11/retained/inputs/original-native-artifact/manifest.json",
+       "sha256": "b7697ee47f0e0df7e38d9185929da943f23362c7c61b632f774bec3e91f1298b"
+      },
+      {
+       "file": "review4/win11/retained/inputs/original-native-artifact/packages/windows-portable.zip",
+       "sha256": "62e2186a7b15e674ee7c658e2cbdc375683facd446767c1ad507a99d76c034aa"
+      },
+      {
+       "file": "review4/win11.zip (candidate artifact 13119257518)",
+       "sha256": "1940176ffa079820a8422bcac0d9e2aa223d8033584dd8005b0b9c9bb84b56d4"
+      },
+      {
+       "file": "req4/win/artifact.zip (original package artifact 13118745719)",
+       "sha256": "109ddf4de5da696d38273b08552a2415656194c764bc415c76c64836df7d56ea"
+      },
+      {
+       "file": "a03aadf:scripts/windows_package.py (inspector; equals original portable-inspection source_sha256)",
+       "sha256": "67d667d6d98b598c1301d1b4e7453c53fb94659f4922286b1883326a2b237922"
+      },
+      {
+       "file": "a03aadf:scripts/native_package_retention.py (curator named in original manifest)",
+       "sha256": "8f36a9b94b550c4c7759b93096b3eead67cc17bbd34948415504b3bfa9f5d94d"
+      }
+     ],
+     "notes": [
+      {
+       "title": "Bundle passes S's exact audit_bundle; bundle_sha256 = ce73eddd…",
+       "severity": "NOTE",
+       "location": "review4/win11/retained/inputs (consumer: scripts/windows11/windows11_vm.py audit_bundle at a03aadf)",
+       "claim": "Every file under inputs/ is bound exactly by reviewed-inputs.json under the consumer's member rules and caps. There are no extra, missing or changed members.",
+       "evidence": "I imported audit_bundle from a git-archive copy of S in my own work directory and ran it with the recomputed pin; it returned PASS. An independent reimplementation agrees. 424 declared rows match the 424 files on disk excluding the manifest, and every row has exactly the keys {bytes,sha256} with int bytes. member() accepts every name. There are no symlinks or special nodes. The largest file is 113,407,488 B, under the 512 MiB FILE_CAP. The total is 691,159,318 B, under 2 GiB. The row count is within 1..6000. reviewed-inputs.json is 75,185 B, under METADATA_CAP. Its subject is source_sha a03aadf…, package_build_sha d9412fd…, source_tree_sha 7a96092b… and package_manifest_sha256 b7697ee4…. win11.zip has sha256 1940176f…, which matches the server digest of artifact 13119257518 from run 41395340494 (attempt 1, success, head e5aa210). Its 1534 file members, which all sit under a single top-level retained/ folder, equal the unzipped tree byte for byte."
+      },
+      {
+       "title": "original-native-artifact is byte-identical to artifact.zip and passes S's original_package",
+       "severity": "NOTE",
+       "location": "review4/win11/retained/inputs/original-native-artifact vs req4/win/artifact.zip",
+       "claim": "Every member of the original Windows package artifact is reproduced exactly. The consumer's full original_package join passes, and packages/windows-portable.zip is the curated package.",
+       "evidence": "artifact.zip has sha256 109ddf4d…, which matches the server digest of artifact 13118745719. That artifact was created at 05:26:28Z by the attempt-2 'native development package (windows-2025)' job of run 41384168159, and the job log reports '279 files uploaded' and the same digest. The ZIP's 279 file members equal the 279 retained files byte for byte. manifest.json has sha256 b7697ee47f0e0df7e38d9185929da943f23362c7c61b632f774bec3e91f1298b, and its 278 rows plus manifest.json equal the retained set. S's original_package(root, b7697ee4…, d9412fd…, 7a96092b…) returned PASS. The portable ZIP has sha256 62e2186a…, 22,121,956 B, matching its manifest row. The manifest names curator scripts/native_package_retention.py with sha256 8f36a9b9…, which equals the file at S. I unpacked the portable ZIP with S's unpack(), as seed() does: 64 members, all four required layout paths present. S's windows_package.py inspect then returned PASS/INVENTORY_VERIFIED. build-manifest runtime_manifest_sha256 757829ea… equals pipeline/closure.json. The package's 3939-file source projection (head d9412fd, tree 7a96092b) equals the sha256 and size of every blob in a03aadf's tree, which is what source_binding will check on the runner. The candidate's source-before, source-after and source-finally files are equal and match that projection."
+      },
+      {
+       "title": "retention.json covers every retained file",
+       "severity": "NOTE",
+       "location": "review4/win11/retained/retention.json",
+       "claim": "retention.json lists every retained file except itself, with matching sizes and hashes. retain() writes it after selection, so it cannot list itself.",
+       "evidence": "1533 listed rows equal the 1533 files on disk excluding retention.json (exact dict equality on bytes and sha256). The inputs/* rows equal reviewed-inputs.json rows plus the manifest row {75185, ce73eddd…}. There is no retention-failure.json. The private_ISO_disks_passwords_excluded flag is true, and the closure status is DOWNLOAD_ONLY_UNREVIEWED_CANDIDATE_COMPLETE."
+      },
+      {
+       "title": "KI-0146 regression: --bundle path matches where the artifact's inputs/ will land",
+       "severity": "NOTE",
+       "location": ".github/workflows/windows11-native-lifecycle.yml (S) lines 128-152; windows11-native-prepare.yml lines 168-175",
+       "claim": "The lifecycle passes --bundle \"$RUNNER_TEMP/japp-reviewed-win11-inputs/retained/inputs\". After the download step, that is exactly where this artifact's inputs/ will be.",
+       "evidence": "The prepare upload lists two paths, .../japp-unreviewed-win11-candidate/retained/ and .../retention-failure.json, so the artifact root is their common parent. The ZIP's only top-level entry is retained/, and inputs sit at retained/inputs/. The lifecycle downloads with download-artifact@9000827 (artifact-ids, path ${{ runner.temp }}/japp-reviewed-win11-inputs), so inputs land at <path>/retained/inputs, which is the --bundle path. Two things show that this action pin extracts a single artifact-ids download directly into path, with no subfolder named after the artifact. First, this same prepare run used the identical pin and input shape for the original artifact, and the copied tree has manifest.json at its root rather than under native-development-windows-2025-…/. Second, the 10f247b campaign (run 41371604274), whose lifecycle and prepare workflow bytes equal S's, passed audit_bundle at this path; host-tools.json and the later steps exist in its evidence. S's scripts/tests/test_native_vm_artifact_layout.py passed (3 tests) against the S workflows. windows11_request.py PROTECTED pins the executing lifecycle workflow to S's bytes, so a later request commit cannot change this path."
+      },
+      {
+       "title": "KI-0147 regression: every Linux-host step, including package inspection, is runnable on Linux",
+       "severity": "NOTE",
+       "location": "scripts/windows11/windows11_vm.py seed(); scripts/windows_package.py main() at S",
+       "claim": "windows_package.py applies its Windows-x64 host guard to 'stage' only, so 'inspect' runs on the Linux VM host. The other host steps are Linux tools, and all of them already ran on an ubuntu-24.04 runner.",
+       "evidence": "At S, main() checks platform.system() only inside `if args.operation == \"stage\"`. inspect reads bytes using stdlib only, and getattr(st_file_attributes, 0) defaults safely on Linux. The VM-path modules have no winreg, msvcrt or windll use; the only platform checks are require_linux guards. I replayed the exact seed() sequence (S unpack, then S windows_package.py inspect) on Darwin arm64, a non-Windows host, and it returned PASS. That is inferred evidence, not Linux. The hosted Linux proof is the 10f247b campaign run 41371604274. Its command-008 ran `/usr/bin/python3 -B …/scripts/windows_package.py inspect` with exit 0 and a PASS receipt, using source sha 67d667d6…, identical to S. In the same run, git, sudo apt-get (simulate and install), dpkg-query, setfacl, xorriso, qemu-img and mformat all exited 0, and swtpm and QEMU started. The only non-zero command was the failure-path mcopy (exit 1, nothing on the result disk). windows_package.py, windows11_vm.py, windows11_inputs.py, windows11_candidate.py and both workflows are byte-identical between 10f247b and S. The 10f247b→S diff under scripts/.github touches only windows11_deployment.py, a test, the test inventory and the request/release JSON."
+      },
+      {
+       "title": "Two bound locks are byte-identical to the previously released values; the runner image is pinned",
+       "severity": "NOTE",
+       "location": "inputs/host-tools-lock.json, inputs/guest-driver.json; windows11_vm.py install_tools",
+       "claim": "host_tools_sha256 b6f70b31… and guest_driver_sha256 1a31fd23… equal the 10f247b release receipt. The lock pins runner_image_version 20261026.354.1. A rolled hosted image or an unreviewed CPU (anything other than AMD EPYC 7763) refuses the campaign safely. This affects whether a campaign can run, not the bundle's integrity.",
+       "evidence": ".github/windows11/releases/vm-campaign.json at S binds host_tools_sha256 b6f70b318c55… and guest_driver_sha256 1a31fd2312c9…, the same values as this candidate. The guest-driver files and the guest-source-check files equal S's windows11/*.ps1 and *.cs bytes. The host-debs folder equals the 117 lock filenames, each matching its size and sha256, and the tool keys equal S's TOOLS plus FIRMWARE. In the media lock, the URL and sha equal S's MEDIA and MEDIA_SHA256 (bc3f2408…), the size is 8,225,329,152 B, iso_retained_in_artifact is false, and S's publisher_digest(publisher.html) returns bc3f2408…. Two of the three 10f247b lifecycle runs refused at the CPU gate before any VM started."
+      }
+     ],
+     "verified": []
+    },
+    {
+     "lens": "win-media",
+     "review_failed": false,
+     "verdict": "CLEAR_WITH_NOTES",
+     "checks": [
+      "Computed sha256 of inputs/reviewed-inputs.json, inputs/media-lock.json, inputs/host-tools-lock.json, inputs/guest-driver.json and inputs/publisher.html with shasum -a 256",
+      "Read inputs/media-lock.json and media-download.json in full: URL, bytes, sha256, authenticated_account_used=false, iso_retained_in_artifact=false, recorded host CPU",
+      "Measured publisher.html size (wc -c = 105787) and compared it and its sha256 with lock.publisher.bytes and lock.publisher.sha256",
+      "Read the publisher.html head metadata (title, canonical URL, KB id, dates) and the article body (lines ~600-680), and extracted every 64-hex digest (11 values, one per language)",
+      "Confirmed the EN-US x64 Enterprise Eval DVD9 digest on line 640 equals the locked ISO sha256 case-insensitively, and that no other digest matches",
+      "Confirmed git rev-parse a03aadf and its tree equal S and 7a96092b; git diff a03aadf..HEAD over scripts/ and .github/ changes only .github/windows11/requests/download-only.json",
+      "Read windows11_inputs.py at a03aadf: MEDIA, MEDIA_SHA256, PUBLISHER, MEDIA_CAP, publisher_digest regex, official_url, host_cpu, SUPPORTED_HOST_CPUS, host_cpu_support",
+      "Read windows11_candidate.py at a03aadf: the download() no-redirect, exact-URL, cap and sha logic, and the prepare-flow writing of media-lock.json",
+      "Read windows11_vm.py main() at a03aadf: media-lock pin check, MEDIA/MEDIA_SHA256 identity check, live CPU fail-fast, ISO re-download plus sha256/bytes check before seed/QEMU; ISO attached read-only in qemu_argv",
+      "Read windows11_deployment.py at a03aadf: image-name restriction, AcceptEula/HideEULAPage, no ProductKey (grep); confirmed windows11_vm.py passes the literal 'Windows 11 Enterprise Evaluation'",
+      "Read the OD-038 row in docs/DECISIONS.md (ACCEPTED; scope = the pinned MEDIA/MEDIA_SHA256 in disposable CI VMs)",
+      "Grepped reviewed-inputs.json and retention.json for the media-lock sha256 (each contains it once; closure.json does not) and checked that windows11-native-lifecycle.yml passes --media-lock-sha256",
+      "Not performed: no network fetch of Microsoft pages or processor lists; no download or hashing of the ISO itself; no audit of qemu -nic or -cpu flags beyond what is noted"
+     ],
+     "hashes": [
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4/win11/retained/inputs/media-lock.json",
+       "sha256": "d1aa8e327b90e292cb309ba1dc7ba448ba7981f2b4fdbd2829c6c083ad804533"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4/win11/retained/inputs/reviewed-inputs.json",
+       "sha256": "ce73edddbfdb0f8fb46e9adedf25aa5c31f1b450a6757ac14928bfe07e2b2a2e"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4/win11/retained/inputs/host-tools-lock.json",
+       "sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4/win11/retained/inputs/guest-driver.json",
+       "sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4/win11/retained/inputs/publisher.html",
+       "sha256": "4dd74ac979678c7cf845bb1e52899903f7831879e1715511c1f0b3584a7bb9f5"
+      },
+      {
+       "file": "Windows 11 ISO (locked value, not hashed locally; ISO not retained)",
+       "sha256": "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38"
+      }
+     ],
+     "notes": [
+      {
+       "title": "Locked ISO digest matches the Microsoft publisher page's EN-US x64 Enterprise Eval entry",
+       "severity": "NOTE",
+       "location": "inputs/media-lock.json media.sha256; inputs/publisher.html line 640",
+       "claim": "The locked ISO SHA-256 is the digest Microsoft publishes for this exact edition, language and architecture. It is the only match in the page.",
+       "evidence": "media-lock.json and media-download.json both record sha256 bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38 and 8225329152 bytes. publisher.html line 640 reads: \"Enterprise Eval x64 Eval EN-US DVD9 (SHA256)\" followed by <strong>BC3F24086EBADC94489066B5AD78089E2CF5C3491E90E790BB81A2B199C10E38</strong>. Searching the page for 64-hex values finds 11 digests, one per language (EN-US, EN-GB, DE-DE, ES-ES, FR-FR, IT-IT, JA-JP, KO-KR, PT-BR, ZH-CN, ZH-TW). Only the EN-US value equals the lock. This also equals windows11_inputs.MEDIA_SHA256 at a03aadf."
+      },
+      {
+       "title": "Publisher page identity, size and hash match the lock",
+       "severity": "NOTE",
+       "location": "inputs/media-lock.json publisher; inputs/publisher.html",
+       "claim": "publisher.html is the Microsoft support page named in the lock. Its recorded byte count and SHA-256 match the retained file.",
+       "evidence": "publisher.html: wc -c 105787, sha256 4dd74ac979678c7cf845bb1e52899903f7831879e1715511c1f0b3584a7bb9f5. Both equal lock.publisher.bytes and lock.publisher.sha256. lock.publisher.url, windows11_inputs.PUBLISHER and the page's <link rel=canonical> are all https://support.microsoft.com/en-us/servicing/os/windows/docs/2026/09/verify-the-authenticity-of-a-windows-11-enterprise-evaluation-iso-file. The page title is 'How to verify the authenticity of a Windows 11, version 26H2 Evaluation ISO file', with KB 5130867 and original publish date September 29, 2026. authenticated_account_used is false."
+      },
+      {
+       "title": "ISO URL host/path is an anonymous Microsoft static-download URL for Enterprise Evaluation x64 en-US",
+       "severity": "NOTE",
+       "location": "inputs/media-lock.json media.url; windows11_inputs.MEDIA",
+       "claim": "The media URL is a plain HTTPS Microsoft download with no query, credentials or fragment. The filename identifies an Enterprise Evaluation x64 en-US image, which is the image OD-038 covers.",
+       "evidence": "Host: software-static.download.prss.microsoft.com. Path: /dbazure/26300.9457.260913-1737.26h2_ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso. It equals windows11_inputs.MEDIA at a03aadf. OD-038 (docs/DECISIONS.md line 67, ACCEPTED) covers 'the exact pinned evaluation ISO (scripts/windows11/windows11_inputs.py MEDIA/MEDIA_SHA256)' in disposable CI VMs only. The lock's URL and digest are exactly those constants."
+      },
+      {
+       "title": "Build 26300 / 26H2 identity is outside my own knowledge",
+       "severity": "NOTE",
+       "location": "media URL build string 26300.9457.260913-1737.26h2",
+       "claim": "I cannot confirm from my own knowledge that build 26300.9457 is the 26H2 Enterprise Evaluation, because my training cutoff predates it. The identification rests only on the retained Microsoft page and the URL filename.",
+       "evidence": "The page heading and Applies-To say 'Windows 11 version 26H2'. The digest list is headed 'Windows 11 Enterprise, version 26H2 Evaluation hash values'. windows11_inputs.BUILD=26300 and UPDATE_BUILD_REVISION=9457 agree with the URL. I did not fetch any live Microsoft page (no network)."
+      },
+      {
+       "title": "Campaign re-downloads the same URL and requires the locked digest and byte count before any VM use",
+       "severity": "NOTE",
+       "location": "scripts/windows11/windows11_vm.py main() lines ~868-918 at a03aadf; windows11_candidate.download lines 81-111",
+       "claim": "At campaign time the ISO comes only from the constant MEDIA URL. It must match MEDIA_SHA256 and the locked byte count before the seed ISO, disks, swtpm or QEMU are created. I found no other ISO source and no way to accept a different license.",
+       "evidence": "main() checks digest(media-lock.json) == --media-lock-sha256. It then requires media.url == MEDIA, media.sha256 == MEDIA_SHA256 and iso_retained_in_artifact is False. It calls download(MEDIA, work/'windows11.iso', MEDIA_CAP, ...) and raises 'Actual repeated ISO differs from reviewed publisher candidate' if the sha256 differs from MEDIA_SHA256 or the bytes differ from media.media.bytes. qemu_argv(work, iso, seed_iso) attaches the ISO read-only, and only after that check. download() calls official_url(), which allows only the exact strings {MEDIA, PUBLISHER} over https with no username, password, query or fragment. It uses a NoRedirect opener, requires response.geturl()==url and status 200, and enforces a 9 GiB cap and Content-Length consistency. windows11-native-lifecycle.yml line 148 passes --media-lock-sha256 from the release request. The campaign does not re-fetch the publisher page; that is acceptable because the reviewed digest is hard-coded and equals the publisher value."
+      },
+      {
+       "title": "License acceptance is confined to the hard-coded Enterprise Evaluation image; no product key",
+       "severity": "NOTE",
+       "location": "scripts/windows11/windows11_deployment.py answer_file(); windows11_vm.py line 442",
+       "claim": "The answer file accepts the EULA only for the image named 'Windows 11 Enterprise Evaluation' from the pinned ISO. It refuses any other image name and sets no product key, which is within OD-038's scope.",
+       "evidence": "answer_file() raises unless image_name == 'Windows 11 Enterprise Evaluation'. windows11_vm.py line 442 passes exactly that literal. Install is selected via MetaData Key /IMAGE/NAME. UserData has AcceptEula=true and OOBE has HideEULAPage=true, with a comment citing OD-038. A grep for ProductKey finds nothing. The only <Key> element is /IMAGE/NAME. HideOnlineAccountScreens is set, and the comment says there is no NIC (-nic none). I did not separately audit qemu_argv for the -nic setting."
+      },
+      {
+       "title": "Recorded prepare-runner CPU matches the single reviewed SUPPORTED_HOST_CPUS identity; campaign fails fast otherwise",
+       "severity": "NOTE",
+       "location": "inputs/media-lock.json host_cpu_requires_different_official_support_review; windows11_inputs.SUPPORTED_HOST_CPUS; windows11_vm.py lines ~881-891",
+       "claim": "The recorded CPU (AMD EPYC 7763, AuthenticAMD, family 25, model 1, stepping 1) equals the only reviewed identity. Stepping is recorded but deliberately not matched. At campaign time the live /proc/cpuinfo identity is checked, the observation is written to host-cpu.json, and the run fails before any tool install or ISO download if the CPU is unreviewed.",
+       "evidence": "SUPPORTED_HOST_CPUS[0].identity is {model name 'AMD EPYC 7763 64-Core Processor', vendor_id AuthenticAMD, cpu family '25', model '1'}. host_cpu_support() matches all identity keys and otherwise raises 'has no reviewed Windows 11 support basis'. The campaign checks the live runner's CPU, not the candidate's recorded one. The cited basis is the learn.microsoft.com windows-11-24h2-supported-amd-processors list ('AMD EPYC 7763', list_date 2025-08-08) and the 25H2 list ('AMD EPYC 7003 Series', 2025-10-16). From my own knowledge, not from a file: the EPYC 7763 is a Zen 3 'Milan' EPYC 7003-series part, and family 25 (0x19) / model 1 is consistent with Milan. Microsoft's Windows 11 AMD supported-processor lists have included EPYC 7003-series models. So the basis is plausible, but I did not fetch the lists or verify the cited dates or entries (no network)."
+      }
+     ],
+     "verified": []
+    },
+    {
+     "lens": "win-host-tools",
+     "review_failed": false,
+     "verdict": "CLEAR_WITH_NOTES",
+     "checks": [
+      "Hashed the candidate ZIP review4/win11.zip with sha256: 1940176f..., equal to the upload digest in the download-only job log and in gh api artifact 13119257518. Streamed all 138 retained/inputs/host-* ZIP members and checked each is byte-equal to the unzipped tree, with the same member set.",
+      "Hashed the four bound files: reviewed-inputs.json, media-lock.json, host-tools-lock.json and guest-driver.json. The reviewed-inputs.json row for host-tools-lock.json is 145798 bytes, b6f70b31.... All 138 host-* rows equal the on-disk bytes and sha256, with no extra or missing files and no symlinks.",
+      "host-tools-lock.json structure: exactly 6 top-level keys, schema japp-win11-host-tools-v1, runner_image_version 20261026.354.1. packages equals signed_index_chain.packages with signed_index_records removed. 117 unique packages; the filename set equals the inputs/host-debs listing. Each deb's size and sha256 equal its lock row, each filename is the canonical apt archive name, and every architecture is amd64 or all. All 10 HOST_ROOTS are present.",
+      "Pure-Python OpenPGP parse of host-signed-metadata/ubuntu-archive-keyring.gpg (3607 bytes, sha256 80a36b0a..., equal to the lock pin). v4 fingerprints are SHA-1 over 0x99, a 2-byte length and the key body. Keys found: 790BC727... (2012 archive), 843938DF... (2012 CD image) and F6ECB3762474EDA9D21B7022871920D1991BC93C (2018 archive). The 2018 fingerprint matches the value I supplied from my own knowledge, not from a file. All 3 uid self-signatures verify with RSA PKCS#1 v1.5.",
+      "For each of release-01/02/03.InRelease: checked bytes and sha256 against the lock. Parsed the cleartext framework: Hash: SHA512 header, dash-unescaping, armor CRC24 verified, and nothing outside the armor. Each file holds exactly one v4 signature packet: type 0x01, RSA, SHA-512, issuer F6EC...C93C. Each verifies in pure Python over the canonical CRLF text with trailing whitespace stripped and the v4 trailer, checking left16 and DigestInfo. Negative controls fail as expected: a one-byte change to the text, or the 2012 key in place of the 2018 key.",
+      "Each retained release-NN.Release is byte-equal to the signed text from its InRelease plus a final LF, so the gpgv --output files were not altered. Parsed SHA256 entries and identity from my own signed-text extraction: Origin and Label Ubuntu, Codename noble, Suites noble, noble-updates and noble-security, no Valid-Until. The identity fields equal the lock's release identity rows.",
+      "All 12 retained Packages indexes (main, restricted, universe and multiverse binary-amd64 for each of the three suites) match in bytes and sha256 the signed Release SHA256 entry for their metakey in the release of the right suite. Sites are archive.ubuntu.com for noble and noble-updates and security.ubuntu.com for noble-security. The signed-metadata directory has no unexpected members. sources.list lists exactly the three https official repos with signed-by.",
+      "Parsed all 12 Packages indexes. Every one of the 117 locked (package, version, arch) rows has a stanza whose SHA256 and Size equal the deb. Pool paths are well-formed, under pool/, with an epoch-less basename. My joined record set equals the lock's signed_index_records exactly. There are no conflicting stanzas with the same identity. A Debian version comparison found every locked version is the newest amd64/all version in the retained indexes.",
+      "Parsed every deb's ar archive and control.tar in memory without executing or extracting to disk. 116 debs use zst and 1 uses xz. Control Package, Version and Architecture equal the lock row for all 117.",
+      "Read the data.tar members in memory and hashed the 10 tool and firmware paths. qemu-system-x86_64, qemu-img, swtpm, xorriso, wimlib-imagex, setfacl, OVMF_CODE_4M.secboot.fd and OVMF_VARS_4M.ms.fd are regular files, and each sha256 equals its lock tools pin. mformat and mcopy are symlinks to 'mtools', and the /usr/bin/mtools sha256 equals the pin. No other locked deb ships the same paths.",
+      "OVMF content: listed /usr/share/OVMF in the ovmf deb. A heuristic string search of VARS_4M.ms.fd found the Microsoft 2011 and 2023 CA subjects and the UTF-16 variable names PK, KEK, db, dbx and SecureBootEnable.",
+      "Read the maintainer scripts and triggers of the 27 newly installed debs as text, from host-install-plan.json. Scanned their data members for setuid/setgid files (none) and for service and config paths (qemu-kvm.service, the swtpm AppArmor profile), and read both of those files as text.",
+      "Read at S (git show a03aadf): windows11_resources.py (ensure_capacity, tool_baseline), windows11_candidate.py (HOST_ROOTS, TOOLS, FIRMWARE, tool_pin, stage_host), windows11_vm.py (install_tools, kvm setfacl, seed xorriso, qemu_argv, the main flow, mcopy collection), ubuntu_gnome_prepare.py (apt_config, resolve, simulate_host_install), ubuntu_gnome_signed_indexes.py, ubuntu_gnome_host.py (simulate_install, closed_install_plan), ubuntu_gnome_process.local_only_apt, and windows11-native-lifecycle.yml. git grep confirms wimlib is never invoked.",
+      "Reviewed the retained command records: 367 records, all exit 0, no signals, no cap overrun. The executables are git, env+apt-get/apt-cache, gpgv and dpkg-deb only, with no sudo. Read the stderr of gpgv records 240-242 (Good signature, 2018 key). host-resource-cleanup.json shows removed=[] and tools_before == tools_after. closure.json status is DOWNLOAD_ONLY_UNREVIEWED_CANDIDATE_COMPLETE.",
+      "Bound the prepare-time source to S: source-before.json reports git a03aadf/7a96092b, and the sha256 of each host-tool code file and of both windows11 workflows equals git show a03aadf. Ran git diff 10f247b..a03aadf and a03aadf..e5aa210 on scripts and .github; neither changes host-tool code.",
+      "Cross-checked against the earlier reviews in /Users/tanishkalwad/jobapplyv2/docs/evidence: the 10f247b bound lock is identical by cmp, and the host rows in reviewed-inputs are identical. The 10f247b campaign's host-tools.json, host-install-plan.json, qemu-argv.json, firmware console and swtpm stderr were all consistent with a successful install and firmware boot.",
+      "Read-only gh api calls: run 41395340494 and its jobs, the download-only job log (image banner 20261025.353.1, ZIP digests), and the expiry and digest of artifacts 13119257518 and 13118745719.",
+      "Not done: I verified no network data against Canonical's live archive and ran nothing on Linux. All my scripts ran with python3 -I -B (Python 3.14) from /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/win11-host-tools/ (verify.py, maint.py, readfile.py, cmds.py, cmpinv.py, show.py, keys.py). Output is in verify2.out and maint.out there."
+     ],
+     "hashes": [
+      {
+       "file": "inputs/host-tools-lock.json (host_tools_sha256)",
+       "sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06"
+      },
+      {
+       "file": "inputs/reviewed-inputs.json (bundle_sha256)",
+       "sha256": "ce73edddbfdb0f8fb46e9adedf25aa5c31f1b450a6757ac14928bfe07e2b2a2e"
+      },
+      {
+       "file": "inputs/media-lock.json (media_lock_sha256)",
+       "sha256": "d1aa8e327b90e292cb309ba1dc7ba448ba7981f2b4fdbd2829c6c083ad804533"
+      },
+      {
+       "file": "inputs/guest-driver.json (guest_driver_sha256)",
+       "sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+      },
+      {
+       "file": "review4/win11.zip (candidate artifact 13119257518 ZIP)",
+       "sha256": "1940176ffa079820a8422bcac0d9e2aa223d8033584dd8005b0b9c9bb84b56d4"
+      },
+      {
+       "file": "inputs/host-signed-metadata/ubuntu-archive-keyring.gpg",
+       "sha256": "80a36b0a6de2f69f49d2df75ef473ccde121e9e190b9ea01d20a4f63778d5c31"
+      },
+      {
+       "file": "inputs/host-signed-metadata/release-01.InRelease (noble-updates)",
+       "sha256": "a4fcbfd2666690c2f420400466055da72cd4ab08216795cf3f45cf0826bfb7b6"
+      },
+      {
+       "file": "inputs/host-signed-metadata/release-02.InRelease (noble)",
+       "sha256": "cdb2f31d809f589719a53c6ad15f255b27569c4059542ada282aaa21b8e164b0"
+      },
+      {
+       "file": "inputs/host-signed-metadata/release-03.InRelease (noble-security)",
+       "sha256": "95faf2ecd2aed029a4065bbaf17017259d2e4510417c04ea85b65ba405c0f88b"
+      },
+      {
+       "file": "inputs/host-signed-metadata/sources.list",
+       "sha256": "f52eca4e8bb81be55f819bd28ac8109248b705afc91560a80422336edb280acb"
+      },
+      {
+       "file": "/usr/bin/qemu-system-x86_64 in qemu-system-x86_1:8.2.2+ds-0ubuntu1.18",
+       "sha256": "8a35ccba41582fc6c38b9df85fc9e35fa1d42f414d2d7d8090ee9b2f5e7c0854"
+      },
+      {
+       "file": "/usr/bin/qemu-img in qemu-utils_1:8.2.2+ds-0ubuntu1.18",
+       "sha256": "634320b91165669917123e8e79cce1c4d00cee0a4aa4d662d7c0a8186479b3fb"
+      },
+      {
+       "file": "/usr/bin/swtpm in swtpm_0.7.3-0ubuntu5.24.04.1",
+       "sha256": "5e9e073fc569588b9fa87dff6785233a714a27c234d23da940e708f44e25368d"
+      },
+      {
+       "file": "/usr/bin/xorriso in xorriso_1:1.5.6-1.1ubuntu3",
+       "sha256": "c66a5be11a674e97ed8983af520eae8fad900b47d104c92bc63e5cf254391922"
+      },
+      {
+       "file": "/usr/bin/mtools (mformat/mcopy target) in mtools_4.0.43-1build1",
+       "sha256": "4c8364b843223f44f008fa48f97ce48cce615799ac3d254069cff777d9110e0b"
+      },
+      {
+       "file": "/usr/bin/wimlib-imagex in wimtools_1.14.4-1.1build2",
+       "sha256": "89a80fe9be984b48056f273d97ab675ba4cd3df4246edc697836cfa0414e2f36"
+      },
+      {
+       "file": "/usr/bin/setfacl in acl_2.3.2-1build1.1",
+       "sha256": "8c6e90b674671cd3b9d0e61d9177cbd022e1eb9380a2241a189c3d9a51d15922"
+      },
+      {
+       "file": "/usr/share/OVMF/OVMF_CODE_4M.secboot.fd in ovmf_2024.02-2ubuntu0.10",
+       "sha256": "1286f2a3217d09b374d05951355d7a561c8bacecd74845c8a1fbb71a48c0de8d"
+      },
+      {
+       "file": "/usr/share/OVMF/OVMF_VARS_4M.ms.fd in ovmf_2024.02-2ubuntu0.10",
+       "sha256": "a9b2b13aba3d4629593913471af7545bd8eef1d414f33cab4c86fff7d5bc09b9"
+      }
+     ],
+     "notes": [
+      {
+       "title": "Host closure is byte-identical to the previously reviewed lock, and a real campaign already installed and used it",
+       "severity": "NOTE",
+       "location": "inputs/host-tools-lock.json; /Users/tanishkalwad/jobapplyv2/docs/evidence/m03-native-candidates-10f247b-review/bound/windows11/host-tools-lock.json; /Users/tanishkalwad/jobapplyv2/docs/evidence/m03-w07-win11-campaign-10f247b/run41371604274/retained/",
+       "claim": "host_tools_sha256 b6f70b31... is the same file that the 10f247b review bound. The campaign at 10f247b installed it on a real runner, observed the tool and firmware bytes it pins, and booted the media through this OVMF. That campaign failed later because of the KI-0171 answer-file defect, not because of host tools.",
+       "evidence": "I ran cmp between the candidate lock and the bound 10f247b lock: IDENTICAL. The reviewed-inputs.json rows for host-debs/ (117), host-signed-metadata/ (20) and host-tools-lock.json are equal to the 10f247b bound rows. The 10f247b campaign's host-tools.json tools equal this lock's tools. Its installed packages equal the lock's 117 package/version/arch rows, its host-install-plan.json equals this candidate's, and its runner image is 20261026.354.1. Its qemu-argv.json uses q35,smm=on, cfi.pflash01 secure=on and /usr/share/OVMF/OVMF_CODE_4M.secboot.fd. Its firmware-console.raw shows BdsDxe starting Boot0002 from the DVD-ROM. Its swtpm.stderr is empty. git diff 10f247b a03aadf touches no host-tool code: only windows11_deployment.py, one test, the test inventory and .github request/release JSON. I confirmed this candidate's own work from its retained files: prepare-time source-before.json hashes for windows11_candidate.py, windows11_vm.py, windows11_resources.py, ubuntu_gnome_{prepare,signed_indexes,host,process}.py and both windows11 workflows equal git show a03aadf."
+      },
+      {
+       "title": "The campaign never re-checks signatures; host provenance rests on this review plus host_tools_sha256",
+       "severity": "NOTE",
+       "location": "/Users/tanishkalwad/jobapplyv2/scripts/windows11/windows11_vm.py:264-325 (install_tools)",
+       "claim": "install_tools checks the lock digest against the release pin, each deb's size and sha256 against the lock, and the runner_image_version. It then runs sudo apt-get with local_only_apt: simulate first, then install --no-remove. After install it checks the 10 tool/firmware pins and the dpkg-query versions. It never runs gpgv and never re-joins the signed chain. That is acceptable only because the lock pins each deb sha256 and this review joined each one to Ubuntu-signed metadata.",
+       "evidence": "I read install_tools at S, plus local_only_apt (SourceList=/dev/null, empty SourceParts and Lists, no pkgcache), simulate_install and closed_install_plan. With pure Python I verified that all 117 deb sha256/size values join signed Packages records, which join signed Release SHA256 entries, which are signed by the 2018 key (see the checks)."
+      },
+      {
+       "title": "The prepare-time gpgv call does not pin the signer, and the archive keyring trusts three keys",
+       "severity": "NOTE",
+       "location": "/Users/tanishkalwad/jobapplyv2/scripts/linux_gnome/ubuntu_gnome_signed_indexes.py:182-196 (retain_releases)",
+       "claim": "gpgv runs with --keyring and no --status-fd and no fingerprint check. The retained keyring holds the 2012 archive key 790BC7277767219C42C86F933B4FE6ACC0B21F32, the 2012 CD image key 843938DF228D22F7B3742BC0D94AA3F0EFE21092 and the 2018 archive key F6ECB3762474EDA9D21B7022871920D1991BC93C. For this candidate, my pure-Python check shows the 2018 key made the only signature on each of the three InRelease files.",
+       "evidence": "The keyring is 3607 bytes, sha256 80a36b0a.... I parsed it and computed the v4 fingerprints. The 2018 fingerprint equals the value I supplied from my own knowledge, not from a file. All three uid self-certifications verify. Each InRelease has exactly one v4 signature packet: type 0x01, RSA, SHA-512, issuer fingerprint F6EC...C93C, and no critical subpackets. All three verify. CI gpgv stderr in command-240/241/242 also reports 'Good signature from \"Ubuntu Archive Automatic Signing Key (2018)\"', exit 0."
+      },
+      {
+       "title": "Root maintainer scripts run for 27 newly installed Ubuntu debs; 90 packages are already on the runner",
+       "severity": "NOTE",
+       "location": "retained/host-install-plan.json; inputs/host-debs/*",
+       "claim": "The campaign install adds 27 packages and upgrades or removes none. The other 90 locked packages already exist on runner image 20261026.354.1 at identical versions, so their installed bytes come from the runner image. Those 90 are covered only by the dpkg-query version check and, for acl, by the setfacl byte pin. Root-executed code from the new debs is limited and expected: qemu-system-common enables and starts qemu-kvm.service (ExecStart /usr/share/qemu/init/qemu-kvm-init start). qemu-system-x86 runs dpkg-maintscript-helper dir_to_symlink. swtpm reloads its AppArmor profile. swtpm-tools adds a swtpm system user and group and creates /var/lib/swtpm-localca. The other new packages carry only ldconfig triggers.",
+       "evidence": "I read the control.tar maintainer scripts of the 27 new debs as text, in memory, and executed none of them. The 27 new debs contain no setuid or setgid files. Their only service or config paths are /usr/lib/systemd/system/qemu-kvm.service and /etc/apparmor.d/usr.bin.swtpm. The swtpm AppArmor profile allows 'owner @{HOME}/** rwk', which covers the TPM state and socket under /home/runner/work/_temp. That this works is inferred from the 10f247b campaign, whose swtpm stderr is empty."
+      },
+      {
+       "title": "wimtools/libwim15t64 (universe) and swtpm-tools are installed as root but the campaign never executes them",
+       "severity": "NOTE",
+       "location": "/Users/tanishkalwad/jobapplyv2/scripts/windows11/windows11_candidate.py:40-61 (HOST_ROOTS, TOOLS)",
+       "claim": "wimlib-imagex is pinned (89a80fe9...) but no S script or workflow invokes it. The campaign never calls swtpm_setup or the localca. wimtools and libwim15t64 are the only two closure members from universe; the other 115 are from main. These add root-installed surface with no use. This is a carry-forward of the 10f247b note.",
+       "evidence": "git grep at a03aadf over scripts and .github finds 'wimlib' and 'wimtools' only in windows11_candidate.py's HOST_ROOTS and TOOLS. The pool_path components of the signed records are main for 115 packages and universe for libwim15t64 and wimtools."
+      },
+      {
+       "title": "The runner image pin comes from the ImageVersion env and differs from the job-log banner",
+       "severity": "NOTE",
+       "location": "inputs/host-tools-lock.json runner_image_version; windows11_vm.py install_tools",
+       "claim": "The lock pins 20261026.354.1, taken from os.environ ImageVersion. This prepare job's log banner says 'Version: 20261025.353.1'. If the hosted image rotates, install_tools refuses before any install. That fails closed, but it limits the release window.",
+       "evidence": "gh api repos/kalwad/jobapplyv2/actions/jobs/125115717864/logs, lines 16-19: 'Image: ubuntu-24.04', 'Version: 20261025.353.1'. The 10f247b campaign's host-tools.json recorded runner_image_version 20261026.354.1, so the env value is what the check compares."
+      },
+      {
+       "title": "Signed metadata has no Valid-Until; the locked versions are the newest in the retained indexes",
+       "severity": "NOTE",
+       "location": "inputs/host-signed-metadata/release-0{1,2,3}.InRelease",
+       "claim": "noble-updates is dated 2026-11-01 14:20:46 UTC and was signed 14:21:27. noble-security is dated 05:30:08 and was signed 05:30:48. noble is dated 2024-04-25. None of the three has a Valid-Until. The prepare download-only job ran at 2026-11-02 05:41-05:43 UTC. The campaign installs only local, hash-pinned debs, so freshness affects patch level, not integrity. A Debian version-ordering check found no newer amd64/all version of any of the 117 locked packages in the 12 retained signed indexes.",
+       "evidence": "My own Release parse from the signed text and gh api run 41395340494 timestamps. For example, qemu-system-x86 is 1:8.2.2+ds-0ubuntu1.18 in noble-updates against 1.16 in noble-security; ovmf is 2024.02-2ubuntu0.10; swtpm is 0.7.3-0ubuntu5.24.04.1."
+      },
+      {
+       "title": "The OVMF firmware is the secure-boot 4M build, and the VARS template appears to hold Microsoft 2011 and 2023 certificates",
+       "severity": "NOTE",
+       "location": "ovmf_2024.02-2ubuntu0.10_all.deb: /usr/share/OVMF/OVMF_CODE_4M.secboot.fd, /usr/share/OVMF/OVMF_VARS_4M.ms.fd",
+       "claim": "The code pin is a regular file of 3,653,632 bytes, sha256 1286f2a3.... The vars pin is a regular file of 540,672 bytes, sha256 a9b2b13a.... qemu_argv loads the code read-only with smm=on and secure pflash, and loads a private copy of vars. A string search, not a parse of authenticated variables, finds the KEK/PCA/UEFI CA 2011 subjects and the 2023 KEK 2K/Windows UEFI/UEFI/Option ROM CA subjects, plus the UTF-16 variable names PK, KEK, db, dbx and SecureBootEnable.",
+       "evidence": "I read the ovmf data.tar.zst in memory. OVMF_CODE_4M.ms.fd and OVMF_CODE_4M.snakeoil.fd are symlinks to secboot.fd. The tool pin uses the real secboot file, which tool_pin requires to be unaliased."
+      },
+      {
+       "title": "Host mcopy parses a FAT image that the guest writes",
+       "severity": "NOTE",
+       "location": "/Users/tanishkalwad/jobapplyv2/scripts/windows11/windows11_vm.py:1003-1020 and 1136-1147",
+       "claim": "Inferred, not tested. After the guest stops, the host runs mtools 'mcopy -s ::/proof' on the 128 MiB result.img that the guest wrote. Guest-controlled FAT content is therefore parsed by a host tool before the member and size caps are checked. The image is bounded at 128 MiB, the VM has -nic none, the guest is reviewed, and the runner is disposable. I found no other host execution of untrusted content: qemu consumes the digest-pinned ISO only as a read-only guest cdrom, and xorriso and mformat run on reviewed bundle content.",
+       "evidence": "I read the code at S. The prepare run itself executed only git, env+apt-get, apt-cache, gpgv and dpkg-deb (-f and -x, with no maintainer scripts), plus apt-get -s and indextargets. It ran no sudo, and ensure_capacity removed nothing (host-resource-cleanup.json removed=[])."
+      },
+      {
+       "title": "Release window: artifacts expire on 2026-11-09",
+       "severity": "NOTE",
+       "location": "GitHub artifacts 13119257518 and 13118745719",
+       "claim": "The candidate artifact expires 2026-11-09T05:43:29Z. The original Windows package artifact expires 2026-11-09T05:26:14Z, which is the earlier of the two. The bound campaign must run before then.",
+       "evidence": "From gh api repos/kalwad/jobapplyv2/actions/artifacts/{13119257518,13118745719}. The digests match the task: 1940176f... and 109ddf4d...."
+      }
+     ],
+     "verified": []
+    },
+    {
+     "lens": "win-guest-driver",
+     "review_failed": false,
+     "verdict": "CLEAR_WITH_NOTES",
+     "checks": [
+      "Listed inputs/ and inputs/guest-driver/ of the retained Windows 11 candidate; guest-driver/ contains exactly windows11_bootstrap.ps1, windows11_guest.ps1, windows11_owned.cs",
+      "Extracted the four guest files at S with `git show a03aadf:scripts/windows11/<name>` into my own work dir; confirmed a03aadf resolves to a03aadf22ab8... with tree 7a96092b...; confirmed `git diff --stat a03aadf HEAD -- scripts/` is empty",
+      "shasum -a 256 and cmp of each retained guest file against the S copy: identical",
+      "Compared against WINDOWS11_NATIVE_PINS in scripts/check_portability.py at S: all four pins match (including windows11_source_check.ps1 8fe860de...)",
+      "With python3 -I -B (my script, data path as an argument): verified guest-driver.json rows equal actual bytes/sha256; recomputed the audit_bundle-style complete member binding of inputs/ against reviewed-inputs.json (424 rows, equal, nothing missing, extra or different); confirmed reviewed-inputs.json source_sha=a03aadf..., package_build_sha=d9412fd..., source_tree_sha=7a96092b..., package_manifest_sha256=b7697ee4...",
+      "Read inputs/guest-source-check.json and windows11_source_check.ps1 at S, and confirmed windows11_candidate.py at S validates that receipt against its own file hashes",
+      "Read windows11_bootstrap.ps1 (92 lines), windows11_guest.ps1 (486 lines) and windows11_owned.cs (639 lines) in full at S",
+      "Grepped the three guest files for network, credential, license/EULA, execution-policy and security-feature tokens",
+      "Context only, outside the three files: read windows11_vm.py seed() and audit_bundle() and the guest-driver.json pin check, and grepped QEMU argv for `-nic none`",
+      "Did not execute any candidate content and did not modify the repository or the candidate trees"
+     ],
+     "hashes": [
+      {
+       "file": "inputs/guest-driver.json (guest_driver_sha256)",
+       "sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+      },
+      {
+       "file": "inputs/reviewed-inputs.json (bundle_sha256)",
+       "sha256": "ce73edddbfdb0f8fb46e9adedf25aa5c31f1b450a6757ac14928bfe07e2b2a2e"
+      },
+      {
+       "file": "inputs/media-lock.json (media_lock_sha256)",
+       "sha256": "d1aa8e327b90e292cb309ba1dc7ba448ba7981f2b4fdbd2829c6c083ad804533"
+      },
+      {
+       "file": "inputs/host-tools-lock.json (host_tools_sha256)",
+       "sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06"
+      },
+      {
+       "file": "inputs/guest-source-check.json",
+       "sha256": "8760c47eb91b7684aab0edc0705ec88e3378c8141c49d2f63c82bc01944cfd51"
+      },
+      {
+       "file": "inputs/guest-driver/windows11_guest.ps1",
+       "sha256": "63323c705313540a47e8d86a54957a9f0cb6b9ebc73d275eb447b4869a792edb"
+      },
+      {
+       "file": "inputs/guest-driver/windows11_owned.cs",
+       "sha256": "5b2e50706692e1814087362f56cf3abeb8b92e4ca0bb8266903bfb25faf7f540"
+      },
+      {
+       "file": "inputs/guest-driver/windows11_bootstrap.ps1",
+       "sha256": "e6df96a0141419ced3e61522d434a7a05b8877c770e1a365db190d4dd9a062dd"
+      },
+      {
+       "file": "scripts/windows11/windows11_source_check.ps1 at a03aadf",
+       "sha256": "8fe860dee981b6392ee291fd63c4d057b4174b3673926e5e385a4f55bed7e822"
+      }
+     ],
+     "notes": [
+      {
+       "title": "Retained guest-driver files are byte-identical to S, guest-driver.json and the portability pins",
+       "severity": "NOTE",
+       "location": "inputs/guest-driver/*, inputs/guest-driver.json, scripts/check_portability.py:2466-2479 at a03aadf",
+       "claim": "All three retained guest files match the repository at S exactly, match guest-driver.json, and match WINDOWS11_NATIVE_PINS. The reviewed-inputs.json member binding is complete.",
+       "evidence": "sha256/bytes: windows11_guest.ps1 63323c705313540a47e8d86a54957a9f0cb6b9ebc73d275eb447b4869a792edb/36681; windows11_owned.cs 5b2e50706692e1814087362f56cf3abeb8b92e4ca0bb8266903bfb25faf7f540/53069; windows11_bootstrap.ps1 e6df96a0141419ced3e61522d434a7a05b8877c770e1a365db190d4dd9a062dd/7242. `cmp` against `git show a03aadf:scripts/windows11/<name>` reported them identical. WINDOWS11_NATIVE_PINS at S lists the same three hashes plus windows11_source_check.ps1 8fe860de...e822, which equals git show a03aadf. inputs/guest-driver/ holds exactly those three files. My recomputation of the audit_bundle check found that reviewed-inputs.json (424 rows) equals the actual inputs/ tree with nothing missing, extra or different, and that it carries the guest-driver rows."
+      },
+      {
+       "title": "Target source check covers PowerShell 5.1 parsing and C# compilation on the hosted Windows runner, not on the Windows 11 guest build",
+       "severity": "NOTE",
+       "location": "inputs/guest-source-check.json; scripts/windows11/windows11_source_check.ps1 at S",
+       "claim": "The receipt reports status WINDOWS_POWERSHELL51_PARSE_AND_CS_COMPILE_PASS from PowerShell 5.1.26100.33648. It binds all four files at their S hashes and records native_API_calls=0, VMs=0, product_launches=0 and Windows11_acceptance=false. The check is static: it runs the parser on the .ps1 files and Add-Type on owned.cs, and it does not run on the Windows 11 build 26300 guest.",
+       "evidence": "The guest-source-check.json contents match the source_check.ps1 logic I read: it parses each .ps1 with Parser.ParseFile, compiles owned.cs with Add-Type, checks that the OwnedApp type exists, and re-hashes the files before and after. windows11_candidate.py at S (lines 262-289) accepts the receipt only when the schema and status are exact, every counter is zero, and each file's bytes and sha256 equal the candidate's own copies. The PowerShell version 5.1.26100.x indicates a Server 2025 / 24H2-family host. That is inferred from the version string; I did not cross-check it against run metadata."
+      },
+      {
+       "title": "No exfiltration, credential use or off-host network contact in the guest controller",
+       "severity": "NOTE",
+       "location": "windows11_guest.ps1, windows11_owned.cs, windows11_bootstrap.ps1 (all lines read)",
+       "claim": "The guest sends output only to COM2 serial, to the JAPP-RESULT disk and to local files. Its only network use targets 127.0.0.1: unauthenticated HTTP GETs to the product's own health/ready/version routes with UseProxy=false and no redirects, one raw TCP refusal check, and one loopback TcpListener for the port-collision test. The Authorization headers it sends are literal synthetic invalid fixtures. Host lines read from serial are only compared to exact expected strings and never executed.",
+       "evidence": "A grep for http(s)://, WebClient, Invoke-WebRequest/RestMethod, BITS, netsh, firewall and Defender cmdlets, bcdedit, Set-ExecutionPolicy, EnableLUA, Eula/License, Password and Credential found only two hits: guest.ps1:302 (http://127.0.0.1) and bootstrap.ps1:58 (removal of DefaultPassword). Context check outside the three files: windows11_vm.py at S passes `-nic none` to QEMU (lines 522-524), so the guest has no network device."
+      },
+      {
+       "title": "No persistent security weakening; the bootstrap tightens state",
+       "severity": "NOTE",
+       "location": "windows11_bootstrap.ps1:11-92",
+       "claim": "The bootstrap creates C:\\ProgramData\\JappHarness with a protected ACL (SYSTEM and Administrators full control, Users read/execute). It registers a SYSTEM logon task running machine-attestor.ps1, a file in that protected directory that only Administrators and SYSTEM can write. It adds a Default-profile Startup .cmd that runs the guest as the standard user. The attestor disables autologon and deletes DefaultPassword. -ExecutionPolicy RemoteSigned applies per process only. UAC, Defender, the firewall and Windows Update are untouched. The guest itself refuses to run if elevated.",
+       "evidence": "Lines 14-21 set the ACL. Lines 55-58 set AutoLogonCount=0 and AutoAdminLogon='0' and remove DefaultPassword. Lines 84-92 register the task and write the Startup file. Guest line 326 requires a non-Administrator interactive x64 JappFixture session. These persistent changes exist only inside the disposable VM."
+      },
+      {
+       "title": "UI and input actions stay inside the owned product job; no consent, license or submit control is clicked",
+       "severity": "NOTE",
+       "location": "windows11_owned.cs (OwnedControl, OwnedPopupItem, Keys, ShellKeys, Kill paths); windows11_guest.ps1:298-454",
+       "claim": "The only invoked controls are the product's Diagnostics, Check again and File>Quit, plus closed key chords: Enter, Tab, Shift+Tab, Ctrl+0, Ctrl+Shift+= and Ctrl+Q. Each requires a unique enabled node owned by a job member, and SendInput fires only after a foreground check on the owned HWND. Process termination is limited to the owned job, its root, and a member re-verified by image file identity. No EULA, OOBE or consent control is touched in these files; any license acceptance would be in the answer file, which is outside this lens. dxdiag runs as an owned child with /whql:off.",
+       "evidence": "OwnedControl requires a job-member PID for every exact-name node and exactly one enabled match. OwnedPopupItem accepts only a visible #32768 popup owned by a member. ShellKeys accepts a closed switch of chords and requires the en-US layout. Member() checks IsProcessInJob and SameFile. The guest has no other Invoke or Expand targets. The dxdiag XML, product-window screenshots and UIA trees are retained in the proof. They describe the disposable VM, the synthetic user and the hosted CPU, which I judged not sensitive."
+      },
+      {
+       "title": "Small residual TOCTOU between foreground check and SendInput",
+       "severity": "NOTE",
+       "location": "windows11_owned.cs Keys() line ~292 and ShellKeys() line ~521",
+       "claim": "GetForegroundWindow is checked immediately before SendInput, but another window could take focus in between. In a network-less single-purpose VM with no other interactive apps this is a theoretical risk, not a release blocker.",
+       "evidence": "From reading the code: the check and the injection are separate calls with no lock. I did not observe this happening."
+      }
+     ],
+     "verified": []
+    },
+    {
+     "lens": "win-answer-file",
+     "review_failed": false,
+     "verdict": "CLEAR_WITH_NOTES",
+     "checks": [
+      "Confirmed that HEAD e5aa210's scripts/windows11/windows11_deployment.py equals S, and that a03aadf^{tree} = 7a96092b. The only script changes from 10f247b to S are deployment.py, one test and the test inventory.",
+      "Read answer_file() at S in full, and seed(), qemu_argv() and main() in windows11_vm.py at S (git show a03aadf:...). Also read retain() in windows11_inputs.py, windows11_bootstrap.ps1, and the lifecycle workflow's upload paths.",
+      "Generated the XML myself with python3 -I -B, importing only a scratch copy of windows11_deployment.py and using a dummy password. Before relying on that directory, I confirmed every scratch src copy is git-blob-identical to S (8e9fa02e and the others), so no module there could shadow stdlib imports. Some files in my lens directory were already there and not created by me in this session; I did not use any of them except those src copies.",
+      "(a) Asserted on the generated XML: CreatePartitions = (1, EFI, 260), (2, MSR, 16), (3, Primary, Extend). ModifyPartitions = (Order 1, PartitionID 1, FAT32, System) and (Order 2, PartitionID 3, NTFS, Windows, C), with orders contiguous from 1. One Disk, DiskID 0, WillWipeDisk true. InstallTo Disk 0 Partition 3. A single MetaData row /IMAGE/NAME = 'Windows 11 Enterprise Evaluation'. All assertions passed.",
+      "Generated the 10f247b generator's output the same way. It differs from S's output by exactly one byte (ModifyPartition Order 3 to 2), so the new contiguity test fails on the old generator.",
+      "Confirmed answer_file() refuses a short password and any image name other than the exact Evaluation name ('Windows 11 Pro' and 'Windows 11 Enterprise' both refused). Its only caller is seed(), and main() checks the re-downloaded ISO's sha256 and size against MEDIA_SHA256 and the media lock before calling seed().",
+      "Checked round30 wiminfo.txt (sha256 527cecb5, matches its retention manifest): Image Count 1, index 1, name 'Windows 11 Enterprise Evaluation', EditionID EnterpriseEval, build 26300.9457. Its workflow pins the same ISO URL and sha256 (bc3f2408...) as MEDIA/MEDIA_SHA256 at S and as the candidate's inputs/media-lock.json.",
+      "(b) Compared the components and elements against Microsoft's unattend schema and UEFI samples as I know them; that comparison is knowledge, not something I checked here. Found no unanswered Setup or OOBE page for this VM: language, disk, image, EULA, region, keyboard, network, account, privacy and OEM pages are all answered or hidden, there is no ProductKey page for Evaluation media, and the hardware check passes with TPM 2.0 CRB, Secure Boot OVMF, 6 GiB RAM, 80 GB disk and 2 vCPUs. Cross-checked against measured frames.",
+      "(c) Case-insensitive scan of the generated XML and of every S Windows 11 script and guest file: no BypassNRO, LabConfig, BypassTPM/SecureBoot/RAM, SkipMachineOOBE/SkipUserOOBE, ProductKey, AdministratorPassword, FirstLogonCommands, slmgr or rearm. The only licence or consent items are UserData/AcceptEula and OOBE/HideEULAPage, plus the ProtectYourPC privacy answer.",
+      "(d) Password: secrets.token_urlsafe(40) gives 54 characters, which matched the generator regex in 20000 trials, all distinct. It is generated per seed() call and written only to private-work/seed/Autounattend.xml and private-work/seed.iso. retain() skips 'private-work', the workflow uploads only proof/retained and retention-failure.json, seed-manifest.json lists four files and not the answer file, and the bootstrap copies only those four. The 10f247b campaign's retained xorriso record and all of its retained files contain no answer-file or password text. The prepare candidate tree contains no unattend file. The round 31/32 retained structures redact the passwords.",
+      "(e) Read README lines 211-229 and the round32 probe script and workflow. Used read-only gh api to confirm that the diag branch 3643b9dc's harness copies of windows11_vm.py, candidate.py and inputs.py are blob-identical to S, so qemu_argv, firmware paths and the boot-key logic are the same. Its deployment.py equals 10f247b and the probe rewrites Order 3 to 2. The retained orderseq answer-file-structure.txt (sha256 47c03b01, matches the manifest) is byte-identical to S's redacted output. The probe argv equals qemu_argv's structure. I viewed the orderseq frames 03, 15, 30 and 45 (frame-45 sha256 fcec53e3, matches the manifest), the noletter frame-45, the nomodify frame-45 and the round31 baseline frame-30.",
+      "Confirmed the candidate's guest-driver files are git-blob-identical to S and match the sha256 pins in guest-driver.json. reviewed-inputs.json names source_sha a03aadf, tree 7a96092b, package_build_sha d9412fd and manifest b7697ee4.",
+      "Computed sha256 of the four bound candidate files. host-tools-lock and guest-driver equal the values reviewed at 10f247b (b6f70b31..., 1a31fd23...). The media lock differs from 10f247b's c18dc337 but carries the same media URL and sha256.",
+      "Not checked, because they belong to other lenses: candidate ZIP digests, the host-deb signature chain, the original native artifact contents, the guest controller's UI logic, and hosted CI test results for S."
+     ],
+     "hashes": [
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4/win11/retained/inputs/reviewed-inputs.json",
+       "sha256": "ce73edddbfdb0f8fb46e9adedf25aa5c31f1b450a6757ac14928bfe07e2b2a2e"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4/win11/retained/inputs/media-lock.json",
+       "sha256": "d1aa8e327b90e292cb309ba1dc7ba448ba7981f2b4fdbd2829c6c083ad804533"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4/win11/retained/inputs/host-tools-lock.json",
+       "sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4/win11/retained/inputs/guest-driver.json",
+       "sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4/win11/retained/inputs/guest-driver/windows11_bootstrap.ps1",
+       "sha256": "e6df96a0141419ced3e61522d434a7a05b8877c770e1a365db190d4dd9a062dd"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4/win11/retained/inputs/guest-driver/windows11_guest.ps1",
+       "sha256": "63323c705313540a47e8d86a54957a9f0cb6b9ebc73d275eb447b4869a792edb"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4/win11/retained/inputs/guest-driver/windows11_owned.cs",
+       "sha256": "5b2e50706692e1814087362f56cf3abeb8b92e4ca0bb8266903bfb25faf7f540"
+      },
+      {
+       "file": "a03aadf:scripts/windows11/windows11_deployment.py (scratch copy)",
+       "sha256": "f822aa3f85161275b3a6cb8cb979fb9d71bad250ce9f5bd0f635749fc054af1b"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/win11-answerfile/answer.xml (S answer_file output, dummy password)",
+       "sha256": "f32693cfb6be624ff8dcf745fbebfef0ecf8bdb8c6dfbf3e3378b780c8c7f879"
+      },
+      {
+       "file": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m03-native-runtime-diagnostics/windows-setup-rounds/round32-41380947763/orderseq/answer-file-structure.txt",
+       "sha256": "47c03b01903aeac5dd0c8ddafd3bed63f75b11c90f7cec096ab42cd1baef24f3"
+      },
+      {
+       "file": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m03-native-runtime-diagnostics/windows-setup-rounds/round32-41380947763/orderseq/frame-45.png",
+       "sha256": "fcec53e3e944cc218e8fb5fe337022e74cd8c7ce0ae2c0ed2e6cd81e0a764bcf"
+      },
+      {
+       "file": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m03-native-runtime-diagnostics/windows-setup-rounds/round30-41377083648/wiminfo.txt",
+       "sha256": "527cecb5c7b2aa5a5722b0c25c782ef8e07653c6088dd32ad36d95d9a81c0fbb"
+      }
+     ],
+     "notes": [
+      {
+       "title": "The real specialize bootstrap and the JAPP-SEED label lookup have never run in a Windows 11 VM",
+       "severity": "NOTE",
+       "location": "scripts/windows11/windows11_deployment.py RunSynchronous Path; scripts/windows11/windows11_bootstrap.ps1; round32 win11_setup_probe.py",
+       "claim": "The round 31/32 probes put a no-op bootstrap ('exit 0') on the seed. The 10f247b campaign stopped in windowsPE. So the first real run of the RunSynchronous command, including the JAPP-SEED volume-label match and windows11_bootstrap.ps1 as SYSTEM, will be this campaign. From my own knowledge: a non-zero RunSynchronous exit does not stop Setup, but a hang would. A failure would leave no Startup entry and no guest protocol row, so the campaign would fail closed at the deadline. That costs the one campaign but cannot produce a false PASS.",
+       "evidence": "In probe.py, (seed_dir / 'windows11_bootstrap.ps1').write_text('exit 0\\r\\n'). README line 213 says 'a no-op bootstrap'. The 10f247b campaign README says the guest never wrote a protocol row. The candidate guest-driver/windows11_bootstrap.ps1 git blob 6acd952e equals S, and its sha256 e6df96a0 matches guest-driver.json."
+      },
+      {
+       "title": "Round-32 proof used runner-apt QEMU/OVMF and one run per variant",
+       "severity": "NOTE",
+       "location": "docs/evidence/m03-native-runtime-diagnostics/windows-setup-rounds/round32-41380947763/workflow.yml",
+       "claim": "The probe installed qemu-system-x86, ovmf and swtpm from the runner's apt without recording versions. The campaign installs pinned host-debs: qemu-system-x86 1:8.2.2+ds-0ubuntu1.18, ovmf 2024.02-2ubuntu0.10, swtpm 0.7.3-0ubuntu5.24.04.1. The orderseq variant ran once, and orderseq-noletter adds one corroborating run. The pinned tools did take the same WinPE path to the same disk view in the 10f247b campaign, so KI-0171 looks answer-file-caused, not tool-caused (inferred).",
+       "evidence": "workflow.yml runs 'sudo apt-get install -y ... qemu-system-x86 qemu-utils ovmf swtpm'. Versions come from candidate inputs/host-tools-lock.json. The 10f247b campaign README and the round31 baseline frame-30 show the same partition table."
+      },
+      {
+       "title": "Stale limits bullet contradicts round 32",
+       "severity": "NOTE",
+       "location": "docs/evidence/m03-native-runtime-diagnostics/README.md:227",
+       "claim": "The Limits section still says 'No Windows 11 unattended install, guest bootstrap, attestation or VM lifecycle ran'. Round 32 ran an unattended install to the auto-logged-on desktop. Only the bootstrap, attestation and lifecycle parts of that bullet are still true.",
+       "evidence": "README lines 213-221 against line 227. The README is unchanged between S and HEAD (git diff --quiet a03aadf HEAD -- docs/evidence/m03-native-runtime-diagnostics)."
+      },
+      {
+       "title": "First-logon shell state varies (Start menu open, taskbar missing) about 16 minutes after boot",
+       "severity": "NOTE",
+       "location": "round32-41380947763/orderseq/frame-45.png; orderseq-noletter/frame-45.png",
+       "claim": "About 950 s after VM start, the orderseq frame shows desktop icons with no taskbar yet. The noletter frame shows the Start menu open with user 'Disposable validation fixture'. The desktop arrived between frame 30 (about 630 s, OOBE 'Installing 33%') and frame 45. This is for the guest-controller lens to check focus settling at first logon. On time, I infer about 30 minutes of WORK_SECONDS remain after the desktop, since the 10f247b ISO re-download took 95 s.",
+       "evidence": "I viewed the frames. The probe.json frame timestamps are 22.6 s to 951 s at about 21 s spacing. The Start menu's account name equals the answer file's DisplayName, which confirms auto-logon to JappFixture."
+      },
+      {
+       "title": "Bypass-guard test matches 'BYPASSNRO' case-sensitively",
+       "severity": "NOTE",
+       "location": "scripts/tests/test_windows11_guest_driver.py:590",
+       "claim": "The test checks b\"BYPASSNRO\" as an exact byte string. The real value name is spelled BypassNRO, so that spelling would pass the guard. This is not a current defect: my case-insensitive scan of the generated XML and of every S Windows 11 script found no bypass, LabConfig, SkipMachineOOBE, SkipUserOOBE, ProductKey, AdministratorPassword, slmgr or rearm.",
+       "evidence": "Test source at a03aadf lines 590-592. inspect.py output: every bypass keyword False. git show a03aadf grep over windows11_bootstrap.ps1, guest.ps1, owned.cs, vm.py, inputs.py and candidate.py: only the bootstrap's AutoAdminLogon=0 and DefaultPassword removal."
+      },
+      {
+       "title": "ProtectYourPC=1 picks the 'recommended' privacy settings rather than the minimal value",
+       "severity": "NOTE",
+       "location": "scripts/windows11/windows11_deployment.py (oobeSystem OOBE/ProtectYourPC)",
+       "claim": "From my own knowledge: ProtectYourPC answers the OOBE privacy page, where 1 means recommended settings and 3 is the minimal choice. It is not a license key or a bypass key. With -nic none nothing leaves the VM, so this is harmless here. A later change could use 3 to match the project's privacy-preserving default. No action needed for this campaign.",
+       "evidence": "Generated XML contains <ProtectYourPC>1</ProtectYourPC>. qemu_argv has '-nic','none'."
+      },
+      {
+       "title": "RunSynchronous Path is 243 characters",
+       "severity": "NOTE",
+       "location": "scripts/windows11/windows11_deployment.py specialize RunSynchronousCommand/Path",
+       "claim": "The decoded Path is 243 characters. From my own knowledge, not checked: Microsoft documents a 259-character maximum for this element, which leaves 16 characters of headroom for future edits. Round 32 parsed the identical string, since Setup went past specialize to the desktop.",
+       "evidence": "inspect.py printed 'RunSynchronous Path length: 243'. The round32 orderseq structure is byte-identical to the S output after redaction."
+      },
+      {
+       "title": "DiskID 0 as the AHCI system disk is measured, not guaranteed by the schema",
+       "severity": "NOTE",
+       "location": "scripts/windows11/windows11_vm.py qemu_argv (ide-hd on ide.0; usb-storage on qemu-xhci)",
+       "claim": "Every observed run numbered the 80 GB AHCI disk as Disk 0 and the 128 MiB JAPP-RESULT USB disk as Disk 1: round 31, the 10f247b campaign, and the two round-32 desktop runs. If WinPE ever numbered them the other way, WillWipeDisk would target the USB result disk and Setup would fail. That would fail closed, with no false PASS.",
+       "evidence": "round31 baseline/frame-30.png lists Disk 0 partitions 260 MB/16 MB/79.7 GB and 'Disk 1 Partition 1: JAPP-RESULT 128.5 MB'. The 10f247b campaign README reports the same."
+      }
+     ],
+     "verified": [
+      {
+       "title": "Pinned Evaluation guest reports 'Windows License is expired'; recorded only as a README observation",
+       "severity": "NON_BLOCKING",
+       "location": "docs/evidence/m03-native-runtime-diagnostics/README.md:221; round32-41380947763/orderseq/frame-45.png and orderseq-noletter/frame-45.png; docs/DECISIONS.md OD-038; docs/KNOWN_ISSUES.md KI-0171",
+       "claim": "Both round-32 desktop frames show the watermark 'Windows 11 Enterprise Evaluation / Windows License is expired / Build 26100.ge_release.240331-1435'. No KI records it and OD-038 does not mention it. The cause is unexplained. The guest clock is not the cause: the taskbar reads 3:24 AM 11/2/2026, which matches the job's 03:24 UTC end. My unverified guess is that the evaluation needs online activation and this VM has no NIC. From my own knowledge, not checked: an expired evaluation edition may show persistent notices and shut itself down on a timer, possibly hourly. I infer this would not hit the campaign. WORK_SECONDS is 3300 s and the installed OS boots several minutes after main() starts, so guest uptime stays under an hour. Any early power-off also fails closed in observe() ('Owned Windows VM exited before complete guest receipt').",
+       "survives": true,
+       "votes": [
+        {
+         "refuted": false,
+         "corrected_severity": "NON_BLOCKING",
+         "reasoning": "I tried to refute the finding and could not. Every factual claim I checked holds, and NON_BLOCKING is the right severity.\n\n**What I checked against the files (read-only)**\n\n1. **Watermark.** I viewed both frames under docs/evidence/m03-native-runtime-diagnostics/windows-setup-rounds/round32-41380947763: orderseq/frame-45.png and orderseq-noletter/frame-45.png. Both show \"Windows 11 Enterprise Evaluation / Windows License is expired / Build 26100.ge_release.240331-1435\".\n   - The orderseq-noletter frame shows the taskbar: 3:24 AM, 11/2/2026, a no-network globe and the Do Not Disturb bell.\n   - The orderseq frame has no visible taskbar, so the clock reading comes from one frame only. This is minor imprecision and does not matter.\n2. **Same ISO as the candidate.** Round 32 used the pinned ISO. Its workflow.yml downloads the 26300.9457.260913-1737 26h2 CLIENTENTERPRISEEVAL URL and checks sha256 bc3f2408…0e38. That is the same URL and digest as the candidate's inputs/media-lock.json.\n3. **Guest clock.** The probe argv has no `-rtc` option, so QEMU uses its default UTC base (host time). The run metadata gives jobs from 03:03:24Z to about 03:24:1xZ. A clock a few hours off cannot explain the expiry.\n4. **Where it is recorded.** README.md line 221 is the only record: \"recorded as an observation\".\n   - grep finds no license-expiry or watermark entry in KNOWN_ISSUES, DECISIONS, TEST_EVIDENCE, PROJECT_STATUS or COMPATIBILITY_MATRIX.\n   - KI-0171 does not mention it, and neither do the later e5aa210 docs changes (KI-0172 is about CI timing).\n   - OD-038 covers accepting the Evaluation license for the pinned ISO and says nothing about an expired state.\n   - The Microsoft publisher page in the candidate (inputs/publisher.html, text-extracted) says nothing about an evaluation period or expiry.\n5. **Campaign timing and fail-closed path** (scripts equal S; `git diff --quiet a03aadf HEAD -- scripts` returns equal).\n   - In windows11_vm.py, WORK_SECONDS is 3300 and is set from owner.started, before the ISO download.\n   - POST_PASS_SECONDS is 265, of which POWERDOWN_SECONDS is 180.\n   - observe() raises \"Owned Windows VM exited before complete guest receipt\" if QEMU exits, so a guest power-off fails the run.\n   - The installed OS's final boot therefore stays well under an hour of uptime, and any early power-off fails closed rather than producing a false PASS.\n6. **Attestation.** The guest checks the caption, build 26300 and UBR 9457. None of these depend on activation state, so the expiry cannot alter or fake an attestation result.\n\n**Why I do not refute it**\n- The OS itself reports that the license of the exact pinned media has expired, on a fresh install, at the real date, about 16 minutes after boot. The cause is unexplained.\n- OD-038 is the owner's authorization to accept that very license, and the project contract says deferred risks belong in KNOWN_ISSUES \"whenever discovered\".\n- A one-line evidence-README observation is honest disclosure, but it does not put this licensing-state fact in front of the owner where OD-038 and KI decisions live.\n\n**Why not BLOCKING**\n- No bound candidate hash or input is wrong.\n- The technical Setup path is not blocked.\n- Any expiry-driven shutdown or restart fails closed.\n- The fix is documentation or an owner decision: a KI, or a note under OD-038.\n- I would not lower it to NOTE. Running an evaluation that Windows says has expired is a license-scope question the owner should see with the release.\n\n**Unverified, from my own knowledge**\n- Expired Windows evaluation editions are said to shut down or restart about hourly.\n- Evaluation editions may carry a fixed evaluation end date or need online activation. The reviewer's \"no NIC means no activation\" guess is equally unverified.\n- I could not determine the cause offline.\n\n**Inferred, not checked**\n- The watermark's 26100 BuildLab string next to install.wim build 26300.9457 looks like normal enablement-package labeling, not a different image. The round-32 digest check supports this."
+        },
+        {
+         "refuted": false,
+         "corrected_severity": "NON_BLOCKING",
+         "reasoning": "I could not refute the finding. Its facts hold against the files, and it is a real but non-blocking disclosure gap.\n\nWhat I checked:\n\n1. **The watermark is real.** I viewed round32-41380947763/orderseq/frame-45.png and orderseq-noletter/frame-45.png, both 1280x800. Both show \"Windows 11 Enterprise Evaluation / Windows License is expired / Build 26100.ge_release.240331-1435\". In the noletter frame the tray shows 3:24 AM 11/2/2026. run-metadata.json runs[37] gives jobs 03:03:24 to 03:24:17Z, so the guest date is not wildly off. The probe.json timelines end at about 950 s. So the expired state is present within about 15 minutes of a fresh install, not after a long uptime.\n\n2. **No KI or decision records it.** A grep across docs/, scripts/ and .github/ for \"License is expired\" finds only docs/evidence/m03-native-runtime-diagnostics/README.md:221 (\"recorded as an observation\"). docs/KNOWN_ISSUES.md (including KI-0171), docs/DECISIONS.md, docs/TEST_EVIDENCE.md and docs/PROJECT_STATUS.md have no entry for license expiry or activation state. OD-038 (DECISIONS.md:67) only authorises accepting the Evaluation license for the pinned ISO in disposable CI VMs. The KI-0171 text does not mention it either.\n\n3. **Stale media is unlikely to be the cause (my inference).** inputs/media-lock.json pins 26300.9457.260913-1737.26h2_ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso, an image stamped 2026-09-13. A built-in evaluation timebomb from old media is therefore unlikely. The Microsoft publisher page text in the candidate says nothing about evaluation periods or activation.\n\n4. **The harness neither causes nor checks it.** In git show a03aadf:scripts/windows11/*, the VM has `-nic none` (confirmed in probe.json argv). No script handles activation, licensing state, slmgr or WLMS. The guest attests only caption == 'Microsoft Windows 11 Enterprise Evaluation' (windows11_guest.ps1:370; windows11_inputs.py:336). The licensing state is not attested, and the evidence documents do not disclose it.\n\n5. **The campaign fails closed.** windows11_vm.py at S sets WORK_SECONDS = 3300 (line 105), with work_deadline = owner.started + WORK_SECONDS set early in main(). POST_PASS_SECONDS = 180+10+15+60 = 265. observe() raises \"Owned Windows VM exited before complete guest receipt\" if the child exits (lines 697-700). An unexpected guest power-off therefore cannot produce a PASS. Wall time from owner.started to the end of cleanup is at most about 3565 s, and the final OS boot starts minutes after that, so final-boot uptime stays under an hour.\n\nWhat I could not verify:\n- The cause. My unverified belief is that an offline Enterprise Evaluation shows \"expired\" until it is activated online.\n- The hourly-shutdown behaviour of expired evaluations (WLMS). This comes from general knowledge, not a file.\n- Whether running an unactivated or \"expired\" evaluation stays within the Evaluation license terms OD-038 accepted. The ISO is not retained and there is no network access, so I could not read the EULA.\n\nAssessment: the gap does not change any candidate input or hash, and it cannot cause a false PASS. It is still a reproducible, unexplained guest state with a possible deferred risk: a shutdown timer, plus an open licensing-scope question about OD-038. Repository policy puts such risks in KNOWN_ISSUES. The future M03-W07 evidence should also say that the guest ran in an expired, unactivated evaluation state. I recommend recording it in a KI or an OD-038 note with or before the release. It does not block the candidate release. Severity stays NON_BLOCKING.\n\nSeparate observation, not evaluated: the orderseq-noletter frame-45 shows the Start menu open on the auto-logged-on desktop, although the probe sent only the boot key at about 2.4 s."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "lens": "win-preparation",
+     "review_failed": false,
+     "verdict": "CLEAR_WITH_NOTES",
+     "checks": [
+      "Read windows11_candidate.py, windows11_inputs.py and windows11_resources.py at S (git show a03aadf:…), plus the helpers they import (ubuntu_gnome_vm.Owner/write, ubuntu_gnome_prepare.resolve/apt_config/simulate_host_install, ubuntu_gnome_host.simulate_install/closed_install_plan/require_host, ubuntu_gnome_process.local_only_apt, ubuntu_gnome_signed_indexes.retain_releases/retain_indexes) and the prepare workflow at S",
+      "Built the expected argv sequence from S's code and the lock packages, then compared it element by element with all 367 command-*.json argv lists (0 mismatches); grouped commands by program",
+      "Checked every command record for exit code, signals, reaping, group absence, cap, errors, custody and scope; checked that raw_bytes equals the stdout+stderr sizes and that numbering is contiguous; listed non-empty stderr files (gpgv only)",
+      "Cross-checked dpkg-deb -f and apt-cache show outputs against every lock row; hashed all 117 host-debs against the lock; reconciled every lock package with the apt-get -s plan (27 Inst + 90 already-newest, 0 Remv/Purg/upgrades) and host-install-plan.json",
+      "Read closure.json, host-resource-cleanup.json, media-download.json, media-lock.json and retention.json; confirmed closure.resource_preflight == host-resource-cleanup.json",
+      "Compared source-before/after/finally with each other and with every blob of tree 7a96092 at a03aadf (3939 files: names, sha256, bytes, modes) and with the original artifact's worker/original-source-before.json; checked the git command stdout across endpoints",
+      "Compared the guest-driver files and guest-source-check.json bindings with S's scripts/windows11 sources",
+      "Re-ran S's publisher_digest regex on publisher.html in my own script; checked media URL/sha/size against S constants and the CPU identity against S's SUPPORTED_HOST_CPUS",
+      "Verified the ZIP sha256, member safety and content identity with the unzipped tree; verified retention.json and reviewed-inputs.json inventories and hashes; verified that original-native-artifact equals req4/win/artifact.zip",
+      "Diffed against the 10f247b-reviewed bound files in docs/evidence (host-tools-lock and guest-driver identical; reviewed-inputs and media-lock changed only in expected members); ran git diff --stat 10f247b..a03aadf for code and workflow changes",
+      "Parsed the retained ubuntu-archive-keyring.gpg in pure Python and computed the v4 fingerprints; compared InRelease sha256 values with the lock pins",
+      "Read-only gh api: prepare run 41395340494 metadata, jobs and steps, artifact metadata and expiry for 13119257518/13118745719/13118628017, and job logs for download-only, guest-source-checks and authorize (checkout refs, step commands, runner image banner, upload digest, orphan cleanup)",
+      "Grepped retained text files for token and credential markers",
+      "Did not verify InRelease RSA signatures myself; did not download the request or source-check artifacts; ran nothing from the candidate; wrote scratch files only under review4-work/win11-prep-record"
+     ],
+     "hashes": [
+      {
+       "file": "review4/win11/retained/inputs/reviewed-inputs.json (bundle_sha256)",
+       "sha256": "ce73edddbfdb0f8fb46e9adedf25aa5c31f1b450a6757ac14928bfe07e2b2a2e"
+      },
+      {
+       "file": "review4/win11/retained/inputs/media-lock.json (media_lock_sha256)",
+       "sha256": "d1aa8e327b90e292cb309ba1dc7ba448ba7981f2b4fdbd2829c6c083ad804533"
+      },
+      {
+       "file": "review4/win11/retained/inputs/host-tools-lock.json (host_tools_sha256)",
+       "sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06"
+      },
+      {
+       "file": "review4/win11/retained/inputs/guest-driver.json (guest_driver_sha256)",
+       "sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+      },
+      {
+       "file": "review4/win11.zip (candidate artifact 13119257518)",
+       "sha256": "1940176ffa079820a8422bcac0d9e2aa223d8033584dd8005b0b9c9bb84b56d4"
+      },
+      {
+       "file": "req4/win/artifact.zip (original package artifact 13118745719)",
+       "sha256": "109ddf4de5da696d38273b08552a2415656194c764bc415c76c64836df7d56ea"
+      },
+      {
+       "file": "review4/win11/retained/inputs/original-native-artifact/manifest.json",
+       "sha256": "b7697ee47f0e0df7e38d9185929da943f23362c7c61b632f774bec3e91f1298b"
+      },
+      {
+       "file": "review4/win11/retained/inputs/publisher.html",
+       "sha256": "4dd74ac979678c7cf845bb1e52899903f7831879e1715511c1f0b3584a7bb9f5"
+      },
+      {
+       "file": "review4/win11/retained/inputs/guest-source-check.json",
+       "sha256": "8760c47eb91b7684aab0edc0705ec88e3378c8141c49d2f63c82bc01944cfd51"
+      },
+      {
+       "file": "review4/win11/retained/inputs/host-signed-metadata/ubuntu-archive-keyring.gpg",
+       "sha256": "80a36b0a6de2f69f49d2df75ef473ccde121e9e190b9ea01d20a4f63778d5c31"
+      },
+      {
+       "file": "ISO per media-download.json (not retained; recorded value)",
+       "sha256": "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38"
+      },
+      {
+       "file": "review4/win11/retained/command-003.stdout (= command-364/367; git ls-files at S)",
+       "sha256": "a7f3cb4a1ee386a217469b8112580d87705c413029a53fc24cec54b2e08a2104"
+      }
+     ],
+     "notes": [
+      {
+       "title": "All 367 owned commands exactly match the sequence derived from windows11_candidate.py at S; no install, sudo, VM or downloaded-content execution",
+       "severity": "NOTE",
+       "location": "review4/win11/retained/command-001..367.json",
+       "claim": "The preparation record contains only the download-only actor sequence that S's code produces. No package install, no privileged command, no VM or product start, and nothing downloaded was executed.",
+       "evidence": "My script built the expected argv list from S's code and the lock's 117 packages, then compared it element by element with the 367 records: 0 mismatches. The sequence is git rev-parse/status/ls-files (3), env APT_CONFIG apt-get -qq update, apt-get --download-only --reinstall --no-install-recommends install with exactly the 10 HOST_ROOTS, 117 pairs of dpkg-deb -f and apt-cache show pkg=ver, 3 gpgv, apt-get indextargets, an unprivileged apt-get -s install of the 117 local debs (local-only options), 117 dpkg-deb -x into private-work/host-extracted, then git x3 (after) and git x3 (finally). By program: git 9, env->apt-get 3, dpkg-deb 234, env->apt-cache 117, gpgv 3, apt-get 1. There is no /usr/bin/sudo, no rm, and no qemu, swtpm or other tool invocation. dpkg-deb -x only unpacks data; no maintainer scripts run. The dpkg-deb -f fields and apt-cache Package/Version/SHA256/Size match every lock row, and inputs/host-debs equals the lock (117 files, all sha256/bytes match, 54,557,434 bytes). The simulation output says 0 upgraded, 27 newly installed, 0 to remove. The 27 Inst lines plus 90 'already the newest version' lines account for all 117 lock packages at their locked versions, with no Remv or Purg lines."
+      },
+      {
+       "title": "Every owned command was reaped cleanly; closure and resource cleanup records are terminal and consistent",
+       "severity": "NOTE",
+       "location": "review4/win11/retained/command-*.json, closure.json, host-resource-cleanup.json",
+       "claim": "Every command exited 0 and was reaped with its group absent. No signals, errors or cap breaches occurred, nothing remained pending, and no VM ran. The SDK cleanup path removed nothing.",
+       "evidence": "All 367 records share one key set and have: exit_code 0, signals [], direct_child_reaped true, group_authority_verified true, group_after_reap ABSENT, output_cap_exceeded false, primary/cleanup_error_type null, retained_unreaped_custody false, scope EXACT_OWN_CHILD_NO_SIGNAL_AFTER_REAP. For every record, raw_bytes equals the stdout+stderr file sizes, and record numbers run contiguously 001..367. Only the three gpgv records have non-empty stderr. closure.json reads status DOWNLOAD_ONLY_UNREVIEWED_CANDIDATE_COMPLETE, install_vm_product_actors 0, closure {vm_started false, pending_commands []}, with no error, endpoint_error or cleanup_error keys. Its resource_preflight object equals host-resource-cleanup.json: status CAPACITY_OBSERVED, free_before = free_after = 90,003,279,872 (at least 48 GiB), removed [], roots_before {}. tools_before equals tools_after for git, apt-get, dpkg-deb, dpkg-query, sudo, rm and python3 (to python3.12). There are 7 entries, so sys.executable was /usr/bin/python3 (inferred). No retention-failure.json is present; the ZIP holds only retained/ members. The job log's final 'Cleaning up orphan processes' line lists no terminated orphans."
+      },
+      {
+       "title": "Source endpoints before, after and finally are identical and bound to S and its tree, and S matches the package build source",
+       "severity": "NOTE",
+       "location": "review4/win11/retained/source-before.json, source-after.json, source-finally.json",
+       "claim": "The checkout the preparer ran from was clean at S, with exactly the file bodies of tree T, at all three endpoints.",
+       "evidence": "source-before == source-after == source-finally. git = [a03aadf22ab83c9b39bc03f5387eaa0a702ebf27, 7a96092b2b7738d3dce8f27b5ddb004b1a2ff81a]. The stdout of commands 001/362/365 shows the same two lines, 002/363/366 (status --porcelain) are empty, and 003/364/367 (ls-files) all hash to a7f3cb4a…2104. I compared all 3939 rows with `git ls-tree -r a03aadf` plus `git cat-file --batch` locally: same name set, 0 sha256/byte mismatches, all modes 0o100644 = git 100644. The 3939 rows also equal the original artifact's worker/original-source-before.json (head d9412fd…, tree 7a96092…; before == after) in names, bytes and sha256. The download-only job log shows checkout of a03aadf and 'HEAD is now at a03aadf'."
+      },
+      {
+       "title": "Prepare code, workflow and helpers are unchanged since the reviewed 10f247b; outputs differ only in the expected members",
+       "severity": "NOTE",
+       "location": "git diff 10f247b..a03aadf; inputs/reviewed-inputs.json",
+       "claim": "The preparer code is unchanged from the reviewed version, so the S-derived expectations above apply. Of the four files the release binds, only the bundle and media lock changed, and only for expected reasons.",
+       "evidence": "Outside docs and .github request/release JSON, `git diff 10f247b a03aadf` touches only scripts/windows11/windows11_deployment.py, scripts/tests/test_windows11_guest_driver.py and scripts/python-test-inventory.v1.json. No workflow, windows11_candidate.py, windows11_inputs.py, windows11_resources.py or linux_gnome file changed. host-tools-lock.json (b6f70b31…ba06) and guest-driver.json (1a31fd23…7b35) are byte-identical to docs/evidence/m03-native-candidates-10f247b-review/bound/windows11. reviewed-inputs.json differs from the 10f247b bundle in its header (source/package/tree/manifest now S/M/T/b7697ee4…), in original-native-artifact rows, and in exactly two other rows: publisher.html (105775 to 105787 bytes) and media-lock.json. media-lock differs only in the publisher receipt and the ISO download seconds; the ISO url, bytes and sha256 are unchanged. The guest-driver files equal S's windows11_guest.ps1, windows11_owned.cs and windows11_bootstrap.ps1. guest-source-check.json binds S's four guest sources, including windows11_source_check.ps1 (8fe860de…)."
+      },
+      {
+       "title": "Network origins and credentials: only expected hosts, no authenticated account, no token reaches the preparer",
+       "severity": "NOTE",
+       "location": "inputs/media-lock.json, media-download.json, inputs/host-signed-metadata/sources.list, command-243.stdout, download-only job log",
+       "claim": "The candidate came only from the reviewed official endpoints, and no credentials were used by the preparer.",
+       "evidence": "The publisher page and ISO were fetched in-process (urllib with a NoRedirect handler), so they appear as receipts, not command records. Their URLs equal S's PUBLISHER and MEDIA constants exactly, and authenticated_account_used is false for both. ISO: 8,225,329,152 bytes, sha256 bc3f2408…0e38 = S's MEDIA_SHA256, 66.98 s; media-download.json == media-lock.media; iso_retained_in_artifact false, and no .iso/private-work member is retained. My regex re-run (copied from S) on publisher.html finds exactly one 'Enterprise Eval x64 Eval EN-US DVD9 (SHA256)' digest, equal to MEDIA_SHA256. apt index targets name only https://archive.ubuntu.com/ubuntu (noble, noble-updates) and https://security.ubuntu.com/ubuntu (noble-security), all amd64 and Trusted: yes. Other hosts in the job log are GitHub action and artifact-blob downloads only. The download-only step has no GH_TOKEN in its env; GITHUB_TOKEN is contents:read, actions:read; checkout uses persist-credentials false; Owner commands run with a fixed PATH/HOME/LC_ALL env. A token-marker grep over the retained text files found only the synthetic 'Bearer synthetic-invalid-fixture' strings in windows11_guest.ps1."
+      },
+      {
+       "title": "Release-window and environment constraints the VM campaign will enforce",
+       "severity": "NOTE",
+       "location": "inputs/host-tools-lock.json runner_image_version; inputs/media-lock.json host CPU; artifact metadata",
+       "claim": "The candidate is consumable only inside a narrow window. Outside it, a campaign fails closed rather than unsafely.",
+       "evidence": "host-tools-lock pins runner_image_version 20261026.354.1, and windows11_vm.install_tools refuses any other ImageVersion env value. The download-only job's log banner reads 'Version: 20261025.353.1' while the env value recorded is 20261026.354.1, the same split the 10f247b review noted ('Diagnose a stop from the environment value, not the log banner'). The 10f247b campaign's host-tools.json also recorded 20261026.354.1. The recorded host CPU is AMD EPYC 7763 (AuthenticAMD, family 25, model 1, stepping 1), which matches S's single SUPPORTED_HOST_CPUS identity. Per gh api, artifacts expire at: original package 13118745719 2026-11-09T05:26:14Z (earliest), candidate 13119257518 2026-11-09T05:43:29Z, source-check 13118628017 2026-11-09T05:41:10Z. The ISO re-download took 67 s here, against 1162 s in the 10f247b prepare, so campaign download time varies widely."
+      },
+      {
+       "title": "Candidate ZIP, unzipped tree, retention and bundle inventories agree; original artifact copy is exact",
+       "severity": "NOTE",
+       "location": "review4/win11.zip; retained/retention.json; inputs/reviewed-inputs.json; inputs/original-native-artifact",
+       "claim": "The bytes under review are exactly the uploaded candidate. The bundle manifest covers every input exactly, and the original package artifact was copied unaltered.",
+       "evidence": "win11.zip sha256 = 1940176f…56d4. This matches the task, gh api artifact 13119257518's digest, and the upload log line. It has 1534 members, all under retained/, no directories, links or special or absolute entries, and is content-identical to the unzipped tree. retention.json lists 1533 files (all except itself), all sha256/bytes matching, private_ISO_disks_passwords_excluded true. reviewed-inputs.json lists 424 rows equal to inputs/ minus itself, 0 mismatches, 691,159,318 bytes (under the 2 GiB cap). Its header is source_sha a03aadf…, package_build_sha d9412fd…, source_tree_sha 7a96092…, package_manifest_sha256 b7697ee4…, review_state UNREVIEWED_REQUIRES_DIFFERENT_REVIEW_AND_ROOT_RELEASE. inputs/original-native-artifact has 279 files with the same set and contents as req4/win/artifact.zip (sha256 109ddf4d…6ea); its manifest.json sha256 is b7697ee4…298b. The authorize job ran the PR merge 930e437 (e5aa210 into 4745149) as workflow source. It succeeded, so S's protected-source equality check passed (inferred from the code and job conclusion; I did not download the request artifact)."
+      }
+     ],
+     "verified": [
+      {
+       "title": "Prepare-time gpgv does not pin the signing key (carried from the 10f247b review and not tracked in KNOWN_ISSUES)",
+       "severity": "NON_BLOCKING",
+       "location": "scripts/linux_gnome/ubuntu_gnome_signed_indexes.py retain_releases at S; command-240..242",
+       "claim": "gpgv accepts a signature from any key in the copied runner keyring, so the preparer's own InRelease check does not prove which key signed. For this candidate, the observed signer is the 2018 Ubuntu archive key in all three cases.",
+       "survives": true,
+       "votes": [
+        {
+         "refuted": false,
+         "corrected_severity": "NOTE",
+         "reasoning": "I could not refute the facts, but I am lowering the finding from NON_BLOCKING to NOTE.\n\nFacts I confirmed:\n- **No signer pin.** At S (a03aadf), retain_releases runs `/usr/bin/gpgv --keyring <root>/ubuntu-archive-keyring.gpg --output <Release> <InRelease>` (lines 186-196 of scripts/linux_gnome/ubuntu_gnome_signed_indexes.py). There is no --status-fd and no fingerprint check; only exit 0 counts.\n- **Keyring is the runner's copy, not checked by prepare.** apt_config in ubuntu_gnome_prepare.py copies the runner's /usr/share/keyrings/ubuntu-archive-keyring.gpg and compares it to nothing. The lock does record its hash, and the reviewer compares that hash.\n- **Code is unchanged since the last review.** `git diff 10f247b a03aadf -- scripts/linux_gnome/` is empty, so the finding carries over from 10f247b.\n- **The prior review recorded the same finding.** docs/evidence/m03-native-candidates-10f247b-review/README.md records it as NON_BLOCKING (\"both skeptics would lower it to NOTE … Pinning VALIDSIG is a later hardening\").\n- **Not tracked in KNOWN_ISSUES.** grep of docs/KNOWN_ISSUES.md, both in the working tree and at a03aadf, finds no gpgv, VALIDSIG, signing key or signer entry.\n- **gpgv is not hashed.** The host-tools-lock tools are code, mcopy, mformat, qemu, qemu_img, setfacl, swtpm, vars, wimlib and xorriso.\n- **Lock is byte-identical to the 10f247b-reviewed lock.** host-tools-lock.json sha256 b6f70b31…ba06 equals docs/evidence/m03-native-candidates-10f247b-review/bound/windows11/host-tools-lock.json.\n- **Retained keyring matches the lock pin.** Its sha256 is 80a36b0a…5c31, equal to the lock's keyring pin.\n\nWhy NOTE and not a defect in this candidate:\n\n1. **I checked the signatures myself; the finding's reviewer did not.** I wrote a pure-Python parser and verifier, run with `python3 -I -B` from review4-work/skeptic1-gpgv-win11/pgpverify.py.\n   - The retained keyring holds exactly three v4 RSA-4096 primary keys, with no subkeys:\n     - 790BC7277767219C42C86F933B4FE6ACC0B21F32 (Archive 2012)\n     - 843938DF228D22F7B3742BC0D94AA3F0EFE21092 (CD Image 2012)\n     - F6ECB3762474EDA9D21B7022871920D1991BC93C (Archive 2018)\n   - Each of release-01, release-02 and release-03.InRelease has exactly one v4 signature packet (RSA, SHA-512).\n   - Each signature carries an issuer-fingerprint subpacket of F6EC…BC93C, has correct left-16 bits, and passes PKCS#1 v1.5 checking only under F6ECB3762474EDA9D21B7022871920D1991BC93C. Neither 2012 key validates it.\n   - That fingerprint equals the Ubuntu Archive 2018 key fingerprint I know from my own knowledge, not from a file.\n   - Each retained release-NN.Release equals the signed cleartext plus one trailing LF, with no dash-escaping. So the hashes in the lock, which the index and archive joins use, cover signed content.\n   - Whatever the preparer's gpgv would have accepted, the actual signer for this candidate is the 2018 key.\n2. **Nothing downstream uses the prepare-time gpgv result.**\n   - `git grep` at a03aadf finds no Windows 11 workflow or script that reads signed_index_chain, host-signed-metadata or gpgv, apart from windows11_candidate.py copying them.\n   - windows11_vm.install_tools checks only four things: the host-tools-lock sha256 (bound by the receipt), each .deb's size and sha256, the installed tool pins, and the installed package versions.\n   - The trust boundary is the independent review plus the receipt's hash binding. The candidate is explicitly UNREVIEWED.\n3. **gpgv's trust matches APT's.** It accepts any key in Ubuntu's own archive keyring, the same set that APT's `signed-by=` source lines trust. The keyring hash matches the previously reviewed one, so trust is not widened to non-Canonical keys.\n4. **The record makes no false claim.** It states required_verification \"GPGV_EXIT_ZERO_THEN_RELEASE_INDEX_ARCHIVE_HASH_JOINS\" and says nothing about which key signed.\n\nWhat remains true is a hardening and tracking gap:\n- prepare_image already pins VALIDSIG for the cloud image (GNOME path), but retain_releases does not pin it.\n- The deferred hardening lives only in an evidence README, not in KNOWN_ISSUES as the CLAUDE.md rule for deferred risks requires.\n- Recommendation: file a KNOWN_ISSUES entry. This does not block release of this candidate."
+        },
+        {
+         "refuted": false,
+         "corrected_severity": "NOTE",
+         "reasoning": "I could not refute the facts. I am lowering the severity to NOTE: the gap is real in the code, but it has no effect on this candidate, and the repository already records it as deferred hardening.\n\nWhat I checked:\n\n1. **Code at S.** In `git show a03aadf:scripts/linux_gnome/ubuntu_gnome_signed_indexes.py`, `retain_releases` runs `/usr/bin/gpgv --keyring <root>/ubuntu-archive-keyring.gpg --output <plain> <InRelease>`. It has no `--status-fd` and no VALIDSIG fingerprint check, and the result is labelled `GPGV_EXIT_ZERO_THEN_RELEASE_INDEX_ARCHIVE_HASH_JOINS`.\n   - `apt_config` in `ubuntu_gnome_prepare.py` copies `/usr/share/keyrings/ubuntu-archive-keyring.gpg` from the runner without a pin. APT's own `signed-by` uses that same keyring.\n   - By contrast, `prepare_image` in `ubuntu_gnome_vm.py` does pin `VALIDSIG <FINGERPRINT>`.\n   - `windows11_candidate.py` imports this path through `resolve()` and `stage_host`.\n\n2. **Command records.** command-240, 241 and 242 have exactly that argv, exit 0 and no signals. Each stderr reads \"using RSA key F6ECB3762474EDA9D21B7022871920D1991BC93C … Good signature from Ubuntu Archive Automatic Signing Key (2018)\".\n   - gpgv is not hashed anywhere in this candidate's locks. Only the command-24x records mention it.\n\n3. **My own signature check, in pure Python** (`python3 -I -B`, script in `review4-work/skeptic2-gpgv/verify.py`). I did not run gpg, gpgv or anything from the candidate.\n   - I parsed the retained `ubuntu-archive-keyring.gpg` (sha256 80a36b0a…5c31, which equals the lock's keyring pin). It holds three v4 RSA-4096 primary keys: 790BC727…1F32 (Archive 2012), 843938DF…1092 (CD Image 2012) and F6ECB3762474EDA9D21B7022871920D1991BC93C (Archive 2018).\n   - The 2018 fingerprint matches the one I know from my own knowledge, not from a file.\n   - Each of release-01, 02 and 03 InRelease (sha256 a4fcbfd2…, cdb2f31d…, 95faf2ec…) has exactly one v4 signature packet: sigtype 1, SHA-512, issuer fingerprint subpacket F6EC…C93C, and left-16 bits correct.\n   - I tried every key in the keyring with RSA PKCS#1 v1.5 and the SHA-512 DigestInfo. Each signature verifies under the 2018 key only. The 2012 keys do not verify any of them.\n   - The signature creation times (2026-11-01 14:21:27, 2024-04-25 15:11:21, 2026-11-01 05:30:48 UTC) match the gpgv stderr.\n   - Each retained `release-0N.Release` is byte-equal to the signed cleartext body plus LF, with no dash-escaped lines. So the Release files used for the index joins are exactly the signed bytes.\n   - This is a direct check, not an inference from hash identity.\n\n4. **Identity with the previous review.** `inputs/host-tools-lock.json` has sha256 b6f70b31…ba06. That is byte-identical to `docs/evidence/m03-native-candidates-10f247b-review/bound/windows11/host-tools-lock.json`. Its signed_index_chain (keyring and the three InRelease/Release pins) also equals the 10f247b GNOME guest and host chains.\n\n5. **Where the signed chain is actually trusted.** `windows11_vm.py` `install_tools` only checks that sha256(host-tools-lock) equals the bound pin, plus each deb's bytes and sha256. It never re-runs gpgv. So prepare-time gpgv is evidence for the reviewer, not the trust anchor. The review and the receipt hash binding are the anchor, and the 2018-only signer is now verified for these exact bytes.\n\n6. **Tracking.** The finding is right that `docs/KNOWN_ISSUES.md` at S has no gpgv or VALIDSIG entry. But the same issue is already recorded in the repository:\n   - `docs/evidence/m03-native-candidates-10f247b-review/README.md` line 36: \"Pinning VALIDSIG is a later hardening.\"\n   - `review-workflow-result.json`: the same finding was rated NON_BLOCKING, and both skeptics lowered it to NOTE.\n   - The KI-0171 change did not touch this code.\n\n**Severity reasoning.**\n- What survives is a prepare-time hardening gap. Any key in a keyring copied without a pin would pass gpgv, which is the same trust model APT itself uses. On top of that, CLAUDE.md lists deferred risks under KNOWN_ISSUES, so it should be filed there.\n- It does not affect this candidate: all three signatures verify under the 2018 key and nothing else.\n- It does not weaken what the release would bind, because the bound lock freezes the exact verified InRelease, Release and Packages bytes and every deb hash.\n- So it is not a defect that should hold the release.\n\n**Recommended follow-ups (not required for this release):**\n- Pin VALIDSIG F6EC…C93C in `retain_releases` and record the signer in the lock.\n- File a KNOWN_ISSUES entry for the deferred hardening."
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

@@ -2,8 +2,8 @@
   "scope": "Exact committed bytes of scratch-branch diagnostic probe sources, selected artifact files and bounded extracts from the 38 runs listed in run-metadata.json, and GitHub API metadata. Text copies are LF-normalized for the repository's eol=lf rule by replacing CRLF with LF repeatedly until none remains; PPM frames are converted to PNG. Original artifact file sizes and hashes are in run-metadata.json (rounds 1-11 and the product builds) and in each later round's sources.json.",
   "files": {
     "README.md": {
-      "bytes": 17193,
-      "sha256": "621fa6bceb1f5180b43892b1ffbbb3a38e47167e637716636c315aa5bd9f408b"
+      "bytes": 17245,
+      "sha256": "4a74eaddc5685fba3678474022f7aeba47a84b67ac165bf41b2cd8ab9e8f8171"
     },
     "gnome-e2e-rounds/round12-41233236511/01-launch.json": {
       "bytes": 197,

@@ -12595,4 +12595,11 @@ Hosted a03aadf/run41384168159 (pull_request merge d9412fd0):
   - native-development-windows-2025-d9412fd0… (13118745719, sha256 109ddf4d…);
   - gnome-package-input-d9412fd0… (13118059567, sha256 434e4de9…).
 
+Windows 11 candidate review at a03aadf (2026-11-02UTC):
+- Download-only request `e5aa210` bound S a03aadf, package merge d9412fd0 and run 41384168159 attempt 2.
+- Prepare run 41395340494 passed its hosted guest-source checks and produced artifact 13119257518 (ZIP `1940176f…`, verified after one stalled local download was retried), with no install and no VM.
+- Independent workflow wf_4950a2f8-86c (six lenses including a dedicated answer-file lens, two refuters per actionable finding, a final reviewer; resumed once with cached agents) decided RELEASE_ONE_BOUND_CAMPAIGN with no surviving blocking finding. Bound hashes: bundle `ce73eddd…`, media lock `d1aa8e32…`, host tools `b6f70b31…`, guest driver `1a31fd23…`; the packet's `bound/` files hash to the same values.
+- KI-0173 and KI-0174 are filed from the surviving notes.
+- Exact docs/evidence/m03-native-candidates-a03aadf-review.
+
 Next READY package: NONE while M03-W07 is IN_PROGRESS.
