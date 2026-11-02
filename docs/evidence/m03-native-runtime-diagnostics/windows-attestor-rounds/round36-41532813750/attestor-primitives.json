@@ -1,0 +1,107 @@
+﻿{
+    "schema":  "diag36-attestor-primitives",
+    "host":  "hosted Windows Server runner, Windows PowerShell 5.1, administrator not SYSTEM, not Windows 11",
+    "rows":  [
+                 {
+                     "check":  "powershell-desktop-5.1",
+                     "pass":  true,
+                     "detail":  "5.1.26100.33648"
+                 },
+                 {
+                     "check":  "host",
+                     "pass":  true,
+                     "detail":  "Microsoft Windows Server 2025 Datacenter 26100"
+                 },
+                 {
+                     "check":  "parse windows11_bootstrap.ps1",
+                     "pass":  true,
+                     "detail":  ""
+                 },
+                 {
+                     "check":  "parse windows11_guest.ps1",
+                     "pass":  true,
+                     "detail":  ""
+                 },
+                 {
+                     "check":  "parse attestor body",
+                     "pass":  true,
+                     "detail":  "chars=4488 errors="
+                 },
+                 {
+                     "check":  "attestor run exits non-zero off the fixture",
+                     "pass":  true,
+                     "detail":  "exit=1 seconds=2.04"
+                 },
+                 {
+                     "check":  "trace is fresh, CRLF lines of UTC time and step",
+                     "pass":  true,
+                     "detail":  "lines=5 bytes=231"
+                 },
+                 {
+                     "check":  "trace names each step to the failure",
+                     "pass":  true,
+                     "detail":  "start|configuration|operating-system|interactive-user|caught at interactive-user"
+                 },
+                 {
+                     "check":  "error receipt is bound to this nonce and boot",
+                     "pass":  true,
+                     "detail":  "step=interactive-user boot=2026-11-02T21:53:53.3991210Z expected=2026-11-02T21:53:53.3991210Z"
+                 },
+                 {
+                     "check":  "no machine.json on failure",
+                     "pass":  true,
+                     "detail":  ""
+                 },
+                 {
+                     "check":  "append succeeds while the guest reads",
+                     "pass":  true,
+                     "detail":  "read=91"
+                 },
+                 {
+                     "check":  "unwritable trace is swallowed",
+                     "pass":  true,
+                     "detail":  ""
+                 },
+                 {
+                     "check":  "second run with a reader open still traces its own steps",
+                     "pass":  true,
+                     "detail":  "exit=1 names=start|configuration|operating-system|interactive-user|caught at interactive-user"
+                 },
+                 {
+                     "check":  "receipt absent is null",
+                     "pass":  true,
+                     "detail":  ""
+                 },
+                 {
+                     "check":  "receipt partial is null",
+                     "pass":  true,
+                     "detail":  ""
+                 },
+                 {
+                     "check":  "receipt whole is parsed",
+                     "pass":  true,
+                     "detail":  ""
+                 },
+                 {
+                     "check":  "receipt over 64 KB is refused",
+                     "pass":  true,
+                     "detail":  ""
+                 },
+                 {
+                     "check":  "retention copies the current trace exactly",
+                     "pass":  true,
+                     "detail":  "ok"
+                 },
+                 {
+                     "check":  "retention refuses a trace over 64 KB",
+                     "pass":  true,
+                     "detail":  "Bounded protected attestor trace required"
+                 },
+                 {
+                     "check":  "retention without a trace writes nothing",
+                     "pass":  true,
+                     "detail":  "ok"
+                 }
+             ],
+    "failed":  0
+}

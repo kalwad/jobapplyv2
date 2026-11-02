@@ -58,6 +58,41 @@ Current scoped correction supersedes the pending source/focus statements: all te
 
 The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
 
+### KI-0175 — Windows 11 guest gives up on the SYSTEM machine attestation before it is written
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: reviewed Windows 11 lifecycle run41505468952 at a03aadf, 2026-11-02UTC.
+- Affects: M03-W07 Windows 11 VM campaign (scripts/windows11/windows11_bootstrap.ps1 machine attestor task; scripts/windows11/windows11_guest.ps1 machine receipt wait).
+- Description: in the first Windows 11 guest run, Setup, specialize (the real bootstrap as SYSTEM), OOBE and auto-logon all completed, and the guest driver started at logon. It waited its 30 s for `machine.json` from the SYSTEM attestor scheduled task. Neither `machine.json` nor `machine-error.json` appeared, so it failed closed with "Protected current-boot machine attestation missing or unreadable".
+  - Diagnostic run41509581288, with the real bootstrap and an observing probe: no receipt appeared in 7.5 minutes after logon.
+  - Diagnostic run41514384986, with step tracing and a 10-minute task limit: the attestor task started as `NT AUTHORITY\SYSTEM` one second after the logon probe.
+  - Diagnostic run41520516660, with compact tracing: every attestor step completed and `machine.json` was written about 10 s after the task started (TPM step 2.6 s).
+  - So the task runs at logon and is fast when it completes, but a first-logon run can also produce nothing. The old one-minute task limit ends a run without its catch block, so it leaves no error receipt; that this happened in the empty runs is an inference, not a measurement.
+- Reproduction: the runs above; evidence in docs/evidence/m03-w07-win11-campaign-a03aadf and docs/evidence/m03-native-runtime-diagnostics (windows-attestor-rounds).
+- Workaround: none.
+- Resolution + evidence link: corrected in source, pending a reviewed campaign.
+  - The attestor task limit is now 10 minutes, set once and never changed afterwards.
+  - The guest waits until the 150 s mark of its own clock, which starts at the same logon as the attestor task. That is the midpoint of its 300 s work deadline. The wait ends early only on a receipt, or an attestor error, bound to this run's nonce and boot.
+  - The guest reads each receipt through one handle that shares write and delete access and is bounded at 64 KB. So a poll never blocks the attestor from removing an earlier run's file, and a file still being written is 'not yet'.
+  - The attestor removes an earlier trace before an earlier error, so a run that stops there never leaves an earlier run's trace.
+  - The attestor appends a trace of UTC times and fixed step names only. The guest retains it, read with shared access and bounded at 64 KB, before any decision, so a run that is still working when the wait ends names its step.
+  - Tests pin these behaviours, case-insensitively where PowerShell resolves names in any case: six new test IDs and stronger existing ones. 85 of 86 mutants are killed, including every reviewer mutant that routes a read value into the trace or rewrites the task limit. The survivor inserts a sleep before the wait, which only the file's SHA-256 pin catches.
+  - Diagnostic rounds 36 (run41532813750, the first bytes) and 37 (run41534670479, the final bytes) ran on hosted Windows Server 2025 with Windows PowerShell 5.1, with no VM and not as SYSTEM. They parsed the exact attestor body and ran it, the guest's receipt reader and its trace retention against real files: 20 of 20 and 26 of 26 checks pass. Their attestor runs stopped at the fixture check, so the later steps ran only in round 35.
+  - Residual, all failing closed: a run that takes longer than the wait still fails the campaign, now with its step named. An error receipt from an earlier logon of the same boot could end the wait before the new run removes it; the campaign has one auto-logon per boot. A trace or receipt removed between the guest's existence check and its retention copy fails the guest.
+  - A rebuilt, re-reviewed Windows 11 candidate and campaign are required before closure.
+
+### KI-0176 — No gate parses the Windows 11 attestor body before a campaign
+
+- Severity: LOW
+- State: OPEN
+- Discovered: separate review of the KI-0175 correction, 2026-11-02UTC.
+- Affects: M03-W07 download-only preparation (scripts/windows11/windows11_source_check.ps1); the attestor here-string in scripts/windows11/windows11_bootstrap.ps1.
+- Description: the prepare run's Windows PowerShell 5.1 source check parses windows11_bootstrap.ps1 and windows11_guest.ps1. But the attestor is a single-quoted here-string inside the bootstrap, so it is parsed only as a string. A syntax error in it would first show in a VM campaign, as a missing machine receipt.
+- Reproduction: read windows11_source_check.ps1; it calls ParseFile on the two .ps1 files only.
+- Workaround: diagnostic round 37 parsed the current attestor body under Windows PowerShell 5.1 (docs/evidence/m03-native-runtime-diagnostics, windows-attestor-rounds).
+- Resolution + evidence link: open. The source check could take the here-string from the bootstrap's syntax tree and parse it too, as round 37's probe does.
+
 ### KI-0174 — Prepare-time gpgv accepts any key in the runner archive keyring
 
 - Severity: LOW
@@ -104,7 +139,7 @@ The reviewed guest/COM/parser composition now passes441canonical Python tests/27
   - Diagnostic run41380947763: with Order 1, 2 the same ISO installed and reached the auto-logged-on desktop within 15 minutes; with ModifyPartitions removed, Setup reported "Windows 11 installation has failed".
 - Reproduction: run41371604274; frames and closure in docs/evidence/m03-w07-win11-campaign-10f247b.
 - Workaround: none.
-- Resolution + evidence link: answer_file() now numbers ModifyPartition Order contiguously (1, 2) for PartitionID 1 and 3. A test pins the full partition layout and the install target, and fails on the previous generator. A rebuilt, re-reviewed Windows 11 candidate and campaign are required before closure. Exact docs/evidence/m03-native-runtime-diagnostics (windows-setup-rounds).
+- Resolution + evidence link: answer_file() now numbers ModifyPartition Order contiguously (1, 2) for PartitionID 1 and 3. A test pins the full partition layout and the install target, and fails on the previous generator. The reviewed a03aadf campaign (run41505468952) then installed Windows 11 unattended and ran the guest, which failed later on KI-0175. A passing reviewed campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics (windows-setup-rounds) and docs/evidence/m03-w07-win11-campaign-a03aadf.
 
 ### KI-0170 — Hosted Windows Playwright navigation failed once with net::ERR_NO_BUFFER_SPACE
 

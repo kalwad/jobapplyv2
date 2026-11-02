@@ -1,0 +1,7 @@
+Remove-Item : Cannot remove item C:\ProgramData\JappHarness\machine-error.json: The process cannot access the file 
+'C:\ProgramData\JappHarness\machine-error.json' because it is being used by another process.
+At C:\ProgramData\JappHarness\machine-attestor.ps1:10 char:41
++ ... iteralPath $errorPath) { Remove-Item -LiteralPath $errorPath -Force }
++                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : WriteError: (C:\ProgramData\...hine-error.json:FileInfo) [Remove-Item], IOException
+    + FullyQualifiedErrorId : RemoveFileSystemItemIOError,Microsoft.PowerShell.Commands.RemoveItemCommand

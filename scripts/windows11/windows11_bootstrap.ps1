@@ -33,58 +33,71 @@ $attestor = @'
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
 $harness='C:\ProgramData\JappHarness'
-# The task runs at every logon. A cause left by an earlier logon (another account,
-# another boot) is never this run's: it is removed before this run starts.
+# The task runs at every logon. A trace or cause left by an earlier logon (another
+# account, another boot) is never this run's: both are removed before this run starts,
+# the trace first, so a run that stops here never leaves an earlier run's trace.
+$tracePath=Join-Path $harness 'attestor-trace.txt'
+if(Test-Path -LiteralPath $tracePath) { Remove-Item -LiteralPath $tracePath -Force }
 $errorPath=Join-Path $harness 'machine-error.json'
 if(Test-Path -LiteralPath $errorPath) { Remove-Item -LiteralPath $errorPath -Force }
+# One trace line per call: the UTC time and a fixed step name, never a value read.
+# The append opens the trace with shared read access, so the guest's shared read never collides with it.
+function TraceStep([string]$Name) { try { [IO.File]::AppendAllText($tracePath,([DateTime]::UtcNow.ToString('o')+' '+$Name+"`r`n"),[Text.Encoding]::ASCII) } catch { } }
 $step='configuration'
 $nonce=$null
 $bootTime=$null
 try {
+    TraceStep 'start'
+    TraceStep $step
     $config=Get-Content -LiteralPath (Join-Path $harness 'guest-config.json') -Raw|ConvertFrom-Json
     if($config.nonce -cmatch '^[0-9a-f]{64}$') { $nonce=[string]$config.nonce }
-    $step='operating-system'
+    $step='operating-system'; TraceStep $step
     $os=Get-CimInstance -ClassName Win32_OperatingSystem
     $bootTime=$os.LastBootUpTime.ToUniversalTime().ToString('o')
     $system=Get-CimInstance -ClassName Win32_ComputerSystem
-    $step='interactive-user'
+    $step='interactive-user'; TraceStep $step
     if($system.UserName -cne ($env:COMPUTERNAME+'\JappFixture')) { throw ('Exact synthetic interactive fixture required; observed user: '+[string]$system.UserName) }
     # Microsoft's LogonCount=1 off-by-one is settled by the protected first-logon task.
     # No interactive account is elevated to perform this setup.
-    $step='autologon'
+    $step='autologon'; TraceStep $step
     $winlogon='HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
     Set-ItemProperty -LiteralPath $winlogon -Name AutoLogonCount -Value 0
     Set-ItemProperty -LiteralPath $winlogon -Name AutoAdminLogon -Value '0'
     Remove-ItemProperty -LiteralPath $winlogon -Name DefaultPassword -ErrorAction SilentlyContinue
-    $step='processors'
+    $step='processors'; TraceStep $step
     $processors=@(Get-CimInstance -ClassName Win32_Processor)
     if($processors.Count -lt 1 -or $processors.Count -gt 2 -or @($processors|Where-Object {$_.Architecture -ne 9 -or $_.Name -cne $processors[0].Name}).Count -ne 0) { throw 'Actual homogeneous AMD64 virtual processors required' }
-    $step='system-disk'
+    $step='system-disk'; TraceStep $step
     $disk=Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DeviceID='C:'"
-    $step='tpm'
+    $step='tpm'; TraceStep $step
     $tpm=Get-Tpm
     $spec=Get-CimInstance -Namespace 'root\CIMV2\Security\MicrosoftTpm' -ClassName Win32_Tpm
-    $step='version'
+    $step='version'; TraceStep $step
     $version=Get-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
-    $step='secure-boot'
+    $step='secure-boot'; TraceStep $step
     $secureBoot=[bool](Confirm-SecureBootUEFI)
-    $step='record'
+    $step='record'; TraceStep $step
     $record=[ordered]@{schema='japp-win11-protected-machine-v1';nonce=$config.nonce;boot_time=$bootTime;caption=$os.Caption;product_type=[int]$os.ProductType;architecture=$env:PROCESSOR_ARCHITECTURE;build=[int]$version.CurrentBuildNumber;ubr=[int]$version.UBR;secure_boot=$secureBoot;tpm_present=[bool]$tpm.TpmPresent;tpm_ready=[bool]$tpm.TpmReady;tpm_spec=[string]$spec.SpecVersion;vcpus=[int]$system.NumberOfLogicalProcessors;ram_bytes=[long]$system.TotalPhysicalMemory;disk_bytes=[long]$disk.Size;cpu_name=[string]$processors[0].Name;cpu_architecture='X64';cpu_max_mhz=[int](($processors|Measure-Object -Property MaxClockSpeed -Minimum).Minimum)}
     $record|ConvertTo-Json -Depth 8|Set-Content -LiteralPath (Join-Path $harness 'machine.json') -Encoding UTF8
 } catch {
     # A bounded, secret-free cause (step, type, message; never a registry value),
     # bound to this run's nonce and boot when known, for the guest's retained proof;
-    # then the task still fails.
+    # then the task still fails. The trace names the step first, so it is complete
+    # when the guest sees this run's error.
+    TraceStep ('caught at '+$step)
     $message=[string]$_.Exception.Message
     [ordered]@{schema='japp-win11-protected-machine-error-v1';step=$step;nonce=$nonce;boot_time=$bootTime;error_type=$_.Exception.GetType().FullName;message=$message.Substring(0,[Math]::Min(512,$message.Length))}|ConvertTo-Json -Depth 4|Set-Content -LiteralPath (Join-Path $harness 'machine-error.json') -Encoding UTF8
     throw
 }
+TraceStep 'wrote machine.json'
 '@
 Set-Content -LiteralPath (Join-Path $harnessRoot 'machine-attestor.ps1') -Value $attestor -Encoding UTF8
 $action = New-ScheduledTaskAction -Execute 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe' -Argument '-NoProfile -ExecutionPolicy RemoteSigned -File C:\ProgramData\JappHarness\machine-attestor.ps1'
 $trigger = New-ScheduledTaskTrigger -AtLogOn
 $principal = New-ScheduledTaskPrincipal -UserId 'SYSTEM' -LogonType ServiceAccount -RunLevel Highest
-$settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Minutes 1) -AllowStartIfOnBatteries
+# A completed first-logon run took about 10 s (KI-0175 round 35). The limit only ends
+# a stalled run, which the scheduler kills with no catch; its trace keeps the last step.
+$settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Minutes 10) -AllowStartIfOnBatteries
 Register-ScheduledTask -TaskName 'JappOwnedMachineAttestation' -Action $action -Trigger $trigger -Principal $principal -Settings $settings | Out-Null
 # Explorer's normal startup runs this as the created standard user, with UAC unchanged.
 $startup = 'C:\Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'

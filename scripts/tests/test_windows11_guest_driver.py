@@ -30,6 +30,27 @@ GUEST = (SOURCE / "windows11_guest.ps1").read_text(encoding="ascii")
 OWNED = (SOURCE / "windows11_owned.cs").read_text(encoding="ascii")
 BOOTSTRAP = (SOURCE / "windows11_bootstrap.ps1").read_text(encoding="ascii")
 FRAMED_PHASES = ("ready", "keyboard", "restart", "relaunch", "collision")
+# The attestor's one trace writer: the UTC time and the name it is given, appended
+# with read sharing (KI-0175). A trace failure never stops the attestor or its
+# error receipt (review: an unguarded append in the catch could suppress it).
+TRACE_STEP = (
+    "function TraceStep([string]$Name) { try { [IO.File]::AppendAllText($tracePath,"
+    "([DateTime]::UtcNow.ToString('o')+' '+$Name+\"`r`n\"),[Text.Encoding]::ASCII) } "
+    "catch { } }"
+)
+# The attestor's steps, in order; each is traced before its work.
+ATTESTOR_STEPS = (
+    "configuration",
+    "operating-system",
+    "interactive-user",
+    "autologon",
+    "processors",
+    "system-disk",
+    "tpm",
+    "version",
+    "secure-boot",
+    "record",
+)
 
 
 def literal_end(text: str, index: int, language: str) -> int:
@@ -86,6 +107,20 @@ def ps_function(name: str, text: str = GUEST) -> str:
     match = re.search(r"(?m)^\s*function " + re.escape(name) + r"\b", text)
     assert match is not None, name
     return block(text, match.end(), "ps")[0]
+
+
+def attestor_source() -> str:
+    """The SYSTEM attestor script the bootstrap writes, as its here-string text."""
+    attestor = re.search(r"\$attestor = @'\n(.*?)\n'@", BOOTSTRAP, re.DOTALL)
+    assert attestor is not None
+    return attestor.group(1)
+
+
+def attestor_try(text: str) -> int:
+    """Index of the attestor's one top-level try, past any one-line function body."""
+    tries = [match.start() for match in re.finditer(r"(?m)^try \{", text)]
+    assert len(tries) == 1, tries
+    return tries[0]
 
 
 def cs_member(signature: str) -> str:
@@ -454,7 +489,7 @@ def test_machine_attestation_is_retained_and_each_failing_pin_is_named() -> None
     attestor = re.search(r"\$attestor = @'\n(.*?)\n'@", BOOTSTRAP, re.DOTALL)
     assert attestor is not None
     text = attestor.group(1)
-    start = text.index("try {")
+    start = attestor_try(text)
     work, end = block(text, start, "ps")
     assert "Set-Content -LiteralPath (Join-Path $harness 'machine.json')" in work
     for step in (
@@ -1131,27 +1166,42 @@ def test_machine_pins_equal_the_host_attestation_thresholds(inputs: ModuleType) 
 
 
 def test_a_stale_attestor_error_never_overrides_a_current_machine_receipt() -> None:
+    # Each poll reads through one handle that shares write and delete access, so it
+    # never blocks an attestor removing an earlier run's file; a file absent, being
+    # written or removed between polls is 'not yet' (KI-0175 review).
     assert statements(ps_function("ProtectedReceipt"), "ps") == [
-        "if(-not (Test-Path -LiteralPath $Path)) { return $null }",
         (
-            "if((Get-Item -LiteralPath $Path).Length -gt 64KB) "
-            "{ throw 'Bounded protected machine receipt required' }"
+            "try { $stream=[IO.File]::Open($Path,[IO.FileMode]::Open,"
+            "[IO.FileAccess]::Read,([IO.FileShare]::ReadWrite -bor "
+            "[IO.FileShare]::Delete)) } catch { return $null }"
         ),
+        "$bytes=New-Object byte[] (64KB+1)",
+        "$count=0",
         (
-            "try { return (Get-Content -LiteralPath $Path -Raw|ConvertFrom-Json) } "
-            "catch { return $null }"
+            "try { do { $read=$stream.Read($bytes,$count,$bytes.Length-$count); "
+            "$count+=$read } while($read -gt 0 -and $count -lt $bytes.Length) } "
+            "finally { $stream.Dispose() }"
+        ),
+        ("if($count -gt 64KB) { throw 'Bounded protected machine receipt required' }"),
+        (
+            "try { return ([Text.Encoding]::UTF8.GetString($bytes,0,$count)"
+            ".TrimStart([char]0xFEFF)|ConvertFrom-Json) } catch { return $null }"
         ),
     ]
-    wait = GUEST.index("$machineLimit=$clock.Elapsed.TotalSeconds+30")
+    wait = GUEST.index("$machineLimit=")
     retained = GUEST.index(
         "foreach($retainedName in @('machine-error.json','machine.json'))"
     )
+    traced = GUEST.index(
+        "$tracePath='C:\\ProgramData\\JappHarness\\attestor-trace.txt'"
+    )
     decided = GUEST.index("$mismatch=@()")
     unmet = GUEST.index("$unmet=New-Object Collections.ArrayList")
-    assert wait < retained < decided < unmet
-    # The full bound polls for a current receipt; the error file never ends it.
+    assert wait < retained < traced < decided < unmet
+    # The bound polls for a current receipt first; only an attestor error bound to
+    # this nonce and boot also ends it (KI-0175), and a stale one is 'not yet'.
     assert statements(GUEST[wait:retained], "ps") == [
-        "$machineLimit=$clock.Elapsed.TotalSeconds+30",
+        "$machineLimit=150",
         "$machine=$null",
         "do {",
         "$current=ProtectedReceipt $machinePath",
@@ -1159,12 +1209,17 @@ def test_a_stale_attestor_error_never_overrides_a_current_machine_receipt() -> N
             "if($null -ne $current) { $machine=$current; if((MachineDiffers $machine "
             "$machineSchema $boot).Count -eq 0) { break } }"
         ),
+        "$failed=ProtectedReceipt $machineErrorPath",
+        (
+            "if($null -ne $failed -and (MachineDiffers $failed "
+            "'japp-win11-protected-machine-error-v1' $boot).Count -eq 0) { break }"
+        ),
         "Start-Sleep -Milliseconds 250",
         "} while($clock.Elapsed.TotalSeconds -lt $machineLimit)",
     ]
     assert "$machineSchema='japp-win11-protected-machine-v1'" in GUEST[:wait]
-    # Only at the deadline, without a current receipt, and only an error bound to
-    # this nonce and boot names the attestor.
+    # Whenever the wait ends without a current receipt, only an error bound to this
+    # nonce and boot names the attestor.
     assert statements(GUEST[decided:unmet], "ps") == [
         "$mismatch=@()",
         (
@@ -1189,31 +1244,39 @@ def test_a_stale_attestor_error_never_overrides_a_current_machine_receipt() -> N
         ),
         "}",
     ]
-    assert GUEST.count("$machineErrorPath") == 2
-    # The attestor clears any earlier logon's error before its own run, and binds
-    # its own error to this run's nonce and boot.
-    attestor = re.search(r"\$attestor = @'\n(.*?)\n'@", BOOTSTRAP, re.DOTALL)
-    assert attestor is not None
-    text = attestor.group(1)
-    start = text.index("try {")
+    assert GUEST.count("$machineErrorPath") == 3
+    # The attestor clears any earlier logon's error and trace before its own run,
+    # and binds its own error to this run's nonce and boot.
+    text = attestor_source()
+    start = attestor_try(text)
+    # The trace goes first: a run that stops on the error removal never leaves an
+    # earlier run's trace for the guest to retain as its own.
     assert statements(text[:start], "ps")[3:] == [
+        "$tracePath=Join-Path $harness 'attestor-trace.txt'",
+        (
+            "if(Test-Path -LiteralPath $tracePath) "
+            "{ Remove-Item -LiteralPath $tracePath -Force }"
+        ),
         "$errorPath=Join-Path $harness 'machine-error.json'",
         (
             "if(Test-Path -LiteralPath $errorPath) "
             "{ Remove-Item -LiteralPath $errorPath -Force }"
         ),
+        TRACE_STEP,
         "$step='configuration'",
         "$nonce=$null",
         "$bootTime=$null",
     ]
     work, end = block(text, start, "ps")
-    assert statements(work, "ps")[:6] == [
+    assert statements(work, "ps")[:8] == [
+        "TraceStep 'start'",
+        "TraceStep $step",
         (
             "$config=Get-Content -LiteralPath (Join-Path $harness 'guest-config.json') "
             "-Raw|ConvertFrom-Json"
         ),
         "if($config.nonce -cmatch '^[0-9a-f]{64}$') { $nonce=[string]$config.nonce }",
-        "$step='operating-system'",
+        "$step='operating-system'; TraceStep $step",
         "$os=Get-CimInstance -ClassName Win32_OperatingSystem",
         "$bootTime=$os.LastBootUpTime.ToUniversalTime().ToString('o')",
         "$system=Get-CimInstance -ClassName Win32_ComputerSystem",
@@ -1230,6 +1293,255 @@ def test_a_stale_attestor_error_never_overrides_a_current_machine_receipt() -> N
         "'machine-error.json') -Encoding UTF8"
     ) in statements(handler, "ps")
     assert text.count("machine-error.json") == 2
+
+
+def test_machine_receipt_wait_is_150_seconds_inside_the_guest_deadline() -> None:
+    # KI-0175: a first-logon attestor run wrote nothing within the 30 s the guest
+    # waited (run 41505468952); a completed one took about 10 s (round 35).
+    # The bound is a mark on the guest's own clock, which starts at the logon that
+    # also starts the attestor task, not an interval after the guest's setup.
+    limits = re.findall(r"(?i)\$machineLimit\s*=\s*(.+)", GUEST)
+    assert limits == ["150"]
+    assert re.findall(r"(?i)\$machineLimit\b", GUEST) == ["$machineLimit"] * 2
+    assert "} while($clock.Elapsed.TotalSeconds -lt $machineLimit)" in GUEST
+    # The wait is a part of the guest's own fixed work deadline, never an extension,
+    # and it ends by the deadline's midpoint: the other half stays for dxdiag (up to
+    # 45 s), the environment accept, extraction and the lifecycle.
+    budget = re.fullmatch(
+        r"if \(\$clock\.Elapsed\.TotalSeconds -ge (\d+)\) "
+        r"\{ throw 'Guest work deadline exceeded' \}",
+        "\n".join(statements(ps_function("WithinBudget"), "ps")),
+    )
+    assert budget is not None
+    assert int(budget.group(1)) == 300
+    assert 2 * int(limits[0]) <= int(budget.group(1))
+    assert re.findall(r"(?m)^\$clock = (.+)$", GUEST) == [
+        "[Diagnostics.Stopwatch]::StartNew()"
+    ]
+    assert len(re.findall(r"(?i)\$clock\s*=", GUEST)) == 1
+    assert GUEST.index("$clock = ") < GUEST.index("$machineLimit=")
+
+
+def test_attestor_task_limit_is_ten_minutes_beyond_the_guest_wait() -> None:
+    # A one-minute limit could kill a slow first-logon run before its catch wrote
+    # any cause (KI-0175); a stalled run is still ended, and its trace kept.
+    settings = re.findall(r"(?m)^\$settings = (.+)$", BOOTSTRAP)
+    assert settings == [
+        (
+            "New-ScheduledTaskSettingsSet -ExecutionTimeLimit "
+            "(New-TimeSpan -Minutes 10) -AllowStartIfOnBatteries"
+        )
+    ]
+    # Nothing else sets the limit: no property write on the settings object and no
+    # later re-registration (PowerShell names are case-insensitive; review F2).
+    assert len(re.findall(r"(?i)New-ScheduledTaskSettingsSet", BOOTSTRAP)) == 1
+    assert len(re.findall(r"(?i)ExecutionTimeLimit", BOOTSTRAP)) == 1
+    assert re.findall(r"(?i)\$settings\b", BOOTSTRAP) == ["$settings"] * 2
+    assert len(re.findall(r"(?i)-Settings \$settings\b", BOOTSTRAP)) == 1
+    assert len(re.findall(r"(?i)Register-ScheduledTask\b", BOOTSTRAP)) == 1
+    for changer in ("Set-ScheduledTask", "Enable-ScheduledTask", "schtasks"):
+        assert not re.search("(?i)" + changer, BOOTSTRAP), changer
+    wait = re.findall(r"(?m)^\s*\$machineLimit=(\d+)$", GUEST)
+    assert len(wait) == 1
+    assert int(wait[0]) < 10 * 60
+
+
+def test_only_a_current_attestor_error_ends_the_machine_wait_early() -> None:
+    wait = GUEST.index("$machineLimit=")
+    loop = statements(block(GUEST, GUEST.index("do {", wait), "ps")[0], "ps")
+    ends = [line for line in loop if re.search(r"\bbreak\b", line)]
+    assert len(ends) == 2
+    receipt, error = ends
+    # The current receipt is read first in every poll and is always preferred.
+    assert receipt == (
+        "if($null -ne $current) { $machine=$current; if((MachineDiffers $machine "
+        "$machineSchema $boot).Count -eq 0) { break } }"
+    )
+    bound = re.fullmatch(
+        r"if\(\$null -ne \$failed -and \(MachineDiffers \$failed '([a-z0-9-]+)' "
+        r"\$boot\)\.Count -eq 0\) \{ break \}",
+        error,
+    )
+    assert bound is not None
+    assert (
+        loop.index("$current=ProtectedReceipt $machinePath")
+        < loop.index(receipt)
+        < loop.index("$failed=ProtectedReceipt $machineErrorPath")
+        < loop.index(error)
+    )
+    # The error must carry the attestor's own error schema, this run's nonce and
+    # this boot: one from another run, boot or schema is 'not yet' for the bound.
+    assert "{schema='" + bound.group(1) + "';step=$step;" in attestor_source()
+    assert statements(ps_function("MachineDiffers"), "ps")[1:4] == [
+        (
+            "if((MachineScalar $Record 'schema') -cne $Schema) "
+            "{ [void]$mismatch.Add('schema') }"
+        ),
+        (
+            "if((MachineScalar $Record 'nonce') -cne $config.nonce) "
+            "{ [void]$mismatch.Add('nonce') }"
+        ),
+        (
+            "if((MachineScalar $Record 'boot_time') -cne $Boot) "
+            "{ [void]$mismatch.Add('boot_time') }"
+        ),
+    ]
+    # An early end still fails with the attestor's own named refusal, decided by the
+    # same binding when no current receipt exists.
+    decided = GUEST[GUEST.index("$mismatch=@()") :]
+    assert (
+        "if($null -ne $attestorError -and (MachineDiffers $attestorError '"
+        + bound.group(1)
+        + "' $boot).Count -eq 0) { throw 'Protected machine attestor failed; its "
+        "named step is retained' }"
+    ) in decided
+
+
+def test_attestor_trace_is_created_fresh_for_each_run() -> None:
+    text = attestor_source()
+    start = attestor_try(text)
+    before = statements(text[:start], "ps")
+    path = before.index("$tracePath=Join-Path $harness 'attestor-trace.txt'")
+    # An earlier logon's trace is removed before this run writes its first line.
+    assert before[path + 1] == (
+        "if(Test-Path -LiteralPath $tracePath) "
+        "{ Remove-Item -LiteralPath $tracePath -Force }"
+    )
+    assert not re.search(r"\bTraceStep [$'(]", text[:start])
+    # The first append of this run creates it; the run's first line is 'start'.
+    assert TRACE_STEP in before
+    assert statements(block(text, start, "ps")[0], "ps")[0] == "TraceStep 'start'"
+    assert len(re.findall(r"\$tracePath\b", text)) == 4
+    # It lives in the protected harness, which only SYSTEM and Administrators can
+    # change and the Users group can read (inherited by every file in it).
+    assert re.findall(r"@\('(S-1-5-[0-9-]+)','(\w+)'\)", BOOTSTRAP) == [
+        ("S-1-5-18", "FullControl"),
+        ("S-1-5-32-544", "FullControl"),
+        ("S-1-5-32-545", "ReadAndExecute"),
+    ]
+    assert "$acl.SetAccessRuleProtection($true, $false)" in BOOTSTRAP
+    assert "'ContainerInherit,ObjectInherit', 'None', 'Allow'" in BOOTSTRAP
+    assert "$harness='C:\\ProgramData\\JappHarness'" in text
+
+
+def test_attestor_trace_lines_carry_only_step_names_and_timestamps() -> None:
+    text = attestor_source()
+    assert re.findall(r"(?m)^\s*function (\w+)", text) == ["TraceStep"]
+    assert statements(ps_function("TraceStep", text), "ps") == [
+        TRACE_STEP[TRACE_STEP.index("{") + 2 : -2]
+    ]
+    # Every call passes a fixed literal or the current step name, which is only
+    # ever assigned a fixed literal: no read value can reach the trace. PowerShell
+    # resolves command and variable names in any case, so every check below is
+    # case-insensitive over the code (review mutants m1-m3, M01-M06, M21, M22).
+    code = "\n".join(statements(text, "ps"))
+    calls = re.findall(r"(?i)\bTraceStep (\([^)\n]*\)|'[^'\n]*'|\$\w+)", code)
+    assert calls == [
+        "'start'",
+        *["$step"] * len(ATTESTOR_STEPS),
+        "('caught at '+$step)",
+        "'wrote machine.json'",
+    ]
+    assert re.findall(r"(?i)\$step\s*=([^;\n]*)", code) == [
+        "'" + step + "'" for step in ATTESTOR_STEPS
+    ]
+    # Every use of TraceStep, every write and every use of the name 'step' is one
+    # of the above: an unrecognised call form, a second writer or a computed step
+    # name would otherwise reach the trace (review mutants R01-R04, R11-R18).
+    assert re.findall(r"(?i)\bTraceStep\b", code) == ["TraceStep"] * (1 + len(calls))
+    assert not re.search(r"(?i)\bTraceStep\s+[-\"@]", code)
+    # 'step' as a name: each assignment and its trace call, the caught line, and the
+    # error receipt's key and value. A Set-Variable, foreach, scoped or braced form
+    # adds one more.
+    names = re.findall(r"(?i)(?<![a-z])step(?![\w-])", code)
+    assert len(names) == 2 * len(ATTESTOR_STEPS) + 3
+    assert len(re.findall(r"(?i)attestor-trace\.txt", code)) == 1
+    assert re.findall(r"(?i)\[(?:System\.)?IO\.[\w.]+\]", code) == ["[IO.File]"]
+    assert len(re.findall(r"(?i)\[IO\.File\]::", code)) == 1
+    assert len(re.findall(r"(?i)AppendAllText", code)) == 1
+    for writer in ("Add-Content", "Out-File", "WriteAll", "Tee-Object", "New-Item"):
+        assert not re.search("(?i)" + writer, code), writer
+    for alias in ("ac", "sc", "ni", "tee", "sv", "nv", "set", "iex"):
+        assert not re.search(r"(?i)(?<![\w-])" + alias + r"(?![\w-])", code), alias
+    for changer in ("Set-Variable", "New-Variable", "Invoke-Expression", "PSVariable"):
+        assert not re.search("(?i)" + changer, code), changer
+    assert ">" not in code
+    assert re.findall(
+        r"(?i)Set-Content -LiteralPath \(Join-Path \$harness '([^']+)'\)", code
+    ) == [
+        "machine.json",
+        "machine-error.json",
+    ]
+    assert len(re.findall(r"(?i)Set-Content", code)) == 2
+    for forbidden in ("$script:", "$local:", "$global:", "[ref]", "${"):
+        assert forbidden not in code.lower(), forbidden
+    # Each step is traced before its work.
+    start = attestor_try(text)
+    work, end = block(text, start, "ps")
+    lines = statements(work, "ps")
+    assert lines[1] == "TraceStep $step"
+    for step in ATTESTOR_STEPS[1:]:
+        assert ("$step='" + step + "'; TraceStep $step") in lines
+    # A caught failure names its step before the error receipt that ends the guest's
+    # wait; success is traced only after machine.json is written.
+    handler = statements(block(text, end, "ps")[0], "ps")
+    assert handler[0] == "TraceStep ('caught at '+$step)"
+    assert handler[-1] == "throw"
+    assert lines[-1] == (
+        "$record|ConvertTo-Json -Depth 8|Set-Content -LiteralPath "
+        "(Join-Path $harness 'machine.json') -Encoding UTF8"
+    )
+    assert statements(text, "ps")[-1] == "TraceStep 'wrote machine.json'"
+    # One run writes at most these lines; each is a 28-character 'o' UTC time, a
+    # space and a fixed name, far inside the guest's 64 KB retention bound.
+    names = ["start", *ATTESTOR_STEPS, "wrote machine.json"]
+    longest = max(len("caught at " + step) for step in ATTESTOR_STEPS)
+    assert sum(28 + 1 + len(name) + 2 for name in names) + 28 + 1 + longest + 2 < (
+        64 * 1024
+    )
+
+
+def test_attestor_trace_is_retained_bounded_before_any_check() -> None:
+    wait = GUEST.index("} while($clock.Elapsed.TotalSeconds -lt $machineLimit)")
+    start = GUEST.index("$tracePath='C:\\ProgramData\\JappHarness\\attestor-trace.txt'")
+    decided = GUEST.index("$mismatch=@()")
+    assert wait < start < decided
+    # The attestor may still append: a shared read with a fixed bound, refused like
+    # the receipts above it, written to a fresh proof member.
+    assert statements(GUEST[start:decided], "ps") == [
+        "$tracePath='C:\\ProgramData\\JappHarness\\attestor-trace.txt'",
+        "if(Test-Path -LiteralPath $tracePath) {",
+        "$traceBytes=New-Object byte[] (64KB+1)",
+        "$traceCount=0",
+        (
+            "$traceStream=[IO.File]::Open($tracePath,[IO.FileMode]::Open,"
+            "[IO.FileAccess]::Read,([IO.FileShare]::ReadWrite -bor "
+            "[IO.FileShare]::Delete))"
+        ),
+        (
+            "try { do { $traceRead=$traceStream.Read($traceBytes,$traceCount,"
+            "$traceBytes.Length-$traceCount); $traceCount+=$traceRead } "
+            "while($traceRead -gt 0 -and $traceCount -lt $traceBytes.Length) } "
+            "finally { $traceStream.Dispose() }"
+        ),
+        (
+            "if($traceCount -gt 64KB) "
+            "{ throw 'Bounded protected attestor trace required' }"
+        ),
+        (
+            "$traceCopy=[IO.File]::Open((Join-Path $proof 'attestor-trace.txt'),"
+            "[IO.FileMode]::CreateNew,[IO.FileAccess]::Write)"
+        ),
+        (
+            "try { $traceCopy.Write($traceBytes,0,$traceCount) } finally "
+            "{ $traceCopy.Dispose() }"
+        ),
+        "}",
+    ]
+    assert GUEST.count("attestor-trace.txt") == 2
+    assert "'attestor-trace.txt'" in attestor_source()
+    # The receipts keep their own bound; the trace never replaces them.
+    assert "(Get-Item -LiteralPath $retainedPath).Length -gt 64KB" in GUEST[:start]
 
 
 def test_diagnostics_route_settles_before_its_tree_and_geometry_are_read() -> None:

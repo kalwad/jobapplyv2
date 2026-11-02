@@ -220,6 +220,32 @@ The first reviewed Windows 11 campaign (run 41371604274) stopped at Windows Setu
 
 So ModifyPartition `Order` must number the modifications contiguously; it is not the PartitionID. The desktop watermark in round 32 reads "Windows License is expired", which is recorded as an observation.
 
+## Windows 11 attestor rounds 33–37 (after the a03aadf campaign)
+
+The reviewed a03aadf campaign (run 41505468952) installed Windows 11 and ran the guest. The guest then failed in the environment phase because the SYSTEM attestor's `machine.json` never appeared (KI-0175). Rounds 33–35 ran on hosted ubuntu-24.04 runners under KVM. They boot the same pinned ISO with the a03aadf answer file and the real bootstrap. `attestor_probe.ps1` takes the guest driver's place at logon; it only observes, and reports over COM2.
+
+| Round | Run | Result |
+|---|---|---|
+| 33 | 41509581288 | Unchanged attestor (one-minute task limit): no `machine.json` and no `machine-error.json` in 7.5 minutes after logon. A standard user cannot query the SYSTEM task |
+| 34 | 41514384986 | Diagnostic-only attestor tracing and a 10-minute limit: the task started as `NT AUTHORITY\SYSTEM` one second after the probe. The probe's own oversized trace line, serialized PowerShell objects, then occupied the slow emulated COM2 (about 1 KB/s) for the rest of the run |
+| 35 | 41520516660 | Compact trace output: every attestor step completed and `machine.json` was written about 10 s after the task started (TPM step 2.6 s) |
+| 36 | 41532813750 | The KI-0175 correction's first bootstrap and guest, on a hosted windows-2025 runner with Windows PowerShell 5.1 (no VM). All 20 checks pass; see below |
+| 37 | 41534670479 | The same checks on the bytes after the correction's review (shared receipt reader, trace removed first), plus six more. All 26 checks pass; see below |
+
+So the attestor runs at logon and is fast when it completes. A first-logon run can also produce nothing, and the guest's 30 s wait does not tolerate that variance. `round*/windows11_bootstrap.ps1` holds each round's exact bootstrap, including the diagnostic-only tracing in rounds 34 and 35. The serial captures keep each JDIAG row's first 4,000 bytes.
+
+Rounds 36 and 37 check the correction's PowerShell on Windows PowerShell 5.1 before any campaign. Round 36 ran on the correction's first bytes; a separate review then changed the guest's receipt reader and the attestor's removal order, so round 37 reran every check on the final bytes, which are identical to the repository's. `attestor_primitives.ps1` ran these checks:
+- It parsed the exact bootstrap, the guest and the attestor body (the bootstrap's `$attestor` here-string, taken from its syntax tree) with no errors.
+- It wrote the attestor body to a file as the bootstrap does, over a stale error and trace, and ran it as the task does. Off the fixture account, the run failed at `interactive-user` in 2 s. It left a fresh CRLF trace (`start`, `configuration`, `operating-system`, `interactive-user`, `caught at interactive-user`) and an error receipt bound to the run's nonce and the host's boot time, and no `machine.json`.
+- The attestor's own `TraceStep` appended while a reader held the trace open in the guest's sharing mode, and it swallowed an unwritable path.
+- A second run, started while such a reader held the trace open, removed and rewrote it with its own steps.
+- The guest's own `ProtectedReceipt` returned nothing for an absent or partial file, parsed a whole one, and refused one over 64 KB.
+- Round 37 only: the reader returned nothing, without an error, for a file a writer still held. A file it held open could still be removed. It parsed a receipt written by the attestor's own Set-Content, which starts with a byte-order mark.
+- Round 37 only: when an earlier error was held open without delete sharing (as the pre-review guest's poll held it), a run stopped at the error removal. The earlier trace was already removed. When the guest's shared reader held it instead, a run removed it and wrote its own receipt and trace.
+- The guest's own trace-retention block copied a trace exactly, refused one over 64 KB, and wrote nothing when the trace was absent.
+
+Rounds 36 and 37 ran on Windows Server 2025 as an administrator, not on Windows 11 and not as SYSTEM. Their attestor runs stopped at the fixture check, so the later steps and the success path ran only in round 35, whose attestor carried diagnostic tracing rather than the correction's. Original output hashes, including the CRLF line endings, are in each round's `sources.json`; every attestor run's standard output was empty.
+
 ## Limits
 
 These are diagnostics on hosted build runners, not campaign evidence:

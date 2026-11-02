@@ -1278,6 +1278,156 @@
           "digest": "sha256:77192be883bd99417ec143c388c6d289d532bb875016649db52c887374875bc7"
         }
       ]
+    },
+    {
+      "id": 41509581288,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "426d3ac19f1320e01d0ee527aef95a4fb15230eb",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T19:24:05Z",
+      "updated_at": "2026-11-02T19:53:47Z",
+      "jobs": [
+        {
+          "id": 125497640953,
+          "name": "windows11 setup attestor",
+          "conclusion": "success",
+          "started_at": "2026-11-02T19:24:19Z",
+          "completed_at": "2026-11-02T19:53:47Z",
+          "runner_name": "GitHub Actions 1000001105"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13173398982,
+          "name": "diag33-win11-setup-attestor",
+          "size_in_bytes": 18145802,
+          "digest": "sha256:9c3f901c05fa7cd8b9413e757179db42d1d383965632831051562c3c23e3f91b"
+        }
+      ]
+    },
+    {
+      "id": 41514384986,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "d4c1fe875d6c24d16455ae1ac3a34c8d37181ba8",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T19:55:15Z",
+      "updated_at": "2026-11-02T20:32:57Z",
+      "jobs": [
+        {
+          "id": 125514066262,
+          "name": "windows11 setup attestor",
+          "conclusion": "success",
+          "started_at": "2026-11-02T19:55:19Z",
+          "completed_at": "2026-11-02T20:32:56Z",
+          "runner_name": "GitHub Actions 1000001106"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13175844943,
+          "name": "diag34-win11-setup-attestor",
+          "size_in_bytes": 20605050,
+          "digest": "sha256:f776431f40816b95b513f45cc1ff03996c60cc8c7963f827b87f71a8b5729993"
+        }
+      ]
+    },
+    {
+      "id": 41520516660,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "77d22ffb9a268c3b7c325a7da088649ea6084721",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T20:34:56Z",
+      "updated_at": "2026-11-02T21:13:53Z",
+      "jobs": [
+        {
+          "id": 125535045560,
+          "name": "windows11 setup attestor",
+          "conclusion": "success",
+          "started_at": "2026-11-02T20:35:00Z",
+          "completed_at": "2026-11-02T21:13:52Z",
+          "runner_name": "GitHub Actions 1000001107"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13179747452,
+          "name": "diag35-win11-setup-attestor",
+          "size_in_bytes": 19078276,
+          "digest": "sha256:8caaf38d7bab3599daf9bd13d7ce82bb9044c8321dd68ac1b0f4972c55435a12"
+        }
+      ]
+    },
+    {
+      "id": 41532813750,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "91f70e90e8ac0b64658c8f4b9fccd4781e15bb16",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T21:56:05Z",
+      "updated_at": "2026-11-02T21:56:57Z",
+      "jobs": [
+        {
+          "id": 125577081669,
+          "name": "attestor primitives",
+          "conclusion": "success",
+          "started_at": "2026-11-02T21:56:10Z",
+          "completed_at": "2026-11-02T21:56:57Z",
+          "runner_name": "GitHub Actions 1000001108"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13182398720,
+          "name": "diag36-attestor-primitives",
+          "size_in_bytes": 3174,
+          "digest": "sha256:a536ffd0b6e405915a8bb5c6fca6da98065958fd5aaa2d94e4b0ed3c66a59700"
+        }
+      ]
+    },
+    {
+      "id": 41534670479,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "229e047ef6159019e89120431fce0b3d5318bb00",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T22:08:38Z",
+      "updated_at": "2026-11-02T22:09:44Z",
+      "jobs": [
+        {
+          "id": 125583362873,
+          "name": "attestor primitives",
+          "conclusion": "success",
+          "started_at": "2026-11-02T22:09:08Z",
+          "completed_at": "2026-11-02T22:09:43Z",
+          "runner_name": "GitHub Actions 1000001109"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13183935967,
+          "name": "diag37-attestor-primitives",
+          "size_in_bytes": 4451,
+          "digest": "sha256:ae13392a47a0c45cc24b5ce88d870a7c2d1133a8ce91422d2a7da6218e7390e1"
+        }
+      ]
     }
   ],
   "downloaded_artifact_files_before_LF_normalization": {

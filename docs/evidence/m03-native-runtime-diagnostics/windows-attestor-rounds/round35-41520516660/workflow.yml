@@ -1,0 +1,43 @@
+# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Windows 11 Setup with the
+# harness's own qemu_argv()/answer_file(): does it stop at "Select location"
+# because <Letter>C</Letter> conflicts with the JAPP-RESULT USB volume?
+name: ci
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  setup:
+    name: windows11 setup ${{ matrix.variant }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [attestor]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Host tools and KVM
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get install -y --no-install-recommends qemu-system-x86 qemu-utils ovmf swtpm swtpm-tools xorriso mtools > /dev/null
+          sudo setfacl -m "u:$(id -u):rw" /dev/kvm
+          grep -m1 "model name" /proc/cpuinfo
+      - name: Pinned ISO
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 3 -o "$RUNNER_TEMP/win11.iso" 'https://software-static.download.prss.microsoft.com/dbazure/26300.9457.260913-1737.26h2_ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso'
+          echo "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38  $RUNNER_TEMP/win11.iso" | sha256sum -c -
+      - name: Setup probe
+        shell: bash
+        run: python3 -B diag/win11_setup_probe.py "$GITHUB_WORKSPACE/diag/repo-root/scripts" "$RUNNER_TEMP/win11.iso" "$RUNNER_TEMP/work" "$RUNNER_TEMP/out" "${{ matrix.variant }}" 32
+      - if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: diag35-win11-setup-${{ matrix.variant }}
+          path: ${{ runner.temp }}/out
+          retention-days: 7

@@ -1,0 +1,25 @@
+{
+  "scope": "Exact committed bytes of the separate review workflow result, the mutant script, its runner and its output for the KI-0175 correction",
+  "files": {
+    "README.md": {
+      "bytes": 3422,
+      "sha256": "51be2e1d819537424e09e771240b254630a90db3f6c5f5931e6a1468c57fb28c"
+    },
+    "mutants-result.txt": {
+      "bytes": 11923,
+      "sha256": "73b11320df1fe004e1ce8f516bf1c31ce3e1d036cf3dd409b8fb54808cb91e60"
+    },
+    "mutants.py": {
+      "bytes": 14544,
+      "sha256": "9272e6941d64b765c20ab65df2a01a9f4386946808a61aa5ccc1804996fc49ed"
+    },
+    "review-workflow-result.json": {
+      "bytes": 41308,
+      "sha256": "9a405bf5039f71f028697a10c2ce2001c4f00c1f00e911824fa832a6027d8b9a"
+    },
+    "variant.py": {
+      "bytes": 1971,
+      "sha256": "b180ab99f5e125259f9bc39018a739ccb000cd17e1466e4fec05973f198a51de"
+    }
+  }
+}

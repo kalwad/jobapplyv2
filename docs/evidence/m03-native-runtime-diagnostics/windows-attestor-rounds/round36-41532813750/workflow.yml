@@ -1,0 +1,32 @@
+# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. KI-0175 round 36: Windows
+# PowerShell 5.1 parse of the exact candidate bootstrap, guest and attestor body,
+# then the exact attestor body and the guest's receipt and trace-retention code
+# run against real files on a hosted Windows Server runner (not Windows 11).
+name: ci
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  primitives:
+    name: attestor primitives
+    runs-on: windows-2025
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Attestor primitives
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          git -C "$env:GITHUB_WORKSPACE" config --get core.autocrlf
+          Get-FileHash -Algorithm SHA256 diag/repo-root/scripts/windows11/windows11_bootstrap.ps1, diag/repo-root/scripts/windows11/windows11_guest.ps1 | Format-Table -AutoSize | Out-String -Width 200
+          & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File diag/attestor_primitives.ps1 -Scripts "$env:GITHUB_WORKSPACE\diag\repo-root\scripts" -Out "$env:RUNNER_TEMP\out"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: diag36-attestor-primitives
+          path: ${{ runner.temp }}/out
+          retention-days: 7

@@ -12603,3 +12603,37 @@ Windows 11 candidate review at a03aadf (2026-11-02UTC):
 - Exact docs/evidence/m03-native-candidates-a03aadf-review.
 
 Next READY package: NONE while M03-W07 is IN_PROGRESS.
+
+## M03-W07 — a03aadf Windows 11 campaign reaches the guest; KI-0175 attestor wait corrected (2026-11-02UTC)
+
+Reviewed a03aadf Windows 11 campaign (exact docs/evidence/m03-w07-win11-campaign-a03aadf):
+- Runs 41504880968 (AMD EPYC 9V45) and 41505216414 (AMD EPYC 9V74) were refused at the CPU gate with `vm_started: false`.
+- Run 41505468952 (AMD EPYC 7763) re-downloaded and checked the pinned ISO, installed Windows 11 Enterprise Evaluation unattended with the KI-0171 answer file, ran the bootstrap as SYSTEM in specialize, completed OOBE and auto-logged on the fixture. The guest driver opened COM2, waited 30 s for `machine.json`, saw neither receipt, and failed closed in its environment phase with "Protected current-boot machine attestation missing or unreadable". The host collected `failure.json` and reaped QEMU and the TPM emulator. No acceptance is claimed (KI-0175).
+
+Scratch-branch diagnostics on `diag/windows-service-env` (exact docs/evidence/m03-native-runtime-diagnostics, windows-attestor-rounds):
+- Round 33, run 41509581288: with the unchanged attestor and its one-minute task limit, no receipt appeared in 7.5 minutes after logon.
+- Round 34, run 41514384986: the attestor task started as SYSTEM one second after logon.
+- Round 35, run 41520516660: every attestor step completed and `machine.json` was written about 10 s after the task started.
+
+Correction (uncommitted at the time of these commands; details in KI-0175):
+- The attestor task limit is 10 minutes.
+- The guest waits until the 150 s mark of its own clock. The wait ends early only on a receipt or error bound to this nonce and boot.
+- The guest reads each receipt through one shared, bounded handle.
+- The attestor removes an earlier trace, then an earlier error, and appends a step trace that the guest retains, bounded, before any decision.
+- Six new test IDs; the exact inventory is now 3173 common + 2 POSIX-only. WINDOWS11_NATIVE_PINS re-pinned: guest `84049740…`, bootstrap `c212a079…`.
+
+Review and mutation (exact docs/evidence/m03-w07-ki0175-correction-review):
+- Separate-context workflow wf_81255c08-791 ran three lenses and six verifiers. It verified six non-blocking findings and no blocking one; all six are corrected, and KI-0176 is filed.
+- 85 of 86 mutants are killed. The survivor inserts a sleep before the wait, which only the SHA-256 pin refuses.
+
+Hosted Windows PowerShell 5.1 checks (Windows Server 2025, no VM, not SYSTEM, not Windows 11):
+- Round 36, run 41532813750, on the first correction bytes: 20 of 20 checks pass.
+- Round 37, run 41534670479, on the final bytes (identical to the repository's): 26 of 26 checks pass. The exact attestor body parses and runs to its fixture check, writing a fresh CRLF trace and a nonce- and boot-bound error receipt. The guest's receipt reader and trace retention behave as the tests pin. A run whose earlier error is held by the guest's reader completes its own receipt.
+
+Commands (macOS arm64; PATH with node@24 and rustup; PYTHONDONTWRITEBYTECODE=1):
+- `.venv/bin/python -I -B -m pytest -q -p no:cacheprovider scripts/tests/test_windows11_guest_driver.py`: `35 passed`.
+- `uv run --frozen python scripts/verify.py --suite <s>`: format, lint, typecheck and portability each exit 0 after a ruff reformat of the test file. Python, traceability, status and integrity each exit 0, with Python at `3175 passed in 572.86s` (exact inventory). After this entry and the review packet were written, all eight exit 0 again, with Python at `3175 passed in 576.42s`; only this sentence changed afterwards, and format, status, traceability and integrity were run once more on it.
+
+The protected guest sources changed, so a new Windows 11 candidate, review and campaign are required.
+
+Next READY package: NONE while M03-W07 is IN_PROGRESS.

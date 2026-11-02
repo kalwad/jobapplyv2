@@ -1,0 +1,8 @@
+{
+  "terminal": "FAIL",
+  "phase": "environment",
+  "nonce": "0c96b072a6071c0007d33e805fbe030198ba2d8d29a13ca9643f585e9efc6149",
+  "package_sha256": "62e2186a7b15e674ee7c658e2cbdc375683facd446767c1ad507a99d76c034aa",
+  "error_type": "System.Management.Automation.RuntimeException",
+  "message": "Protected current-boot machine attestation missing or unreadable"
+}

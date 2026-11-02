@@ -1,0 +1,137 @@
+{
+  "retrieved_with": "gh api (2026-11-03UTC); selected fields only",
+  "runs": [
+    {
+      "id": 41504880968,
+      "name": "reviewed native Windows11 package lifecycle",
+      "event": "pull_request",
+      "head_branch": "codex/autofill-evaluation-hardening",
+      "head_sha": "1a5189daf5ec06f3ae9710990a4f6110a4a20aa3",
+      "path": ".github/workflows/windows11-native-lifecycle.yml",
+      "run_attempt": 1,
+      "conclusion": "failure",
+      "created_at": "2026-11-02T18:54:00Z",
+      "updated_at": "2026-11-02T18:55:32Z",
+      "jobs": [
+        {
+          "id": 125481511488,
+          "name": "authorize",
+          "conclusion": "success",
+          "started_at": "2026-11-02T18:54:04Z",
+          "completed_at": "2026-11-02T18:54:37Z",
+          "runner_name": "GitHub Actions 1000001082"
+        },
+        {
+          "id": 125481839061,
+          "name": "win11",
+          "conclusion": "failure",
+          "started_at": "2026-11-02T18:54:40Z",
+          "completed_at": "2026-11-02T18:55:31Z",
+          "runner_name": "GitHub Actions 1000001088"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13170237717,
+          "name": "win11-lifecycle-a03aadf22ab83c9b39bc03f5387eaa0a702ebf27-41504880968",
+          "size_in_bytes": 1062,
+          "digest": "sha256:160286d8edf832d12cfcd99c617f67949c19c2cefbb62b049f0f06ac0a74494f"
+        },
+        {
+          "id": 13169638380,
+          "name": "win11-vm-request-41504880968",
+          "size_in_bytes": 127193,
+          "digest": "sha256:19c9468c19001af597d8d4a9ec7efd3f551c1d1c91bca7a385c8a8fdceecae2b"
+        }
+      ]
+    },
+    {
+      "id": 41505216414,
+      "name": "reviewed native Windows11 package lifecycle",
+      "event": "pull_request",
+      "head_branch": "codex/autofill-evaluation-hardening",
+      "head_sha": "2cf9fa67c5ecd342d23eb5d687bb2d8c1035da9b",
+      "path": ".github/workflows/windows11-native-lifecycle.yml",
+      "run_attempt": 1,
+      "conclusion": "failure",
+      "created_at": "2026-11-02T18:56:09Z",
+      "updated_at": "2026-11-02T18:57:28Z",
+      "jobs": [
+        {
+          "id": 125482652374,
+          "name": "authorize",
+          "conclusion": "success",
+          "started_at": "2026-11-02T18:56:12Z",
+          "completed_at": "2026-11-02T18:56:42Z",
+          "runner_name": "GitHub Actions 1000001089"
+        },
+        {
+          "id": 125482947126,
+          "name": "win11",
+          "conclusion": "failure",
+          "started_at": "2026-11-02T18:56:52Z",
+          "completed_at": "2026-11-02T18:57:27Z",
+          "runner_name": "GitHub Actions 1000001093"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13171235040,
+          "name": "win11-vm-request-41505216414",
+          "size_in_bytes": 127193,
+          "digest": "sha256:10248c1006f08ab159d5266dab150a918f21acccd67378f3fe84542de43fac1d"
+        },
+        {
+          "id": 13169159221,
+          "name": "win11-lifecycle-a03aadf22ab83c9b39bc03f5387eaa0a702ebf27-41505216414",
+          "size_in_bytes": 1062,
+          "digest": "sha256:4ecaa19b2821554fcb48e23270a11b14142f52a78260bf4b74c9ca1cdc4135fa"
+        }
+      ]
+    },
+    {
+      "id": 41505468952,
+      "name": "reviewed native Windows11 package lifecycle",
+      "event": "pull_request",
+      "head_branch": "codex/autofill-evaluation-hardening",
+      "head_sha": "da37fcb2dc7960713fd92b67ff0bfb255dba724c",
+      "path": ".github/workflows/windows11-native-lifecycle.yml",
+      "run_attempt": 1,
+      "conclusion": "failure",
+      "created_at": "2026-11-02T18:57:48Z",
+      "updated_at": "2026-11-02T19:20:46Z",
+      "jobs": [
+        {
+          "id": 125483534218,
+          "name": "authorize",
+          "conclusion": "success",
+          "started_at": "2026-11-02T18:57:51Z",
+          "completed_at": "2026-11-02T18:58:17Z",
+          "runner_name": "GitHub Actions 1000001098"
+        },
+        {
+          "id": 125483792068,
+          "name": "win11",
+          "conclusion": "failure",
+          "started_at": "2026-11-02T18:58:20Z",
+          "completed_at": "2026-11-02T19:20:46Z",
+          "runner_name": "GitHub Actions 1000001101"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13173275584,
+          "name": "win11-lifecycle-a03aadf22ab83c9b39bc03f5387eaa0a702ebf27-41505468952",
+          "size_in_bytes": 968513,
+          "digest": "sha256:b96d1a1bde70475916df829fb0944bf576b13e55b286eb7260bedb3df7bc8c2a"
+        },
+        {
+          "id": 13171230286,
+          "name": "win11-vm-request-41505468952",
+          "size_in_bytes": 127191,
+          "digest": "sha256:44990792d49c372b65dff28e84d78fc58b413ac2301f30d66a4e5c1cdee552e9"
+        }
+      ]
+    }
+  ]
+}
