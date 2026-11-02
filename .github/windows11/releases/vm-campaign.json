@@ -1,8 +1,8 @@
 {
   "schema": "japp-windows11-vm-release-v1",
   "decision": "RELEASE_ONE_BOUND_CAMPAIGN",
-  "request_id": "52b4c236a3feb71b818b284d5a1fd1d2",
-  "request_parent_sha": "1a5189daf5ec06f3ae9710990a4f6110a4a20aa3",
+  "request_id": "ff56ce4e0b4b3b37fc5a29abcdf96495",
+  "request_parent_sha": "2cf9fa67c5ecd342d23eb5d687bb2d8c1035da9b",
   "expected_source_sha": "a03aadf22ab83c9b39bc03f5387eaa0a702ebf27",
   "package_build_sha": "d9412fd07ce7088ea2a5df5515230bd778567cd7",
   "source_tree_sha": "7a96092b2b7738d3dce8f27b5ddb004b1a2ff81a",
