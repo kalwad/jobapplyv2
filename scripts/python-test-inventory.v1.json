@@ -2,8 +2,8 @@
   "schema_version": 1,
   "normalization_version": 1,
   "common": {
-    "count": 3166,
-    "sha256": "0014936fbddcaea4689cfb54b4aae39286fe74fcc03f01d8cf6cb0c494ab1c34",
+    "count": 3167,
+    "sha256": "b5df263bf4f41b564b50a53c1da1bcdfafdf56e6cb7845885afb7ba79f72f510",
     "node_ids": [
       "scripts/tests/test_bounded_process.py::test_ordinary_nonzero_exit_preserves_stdout_and_stderr",
       "scripts/tests/test_bounded_process.py::test_over_one_mib_child_is_stopped_and_retained_output_is_bounded",
@@ -2505,6 +2505,7 @@
       "scripts/tests/test_windows11_boot_console.py::test_unmirrored_text_just_before_a_terminal_pass_is_never_part_of_it[unmirrored-text]",
       "scripts/tests/test_windows11_guest_driver.py::test_a_stale_attestor_error_never_overrides_a_current_machine_receipt",
       "scripts/tests/test_windows11_guest_driver.py::test_accelerator_failure_reports_the_keyboard_focus_owner",
+      "scripts/tests/test_windows11_guest_driver.py::test_answer_file_modifies_partitions_in_contiguous_order",
       "scripts/tests/test_windows11_guest_driver.py::test_answer_file_names_every_setup_and_oobe_page_without_bypasses",
       "scripts/tests/test_windows11_guest_driver.py::test_diagnostics_route_settles_before_its_tree_and_geometry_are_read",
       "scripts/tests/test_windows11_guest_driver.py::test_every_guest_wait_predicate_is_total_and_strict_at_its_deadline[CheckedAdvance]",

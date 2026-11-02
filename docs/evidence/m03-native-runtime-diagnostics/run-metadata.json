@@ -1093,6 +1093,191 @@
           "digest": "sha256:af23c6b1cbe41a3a773b5f3d6b8c56254f300c46f22a968eb4844546e6a753f2"
         }
       ]
+    },
+    {
+      "id": 41370879234,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-guest-lifecycle",
+      "head_sha": "08209252804b02712466db5c5ccb2c7126967be2",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T01:08:35Z",
+      "updated_at": "2026-11-02T01:09:07Z",
+      "jobs": [
+        {
+          "id": 125040893450,
+          "name": "parse windows11 attestor (PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-02T01:08:40Z",
+          "completed_at": "2026-11-02T01:09:07Z",
+          "runner_name": "GitHub Actions 1000001022"
+        }
+      ],
+      "artifacts": []
+    },
+    {
+      "id": 41376693013,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "5cbfe21ac34e7b684c4a25e891a685924f33490f",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "failure",
+      "created_at": "2026-11-02T02:15:02Z",
+      "updated_at": "2026-11-02T02:18:51Z",
+      "jobs": [
+        {
+          "id": 125058386961,
+          "name": "windows11 iso image metadata",
+          "conclusion": "failure",
+          "started_at": "2026-11-02T02:15:06Z",
+          "completed_at": "2026-11-02T02:18:51Z",
+          "runner_name": "GitHub Actions 1000001055"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13111477136,
+          "name": "diag29-win11-wim",
+          "size_in_bytes": 1299,
+          "digest": "sha256:2f37248649c88810ed32a7272089a89cd49b4880b0eeba6b4fb8e92beea7999b"
+        }
+      ]
+    },
+    {
+      "id": 41377083648,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "22f80cc0a78f63af8d07a0b082eb1a54dc72019b",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T02:19:15Z",
+      "updated_at": "2026-11-02T02:21:19Z",
+      "jobs": [
+        {
+          "id": 125059567155,
+          "name": "windows11 iso image metadata",
+          "conclusion": "success",
+          "started_at": "2026-11-02T02:19:19Z",
+          "completed_at": "2026-11-02T02:21:18Z",
+          "runner_name": "GitHub Actions 1000001056"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13111372741,
+          "name": "diag30-win11-wim",
+          "size_in_bytes": 3542,
+          "digest": "sha256:c24c23d6c3cee0b04f15febc241a52f320ab2370b6ecc01d44dbaad37dc92410"
+        }
+      ]
+    },
+    {
+      "id": 41377438498,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "9d77c9553d77480d9c858139644c451b48c592b4",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T02:23:09Z",
+      "updated_at": "2026-11-02T03:01:55Z",
+      "jobs": [
+        {
+          "id": 125060657535,
+          "name": "windows11 setup baseline",
+          "conclusion": "success",
+          "started_at": "2026-11-02T02:23:14Z",
+          "completed_at": "2026-11-02T03:01:54Z",
+          "runner_name": "GitHub Actions 1000001058"
+        },
+        {
+          "id": 125060657608,
+          "name": "windows11 setup noletter",
+          "conclusion": "success",
+          "started_at": "2026-11-02T02:23:13Z",
+          "completed_at": "2026-11-02T02:57:51Z",
+          "runner_name": "GitHub Actions 1000001057"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13113357252,
+          "name": "diag31-win11-setup-baseline",
+          "size_in_bytes": 611888,
+          "digest": "sha256:7985c8dcb294078961f8e22abb95666ea0af164e2ac8550ceb54458571f92605"
+        },
+        {
+          "id": 13112612273,
+          "name": "diag31-win11-setup-noletter",
+          "size_in_bytes": 611891,
+          "digest": "sha256:627c1c35a8b64de1f258713395d6a85b5b43c4723e16b4ce766d45a5a0b24c22"
+        }
+      ]
+    },
+    {
+      "id": 41380947763,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "3643b9dc9dfe9bb540581991a2bf36b364b5a84d",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T03:03:20Z",
+      "updated_at": "2026-11-02T03:24:18Z",
+      "jobs": [
+        {
+          "id": 125071426661,
+          "name": "windows11 setup nomodify",
+          "conclusion": "success",
+          "started_at": "2026-11-02T03:03:24Z",
+          "completed_at": "2026-11-02T03:24:10Z",
+          "runner_name": "GitHub Actions 1000001059"
+        },
+        {
+          "id": 125071426895,
+          "name": "windows11 setup orderseq",
+          "conclusion": "success",
+          "started_at": "2026-11-02T03:03:24Z",
+          "completed_at": "2026-11-02T03:24:12Z",
+          "runner_name": "GitHub Actions 1000001060"
+        },
+        {
+          "id": 125071427056,
+          "name": "windows11 setup orderseq-noletter",
+          "conclusion": "success",
+          "started_at": "2026-11-02T03:03:24Z",
+          "completed_at": "2026-11-02T03:24:17Z",
+          "runner_name": "GitHub Actions 1000001061"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13114680022,
+          "name": "diag32-win11-setup-nomodify",
+          "size_in_bytes": 230968,
+          "digest": "sha256:a7f6b58a6f0d7f6b753a028fb3e9f47f3dbc32daa4b10c48d0bbbd65c51b0279"
+        },
+        {
+          "id": 13114630136,
+          "name": "diag32-win11-setup-orderseq-noletter",
+          "size_in_bytes": 5288958,
+          "digest": "sha256:72fb87ee8c1bfb76412e17b1d3765754c163a2bb8c567bc2e0e06945dc63a281"
+        },
+        {
+          "id": 13113962264,
+          "name": "diag32-win11-setup-orderseq",
+          "size_in_bytes": 2946848,
+          "digest": "sha256:77192be883bd99417ec143c388c6d289d532bb875016649db52c887374875bc7"
+        }
+      ]
     }
   ],
   "downloaded_artifact_files_before_LF_normalization": {

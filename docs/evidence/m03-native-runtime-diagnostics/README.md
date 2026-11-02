@@ -208,6 +208,18 @@ byte-identical to the module that will run in the campaign. Its PPM frames are
 retained as PNG; each `sources.json` records the original artifact bytes and
 hash.
 
+## Windows 11 Setup rounds 29–32 (hosted ubuntu-24.04, KVM; after the reviewed campaign)
+
+The first reviewed Windows 11 campaign (run 41371604274) stopped at Windows Setup's "Select location to install Windows 11" (KI-0171). These scratch-branch rounds isolated the cause. They boot the exact pinned ISO, verified against its SHA-256, with the harness's own `qemu_argv()` and `answer_file()`. The seed CD carries the answer file and a no-op bootstrap, and the disks are the same 128 MiB JAPP-RESULT USB disk and 80 GB system disk.
+
+| Round | Run | Result |
+|---|---|---|
+| 29, 30 | 41376693013, 41377083648 | install.wim holds one image: index 1, "Windows 11 Enterprise Evaluation", build 26300.9457, so the answer file's `/IMAGE/NAME` matches (`round30-*/wiminfo.txt`). Round 29's probe failed on its own `ls` of a missing install.esd |
+| 31 | 41377438498 | The answer file as-is, and the same without `<Letter>C</Letter>`: both reach the location page within one minute and stay there for 30 minutes. Disk 0's partitions exist but show free space equal to their size (unformatted). The letter is not the cause |
+| 32 | 41380947763 | Only the second ModifyPartition renumbered from `Order` 3 to 2: "Installing Windows 11" at about 1 minute, then the auto-logged-on desktop by 15 minutes. The same without the C: letter also progresses. With ModifyPartitions removed: "Windows 11 installation has failed" |
+
+So ModifyPartition `Order` must number the modifications contiguously; it is not the PartitionID. The desktop watermark in round 32 reads "Windows License is expired", which is recorded as an observation.
+
 ## Limits
 
 These are diagnostics on hosted build runners, not campaign evidence:

@@ -66,10 +66,12 @@ The reviewed guest/COM/parser composition now passes441canonical Python tests/27
 - Affects: M03-W07 Windows 11 VM campaign (scripts/windows11/windows11_deployment.py answer_file; scripts/windows11/windows11_vm.py qemu_argv and seed).
 - Description: the first reviewed Windows 11 campaign on a reviewed EPYC 7763 runner booted the install media with the firmware-triggered key. Windows Setup then stayed on "Select location to install Windows 11" until the work deadline, about 50 minutes, and the guest never wrote a protocol row. The answer file's DiskConfiguration had run: Disk 0 holds its System, MSR and Primary partitions. But its ImageInstall target (Disk 0, Partition 3) was not applied. Nothing interacts with the VM after the boot key, so the campaign failed closed with a TimeoutError.
 - Ruled out: the image name. The pinned ISO's install.wim holds one image, index 1, named exactly "Windows 11 Enterprise Evaluation" (scratch-branch run41377083648).
-- Leading hypothesis, under test: the answer file assigns `<Letter>C</Letter>` to the Windows partition while the JAPP-RESULT USB volume, attached for result collection, is already lettered in WinPE. That would make ModifyPartition fail, and Setup falls back to the location page.
+- Root cause, measured: the answer file numbered its ModifyPartition entries `Order` 1 and 3, copying the PartitionID, so Setup created the partitions but never formatted them. Order numbers the modifications themselves, contiguously from 1.
+  - Diagnostic run41377438498: the stall reproduced within a minute, with and without the C: letter.
+  - Diagnostic run41380947763: with Order 1, 2 the same ISO installed and reached the auto-logged-on desktop within 15 minutes; with ModifyPartitions removed, Setup reported "Windows 11 installation has failed".
 - Reproduction: run41371604274; frames and closure in docs/evidence/m03-w07-win11-campaign-10f247b.
 - Workaround: none.
-- Resolution + evidence link: open. A scratch-branch Setup diagnostic compares the answer file as-is with one without the C: letter, both using the harness's own qemu_argv and answer_file (run41377438498).
+- Resolution + evidence link: answer_file() now numbers ModifyPartition Order contiguously (1, 2) for PartitionID 1 and 3. A test pins the full partition layout and the install target, and fails on the previous generator. A rebuilt, re-reviewed Windows 11 candidate and campaign are required before closure. Exact docs/evidence/m03-native-runtime-diagnostics (windows-setup-rounds).
 
 ### KI-0170 — Hosted Windows Playwright navigation failed once with net::ERR_NO_BUFFER_SPACE
 

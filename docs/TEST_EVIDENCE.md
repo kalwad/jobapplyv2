@@ -12571,4 +12571,22 @@ Windows 11 lifecycle attempts on the same release:
 - Run 41371604274, the third release, passed the CPU gate (AMD EPYC 7763). It re-downloaded and verified the ISO in 95.09 s, booted Windows Setup, then timed out at "Select location to install Windows 11" (KI-0171) with no guest protocol row. The closure is FAILED with no acceptance claim, and QEMU and the TPM emulator were reaped. Exact docs/evidence/m03-w07-win11-campaign-10f247b.
 - Scratch-branch run 41377083648 verified the pinned ISO's SHA-256 and read its install.wim with wimlib: one image, index 1, "Windows 11 Enterprise Evaluation", build 26300.9457.
 
+
+## M03-W07 — KI-0171 Windows 11 Setup stall diagnosed and corrected (2026-11-02UTC)
+
+Scratch-branch diagnostics booted the exact pinned ISO, verified against its SHA-256, with the harness's own `qemu_argv()` and `answer_file()` and the same seed CD and disks:
+- Run 41377083648: install.wim holds one image, index 1, "Windows 11 Enterprise Evaluation", build 26300.9457. The image name is not the cause.
+- Run 41377438498: the answer file as-is and without the C: letter both stop at "Select location to install Windows 11" within a minute, with Disk 0's partitions created but unformatted.
+- Run 41380947763:
+  - with ModifyPartition `Order` renumbered 1, 2 (PartitionID 1, 3), Setup shows "Installing Windows 11" at about 1 minute and the auto-logged-on desktop by 15 minutes;
+  - with ModifyPartitions removed, it reports "Windows 11 installation has failed".
+
+Evidence: docs/evidence/m03-native-runtime-diagnostics/windows-setup-rounds.
+
+Correction: `answer_file()` numbers ModifyPartition Order contiguously. The new test `test_answer_file_modifies_partitions_in_contiguous_order` pins the created partitions, the modifications (Order, PartitionID, format, label, letter) and the install target. It fails on the previous generator (`1 failed`) and passes on the fix.
+
+Commands (macOS arm64; same PATH): `uv run --frozen python scripts/verify.py --suite format|lint|typecheck|portability|python` each exit 0, python `3169 passed in 568.48s` with the exact inventory (3167 common + 2 POSIX-only). traceability, status and integrity exit 0 on the same tree before a one-identifier rename in windows11_deployment.py; that rename was made for mypy, and the typecheck failure is why typecheck and python were rerun. All three are rerun below after this entry.
+
+The protected source changed, so a new Windows 11 candidate, independent review and campaign are required. The GNOME campaign evidence at 10f247b is unaffected, because windows11_deployment.py is not used by the GNOME harness.
+
 Next READY package: NONE while M03-W07 is IN_PROGRESS.

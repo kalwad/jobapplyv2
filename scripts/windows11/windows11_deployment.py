@@ -72,15 +72,22 @@ def answer_file(password: str, image_name: str) -> bytes:  # noqa: PLR0915 - clo
             "true" if size is None else size,
         )
     modifications = element(disk, "ModifyPartitions")
-    for order, kind, label, letter in (
-        (1, "FAT32", "System", None),
-        (3, "NTFS", "Windows", "C"),
+    # Order numbers the modifications themselves, contiguously from 1; it is not
+    # the PartitionID. With Order 1, 3 Setup created the partitions but never
+    # formatted them and stopped at "Select location to install Windows 11"
+    # (KI-0171, measured with the pinned ISO in diagnostic run 41380947763).
+    for order, (partition_id, kind, label, letter) in enumerate(
+        (
+            (1, "FAT32", "System", None),
+            (3, "NTFS", "Windows", "C"),
+        ),
+        start=1,
     ):
         item = element(
             modifications, "ModifyPartition", **{"{" + WCM + "}action": "add"}
         )
         element(item, "Order", str(order))
-        element(item, "PartitionID", str(order))
+        element(item, "PartitionID", str(partition_id))
         element(item, "Format", kind)
         element(item, "Label", label)
         if letter:

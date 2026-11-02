@@ -1,0 +1,392 @@
+[
+ {
+  "t": 0.2,
+  "key": "argv",
+  "value": [
+   "/usr/bin/qemu-system-x86_64",
+   "-name",
+   "japp-owned-win11",
+   "-machine",
+   "q35,smm=on",
+   "-accel",
+   "kvm",
+   "-cpu",
+   "host",
+   "-smp",
+   "2",
+   "-m",
+   "6144",
+   "-global",
+   "driver=cfi.pflash01,property=secure,value=on",
+   "-global",
+   "ICH9-LPC.disable_s3=1",
+   "-global",
+   "ICH9-LPC.disable_s4=1",
+   "-drive",
+   "if=pflash,format=raw,unit=0,readonly=on,file=/usr/share/OVMF/OVMF_CODE_4M.secboot.fd",
+   "-drive",
+   "if=pflash,format=raw,unit=1,file=/home/runner/work/_temp/work/vars.fd",
+   "-drive",
+   "if=none,id=os,format=qcow2,file=/home/runner/work/_temp/work/os.qcow2",
+   "-device",
+   "ide-hd,drive=os,bus=ide.0",
+   "-drive",
+   "if=none,id=media,media=cdrom,readonly=on,file=/home/runner/work/_temp/win11.iso",
+   "-device",
+   "ide-cd,drive=media,bus=ide.1",
+   "-drive",
+   "if=none,id=seed,media=cdrom,readonly=on,file=/home/runner/work/_temp/work/seed.iso",
+   "-device",
+   "ide-cd,drive=seed,bus=ide.2",
+   "-drive",
+   "if=none,id=result,format=raw,file=/home/runner/work/_temp/work/result.img",
+   "-device",
+   "qemu-xhci,id=usb",
+   "-device",
+   "usb-storage,drive=result,removable=on",
+   "-chardev",
+   "socket,id=tpm,path=/home/runner/work/_temp/work/tpm.sock",
+   "-tpmdev",
+   "emulator,id=tpm0,chardev=tpm",
+   "-device",
+   "tpm-crb,tpmdev=tpm0",
+   "-device",
+   "VGA,xres=1280,yres=800",
+   "-display",
+   "none",
+   "-nic",
+   "none",
+   "-parallel",
+   "none",
+   "-chardev",
+   "socket,id=firmware,path=/home/runner/work/_temp/work/firmware.sock,server=on,wait=off",
+   "-device",
+   "isa-serial,chardev=firmware,index=0",
+   "-chardev",
+   "socket,id=proof,path=/home/runner/work/_temp/work/serial.sock,server=on,wait=off",
+   "-device",
+   "isa-serial,chardev=proof,index=1",
+   "-qmp",
+   "unix:/home/runner/work/_temp/work/qmp.sock,server=on,wait=off",
+   "-boot",
+   "once=d,menu=off"
+  ]
+ },
+ {
+  "t": 2.4,
+  "key": "media_started",
+  "value": true
+ },
+ {
+  "t": 2.9,
+  "key": "boot_key",
+  "value": {
+   "return": {}
+  }
+ },
+ {
+  "t": 62.9,
+  "key": "frame",
+  "value": {
+   "minute": 1,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 124.0,
+  "key": "frame",
+  "value": {
+   "minute": 2,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 185.1,
+  "key": "frame",
+  "value": {
+   "minute": 3,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 246.2,
+  "key": "frame",
+  "value": {
+   "minute": 4,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 307.3,
+  "key": "frame",
+  "value": {
+   "minute": 5,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 368.4,
+  "key": "frame",
+  "value": {
+   "minute": 6,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 429.5,
+  "key": "frame",
+  "value": {
+   "minute": 7,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 490.6,
+  "key": "frame",
+  "value": {
+   "minute": 8,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 551.7,
+  "key": "frame",
+  "value": {
+   "minute": 9,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 612.8,
+  "key": "frame",
+  "value": {
+   "minute": 10,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 673.9,
+  "key": "frame",
+  "value": {
+   "minute": 11,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 735.0,
+  "key": "frame",
+  "value": {
+   "minute": 12,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 796.1,
+  "key": "frame",
+  "value": {
+   "minute": 13,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 857.2,
+  "key": "frame",
+  "value": {
+   "minute": 14,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 918.3,
+  "key": "frame",
+  "value": {
+   "minute": 15,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 979.4,
+  "key": "frame",
+  "value": {
+   "minute": 16,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 1040.5,
+  "key": "frame",
+  "value": {
+   "minute": 17,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 1101.6,
+  "key": "frame",
+  "value": {
+   "minute": 18,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 1162.7,
+  "key": "frame",
+  "value": {
+   "minute": 19,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 1223.8,
+  "key": "frame",
+  "value": {
+   "minute": 20,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 1284.9,
+  "key": "frame",
+  "value": {
+   "minute": 21,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 1346.0,
+  "key": "frame",
+  "value": {
+   "minute": 22,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 1407.1,
+  "key": "frame",
+  "value": {
+   "minute": 23,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 1468.2,
+  "key": "frame",
+  "value": {
+   "minute": 24,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 1529.3,
+  "key": "frame",
+  "value": {
+   "minute": 25,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 1590.4,
+  "key": "frame",
+  "value": {
+   "minute": 26,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 1651.5,
+  "key": "frame",
+  "value": {
+   "minute": 27,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 1712.6,
+  "key": "frame",
+  "value": {
+   "minute": 28,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 1773.6,
+  "key": "frame",
+  "value": {
+   "minute": 29,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 1834.7,
+  "key": "frame",
+  "value": {
+   "minute": 30,
+   "reply": {
+    "return": {}
+   }
+  }
+ },
+ {
+  "t": 1835.9,
+  "key": "end",
+  "value": null
+ }
+]

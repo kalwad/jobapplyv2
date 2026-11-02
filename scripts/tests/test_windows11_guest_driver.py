@@ -592,6 +592,50 @@ def test_answer_file_names_every_setup_and_oobe_page_without_bypasses(
     assert b"Administrators" not in data
 
 
+def test_answer_file_modifies_partitions_in_contiguous_order(
+    deployment: ModuleType,
+) -> None:
+    # KI-0171: with ModifyPartition Order 1, 3 the pinned ISO's Setup created the
+    # partitions, never formatted them and waited at "Select location to install
+    # Windows 11"; with Order 1, 2 it installed to the desktop (diagnostic run
+    # 41380947763). Order counts modifications; PartitionID names the target.
+    data = deployment.answer_file("aZ_9" * 10, "Windows 11 Enterprise Evaluation")
+    root = ET.fromstring(data)  # noqa: S314 - our pure generator output, no external XML
+    ns = {"u": deployment.NAMESPACE}
+    disks = root.findall(
+        "u:settings[@pass='windowsPE']/u:component[@name='Microsoft-Windows-Setup']"
+        "/u:DiskConfiguration/u:Disk",
+        ns,
+    )
+    assert len(disks) == 1
+    created = [
+        (row.findtext("u:Order", namespaces=ns), row.findtext("u:Type", namespaces=ns))
+        for row in disks[0].findall("u:CreatePartitions/u:CreatePartition", ns)
+    ]
+    assert created == [("1", "EFI"), ("2", "MSR"), ("3", "Primary")]
+    modified = [
+        tuple(
+            row.findtext("u:" + name, namespaces=ns)
+            for name in ("Order", "PartitionID", "Format", "Label", "Letter")
+        )
+        for row in disks[0].findall("u:ModifyPartitions/u:ModifyPartition", ns)
+    ]
+    assert modified == [
+        ("1", "1", "FAT32", "System", None),
+        ("2", "3", "NTFS", "Windows", "C"),
+    ]
+    target = root.find(
+        "u:settings[@pass='windowsPE']/u:component[@name='Microsoft-Windows-Setup']"
+        "/u:ImageInstall/u:OSImage/u:InstallTo",
+        ns,
+    )
+    assert target is not None
+    assert (
+        target.findtext("u:DiskID", namespaces=ns),
+        target.findtext("u:PartitionID", namespaces=ns),
+    ) == ("0", "3")
+
+
 # Driver invariants that no bounded wait may treat as 'not yet' (review: an
 # invariant retried to a generic deadline loses its exact cause).
 OWNED_INVARIANTS = (
