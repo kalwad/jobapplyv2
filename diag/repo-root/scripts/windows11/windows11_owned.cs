@@ -83,11 +83,65 @@ namespace JobApplyValidation {
             text.Append(" hung="+(IsHungAppWindow(foreground)?1:0)+" wm_null="+(answered!=IntPtr.Zero?"ok":"timeout")+":"+probe.ElapsedMilliseconds+"ms");
             return text.ToString();
         }
+        // DIAG round 47: every foreground and Win32 focus change, out of context, interleaved with step marks.
+        delegate void WinEventProc(IntPtr hook,uint ev,IntPtr hwnd,int idObject,int idChild,uint thread,uint time);
+        [DllImport("user32.dll")] static extern IntPtr SetWinEventHook(uint min,uint max,IntPtr module,WinEventProc proc,uint pid,uint thread,uint flags);
+        [StructLayout(LayoutKind.Sequential)] struct Msg { public IntPtr hwnd; public uint message; public UIntPtr wParam; public IntPtr lParam; public uint time; public int x,y; }
+        [DllImport("user32.dll")] static extern int GetMessage(out Msg msg,IntPtr hwnd,uint min,uint max);
+        [DllImport("user32.dll")] static extern IntPtr GetParent(IntPtr hwnd);
+        [DllImport("user32.dll",SetLastError=true)] static extern bool AttachThreadInput(uint from,uint to,bool attach);
+        [DllImport("user32.dll",SetLastError=true)] static extern IntPtr SetFocus(IntPtr hwnd);
+        [DllImport("kernel32.dll")] static extern uint GetCurrentThreadId();
+        static readonly object traceLock=new object(); static StreamWriter trace; static int traceLines; static readonly Stopwatch traceClock=new Stopwatch(); static WinEventProc traceProc; static Thread traceThread;
+        static string OwnerOf(IntPtr hwnd) { if(hwnd==IntPtr.Zero) return "-"; uint pid; GetWindowThreadProcessId(hwnd,out pid); string name; try { name=Process.GetProcessById((int)pid).ProcessName; } catch(Exception) { name="?"; } return name+":"+pid; }
+        static string Win32Focus() {
+            IntPtr fg=GetForegroundWindow(); uint pid; uint thread=GetWindowThreadProcessId(fg,out pid);
+            GuiThreadInfo info=new GuiThreadInfo(); info.cbSize=(uint)Marshal.SizeOf(typeof(GuiThreadInfo));
+            if(!GetGUIThreadInfo(thread,ref info)) return "fg="+ClassOf(fg)+":"+fg.ToInt64()+"@"+OwnerOf(fg)+" focus=?";
+            IntPtr parent=GetParent(info.hwndFocus);
+            return "fg="+ClassOf(fg)+":"+fg.ToInt64()+"@"+OwnerOf(fg)+" focus="+ClassOf(info.hwndFocus)+":"+info.hwndFocus.ToInt64()+"@"+OwnerOf(info.hwndFocus)+" parent="+ClassOf(parent)+":"+parent.ToInt64()+" active="+ClassOf(info.hwndActive)+" flags="+info.flags;
+        }
+        static void TraceLine(string text) {
+            lock(traceLock) {
+                if(trace==null||traceLines>=20000) return; traceLines++;
+                try { trace.WriteLine(traceClock.ElapsedMilliseconds+" "+DateTime.UtcNow.ToString("HH:mm:ss.fff")+" "+text); } catch(Exception) { }
+            }
+        }
+        public static void StartFocusTrace(string path) {
+            lock(traceLock) { if(trace!=null) return; trace=new StreamWriter(path,false,new UTF8Encoding(false)); trace.AutoFlush=true; traceClock.Start(); }
+            traceProc=(hook,ev,hwnd,idObject,idChild,thread,time)=>{
+                try { TraceLine((ev==3?"EV-FOREGROUND":"EV-FOCUS")+" hwnd="+ClassOf(hwnd)+":"+hwnd.ToInt64()+"@"+OwnerOf(hwnd)+" obj="+idObject+" child="+idChild+" | "+Win32Focus()); } catch(Exception) { }
+            };
+            traceThread=new Thread(()=>{
+                IntPtr a=SetWinEventHook(3,3,IntPtr.Zero,traceProc,0,0,0);
+                IntPtr b=SetWinEventHook(0x8005,0x8005,IntPtr.Zero,traceProc,0,0,0);
+                TraceLine("TRACE-START hooks="+(a!=IntPtr.Zero)+","+(b!=IntPtr.Zero)+" | "+Win32Focus());
+                Msg msg; while(GetMessage(out msg,IntPtr.Zero,0,0)>0) { }
+            });
+            traceThread.IsBackground=true; traceThread.Start();
+        }
+        public static void Mark(string text) { TraceLine("MARK "+text+" | "+Win32Focus()); }
+        // DIAG round 47 remedy: move Win32 focus from the focused child to its parent widget.
+        public static string RemedyParentFocus() {
+            IntPtr fg=GetForegroundWindow(); uint pid; uint thread=GetWindowThreadProcessId(fg,out pid);
+            GuiThreadInfo info=new GuiThreadInfo(); info.cbSize=(uint)Marshal.SizeOf(typeof(GuiThreadInfo));
+            if(!GetGUIThreadInfo(thread,ref info)) return "no-gui-info";
+            IntPtr focus=info.hwndFocus; IntPtr parent=GetParent(focus);
+            uint focusPid; uint focusThread=GetWindowThreadProcessId(focus,out focusPid);
+            uint me=GetCurrentThreadId();
+            bool attached=AttachThreadInput(me,focusThread,true); int attachError=Marshal.GetLastWin32Error();
+            IntPtr previous=IntPtr.Zero; int error=0;
+            try { previous=SetFocus(parent); error=Marshal.GetLastWin32Error(); } finally { if(attached) AttachThreadInput(me,focusThread,false); }
+            string text="attached="+attached+":"+attachError+" from="+ClassOf(focus)+":"+focus.ToInt64()+" to="+ClassOf(parent)+":"+parent.ToInt64()+" previous="+previous.ToInt64()+" err="+error+" | "+Win32Focus();
+            Mark("REMEDY-PARENT "+text);
+            return text;
+        }
         public static uint ForegroundLockTimeoutValue() { uint value=0; if(!SystemParametersInfo(0x2000,0,ref value,0)) return UInt32.MaxValue; return value; }
         // A window of this owner becomes the foreground within a fixed bound, or the
         // request fails with its own refusal; it never sends input to take it.
         static void OwnForeground(IntPtr hwnd,string refusal) {
             Stopwatch watch=Stopwatch.StartNew(); int attempts=0;
+            Mark("OWNFG "+refusal+" target="+hwnd.ToInt64());
             while(true) {
                 attempts++;
                 if(SetForegroundWindow(hwnd)&&GetForegroundWindow()==hwnd) { ForegroundLog.Add(refusal+" | ok attempts="+attempts+" ms="+watch.ElapsedMilliseconds); return; }
@@ -325,12 +379,14 @@ namespace JobApplyValidation {
             AutomationElement window=Window(); IntPtr hwnd=new IntPtr(window.Current.NativeWindowHandle);
             OwnForeground(hwnd,"Owned keyboard foreground acknowledgment required");
             if(!quit) {
-                AutomationElement button=OwnedControl("Check again",InvokePattern.Pattern); button.SetFocus();
+                AutomationElement button=OwnedControl("Check again",InvokePattern.Pattern); Mark("UIA-SETFOCUS-BEFORE check-again"); button.SetFocus(); Mark("UIA-SETFOCUS-RETURNED check-again");
                 if(!Settles(()=>{
                     AutomationElement focused=AutomationElement.FocusedElement;
                     return focused!=null&&focused.Current.Name=="Check again"&&new HashSet<uint>(Members()).Contains((uint)focused.Current.ProcessId);
                 })) throw new OwnedInvariantException("Owned button focus required"+settleLast);
+                Mark("UIA-SETFOCUS-SETTLED check-again");
             }
+            Mark(quit?"KEY quit-chord":"KEY check-again-enter");
             ushort[] keys=quit?new ushort[]{0x11,0x51,0x51,0x11}:new ushort[]{0x0D,0x0D};
             Input[] sequence=new Input[keys.Length];
             for(int i=0;i<keys.Length;i++) { sequence[i].type=1; sequence[i].data.keyboard.key=keys[i]; sequence[i].data.keyboard.flags=(uint)(i>=keys.Length/2?2:0); }
@@ -518,12 +574,14 @@ namespace JobApplyValidation {
         }
         public void ShellFocusRoute(string label) {
             if(Array.IndexOf(ShellRoutes,label)<0) throw new ArgumentException("Closed source-bound route required");
-            ShellForeground(); AutomationElement link=ShellUnique(label,ControlType.Hyperlink,null,false);link.SetFocus();
+            ShellForeground(); AutomationElement link=ShellUnique(label,ControlType.Hyperlink,null,false);Mark("UIA-SETFOCUS-BEFORE route "+label);link.SetFocus();Mark("UIA-SETFOCUS-RETURNED route "+label);
             if(!Settles(()=>link.Current.HasKeyboardFocus)) throw new OwnedInvariantException("Owned route link focus unavailable"+settleLast);
+            Mark("UIA-SETFOCUS-SETTLED route "+label);
         }
         public void ShellFocusSkip() {
-            ShellForeground();AutomationElement link=ShellUnique("Skip to main content",ControlType.Hyperlink,null,false);link.SetFocus();
+            ShellForeground();AutomationElement link=ShellUnique("Skip to main content",ControlType.Hyperlink,null,false);Mark("UIA-SETFOCUS-BEFORE skip");link.SetFocus();Mark("UIA-SETFOCUS-RETURNED skip");
             if(!Settles(()=>link.Current.HasKeyboardFocus&&!link.Current.IsOffscreen)) throw new OwnedInvariantException("Actual skip link focus unavailable"+settleLast);
+            Mark("UIA-SETFOCUS-SETTLED skip");
         }
         public bool ShellMainFocused() {
             AutomationElementCollection nodes=Window().FindAll(TreeScope.Descendants,Condition.TrueCondition);
@@ -563,6 +621,7 @@ namespace JobApplyValidation {
                 sequence[i].type=1;sequence[i].data.keyboard.key=keys[i];
                 sequence[keys.Length+i].type=1;sequence[keys.Length+i].data.keyboard.key=keys[keys.Length-i-1];sequence[keys.Length+i].data.keyboard.flags=2;
             }
+            Mark("KEY "+operation);
             if(GetForegroundWindow()!=hwnd||Marshal.SizeOf(typeof(Input))!=40||SendInput((uint)sequence.Length,sequence,40)!=(uint)sequence.Length) throw new Win32Exception();
         }
         public object[] ShellTree() {
