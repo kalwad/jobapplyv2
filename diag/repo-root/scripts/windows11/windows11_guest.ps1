@@ -257,10 +257,20 @@ function ShellWait([scriptblock]$Predicate) {
     $transient=''
     do {
         WithinBudget
-        try { if(& $Predicate){DiagWaitLog $diagName $diagStart $true; return} } catch { if(-not(NotYet $_)){throw}; $transient=LastTransient $_ }
+        try { if(& $Predicate){DiagWaitLog ($diagName+$(if($diagName -clike '*-not $Owner.ShellRouteLinkFocused*'){' | '+[JobApplyValidation.OwnedApp]::FocusDiag()}else{''})) $diagStart $true; return} } catch { if(-not(NotYet $_)){throw}; $transient=LastTransient $_ }
         Start-Sleep -Milliseconds 25
     } while($clock.Elapsed.TotalSeconds -lt $limit)
     DiagWaitLog $diagName $diagStart $false
+    # DIAG round 45: record focus, then (diagnostic only) one more key to tell a lost key from a stuck focus.
+    $focusLog=Join-Path $proof 'diag-focus.txt'
+    try { [IO.File]::AppendAllText($focusLog,('FAIL at_ms='+$clock.ElapsedMilliseconds+' '+$diagName+' | '+[JobApplyValidation.OwnedApp]::FocusDiag()+"`r`n")) } catch { }
+    $retryKey=$(if($diagName -clike '*-not $Owner.ShellRouteLinkFocused*'){'tab'}elseif($diagName -clike '*$Owner.ShellRouteLinkFocused*'){'backtab'}else{'enter'})
+    try {
+        $Owner.ShellKeys($retryKey)
+        $retryStart=$clock.Elapsed.TotalSeconds
+        while($clock.Elapsed.TotalSeconds -lt $retryStart+5) { try { if(& $Predicate){ [IO.File]::AppendAllText($focusLog,('DIAG-RETRY-OK key='+$retryKey+' ms='+[long](($clock.Elapsed.TotalSeconds-$retryStart)*1000)+' | '+[JobApplyValidation.OwnedApp]::FocusDiag()+"`r`n")); return } } catch { }; Start-Sleep -Milliseconds 25 }
+        [IO.File]::AppendAllText($focusLog,('DIAG-RETRY-FAIL key='+$retryKey+' | '+[JobApplyValidation.OwnedApp]::FocusDiag()+"`r`n"))
+    } catch { try { [IO.File]::AppendAllText($focusLog,('DIAG-RETRY-ERROR '+$_.Exception.GetType().FullName+"`r`n")) } catch { } }
     throw ('Actual bounded native shell focus or geometry did not settle'+$transient)
 }
 function ShellMeasurement($Owner,[string]$Stage,[string]$PreviousAnchors) {

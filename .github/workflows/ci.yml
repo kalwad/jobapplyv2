@@ -1,5 +1,5 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Round 44 (Hyper-V enlightenments replicated, WHESvc off,
-# measured UI wait durations with extended bounds): rehearse the Windows 11
+# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Round 45 (lost keyboard focus moves: focus diagnostics
+# and one diagnostic retry; later phases and their durations; Hyper-V enlightenments): rehearse the Windows 11
 # campaign with the harness's own seed/QEMU/COM2 protocol, the real CI package and
 # the KI-0177/0178/0179 guest correction, across first-logon Default-profile variants.
 # No acceptance can come from it.
@@ -33,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        variant: [hv-a, hv-b, hv-nowhesvc, host-nowhesvc]
+        variant: [hv-1, hv-2, hv-3]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -86,7 +86,7 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag44-win11-rehearsal-${{ matrix.variant }}
+          name: diag45-win11-rehearsal-${{ matrix.variant }}
           path: |
             ${{ runner.temp }}/out
             !${{ runner.temp }}/out/private-work
@@ -95,7 +95,7 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag44-raw-dumps-and-logs-${{ matrix.variant }}
+          name: diag45-raw-dumps-and-logs-${{ matrix.variant }}
           path: ${{ runner.temp }}/out/forensics/raw
           if-no-files-found: ignore
           retention-days: 3

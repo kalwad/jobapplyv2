@@ -62,6 +62,21 @@ namespace JobApplyValidation {
             uint pid; GetWindowThreadProcessId(window,out pid);
             try { return Process.GetProcessById((int)pid).ProcessName+":"+pid; } catch(Exception) { return "pid:"+pid; }
         }
+        // DIAG round 45: where keyboard focus is when a fixed key does not move it.
+        [StructLayout(LayoutKind.Sequential)] struct GuiThreadInfo { public uint cbSize,flags; public IntPtr hwndActive,hwndFocus,hwndCapture,hwndMenuOwner,hwndMoveSize,hwndCaret; public int left,top,right,bottom; }
+        [DllImport("user32.dll")] static extern bool GetGUIThreadInfo(uint thread,ref GuiThreadInfo info);
+        [DllImport("user32.dll",CharSet=CharSet.Unicode)] static extern int GetClassName(IntPtr window,StringBuilder name,int max);
+        [DllImport("user32.dll")] static extern short GetAsyncKeyState(int key);
+        static string ClassOf(IntPtr window) { if(window==IntPtr.Zero) return "none"; StringBuilder name=new StringBuilder(256); GetClassName(window,name,256); return name.ToString(); }
+        public static string FocusDiag() {
+            StringBuilder text=new StringBuilder();
+            try { AutomationElement focused=AutomationElement.FocusedElement; text.Append("uia="+focused.Current.ControlType.ProgrammaticName+":"+Bounded(focused.Current.Name,80)+":pid="+focused.Current.ProcessId+":hwnd="+focused.Current.NativeWindowHandle); } catch(Exception error) { text.Append("uia-error="+error.GetType().Name); }
+            IntPtr foreground=GetForegroundWindow(); uint pid; uint thread=GetWindowThreadProcessId(foreground,out pid);
+            GuiThreadInfo info=new GuiThreadInfo(); info.cbSize=(uint)Marshal.SizeOf(typeof(GuiThreadInfo));
+            if(GetGUIThreadInfo(thread,ref info)) text.Append(" fg="+ClassOf(foreground)+":pid="+pid+" focus="+ClassOf(info.hwndFocus)+":"+info.hwndFocus.ToInt64()+" active="+ClassOf(info.hwndActive)+" flags="+info.flags);
+            foreach(int key in new int[]{0x09,0x0D,0x10,0x11,0x12}) text.Append(" k"+key.ToString("x")+"="+((GetAsyncKeyState(key)&0x8000)!=0?1:0));
+            return text.ToString();
+        }
         public static uint ForegroundLockTimeoutValue() { uint value=0; if(!SystemParametersInfo(0x2000,0,ref value,0)) return UInt32.MaxValue; return value; }
         // A window of this owner becomes the foreground within a fixed bound, or the
         // request fails with its own refusal; it never sends input to take it.
