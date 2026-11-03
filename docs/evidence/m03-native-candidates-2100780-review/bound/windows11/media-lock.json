@@ -1,0 +1,28 @@
+{
+  "schema": "japp-win11-media-lock-v1",
+  "review_state": "UNREVIEWED",
+  "publisher": {
+    "url": "https://support.microsoft.com/en-us/servicing/os/windows/docs/2026/09/verify-the-authenticity-of-a-windows-11-enterprise-evaluation-iso-file",
+    "bytes": 105787,
+    "sha256": "d1535fe5b44c3c43b8c12bdf54f53ea46d29853b10fd4fbff3906db404a87bda",
+    "seconds": 0.10099048100000374,
+    "authenticated_account_used": false
+  },
+  "host_cpu_requires_different_official_support_review": {
+    "model name": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "vendor_id": "GenuineIntel",
+    "cpu family": "6",
+    "model": "106",
+    "stepping": "6"
+  },
+  "media": {
+    "url": "https://software-static.download.prss.microsoft.com/dbazure/26300.9457.260913-1737.26h2_ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso",
+    "bytes": 8225329152,
+    "sha256": "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38",
+    "seconds": 57.782022773,
+    "authenticated_account_used": false
+  },
+  "iso_retained_in_artifact": false,
+  "subsequent_campaign_must_redownload_identical_digest": true,
+  "installation_and_native_OS_not_observed": true
+}

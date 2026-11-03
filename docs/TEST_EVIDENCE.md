@@ -12636,4 +12636,19 @@ Commands (macOS arm64; PATH with node@24 and rustup; PYTHONDONTWRITEBYTECODE=1):
 
 The protected guest sources changed, so a new Windows 11 candidate, review and campaign are required.
 
+Hosted 2100780/run41538198385 (pull_request merge fdba3c3d):
+- Attempt 1: macOS and Ubuntu verify PASS (20 ACTIVE suites each; Python `3175 passed in 1162.73s` and `3175 passed in 599.43s`). Windows verify was cancelled by the 60-minute job limit at 60m38s, during the desktop Rust tests, after Python `3173 passed in 1520.40s` and with no failing test (KI-0172).
+- Attempt 2 (failed job rerun on the same SHA) is terminal SUCCESS: Windows verify PASS in 52m29s (20 ACTIVE suites, Python `3173 passed in 1200.28s`), and both native package jobs PASS. Artifacts:
+  - native-development-windows-2025-fdba3c3d… (13193278787, sha256 1628e749…);
+  - gnome-package-input-fdba3c3d… (13193412608, sha256 1b207642…).
+
+Windows 11 candidate review at 2100780 (2026-11-03UTC):
+- Download-only request `b802f8f` bound S 2100780, package merge fdba3c3d and run 41538198385 attempt 2. Lifecycle runs 41538198353 and 41554286831 at the source and request heads skipped `win11`, so no VM started.
+- Prepare run 41554286753 passed its hosted guest-source checks (Windows PowerShell 5.1.26100.33648 parse and C# compile on the exact guest pins) and produced artifact 13193836341 (ZIP `a8f47613…`, equal to the API digest), with no install and no VM.
+- Separate-context workflow wf_3d706db2-168 (32 agents launched by the implementing session: eight lenses, two refuters per actionable finding, a completeness critic and a final reviewer) decided DO_NOT_RELEASE.
+- Integrity and provenance are clear. The candidate hashes are bundle `a75deebc…`, media lock `1f4350a5…`, host tools `54f89a44…` and guest driver `9659a295…`, and the packet's `bound/` files hash to the same values.
+- The one blocking reason is KI-0177: the first-logon Start menu holds the foreground in rounds 34 and 35 and in the a03aadf campaign failure frame, and the guest's first Capture has no retry. The implementer viewed round 35 frame 66 and the a03aadf failure frame and confirms it.
+- KI-0178 and KI-0179 are filed, and KI-0173 is extended, from the surviving non-blocking findings.
+- Exact docs/evidence/m03-native-candidates-2100780-review.
+
 Next READY package: NONE while M03-W07 is IN_PROGRESS.

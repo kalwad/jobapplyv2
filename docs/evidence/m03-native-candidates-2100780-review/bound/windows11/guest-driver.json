@@ -1,0 +1,17 @@
+{
+  "schema": "japp-win11-guest-driver-v1",
+  "files": {
+    "windows11_guest.ps1": {
+      "bytes": 38917,
+      "sha256": "84049740b725ffcc4462b41cefa3524879db82b0ac40a2c0d6cf80b01a11b189"
+    },
+    "windows11_owned.cs": {
+      "bytes": 53069,
+      "sha256": "5b2e50706692e1814087362f56cf3abeb8b92e4ca0bb8266903bfb25faf7f540"
+    },
+    "windows11_bootstrap.ps1": {
+      "bytes": 8358,
+      "sha256": "c212a0790f70bd87d6f9e7353c28d67a84021622d9c4181aefb7e5cd833699ca"
+    }
+  }
+}

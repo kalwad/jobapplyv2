@@ -58,6 +58,39 @@ Current scoped correction supersedes the pending source/focus statements: all te
 
 The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
 
+### KI-0177 — Windows 11 first-logon Start menu holds the foreground the guest needs
+
+- Severity: MEDIUM
+- State: OPEN
+- Discovered: completeness critic of the 2100780 candidate review (wf_3d706db2-168), 2026-11-03UTC.
+- Affects: M03-W07 Windows 11 VM campaign. Guest foreground assertions in scripts/windows11/windows11_owned.cs (Capture, Keys, ShellFocusRoute, ShellKeys, ShellFocusSkip). The first-logon state set by scripts/windows11/windows11_bootstrap.ps1.
+- Description: Windows 11 opens the Start menu by itself at the fixture's first logon, and it stays open. It was open in every post-logon frame of diagnostic rounds 34 (22 frames, about 7.5 minutes) and 35 (21 frames), and in the a03aadf campaign's failure frame. Throughout, the guest console's taskbar button shows a refused activation. The guest's first foreground assertion, Capture in Snapshot 'ready', requires SetForegroundWindow to succeed on the product window, and it has no retry. Nothing suppresses Start or relaxes the foreground lock. A campaign would therefore very likely fail closed at 'ready' for a harness reason, never reaching the product.
+- Reproduction: docs/evidence/m03-w07-win11-campaign-a03aadf/run41505468952/retained/win11-failure.png. The frames of diagnostic runs 41514384986 and 41520516660 (rounds 34 and 35; artifact ZIP digests in docs/evidence/m03-native-runtime-diagnostics/run-metadata.json). docs/evidence/m03-native-candidates-2100780-review.
+- Workaround: none. The 2100780 candidate was not released.
+- Resolution + evidence link: open. A bounded, auditable first-logon state and foreground strategy must be measured in a Windows 11 VM before a new candidate. Every assertion must keep the strict foreground check before SendInput.
+
+### KI-0178 — Windows 11 guest serial write timeout is unmeasured for its largest receipt
+
+- Severity: LOW
+- State: OPEN
+- Discovered: 2100780 candidate review (wf_3d706db2-168; lenses win-ki0175 and win-later-phases, NON_BLOCKING after refutation), 2026-11-03UTC.
+- Affects: scripts/windows11/windows11_guest.ps1 (`$serial.WriteTimeout=500`, one WriteLine per receipt); the host receipt parser in scripts/windows11/windows11_vm.py observe().
+- Description: each phase receipt is written to COM2 in one WriteLine with a 500 ms timeout. The environment receipt is about 1 KB. The keyboard receipt, with its native shell capture, is about 10.8 KB and would need at least about 21.7 KB/s, a rate never measured on the campaign's emulated UART. A timeout fails closed: a write error, or a truncated line that the host refuses as JSON.
+- Reproduction: static only, with no VM measurement. The receipt sizes are reviewer estimates: the native shell capture was 10,440 B compact in hosted Windows Server 2025 diagnostic rounds 21, 23 and 26 (docs/evidence/m03-native-runtime-diagnostics).
+- Workaround: none measured.
+- Resolution + evidence link: open. Bound the write by the existing deadlines rather than 500 ms, and measure a full-size receipt in a Windows 11 VM.
+
+### KI-0179 — Windows 11 guest work budget and display timeout are unmeasured in the VM
+
+- Severity: MEDIUM
+- State: OPEN
+- Discovered: 2100780 candidate review (wf_3d706db2-168), 2026-11-03UTC.
+- Affects: scripts/windows11/windows11_guest.ps1 (WithinBudget, 300 s from the guest clock; the 150 s machine-receipt mark); the first-logon display state.
+- Description: the guest's 300 s budget includes the up-to-150 s wait for the attestor. What remains must cover dxdiag, the package hashing and extraction, six launches, five framed host accepts and the shell capture. In hosted Windows Server 2025 diagnostic rounds 21, 23 and 26 (4 vCPUs; without COM2, frames, dxdiag or extraction), the product phases took 64.6 to 69.4 s; they have never been measured on Windows 11 with 2 nested vCPUs. A budget overrun inside a wait is reported with that phase's own message, so it can look like a product failure. Separately, with no input the Windows 11 display went black 326 to 352 s after logon (rounds 34 and 35). Framed phases need a non-blank frame, so a larger budget also requires the display timeout to be off.
+- Reproduction: rounds 34 and 35 frames; docs/evidence/m03-native-candidates-2100780-review.
+- Workaround: none measured.
+- Resolution + evidence link: open. Measure the phase durations in a Windows 11 VM, size the budget from that measurement within the host's WORK_SECONDS, and keep the display on for the run.
+
 ### KI-0175 — Windows 11 guest gives up on the SYSTEM machine attestation before it is written
 
 - Severity: MEDIUM
@@ -111,7 +144,7 @@ The reviewed guest/COM/parser composition now passes441canonical Python tests/27
 - Discovered: diagnostic run41380947763 (Setup rounds), raised by the a03aadf candidate review, 2026-11-02UTC.
 - Affects: M03-W07 Windows 11 VM campaign guest state; OD-038 (evaluation licence acceptance).
 - Description: about 15 minutes after an unattended install of the pinned ISO (build 26300.9457), the desktop watermark read "Windows 11 Enterprise Evaluation / Windows License is expired". The cause is unexplained: the VM is offline (`-nic none`), but that being the cause is a guess. The campaign's attestation does not depend on activation state; it checks caption, build and update revision. The run would fail closed if the VM shut down early. Any M03-W07 evidence must state this guest licensing state.
-- Reproduction: diagnostic run41380947763, variant orderseq, frame 45 (docs/evidence/m03-native-runtime-diagnostics/windows-setup-rounds).
+- Reproduction: diagnostic run41380947763, variant orderseq, frame 45 (docs/evidence/m03-native-runtime-diagnostics/windows-setup-rounds). The reviewed a03aadf campaign shows the same watermark in run41505468952's win11-failure.png (docs/evidence/m03-w07-win11-campaign-a03aadf); that campaign failed at 'environment', before any acceptance claim.
 - Workaround: none needed for the scoped campaign.
 - Resolution + evidence link: open; the owner should know the evaluation guest runs in this state under OD-038.
 
@@ -121,9 +154,9 @@ The reviewed guest/COM/parser composition now passes441canonical Python tests/27
 - State: OPEN
 - Discovered: hosted CI a03aadf/run41384168159 attempt 1, 2026-11-02UTC.
 - Affects: CI `doctor + verify (windows-2025)` in .github/workflows/ci.yml (`timeout-minutes: 60`, pinned at or below 60 by scripts/tests/test_ci_workflow.py::test_job_has_timeout_and_no_global_shell_default); the exact-SHA hosted gate for every package.
-- Description: the Windows verify job took 57m19s (fff3408), 58m59s and 58m48s (10f247b attempts 1 and 2), then 60m13s at a03aadf. That last run was cancelled by the job limit during the desktop Rust tests, after every earlier suite had passed; no test failed. The Python suite alone takes about 21.5 minutes on Windows (3166 tests) and e2e-browser about 13 minutes. Each new test brings the job closer to the limit, so exact-SHA results now depend on runner speed.
+- Description: the Windows verify job took 57m19s (fff3408), 58m59s and 58m48s (10f247b attempts 1 and 2), then 60m13s at a03aadf and 60m38s at 2100780 (attempt 1). Those two runs were cancelled by the job limit during the desktop Rust tests, after every earlier suite had passed; no test failed. The Python suite alone takes about 21.5 minutes on Windows (3166 tests) and e2e-browser about 13 minutes. Each new test brings the job closer to the limit, so exact-SHA results now depend on runner speed.
 - Reproduction: the four runs above; job start and finish times come from the GitHub API.
-- Workaround: rerun the cancelled job on the same SHA. a03aadf attempt 2 passed in 39m31s, which shows the variance comes largely from runner speed.
+- Workaround: rerun the cancelled job on the same SHA. a03aadf attempt 2 passed in 39m31s and 2100780 attempt 2 in 52m29s, which shows the variance comes largely from runner speed.
 - Resolution + evidence link: open. A focused change should restore headroom, either by reducing Windows verify time or by revisiting the 60-minute job policy with the timing evidence. A policy change also changes the pinned test, so it needs its own reviewed decision.
 
 ### KI-0171 — Windows 11 Setup stops at "Select location to install Windows 11" in the reviewed campaign
