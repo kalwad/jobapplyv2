@@ -8,8 +8,8 @@ diagnostic instrumentation). It skips only what a scratch run cannot satisfy:
 the reviewed bundle, release receipt, source binding, runner-image and CPU gates.
 
 usage: win11_rehearsal.py REPO_SCRIPTS PACKAGE_ARTIFACT_DIR ISO OUT VARIANT
-VARIANT: baseline-conhost | ignore-conhost | ignore-terminal (round 40: the host KVM
-ignore_msrs setting is applied by the workflow; terminal drops console-host delegation).
+VARIANT: host-conhost | pmuoff-conhost | host-terminal (round 42: pmuoff runs QEMU with
+-cpu host,pmu=off; terminal drops console-host delegation).
 A reboot after the environment receipt ends observation 240 s later, and the
 disposable disk is then read read-only for its crash and boot records.
 """
@@ -32,7 +32,8 @@ sys.path.insert(0, str(scripts / "linux_gnome"))
 import windows11_vm as vm  # noqa: E402
 from windows11_process import ChildCustody  # noqa: E402
 
-DROP = {"baseline-conhost": (), "ignore-conhost": (), "ignore-terminal": ("# DIAG-CONHOST",)}[variant]
+DROP = {"host-conhost": (), "pmuoff-conhost": (), "host-terminal": ("# DIAG-CONHOST",)}[variant]
+CPU = {"host-conhost": "host", "pmuoff-conhost": "host,pmu=off", "host-terminal": "host"}[variant]
 DIAG = Path(__file__).resolve().parent
 
 
@@ -147,6 +148,10 @@ try:
             raise ValueError("Owned TPM control socket unavailable")
         time.sleep(0.05)
     argv = vm.qemu_argv(work, iso, seed_iso)
+    cpu_at = argv.index("-cpu") + 1
+    if argv[cpu_at] != "host":
+        raise ValueError("unexpected harness CPU argument")
+    argv[cpu_at] = CPU
     vm.write(out / "qemu-argv.json", argv)
     with (out / "qemu.stdout").open("xb") as stdout, (out / "qemu.stderr").open("xb") as stderr:
         owner.child = subprocess.Popen(argv, stdin=subprocess.DEVNULL, stdout=stdout, stderr=stderr, start_new_session=True)

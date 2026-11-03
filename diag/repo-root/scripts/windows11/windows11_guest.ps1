@@ -126,7 +126,8 @@ function Launch {
     return $owner
 }
 function Ready($Owner) {
-    $limit = [Math]::Min($budgetSeconds, $clock.Elapsed.TotalSeconds+35)
+    $limit = [Math]::Min($budgetSeconds, $clock.Elapsed.TotalSeconds+240) # DIAG: measure, was 35
+    $diagNext = 0
     $clicked = $false
     $retried = $null
     $transient = ''
@@ -134,6 +135,7 @@ function Ready($Owner) {
         WithinBudget
         try {
             $names = @($Owner.Names())
+            if($clock.Elapsed.TotalSeconds -ge $diagNext) { $diagNext=$clock.Elapsed.TotalSeconds+5; try { $members=@($Owner.Members()); [IO.File]::AppendAllText((Join-Path $proof 'diag-ready.ndjson'),((([ordered]@{at_ms=$clock.ElapsedMilliseconds;members=$members.Count;names=@($names|Select-Object -First 40)})|ConvertTo-Json -Compress)+"`r`n")) } catch { } }
             # Readiness is tested first, so a Ready result never starts another check;
             # a result that is not ready is checked again at most every 2 s.
             if ($names -contains 'Ready' -and ($names -join ' ') -match '0\.0\.1' -and ($names -join ' ') -match '1\.0\.0') { return }
@@ -448,7 +450,7 @@ try {
     if((MachineScalar $machine 'disk_bytes') -lt 64GB) { [void]$unmet.Add('disk_bytes') }
     if($unmet.Count -gt 0) { throw ('Actual Windows11 setup/hardware requirements unmet: '+($unmet -join ',')) }
     # Retain actual virtual display measurements; VM policy does not infer physical GPU qualification.
-    DiagDx
+    # DIAG round 42: the dxdiag probes are dropped; the owned launch carries the KI-0180 correction.
     $dxPath=Join-Path $env:TEMP ('JappDx-'+$config.nonce+'.xml')
     $dx=New-Object JobApplyValidation.OwnedApp
     [void]$owners.Add($dx)
@@ -486,6 +488,20 @@ try {
     # The Linux owner independently validates actual attestation/frame before product launch.
     HostAccepted ('JAPP11-ENV-ACCEPT '+$config.nonce) 15000 'Host did not accept actual native environment'
     DiagMark 'env-accepted'
+    # DIAG: an unowned process snapshot every 2 s, so the last one before a restart is kept.
+    $diagLogger=Join-Path $env:TEMP 'diag-procs.ps1'
+    Set-Content -LiteralPath $diagLogger -Encoding ASCII -Value @'
+param([string]$Out)
+$seen=@{}; $t=[Diagnostics.Stopwatch]::StartNew()
+while($t.Elapsed.TotalSeconds -lt 900) {
+    $now=@(Get-Process | ForEach-Object { [string]$_.Id+':'+$_.ProcessName })
+    $new=@($now | Where-Object { -not $seen.ContainsKey($_) })
+    foreach($k in $now) { $seen[$k]=1 }
+    try { [IO.File]::AppendAllText($Out,('t_ms='+$t.ElapsedMilliseconds+' count='+$now.Count+' new='+($new -join ',')+"`r`n")) } catch { }
+    Start-Sleep -Seconds 2
+}
+'@
+    Start-Process -WindowStyle Hidden -FilePath 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe' -ArgumentList @('-NoProfile','-ExecutionPolicy','Bypass','-File',$diagLogger,'-Out',(Join-Path $proof 'diag-procs.txt'))
     $zip='C:\ProgramData\JappHarness\windows-portable.zip'
     if((Get-FileHash -Algorithm SHA256 -LiteralPath $zip).Hash.ToLowerInvariant() -cne $config.package_sha256) { throw 'Original portable archive changed' }
     # A long-form profile base: %TEMP% is an 8.3 alias (JAPPFI~1) for this 11-character user.

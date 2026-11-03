@@ -128,4 +128,17 @@ if 0 < triage["CallStackOffset"] < len(data):
         if where:
             stack.append({"slot": hex(triage["TopOfStack"] + i), "value": hex(value), "module": where})
 out["stack_module_addresses"] = stack[:120]
+
+# The current process: printable ASCII runs in the captured EPROCESS that look like
+# an image file name (ImageFileName is 15 bytes, NUL padded; its offset varies by build).
+import re
+
+names = []
+if 0 < triage["ProcessOffset"] < len(data):
+    block = data[triage["ProcessOffset"] : triage["ProcessOffset"] + 0x1000]
+    for match in re.finditer(rb"[A-Za-z0-9_.\-]{4,15}\x00", block):
+        text = match.group()[:-1].decode()
+        if "." in text or text.lower() in ("system", "registry", "idle"):
+            names.append({"offset": hex(match.start()), "text": text})
+out["process_name_candidates"] = names[:20]
 print(json.dumps(out, indent=1))

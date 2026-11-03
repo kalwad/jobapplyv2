@@ -99,6 +99,10 @@ namespace JobApplyValidation {
         static string QuoteArgument(string value) {
             if(value==null||value.Length>4096||value.IndexOf('\0')>=0||value.IndexOf('\r')>=0||value.IndexOf('\n')>=0)
                 throw new ArgumentException("Bounded literal argument required");
+            // A token with no space, tab or quote is passed bare: CRT parsing reads it
+            // the same either way, and dxdiag's own parser writes nothing for a quoted
+            // "/x" (exit 127; KI-0180, diagnostic run 41573731214).
+            if(value.Length>0&&value.IndexOfAny(new char[]{' ','\t','"'})<0) return value;
             StringBuilder quoted=new StringBuilder("\"");
             int slashes=0;
             foreach(char character in value) {

@@ -121,6 +121,9 @@ try {
     & reg.exe unload $profileHive | Out-Null
 }
 if ($LASTEXITCODE -ne 0) { throw 'Default profile hive unload failed' }
+# DIAG only: no automatic device encryption, so a crash dump can be read off the disk.
+& reg.exe add 'HKLM\SYSTEM\CurrentControlSet\Control\BitLocker' /v PreventDeviceEncryption /t REG_DWORD /d 1 /f | Out-Null # DIAG-NOBITLOCKER
+if ($LASTEXITCODE -ne 0) { throw 'Device encryption setting failed' } # DIAG-NOBITLOCKER
 # The display stays on for the whole run: framed phases need a live frame (KI-0179).
 & powercfg.exe /change monitor-timeout-ac 0
 if ($LASTEXITCODE -ne 0) { throw 'Display timeout setting failed' }

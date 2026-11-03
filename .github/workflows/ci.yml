@@ -1,5 +1,5 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Round 40 (post-environment reboot: KVM MSR trace,
-# ignore_msrs, disk forensics, guest progress marks): rehearse the Windows 11
+# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Round 42 (post-launch bugcheck: RDPMC/#GP trace,
+# pmu=off, unencrypted disk forensics, process log, Ready timing, KI-0180 fix): rehearse the Windows 11
 # campaign with the harness's own seed/QEMU/COM2 protocol, the real CI package and
 # the KI-0177/0178/0179 guest correction, across first-logon Default-profile variants.
 # No acceptance can come from it.
@@ -33,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        variant: [baseline-conhost, ignore-conhost, ignore-terminal]
+        variant: [host-conhost, pmuoff-conhost, host-terminal]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -49,19 +49,13 @@ jobs:
           uname -r
           python3 -m venv "$HOME/evtx-venv"
           "$HOME/evtx-venv/bin/pip" install -q python-evtx==0.8.1
-      - name: KVM MSR policy and failed-MSR trace
+      - name: KVM RDPMC exits and injected #GP/#UD trace
         shell: bash
-        env:
-          VARIANT: ${{ matrix.variant }}
         run: |
           set -euo pipefail
           lsmod | grep -E '^kvm' || true
-          if [[ "$VARIANT" == ignore-* ]]; then
-            echo 1 | sudo tee /sys/module/kvm/parameters/ignore_msrs
-            echo 1 | sudo tee /sys/module/kvm/parameters/report_ignored_msrs
-          fi
-          grep -H . /sys/module/kvm/parameters/ignore_msrs /sys/module/kvm/parameters/report_ignored_msrs
-          sudo sh -c 'T=/sys/kernel/tracing; echo 0 > $T/tracing_on; echo > $T/trace; echo 8192 > $T/buffer_size_kb; if echo "exception != 0" > $T/events/kvm/kvm_msr/filter || echo "failed != 0" > $T/events/kvm/kvm_msr/filter; then echo 1 > $T/events/kvm/kvm_msr/enable; else echo NO_FILTER_NO_TRACE; fi; echo 1 > $T/tracing_on; cat $T/events/kvm/kvm_msr/filter; cat $T/events/kvm/kvm_msr/format'
+          grep -H . /sys/module/kvm/parameters/ignore_msrs /sys/module/kvm/parameters/enable_pmu /sys/module/kvm_amd/parameters/* 2>/dev/null | head -40 || true
+          sudo sh -c 'T=/sys/kernel/tracing; E=$T/events/kvm; echo 0 > $T/tracing_on; echo > $T/trace; echo 8192 > $T/buffer_size_kb; if echo "exit_reason == 111" > $E/kvm_exit/filter; then echo 1 > $E/kvm_exit/enable; else echo NO_EXIT_FILTER; fi; if echo "exception == 13 || exception == 6" > $E/kvm_inj_exception/filter; then echo 1 > $E/kvm_inj_exception/enable; else echo NO_EXCEPTION_FILTER; fi; if echo "exception != 0" > $E/kvm_msr/filter; then echo 1 > $E/kvm_msr/enable; fi; echo 1 > $T/tracing_on; cat $E/kvm_exit/filter $E/kvm_inj_exception/filter; cat $E/kvm_exit/format $E/kvm_inj_exception/format'
       - name: CI package from hosted run 41538198385 (2100780)
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
@@ -86,13 +80,13 @@ jobs:
         shell: bash
         run: |
           mkdir -p "$RUNNER_TEMP/out"
-          sudo cat /sys/kernel/tracing/trace | head -c 30000000 > "$RUNNER_TEMP/out/kvm-msr-trace.txt" || true
+          sudo cat /sys/kernel/tracing/trace | head -c 30000000 > "$RUNNER_TEMP/out/kvm-trace.txt" || true
           sudo dmesg | grep -iE 'kvm|msr|nbd|ntfs' | tail -n 5000 > "$RUNNER_TEMP/out/dmesg-kvm.txt" || true
-          wc -l "$RUNNER_TEMP/out/kvm-msr-trace.txt" "$RUNNER_TEMP/out/dmesg-kvm.txt" || true
+          wc -l "$RUNNER_TEMP/out/kvm-trace.txt" "$RUNNER_TEMP/out/dmesg-kvm.txt" || true
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag40-win11-rehearsal-${{ matrix.variant }}
+          name: diag42-win11-rehearsal-${{ matrix.variant }}
           path: |
             ${{ runner.temp }}/out
             !${{ runner.temp }}/out/private-work
@@ -101,7 +95,7 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag40-raw-dumps-and-logs-${{ matrix.variant }}
+          name: diag42-raw-dumps-and-logs-${{ matrix.variant }}
           path: ${{ runner.temp }}/out/forensics/raw
           if-no-files-found: ignore
           retention-days: 3
