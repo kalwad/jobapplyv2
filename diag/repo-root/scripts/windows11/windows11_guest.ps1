@@ -68,6 +68,31 @@ function DiagShell([string]$Stage) {
         Add-Content -LiteralPath (Join-Path $proof 'diag-shell-state.ndjson') -Value ($row|ConvertTo-Json -Compress) -Encoding UTF8
     } catch { Add-Content -LiteralPath (Join-Path $proof 'diag-shell-state.ndjson') -Value ('{"stage":"'+$Stage+'","error":"'+$_.Exception.GetType().FullName+'"}') -Encoding UTF8 }
 }
+function DiagDx {
+    # DIAG only: why dxdiag /x leaves no file in the Windows 11 VM (round 38).
+    $rows=New-Object Collections.ArrayList
+    $dir=Join-Path ([Environment]::GetFolderPath('LocalApplicationData')) 'JappDxProbe'
+    New-Item -ItemType Directory -Path $dir -Force | Out-Null
+    $started=Get-Date
+    foreach($probe in @(@{name='x-long';args=@('/whql:off','/x',(Join-Path $dir 'p1.xml'));out=(Join-Path $dir 'p1.xml')},@{name='t-long';args=@('/whql:off','/t',(Join-Path $dir 'p2.txt'));out=(Join-Path $dir 'p2.txt')},@{name='x-temp-noflag';args=@('/x',(Join-Path $env:TEMP 'p3.xml'));out=(Join-Path $env:TEMP 'p3.xml')})) {
+        $watch=[Diagnostics.Stopwatch]::StartNew(); $seen=New-Object Collections.ArrayList; $titles=New-Object Collections.ArrayList
+        try {
+            $p=Start-Process -FilePath 'C:\Windows\System32\dxdiag.exe' -ArgumentList $probe.args -PassThru
+            while(-not $p.HasExited -and $watch.Elapsed.TotalSeconds -lt 90) {
+                foreach($q in @(Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -match 'dxdiag|dxgi|dxcpl|WerFault' })) { $k=[string]$q.Id+':'+$q.ProcessName; if(-not $seen.Contains($k)) { [void]$seen.Add($k) }; if($q.MainWindowTitle -and -not $titles.Contains($q.MainWindowTitle)) { [void]$titles.Add($q.MainWindowTitle) } }
+                Start-Sleep -Milliseconds 200
+            }
+            $exited=$p.HasExited; $code=$(if($exited){[string]$p.ExitCode}else{'running'}); $processMs=$watch.ElapsedMilliseconds
+            if(-not $exited) { try { $p.Kill() } catch { } }
+            while($watch.Elapsed.TotalSeconds -lt 120 -and -not (Test-Path -LiteralPath $probe.out)) { Start-Sleep -Milliseconds 500 }
+            $size=$(if(Test-Path -LiteralPath $probe.out){(Get-Item -LiteralPath $probe.out).Length}else{-1})
+            [void]$rows.Add([ordered]@{probe=$probe.name;exited=$exited;exit_code=$code;process_ms=$processMs;file_bytes=$size;file_wait_ms=$watch.ElapsedMilliseconds;seen=@($seen);titles=@($titles)})
+        } catch { [void]$rows.Add([ordered]@{probe=$probe.name;error=$_.Exception.GetType().FullName;message=[string]$_.Exception.Message}) }
+    }
+    $events=@()
+    try { $events=@(Get-WinEvent -FilterHashtable @{LogName='Application';StartTime=$started.AddMinutes(-1)} -MaxEvents 300 -ErrorAction Stop | Where-Object { $_.Message -match 'dxdiag' -or $_.ProviderName -match 'Application Error|Windows Error Reporting|Application Hang' } | Select-Object -First 10 | ForEach-Object { $m=[string]$_.Message; [ordered]@{provider=$_.ProviderName;id=$_.Id;time=$_.TimeCreated.ToUniversalTime().ToString('o');message=$m.Substring(0,[Math]::Min(700,$m.Length))} }) } catch { $events=@(@{error=$_.Exception.GetType().FullName}) }
+    [ordered]@{probes=@($rows);events=@($events);temp=$env:TEMP}|ConvertTo-Json -Depth 6|Set-Content -LiteralPath (Join-Path $proof 'diag-dxdiag.json') -Encoding UTF8
+}
 function WithinBudget { if ($clock.Elapsed.TotalSeconds -ge $budgetSeconds) { throw 'Guest work deadline exceeded' } }
 function NotYet([Management.Automation.ErrorRecord]$Record) {
     # A WebView2/UIA tree that is still changing is 'not yet', never a pass: every
@@ -419,12 +444,28 @@ try {
     if((MachineScalar $machine 'disk_bytes') -lt 64GB) { [void]$unmet.Add('disk_bytes') }
     if($unmet.Count -gt 0) { throw ('Actual Windows11 setup/hardware requirements unmet: '+($unmet -join ',')) }
     # Retain actual virtual display measurements; VM policy does not infer physical GPU qualification.
+    DiagDx
     $dxPath=Join-Path $env:TEMP ('JappDx-'+$config.nonce+'.xml')
     $dx=New-Object JobApplyValidation.OwnedApp
     [void]$owners.Add($dx)
     $dx.StartCommand('C:\Windows\System32\dxdiag.exe',@('/whql:off','/x',$dxPath))
+    $dxWatch=[Diagnostics.Stopwatch]::StartNew()
     if(-not $dx.WaitEmpty(45000)) { throw 'Owned dxdiag timed out' }
+    $dxJobMs=$dxWatch.ElapsedMilliseconds
     $dx.Dispose()
+    # DIAG: a late file, then the probe's file, then a labelled fallback so later phases run.
+    while(-not (Test-Path -LiteralPath $dxPath) -and $dxWatch.Elapsed.TotalSeconds -lt 75) { Start-Sleep -Milliseconds 500 }
+    $dxSource='owned'
+    if(-not (Test-Path -LiteralPath $dxPath)) {
+        $probeXml=Join-Path ([Environment]::GetFolderPath('LocalApplicationData')) 'JappDxProbe\p1.xml'
+        if(Test-Path -LiteralPath $probeXml) { Copy-Item -LiteralPath $probeXml -Destination $dxPath; $dxSource='probe-p1' }
+        else {
+            $vc=@(Get-CimInstance Win32_VideoController)[0]
+            $fallback='<DxDiag><SystemInformation><DirectXVersion>DIAG-FALLBACK 12</DirectXVersion></SystemInformation><DisplayDevices><DisplayDevice><DriverModel>DIAG-FALLBACK WDDM 3</DriverModel><DDIVersion>DIAG-FALLBACK</DDIVersion><CurrentMode>'+[string]$vc.CurrentHorizontalResolution+' x '+[string]$vc.CurrentVerticalResolution+' (32 bit) (60Hz)</CurrentMode></DisplayDevice></DisplayDevices></DxDiag>'
+            Set-Content -LiteralPath $dxPath -Value $fallback -Encoding UTF8; $dxSource='DIAG-FALLBACK video='+[string]$vc.Name
+        }
+    }
+    Add-Content -LiteralPath (Join-Path $proof 'diag-dxdiag-owned.txt') -Value ('job_empty_ms='+$dxJobMs+' waited_ms='+$dxWatch.ElapsedMilliseconds+' source='+$dxSource) -Encoding ASCII
     if((Get-Item -LiteralPath $dxPath).Length -gt 4MB) { throw 'Bounded actual display attestation required' }
     [xml]$dxdiag=Get-Content -LiteralPath $dxPath -Raw
     $displays=@($dxdiag.DxDiag.DisplayDevices.DisplayDevice)

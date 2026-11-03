@@ -8,7 +8,7 @@ diagnostic instrumentation). It skips only what a scratch run cannot satisfy:
 the reviewed bundle, release receipt, source binding, runner-image and CPU gates.
 
 usage: win11_rehearsal.py REPO_SCRIPTS PACKAGE_ARTIFACT_DIR ISO OUT VARIANT
-VARIANT: both | lockonly | startonly (which first-logon Default-profile settings stay)
+VARIANT: conhost | terminal (Start suppressed in both; conhost adds console-host delegation)
 """
 
 import hashlib
@@ -28,7 +28,7 @@ sys.path.insert(0, str(scripts / "linux_gnome"))
 import windows11_vm as vm  # noqa: E402
 from windows11_process import ChildCustody  # noqa: E402
 
-DROP = {"both": (), "lockonly": ("# DIAG-START",), "startonly": ("# DIAG-LOCK",)}[variant]
+DROP = {"conhost": (), "terminal": ("# DIAG-CONHOST",)}[variant]
 
 
 def sha(path: Path) -> str:

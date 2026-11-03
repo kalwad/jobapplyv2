@@ -1,4 +1,4 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Round 38: rehearse the Windows 11
+# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Round 39 (dxdiag probes, console host): rehearse the Windows 11
 # campaign with the harness's own seed/QEMU/COM2 protocol, the real CI package and
 # the KI-0177/0178/0179 guest correction, across first-logon Default-profile variants.
 # No acceptance can come from it.
@@ -32,7 +32,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        variant: [both, lockonly, startonly]
+        variant: [terminal, conhost]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -67,7 +67,7 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag38-win11-rehearsal-${{ matrix.variant }}
+          name: diag39-win11-rehearsal-${{ matrix.variant }}
           path: |
             ${{ runner.temp }}/out
             !${{ runner.temp }}/out/private-work

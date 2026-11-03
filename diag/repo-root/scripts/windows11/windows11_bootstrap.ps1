@@ -105,15 +105,17 @@ New-Item -ItemType Directory -Path $startup -Force | Out-Null
 Set-Content -LiteralPath (Join-Path $startup 'JappFixture.cmd') -Encoding ASCII -Value '@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy RemoteSigned -File "C:\ProgramData\JappHarness\windows11_guest.ps1" -Configuration "C:\ProgramData\JappHarness\guest-config.json"'
 # First-logon state of the synthetic fixture, set in the Default profile it is created
 # from (KI-0177): Start does not open by itself at first logon, and the fixture's own
-# processes may bring their own windows to the foreground.
+# console is a classic console host in the conhost variant (DIAG).
 $profileHive = 'HKU\JappDefaultProfile'
 & reg.exe load $profileHive 'C:\Users\Default\NTUSER.DAT' | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'Default profile hive load failed' }
 try {
     & reg.exe add ($profileHive + '\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced') /v StartShownOnUpgrade /t REG_DWORD /d 1 /f | Out-Null # DIAG-START
     if ($LASTEXITCODE -ne 0) { throw 'First-logon Start setting failed' } # DIAG-START
-    & reg.exe add ($profileHive + '\Control Panel\Desktop') /v ForegroundLockTimeout /t REG_DWORD /d 0 /f | Out-Null # DIAG-LOCK
-    if ($LASTEXITCODE -ne 0) { throw 'Foreground lock setting failed' } # DIAG-LOCK
+    & reg.exe add ($profileHive + '\Console\%%Startup') /v DelegationConsole /t REG_SZ /d '{B23D10C0-E52E-411E-9D5B-C09FDF709C7D}' /f | Out-Null # DIAG-CONHOST
+    if ($LASTEXITCODE -ne 0) { throw 'Console host delegation setting failed' } # DIAG-CONHOST
+    & reg.exe add ($profileHive + '\Console\%%Startup') /v DelegationTerminal /t REG_SZ /d '{B23D10C0-E52E-411E-9D5B-C09FDF709C7D}' /f | Out-Null # DIAG-CONHOST
+    if ($LASTEXITCODE -ne 0) { throw 'Console terminal delegation setting failed' } # DIAG-CONHOST
 } finally {
     [GC]::Collect()
     & reg.exe unload $profileHive | Out-Null
