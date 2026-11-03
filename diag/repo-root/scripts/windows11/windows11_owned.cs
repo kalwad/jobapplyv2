@@ -54,6 +54,26 @@ namespace JobApplyValidation {
         [DllImport("user32.dll")] static extern bool IsWindowVisible(IntPtr window);
         [DllImport("user32.dll")] static extern bool SetForegroundWindow(IntPtr window);
         [DllImport("user32.dll")] static extern IntPtr GetForegroundWindow();
+        [DllImport("user32.dll")] static extern bool SystemParametersInfo(uint action,uint param,ref uint value,uint winIni);
+        // DIAG: how each foreground request went, dumped by the guest at the end.
+        public static readonly List<string> ForegroundLog=new List<string>();
+        public static string ForegroundProcessName() {
+            IntPtr window=GetForegroundWindow(); if(window==IntPtr.Zero) return "none";
+            uint pid; GetWindowThreadProcessId(window,out pid);
+            try { return Process.GetProcessById((int)pid).ProcessName+":"+pid; } catch(Exception) { return "pid:"+pid; }
+        }
+        public static uint ForegroundLockTimeoutValue() { uint value=0; if(!SystemParametersInfo(0x2000,0,ref value,0)) return UInt32.MaxValue; return value; }
+        // A window of this owner becomes the foreground within a fixed bound, or the
+        // request fails with its own refusal; it never sends input to take it.
+        static void OwnForeground(IntPtr hwnd,string refusal) {
+            Stopwatch watch=Stopwatch.StartNew(); int attempts=0;
+            while(true) {
+                attempts++;
+                if(SetForegroundWindow(hwnd)&&GetForegroundWindow()==hwnd) { ForegroundLog.Add(refusal+" | ok attempts="+attempts+" ms="+watch.ElapsedMilliseconds); return; }
+                if(watch.ElapsedMilliseconds>=10000) { ForegroundLog.Add(refusal+" | FAIL attempts="+attempts+" foreground="+ForegroundProcessName()); throw new InvalidOperationException(refusal); }
+                Thread.Sleep(100);
+            }
+        }
         [StructLayout(LayoutKind.Sequential)] struct KeyboardInput { public ushort key,scan; public uint flags,time; public UIntPtr extra; }
         [StructLayout(LayoutKind.Explicit,Size=32)] struct InputUnion { [FieldOffset(0)] public KeyboardInput keyboard; }
         [StructLayout(LayoutKind.Sequential)] struct Input { public uint type; public InputUnion data; }
@@ -278,7 +298,7 @@ namespace JobApplyValidation {
         // Closed key sequences only, in this isolated guest's retained foreground window.
         void Keys(bool quit) {
             AutomationElement window=Window(); IntPtr hwnd=new IntPtr(window.Current.NativeWindowHandle);
-            if(!SetForegroundWindow(hwnd)||GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Owned keyboard foreground acknowledgment required");
+            OwnForeground(hwnd,"Owned keyboard foreground acknowledgment required");
             if(!quit) {
                 AutomationElement button=OwnedControl("Check again",InvokePattern.Pattern); button.SetFocus();
                 if(!Settles(()=>{
@@ -454,7 +474,7 @@ namespace JobApplyValidation {
         [DllImport("user32.dll")] static extern IntPtr GetKeyboardLayout(uint thread);
         void ShellForeground() {
             AutomationElement window=Window(); IntPtr hwnd=new IntPtr(window.Current.NativeWindowHandle);
-            if(!SetForegroundWindow(hwnd)||GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Owned shell foreground acknowledgment required");
+            OwnForeground(hwnd,"Owned shell foreground acknowledgment required");
         }
         AutomationElement ShellUnique(string name,ControlType type,string role,bool requireVisible=true) {
             AutomationElementCollection nodes=Window().FindAll(TreeScope.Descendants,new PropertyCondition(AutomationElement.NameProperty,name));
@@ -593,7 +613,7 @@ namespace JobApplyValidation {
         public void CloseWindow() { ((WindowPattern)Window().GetCurrentPattern(WindowPattern.Pattern)).Close(); }
         public void Capture(string path) {
             AutomationElement window=Window(); IntPtr hwnd=new IntPtr(window.Current.NativeWindowHandle);
-            if(!SetForegroundWindow(hwnd)||GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Actual owned foreground window required for capture");
+            OwnForeground(hwnd,"Actual owned foreground window required for capture");
             System.Windows.Rect r=window.Current.BoundingRectangle;
             if(r.Width<640||r.Height<480||r.Width>1920||r.Height>1200) throw new OwnedInvariantException("Owned window capture geometry outside bounds");
             using(System.Drawing.Bitmap image=new System.Drawing.Bitmap((int)r.Width,(int)r.Height))

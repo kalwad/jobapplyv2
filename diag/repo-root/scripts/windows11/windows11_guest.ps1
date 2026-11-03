@@ -2,10 +2,11 @@ param([Parameter(Mandatory=$true)][string]$Configuration)
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 $clock = [Diagnostics.Stopwatch]::StartNew()
+$budgetSeconds = 900 # DIAG: measure the phases without the budget as the cause
 # The protocol port opens before anything else can fail, so a preflight failure
 # reaches the host as one terminal row instead of at the host's work deadline.
 $serial = New-Object IO.Ports.SerialPort('COM2',115200,'None',8,'One')
-$serial.WriteTimeout = 500
+$serial.WriteTimeout = 30000
 $serial.Open()
 $config = $null
 function ConfigPin([string]$Name) {
@@ -52,10 +53,22 @@ function Receipt([string]$Name, [hashtable]$Details) {
     $line = $row | ConvertTo-Json -Depth 10 -Compress
     if ($line.Length -gt 65536) { throw 'Bounded phase receipt required' }
     Add-Content -LiteralPath (Join-Path $proof 'receipts.ndjson') -Value $line -Encoding UTF8
+    $diagWrite=[Diagnostics.Stopwatch]::StartNew()
     $serial.WriteLine('JAPP11 '+$line)
+    $diagWrite.Stop(); Add-Content -LiteralPath (Join-Path $proof 'diag-serial-writes.txt') -Value ($Name+' chars='+$line.Length+' write_ms='+$diagWrite.ElapsedMilliseconds+' at_ms='+$clock.ElapsedMilliseconds) -Encoding ASCII
     if($framedPhases -ccontains $Name) { HostAccepted ('JAPP11-FRAME-ACCEPT '+$Name+' '+$config.nonce) 60000 ('Host did not accept the actual '+$Name+' frame') }
 }
-function WithinBudget { if ($clock.Elapsed.TotalSeconds -ge 300) { throw 'Guest work deadline exceeded' } }
+function DiagShell([string]$Stage) {
+    # DIAG only: the first-logon shell state this rehearsal measures (KI-0177/KI-0179).
+    try {
+        $desktop=Get-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -ErrorAction SilentlyContinue
+        $advanced=Get-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -ErrorAction SilentlyContinue
+        $video=(& powercfg.exe /query SCHEME_CURRENT SUB_VIDEO VIDEOIDLE) -join ' | '
+        $row=[ordered]@{stage=$Stage;at_ms=$clock.ElapsedMilliseconds;registry_foreground_lock=$(if($null -ne $desktop -and $desktop.PSObject.Properties['ForegroundLockTimeout']){[string]$desktop.ForegroundLockTimeout}else{'absent'});registry_start_shown=$(if($null -ne $advanced -and $advanced.PSObject.Properties['StartShownOnUpgrade']){[string]$advanced.StartShownOnUpgrade}else{'absent'});spi_foreground_lock=[string][JobApplyValidation.OwnedApp]::ForegroundLockTimeoutValue();foreground=[JobApplyValidation.OwnedApp]::ForegroundProcessName();video=$video.Substring(0,[Math]::Min(1500,$video.Length))}
+        Add-Content -LiteralPath (Join-Path $proof 'diag-shell-state.ndjson') -Value ($row|ConvertTo-Json -Compress) -Encoding UTF8
+    } catch { Add-Content -LiteralPath (Join-Path $proof 'diag-shell-state.ndjson') -Value ('{"stage":"'+$Stage+'","error":"'+$_.Exception.GetType().FullName+'"}') -Encoding UTF8 }
+}
+function WithinBudget { if ($clock.Elapsed.TotalSeconds -ge $budgetSeconds) { throw 'Guest work deadline exceeded' } }
 function NotYet([Management.Automation.ErrorRecord]$Record) {
     # A WebView2/UIA tree that is still changing is 'not yet', never a pass: every
     # caller keeps polling within its bound and asserts strictly at its deadline.
@@ -84,7 +97,7 @@ function Launch {
     return $owner
 }
 function Ready($Owner) {
-    $limit = [Math]::Min(300, $clock.Elapsed.TotalSeconds+35)
+    $limit = [Math]::Min($budgetSeconds, $clock.Elapsed.TotalSeconds+35)
     $clicked = $false
     $retried = $null
     $transient = ''
@@ -145,7 +158,7 @@ function TryCheckedAt($Owner) {
     return [string]$found[0]
 }
 function WaitCheckedAt($Owner) {
-    $limit=[Math]::Min(300,$clock.Elapsed.TotalSeconds+6)
+    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+6)
     $transient=''
     do {
         WithinBudget
@@ -155,7 +168,7 @@ function WaitCheckedAt($Owner) {
     throw ('Exactly one actual Checked at timestamp required'+$transient)
 }
 function CheckedAdvance($Owner,[string]$Before) {
-    $limit=[Math]::Min(300,$clock.Elapsed.TotalSeconds+6)
+    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+6)
     $transient=''
     do {
         WithinBudget
@@ -170,7 +183,7 @@ function CheckedAdvance($Owner,[string]$Before) {
     throw ('Owned Enter keyboard action did not advance Checked at'+$transient)
 }
 function ShellWait([scriptblock]$Predicate) {
-    $limit=[Math]::Min(300,$clock.Elapsed.TotalSeconds+3)
+    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+3)
     $transient=''
     do {
         WithinBudget
@@ -180,7 +193,7 @@ function ShellWait([scriptblock]$Predicate) {
     throw ('Actual bounded native shell focus or geometry did not settle'+$transient)
 }
 function ShellMeasurement($Owner,[string]$Stage,[string]$PreviousAnchors) {
-    $limit=[Math]::Min(300,$clock.Elapsed.TotalSeconds+3)
+    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+3)
     $last=''; $lastRow=$null; $transient=''
     do {
         WithinBudget
@@ -337,6 +350,7 @@ try {
     $framework=[Runtime.InteropServices.RuntimeEnvironment]::GetRuntimeDirectory()
     $references=@((Join-Path $framework 'System.dll'),(Join-Path $framework 'System.Core.dll'),(Join-Path $framework 'System.Drawing.dll'),(Join-Path $framework 'WPF\UIAutomationClient.dll'),(Join-Path $framework 'WPF\UIAutomationTypes.dll'),(Join-Path $framework 'WPF\WindowsBase.dll'))
     Add-Type -TypeDefinition (Get-Content -LiteralPath 'C:\ProgramData\JappHarness\windows11_owned.cs' -Raw) -ReferencedAssemblies $references
+    DiagShell 'after-compile'
     $os=Get-CimInstance Win32_OperatingSystem
     $boot=$os.LastBootUpTime.ToUniversalTime().ToString('o')
     $machinePath='C:\ProgramData\JappHarness\machine.json'
@@ -441,7 +455,7 @@ try {
     }
     $actual=@(Get-ChildItem -LiteralPath $packageRoot -File -Recurse)
     if($actual.Count -ne @($config.portable_files.PSObject.Properties).Count) { throw 'Exact portable inventory differs' }
-    $phase='ready'; $app=Launch; Ready $app; $endpoint=Endpoint $app; Snapshot 'ready' $app
+    $phase='ready'; $app=Launch; Ready $app; $endpoint=Endpoint $app; DiagShell 'before-ready-capture'; Snapshot 'ready' $app
     Receipt 'ready' @{pid=[long]$app.Pid;service=$endpoint;version='0.0.1';api_version='1.0.0';unicode_spaces_path=$true}
     $phase='unauthorized12'; $statuses=Unauthorized $endpoint.port; Receipt 'unauthorized12' @{statuses=$statuses}
     $phase='keyboard'; $checkedBefore=WaitCheckedAt $app; $app.KeyboardCheckAgain(); $checkedAfter=CheckedAdvance $app $checkedBefore
@@ -480,7 +494,7 @@ try {
     $phase='cleanup'; Receipt 'cleanup' @{remaining_owned_processes=0}
     $terminal=[ordered]@{terminal='PASS';nonce=$config.nonce;package_sha256=$config.package_sha256}
 } catch {
-    $failure=[ordered]@{terminal='FAIL';phase=$phase;nonce=$config.nonce;package_sha256=$config.package_sha256;error_type=$_.Exception.GetType().FullName;message=$_.Exception.Message.Substring(0,[Math]::Min(512,$_.Exception.Message.Length))}
+    $failure=[ordered]@{terminal='FAIL';phase=$phase;nonce=$config.nonce;package_sha256=$config.package_sha256;elapsed_ms=[long]$clock.ElapsedMilliseconds;error_type=$_.Exception.GetType().FullName;message=$_.Exception.Message.Substring(0,[Math]::Min(512,$_.Exception.Message.Length))}
     $failure|ConvertTo-Json -Depth 8|Set-Content -LiteralPath (Join-Path $proof 'failure.json') -Encoding UTF8
     $terminal=$failure
 } finally {
@@ -508,5 +522,6 @@ try {
         } catch { $terminal=[ordered]@{terminal='FAIL';phase='package-after';nonce=$config.nonce;package_sha256=$config.package_sha256;error_type='PACKAGE_CHANGED';message='Actual package endpoint binding failed'} }
     }
     if(@($cleanup|Where-Object {-not $_.settled}).Count -gt 0) { $terminal=[ordered]@{terminal='FAIL';phase='cleanup';nonce=$config.nonce;package_sha256=$config.package_sha256;error_type='UNSETTLED_OWNED_CUSTODY';message='Retained cleanup-only native custody remains';prior_terminal=$terminal} }
+    try { DiagShell 'end'; @([JobApplyValidation.OwnedApp]::ForegroundLog)|Set-Content -LiteralPath (Join-Path $proof 'diag-foreground.txt') -Encoding ASCII } catch { }
     try { $serial.WriteLine('JAPP11 '+($terminal|ConvertTo-Json -Depth 8 -Compress)) } finally { $serial.Close(); $serial.Dispose() }
 }
