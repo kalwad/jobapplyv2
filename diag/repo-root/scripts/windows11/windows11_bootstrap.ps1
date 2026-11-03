@@ -103,30 +103,28 @@ Register-ScheduledTask -TaskName 'JappOwnedMachineAttestation' -Action $action -
 $startup = 'C:\Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'
 New-Item -ItemType Directory -Path $startup -Force | Out-Null
 Set-Content -LiteralPath (Join-Path $startup 'JappFixture.cmd') -Encoding ASCII -Value '@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy RemoteSigned -File "C:\ProgramData\JappHarness\windows11_guest.ps1" -Configuration "C:\ProgramData\JappHarness\guest-config.json"'
-# First-logon state of the synthetic fixture, set in the Default profile it is created
-# from (KI-0177): Start does not open by itself at first logon, and the fixture's own
-# console is a classic console host in the conhost variant (DIAG).
+# The fixture's first-logon state, set in the Default profile it is created from
+# (KI-0177): Windows opens Start by itself at a first logon unless this is set, and
+# Start then holds the foreground the guest needs (diagnostic rounds 34, 35, 38). The
+# guest's console is the classic console host, whose console process owns its window;
+# under it every guest foreground request succeeded at once (rounds 43 and 44).
 $profileHive = 'HKU\JappDefaultProfile'
 & reg.exe load $profileHive 'C:\Users\Default\NTUSER.DAT' | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'Default profile hive load failed' }
 try {
-    & reg.exe add ($profileHive + '\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced') /v StartShownOnUpgrade /t REG_DWORD /d 1 /f | Out-Null # DIAG-START
-    if ($LASTEXITCODE -ne 0) { throw 'First-logon Start setting failed' } # DIAG-START
-    & reg.exe add ($profileHive + '\Console\%%Startup') /v DelegationConsole /t REG_SZ /d '{B23D10C0-E52E-411E-9D5B-C09FDF709C7D}' /f | Out-Null # DIAG-CONHOST
-    if ($LASTEXITCODE -ne 0) { throw 'Console host delegation setting failed' } # DIAG-CONHOST
-    & reg.exe add ($profileHive + '\Console\%%Startup') /v DelegationTerminal /t REG_SZ /d '{B23D10C0-E52E-411E-9D5B-C09FDF709C7D}' /f | Out-Null # DIAG-CONHOST
-    if ($LASTEXITCODE -ne 0) { throw 'Console terminal delegation setting failed' } # DIAG-CONHOST
+    & reg.exe add ($profileHive + '\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced') /v StartShownOnUpgrade /t REG_DWORD /d 1 /f | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw 'First-logon Start setting failed' }
+    foreach ($delegation in @('DelegationConsole', 'DelegationTerminal')) {
+        & reg.exe add ($profileHive + '\Console\%%Startup') /v $delegation /t REG_SZ /d '{B23D10C0-E52E-411E-9D5B-C09FDF709C7D}' /f | Out-Null
+        if ($LASTEXITCODE -ne 0) { throw 'Console host setting failed' }
+    }
 } finally {
+    # Release PowerShell's own handles into the hive before it is unloaded.
     [GC]::Collect()
     & reg.exe unload $profileHive | Out-Null
 }
 if ($LASTEXITCODE -ne 0) { throw 'Default profile hive unload failed' }
-foreach($svc in @('DPS','WdiServiceHost','WdiSystemHost')) { Set-ItemProperty -LiteralPath ('HKLM:\SYSTEM\CurrentControlSet\Services\'+$svc) -Name Start -Value 4 } # DIAG-NODPS
-Set-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack' -Name Start -Value 4 # DIAG-NODIAGTRACK
-Set-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\whesvc' -Name Start -Value 4 # DIAG-NOWHESVC
-# DIAG only: no automatic device encryption, so a crash dump can be read off the disk.
-& reg.exe add 'HKLM\SYSTEM\CurrentControlSet\Control\BitLocker' /v PreventDeviceEncryption /t REG_DWORD /d 1 /f | Out-Null # DIAG-NOBITLOCKER
-if ($LASTEXITCODE -ne 0) { throw 'Device encryption setting failed' } # DIAG-NOBITLOCKER
-# The display stays on for the whole run: framed phases need a live frame (KI-0179).
+# The display stays on for the whole run: framed phases need a live frame. With no
+# input it went black 326 to 352 s after logon (KI-0179; rounds 34 and 35).
 & powercfg.exe /change monitor-timeout-ac 0
 if ($LASTEXITCODE -ne 0) { throw 'Display timeout setting failed' }

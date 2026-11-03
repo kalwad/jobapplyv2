@@ -3,14 +3,14 @@
 Rehearse the Windows 11 campaign with the harness's own code: windows11_vm.seed(),
 qemu_argv(), observe() (the real COM2 receipt/frame protocol), stop_after_pass()
 and the post-PASS checks, on the pinned ISO and the real CI package, with the
-guest controller files from diag/repo-root (the candidate correction plus
-diagnostic instrumentation). It skips only what a scratch run cannot satisfy:
-the reviewed bundle, release receipt, source binding, runner-image and CPU gates.
+guest controller files from diag/repo-root, copied byte for byte. Round 48 runs the
+repository's own correction with no diagnostic instrumentation: diag/repo-root/scripts is the
+working tree's scripts/windows11 (including windows11_vm.py and its GUEST_CPU) and the
+unchanged shared helpers. It skips only what a scratch run cannot satisfy: the reviewed
+bundle, release receipt, source binding, runner-image and CPU gates.
 
 usage: win11_rehearsal.py REPO_SCRIPTS PACKAGE_ARTIFACT_DIR ISO OUT VARIANT
-VARIANT: hv-1 .. hv-6 (round 47: six replicas, Hyper-V enlightenments; a live trace of
-every foreground and Win32 focus change interleaved with the guest's own step marks, and
-on a lost key two recoveries in a nonce-chosen order: parent-widget focus and UIA refocus).
+VARIANT: exact-1 .. exact-6 (six replicas of the same bytes).
 A reboot after the environment receipt ends observation 240 s later, and the
 disposable disk is then read read-only for its crash and boot records.
 """
@@ -33,11 +33,8 @@ sys.path.insert(0, str(scripts / "linux_gnome"))
 import windows11_vm as vm  # noqa: E402
 from windows11_process import ChildCustody  # noqa: E402
 
-MARKERS = ("# DIAG-SVCFIRST", "# DIAG-NODPS", "# DIAG-NODIAGTRACK", "# DIAG-NOWHESVC")
-KEEP = {"hv-1": (), "hv-2": (), "hv-3": (), "hv-4": (), "hv-5": (), "hv-6": ()}[variant]
-DROP = tuple(m for m in MARKERS if m not in KEEP)
-HV = "host,hv-relaxed,hv-vapic,hv-spinlocks=0x1fff,hv-vpindex,hv-runtime,hv-time,hv-synic,hv-stimer,hv-frequencies"
-CPU = HV if variant.startswith("hv") else "host"
+if variant not in {"exact-" + str(i) for i in range(1, 7)}:
+    raise SystemExit("unknown variant " + variant)
 DIAG = Path(__file__).resolve().parent
 
 
@@ -112,15 +109,13 @@ try:
     bundle = work / "bundle"
     (bundle / "guest-driver").mkdir(parents=True)
     shutil.copytree(artifact, bundle / "original-native-artifact")
-    shutil.copyfile(scripts / "windows11" / "windows11_owned.cs", bundle / "guest-driver" / "windows11_owned.cs")
-    for name in ("windows11_bootstrap.ps1", "windows11_guest.ps1"):
-        text = (scripts / "windows11" / name).read_text(encoding="utf-8")
-        kept = [line for line in text.splitlines(True) if not any(m in line for m in DROP)]
-        (bundle / "guest-driver" / name).write_text("".join(kept), encoding="utf-8", newline="")
-        shutil.copyfile(bundle / "guest-driver" / name, out / ("diag-" + name.split("_")[1]))
+    for name in ("windows11_owned.cs", "windows11_bootstrap.ps1", "windows11_guest.ps1"):
+        shutil.copyfile(scripts / "windows11" / name, bundle / "guest-driver" / name)
+        if sha(bundle / "guest-driver" / name) != sha(scripts / "windows11" / name):
+            raise ValueError("guest driver copy differs")
     vm.write(out / "diag-inputs.json", {
         "variant": variant,
-        "dropped_markers": list(DROP),
+        "harness_sources": {n: sha(scripts / "windows11" / n) for n in sorted(p.name for p in (scripts / "windows11").iterdir() if p.is_file())},
         "guest_driver": {n: sha(bundle / "guest-driver" / n) for n in sorted(p.name for p in (bundle / "guest-driver").iterdir())},
         "package_manifest_sha256": sha(bundle / "original-native-artifact" / "manifest.json"),
         "iso_sha256_checked_by_workflow": "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38",
@@ -152,10 +147,8 @@ try:
             raise ValueError("Owned TPM control socket unavailable")
         time.sleep(0.05)
     argv = vm.qemu_argv(work, iso, seed_iso)
-    cpu_at = argv.index("-cpu") + 1
-    if argv[cpu_at] != "host":
+    if argv[argv.index("-cpu") + 1] != vm.GUEST_CPU:
         raise ValueError("unexpected harness CPU argument")
-    argv[cpu_at] = CPU
     vm.write(out / "qemu-argv.json", argv)
     with (out / "qemu.stdout").open("xb") as stdout, (out / "qemu.stderr").open("xb") as stderr:
         owner.child = subprocess.Popen(argv, stdin=subprocess.DEVNULL, stdout=stdout, stderr=stderr, start_new_session=True)

@@ -274,6 +274,7 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one custody/endpoint bracket
             or source_checks["VMs"] != 0
             or source_checks["product_launches"] != 0
             or source_checks["Windows11_acceptance"] is not False
+            or source_checks.get("attestor_body_parsed") is not True
             or set(source_checks["files"]) != expected_names
         ):
             raise ValueError(

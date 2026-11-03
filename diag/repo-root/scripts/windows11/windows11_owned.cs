@@ -54,98 +54,14 @@ namespace JobApplyValidation {
         [DllImport("user32.dll")] static extern bool IsWindowVisible(IntPtr window);
         [DllImport("user32.dll")] static extern bool SetForegroundWindow(IntPtr window);
         [DllImport("user32.dll")] static extern IntPtr GetForegroundWindow();
-        [DllImport("user32.dll")] static extern bool SystemParametersInfo(uint action,uint param,ref uint value,uint winIni);
-        // DIAG: how each foreground request went, dumped by the guest at the end.
-        public static readonly List<string> ForegroundLog=new List<string>();
-        public static string ForegroundProcessName() {
-            IntPtr window=GetForegroundWindow(); if(window==IntPtr.Zero) return "none";
-            uint pid; GetWindowThreadProcessId(window,out pid);
-            try { return Process.GetProcessById((int)pid).ProcessName+":"+pid; } catch(Exception) { return "pid:"+pid; }
-        }
-        // DIAG round 45: where keyboard focus is when a fixed key does not move it.
-        [StructLayout(LayoutKind.Sequential)] struct GuiThreadInfo { public uint cbSize,flags; public IntPtr hwndActive,hwndFocus,hwndCapture,hwndMenuOwner,hwndMoveSize,hwndCaret; public int left,top,right,bottom; }
-        [DllImport("user32.dll")] static extern bool GetGUIThreadInfo(uint thread,ref GuiThreadInfo info);
-        [DllImport("user32.dll",CharSet=CharSet.Unicode)] static extern int GetClassName(IntPtr window,StringBuilder name,int max);
-        [DllImport("user32.dll")] static extern short GetAsyncKeyState(int key);
-        [DllImport("user32.dll")] static extern bool IsHungAppWindow(IntPtr window);
-        [DllImport("user32.dll")] static extern IntPtr SendMessageTimeout(IntPtr window,uint message,UIntPtr wParam,IntPtr lParam,uint flags,uint timeout,out UIntPtr result);
-        static string ClassOf(IntPtr window) { if(window==IntPtr.Zero) return "none"; StringBuilder name=new StringBuilder(256); GetClassName(window,name,256); return name.ToString(); }
-        public static string FocusDiag() {
-            StringBuilder text=new StringBuilder();
-            try { AutomationElement focused=AutomationElement.FocusedElement; text.Append("uia="+focused.Current.ControlType.ProgrammaticName+":"+Bounded(focused.Current.Name,80)+":pid="+focused.Current.ProcessId+":hwnd="+focused.Current.NativeWindowHandle); } catch(Exception error) { text.Append("uia-error="+error.GetType().Name); }
-            IntPtr foreground=GetForegroundWindow(); uint pid; uint thread=GetWindowThreadProcessId(foreground,out pid);
-            GuiThreadInfo info=new GuiThreadInfo(); info.cbSize=(uint)Marshal.SizeOf(typeof(GuiThreadInfo));
-            if(GetGUIThreadInfo(thread,ref info)) text.Append(" fg="+ClassOf(foreground)+":pid="+pid+" focus="+ClassOf(info.hwndFocus)+":"+info.hwndFocus.ToInt64()+" active="+ClassOf(info.hwndActive)+" flags="+info.flags);
-            foreach(int key in new int[]{0x09,0x0D,0x10,0x11,0x12}) text.Append(" k"+key.ToString("x")+"="+((GetAsyncKeyState(key)&0x8000)!=0?1:0));
-            // DIAG round 46: is the foreground window's UI thread pumping messages?
-            Stopwatch probe=Stopwatch.StartNew(); UIntPtr reply;
-            IntPtr answered=SendMessageTimeout(foreground,0,UIntPtr.Zero,IntPtr.Zero,0x2,3000,out reply);
-            text.Append(" hung="+(IsHungAppWindow(foreground)?1:0)+" wm_null="+(answered!=IntPtr.Zero?"ok":"timeout")+":"+probe.ElapsedMilliseconds+"ms");
-            return text.ToString();
-        }
-        // DIAG round 47: every foreground and Win32 focus change, out of context, interleaved with step marks.
-        delegate void WinEventProc(IntPtr hook,uint ev,IntPtr hwnd,int idObject,int idChild,uint thread,uint time);
-        [DllImport("user32.dll")] static extern IntPtr SetWinEventHook(uint min,uint max,IntPtr module,WinEventProc proc,uint pid,uint thread,uint flags);
-        [StructLayout(LayoutKind.Sequential)] struct Msg { public IntPtr hwnd; public uint message; public UIntPtr wParam; public IntPtr lParam; public uint time; public int x,y; }
-        [DllImport("user32.dll")] static extern int GetMessage(out Msg msg,IntPtr hwnd,uint min,uint max);
-        [DllImport("user32.dll")] static extern IntPtr GetParent(IntPtr hwnd);
-        [DllImport("user32.dll",SetLastError=true)] static extern bool AttachThreadInput(uint from,uint to,bool attach);
-        [DllImport("user32.dll",SetLastError=true)] static extern IntPtr SetFocus(IntPtr hwnd);
-        [DllImport("kernel32.dll")] static extern uint GetCurrentThreadId();
-        static readonly object traceLock=new object(); static StreamWriter trace; static int traceLines; static readonly Stopwatch traceClock=new Stopwatch(); static WinEventProc traceProc; static Thread traceThread;
-        static string OwnerOf(IntPtr hwnd) { if(hwnd==IntPtr.Zero) return "-"; uint pid; GetWindowThreadProcessId(hwnd,out pid); string name; try { name=Process.GetProcessById((int)pid).ProcessName; } catch(Exception) { name="?"; } return name+":"+pid; }
-        static string Win32Focus() {
-            IntPtr fg=GetForegroundWindow(); uint pid; uint thread=GetWindowThreadProcessId(fg,out pid);
-            GuiThreadInfo info=new GuiThreadInfo(); info.cbSize=(uint)Marshal.SizeOf(typeof(GuiThreadInfo));
-            if(!GetGUIThreadInfo(thread,ref info)) return "fg="+ClassOf(fg)+":"+fg.ToInt64()+"@"+OwnerOf(fg)+" focus=?";
-            IntPtr parent=GetParent(info.hwndFocus);
-            return "fg="+ClassOf(fg)+":"+fg.ToInt64()+"@"+OwnerOf(fg)+" focus="+ClassOf(info.hwndFocus)+":"+info.hwndFocus.ToInt64()+"@"+OwnerOf(info.hwndFocus)+" parent="+ClassOf(parent)+":"+parent.ToInt64()+" active="+ClassOf(info.hwndActive)+" flags="+info.flags;
-        }
-        static void TraceLine(string text) {
-            lock(traceLock) {
-                if(trace==null||traceLines>=20000) return; traceLines++;
-                try { trace.WriteLine(traceClock.ElapsedMilliseconds+" "+DateTime.UtcNow.ToString("HH:mm:ss.fff")+" "+text); } catch(Exception) { }
-            }
-        }
-        public static void StartFocusTrace(string path) {
-            lock(traceLock) { if(trace!=null) return; trace=new StreamWriter(path,false,new UTF8Encoding(false)); trace.AutoFlush=true; traceClock.Start(); }
-            traceProc=(hook,ev,hwnd,idObject,idChild,thread,time)=>{
-                try { TraceLine((ev==3?"EV-FOREGROUND":"EV-FOCUS")+" hwnd="+ClassOf(hwnd)+":"+hwnd.ToInt64()+"@"+OwnerOf(hwnd)+" obj="+idObject+" child="+idChild+" | "+Win32Focus()); } catch(Exception) { }
-            };
-            traceThread=new Thread(()=>{
-                IntPtr a=SetWinEventHook(3,3,IntPtr.Zero,traceProc,0,0,0);
-                IntPtr b=SetWinEventHook(0x8005,0x8005,IntPtr.Zero,traceProc,0,0,0);
-                TraceLine("TRACE-START hooks="+(a!=IntPtr.Zero)+","+(b!=IntPtr.Zero)+" | "+Win32Focus());
-                Msg msg; while(GetMessage(out msg,IntPtr.Zero,0,0)>0) { }
-            });
-            traceThread.IsBackground=true; traceThread.Start();
-        }
-        public static void Mark(string text) { TraceLine("MARK "+text+" | "+Win32Focus()); }
-        // DIAG round 47 remedy: move Win32 focus from the focused child to its parent widget.
-        public static string RemedyParentFocus() {
-            IntPtr fg=GetForegroundWindow(); uint pid; uint thread=GetWindowThreadProcessId(fg,out pid);
-            GuiThreadInfo info=new GuiThreadInfo(); info.cbSize=(uint)Marshal.SizeOf(typeof(GuiThreadInfo));
-            if(!GetGUIThreadInfo(thread,ref info)) return "no-gui-info";
-            IntPtr focus=info.hwndFocus; IntPtr parent=GetParent(focus);
-            uint focusPid; uint focusThread=GetWindowThreadProcessId(focus,out focusPid);
-            uint me=GetCurrentThreadId();
-            bool attached=AttachThreadInput(me,focusThread,true); int attachError=Marshal.GetLastWin32Error();
-            IntPtr previous=IntPtr.Zero; int error=0;
-            try { previous=SetFocus(parent); error=Marshal.GetLastWin32Error(); } finally { if(attached) AttachThreadInput(me,focusThread,false); }
-            string text="attached="+attached+":"+attachError+" from="+ClassOf(focus)+":"+focus.ToInt64()+" to="+ClassOf(parent)+":"+parent.ToInt64()+" previous="+previous.ToInt64()+" err="+error+" | "+Win32Focus();
-            Mark("REMEDY-PARENT "+text);
-            return text;
-        }
-        public static uint ForegroundLockTimeoutValue() { uint value=0; if(!SystemParametersInfo(0x2000,0,ref value,0)) return UInt32.MaxValue; return value; }
         // A window of this owner becomes the foreground within a fixed bound, or the
-        // request fails with its own refusal; it never sends input to take it.
+        // request fails with its own refusal; no input is sent to take it. Under the
+        // corrected first-logon state every request succeeded at once (KI-0177).
+        const int ForegroundMilliseconds=10000;
         static void OwnForeground(IntPtr hwnd,string refusal) {
-            Stopwatch watch=Stopwatch.StartNew(); int attempts=0;
-            Mark("OWNFG "+refusal+" target="+hwnd.ToInt64());
-            while(true) {
-                attempts++;
-                if(SetForegroundWindow(hwnd)&&GetForegroundWindow()==hwnd) { ForegroundLog.Add(refusal+" | ok attempts="+attempts+" ms="+watch.ElapsedMilliseconds); return; }
-                if(watch.ElapsedMilliseconds>=10000) { ForegroundLog.Add(refusal+" | FAIL attempts="+attempts+" foreground="+ForegroundProcessName()); throw new InvalidOperationException(refusal); }
+            Stopwatch watch=Stopwatch.StartNew();
+            while(!(SetForegroundWindow(hwnd)&&GetForegroundWindow()==hwnd)) {
+                if(watch.ElapsedMilliseconds>=ForegroundMilliseconds) throw new InvalidOperationException(refusal);
                 Thread.Sleep(100);
             }
         }
@@ -153,6 +69,62 @@ namespace JobApplyValidation {
         [StructLayout(LayoutKind.Explicit,Size=32)] struct InputUnion { [FieldOffset(0)] public KeyboardInput keyboard; }
         [StructLayout(LayoutKind.Sequential)] struct Input { public uint type; public InputUnion data; }
         [DllImport("user32.dll",SetLastError=true)] static extern uint SendInput(uint count,Input[] inputs,int size);
+        // A UIA SetFocus on WebView2 content also activates the window that hosts the
+        // element, and the two focus changes race: Win32 focus can end on WebView2's
+        // accessibility-only child window, which drops keyboard input until focus moves
+        // again. Every lost key in diagnostic rounds 45 to 47 was sent with focus there;
+        // in round 47's trace each followed a UIA SetFocus, and the focus changes of all
+        // 132 requests ended within 85 ms (KI-0184). A fixed key is sent only after Win32
+        // focus has stayed on WebView2's keyboard window, inside the owned window, for a
+        // quiet interval. Focus on the accessibility child is handed to the keyboard
+        // window that holds it, never taken with input.
+        [StructLayout(LayoutKind.Sequential)] struct GuiThreadInfo { public uint cbSize,flags; public IntPtr hwndActive,hwndFocus,hwndCapture,hwndMenuOwner,hwndMoveSize,hwndCaret; public int left,top,right,bottom; }
+        [DllImport("user32.dll",SetLastError=true)] static extern bool GetGUIThreadInfo(uint thread,ref GuiThreadInfo info);
+        [DllImport("user32.dll",CharSet=CharSet.Unicode,SetLastError=true)] static extern int GetClassName(IntPtr window,StringBuilder name,int max);
+        [DllImport("user32.dll")] static extern IntPtr GetParent(IntPtr window);
+        [DllImport("user32.dll")] static extern bool IsChild(IntPtr parent,IntPtr window);
+        [DllImport("user32.dll",SetLastError=true)] static extern bool AttachThreadInput(uint thread,uint target,bool attach);
+        [DllImport("user32.dll",SetLastError=true)] static extern IntPtr SetFocus(IntPtr window);
+        [DllImport("kernel32.dll")] static extern uint GetCurrentThreadId();
+        const string WebViewKeyboardClass="Chrome_WidgetWin_1";
+        const string WebViewAccessibilityClass="Chrome_RenderWidgetHostHWND";
+        const int FocusQuietMilliseconds=250,FocusSettleMilliseconds=3000,FocusMoveBound=3;
+        static string WindowClass(IntPtr window) {
+            StringBuilder name=new StringBuilder(257);
+            int length=GetClassName(window,name,name.Capacity);
+            if(length<=0||length>=256) throw new InvalidOperationException("Actual focused window class unavailable");
+            return name.ToString();
+        }
+        void SettleKeyboardFocus(IntPtr hwnd) {
+            Stopwatch watch=Stopwatch.StartNew(); IntPtr held=IntPtr.Zero; long since=0; int moves=0; string last="none";
+            while(true) {
+                if(GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Owned foreground changed before fixed key sequence");
+                IntPtr focus=IntPtr.Zero; uint focusPid=0,focusThread=0; string kind;
+                try {
+                    uint pid; uint windowThread=GetWindowThreadProcessId(hwnd,out pid);
+                    GuiThreadInfo info=new GuiThreadInfo(); info.cbSize=(uint)Marshal.SizeOf(typeof(GuiThreadInfo));
+                    if(windowThread==0||pid!=Pid||!GetGUIThreadInfo(windowThread,ref info)) throw new InvalidOperationException("Actual owned keyboard focus unavailable");
+                    focus=info.hwndFocus; focusThread=focus==IntPtr.Zero?0:GetWindowThreadProcessId(focus,out focusPid);
+                    kind=(focusThread!=0&&(focus==hwnd||IsChild(hwnd,focus))&&new HashSet<uint>(Members()).Contains(focusPid))?WindowClass(focus):"outside owned window";
+                } catch(Exception error) { if(!Transient(error)) throw; kind="not yet: "+error.GetType().FullName+": "+Bounded(error.Message,128); }
+                if(kind==WebViewAccessibilityClass) {
+                    IntPtr parent=GetParent(focus); uint parentPid=0;
+                    if(parent==IntPtr.Zero||GetWindowThreadProcessId(parent,out parentPid)!=focusThread||parentPid!=focusPid||WindowClass(parent)!=WebViewKeyboardClass) throw new OwnedInvariantException("Owned WebView2 keyboard window required");
+                    if(++moves>FocusMoveBound) throw new InvalidOperationException("Owned keyboard focus kept returning to the WebView2 accessibility window");
+                    uint own=GetCurrentThreadId();
+                    if(!AttachThreadInput(own,focusThread,true)) throw new Win32Exception();
+                    try { SetFocus(parent); }
+                    finally { if(!AttachThreadInput(own,focusThread,false)) throw new Win32Exception(); }
+                    held=IntPtr.Zero;
+                } else if(kind==WebViewKeyboardClass) {
+                    if(focus!=held) { held=focus; since=watch.ElapsedMilliseconds; }
+                    else if(watch.ElapsedMilliseconds-since>=FocusQuietMilliseconds) return;
+                } else held=IntPtr.Zero;
+                last=kind;
+                if(watch.ElapsedMilliseconds>=FocusSettleMilliseconds) throw new InvalidOperationException("Owned WebView2 keyboard focus did not settle; last: "+last);
+                Thread.Sleep(10);
+            }
+        }
 
         IntPtr job=IntPtr.Zero,process=IntPtr.Zero,thread=IntPtr.Zero;
         bool started=false;
@@ -223,7 +195,10 @@ namespace JobApplyValidation {
                 uint returned;
                 if(!QueryInformationJobObject(job,3,data,(uint)(8+64*IntPtr.Size),out returned)) throw new Win32Exception();
                 int assigned=Marshal.ReadInt32(data),count=Marshal.ReadInt32(data,4);
-                if(count<0||count>64||assigned!=count) throw new OwnedInvariantException("Finite complete owned job list required");
+                if(count<0||count>64||assigned>64||count>assigned) throw new OwnedInvariantException("Finite complete owned job list required");
+                // A member that has begun to exit is still counted but no longer listed, so
+                // the list is briefly incomplete: 'not yet', never a partial list (KI-0185).
+                if(count<assigned) throw new InvalidOperationException("Owned job member exit in progress");
                 uint[] ids=new uint[count];
                 for(int i=0;i<count;i++) ids[i]=checked((uint)Marshal.ReadIntPtr(data,8+i*IntPtr.Size).ToInt64());
                 return ids;
@@ -265,7 +240,9 @@ namespace JobApplyValidation {
         public bool WaitEmpty(int milliseconds) {
             Stopwatch clock=Stopwatch.StartNew();
             while(clock.ElapsedMilliseconds<milliseconds) {
-                if(Members().Length==0&&(process==IntPtr.Zero||WaitForSingleObject(process,0)==0)) return true;
+                uint[] members=null;
+                try { members=Members(); } catch(InvalidOperationException error) { if(error is ObjectDisposedException) throw; }
+                if(members!=null&&members.Length==0&&(process==IntPtr.Zero||WaitForSingleObject(process,0)==0)) return true;
                 Thread.Sleep(25);
             }
             return false;
@@ -379,17 +356,16 @@ namespace JobApplyValidation {
             AutomationElement window=Window(); IntPtr hwnd=new IntPtr(window.Current.NativeWindowHandle);
             OwnForeground(hwnd,"Owned keyboard foreground acknowledgment required");
             if(!quit) {
-                AutomationElement button=OwnedControl("Check again",InvokePattern.Pattern); Mark("UIA-SETFOCUS-BEFORE check-again"); button.SetFocus(); Mark("UIA-SETFOCUS-RETURNED check-again");
+                AutomationElement button=OwnedControl("Check again",InvokePattern.Pattern); button.SetFocus();
                 if(!Settles(()=>{
                     AutomationElement focused=AutomationElement.FocusedElement;
                     return focused!=null&&focused.Current.Name=="Check again"&&new HashSet<uint>(Members()).Contains((uint)focused.Current.ProcessId);
                 })) throw new OwnedInvariantException("Owned button focus required"+settleLast);
-                Mark("UIA-SETFOCUS-SETTLED check-again");
             }
-            Mark(quit?"KEY quit-chord":"KEY check-again-enter");
             ushort[] keys=quit?new ushort[]{0x11,0x51,0x51,0x11}:new ushort[]{0x0D,0x0D};
             Input[] sequence=new Input[keys.Length];
             for(int i=0;i<keys.Length;i++) { sequence[i].type=1; sequence[i].data.keyboard.key=keys[i]; sequence[i].data.keyboard.flags=(uint)(i>=keys.Length/2?2:0); }
+            SettleKeyboardFocus(hwnd);
             if(GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Owned foreground changed before fixed key sequence");
             if(Marshal.SizeOf(typeof(Input))!=40||SendInput((uint)sequence.Length,sequence,40)!=(uint)sequence.Length) throw new Win32Exception();
         }
@@ -574,14 +550,12 @@ namespace JobApplyValidation {
         }
         public void ShellFocusRoute(string label) {
             if(Array.IndexOf(ShellRoutes,label)<0) throw new ArgumentException("Closed source-bound route required");
-            ShellForeground(); AutomationElement link=ShellUnique(label,ControlType.Hyperlink,null,false);Mark("UIA-SETFOCUS-BEFORE route "+label);link.SetFocus();Mark("UIA-SETFOCUS-RETURNED route "+label);
+            ShellForeground(); AutomationElement link=ShellUnique(label,ControlType.Hyperlink,null,false);link.SetFocus();
             if(!Settles(()=>link.Current.HasKeyboardFocus)) throw new OwnedInvariantException("Owned route link focus unavailable"+settleLast);
-            Mark("UIA-SETFOCUS-SETTLED route "+label);
         }
         public void ShellFocusSkip() {
-            ShellForeground();AutomationElement link=ShellUnique("Skip to main content",ControlType.Hyperlink,null,false);Mark("UIA-SETFOCUS-BEFORE skip");link.SetFocus();Mark("UIA-SETFOCUS-RETURNED skip");
+            ShellForeground();AutomationElement link=ShellUnique("Skip to main content",ControlType.Hyperlink,null,false);link.SetFocus();
             if(!Settles(()=>link.Current.HasKeyboardFocus&&!link.Current.IsOffscreen)) throw new OwnedInvariantException("Actual skip link focus unavailable"+settleLast);
-            Mark("UIA-SETFOCUS-SETTLED skip");
         }
         public bool ShellMainFocused() {
             AutomationElementCollection nodes=Window().FindAll(TreeScope.Descendants,Condition.TrueCondition);
@@ -621,7 +595,7 @@ namespace JobApplyValidation {
                 sequence[i].type=1;sequence[i].data.keyboard.key=keys[i];
                 sequence[keys.Length+i].type=1;sequence[keys.Length+i].data.keyboard.key=keys[keys.Length-i-1];sequence[keys.Length+i].data.keyboard.flags=2;
             }
-            Mark("KEY "+operation);
+            SettleKeyboardFocus(hwnd);
             if(GetForegroundWindow()!=hwnd||Marshal.SizeOf(typeof(Input))!=40||SendInput((uint)sequence.Length,sequence,40)!=(uint)sequence.Length) throw new Win32Exception();
         }
         public object[] ShellTree() {
