@@ -8,9 +8,9 @@ diagnostic instrumentation). It skips only what a scratch run cannot satisfy:
 the reviewed bundle, release receipt, source binding, runner-image and CPU gates.
 
 usage: win11_rehearsal.py REPO_SCRIPTS PACKAGE_ARTIFACT_DIR ISO OUT VARIANT
-VARIANT: svcfirst | nodps | nodiagtrack | hv (round 43, all with console-host delegation):
-svcfirst times the packaged service's own cold start before the desktop; nodps and
-nodiagtrack disable those Windows services at specialize; hv adds Hyper-V enlightenments.
+VARIANT: hv-a | hv-b | hv-nowhesvc | host-nowhesvc (round 44, all with console-host
+delegation and a cold desktop launch): hv adds Hyper-V enlightenments; nowhesvc disables
+the Windows Health and Optimized Experiences service at specialize.
 A reboot after the environment receipt ends observation 240 s later, and the
 disposable disk is then read read-only for its crash and boot records.
 """
@@ -33,11 +33,11 @@ sys.path.insert(0, str(scripts / "linux_gnome"))
 import windows11_vm as vm  # noqa: E402
 from windows11_process import ChildCustody  # noqa: E402
 
-MARKERS = ("# DIAG-SVCFIRST", "# DIAG-NODPS", "# DIAG-NODIAGTRACK")
-KEEP = {"svcfirst": "# DIAG-SVCFIRST", "nodps": "# DIAG-NODPS", "nodiagtrack": "# DIAG-NODIAGTRACK", "hv": None}[variant]
-DROP = tuple(m for m in MARKERS if m != KEEP)
+MARKERS = ("# DIAG-SVCFIRST", "# DIAG-NODPS", "# DIAG-NODIAGTRACK", "# DIAG-NOWHESVC")
+KEEP = {"hv-a": (), "hv-b": (), "hv-nowhesvc": ("# DIAG-NOWHESVC",), "host-nowhesvc": ("# DIAG-NOWHESVC",)}[variant]
+DROP = tuple(m for m in MARKERS if m not in KEEP)
 HV = "host,hv-relaxed,hv-vapic,hv-spinlocks=0x1fff,hv-vpindex,hv-runtime,hv-time,hv-synic,hv-stimer,hv-frequencies"
-CPU = HV if variant == "hv" else "host"
+CPU = HV if variant.startswith("hv") else "host"
 DIAG = Path(__file__).resolve().parent
 
 

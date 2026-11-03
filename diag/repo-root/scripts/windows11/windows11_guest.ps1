@@ -217,18 +217,25 @@ function TryCheckedAt($Owner) {
     if($found.Count -ne 1) { return $null }
     return [string]$found[0]
 }
+function DiagWaitLog([string]$Name,[double]$Start,[bool]$Ok) {
+    # DIAG round 44: how long each bounded UI wait took in the VM.
+    try { [IO.File]::AppendAllText((Join-Path $proof 'diag-waits.txt'),($Name+' ms='+[long](($clock.Elapsed.TotalSeconds-$Start)*1000)+' ok='+$Ok+"`r`n")) } catch { }
+}
 function WaitCheckedAt($Owner) {
-    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+6)
+    $diagStart=$clock.Elapsed.TotalSeconds
+    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+30) # DIAG: measure, was 6
     $transient=''
     do {
         WithinBudget
-        try { $value=TryCheckedAt $Owner; if($null -ne $value){return $value} } catch { if(-not(NotYet $_)){throw}; $transient=LastTransient $_ }
+        try { $value=TryCheckedAt $Owner; if($null -ne $value){DiagWaitLog 'WaitCheckedAt' $diagStart $true; return $value} } catch { if(-not(NotYet $_)){throw}; $transient=LastTransient $_ }
         Start-Sleep -Milliseconds 25
     } while($clock.Elapsed.TotalSeconds -lt $limit)
+    DiagWaitLog 'WaitCheckedAt' $diagStart $false
     throw ('Exactly one actual Checked at timestamp required'+$transient)
 }
 function CheckedAdvance($Owner,[string]$Before) {
-    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+6)
+    $diagStart=$clock.Elapsed.TotalSeconds
+    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+30) # DIAG: measure, was 6
     $transient=''
     do {
         WithinBudget
@@ -236,24 +243,29 @@ function CheckedAdvance($Owner,[string]$Before) {
         try { $after=TryCheckedAt $Owner } catch { if(-not(NotYet $_)){throw}; $transient=LastTransient $_ }
         if($null -ne $after -and $after -cne $Before) {
             if(-not(TimestampAdvances $Before $after)) { throw 'Owned Enter keyboard action did not advance Checked at' }
+            DiagWaitLog 'CheckedAdvance' $diagStart $true
             return $after
         }
         Start-Sleep -Milliseconds 25
     } while($clock.Elapsed.TotalSeconds -lt $limit)
+    DiagWaitLog 'CheckedAdvance' $diagStart $false
     throw ('Owned Enter keyboard action did not advance Checked at'+$transient)
 }
 function ShellWait([scriptblock]$Predicate) {
-    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+3)
+    $diagStart=$clock.Elapsed.TotalSeconds; $diagName='ShellWait '+$Predicate.ToString().Trim()
+    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+30) # DIAG: measure, was 3
     $transient=''
     do {
         WithinBudget
-        try { if(& $Predicate){return} } catch { if(-not(NotYet $_)){throw}; $transient=LastTransient $_ }
+        try { if(& $Predicate){DiagWaitLog $diagName $diagStart $true; return} } catch { if(-not(NotYet $_)){throw}; $transient=LastTransient $_ }
         Start-Sleep -Milliseconds 25
     } while($clock.Elapsed.TotalSeconds -lt $limit)
+    DiagWaitLog $diagName $diagStart $false
     throw ('Actual bounded native shell focus or geometry did not settle'+$transient)
 }
 function ShellMeasurement($Owner,[string]$Stage,[string]$PreviousAnchors) {
-    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+3)
+    $diagStart=$clock.Elapsed.TotalSeconds
+    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+30) # DIAG: measure, was 3
     $last=''; $lastRow=$null; $transient=''
     do {
         WithinBudget
@@ -262,11 +274,12 @@ function ShellMeasurement($Owner,[string]$Stage,[string]$PreviousAnchors) {
         try { $row=$Owner.ShellMeasure($Stage) } catch { if(-not(NotYet $_)){throw}; $last=''; $transient=LastTransient $_ }
         if($null -ne $row) {
             $anchors=$row.anchors|ConvertTo-Json -Depth 10 -Compress
-            if($anchors -ceq $last -and ($PreviousAnchors -ceq '' -or $anchors -cne $PreviousAnchors)){return $row}
+            if($anchors -ceq $last -and ($PreviousAnchors -ceq '' -or $anchors -cne $PreviousAnchors)){DiagWaitLog ('ShellMeasurement '+$Stage) $diagStart $true; return $row}
             $last=$anchors; $lastRow=$row
         }
         Start-Sleep -Milliseconds 50
     } while($clock.Elapsed.TotalSeconds -lt $limit)
+    DiagWaitLog ('ShellMeasurement '+$Stage) $diagStart $false
     if($null -ne $lastRow){$lastRow|ConvertTo-Json -Depth 10|Set-Content -LiteralPath (Join-Path $proof ('shell-unsettled-'+$Stage+'.json')) -Encoding UTF8}
     throw ('Actual visible complete glyph measurement unavailable or unchanged after chord'+$transient)
 }
