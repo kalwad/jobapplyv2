@@ -8,8 +8,9 @@ diagnostic instrumentation). It skips only what a scratch run cannot satisfy:
 the reviewed bundle, release receipt, source binding, runner-image and CPU gates.
 
 usage: win11_rehearsal.py REPO_SCRIPTS PACKAGE_ARTIFACT_DIR ISO OUT VARIANT
-VARIANT: host-conhost | pmuoff-conhost | host-terminal (round 42: pmuoff runs QEMU with
--cpu host,pmu=off; terminal drops console-host delegation).
+VARIANT: svcfirst | nodps | nodiagtrack | hv (round 43, all with console-host delegation):
+svcfirst times the packaged service's own cold start before the desktop; nodps and
+nodiagtrack disable those Windows services at specialize; hv adds Hyper-V enlightenments.
 A reboot after the environment receipt ends observation 240 s later, and the
 disposable disk is then read read-only for its crash and boot records.
 """
@@ -32,8 +33,11 @@ sys.path.insert(0, str(scripts / "linux_gnome"))
 import windows11_vm as vm  # noqa: E402
 from windows11_process import ChildCustody  # noqa: E402
 
-DROP = {"host-conhost": (), "pmuoff-conhost": (), "host-terminal": ("# DIAG-CONHOST",)}[variant]
-CPU = {"host-conhost": "host", "pmuoff-conhost": "host,pmu=off", "host-terminal": "host"}[variant]
+MARKERS = ("# DIAG-SVCFIRST", "# DIAG-NODPS", "# DIAG-NODIAGTRACK")
+KEEP = {"svcfirst": "# DIAG-SVCFIRST", "nodps": "# DIAG-NODPS", "nodiagtrack": "# DIAG-NODIAGTRACK", "hv": None}[variant]
+DROP = tuple(m for m in MARKERS if m != KEEP)
+HV = "host,hv-relaxed,hv-vapic,hv-spinlocks=0x1fff,hv-vpindex,hv-runtime,hv-time,hv-synic,hv-stimer,hv-frequencies"
+CPU = HV if variant == "hv" else "host"
 DIAG = Path(__file__).resolve().parent
 
 
@@ -108,12 +112,12 @@ try:
     bundle = work / "bundle"
     (bundle / "guest-driver").mkdir(parents=True)
     shutil.copytree(artifact, bundle / "original-native-artifact")
-    for name in ("windows11_guest.ps1", "windows11_owned.cs"):
-        shutil.copyfile(scripts / "windows11" / name, bundle / "guest-driver" / name)
-    text = (scripts / "windows11" / "windows11_bootstrap.ps1").read_text(encoding="utf-8")
-    kept = [line for line in text.splitlines(True) if not any(m in line for m in DROP)]
-    (bundle / "guest-driver" / "windows11_bootstrap.ps1").write_text("".join(kept), encoding="utf-8", newline="")
-    shutil.copyfile(bundle / "guest-driver" / "windows11_bootstrap.ps1", out / "diag-bootstrap.ps1")
+    shutil.copyfile(scripts / "windows11" / "windows11_owned.cs", bundle / "guest-driver" / "windows11_owned.cs")
+    for name in ("windows11_bootstrap.ps1", "windows11_guest.ps1"):
+        text = (scripts / "windows11" / name).read_text(encoding="utf-8")
+        kept = [line for line in text.splitlines(True) if not any(m in line for m in DROP)]
+        (bundle / "guest-driver" / name).write_text("".join(kept), encoding="utf-8", newline="")
+        shutil.copyfile(bundle / "guest-driver" / name, out / ("diag-" + name.split("_")[1]))
     vm.write(out / "diag-inputs.json", {
         "variant": variant,
         "dropped_markers": list(DROP),

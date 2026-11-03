@@ -141,4 +141,10 @@ if 0 < triage["ProcessOffset"] < len(data):
         if "." in text or text.lower() in ("system", "registry", "idle"):
             names.append({"offset": hex(match.start()), "text": text})
 out["process_name_candidates"] = names[:20]
+# Build 26100 offsets measured in round 42: EPROCESS.UniqueProcessId at +0x1d0 and the
+# current thread's Cid (process, thread) at ETHREAD +0x508/+0x510.
+if 0 < triage["ProcessOffset"] < len(data) - 0x1d8:
+    out["process_id_26100"] = u64(triage["ProcessOffset"] + 0x1D0)
+if 0 < triage["ThreadOffset"] < len(data) - 0x518:
+    out["thread_cid_26100"] = [u64(triage["ThreadOffset"] + 0x508), u64(triage["ThreadOffset"] + 0x510)]
 print(json.dumps(out, indent=1))

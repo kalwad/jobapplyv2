@@ -3,6 +3,7 @@ $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 $clock = [Diagnostics.Stopwatch]::StartNew()
 $budgetSeconds = 900 # DIAG: measure the phases without the budget as the cause
+$script:diagLastNames = '' # DIAG
 # The protocol port opens before anything else can fail, so a preflight failure
 # reaches the host as one terminal row instead of at the host's work deadline.
 $serial = New-Object IO.Ports.SerialPort('COM2',115200,'None',8,'One')
@@ -57,6 +58,33 @@ function Receipt([string]$Name, [hashtable]$Details) {
     $serial.WriteLine('JAPP11 '+$line)
     $diagWrite.Stop(); Add-Content -LiteralPath (Join-Path $proof 'diag-serial-writes.txt') -Value ($Name+' chars='+$line.Length+' write_ms='+$diagWrite.ElapsedMilliseconds+' at_ms='+$clock.ElapsedMilliseconds) -Encoding ASCII
     if($framedPhases -ccontains $Name) { HostAccepted ('JAPP11-FRAME-ACCEPT '+$Name+' '+$config.nonce) 60000 ('Host did not accept the actual '+$Name+' frame') }
+}
+function DiagServiceCold {
+    # DIAG round 43: the packaged service's own cold start outside the desktop, spawn to
+    # its first READY-frame bytes, with the desktop's framed bootstrap on stdin.
+    $row=[ordered]@{}
+    $p=$null
+    try {
+        $exe=Join-Path $packageRoot 'runtime\japp-orchestrator\japp-orchestrator.exe'
+        $l=New-Object Net.Sockets.TcpListener([Net.IPAddress]::Loopback,0); $l.Start(); $port=$l.LocalEndpoint.Port; $l.Stop()
+        $alphabet='0123456789ABCDEFGHJKMNPQRSTVWXYZ'; $hex='0123456789abcdef'; $rng=New-Object Random
+        $inst='svc_'+(-join (1..26|ForEach-Object { $alphabet[$rng.Next(32)] }))
+        $secret=-join (1..64|ForEach-Object { $hex[$rng.Next(16)] })
+        $json=[ordered]@{protocol='JAPP_SERVICE_BOOTSTRAP_V1';schema_version='1.0.0';bind_host='127.0.0.1';bind_port=$port;session_token=$secret;instance_id=$inst;generation=1}|ConvertTo-Json -Compress
+        $body=[Text.Encoding]::UTF8.GetBytes($json)
+        $len=[BitConverter]::GetBytes([uint32]$body.Length); [Array]::Reverse($len)
+        $psi=New-Object Diagnostics.ProcessStartInfo($exe); $psi.UseShellExecute=$false; $psi.RedirectStandardInput=$true; $psi.RedirectStandardOutput=$true; $psi.WorkingDirectory=(Split-Path $exe); $psi.CreateNoWindow=$true
+        $watch=[Diagnostics.Stopwatch]::StartNew()
+        $p=[Diagnostics.Process]::Start($psi)
+        $row.spawn_ms=$watch.ElapsedMilliseconds
+        $in=$p.StandardInput.BaseStream; $in.Write($len,0,4); $in.Write($body,0,$body.Length); $in.Flush()
+        $buf=New-Object byte[] 4096
+        $task=$p.StandardOutput.BaseStream.ReadAsync($buf,0,4096)
+        if($task.Wait(120000)) { $got=$task.Result; $row.first_bytes_ms=$watch.ElapsedMilliseconds; $row.bytes=$got; if($got -gt 4) { $row.frame=[Text.Encoding]::UTF8.GetString($buf,4,$got-4) } } else { $row.first_bytes_ms=-1 }
+        $row.exited=$p.HasExited
+    } catch { $row.error=$_.Exception.GetType().FullName+': '+$_.Exception.Message }
+    finally { if($null -ne $p) { try { if(-not $p.HasExited) { $p.Kill(); [void]$p.WaitForExit(10000) } } catch { } } }
+    $row|ConvertTo-Json -Compress|Set-Content -LiteralPath (Join-Path $proof 'diag-service-cold.json') -Encoding UTF8
 }
 function DiagMark([string]$Stage) {
     # DIAG only: where the guest was when the VM rebooted (round 40).
@@ -135,7 +163,8 @@ function Ready($Owner) {
         WithinBudget
         try {
             $names = @($Owner.Names())
-            if($clock.Elapsed.TotalSeconds -ge $diagNext) { $diagNext=$clock.Elapsed.TotalSeconds+5; try { $members=@($Owner.Members()); [IO.File]::AppendAllText((Join-Path $proof 'diag-ready.ndjson'),((([ordered]@{at_ms=$clock.ElapsedMilliseconds;members=$members.Count;names=@($names|Select-Object -First 40)})|ConvertTo-Json -Compress)+"`r`n")) } catch { } }
+            $diagKey=($names -join '|')
+            if($diagKey -cne $script:diagLastNames -or $clock.Elapsed.TotalSeconds -ge $diagNext) { $script:diagLastNames=$diagKey; $diagNext=$clock.Elapsed.TotalSeconds+30; try { $members=@($Owner.Members()); [IO.File]::AppendAllText((Join-Path $proof 'diag-ready.ndjson'),((([ordered]@{at_ms=$clock.ElapsedMilliseconds;members=$members.Count;names=@($names|Select-Object -First 400)})|ConvertTo-Json -Compress)+"`r`n")) } catch { } }
             # Readiness is tested first, so a Ready result never starts another check;
             # a result that is not ready is checked again at most every 2 s.
             if ($names -contains 'Ready' -and ($names -join ' ') -match '0\.0\.1' -and ($names -join ' ') -match '1\.0\.0') { return }
@@ -488,17 +517,20 @@ try {
     # The Linux owner independently validates actual attestation/frame before product launch.
     HostAccepted ('JAPP11-ENV-ACCEPT '+$config.nonce) 15000 'Host did not accept actual native environment'
     DiagMark 'env-accepted'
+    try { & tasklist.exe /svc /fo csv | Set-Content -LiteralPath (Join-Path $proof 'diag-services.csv') -Encoding UTF8; & logman.exe query -ets | Set-Content -LiteralPath (Join-Path $proof 'diag-etw-env.txt') -Encoding UTF8 } catch { }
     # DIAG: an unowned process snapshot every 2 s, so the last one before a restart is kept.
     $diagLogger=Join-Path $env:TEMP 'diag-procs.ps1'
     Set-Content -LiteralPath $diagLogger -Encoding ASCII -Value @'
 param([string]$Out)
-$seen=@{}; $t=[Diagnostics.Stopwatch]::StartNew()
+$seen=@{}; $etw=@{}; $t=[Diagnostics.Stopwatch]::StartNew(); $nextEtw=0
 while($t.Elapsed.TotalSeconds -lt 900) {
     $now=@(Get-Process | ForEach-Object { [string]$_.Id+':'+$_.ProcessName })
     $new=@($now | Where-Object { -not $seen.ContainsKey($_) })
     foreach($k in $now) { $seen[$k]=1 }
-    try { [IO.File]::AppendAllText($Out,('t_ms='+$t.ElapsedMilliseconds+' count='+$now.Count+' new='+($new -join ',')+"`r`n")) } catch { }
-    Start-Sleep -Seconds 2
+    $newEtw=@()
+    if($t.Elapsed.TotalSeconds -ge $nextEtw) { $nextEtw=$t.Elapsed.TotalSeconds+3; foreach($line in @(& logman.exe query -ets)) { $name=([string]$line).Trim(); if($name -and -not $etw.ContainsKey($name)) { $etw[$name]=1; $newEtw+=$name } } }
+    try { [IO.File]::AppendAllText($Out,('t_ms='+$t.ElapsedMilliseconds+' count='+$now.Count+' new='+($new -join ',')+$(if($newEtw.Count){' etw='+($newEtw -join ' ; ')}else{''})+"`r`n")) } catch { }
+    Start-Sleep -Milliseconds 1000
 }
 '@
     Start-Process -WindowStyle Hidden -FilePath 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe' -ArgumentList @('-NoProfile','-ExecutionPolicy','Bypass','-File',$diagLogger,'-Out',(Join-Path $proof 'diag-procs.txt'))
@@ -520,6 +552,7 @@ while($t.Elapsed.TotalSeconds -lt 900) {
     $actual=@(Get-ChildItem -LiteralPath $packageRoot -File -Recurse)
     if($actual.Count -ne @($config.portable_files.PSObject.Properties).Count) { throw 'Exact portable inventory differs' }
     DiagMark 'inventory-ok'
+    DiagServiceCold; DiagMark 'service-cold-done' # DIAG-SVCFIRST
     $phase='ready'; $app=Launch; DiagMark 'launched'; Ready $app; DiagMark 'ready-ok'; $endpoint=Endpoint $app; DiagMark 'endpoint-ok'; DiagShell 'before-ready-capture'; Snapshot 'ready' $app; DiagMark 'ready-captured'
     Receipt 'ready' @{pid=[long]$app.Pid;service=$endpoint;version='0.0.1';api_version='1.0.0';unicode_spaces_path=$true}
     $phase='unauthorized12'; $statuses=Unauthorized $endpoint.port; Receipt 'unauthorized12' @{statuses=$statuses}

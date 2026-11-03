@@ -121,6 +121,8 @@ try {
     & reg.exe unload $profileHive | Out-Null
 }
 if ($LASTEXITCODE -ne 0) { throw 'Default profile hive unload failed' }
+foreach($svc in @('DPS','WdiServiceHost','WdiSystemHost')) { Set-ItemProperty -LiteralPath ('HKLM:\SYSTEM\CurrentControlSet\Services\'+$svc) -Name Start -Value 4 } # DIAG-NODPS
+Set-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack' -Name Start -Value 4 # DIAG-NODIAGTRACK
 # DIAG only: no automatic device encryption, so a crash dump can be read off the disk.
 & reg.exe add 'HKLM\SYSTEM\CurrentControlSet\Control\BitLocker' /v PreventDeviceEncryption /t REG_DWORD /d 1 /f | Out-Null # DIAG-NOBITLOCKER
 if ($LASTEXITCODE -ne 0) { throw 'Device encryption setting failed' } # DIAG-NOBITLOCKER
