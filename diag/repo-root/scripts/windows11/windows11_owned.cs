@@ -67,6 +67,8 @@ namespace JobApplyValidation {
         [DllImport("user32.dll")] static extern bool GetGUIThreadInfo(uint thread,ref GuiThreadInfo info);
         [DllImport("user32.dll",CharSet=CharSet.Unicode)] static extern int GetClassName(IntPtr window,StringBuilder name,int max);
         [DllImport("user32.dll")] static extern short GetAsyncKeyState(int key);
+        [DllImport("user32.dll")] static extern bool IsHungAppWindow(IntPtr window);
+        [DllImport("user32.dll")] static extern IntPtr SendMessageTimeout(IntPtr window,uint message,UIntPtr wParam,IntPtr lParam,uint flags,uint timeout,out UIntPtr result);
         static string ClassOf(IntPtr window) { if(window==IntPtr.Zero) return "none"; StringBuilder name=new StringBuilder(256); GetClassName(window,name,256); return name.ToString(); }
         public static string FocusDiag() {
             StringBuilder text=new StringBuilder();
@@ -75,6 +77,10 @@ namespace JobApplyValidation {
             GuiThreadInfo info=new GuiThreadInfo(); info.cbSize=(uint)Marshal.SizeOf(typeof(GuiThreadInfo));
             if(GetGUIThreadInfo(thread,ref info)) text.Append(" fg="+ClassOf(foreground)+":pid="+pid+" focus="+ClassOf(info.hwndFocus)+":"+info.hwndFocus.ToInt64()+" active="+ClassOf(info.hwndActive)+" flags="+info.flags);
             foreach(int key in new int[]{0x09,0x0D,0x10,0x11,0x12}) text.Append(" k"+key.ToString("x")+"="+((GetAsyncKeyState(key)&0x8000)!=0?1:0));
+            // DIAG round 46: is the foreground window's UI thread pumping messages?
+            Stopwatch probe=Stopwatch.StartNew(); UIntPtr reply;
+            IntPtr answered=SendMessageTimeout(foreground,0,UIntPtr.Zero,IntPtr.Zero,0x2,3000,out reply);
+            text.Append(" hung="+(IsHungAppWindow(foreground)?1:0)+" wm_null="+(answered!=IntPtr.Zero?"ok":"timeout")+":"+probe.ElapsedMilliseconds+"ms");
             return text.ToString();
         }
         public static uint ForegroundLockTimeoutValue() { uint value=0; if(!SystemParametersInfo(0x2000,0,ref value,0)) return UInt32.MaxValue; return value; }

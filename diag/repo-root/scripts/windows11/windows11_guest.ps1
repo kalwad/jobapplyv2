@@ -265,12 +265,16 @@ function ShellWait([scriptblock]$Predicate) {
     $focusLog=Join-Path $proof 'diag-focus.txt'
     try { [IO.File]::AppendAllText($focusLog,('FAIL at_ms='+$clock.ElapsedMilliseconds+' '+$diagName+' | '+[JobApplyValidation.OwnedApp]::FocusDiag()+"`r`n")) } catch { }
     $retryKey=$(if($diagName -clike '*-not $Owner.ShellRouteLinkFocused*'){'tab'}elseif($diagName -clike '*$Owner.ShellRouteLinkFocused*'){'backtab'}else{'enter'})
-    try {
-        $Owner.ShellKeys($retryKey)
-        $retryStart=$clock.Elapsed.TotalSeconds
-        while($clock.Elapsed.TotalSeconds -lt $retryStart+5) { try { if(& $Predicate){ [IO.File]::AppendAllText($focusLog,('DIAG-RETRY-OK key='+$retryKey+' ms='+[long](($clock.Elapsed.TotalSeconds-$retryStart)*1000)+' | '+[JobApplyValidation.OwnedApp]::FocusDiag()+"`r`n")); return } } catch { }; Start-Sleep -Milliseconds 25 }
-        [IO.File]::AppendAllText($focusLog,('DIAG-RETRY-FAIL key='+$retryKey+' | '+[JobApplyValidation.OwnedApp]::FocusDiag()+"`r`n"))
-    } catch { try { [IO.File]::AppendAllText($focusLog,('DIAG-RETRY-ERROR '+$_.Exception.GetType().FullName+"`r`n")) } catch { } }
+    try { $Owner.Capture((Join-Path $proof ('diag-fail-'+$clock.ElapsedMilliseconds+'.png'))) } catch { try { [IO.File]::AppendAllText($focusLog,('DIAG-CAPTURE-ERROR '+$_.Exception.GetType().FullName+"`r`n")) } catch { } }
+    try { [IO.File]::AppendAllText($focusLog,('webview2-runtimes '+((@(Get-ChildItem -LiteralPath 'C:\Program Files (x86)\Microsoft\EdgeWebView\Application' -Directory -ErrorAction SilentlyContinue | ForEach-Object { $_.Name+'@'+$_.CreationTimeUtc.ToString('o') })) -join ',')+' webview2-processes '+((@(Get-Process msedgewebview2 -ErrorAction SilentlyContinue | ForEach-Object { [string]$_.Id+'@'+$_.StartTime.ToUniversalTime().ToString('HH:mm:ss') })) -join ',')+"`r`n")) } catch { }
+    foreach($attempt in 1..12) {
+        try {
+            $Owner.ShellKeys($retryKey)
+            $retryStart=$clock.Elapsed.TotalSeconds
+            while($clock.Elapsed.TotalSeconds -lt $retryStart+5) { try { if(& $Predicate){ [IO.File]::AppendAllText($focusLog,('DIAG-RETRY-OK attempt='+$attempt+' key='+$retryKey+' ms='+[long](($clock.Elapsed.TotalSeconds-$retryStart)*1000)+' | '+[JobApplyValidation.OwnedApp]::FocusDiag()+"`r`n")); return } } catch { }; Start-Sleep -Milliseconds 25 }
+            [IO.File]::AppendAllText($focusLog,('DIAG-RETRY-FAIL attempt='+$attempt+' at_ms='+$clock.ElapsedMilliseconds+' key='+$retryKey+' | '+[JobApplyValidation.OwnedApp]::FocusDiag()+"`r`n"))
+        } catch { try { [IO.File]::AppendAllText($focusLog,('DIAG-RETRY-ERROR attempt='+$attempt+' '+$_.Exception.GetType().FullName+': '+$_.Exception.Message+"`r`n")) } catch { } }
+    }
     throw ('Actual bounded native shell focus or geometry did not settle'+$transient)
 }
 function ShellMeasurement($Owner,[string]$Stage,[string]$PreviousAnchors) {

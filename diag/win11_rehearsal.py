@@ -8,9 +8,9 @@ diagnostic instrumentation). It skips only what a scratch run cannot satisfy:
 the reviewed bundle, release receipt, source binding, runner-image and CPU gates.
 
 usage: win11_rehearsal.py REPO_SCRIPTS PACKAGE_ARTIFACT_DIR ISO OUT VARIANT
-VARIANT: hv-1 | hv-2 | hv-3 (round 45: three replicas, Hyper-V enlightenments, console-host
-delegation, cold desktop launch; focus diagnostics and one diagnostic key retry when a fixed
-key does not move focus).
+VARIANT: hv-1 .. hv-4 (round 46: four replicas, Hyper-V enlightenments, console-host
+delegation, cold desktop launch; on a fixed key that does not move focus: UI-thread
+responsiveness, WebView2 runtime state, a capture, and diagnostic key retries for a minute).
 A reboot after the environment receipt ends observation 240 s later, and the
 disposable disk is then read read-only for its crash and boot records.
 """
@@ -34,7 +34,7 @@ import windows11_vm as vm  # noqa: E402
 from windows11_process import ChildCustody  # noqa: E402
 
 MARKERS = ("# DIAG-SVCFIRST", "# DIAG-NODPS", "# DIAG-NODIAGTRACK", "# DIAG-NOWHESVC")
-KEEP = {"hv-1": (), "hv-2": (), "hv-3": ()}[variant]
+KEEP = {"hv-1": (), "hv-2": (), "hv-3": (), "hv-4": ()}[variant]
 DROP = tuple(m for m in MARKERS if m not in KEEP)
 HV = "host,hv-relaxed,hv-vapic,hv-spinlocks=0x1fff,hv-vpindex,hv-runtime,hv-time,hv-synic,hv-stimer,hv-frequencies"
 CPU = HV if variant.startswith("hv") else "host"
