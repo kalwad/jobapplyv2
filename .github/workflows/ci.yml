@@ -1,4 +1,5 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Round 39 (dxdiag probes, console host): rehearse the Windows 11
+# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Round 40 (post-environment reboot: KVM MSR trace,
+# ignore_msrs, disk forensics, guest progress marks): rehearse the Windows 11
 # campaign with the harness's own seed/QEMU/COM2 protocol, the real CI package and
 # the KI-0177/0178/0179 guest correction, across first-logon Default-profile variants.
 # No acceptance can come from it.
@@ -32,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        variant: [terminal, conhost]
+        variant: [baseline-conhost, ignore-conhost, ignore-terminal]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -41,10 +42,26 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sudo apt-get install -y --no-install-recommends qemu-system-x86 qemu-utils ovmf swtpm swtpm-tools xorriso mtools > /dev/null
+          sudo apt-get install -y --no-install-recommends qemu-system-x86 qemu-utils ovmf swtpm swtpm-tools xorriso mtools ntfs-3g > /dev/null
           sudo setfacl -m "u:$(id -u):rw" /dev/kvm
           grep -m1 "model name" /proc/cpuinfo
           echo "ImageVersion=$ImageVersion"
+          uname -r
+          python3 -m venv "$HOME/evtx-venv"
+          "$HOME/evtx-venv/bin/pip" install -q python-evtx==0.8.1
+      - name: KVM MSR policy and failed-MSR trace
+        shell: bash
+        env:
+          VARIANT: ${{ matrix.variant }}
+        run: |
+          set -euo pipefail
+          lsmod | grep -E '^kvm' || true
+          if [[ "$VARIANT" == ignore-* ]]; then
+            echo 1 | sudo tee /sys/module/kvm/parameters/ignore_msrs
+            echo 1 | sudo tee /sys/module/kvm/parameters/report_ignored_msrs
+          fi
+          grep -H . /sys/module/kvm/parameters/ignore_msrs /sys/module/kvm/parameters/report_ignored_msrs
+          sudo sh -c 'T=/sys/kernel/tracing; echo 0 > $T/tracing_on; echo > $T/trace; echo 8192 > $T/buffer_size_kb; if echo "exception != 0" > $T/events/kvm/kvm_msr/filter || echo "failed != 0" > $T/events/kvm/kvm_msr/filter; then echo 1 > $T/events/kvm/kvm_msr/enable; else echo NO_FILTER_NO_TRACE; fi; echo 1 > $T/tracing_on; cat $T/events/kvm/kvm_msr/filter; cat $T/events/kvm/kvm_msr/format'
       - name: CI package from hosted run 41538198385 (2100780)
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
@@ -64,11 +81,27 @@ jobs:
       - name: Rehearsal
         shell: bash
         run: python3 -I -B diag/win11_rehearsal.py "$GITHUB_WORKSPACE/diag/repo-root/scripts" "$RUNNER_TEMP/package" "$RUNNER_TEMP/win11.iso" "$RUNNER_TEMP/out" "${{ matrix.variant }}"
+      - name: KVM trace and kernel log
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          sudo cat /sys/kernel/tracing/trace | head -c 30000000 > "$RUNNER_TEMP/out/kvm-msr-trace.txt" || true
+          sudo dmesg | grep -iE 'kvm|msr|nbd|ntfs' | tail -n 5000 > "$RUNNER_TEMP/out/dmesg-kvm.txt" || true
+          wc -l "$RUNNER_TEMP/out/kvm-msr-trace.txt" "$RUNNER_TEMP/out/dmesg-kvm.txt" || true
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag39-win11-rehearsal-${{ matrix.variant }}
+          name: diag40-win11-rehearsal-${{ matrix.variant }}
           path: |
             ${{ runner.temp }}/out
             !${{ runner.temp }}/out/private-work
+            !${{ runner.temp }}/out/forensics/raw
           retention-days: 7
+      - if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: diag40-raw-dumps-and-logs-${{ matrix.variant }}
+          path: ${{ runner.temp }}/out/forensics/raw
+          if-no-files-found: ignore
+          retention-days: 3

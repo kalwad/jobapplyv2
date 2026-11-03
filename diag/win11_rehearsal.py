@@ -8,7 +8,10 @@ diagnostic instrumentation). It skips only what a scratch run cannot satisfy:
 the reviewed bundle, release receipt, source binding, runner-image and CPU gates.
 
 usage: win11_rehearsal.py REPO_SCRIPTS PACKAGE_ARTIFACT_DIR ISO OUT VARIANT
-VARIANT: conhost | terminal (Start suppressed in both; conhost adds console-host delegation)
+VARIANT: baseline-conhost | ignore-conhost | ignore-terminal (round 40: the host KVM
+ignore_msrs setting is applied by the workflow; terminal drops console-host delegation).
+A reboot after the environment receipt ends observation 240 s later, and the
+disposable disk is then read read-only for its crash and boot records.
 """
 
 import hashlib
@@ -17,6 +20,7 @@ import secrets
 import shutil
 import subprocess
 import sys
+import threading
 import time
 import traceback
 from pathlib import Path
@@ -28,7 +32,8 @@ sys.path.insert(0, str(scripts / "linux_gnome"))
 import windows11_vm as vm  # noqa: E402
 from windows11_process import ChildCustody  # noqa: E402
 
-DROP = {"conhost": (), "terminal": ("# DIAG-CONHOST",)}[variant]
+DROP = {"baseline-conhost": (), "ignore-conhost": (), "ignore-terminal": ("# DIAG-CONHOST",)}[variant]
+DIAG = Path(__file__).resolve().parent
 
 
 def sha(path: Path) -> str:
@@ -43,11 +48,56 @@ owner.work_deadline = owner.started + vm.WORK_SECONDS
 owner.cleanup_deadline = owner.work_deadline + vm.POST_PASS_SECONDS
 result = {"scope": "DIAGNOSTIC_REHEARSAL_ONLY_NOT_ACCEPTANCE", "variant": variant, "status": "FAILED"}
 marks = []
+marks_lock = threading.Lock()
+stop_monitor = threading.Event()
 
 
 def mark(name):
-    marks.append({"t": round(time.monotonic() - owner.started, 1), "mark": name})
-    (out / "diag-host-marks.json").write_text(json.dumps(marks, indent=2) + "\n")
+    with marks_lock:
+        marks.append({"t": round(time.monotonic() - owner.started, 1), "mark": name})
+        (out / "diag-host-marks.json").write_text(json.dumps(marks, indent=2) + "\n")
+
+
+def reboot_monitor():
+    # A boot after the environment frame means the guest controller is gone.
+    baseline = None
+    while not stop_monitor.wait(2):
+        try:
+            boots = (out / "firmware-console.raw").read_bytes().count(b"starting Boot0005")
+        except OSError:
+            continue
+        if baseline is None:
+            if (out / "frame-environment.json").exists():
+                baseline = boots
+                mark("monitor-environment-boots-" + str(boots))
+            continue
+        if boots > baseline:
+            mark("guest-reboot-after-environment-boots-" + str(boots))
+            if stop_monitor.wait(240):
+                return
+            mark("monitor-ends-observation")
+            owner.work_deadline = time.monotonic()
+            return
+
+
+def forensics():
+    disk = work / "os.qcow2"
+    if not disk.is_file():
+        return {"skipped": "no disk"}
+    dest = out / "forensics"
+    started = time.monotonic()
+    run = subprocess.run(["sudo", "-n", "bash", str(DIAG / "forensics.sh"), str(disk), str(dest)], capture_output=True, timeout=900, check=False)
+    report = {"returncode": run.returncode, "seconds": round(time.monotonic() - started, 1), "stderr": run.stderr.decode(errors="replace")[-2000:]}
+    raw = dest / "raw"
+    for dump in sorted(raw.glob("*.dmp")) if raw.is_dir() else []:
+        parsed = subprocess.run([sys.executable, "-I", "-B", str(DIAG / "minidump_triage.py"), str(dump)], capture_output=True, timeout=120, check=False)
+        (dest / (dump.stem + ".triage.json")).write_bytes(parsed.stdout or parsed.stderr)
+    evtx_python = Path.home() / "evtx-venv/bin/python"
+    for log in sorted(raw.glob("*.evtx")) if raw.is_dir() else []:
+        if evtx_python.is_file():
+            parsed = subprocess.run([str(evtx_python), "-I", "-B", str(DIAG / "evtx_events.py"), str(log)], capture_output=True, timeout=300, check=False)
+            (dest / (log.stem + ".events.json")).write_bytes(parsed.stdout or parsed.stderr)
+    return report
 
 
 tpm = None
@@ -102,6 +152,7 @@ try:
         owner.child = subprocess.Popen(argv, stdin=subprocess.DEVNULL, stdout=stdout, stderr=stderr, start_new_session=True)
         owner.pgid = owner.child.pid
     mark("qemu-started")
+    threading.Thread(target=reboot_monitor, daemon=True).start()
     observation = vm.observe(owner, nonce, package["portable_sha256"], cpu["model name"])
     mark("guest-pass")
     vm.write(out / "lifecycle.json", observation)
@@ -140,13 +191,18 @@ finally:
             except BaseException as error:  # noqa: BLE001
                 result["guest_powerdown_error"] = type(error).__name__
             try:
-                owner.child.wait(timeout=20)
+                owner.child.wait(timeout=60)  # a clean guest shutdown leaves a clean NTFS for forensics
             except BaseException:  # noqa: BLE001
                 pass
     try:
         result["vm_closure"] = owner.close()
     except BaseException as error:  # noqa: BLE001
         result["vm_cleanup_error"] = type(error).__name__
+    stop_monitor.set()
+    try:
+        result["forensics"] = forensics()
+    except BaseException as error:  # noqa: BLE001
+        result["forensics_error"] = type(error).__name__ + ": " + str(error)[:300]
     if tpm is not None:
         try:
             tpm.terminate_unreaped()

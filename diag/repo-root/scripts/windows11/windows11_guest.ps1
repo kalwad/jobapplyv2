@@ -58,6 +58,10 @@ function Receipt([string]$Name, [hashtable]$Details) {
     $diagWrite.Stop(); Add-Content -LiteralPath (Join-Path $proof 'diag-serial-writes.txt') -Value ($Name+' chars='+$line.Length+' write_ms='+$diagWrite.ElapsedMilliseconds+' at_ms='+$clock.ElapsedMilliseconds) -Encoding ASCII
     if($framedPhases -ccontains $Name) { HostAccepted ('JAPP11-FRAME-ACCEPT '+$Name+' '+$config.nonce) 60000 ('Host did not accept the actual '+$Name+' frame') }
 }
+function DiagMark([string]$Stage) {
+    # DIAG only: where the guest was when the VM rebooted (round 40).
+    try { [IO.File]::AppendAllText((Join-Path $proof 'diag-progress.txt'),($Stage+' at_ms='+$clock.ElapsedMilliseconds+"`r`n")) } catch { }
+}
 function DiagShell([string]$Stage) {
     # DIAG only: the first-logon shell state this rehearsal measures (KI-0177/KI-0179).
     try {
@@ -481,6 +485,7 @@ try {
     Receipt 'environment' @{attestation=$attestation}
     # The Linux owner independently validates actual attestation/frame before product launch.
     HostAccepted ('JAPP11-ENV-ACCEPT '+$config.nonce) 15000 'Host did not accept actual native environment'
+    DiagMark 'env-accepted'
     $zip='C:\ProgramData\JappHarness\windows-portable.zip'
     if((Get-FileHash -Algorithm SHA256 -LiteralPath $zip).Hash.ToLowerInvariant() -cne $config.package_sha256) { throw 'Original portable archive changed' }
     # A long-form profile base: %TEMP% is an 8.3 alias (JAPPFI~1) for this 11-character user.
@@ -489,14 +494,17 @@ try {
     $packageRoot=Join-Path $localData ('JobApply '+[char]0x03A9+' space '+$config.nonce.Substring(0,12))
     if(Test-Path -LiteralPath $packageRoot) { throw 'Fresh Unicode/spaces package namespace required' }
     Add-Type -AssemblyName System.IO.Compression.FileSystem
+    DiagMark 'zip-verified'
     [IO.Compression.ZipFile]::ExtractToDirectory($zip,$packageRoot)
+    DiagMark 'extracted'
     foreach($entry in $config.portable_files.PSObject.Properties) {
         $file=Join-Path $packageRoot $entry.Name
         if((Get-Item -LiteralPath $file).Length -ne $entry.Value.bytes -or (Get-FileHash -Algorithm SHA256 -LiteralPath $file).Hash.ToLowerInvariant() -cne $entry.Value.sha256) { throw 'Exact inspected portable file differs' }
     }
     $actual=@(Get-ChildItem -LiteralPath $packageRoot -File -Recurse)
     if($actual.Count -ne @($config.portable_files.PSObject.Properties).Count) { throw 'Exact portable inventory differs' }
-    $phase='ready'; $app=Launch; Ready $app; $endpoint=Endpoint $app; DiagShell 'before-ready-capture'; Snapshot 'ready' $app
+    DiagMark 'inventory-ok'
+    $phase='ready'; $app=Launch; DiagMark 'launched'; Ready $app; DiagMark 'ready-ok'; $endpoint=Endpoint $app; DiagMark 'endpoint-ok'; DiagShell 'before-ready-capture'; Snapshot 'ready' $app; DiagMark 'ready-captured'
     Receipt 'ready' @{pid=[long]$app.Pid;service=$endpoint;version='0.0.1';api_version='1.0.0';unicode_spaces_path=$true}
     $phase='unauthorized12'; $statuses=Unauthorized $endpoint.port; Receipt 'unauthorized12' @{statuses=$statuses}
     $phase='keyboard'; $checkedBefore=WaitCheckedAt $app; $app.KeyboardCheckAgain(); $checkedAfter=CheckedAdvance $app $checkedBefore
