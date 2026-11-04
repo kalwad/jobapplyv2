@@ -1,5 +1,5 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Round 49 (the repository's reviewed KI-0184/KI-0185
-# correction, byte for byte, with no instrumentation, six replicas): rehearse the Windows 11
+# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Round 50 (the repository's correction after both
+# reviews and the round 49 fixes, byte for byte, with no instrumentation, eight replicas): rehearse the Windows 11
 # campaign with the harness's own seed/QEMU/COM2 protocol and the real CI package.
 # No acceptance can come from it.
 name: ci
@@ -32,7 +32,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        variant: [exact-1, exact-2, exact-3, exact-4, exact-5, exact-6]
+        variant: [exact-1, exact-2, exact-3, exact-4, exact-5, exact-6, exact-7, exact-8]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -85,7 +85,7 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag49-win11-rehearsal-${{ matrix.variant }}
+          name: diag50-win11-rehearsal-${{ matrix.variant }}
           path: |
             ${{ runner.temp }}/out
             !${{ runner.temp }}/out/private-work
@@ -94,7 +94,7 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag49-raw-dumps-and-logs-${{ matrix.variant }}
+          name: diag50-raw-dumps-and-logs-${{ matrix.variant }}
           path: ${{ runner.temp }}/out/forensics/raw
           if-no-files-found: ignore
           retention-days: 3

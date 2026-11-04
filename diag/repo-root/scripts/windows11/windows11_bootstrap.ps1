@@ -56,6 +56,14 @@ try {
     $bootTime=$os.LastBootUpTime.ToUniversalTime().ToString('o')
     $system=Get-CimInstance -ClassName Win32_ComputerSystem
     $step='interactive-user'; TraceStep $step
+    # The logon trigger can start this task before Windows reports the console user
+    # (rehearsal round 49: none 38 s after boot). An empty user is read again for up
+    # to 60 s; any other user fails at once (KI-0186).
+    $userClock=[Diagnostics.Stopwatch]::StartNew()
+    while([string]::IsNullOrEmpty([string]$system.UserName) -and $userClock.Elapsed.TotalSeconds -lt 60) {
+        Start-Sleep -Seconds 1
+        $system=Get-CimInstance -ClassName Win32_ComputerSystem
+    }
     if($system.UserName -cne ($env:COMPUTERNAME+'\JappFixture')) { throw ('Exact synthetic interactive fixture required; observed user: '+[string]$system.UserName) }
     # Microsoft's LogonCount=1 off-by-one is settled by the protected first-logon task.
     # No interactive account is elevated to perform this setup.

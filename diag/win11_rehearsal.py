@@ -3,14 +3,14 @@
 Rehearse the Windows 11 campaign with the harness's own code: windows11_vm.seed(),
 qemu_argv(), observe() (the real COM2 receipt/frame protocol), stop_after_pass()
 and the post-PASS checks, on the pinned ISO and the real CI package, with the
-guest controller files from diag/repo-root, copied byte for byte. Round 49 runs the
-repository's own correction, after its separate review, with no diagnostic instrumentation: diag/repo-root/scripts is the
+guest controller files from diag/repo-root, copied byte for byte. Round 50 runs the
+repository's own correction, after both reviews and the round 49 fixes, with no diagnostic instrumentation: diag/repo-root/scripts is the
 working tree's scripts/windows11 (including windows11_vm.py and its GUEST_CPU) and the
 unchanged shared helpers. It skips only what a scratch run cannot satisfy: the reviewed
 bundle, release receipt, source binding, runner-image and CPU gates.
 
 usage: win11_rehearsal.py REPO_SCRIPTS PACKAGE_ARTIFACT_DIR ISO OUT VARIANT
-VARIANT: exact-1 .. exact-6 (six replicas of the same bytes).
+VARIANT: exact-1 .. exact-8 (eight replicas of the same bytes).
 A reboot after the environment receipt ends observation 240 s later, and the
 disposable disk is then read read-only for its crash and boot records.
 """
@@ -33,7 +33,7 @@ sys.path.insert(0, str(scripts / "linux_gnome"))
 import windows11_vm as vm  # noqa: E402
 from windows11_process import ChildCustody  # noqa: E402
 
-if variant not in {"exact-" + str(i) for i in range(1, 7)}:
+if variant not in {"exact-" + str(i) for i in range(1, 9)}:
     raise SystemExit("unknown variant " + variant)
 DIAG = Path(__file__).resolve().parent
 

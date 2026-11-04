@@ -61,9 +61,19 @@ namespace JobApplyValidation {
         static void OwnForeground(IntPtr hwnd,string refusal) {
             Stopwatch watch=Stopwatch.StartNew();
             while(!(SetForegroundWindow(hwnd)&&GetForegroundWindow()==hwnd)) {
-                if(watch.ElapsedMilliseconds>=ForegroundMilliseconds) throw new InvalidOperationException(refusal);
+                if(watch.ElapsedMilliseconds>=ForegroundMilliseconds) throw new InvalidOperationException(refusal+"; foreground: "+ForegroundOwner());
                 Thread.Sleep(100);
             }
+        }
+        // Diagnostic text only, never a pass condition: the process and window class that
+        // held the foreground when a request was refused (rehearsal round 49, KI-0187).
+        static string ForegroundOwner() {
+            try {
+                IntPtr window=GetForegroundWindow(); if(window==IntPtr.Zero) return "none";
+                uint pid; GetWindowThreadProcessId(window,out pid);
+                string name; try { using(Process owner=Process.GetProcessById((int)pid)) name=owner.ProcessName; } catch(Exception) { name="unavailable"; }
+                return Bounded(name,64)+":"+pid+"/"+Bounded(WindowClass(window),64);
+            } catch(Exception error) { return "unavailable:"+error.GetType().Name; }
         }
         [StructLayout(LayoutKind.Sequential)] struct KeyboardInput { public ushort key,scan; public uint flags,time; public UIntPtr extra; }
         [StructLayout(LayoutKind.Explicit,Size=32)] struct InputUnion { [FieldOffset(0)] public KeyboardInput keyboard; }
@@ -117,7 +127,9 @@ namespace JobApplyValidation {
                     IntPtr parent=GetParent(focus); uint parentPid=0;
                     if(parent==IntPtr.Zero||GetWindowThreadProcessId(parent,out parentPid)!=focusThread||parentPid!=focusPid||WindowClass(parent)!=WebViewKeyboardClass) throw new OwnedInvariantException("Owned WebView2 keyboard window required");
                     if(++moves>FocusMoveBound) throw new InvalidOperationException("Owned keyboard focus kept returning to the WebView2 accessibility window");
-                    HandFocus(focusThread,parent,(int)Math.Max(1,FocusSettleMilliseconds-watch.ElapsedMilliseconds));
+                    long left=FocusSettleMilliseconds-watch.ElapsedMilliseconds;
+                    if(left<=0) throw new InvalidOperationException("Owned WebView2 keyboard focus did not settle; last: "+kind);
+                    HandFocus(focusThread,parent,(int)left);
                     held=IntPtr.Zero;
                 } else if(kind==WebViewKeyboardClass) {
                     if(focus!=held) { held=focus; since=watch.ElapsedMilliseconds; }
@@ -258,13 +270,15 @@ namespace JobApplyValidation {
         }
         public void KillRoot() { if(process==IntPtr.Zero||!TerminateProcess(process,71)) throw new Win32Exception(); }
         public bool WaitEmpty(int milliseconds) {
-            Stopwatch clock=Stopwatch.StartNew();
+            Stopwatch clock=Stopwatch.StartNew(); InvalidOperationException changing=null;
             while(clock.ElapsedMilliseconds<milliseconds) {
                 uint[] members=null;
-                try { members=Members(); } catch(InvalidOperationException error) { if(error is ObjectDisposedException) throw; }
+                try { members=Members(); changing=null; } catch(InvalidOperationException error) { if(error is ObjectDisposedException) throw; changing=error; }
                 if(members!=null&&members.Length==0&&(process==IntPtr.Zero||WaitForSingleObject(process,0)==0)) return true;
                 Thread.Sleep(25);
             }
+            // A list still changing at the deadline is refused with both of its values.
+            if(changing!=null) throw changing;
             return false;
         }
         public AutomationElement Window() {
