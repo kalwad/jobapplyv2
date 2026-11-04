@@ -6,7 +6,8 @@ closure does not silently depend on packages preinstalled on the build runner.
 A host-tool closure may instead resolve against a copy of the runner's dpkg
 status (ADR-0009): it then downloads only what the pinned runner image lacks,
 and records by name and version every installed runner package that the
-downloaded closure depends on, for the campaign to re-check. Output stays
+downloaded closure depends on, with its dpkg status, for the campaign to
+re-check. Every root must still be downloaded. Output stays
 UNREVIEWED until a different review chooses its exact manifest SHA256.
 """
 
@@ -67,10 +68,15 @@ TOTAL_ARCHIVE_CAP = 6 * 1024**3
 DPKG_STATUS = Path("/var/lib/dpkg/status")
 DPKG_STATUS_CAP = 64 * 1024**2
 # One alternative of a binary package relation: name, optional architecture
-# qualifier, optional version constraint. Binary control fields carry no
-# architecture or build-profile restriction lists.
-RELATION = re.compile(r"([a-z0-9][a-z0-9+.-]+)(?::[a-z0-9-]+)?(?:\s*\([^()]*\))?")
+# qualifier, optional version constraint. Names take every character dpkg's own
+# name check allows. Binary control fields carry no architecture or
+# build-profile restriction lists.
+RELATION = re.compile(
+    r"([A-Za-z0-9][A-Za-z0-9+._-]*)(?::[A-Za-z0-9-]+)?(?:\s*\([^()]*\))?"
+)
 RUNNER_ARCHITECTURES = frozenset({"amd64", "all"})
+# dpkg Status values of an installed package used from the runner.
+RUNNER_INSTALLED = frozenset({"install ok installed", "hold ok installed"})
 
 
 def apt_config(root: Path) -> Path:
@@ -141,13 +147,19 @@ def fields(raw: bytes) -> dict[str, str]:
 
 
 def paragraphs(text: str) -> list[dict[str, str]]:
-    """Debian control paragraphs with folded continuation lines joined."""
+    """Debian control paragraphs with folded continuation lines joined.
+
+    Lines end only at LF, as in dpkg; any other character, including one that
+    str.splitlines() would treat as a line break, is field content.
+    """
     result = []
     for block in text.split("\n\n"):
         meta: dict[str, str] = {}
         key = ""
-        for line in block.splitlines():
-            if line[:1].isspace():
+        for line in block.split("\n"):
+            if not line:
+                continue
+            if line[0] in " \t":
                 if not key:
                     raise ValueError("Debian continuation line without a field")
                 meta[key] += " " + line.strip()
@@ -193,12 +205,9 @@ def installed_status(raw: bytes) -> dict[str, dict[str, str]]:
     """Packages a dpkg status records as installed for amd64 or all, by name."""
     installed: dict[str, dict[str, str]] = {}
     for meta in paragraphs(raw.decode("utf-8", "replace")):
-        want, flag, state = meta.get("Status", "").split()
         if (
-            want not in {"install", "hold"}
-            or flag != "ok"
-            or state != "installed"
-            or meta["Architecture"] not in RUNNER_ARCHITECTURES
+            meta.get("Status") not in RUNNER_INSTALLED
+            or meta.get("Architecture") not in RUNNER_ARCHITECTURES
         ):
             continue
         if meta["Package"] in installed:
@@ -215,8 +224,9 @@ def runner_provided(
     Pre-Depends and Depends are walked from each downloaded package through
     every alternative, by name or Provides, ignoring version constraints, so
     the list over-approximates what the closure can use. A relation that
-    neither a downloaded nor an installed package satisfies fails. dpkg's live
-    database must agree with the copied status for every recorded package.
+    neither a downloaded nor an installed package satisfies fails. Each row
+    records the package's version, architecture and dpkg status, and dpkg's
+    live database must agree with the copied status for every recorded row.
     """
     raw = status.read_bytes()
     if len(raw) > DPKG_STATUS_CAP:
@@ -250,6 +260,7 @@ def runner_provided(
             "package": name,
             "version": installed[name]["Version"],
             "architecture": installed[name]["Architecture"],
+            "status": installed[name]["Status"],
         }
         for name in sorted(provided)
     ]
@@ -264,22 +275,25 @@ def installed_rows(owner: Owner, names: list[str]) -> list[dict[str, str]]:
         [
             "/usr/bin/dpkg-query",
             "-W",
-            "-f=${Package}\t${Version}\t${Architecture}\t${db:Status-Abbrev}\n",
+            "-f=${Package}\t${Version}\t${Architecture}\t${Status}\n",
             *names,
         ],
         seconds=30,
     )
     rows: dict[str, dict[str, str]] = {}
-    for entry in queried.decode("utf-8", "replace").splitlines():
-        package, version, architecture, state = entry.split("\t")
+    for entry in queried.decode("utf-8", "replace").split("\n"):
+        if not entry:
+            continue
+        package, version, architecture, status = entry.split("\t")
         if architecture not in RUNNER_ARCHITECTURES:
             continue
-        if state not in {"ii ", "hi "} or package in rows:
+        if status not in RUNNER_INSTALLED or package in rows:
             raise ValueError("Each runner-provided package must be installed once")
         rows[package] = {
             "package": package,
             "version": version,
             "architecture": architecture,
+            "status": status,
         }
     return [rows[name] for name in sorted(rows)]
 
@@ -389,6 +403,11 @@ def resolve(
         "package_bytes": total,
     }
     if runner_status:
+        # --reinstall downloads a root the runner already has; apt only prints a
+        # notice, which -qq hides, when it cannot, so every root must be here.
+        missing = sorted(set(roots) - set(controls))
+        if missing:
+            raise ValueError("Every root must be downloaded: " + " ".join(missing))
         result["dpkg_status_sha256"] = sha(root / "status", DPKG_STATUS_CAP)
         result["runner_provided_packages"] = runner_provided(
             owner, root / "status", controls

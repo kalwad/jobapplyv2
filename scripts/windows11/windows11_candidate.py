@@ -189,6 +189,10 @@ def tool_pin(root: Path, name: str) -> dict[str, Any]:
 
 
 def stage_host(owner: Owner, closure: Path, lock: dict[str, Any], output: Path) -> None:
+    # ADR-0009 binds the runner-provided packages through this image version.
+    image = os.environ.get(RUNNER_IMAGE_VERSION)
+    if not image:
+        raise ValueError("Named hosted runner image version required")
     extracted = owner.work / "host-extracted"
     extracted.mkdir()
     for row in lock["packages"]:
@@ -211,9 +215,13 @@ def stage_host(owner: Owner, closure: Path, lock: dict[str, Any], output: Path) 
         {
             "schema": "japp-win11-host-tools-v2",
             "review_state": "UNREVIEWED",
-            "runner_image_version": os.environ.get(RUNNER_IMAGE_VERSION),
+            "runner_image_version": image,
             "tools": tools,
             "packages": lock["packages"],
+            # ADR-0009: resolved against the runner's dpkg status, retained
+            # beside the inputs as runner-dpkg-status.
+            "empty_status_resolution": lock["empty_status_resolution"],
+            "runner_dpkg_status_sha256": lock["dpkg_status_sha256"],
             "runner_provided_packages": lock["runner_provided_packages"],
             "signed_index_chain": lock["signed_index_chain"],
         },
@@ -320,6 +328,9 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one custody/endpoint bracket
         # ADR-0009: what the pinned runner image already provides is recorded
         # by version and re-checked by the campaign instead of downloaded.
         lock = resolve(owner, work / "apt", host, HOST_ROOTS, runner_status=True)
+        shutil.copyfile(work / "apt" / "status", args.output / "runner-dpkg-status")
+        if digest(args.output / "runner-dpkg-status") != lock["dpkg_status_sha256"]:
+            raise ValueError("Retained runner dpkg status differs from the resolution")
         simulate_host_install(owner, host, lock["packages"])
         stage_host(owner, host, lock, inputs)
         shutil.copytree(args.artifact, inputs / "original-native-artifact")
