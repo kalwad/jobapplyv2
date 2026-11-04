@@ -161,12 +161,16 @@ def paragraphs(text: str) -> list[dict[str, str]]:
                 continue
             if line[0] in " \t":
                 if not key:
-                    raise ValueError("Debian continuation line without a field")
+                    raise ValueError(
+                        "Debian continuation line without a field: " + repr(line[:80])
+                    )
                 meta[key] += " " + line.strip()
                 continue
             key, colon, value = line.partition(":")
             if not colon or key in meta:
-                raise ValueError("Malformed Debian control paragraph")
+                raise ValueError(
+                    "Malformed Debian control paragraph: " + repr(line[:80])
+                )
             meta[key] = value.strip()
         if meta:
             result.append(meta)
@@ -211,7 +215,7 @@ def installed_status(raw: bytes) -> dict[str, dict[str, str]]:
         ):
             continue
         if meta["Package"] in installed:
-            raise ValueError("Duplicate installed runner package")
+            raise ValueError("Duplicate installed runner package: " + meta["Package"])
         installed[meta["Package"]] = meta
     return installed
 
@@ -264,8 +268,14 @@ def runner_provided(
         }
         for name in sorted(provided)
     ]
-    if rows and installed_rows(owner, sorted(provided)) != rows:
-        raise ValueError("Runner dpkg database differs from its copied status")
+    live = installed_rows(owner, sorted(provided)) if rows else []
+    if live != rows:
+        changed = {row["package"] for row in live if row not in rows}
+        changed |= {row["package"] for row in rows if row not in live}
+        raise ValueError(
+            "Runner dpkg database differs from its copied status: "
+            + " ".join(sorted(changed)[:10])
+        )
     return rows
 
 
@@ -288,7 +298,9 @@ def installed_rows(owner: Owner, names: list[str]) -> list[dict[str, str]]:
         if architecture not in RUNNER_ARCHITECTURES:
             continue
         if status not in RUNNER_INSTALLED or package in rows:
-            raise ValueError("Each runner-provided package must be installed once")
+            raise ValueError(
+                "Each runner-provided package must be installed once: " + package
+            )
         rows[package] = {
             "package": package,
             "version": version,

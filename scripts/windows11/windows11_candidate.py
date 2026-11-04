@@ -327,8 +327,15 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one custody/endpoint bracket
         host = work / "host-candidate"
         # ADR-0009: what the pinned runner image already provides is recorded
         # by version and re-checked by the campaign instead of downloaded.
-        lock = resolve(owner, work / "apt", host, HOST_ROOTS, runner_status=True)
-        shutil.copyfile(work / "apt" / "status", args.output / "runner-dpkg-status")
+        try:
+            lock = resolve(owner, work / "apt", host, HOST_ROOTS, runner_status=True)
+        finally:
+            # Retained even when resolution refuses, so a refusal can be traced
+            # to the runner package that caused it.
+            if (work / "apt" / "status").is_file():
+                shutil.copyfile(
+                    work / "apt" / "status", args.output / "runner-dpkg-status"
+                )
         if digest(args.output / "runner-dpkg-status") != lock["dpkg_status_sha256"]:
             raise ValueError("Retained runner dpkg status differs from the resolution")
         simulate_host_install(owner, host, lock["packages"])
