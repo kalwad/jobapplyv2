@@ -58,6 +58,17 @@ Current scoped correction supersedes the pending source/focus statements: all te
 
 The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
 
+### KI-0188 — macOS e2e-browser extension-driver test missed its 15 s content-ready wait on a slow hosted run
+
+- Severity: MEDIUM
+- State: OPEN
+- Discovered: hosted CI 48e0eca/run41759387660 attempt 1, macOS verify, 2026-11-04UTC.
+- Affects: the e2e-browser suite (e2e/extension/extension-drivers.spec.ts, `openHarness`); the exact-SHA hosted gate.
+- Description: one test failed: "UNDO2 and frame/document authority: restoration re-resolves, consumes stale attempts, and page world cannot forge controller authority" (extension-drivers.spec.ts:1281). Its harness page never received the extension's content-ready attribute within `READY_TIMEOUT_MS` (15 s): the `html` element's attribute stayed unset through 33 checks. The other 277 tests passed, but the suite took 29.7 minutes, against 17.0 minutes on the same SHA in attempt 2 (all 278 passed) and 13.2 to 13.4 minutes on Windows (all 278 passed). Whether the runner's slowness alone explains it, or the content script has a real readiness gap, is not known.
+- Reproduction: the attempt 1 macOS job log of run 41759387660 (job 126343179979), with its retained Playwright screenshot, trace and error context named in the log.
+- Workaround: none. Labelling the test flaky or raising its timeout without a cause would weaken it.
+- Resolution + evidence link: open. Investigate the content script's readiness signal under a slow runner (for example with the retained trace, or by reproducing under CPU throttling) before any change.
+
 ### KI-0187 — Windows 11 guest's ready capture was refused the foreground for an unrecorded reason
 
 - Severity: MEDIUM
@@ -270,13 +281,13 @@ The reviewed guest/COM/parser composition now passes441canonical Python tests/27
 ### KI-0172 — Hosted Windows verify job runs within minutes of its 60-minute limit
 
 - Severity: MEDIUM
-- State: OPEN
+- State: IN_PROGRESS
 - Discovered: hosted CI a03aadf/run41384168159 attempt 1, 2026-11-02UTC.
 - Affects: CI `doctor + verify (windows-2025)` in .github/workflows/ci.yml (`timeout-minutes: 60`, pinned at or below 60 by scripts/tests/test_ci_workflow.py::test_job_has_timeout_and_no_global_shell_default); the exact-SHA hosted gate for every package.
-- Description: the Windows verify job took 57m19s (fff3408), 58m59s and 58m48s (10f247b attempts 1 and 2), then 60m13s at a03aadf and 60m38s at 2100780 (attempt 1). Those two runs were cancelled by the job limit during the desktop Rust tests, after every earlier suite had passed; no test failed. The Python suite alone takes about 21.5 minutes on Windows (3166 tests) and e2e-browser about 13 minutes. Each new test brings the job closer to the limit, so exact-SHA results now depend on runner speed.
+- Description: the Windows verify job took 57m19s (fff3408), 58m59s and 58m48s (10f247b attempts 1 and 2), then 60m13s at a03aadf and 60m38s at 2100780 (attempt 1). Those two runs were cancelled by the job limit during the desktop Rust tests, after every earlier suite had passed; no test failed. The Python suite alone takes about 21.5 minutes on Windows (3166 tests) and e2e-browser about 13 minutes. Each new test brings the job closer to the limit, so exact-SHA results now depend on runner speed. At 48e0eca (run 41759387660), both attempts were cancelled at the limit on Windows and, for the first time, on macOS. On Windows every completed suite passed in both attempts; its Python suite took 1754.65 s and 1774.18 s (3189 tests). On macOS, attempt 1's e2e-browser suite took 29.7 minutes with one failing test (KI-0188). In attempt 2 it passed (278 tests in 17.0 minutes), and Python gave 3191 passed in 1505.81 s. That commit grew docs/ from 2,844 to 3,950 files with retained rehearsal evidence. The status, traceability and doctor test fixtures copy the whole docs/ tree for each test, which is the likely main cause of the increase.
 - Reproduction: the four runs above; job start and finish times come from the GitHub API.
 - Workaround: rerun the cancelled job on the same SHA. a03aadf attempt 2 passed in 39m31s and 2100780 attempt 2 in 52m29s, which shows the variance comes largely from runner speed.
-- Resolution + evidence link: open. A focused change should restore headroom, either by reducing Windows verify time or by revisiting the 60-minute job policy with the timing evidence. A policy change also changes the pinned test, so it needs its own reviewed decision.
+- Resolution + evidence link: in progress. The fixtures now copy docs/ without docs/evidence/m03-native-runtime-diagnostics (1,418 retained scratch-branch files, 24 MB). No validator input cites it. Only the whole-docs canonical-specification scan reads it, and the real-repository tests (test_migrated_repository_passes, test_real_repository_has_exact_inventories_and_clean_generated_view and test_real_environment_doctor_succeeds) still run that scan over the full tree. Most of docs/'s 689 MB is compressed evidence archives that validator inputs cite, so those stay in each copy. Locally (macOS), scripts/tests/test_validate_status.py went from 269.7 s to 199.3 s, with all 239 tests passing both ways. Hosted timings at the next commit will show whether this restores enough headroom. The 60-minute policy is unchanged; changing it changes the pinned test and needs its own reviewed decision.
 
 ### KI-0171 — Windows 11 Setup stops at "Select location to install Windows 11" in the reviewed campaign
 

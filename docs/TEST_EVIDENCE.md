@@ -12680,3 +12680,23 @@ Commands (macOS arm64; PATH with node@24 and rustup; PYTHONDONTWRITEBYTECODE=1):
 The protected guest sources and the desktop service changed, so the package must be rebuilt by exact-SHA hosted CI, and a new Windows 11 candidate, review and campaign are required.
 
 Next READY package: NONE while M03-W07 is IN_PROGRESS.
+
+## M03-W07 — 48e0eca hosted CI cancelled by the job limit; fixture docs copy narrowed (KI-0172, 2026-11-04UTC)
+
+Hosted 48e0eca/run41759387660 (pull_request):
+- Ubuntu verify passed in 43m52s.
+- In both attempts, the job limit cancelled the macOS and Windows verify jobs before they finished. The native package jobs were skipped, so no package was built (KI-0172).
+- Windows: every completed suite passed in both attempts. Python gave `3189 passed in 1754.65s`, then `3189 passed in 1774.18s`; e2e-browser gave `278 passed` both times.
+- macOS attempt 1: e2e-browser had one failing test among 277 passing, and took 29.7 minutes (KI-0188).
+- macOS attempt 2: e2e-browser gave `278 passed (17.0m)` and Python `3191 passed in 1505.81s`. One `cargo test` invocation of the Rust suite gave `355 passed` before the cancellation.
+
+Correction (uncommitted at the time of these commands): scripts/tests/conftest.py `copy_docs` copies docs/ without docs/evidence/m03-native-runtime-diagnostics, which no validator input cites. Only the whole-docs canonical-specification scan reads it, and the real-repository tests still scan the full tree. The status, traceability and doctor fixtures use it.
+
+Review: separate-context workflow wf_f730ce45-37a (seven agents, launched by the implementing session) found that the first wording falsely said no validator reads the excluded tree. It also found that this entry and KI-0172 falsely said no test failed. Both are corrected, as are its two non-blocking findings. It found no test that now passes when it should fail: the planted-spec fixture tests plant at docs/ top level, and the real-repository tests still scan the full tree.
+
+Commands (macOS arm64; PATH with node@24 and rustup; PYTHONDONTWRITEBYTECODE=1):
+- `.venv/bin/python -I -B -m pytest -q -p no:cacheprovider scripts/tests/test_validate_status.py scripts/tests/test_traceability.py scripts/tests/test_doctor.py`: `352 passed in 279.71s`.
+- scripts/tests/test_validate_status.py with the full docs copy, then with the narrowed copy: `239 passed in 269.71s`, then `239 passed in 199.34s`.
+- `uv run ruff check --config pyproject.toml scripts/tests` and `uv run ruff format --check scripts/tests` pass. `uv run mypy --config-file pyproject.toml scripts/tests/conftest.py` passes.
+
+Next READY package: NONE while M03-W07 is IN_PROGRESS.

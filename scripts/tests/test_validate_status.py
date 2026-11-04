@@ -25,7 +25,7 @@ from pathlib import Path
 
 import pytest
 import validate_status
-from conftest import REPO_ROOT
+from conftest import REPO_ROOT, copy_docs
 
 VALIDATOR = REPO_ROOT / "scripts" / "validate_status.py"
 GATES = (
@@ -125,7 +125,7 @@ def repo_copy(tmp_path: Path) -> Iterator[Path]:
     repo.mkdir()
     try:
         shutil.copy2(REPO_ROOT / "CLAUDE.md", repo / "CLAUDE.md")
-        shutil.copytree(REPO_ROOT / "docs", repo / "docs")
+        copy_docs(repo / "docs")
         platform_schemas = repo / "packages" / "contracts" / "schemas" / "platform"
         platform_schemas.mkdir(parents=True)
         for name in ("evidence-record", "certification-input"):

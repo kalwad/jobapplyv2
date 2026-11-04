@@ -21,7 +21,7 @@ from pathlib import Path
 import doctor
 import portability
 import pytest
-from conftest import REPO_ROOT
+from conftest import REPO_ROOT, copy_docs
 
 DOCTOR = REPO_ROOT / "scripts" / "doctor.py"
 
@@ -112,7 +112,7 @@ def doctor_repo(tmp_path: Path) -> Iterator[Path]:
     repo = tmp_path / "repo"
     (repo / "scripts").mkdir(parents=True)
     try:
-        shutil.copytree(REPO_ROOT / "docs", repo / "docs")
+        copy_docs(repo / "docs")
         for rel in (
             "CLAUDE.md",
             "package.json",

@@ -18,7 +18,7 @@ from typing import cast
 
 import pytest
 import traceability
-from conftest import REPO_ROOT
+from conftest import REPO_ROOT, copy_docs
 from test_validate_status import set_fixture_gate_state
 
 FAKE_TREE = "tree " + "0" * 40
@@ -29,7 +29,7 @@ def trace_repo(tmp_path: Path) -> Iterator[Path]:
     repo = tmp_path / "repo"
     repo.mkdir()
     try:
-        shutil.copytree(REPO_ROOT / "docs", repo / "docs")
+        copy_docs(repo / "docs")
         (repo / "scripts" / "tests").mkdir(parents=True)
         shutil.copy2(
             REPO_ROOT / "scripts" / "validate_status.py",
