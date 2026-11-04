@@ -12700,3 +12700,17 @@ Commands (macOS arm64; PATH with node@24 and rustup; PYTHONDONTWRITEBYTECODE=1):
 - `uv run ruff check --config pyproject.toml scripts/tests` and `uv run ruff format --check scripts/tests` pass. `uv run mypy --config-file pyproject.toml scripts/tests/conftest.py` passes.
 
 Next READY package: NONE while M03-W07 is IN_PROGRESS.
+
+## M03-W07 — 2bf7a4d hosted CI green; its Windows 11 candidate prepare refuses its host tools (KI-0189, 2026-11-04UTC)
+
+Hosted 2bf7a4d/run41886247050 (pull_request, package merge 392273d7…):
+- Attempt 1: Ubuntu verify passed. The job limit cancelled Windows verify about 3 to 5 minutes short of the end, after its Python suite (`3189 passed in 1449.80s`) and its Rust tests had passed. No hosted macOS runner was acquired.
+- Attempt 2 (failed jobs rerun on the same SHA) is terminal SUCCESS: Windows verify passed in 54m12s, macOS in 57m36s, and both native package jobs passed. The Windows package artifact is 13360153843 (ZIP `07edbd23…`, manifest `5fd55126…`); the local download equals the API digest.
+
+Download-only request `7a0ee8c` bound S 2bf7a4d and run 41886247050 attempt 2. `scripts/tests/test_windows11_request.py` and `test_windows11_request_live_head.py` gave `77 passed`. Prepare run 41907004859:
+- authorize and guest-source-checks passed; the source-check artifact is 13360692120.
+- download-only failed closed with CANDIDATE_FAILED, `install_vm_product_actors: 0` and `vm_started: false`. The ISO downloaded and matched `bc3f2408…`.
+- The simulated host install would have upgraded libpcre2-8-0 (to 10.42-4ubuntu2.2) and libsqlite3-0 (to 3.45.1-1ubuntu2.9), and removed four runner packages. The runner image was 20261025.353.1. See KI-0189 and the proposed ADR-0009.
+- No candidate exists, so nothing was reviewed or released.
+
+Next READY package: NONE while M03-W07 is IN_PROGRESS.

@@ -58,6 +58,17 @@ Current scoped correction supersedes the pending source/focus statements: all te
 
 The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
 
+### KI-0189 — Native campaign prepare refuses its host tools while Ubuntu's archive is ahead of the hosted runner image
+
+- Severity: MEDIUM
+- State: OPEN
+- Discovered: Windows 11 download-only prepare run 41907004859 (request 7a0ee8c for source 2bf7a4d), 2026-11-04UTC.
+- Affects: M03-W07 Windows 11 and M03-W08 GNOME candidate preparation (scripts/linux_gnome/ubuntu_gnome_prepare.py, ubuntu_gnome_host.closed_install_plan).
+- Description: the prepare passed authorization and the hosted Windows PowerShell 5.1 source checks. It downloaded the pinned ISO, which matched its locked digest, and then failed closed with CANDIDATE_FAILED and no VM started: "Simulated host install would replace or remove runner packages". The host-tool lock resolved libpcre2-8-0 10.42-4ubuntu2.2 and libsqlite3-0 3.45.1-1ubuntu2.9, which Ubuntu published on 2026-11-03 and 2026-11-04. The runner (image 20261025.353.1) carries 10.42-4ubuntu2.1 and 3.45.1-1ubuntu2.8, so the install would upgrade both and remove php8.3-dev, libpcre2-dev, libsqlite3-dev and sqlite3. The 2100780 candidate (image 20261026.354.1, 2026-11-03) locked the older versions and passed. The refusal is the reviewed design working as intended: the lock is resolved against an empty dpkg status, and a plan that replaces or removes runner packages is refused.
+- Reproduction: the retained candidate of run 41907004859 (closure.json and the apt command records).
+- Workaround: wait for an ubuntu-24.04 runner image that carries both updates, then request a fresh candidate. Image 20261101.360, now rolling out, was built before both updates.
+- Resolution + evidence link: open. ADR-0009 (PROPOSED) asks the owner whether to resolve the closure against the runner's installed packages instead.
+
 ### KI-0188 — macOS e2e-browser extension-driver test missed its 15 s content-ready wait on a slow hosted run
 
 - Severity: MEDIUM

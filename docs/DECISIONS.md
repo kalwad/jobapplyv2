@@ -459,6 +459,26 @@ Canonical registry of (a) owner decisions that override earlier plans and
 - Rollback: the owner may revoke the delegation. Future acceptance then follows the updated instruction; prior delegated records retain their exact authority and evidence history.
 
 
+### ADR-0009 — Resolve the native campaign host-tool closure against the hosted runner's installed packages
+
+- Status: PROPOSED
+- Date proposed / date decided: 2026-11-04 / pending
+- Observed constraint (with evidence): the download-only prepare resolves the host-tool closure (QEMU, OVMF, swtpm and their dependencies) against an empty dpkg status, so every dependency is locked at the newest version in noble, noble-updates and noble-security. It then simulates the install against the runner's actual dpkg status and refuses any plan that would replace or remove a runner package (scripts/linux_gnome/ubuntu_gnome_prepare.py, ubuntu_gnome_host.closed_install_plan). Ubuntu published pcre2 10.42-4ubuntu2.2 (noble-security, 2026-11-03) and sqlite3 3.45.1-1ubuntu2.9 (noble-updates, 2026-11-04). The prepare's runner (image 20261025.353.1) carries 10.42-4ubuntu2.1 and 3.45.1-1ubuntu2.8. Image 20261101.360, which is rolling out, was built before both updates, so it is expected to carry the older versions too. The Windows 11 prepare run 41907004859 for 2bf7a4d therefore failed closed: its simulated install would upgrade libpcre2-8-0 and libsqlite3-0 and remove php8.3-dev, libpcre2-dev, libsqlite3-dev and sqlite3 (KI-0189). Every candidate fails this way until GitHub ships a runner image that carries both updates.
+- Alternatives considered:
+  - (A) No change: wait for an ubuntu-24.04 image that carries both updates (likely the image built after 2026-11-04, plus its rollout), then request a fresh candidate. No trust-boundary change; the delay is outside the project's control, and the next archive update can repeat it.
+  - (B) This proposal: resolve the closure against the runner's actual dpkg status. A package the pinned runner image already carries at a version that satisfies every dependent is used as installed and not downloaded. The lock records it by name, version and dpkg status, and the campaign re-checks those values before any install. Everything still downloaded keeps the signed index chain and exact hashes.
+  - (C) Pin the archive to a dated snapshot (snapshot.ubuntu.com) matching the runner image. The versions would be reproducible, but it adds a new archive origin, signing path and review surface.
+- Tradeoffs: (B) ends the dependency on the archive and the runner image moving in step, and it keeps the existing refusal of any plan that replaces or removes a runner package. But the VM execution path would then load some libraries that come from the runner image rather than from a hashed deb in the lock. They are bound only through the reviewed runner image version and the recorded dpkg versions.
+- Security/privacy impact: (B) narrows what the lock hashes, from every dependency to the packages the image lacks. The trust anchor for the rest becomes the GitHub-hosted runner image, which the campaign already trusts for its kernel, KVM, Python, apt and dpkg, and whose exact version the lock already pins. No product data, credential or network boundary changes.
+- Data-migration impact: none. The lock schema gains a list of runner-provided packages, and empty_status_resolution becomes false. Earlier candidates and their reviews stay valid history.
+- Benchmark and gate impact: none. No product behaviour, threshold, corpus or gate criterion changes. It changes only whether a reviewed candidate can be prepared.
+- Test impact: new tests for the runner-status resolution, the recorded runner-provided packages, and the campaign-time re-check, refusing a runner whose installed version differs. The existing refusal tests stay.
+- Rollback plan: revert to empty-status resolution. Candidates prepared under (B) are not reused afterwards.
+- Proposed decision: (B), unless the owner prefers (A).
+- Spec sections, requirements, milestones, schemas, gates, and compatibility promises affected: M03-W07 and M03-W08 native campaign preparation (the host-tool lock and its review); no specification text, requirement mapping or compatibility promise.
+- Owner approval: pending.
+
+
 ## ADR template
 
 ```markdown
