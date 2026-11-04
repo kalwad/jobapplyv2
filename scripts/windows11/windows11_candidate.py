@@ -209,11 +209,12 @@ def stage_host(owner: Owner, closure: Path, lock: dict[str, Any], output: Path) 
     write(
         output / "host-tools-lock.json",
         {
-            "schema": "japp-win11-host-tools-v1",
+            "schema": "japp-win11-host-tools-v2",
             "review_state": "UNREVIEWED",
             "runner_image_version": os.environ.get(RUNNER_IMAGE_VERSION),
             "tools": tools,
             "packages": lock["packages"],
+            "runner_provided_packages": lock["runner_provided_packages"],
             "signed_index_chain": lock["signed_index_chain"],
         },
     )
@@ -316,7 +317,9 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one custody/endpoint bracket
             },
         )
         host = work / "host-candidate"
-        lock = resolve(owner, work / "apt", host, HOST_ROOTS)
+        # ADR-0009: what the pinned runner image already provides is recorded
+        # by version and re-checked by the campaign instead of downloaded.
+        lock = resolve(owner, work / "apt", host, HOST_ROOTS, runner_status=True)
         simulate_host_install(owner, host, lock["packages"])
         stage_host(owner, host, lock, inputs)
         shutil.copytree(args.artifact, inputs / "original-native-artifact")

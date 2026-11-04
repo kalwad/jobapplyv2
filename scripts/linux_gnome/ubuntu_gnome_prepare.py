@@ -1,8 +1,12 @@
 """Candidate-only authenticated apt download preparation; no install/VM/product.
 
-Run only in a disposable hosted Noble job after source review. Uses an empty
-private dpkg status and private apt configuration so the candidate closure does
-not silently depend on packages preinstalled on the build runner. Output stays
+Run only in a disposable hosted Noble job after source review. Uses a private
+apt configuration and, by default, an empty private dpkg status so the candidate
+closure does not silently depend on packages preinstalled on the build runner.
+A host-tool closure may instead resolve against a copy of the runner's dpkg
+status (ADR-0009): it then downloads only what the pinned runner image lacks,
+and records by name and version every installed runner package that the
+downloaded closure depends on, for the campaign to re-check. Output stays
 UNREVIEWED until a different review chooses its exact manifest SHA256.
 """
 
@@ -12,6 +16,7 @@ import argparse
 import getpass
 import json
 import os
+import re
 import shutil
 import tempfile
 from pathlib import Path
@@ -59,6 +64,13 @@ HOST_ROOTS = (
     "ubuntu-cloudimage-keyring",
 )
 TOTAL_ARCHIVE_CAP = 6 * 1024**3
+DPKG_STATUS = Path("/var/lib/dpkg/status")
+DPKG_STATUS_CAP = 64 * 1024**2
+# One alternative of a binary package relation: name, optional architecture
+# qualifier, optional version constraint. Binary control fields carry no
+# architecture or build-profile restriction lists.
+RELATION = re.compile(r"([a-z0-9][a-z0-9+.-]+)(?::[a-z0-9-]+)?(?:\s*\([^()]*\))?")
+RUNNER_ARCHITECTURES = frozenset({"amd64", "all"})
 
 
 def apt_config(root: Path) -> Path:
@@ -128,10 +140,163 @@ def fields(raw: bytes) -> dict[str, str]:
     return result
 
 
+def paragraphs(text: str) -> list[dict[str, str]]:
+    """Debian control paragraphs with folded continuation lines joined."""
+    result = []
+    for block in text.split("\n\n"):
+        meta: dict[str, str] = {}
+        key = ""
+        for line in block.splitlines():
+            if line[:1].isspace():
+                if not key:
+                    raise ValueError("Debian continuation line without a field")
+                meta[key] += " " + line.strip()
+                continue
+            key, colon, value = line.partition(":")
+            if not colon or key in meta:
+                raise ValueError("Malformed Debian control paragraph")
+            meta[key] = value.strip()
+        if meta:
+            result.append(meta)
+    return result
+
+
+def relation_groups(value: str) -> list[list[str]]:
+    """A Depends-style field as alternative groups of package names."""
+    groups = []
+    for group in value.split(","):
+        names = []
+        for alternative in group.split("|"):
+            match = RELATION.fullmatch(alternative.strip())
+            if match is None:
+                raise ValueError("Unexpected Debian relation: " + alternative.strip())
+            names.append(match[1])
+        groups.append(names)
+    return groups
+
+
+def providers(table: dict[str, dict[str, str]]) -> dict[str, list[str]]:
+    """Each name a package of this table satisfies, by itself or by Provides."""
+    result: dict[str, list[str]] = {}
+    for package, meta in table.items():
+        names = [package]
+        if meta.get("Provides"):
+            names += [
+                name for group in relation_groups(meta["Provides"]) for name in group
+            ]
+        for name in names:
+            result.setdefault(name, []).append(package)
+    return result
+
+
+def installed_status(raw: bytes) -> dict[str, dict[str, str]]:
+    """Packages a dpkg status records as installed for amd64 or all, by name."""
+    installed: dict[str, dict[str, str]] = {}
+    for meta in paragraphs(raw.decode("utf-8", "replace")):
+        want, flag, state = meta.get("Status", "").split()
+        if (
+            want not in {"install", "hold"}
+            or flag != "ok"
+            or state != "installed"
+            or meta["Architecture"] not in RUNNER_ARCHITECTURES
+        ):
+            continue
+        if meta["Package"] in installed:
+            raise ValueError("Duplicate installed runner package")
+        installed[meta["Package"]] = meta
+    return installed
+
+
+def runner_provided(
+    owner: Owner, status: Path, controls: dict[str, dict[str, str]]
+) -> list[dict[str, str]]:
+    """Every installed runner package the downloaded closure depends on.
+
+    Pre-Depends and Depends are walked from each downloaded package through
+    every alternative, by name or Provides, ignoring version constraints, so
+    the list over-approximates what the closure can use. A relation that
+    neither a downloaded nor an installed package satisfies fails. dpkg's live
+    database must agree with the copied status for every recorded package.
+    """
+    raw = status.read_bytes()
+    if len(raw) > DPKG_STATUS_CAP:
+        raise ValueError("Bounded runner dpkg status required")
+    installed = installed_status(raw)
+    downloaded = providers(controls)
+    runner = providers(installed)
+    provided: set[str] = set()
+    pending = list(controls.values())
+    while pending:
+        meta = pending.pop()
+        for field in ("Pre-Depends", "Depends"):
+            for group in relation_groups(meta[field]) if meta.get(field) else []:
+                satisfied = any(name in downloaded for name in group)
+                for package in (
+                    found for name in group for found in runner.get(name, [])
+                ):
+                    satisfied = True
+                    if package not in provided and package not in controls:
+                        provided.add(package)
+                        pending.append(installed[package])
+                if not satisfied:
+                    raise ValueError(
+                        "Host closure relation satisfied by neither the lock nor"
+                        " the runner: " + " | ".join(group)
+                    )
+    if len(provided) > LOCK_PACKAGE_CAP:
+        raise ValueError("Runner-provided closure exceeds finite cap")
+    rows = [
+        {
+            "package": name,
+            "version": installed[name]["Version"],
+            "architecture": installed[name]["Architecture"],
+        }
+        for name in sorted(provided)
+    ]
+    if rows and installed_rows(owner, sorted(provided)) != rows:
+        raise ValueError("Runner dpkg database differs from its copied status")
+    return rows
+
+
+def installed_rows(owner: Owner, names: list[str]) -> list[dict[str, str]]:
+    """dpkg's live amd64/all installed rows for exactly these package names."""
+    queried = owner.command(
+        [
+            "/usr/bin/dpkg-query",
+            "-W",
+            "-f=${Package}\t${Version}\t${Architecture}\t${db:Status-Abbrev}\n",
+            *names,
+        ],
+        seconds=30,
+    )
+    rows: dict[str, dict[str, str]] = {}
+    for entry in queried.decode("utf-8", "replace").splitlines():
+        package, version, architecture, state = entry.split("\t")
+        if architecture not in RUNNER_ARCHITECTURES:
+            continue
+        if state not in {"ii ", "hi "} or package in rows:
+            raise ValueError("Each runner-provided package must be installed once")
+        rows[package] = {
+            "package": package,
+            "version": version,
+            "architecture": architecture,
+        }
+    return [rows[name] for name in sorted(rows)]
+
+
 def resolve(
-    owner: Owner, root: Path, destination: Path, roots: tuple[str, ...]
+    owner: Owner,
+    root: Path,
+    destination: Path,
+    roots: tuple[str, ...],
+    *,
+    runner_status: bool = False,
 ) -> dict[str, Any]:
     config = apt_config(root)
+    if runner_status:
+        # A bounded regular file, copied: apt never writes the runner's own status.
+        sha(DPKG_STATUS, DPKG_STATUS_CAP)
+        shutil.copyfile(DPKG_STATUS, root / "status")
     # APT_CONFIG is read before the default configuration fragments; -c alone
     # would load host hooks before these private directory overrides.
     environment = ["/usr/bin/env", "APT_CONFIG=" + str(config)]
@@ -156,6 +321,7 @@ def resolve(
     debs = destination / "debs"
     debs.mkdir()
     rows = []
+    controls: dict[str, dict[str, str]] = {}
     total = 0
     for archive in archives:
         raw = owner.command(["/usr/bin/dpkg-deb", "-f", str(archive)], seconds=5)
@@ -197,6 +363,7 @@ def resolve(
         if total > TOTAL_ARCHIVE_CAP:
             raise ValueError("Candidate closure exceeds finite byte cap")
         shutil.copyfile(archive, debs / archive.name)
+        (controls[package],) = paragraphs(raw.decode())
         rows.append(
             {
                 "filename": archive.name,
@@ -218,9 +385,14 @@ def resolve(
         "signed_index_chain": chain,
         "packages": rows,
         "roots": list(roots),
-        "empty_status_resolution": True,
+        "empty_status_resolution": not runner_status,
         "package_bytes": total,
     }
+    if runner_status:
+        result["dpkg_status_sha256"] = sha(root / "status", DPKG_STATUS_CAP)
+        result["runner_provided_packages"] = runner_provided(
+            owner, root / "status", controls
+        )
     write(destination / "lock.json", result)
     return result
 
