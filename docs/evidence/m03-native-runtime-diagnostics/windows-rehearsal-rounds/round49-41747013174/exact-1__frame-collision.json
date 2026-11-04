@@ -1,0 +1,8 @@
+{
+  "file": "win11-collision.ppm",
+  "width": 1280,
+  "height": 800,
+  "sha256": "2305c708e8df09ba860605dfae610e2750d9aba2c80e4f46916fb7a8a911acd8",
+  "nonblank": true,
+  "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+}

@@ -129,6 +129,7 @@ fn fixture() -> (
         FakeClock::default(),
         Policy {
             startup_timeout: Duration::from_millis(50),
+            initial_startup_timeout: Duration::from_millis(50),
             shutdown_timeout: Duration::from_millis(30),
             poll_interval: Duration::from_millis(10),
             bind_attempts: 1,
@@ -328,6 +329,7 @@ fn service_phase_waits_clip_to_same_absolute_quit_deadline() {
         FakeClock::default(),
         Policy {
             startup_timeout: Duration::from_millis(50),
+            initial_startup_timeout: Duration::from_millis(50),
             shutdown_timeout: Duration::from_millis(30),
             poll_interval: Duration::from_millis(10),
             bind_attempts: 1,
@@ -359,6 +361,7 @@ fn actual_supervisor_termination_uses_typed_owned_intents_in_order() {
         FakeClock::default(),
         Policy {
             startup_timeout: Duration::from_millis(50),
+            initial_startup_timeout: Duration::from_millis(50),
             shutdown_timeout: Duration::from_millis(30),
             poll_interval: Duration::from_millis(10),
             bind_attempts: 1,

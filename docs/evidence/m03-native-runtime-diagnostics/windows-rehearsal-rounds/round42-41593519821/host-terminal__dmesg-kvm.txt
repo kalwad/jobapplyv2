@@ -1,0 +1,10 @@
+[    0.000000] clocksource: hyperv_clocksource_msr: mask: 0xffffffffffffffff max_cycles: 0x24e6a1710, max_idle_ns: 440795202120 ns
+[    2.856746] kvm_intel: Using Hyper-V Enlightened VMCS
+[ 1591.682334] nbd0: detected capacity change from 0 to 167772160
+[ 1591.683545]  nbd0: p1 p2 p3 p4
+[ 1594.746896]  nbd0: p1 p2 p3 p4
+[ 1596.822592] ntfs3: Enabled Linux POSIX ACLs support
+[ 1596.822602] ntfs3: Read-only LZX/Xpress compression included
+[ 1596.890429] block nbd0: NBD_DISCONNECT
+[ 1596.890451] block nbd0: Disconnected due to user request.
+[ 1596.890470] block nbd0: shutting down sockets

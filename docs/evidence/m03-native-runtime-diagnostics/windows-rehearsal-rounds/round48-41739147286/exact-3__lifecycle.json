@@ -1,0 +1,1051 @@
+{
+  "receipts": [
+    {
+      "phase": "environment",
+      "status": "PASS",
+      "nonce": "d026f58212f220b9d78daa8ff6d8784a1f17761a44a75be74437e0235f1a6dc5",
+      "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+      "elapsed_ms": 27558,
+      "attestation": {
+        "schema": "japp-win11-native-environment-v1",
+        "nonce": "d026f58212f220b9d78daa8ff6d8784a1f17761a44a75be74437e0235f1a6dc5",
+        "caption": "Microsoft Windows 11 Enterprise Evaluation",
+        "product_type": 1,
+        "architecture": "X64",
+        "build": 26300,
+        "ubr": 9457,
+        "secure_boot": true,
+        "tpm_present": true,
+        "tpm_ready": true,
+        "tpm_spec": "2.0, 0, 1.64",
+        "vcpus": 2,
+        "ram_bytes": 6421921792,
+        "disk_bytes": 84671459328,
+        "cpu_name": "AMD EPYC 9V74 80-Core Processor                ",
+        "cpu_architecture": "X64",
+        "cpu_max_mhz": 2596,
+        "directx_version": "DirectX 12",
+        "driver_model": "WDDM 1.3",
+        "ddi_version": "12",
+        "directx_major": 12,
+        "wddm_major": 1,
+        "display_width": 1280,
+        "display_height": 800,
+        "interactive": true,
+        "elevated": false,
+        "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2"
+      }
+    },
+    {
+      "phase": "ready",
+      "status": "PASS",
+      "nonce": "d026f58212f220b9d78daa8ff6d8784a1f17761a44a75be74437e0235f1a6dc5",
+      "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+      "elapsed_ms": 45353,
+      "api_version": "1.0.0",
+      "pid": 4156,
+      "unicode_spaces_path": true,
+      "service": {
+        "port": 49673,
+        "pid": 5040,
+        "creation_time": 134382515924198786
+      },
+      "version": "0.0.1"
+    },
+    {
+      "phase": "unauthorized12",
+      "status": "PASS",
+      "nonce": "d026f58212f220b9d78daa8ff6d8784a1f17761a44a75be74437e0235f1a6dc5",
+      "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+      "elapsed_ms": 46014,
+      "statuses": [
+        401,
+        401,
+        401,
+        401,
+        401,
+        401,
+        401,
+        401,
+        401,
+        401,
+        401,
+        401
+      ]
+    },
+    {
+      "phase": "keyboard",
+      "status": "PASS",
+      "nonce": "d026f58212f220b9d78daa8ff6d8784a1f17761a44a75be74437e0235f1a6dc5",
+      "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+      "elapsed_ms": 84053,
+      "checked_after": "2026-11-04T07:40:03.8752854Z",
+      "native_shell": {
+        "routes": [
+          {
+            "heading_unique": true,
+            "scale": "baseline",
+            "window_id": "131526",
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "heading_focused": true,
+            "skip_main": true,
+            "image_width": 1136,
+            "tab_shift_tab": true,
+            "checked_before": null,
+            "checked_after": null,
+            "image_sha256": "f825c06432e8694c6d35064ba32b75f63988c77f42e6922c7af3cd134bc5b739",
+            "image_height": 799,
+            "heading": "Home",
+            "navigation_unique": true,
+            "glyph": {
+              "text": "Home",
+              "rect": [
+                422,
+                87,
+                67,
+                33
+              ],
+              "single_line": true,
+              "visible": true,
+              "showing": true
+            },
+            "app_pid": 4156,
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "route": "home"
+          },
+          {
+            "heading_unique": true,
+            "scale": "baseline",
+            "window_id": "131526",
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "heading_focused": true,
+            "skip_main": true,
+            "image_width": 1136,
+            "tab_shift_tab": true,
+            "checked_before": null,
+            "checked_after": null,
+            "image_sha256": "6b2c556bc18d73368088eda9cebbf412300266bf532d51f519fb8da2d554e25d",
+            "image_height": 799,
+            "heading": "Jobs",
+            "navigation_unique": true,
+            "glyph": {
+              "text": "Jobs",
+              "rect": [
+                422,
+                87,
+                49,
+                33
+              ],
+              "single_line": true,
+              "visible": true,
+              "showing": true
+            },
+            "app_pid": 4156,
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "route": "jobs"
+          },
+          {
+            "heading_unique": true,
+            "scale": "baseline",
+            "window_id": "131526",
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "heading_focused": true,
+            "skip_main": true,
+            "image_width": 1136,
+            "tab_shift_tab": true,
+            "checked_before": null,
+            "checked_after": null,
+            "image_sha256": "9d48815b8a9ff31721cec1e12289370c429bdc10f10aae248af79d3e550899b4",
+            "image_height": 799,
+            "heading": "Tracker",
+            "navigation_unique": true,
+            "glyph": {
+              "text": "Trac",
+              "rect": [
+                422,
+                87,
+                45,
+                33
+              ],
+              "single_line": true,
+              "visible": true,
+              "showing": true
+            },
+            "app_pid": 4156,
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "route": "tracker"
+          },
+          {
+            "heading_unique": true,
+            "scale": "baseline",
+            "window_id": "131526",
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "heading_focused": true,
+            "skip_main": true,
+            "image_width": 1136,
+            "tab_shift_tab": true,
+            "checked_before": null,
+            "checked_after": null,
+            "image_sha256": "19155fcdf0864e4b8200098f9cc3d62df363bbc50e00da2e172e46536b3d7d24",
+            "image_height": 799,
+            "heading": "Documents / Resumes",
+            "navigation_unique": true,
+            "glyph": {
+              "text": "Docu",
+              "rect": [
+                422,
+                87,
+                57,
+                33
+              ],
+              "single_line": true,
+              "visible": true,
+              "showing": true
+            },
+            "app_pid": 4156,
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "route": "documents"
+          },
+          {
+            "heading_unique": true,
+            "scale": "baseline",
+            "window_id": "131526",
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "heading_focused": true,
+            "skip_main": true,
+            "image_width": 1136,
+            "tab_shift_tab": true,
+            "checked_before": null,
+            "checked_after": null,
+            "image_sha256": "945e36357e9810e22f36ef68eba8bef871448193cffe0514d3441720db1d0279",
+            "image_height": 799,
+            "heading": "Profile",
+            "navigation_unique": true,
+            "glyph": {
+              "text": "Prof",
+              "rect": [
+                422,
+                87,
+                46,
+                33
+              ],
+              "single_line": true,
+              "visible": true,
+              "showing": true
+            },
+            "app_pid": 4156,
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "route": "profile"
+          },
+          {
+            "heading_unique": true,
+            "scale": "baseline",
+            "window_id": "131526",
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "heading_focused": true,
+            "skip_main": true,
+            "image_width": 1136,
+            "tab_shift_tab": true,
+            "checked_before": null,
+            "checked_after": null,
+            "image_sha256": "cb67c33440634d54e94dba944834f2dc43f77bfc8d688d1f372abc4ae8d6108d",
+            "image_height": 799,
+            "heading": "Settings",
+            "navigation_unique": true,
+            "glyph": {
+              "text": "Sett",
+              "rect": [
+                422,
+                87,
+                44,
+                33
+              ],
+              "single_line": true,
+              "visible": true,
+              "showing": true
+            },
+            "app_pid": 4156,
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "route": "settings"
+          },
+          {
+            "heading_unique": true,
+            "scale": "baseline",
+            "window_id": "131526",
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "heading_focused": true,
+            "skip_main": true,
+            "image_width": 1136,
+            "tab_shift_tab": true,
+            "checked_before": "2026-11-04T07:40:19.5852977Z",
+            "checked_after": "2026-11-04T07:40:21.0751108Z",
+            "image_sha256": "fb852132ec42692dc45123cfe3803a234d5481113ccf5625eaabdd21c7255338",
+            "image_height": 799,
+            "heading": "Diagnostics",
+            "navigation_unique": true,
+            "glyph": {
+              "text": "Diag",
+              "rect": [
+                422,
+                83,
+                51,
+                32
+              ],
+              "single_line": true,
+              "visible": true,
+              "showing": true
+            },
+            "app_pid": 4156,
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "route": "diagnostics"
+          },
+          {
+            "heading_unique": true,
+            "scale": "enlarged",
+            "window_id": "131526",
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "heading_focused": true,
+            "skip_main": true,
+            "image_width": 1136,
+            "tab_shift_tab": true,
+            "checked_before": null,
+            "checked_after": null,
+            "image_sha256": "90b9a605e0352a796a2df14b1e2866a4bd92f3d6084cd5806a5f9eee6d087b09",
+            "image_height": 799,
+            "heading": "Home",
+            "navigation_unique": true,
+            "glyph": {
+              "text": "Home",
+              "rect": [
+                170,
+                728,
+                131,
+                64
+              ],
+              "single_line": true,
+              "visible": true,
+              "showing": true
+            },
+            "app_pid": 4156,
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "route": "home"
+          },
+          {
+            "heading_unique": true,
+            "scale": "enlarged",
+            "window_id": "131526",
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "heading_focused": true,
+            "skip_main": true,
+            "image_width": 1136,
+            "tab_shift_tab": true,
+            "checked_before": null,
+            "checked_after": null,
+            "image_sha256": "745e37a316c953960f547a89f0f034fdf5e6b6aa6dc68c3641f309e31bfd1acd",
+            "image_height": 799,
+            "heading": "Jobs",
+            "navigation_unique": true,
+            "glyph": {
+              "text": "Jobs",
+              "rect": [
+                170,
+                728,
+                97,
+                64
+              ],
+              "single_line": true,
+              "visible": true,
+              "showing": true
+            },
+            "app_pid": 4156,
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "route": "jobs"
+          },
+          {
+            "heading_unique": true,
+            "scale": "enlarged",
+            "window_id": "131526",
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "heading_focused": true,
+            "skip_main": true,
+            "image_width": 1136,
+            "tab_shift_tab": true,
+            "checked_before": null,
+            "checked_after": null,
+            "image_sha256": "3c797ee8b0f369edd320779c3cdb4cbf69f9a4f91c01d19f90033e08acbb0b2a",
+            "image_height": 799,
+            "heading": "Tracker",
+            "navigation_unique": true,
+            "glyph": {
+              "text": "Trac",
+              "rect": [
+                170,
+                728,
+                88,
+                64
+              ],
+              "single_line": true,
+              "visible": true,
+              "showing": true
+            },
+            "app_pid": 4156,
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "route": "tracker"
+          },
+          {
+            "heading_unique": true,
+            "scale": "enlarged",
+            "window_id": "131526",
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "heading_focused": true,
+            "skip_main": true,
+            "image_width": 1136,
+            "tab_shift_tab": true,
+            "checked_before": null,
+            "checked_after": null,
+            "image_sha256": "f94d00ad764f2fbaedfe4c33d9969c4adb4db36fbbc62cfa97ba61f077ad9f26",
+            "image_height": 799,
+            "heading": "Documents / Resumes",
+            "navigation_unique": true,
+            "glyph": {
+              "text": "Docu",
+              "rect": [
+                170,
+                728,
+                112,
+                64
+              ],
+              "single_line": true,
+              "visible": true,
+              "showing": true
+            },
+            "app_pid": 4156,
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "route": "documents"
+          },
+          {
+            "heading_unique": true,
+            "scale": "enlarged",
+            "window_id": "131526",
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "heading_focused": true,
+            "skip_main": true,
+            "image_width": 1136,
+            "tab_shift_tab": true,
+            "checked_before": null,
+            "checked_after": null,
+            "image_sha256": "49c6b8e1a30854d4101916a3c4562ce043132eb65f998e9a033fdd2758d6a977",
+            "image_height": 799,
+            "heading": "Profile",
+            "navigation_unique": true,
+            "glyph": {
+              "text": "Prof",
+              "rect": [
+                170,
+                719,
+                91,
+                65
+              ],
+              "single_line": true,
+              "visible": true,
+              "showing": true
+            },
+            "app_pid": 4156,
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "route": "profile"
+          },
+          {
+            "heading_unique": true,
+            "scale": "enlarged",
+            "window_id": "131526",
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "heading_focused": true,
+            "skip_main": true,
+            "image_width": 1136,
+            "tab_shift_tab": true,
+            "checked_before": null,
+            "checked_after": null,
+            "image_sha256": "cd623afc490bc8d5774bedb69fe66d6dcf85320eb7898fe737fe68e55a9677eb",
+            "image_height": 799,
+            "heading": "Settings",
+            "navigation_unique": true,
+            "glyph": {
+              "text": "Sett",
+              "rect": [
+                170,
+                719,
+                85,
+                65
+              ],
+              "single_line": true,
+              "visible": true,
+              "showing": true
+            },
+            "app_pid": 4156,
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "route": "settings"
+          },
+          {
+            "heading_unique": true,
+            "scale": "enlarged",
+            "window_id": "131526",
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "heading_focused": true,
+            "skip_main": true,
+            "image_width": 1136,
+            "tab_shift_tab": true,
+            "checked_before": "2026-11-04T07:40:38.5737416Z",
+            "checked_after": "2026-11-04T07:40:39.8286292Z",
+            "image_sha256": "aad6646d028fa358ca79e4c95dbaf8427f1ac355dcbfaaba43d809d9a4edb182",
+            "image_height": 799,
+            "heading": "Diagnostics",
+            "navigation_unique": true,
+            "glyph": {
+              "text": "Diag",
+              "rect": [
+                170,
+                292,
+                100,
+                65
+              ],
+              "single_line": true,
+              "visible": true,
+              "showing": true
+            },
+            "app_pid": 4156,
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "route": "diagnostics"
+          }
+        ],
+        "reset_image": "0747c2a85f57183b88f23b167067e267b96bd628651cc98694c0e8f7535bde5c",
+        "measurements": [
+          {
+            "stage": "baseline",
+            "window_id": "131526",
+            "app_pid": 4156,
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "anchors": [
+              {
+                "text": "0.0.1",
+                "rect": [
+                  700,
+                  208,
+                  37,
+                  16
+                ],
+                "single_line": true,
+                "visible": true,
+                "showing": true
+              },
+              {
+                "text": "2.12.4",
+                "rect": [
+                  700,
+                  255,
+                  44,
+                  16
+                ],
+                "single_line": true,
+                "visible": true,
+                "showing": true
+              }
+            ]
+          },
+          {
+            "stage": "step1",
+            "window_id": "131526",
+            "app_pid": 4156,
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "anchors": [
+              {
+                "text": "0.0.1",
+                "rect": [
+                  718,
+                  224,
+                  40,
+                  18
+                ],
+                "single_line": true,
+                "visible": true,
+                "showing": true
+              },
+              {
+                "text": "2.12.4",
+                "rect": [
+                  718,
+                  275,
+                  48,
+                  18
+                ],
+                "single_line": true,
+                "visible": true,
+                "showing": true
+              }
+            ]
+          },
+          {
+            "stage": "step2",
+            "window_id": "131526",
+            "app_pid": 4156,
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "anchors": [
+              {
+                "text": "0.0.1",
+                "rect": [
+                  744,
+                  248,
+                  46,
+                  20
+                ],
+                "single_line": true,
+                "visible": true,
+                "showing": true
+              },
+              {
+                "text": "2.12.4",
+                "rect": [
+                  744,
+                  306,
+                  55,
+                  20
+                ],
+                "single_line": true,
+                "visible": true,
+                "showing": true
+              }
+            ]
+          },
+          {
+            "stage": "step3",
+            "window_id": "131526",
+            "app_pid": 4156,
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "anchors": [
+              {
+                "text": "0.0.1",
+                "rect": [
+                  542,
+                  414,
+                  55,
+                  24
+                ],
+                "single_line": true,
+                "visible": true,
+                "showing": true
+              },
+              {
+                "text": "2.12.4",
+                "rect": [
+                  542,
+                  483,
+                  65,
+                  24
+                ],
+                "single_line": true,
+                "visible": true,
+                "showing": true
+              }
+            ]
+          },
+          {
+            "stage": "step4",
+            "window_id": "131526",
+            "app_pid": 4156,
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "anchors": [
+              {
+                "text": "0.0.1",
+                "rect": [
+                  548,
+                  474,
+                  64,
+                  28
+                ],
+                "single_line": true,
+                "visible": true,
+                "showing": true
+              },
+              {
+                "text": "2.12.4",
+                "rect": [
+                  548,
+                  555,
+                  76,
+                  27
+                ],
+                "single_line": true,
+                "visible": true,
+                "showing": true
+              }
+            ]
+          },
+          {
+            "stage": "step5",
+            "window_id": "131526",
+            "app_pid": 4156,
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "anchors": [
+              {
+                "text": "0.0.1",
+                "rect": [
+                  555,
+                  624,
+                  71,
+                  32
+                ],
+                "single_line": true,
+                "visible": true,
+                "showing": true
+              },
+              {
+                "text": "2.12.4",
+                "rect": [
+                  555,
+                  718,
+                  86,
+                  32
+                ],
+                "single_line": true,
+                "visible": true,
+                "showing": true
+              }
+            ]
+          },
+          {
+            "stage": "reset",
+            "window_id": "131526",
+            "app_pid": 4156,
+            "frame": [
+              130,
+              1,
+              1136,
+              799
+            ],
+            "backing": {
+              "kind": "WIN32_OWNED_HWND",
+              "dpi": 96,
+              "awareness": 2
+            },
+            "anchors": [
+              {
+                "text": "0.0.1",
+                "rect": [
+                  700,
+                  156,
+                  37,
+                  16
+                ],
+                "single_line": true,
+                "visible": true,
+                "showing": true
+              },
+              {
+                "text": "2.12.4",
+                "rect": [
+                  700,
+                  203,
+                  44,
+                  16
+                ],
+                "single_line": true,
+                "visible": true,
+                "showing": true
+              }
+            ]
+          }
+        ],
+        "schema": "japp-native-shell-capture-v1",
+        "platform": "WINDOWS_UIA",
+        "policy_sha256": "7aaf7a099cf111661c9fd6e98497ebf97bbb4d6a1c72c8d6ec2d20f190735e88",
+        "reader_output": "NOT_COLLECTED",
+        "subject_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2"
+      },
+      "action": "owned_foreground_focused_Check_again_Enter",
+      "checked_before": "2026-11-04T07:39:57.6453919Z"
+    },
+    {
+      "phase": "crash",
+      "status": "PASS",
+      "nonce": "d026f58212f220b9d78daa8ff6d8784a1f17761a44a75be74437e0235f1a6dc5",
+      "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+      "elapsed_ms": 84469,
+      "held_creation_time": 134382515924198786,
+      "held_service_pid": 5040
+    },
+    {
+      "phase": "restart",
+      "status": "PASS",
+      "nonce": "d026f58212f220b9d78daa8ff6d8784a1f17761a44a75be74437e0235f1a6dc5",
+      "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+      "elapsed_ms": 91453,
+      "scope": "close_and_relaunch_after_controlled_service_crash",
+      "service": {
+        "port": 59457,
+        "pid": 10200,
+        "creation_time": 134382516450477907
+      }
+    },
+    {
+      "phase": "close",
+      "status": "PASS",
+      "nonce": "d026f58212f220b9d78daa8ff6d8784a1f17761a44a75be74437e0235f1a6dc5",
+      "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+      "elapsed_ms": 94256,
+      "listener": "ConnectionRefused",
+      "remaining_owned_processes": 0
+    },
+    {
+      "phase": "relaunch",
+      "status": "PASS",
+      "nonce": "d026f58212f220b9d78daa8ff6d8784a1f17761a44a75be74437e0235f1a6dc5",
+      "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+      "elapsed_ms": 98309,
+      "scope": "same_immutable_package_update_neutral",
+      "service": {
+        "port": 49549,
+        "pid": 6676,
+        "creation_time": 134382516524060743
+      }
+    },
+    {
+      "phase": "collision",
+      "status": "PASS",
+      "nonce": "d026f58212f220b9d78daa8ff6d8784a1f17761a44a75be74437e0235f1a6dc5",
+      "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+      "elapsed_ms": 105145,
+      "scope": "retired_port_occupied_before_new_random_port_launch_not_forced_startup_race",
+      "service": {
+        "port": 54039,
+        "pid": 1620,
+        "creation_time": 134382516590783405
+      },
+      "occupied_port": 49549
+    },
+    {
+      "phase": "quit",
+      "status": "PASS",
+      "nonce": "d026f58212f220b9d78daa8ff6d8784a1f17761a44a75be74437e0235f1a6dc5",
+      "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+      "elapsed_ms": 108067,
+      "remaining_owned_processes": 0,
+      "action": "owned_UIAutomation_InvokePattern_Quit"
+    },
+    {
+      "phase": "accelerator",
+      "status": "PASS",
+      "nonce": "d026f58212f220b9d78daa8ff6d8784a1f17761a44a75be74437e0235f1a6dc5",
+      "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+      "elapsed_ms": 115383,
+      "remaining_owned_processes": 0,
+      "action": "owned_foreground_Ctrl_Q"
+    },
+    {
+      "phase": "forced-parent",
+      "status": "PASS",
+      "nonce": "d026f58212f220b9d78daa8ff6d8784a1f17761a44a75be74437e0235f1a6dc5",
+      "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+      "elapsed_ms": 122050,
+      "remaining_owned_processes": 0,
+      "action": "held_parent_TerminateProcess_without_emergency_job_kill"
+    },
+    {
+      "phase": "cleanup",
+      "status": "PASS",
+      "nonce": "d026f58212f220b9d78daa8ff6d8784a1f17761a44a75be74437e0235f1a6dc5",
+      "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+      "elapsed_ms": 122100,
+      "remaining_owned_processes": 0
+    }
+  ],
+  "terminal": {
+    "terminal": "PASS",
+    "nonce": "d026f58212f220b9d78daa8ff6d8784a1f17761a44a75be74437e0235f1a6dc5",
+    "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2"
+  }
+}

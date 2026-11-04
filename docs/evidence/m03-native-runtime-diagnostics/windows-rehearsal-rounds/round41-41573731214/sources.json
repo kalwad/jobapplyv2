@@ -1,0 +1,18 @@
+{
+ "dxdiag-args.json": {
+  "bytes": 6922,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag41-dxdiag-args:dxdiag-args.json",
+  "sha256": "0be56bfa9e57d642fd5cfe996788961292505ac7b8fbc3ad796a00653bd6066b"
+ },
+ "dxdiag_args.ps1": {
+  "bytes": 4362,
+  "origin": "diag/windows-dxdiag-args@4690ac51925708d6231ae6b8e2e359120251c3c1:diag/dx/dxdiag_args.ps1",
+  "sha256": "de45362123276511cc9666dfc161567fd17357dde7a9ac4929bcc38a3b5feb35"
+ },
+ "workflow.yml": {
+  "bytes": 1040,
+  "origin": "diag/windows-dxdiag-args@4690ac51925708d6231ae6b8e2e359120251c3c1:.github/workflows/ci.yml",
+  "sha256": "575c29ba031b3750a57281add170e661004f073b2009a753137b2bce8053fa72"
+ }
+}

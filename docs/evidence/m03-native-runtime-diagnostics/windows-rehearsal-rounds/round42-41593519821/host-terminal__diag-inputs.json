@@ -1,0 +1,13 @@
+{
+  "variant": "host-terminal",
+  "dropped_markers": [
+    "# DIAG-CONHOST"
+  ],
+  "guest_driver": {
+    "windows11_bootstrap.ps1": "63463211dc8e93085f77b1fbb5df72c28f1173b2b6e2aedc71d564d1e375e721",
+    "windows11_guest.ps1": "cb11e4a9dde15c415372c1490ccdc7850938420caa1a79ebf8e264f4e62fb8ed",
+    "windows11_owned.cs": "a561f440559af9ca012bdd15b933aada192c73ce0cd44a27390e04153165fc3c"
+  },
+  "package_manifest_sha256": "0396ddf437aa100e9e75ffec032ee432165bb8a01958e652690965b62d4299d4",
+  "iso_sha256_checked_by_workflow": "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38"
+}

@@ -1,0 +1,8 @@
+{
+  "file": "win11-ready.ppm",
+  "width": 1280,
+  "height": 800,
+  "sha256": "cf35e81acce6c2c176a4ba04ec9670b64e5bd552c83c5e66a12f811a7a812803",
+  "nonblank": true,
+  "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+}

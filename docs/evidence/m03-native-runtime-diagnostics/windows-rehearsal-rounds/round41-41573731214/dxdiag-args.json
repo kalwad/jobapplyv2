@@ -1,0 +1,114 @@
+﻿{
+    "scope":  "DIAGNOSTIC_ONLY_NOT_ACCEPTANCE",
+    "os":  "Microsoft Windows Server 2025 Datacenter",
+    "build":  "10.0.26100.0",
+    "powershell":  "5.1.26100.33648",
+    "probes":  [
+                   {
+                       "probe":  "owned-quoted",
+                       "path":  "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\JappDx-1-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml",
+                       "detail":  "empty=True",
+                       "file_bytes":  -1,
+                       "ms":  120495,
+                       "recent_xml_in_dir":  [
+
+                                             ]
+                   },
+                   {
+                       "probe":  "owned-minimal",
+                       "path":  "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\JappDx-2-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml",
+                       "detail":  "empty=True",
+                       "file_bytes":  165182,
+                       "ms":  4245,
+                       "recent_xml_in_dir":  [
+                                                 "JappDx-2-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml=165182"
+                                             ]
+                   },
+                   {
+                       "probe":  "process-quoted",
+                       "path":  "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\JappDx-3-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml",
+                       "detail":  "exit=127",
+                       "file_bytes":  -1,
+                       "ms":  120039,
+                       "recent_xml_in_dir":  [
+                                                 "JappDx-2-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml=165182"
+                                             ]
+                   },
+                   {
+                       "probe":  "process-bare",
+                       "path":  "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\JappDx-4-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml",
+                       "detail":  "exit=0",
+                       "file_bytes":  165182,
+                       "ms":  3928,
+                       "recent_xml_in_dir":  [
+                                                 "JappDx-2-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml=165182",
+                                                 "JappDx-4-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml=165182"
+                                             ]
+                   },
+                   {
+                       "probe":  "startprocess",
+                       "path":  "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\JappDx-5-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml",
+                       "detail":  "exit=0",
+                       "file_bytes":  165182,
+                       "ms":  3613,
+                       "recent_xml_in_dir":  [
+                                                 "JappDx-2-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml=165182",
+                                                 "JappDx-4-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml=165182",
+                                                 "JappDx-5-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml=165182"
+                                             ]
+                   },
+                   {
+                       "probe":  "owned-quoted",
+                       "path":  "C:\\Users\\runneradmin\\AppData\\Local\\JappDx-6-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml",
+                       "detail":  "empty=True",
+                       "file_bytes":  -1,
+                       "ms":  120452,
+                       "recent_xml_in_dir":  [
+
+                                             ]
+                   },
+                   {
+                       "probe":  "owned-minimal",
+                       "path":  "C:\\Users\\runneradmin\\AppData\\Local\\JappDx-7-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml",
+                       "detail":  "empty=True",
+                       "file_bytes":  165182,
+                       "ms":  4005,
+                       "recent_xml_in_dir":  [
+                                                 "JappDx-7-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml=165182"
+                                             ]
+                   },
+                   {
+                       "probe":  "process-quoted",
+                       "path":  "C:\\Users\\runneradmin\\AppData\\Local\\JappDx-8-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml",
+                       "detail":  "exit=127",
+                       "file_bytes":  -1,
+                       "ms":  120501,
+                       "recent_xml_in_dir":  [
+                                                 "JappDx-7-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml=165182"
+                                             ]
+                   },
+                   {
+                       "probe":  "process-bare",
+                       "path":  "C:\\Users\\runneradmin\\AppData\\Local\\JappDx-9-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml",
+                       "detail":  "exit=0",
+                       "file_bytes":  165182,
+                       "ms":  3913,
+                       "recent_xml_in_dir":  [
+                                                 "JappDx-7-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml=165182",
+                                                 "JappDx-9-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml=165182"
+                                             ]
+                   },
+                   {
+                       "probe":  "startprocess",
+                       "path":  "C:\\Users\\runneradmin\\AppData\\Local\\JappDx-10-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml",
+                       "detail":  "exit=0",
+                       "file_bytes":  165182,
+                       "ms":  3598,
+                       "recent_xml_in_dir":  [
+                                                 "JappDx-10-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml=165182",
+                                                 "JappDx-7-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml=165182",
+                                                 "JappDx-9-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml=165182"
+                                             ]
+                   }
+               ]
+}

@@ -1,0 +1,658 @@
+{
+ "exact-1__closure.json": {
+  "bytes": 893,
+  "origin": "artifact diag48-win11-rehearsal-exact-1:closure.json",
+  "sha256": "eb1b9a6351ae24328f95c7df1d7eed65900380ed0d969eb7c10522cc78b29797"
+ },
+ "exact-1__diag-host-marks.json": {
+  "bytes": 141,
+  "origin": "artifact diag48-win11-rehearsal-exact-1:diag-host-marks.json",
+  "sha256": "b739023167051fd7b08212c532e24bb717e422c2e6e35e93e256674e530ce8db"
+ },
+ "exact-1__diag-inputs.json": {
+  "bytes": 1727,
+  "origin": "artifact diag48-win11-rehearsal-exact-1:diag-inputs.json",
+  "sha256": "426e96efc03bc4dcd80fc9991b3b2a978fa918fdcd99e03cf59c35e21b08c1f2"
+ },
+ "exact-1__dmesg-kvm.txt": {
+  "bytes": 1169,
+  "origin": "artifact diag48-win11-rehearsal-exact-1:dmesg-kvm.txt",
+  "sha256": "d6f1b0a38fc1eec67d891c88a56d747b397b469a46372b4c810f775827d802c7"
+ },
+ "exact-1__forensics__forensics.log": {
+  "bytes": 869,
+  "origin": "artifact diag48-win11-rehearsal-exact-1:forensics/forensics.log",
+  "sha256": "f1471dc8bb561716b56ddc69050635d41f8b75782f269f2f28b4465df95b3cf6"
+ },
+ "exact-1__frame-win11-progress-1.json": {
+  "bytes": 240,
+  "origin": "artifact diag48-win11-rehearsal-exact-1:frame-win11-progress-1.json",
+  "sha256": "ab82846e05313a7b160107414a2b0b3401a69d01c1c6986354de9bf13f86c553"
+ },
+ "exact-1__frame-win11-progress-2.json": {
+  "bytes": 240,
+  "origin": "artifact diag48-win11-rehearsal-exact-1:frame-win11-progress-2.json",
+  "sha256": "17fbce3ae5f7cd7b312fcdcb7de5392e372853ff98919a28d79f87d5500232f2"
+ },
+ "exact-1__frame-win11-progress-3.json": {
+  "bytes": 67,
+  "origin": "artifact diag48-win11-rehearsal-exact-1:frame-win11-progress-3.json",
+  "sha256": "69b0b6036164bf703d23cd804df960bdf36ac8ab5ccd628497d2fa70bdc3e2f1"
+ },
+ "exact-1__host-cpu.json": {
+  "bytes": 202,
+  "origin": "artifact diag48-win11-rehearsal-exact-1:host-cpu.json",
+  "sha256": "94d15dad63a2ddc28cdf0d9e6b562fbdb8e8405a8041c86e20bf4c95d5b4d439"
+ },
+ "exact-1__kvm-trace.txt": {
+  "bytes": 515,
+  "origin": "artifact diag48-win11-rehearsal-exact-1:kvm-trace.txt",
+  "sha256": "21a3653188730d1f422a5f190c3b24f9ea3c3b2db227799fb5b624f9ceafabbe"
+ },
+ "exact-1__qemu-argv.json": {
+  "bytes": 2000,
+  "origin": "artifact diag48-win11-rehearsal-exact-1:qemu-argv.json",
+  "sha256": "2320cad0fbd1d3eadec81c6a38bff049b30869ad3a216640e8d1c25126b5bbcb"
+ },
+ "exact-1__win11-progress-2.png": {
+  "bytes": 3072016,
+  "converted_from_ppm_to_png": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-1:win11-progress-2.ppm",
+  "sha256": "b555010f19e1437bbab2d7b7ac2446a2f9a902ff65a92dc4edd5d25ba0b2ded9"
+ },
+ "exact-2__closure.json": {
+  "bytes": 1124,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:closure.json",
+  "sha256": "a5ddbad078257ecb15be422ceba0b3f7d436da6ab854c2f166831c980460f78b"
+ },
+ "exact-2__diag-host-marks.json": {
+  "bytes": 268,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:diag-host-marks.json",
+  "sha256": "c93bb3cf9e0e6f8449ee385684d694d1d3c059500075b1d7befced9f93f44aca"
+ },
+ "exact-2__diag-inputs.json": {
+  "bytes": 1727,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:diag-inputs.json",
+  "sha256": "b9a43d4cce039ca20f486947156fa5e45383ecb7a1ca31bc5cbf446c3c5af861"
+ },
+ "exact-2__dmesg-kvm.txt": {
+  "bytes": 1034,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:dmesg-kvm.txt",
+  "sha256": "079a3999a3b249d4bcacc86cd27b550a1136043ee27914dc15d3303278e15cd9"
+ },
+ "exact-2__forensics__forensics.log": {
+  "bytes": 907,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:forensics/forensics.log",
+  "sha256": "d988386c5a3a1cd5ff2a113724ccab09016799c247efdb6c6842213fe69e499b"
+ },
+ "exact-2__frame-collision.json": {
+  "bytes": 244,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:frame-collision.json",
+  "sha256": "5b6875e7887d7f3359b33e998a7d78858a1e28c5bf63a372f11a39e8b73d5cee"
+ },
+ "exact-2__frame-environment.json": {
+  "bytes": 246,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:frame-environment.json",
+  "sha256": "9df708d03d15571f29da8fd3a1951554b59dfef827ba4f6816ed89d533f6aff1"
+ },
+ "exact-2__frame-keyboard.json": {
+  "bytes": 243,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:frame-keyboard.json",
+  "sha256": "d630d984eb434dca636aafed07310b6c33e329f064cd88776b01a6e6092a5edf"
+ },
+ "exact-2__frame-ready.json": {
+  "bytes": 240,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:frame-ready.json",
+  "sha256": "69501416e559d6ecac156043f7da89fe8eb9738d2140f79724d93e7273304ebd"
+ },
+ "exact-2__frame-relaunch.json": {
+  "bytes": 243,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:frame-relaunch.json",
+  "sha256": "ddf814aac6380bb5845fde80dde594cd4e074030464bc6518b25a7f6537d04fc"
+ },
+ "exact-2__frame-restart.json": {
+  "bytes": 242,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:frame-restart.json",
+  "sha256": "177b852f19244e527c339ee40a7c62bc492266008799337dd3c773f7cea10618"
+ },
+ "exact-2__frame-win11-progress-1.json": {
+  "bytes": 240,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:frame-win11-progress-1.json",
+  "sha256": "25046a3f0f9ec174b8030215db924908a5edae21598f41eb421f6d5647033c50"
+ },
+ "exact-2__guest-results__proof__attestor-trace.txt": {
+  "bytes": 497,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:guest-results/proof/attestor-trace.txt",
+  "sha256": "00c1fd353287ed79fbf2feb11afe07175c84869759145292cd0957a69e470ffa"
+ },
+ "exact-2__guest-results__proof__environment.json": {
+  "bytes": 977,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:guest-results/proof/environment.json",
+  "sha256": "d0c76fec5c9e4146625c17a6b0d11b44de2c979f53cd64366a341d5217e913c5"
+ },
+ "exact-2__guest-results__proof__native-shell.json": {
+  "bytes": 44325,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:guest-results/proof/native-shell.json",
+  "sha256": "62015b054fa9fac2427d2c17059dd053144f93cdf0a8eeb86662f0c669c6e8a9"
+ },
+ "exact-2__guest-results__proof__owned-cleanup.json": {
+  "bytes": 295,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:guest-results/proof/owned-cleanup.json",
+  "sha256": "721c3f9a0aa376b50f52274de026e4a269228ffbbea13ac372b418357354db69"
+ },
+ "exact-2__guest-results__proof__receipts.ndjson": {
+  "bytes": 15276,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:guest-results/proof/receipts.ndjson",
+  "sha256": "406e2d74564faa427db08cc7b52f427750e77893178a386e48cfbf96a558fe56"
+ },
+ "exact-2__guest-terminal.json": {
+  "bytes": 192,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:guest-terminal.json",
+  "sha256": "d94cb7ba0cac7824c93020e6a4be98b586c4993e370db6b21e374dd2f237e6a6"
+ },
+ "exact-2__host-cpu.json": {
+  "bytes": 208,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:host-cpu.json",
+  "sha256": "e0cabddb166f2d68b1e69cd6ce6eb30ad70919011e38301e10bfd70ec9fb5a8a"
+ },
+ "exact-2__kvm-trace.txt": {
+  "bytes": 515,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:kvm-trace.txt",
+  "sha256": "21a3653188730d1f422a5f190c3b24f9ea3c3b2db227799fb5b624f9ceafabbe"
+ },
+ "exact-2__lifecycle.json": {
+  "bytes": 29954,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:lifecycle.json",
+  "sha256": "f1cee13a6c3eb7bc86c9d0c3aba7abe8969eecf530125e6abaa950ac32005d42"
+ },
+ "exact-2__qemu-argv.json": {
+  "bytes": 2000,
+  "origin": "artifact diag48-win11-rehearsal-exact-2:qemu-argv.json",
+  "sha256": "2320cad0fbd1d3eadec81c6a38bff049b30869ad3a216640e8d1c25126b5bbcb"
+ },
+ "exact-3__closure.json": {
+  "bytes": 1124,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:closure.json",
+  "sha256": "726186484027d116d68d92f659afcef6889e32fcee5611bbddfa15062fd108e9"
+ },
+ "exact-3__diag-host-marks.json": {
+  "bytes": 268,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:diag-host-marks.json",
+  "sha256": "b6f1c225fba74289aee4185a8ea22c0cf0a946ea9cb56e3ce943c40b3bebffd3"
+ },
+ "exact-3__diag-inputs.json": {
+  "bytes": 1727,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:diag-inputs.json",
+  "sha256": "327cf49a91e00b2e71f2e675613386bba1507486802eaa8cbc34bd23508742a0"
+ },
+ "exact-3__dmesg-kvm.txt": {
+  "bytes": 1034,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:dmesg-kvm.txt",
+  "sha256": "19418ece108dc3e3a8836c3c0c7976ff781ad635d80d65fb5450b4d36152f755"
+ },
+ "exact-3__forensics__forensics.log": {
+  "bytes": 907,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:forensics/forensics.log",
+  "sha256": "7773d2a439043f0ef869ccf5cc8281c32b38f2a530b574237e22294362d96939"
+ },
+ "exact-3__frame-collision.json": {
+  "bytes": 244,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:frame-collision.json",
+  "sha256": "734d49021926c769483fddc65045e2bec551c29315f675498af78098686604fe"
+ },
+ "exact-3__frame-environment.json": {
+  "bytes": 246,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:frame-environment.json",
+  "sha256": "6fd89bb9e381e6897372c0842cdecbcf1990b8e63e06e8c15e765b38b8f84ead"
+ },
+ "exact-3__frame-keyboard.json": {
+  "bytes": 243,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:frame-keyboard.json",
+  "sha256": "e4083f1b4ad53de31c52a5aa37f0ec2023b2242078816537902703b8720466e9"
+ },
+ "exact-3__frame-ready.json": {
+  "bytes": 240,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:frame-ready.json",
+  "sha256": "15c029388fc9535339f9c4b41ef2edb6cdc63f982d8e9a00bb441451ea6b4292"
+ },
+ "exact-3__frame-relaunch.json": {
+  "bytes": 243,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:frame-relaunch.json",
+  "sha256": "f90ba2ae207018dac7c1732143f8737baee16217d01077dcb78c463ec185551f"
+ },
+ "exact-3__frame-restart.json": {
+  "bytes": 242,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:frame-restart.json",
+  "sha256": "23bc0ac618328f86469c0647b40505f60a3bc120861cf4be9fdca9d9caec35b3"
+ },
+ "exact-3__frame-win11-progress-1.json": {
+  "bytes": 240,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:frame-win11-progress-1.json",
+  "sha256": "4c133af91013fad0c12720400a573655742f7ed1f3afda1f945e4f25c5cc68d0"
+ },
+ "exact-3__guest-results__proof__attestor-trace.txt": {
+  "bytes": 497,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:guest-results/proof/attestor-trace.txt",
+  "sha256": "5e038424bb21f2d1098c84d7a363bce8c0317ca8bb655d1cb44fb4c414c26390"
+ },
+ "exact-3__guest-results__proof__environment.json": {
+  "bytes": 977,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:guest-results/proof/environment.json",
+  "sha256": "0241cede98514a7458572977988ce1ba0997d33764a49ab98316b4ce1d64edee"
+ },
+ "exact-3__guest-results__proof__native-shell.json": {
+  "bytes": 44327,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:guest-results/proof/native-shell.json",
+  "sha256": "334e19c357dfb14f083ac0c18fa5e85d7d08afb2bf88fe280c36884f438996b9"
+ },
+ "exact-3__guest-results__proof__owned-cleanup.json": {
+  "bytes": 295,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:guest-results/proof/owned-cleanup.json",
+  "sha256": "721c3f9a0aa376b50f52274de026e4a269228ffbbea13ac372b418357354db69"
+ },
+ "exact-3__guest-results__proof__receipts.ndjson": {
+  "bytes": 15279,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:guest-results/proof/receipts.ndjson",
+  "sha256": "f5b48f8e99c36c87cdc98d1ba912445ee5862d7ccc3a52f7cec6526ed3d77ab5"
+ },
+ "exact-3__guest-terminal.json": {
+  "bytes": 192,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:guest-terminal.json",
+  "sha256": "d9f623da6cf67dc590c8a1bf120c3f527221ece90e2865c1ccac81ec544ffb3b"
+ },
+ "exact-3__host-cpu.json": {
+  "bytes": 209,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:host-cpu.json",
+  "sha256": "547ccb97ce6de400535f3fc9250728e9333c2003fe5ff09301e2539674b2f9cc"
+ },
+ "exact-3__kvm-trace.txt": {
+  "bytes": 515,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:kvm-trace.txt",
+  "sha256": "21a3653188730d1f422a5f190c3b24f9ea3c3b2db227799fb5b624f9ceafabbe"
+ },
+ "exact-3__lifecycle.json": {
+  "bytes": 29957,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:lifecycle.json",
+  "sha256": "77bd36ffa91e167ac06850e103150eb6a46979d07884c99b38a2317a11fe6a04"
+ },
+ "exact-3__qemu-argv.json": {
+  "bytes": 2000,
+  "origin": "artifact diag48-win11-rehearsal-exact-3:qemu-argv.json",
+  "sha256": "2320cad0fbd1d3eadec81c6a38bff049b30869ad3a216640e8d1c25126b5bbcb"
+ },
+ "exact-4__closure.json": {
+  "bytes": 1124,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:closure.json",
+  "sha256": "cd6853feaa7a2fbd0bc1dd8fdcdccd40453ffb2f0efc9e75d1362ce6aea29009"
+ },
+ "exact-4__diag-host-marks.json": {
+  "bytes": 268,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:diag-host-marks.json",
+  "sha256": "cdf734bad2376ee11ed68f5edb5e1734673629f7e87a880e19c610b186439613"
+ },
+ "exact-4__diag-inputs.json": {
+  "bytes": 1727,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:diag-inputs.json",
+  "sha256": "b13fd4d5e70870ff0f8a22b4a9d115a18898ce95392d8bcc3db900188b41e257"
+ },
+ "exact-4__dmesg-kvm.txt": {
+  "bytes": 2459,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:dmesg-kvm.txt",
+  "sha256": "d1999e68e30697cd711af2b68fe477e9c002d6c2f48970082d9312f0f2fb0bed"
+ },
+ "exact-4__forensics__forensics.log": {
+  "bytes": 907,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:forensics/forensics.log",
+  "sha256": "a386bde1da5f6c689670c5448652b968943dc34a37a58499608a2248b14451b3"
+ },
+ "exact-4__frame-collision.json": {
+  "bytes": 244,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:frame-collision.json",
+  "sha256": "eae41f1c77bd4d6764cb1e1b9530dcebb5e3614848de6a6a961c0393bc704864"
+ },
+ "exact-4__frame-environment.json": {
+  "bytes": 246,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:frame-environment.json",
+  "sha256": "9df708d03d15571f29da8fd3a1951554b59dfef827ba4f6816ed89d533f6aff1"
+ },
+ "exact-4__frame-keyboard.json": {
+  "bytes": 243,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:frame-keyboard.json",
+  "sha256": "23954e54bdbe30909d6c7d4f93acf284885993445ec9c09c070e1a97f66a01e9"
+ },
+ "exact-4__frame-ready.json": {
+  "bytes": 240,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:frame-ready.json",
+  "sha256": "057f37a73647fe1b55d08eb55ee2a5777bf3433948c42c90b37a3464e7ad6cf7"
+ },
+ "exact-4__frame-relaunch.json": {
+  "bytes": 243,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:frame-relaunch.json",
+  "sha256": "873ae99407935e3a805533c1d7cc435e9f3fcda13413b7f02b0e0f077abff616"
+ },
+ "exact-4__frame-restart.json": {
+  "bytes": 242,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:frame-restart.json",
+  "sha256": "e2a9235bec7e7c4ded7e07b47f0e62f7269a4550c2eebd5bbe832e31c603adf9"
+ },
+ "exact-4__frame-win11-progress-1.json": {
+  "bytes": 240,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:frame-win11-progress-1.json",
+  "sha256": "f4bbe376ca8ba2b0b51a9dbb50b138022c07b0b09417200e506ab0f434dffed2"
+ },
+ "exact-4__guest-results__proof__attestor-trace.txt": {
+  "bytes": 497,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:guest-results/proof/attestor-trace.txt",
+  "sha256": "63f3aba7d012ec2250420ed4495e32eafdefd74976aae6bbae0fb1e6d7a68d74"
+ },
+ "exact-4__guest-results__proof__environment.json": {
+  "bytes": 975,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:guest-results/proof/environment.json",
+  "sha256": "f1f0b6cbf89f74271aff2a63d3f9620e947ce76ceecc2b24cf9baf15470bdd0d"
+ },
+ "exact-4__guest-results__proof__native-shell.json": {
+  "bytes": 44306,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:guest-results/proof/native-shell.json",
+  "sha256": "db71505b6a32c97937f323c40c5e28462f5c4f3edf8047a2127a77d5863c6ade"
+ },
+ "exact-4__guest-results__proof__owned-cleanup.json": {
+  "bytes": 295,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:guest-results/proof/owned-cleanup.json",
+  "sha256": "721c3f9a0aa376b50f52274de026e4a269228ffbbea13ac372b418357354db69"
+ },
+ "exact-4__guest-results__proof__receipts.ndjson": {
+  "bytes": 15252,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:guest-results/proof/receipts.ndjson",
+  "sha256": "39321fbfa105a8292cee5c47cc50b38df971057a84d881b5bdfe4dfa51b9661e"
+ },
+ "exact-4__guest-terminal.json": {
+  "bytes": 192,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:guest-terminal.json",
+  "sha256": "aac85cd6b6a4462ead847b53ad2549356caa169fcdf5662be6148751769518f6"
+ },
+ "exact-4__host-cpu.json": {
+  "bytes": 223,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:host-cpu.json",
+  "sha256": "b57e8d8b52923ed8fb56fa6a9670d7895676baf819f5fcc71033baaa8cc6be02"
+ },
+ "exact-4__kvm-trace.txt": {
+  "bytes": 515,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:kvm-trace.txt",
+  "sha256": "21a3653188730d1f422a5f190c3b24f9ea3c3b2db227799fb5b624f9ceafabbe"
+ },
+ "exact-4__lifecycle.json": {
+  "bytes": 29930,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:lifecycle.json",
+  "sha256": "9924735b2b6ba02a7e7639aa474e3c7d1c37d63fa572c9fe09d3256d57cd8bd7"
+ },
+ "exact-4__qemu-argv.json": {
+  "bytes": 2000,
+  "origin": "artifact diag48-win11-rehearsal-exact-4:qemu-argv.json",
+  "sha256": "2320cad0fbd1d3eadec81c6a38bff049b30869ad3a216640e8d1c25126b5bbcb"
+ },
+ "exact-5__closure.json": {
+  "bytes": 1125,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:closure.json",
+  "sha256": "82224dc8eb38b34cb38fb0bb8a8520efd7cf803a9e3d46eb3888f20097d05fab"
+ },
+ "exact-5__diag-host-marks.json": {
+  "bytes": 268,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:diag-host-marks.json",
+  "sha256": "aa6e9a9c963c328a4e8b4a14d9dbd16fb5846630b4d83e1938acb991659ec72b"
+ },
+ "exact-5__diag-inputs.json": {
+  "bytes": 1727,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:diag-inputs.json",
+  "sha256": "7f534dedacedf704e248a18c6d99c3db5e9addad9177ac72ff193e85f15566db"
+ },
+ "exact-5__dmesg-kvm.txt": {
+  "bytes": 1034,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:dmesg-kvm.txt",
+  "sha256": "6ffdbf9783f6866b61beea9bb4016b5aa1a3184380f07417e881c8520b68883e"
+ },
+ "exact-5__forensics__forensics.log": {
+  "bytes": 907,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:forensics/forensics.log",
+  "sha256": "c30aa7cb22d91ff9235dd34a9096a832c82d1812ac87708f39d5773c11b34a65"
+ },
+ "exact-5__frame-collision.json": {
+  "bytes": 244,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:frame-collision.json",
+  "sha256": "faefb2f53b798f649e082f99173b8371fd9f9d51f7d03b9caa7e7516fb6f8e9a"
+ },
+ "exact-5__frame-environment.json": {
+  "bytes": 246,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:frame-environment.json",
+  "sha256": "fbd6eb3029bda43ceb362ea1b725bfba3f75b793b0b2d2ea56e99b486a63046f"
+ },
+ "exact-5__frame-keyboard.json": {
+  "bytes": 243,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:frame-keyboard.json",
+  "sha256": "8bf7621a2dfc85e44fe069546d38ec7df60f761df2f086e2a71c4ffe8912a9e1"
+ },
+ "exact-5__frame-ready.json": {
+  "bytes": 240,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:frame-ready.json",
+  "sha256": "ee80ce50ee283c45b943dbfd795099e31f28fd8787057c430be080181e88b3e8"
+ },
+ "exact-5__frame-relaunch.json": {
+  "bytes": 243,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:frame-relaunch.json",
+  "sha256": "bdeae6d1fe9667b52f485963badeb441ee0bbcd759fa759ab9b4522a936a8f74"
+ },
+ "exact-5__frame-restart.json": {
+  "bytes": 242,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:frame-restart.json",
+  "sha256": "633369933ba4b364f810664f8e21792dae1cebb60618c3d9ca39d76b2044a2f1"
+ },
+ "exact-5__frame-win11-progress-1.json": {
+  "bytes": 240,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:frame-win11-progress-1.json",
+  "sha256": "26ffdae05771fd9d4051a403a19cd9b2a0b3c6d5651e34471414c74270fa88be"
+ },
+ "exact-5__guest-results__proof__attestor-trace.txt": {
+  "bytes": 497,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:guest-results/proof/attestor-trace.txt",
+  "sha256": "db4d73181afd87f1a8f3be771ab52cf85a7223be9d93c366c18729cefcf8a79f"
+ },
+ "exact-5__guest-results__proof__environment.json": {
+  "bytes": 977,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:guest-results/proof/environment.json",
+  "sha256": "efa2f338d7d360e8f865dd8c43598f4d5f768d17e2e1377d1603314e743c56da"
+ },
+ "exact-5__guest-results__proof__native-shell.json": {
+  "bytes": 44327,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:guest-results/proof/native-shell.json",
+  "sha256": "e89f4270383d2aaed09524002f68a0ad9b54ab9c707f0ee97773bc88270c6195"
+ },
+ "exact-5__guest-results__proof__owned-cleanup.json": {
+  "bytes": 295,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:guest-results/proof/owned-cleanup.json",
+  "sha256": "721c3f9a0aa376b50f52274de026e4a269228ffbbea13ac372b418357354db69"
+ },
+ "exact-5__guest-results__proof__receipts.ndjson": {
+  "bytes": 15276,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:guest-results/proof/receipts.ndjson",
+  "sha256": "328c782a7ac6218da0e9f1681fb06864239fa99e0aebaacd8139e7ec98e92c45"
+ },
+ "exact-5__guest-terminal.json": {
+  "bytes": 192,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:guest-terminal.json",
+  "sha256": "c5eb28489b00c104debe734609d1309b6d86daef4b06cdc840733269d9a76b87"
+ },
+ "exact-5__host-cpu.json": {
+  "bytes": 209,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:host-cpu.json",
+  "sha256": "547ccb97ce6de400535f3fc9250728e9333c2003fe5ff09301e2539674b2f9cc"
+ },
+ "exact-5__kvm-trace.txt": {
+  "bytes": 515,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:kvm-trace.txt",
+  "sha256": "21a3653188730d1f422a5f190c3b24f9ea3c3b2db227799fb5b624f9ceafabbe"
+ },
+ "exact-5__lifecycle.json": {
+  "bytes": 29954,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:lifecycle.json",
+  "sha256": "ec06a3fde5b594bc4619601ecf1b3d3e21d043527c6358632f3021024016ac0f"
+ },
+ "exact-5__qemu-argv.json": {
+  "bytes": 2000,
+  "origin": "artifact diag48-win11-rehearsal-exact-5:qemu-argv.json",
+  "sha256": "2320cad0fbd1d3eadec81c6a38bff049b30869ad3a216640e8d1c25126b5bbcb"
+ },
+ "exact-6__closure.json": {
+  "bytes": 1125,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:closure.json",
+  "sha256": "654043642e2ba787506645f83e74842b5fcc1028fa34299bed2fcb86d003edde"
+ },
+ "exact-6__diag-host-marks.json": {
+  "bytes": 268,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:diag-host-marks.json",
+  "sha256": "700289a5b17b436a26271e13cd227a99033dffc412f2c2ff0298b8a360c45442"
+ },
+ "exact-6__diag-inputs.json": {
+  "bytes": 1727,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:diag-inputs.json",
+  "sha256": "c676f92bf17de3150593fb245b0fcf35526235d6cf9d25dd9a419db5527669f7"
+ },
+ "exact-6__dmesg-kvm.txt": {
+  "bytes": 1034,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:dmesg-kvm.txt",
+  "sha256": "5883f9264e12d28d10d15c38796e1744f849bc9bb9dc5e043f7c06311ad2e804"
+ },
+ "exact-6__forensics__forensics.log": {
+  "bytes": 907,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:forensics/forensics.log",
+  "sha256": "bf702814cd4acf4d906808c47335f07171aabf9999038f4b590a1a38fcde2885"
+ },
+ "exact-6__frame-collision.json": {
+  "bytes": 244,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:frame-collision.json",
+  "sha256": "259e2733ee99916a9a4749ac0720770dcf4a92d32c37ac10c485cb4286ef89c0"
+ },
+ "exact-6__frame-environment.json": {
+  "bytes": 246,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:frame-environment.json",
+  "sha256": "118d98f8ab52d0eb2d2cb822dfac49d6e352ab9f57b972ab1275aaa06e48f873"
+ },
+ "exact-6__frame-keyboard.json": {
+  "bytes": 243,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:frame-keyboard.json",
+  "sha256": "29cadb627b30033a84cbfc6eb82c302e6843e535ff485eb3b0e3a47cd7786a85"
+ },
+ "exact-6__frame-ready.json": {
+  "bytes": 240,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:frame-ready.json",
+  "sha256": "560f50cb1c0d684b21cbba580adca21c916872285b6d4216f8f0eee17aa421d3"
+ },
+ "exact-6__frame-relaunch.json": {
+  "bytes": 243,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:frame-relaunch.json",
+  "sha256": "44346b3335908df9e897c934d7c388c4c26f85eb609aaa905f30db19ea6bda6f"
+ },
+ "exact-6__frame-restart.json": {
+  "bytes": 242,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:frame-restart.json",
+  "sha256": "292201e13c9c54ca9dbb7a875dedf4cf35425f2e88209a54fcdfbbe1ab8551c9"
+ },
+ "exact-6__frame-win11-progress-1.json": {
+  "bytes": 240,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:frame-win11-progress-1.json",
+  "sha256": "c38760589264ba5bab36e872b740dba5d76aa7c1b31e6d162262e3efeb969c8a"
+ },
+ "exact-6__guest-results__proof__attestor-trace.txt": {
+  "bytes": 497,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:guest-results/proof/attestor-trace.txt",
+  "sha256": "ef47449b1f8d34fca30d03e6b7d37f5f92520701de12899978023d0d9afebe3a"
+ },
+ "exact-6__guest-results__proof__environment.json": {
+  "bytes": 977,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:guest-results/proof/environment.json",
+  "sha256": "5dc4a76e6b17702df8510bd3304ceb16081e8f90984791512796a712995f4742"
+ },
+ "exact-6__guest-results__proof__native-shell.json": {
+  "bytes": 44299,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:guest-results/proof/native-shell.json",
+  "sha256": "777a631be3cc4bba5d33bf73aac5283edd2d5c65e07e97da93f8a4886363cb8e"
+ },
+ "exact-6__guest-results__proof__owned-cleanup.json": {
+  "bytes": 295,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:guest-results/proof/owned-cleanup.json",
+  "sha256": "721c3f9a0aa376b50f52274de026e4a269228ffbbea13ac372b418357354db69"
+ },
+ "exact-6__guest-results__proof__receipts.ndjson": {
+  "bytes": 15249,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:guest-results/proof/receipts.ndjson",
+  "sha256": "8cec19c1949f143e5640669451b68889d8f90367403dbd09a9b3e73f52057fe8"
+ },
+ "exact-6__guest-terminal.json": {
+  "bytes": 192,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:guest-terminal.json",
+  "sha256": "a7388a56a1e9349de887ccc7db2b976da489352ff4429cabae96ede7382f9966"
+ },
+ "exact-6__host-cpu.json": {
+  "bytes": 209,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:host-cpu.json",
+  "sha256": "547ccb97ce6de400535f3fc9250728e9333c2003fe5ff09301e2539674b2f9cc"
+ },
+ "exact-6__kvm-trace.txt": {
+  "bytes": 515,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:kvm-trace.txt",
+  "sha256": "21a3653188730d1f422a5f190c3b24f9ea3c3b2db227799fb5b624f9ceafabbe"
+ },
+ "exact-6__lifecycle.json": {
+  "bytes": 29927,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:lifecycle.json",
+  "sha256": "c9508dd7b2f3a3dbc249e088fe37980ea69656378195b9f6cfbab53dbdfe4e33"
+ },
+ "exact-6__qemu-argv.json": {
+  "bytes": 2000,
+  "origin": "artifact diag48-win11-rehearsal-exact-6:qemu-argv.json",
+  "sha256": "2320cad0fbd1d3eadec81c6a38bff049b30869ad3a216640e8d1c25126b5bbcb"
+ },
+ "guest-driver-vs-2100780.diff": {
+  "bytes": 19019,
+  "derived": "diff -u of scripts/windows11/{windows11_bootstrap.ps1,windows11_guest.ps1,windows11_owned.cs,windows11_source_check.ps1} at repository commit 2100780 against diag/repo-root/scripts/windows11 at scratch commit d4d07a7de6c32fda09fb24018760c0e351446779 (the repository working tree's files at dispatch, byte for byte)",
+  "sha256": "8047b5d82e5a4937a14bf89f10fd9c08c76b05e277b00463fdaedd1e6c381726"
+ },
+ "source-check-job-log-extract.txt": {
+  "bytes": 2286,
+  "derived": "lines 200-227 (the printed source-check.json) of the log of job 126275958610, retrieved with gh api repos/kalwad/jobapplyv2/actions/jobs/126275958610/logs; that log was 21754 bytes, sha256 91566475e069cdf11590d0759493b8f1ed3ff1325d94fd32a886794fa31597b5",
+  "sha256": "2549081520e6616644d30e292c7c26e03397e121d66fae1a7270eab55de354e3"
+ },
+ "win11_rehearsal.py": {
+  "bytes": 11332,
+  "origin": "diag/windows-service-env@d4d07a7de6c32fda09fb24018760c0e351446779:diag/win11_rehearsal.py",
+  "sha256": "adb1c0bcfb25b8fcd22f4ae3fe1514728e21e5e82ca45a81c5ab7b58b4985a86"
+ },
+ "workflow.yml": {
+  "bytes": 5288,
+  "origin": "diag/windows-service-env@d4d07a7de6c32fda09fb24018760c0e351446779:.github/workflows/ci.yml",
+  "sha256": "5bae4403d17e4e5177282f024131a2ddb619880131497807b4ecf64f8037963b"
+ }
+}

@@ -1,0 +1,3 @@
+environment chars=986 write_ms=33 at_ms=25271
+ready chars=360 write_ms=9 at_ms=47458
+unauthorized12 chars=281 write_ms=6 at_ms=47976

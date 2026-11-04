@@ -1,0 +1,14 @@
+[
+  {
+    "t": 0.7,
+    "mark": "seed"
+  },
+  {
+    "t": 1.0,
+    "mark": "qemu-started"
+  },
+  {
+    "t": 3300.8,
+    "mark": "error"
+  }
+]

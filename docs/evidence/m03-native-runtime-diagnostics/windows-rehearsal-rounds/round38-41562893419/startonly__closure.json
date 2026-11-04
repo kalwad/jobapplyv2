@@ -1,0 +1,40 @@
+{
+  "scope": "DIAGNOSTIC_REHEARSAL_ONLY_NOT_ACCEPTANCE",
+  "variant": "startonly",
+  "status": "FAILED",
+  "error_type": "ValueError",
+  "message": "Actual Windows guest environment or lifecycle failed",
+  "failure_frame": {
+    "file": "win11-failure.ppm",
+    "bytes": 3072016,
+    "width": 1280,
+    "height": 800,
+    "sha256": "8fbae885c447b47ac92a80a4abdb92c9cd8443f69cce2d9c6ee9c0d082c4b19f",
+    "scope": "DIAGNOSTIC_FRAME_ONLY_NOT_PHASE_OR_ACCEPTANCE_EVIDENCE"
+  },
+  "vm_closure": {
+    "vm_started": true,
+    "direct_child_reaped": true,
+    "exit_code": 0,
+    "signals": [],
+    "group_authority_verified": false,
+    "group_after_reap": "ABSENT",
+    "qmp_quit_error_type": null,
+    "pending_commands": [],
+    "universal_escaped_descendant_absence_claimed": false
+  },
+  "host_marks": [
+    {
+      "t": 0.9,
+      "mark": "seed"
+    },
+    {
+      "t": 1.2,
+      "mark": "qemu-started"
+    },
+    {
+      "t": 1153.6,
+      "mark": "error"
+    }
+  ]
+}

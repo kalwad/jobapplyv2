@@ -1,0 +1,17 @@
+[    0.000000] clocksource: hyperv_clocksource_msr: mask: 0xffffffffffffffff max_cycles: 0x24e6a1710, max_idle_ns: 440795202120 ns
+[    0.540780] x86/fpu: Supporting XSAVE feature 0x1000: 'Control-flow Kernel registers (KVM only)'
+[    2.959413] kvm_amd: TSC scaling supported
+[    2.959438] kvm_amd: Nested Virtualization enabled
+[    2.959453] kvm_amd: Nested Paging enabled
+[    2.959475] kvm_amd: kvm_amd: Hyper-V enlightened NPT TLB flush enabled
+[    2.959491] kvm_amd: kvm_amd: Hyper-V Direct TLB Flush enabled
+[    2.959500] kvm_amd: Virtual VMLOAD VMSAVE supported
+[    2.959513] kvm_amd: PMU virtualization is disabled
+[ 1046.544859] nbd0: detected capacity change from 0 to 167772160
+[ 1046.546756]  nbd0: p1 p2 p3 p4
+[ 1049.702717]  nbd0: p1 p2 p3 p4
+[ 1051.767398] ntfs3: Enabled Linux POSIX ACLs support
+[ 1051.767421] ntfs3: Read-only LZX/Xpress compression included
+[ 1051.851336] block nbd0: NBD_DISCONNECT
+[ 1051.851369] block nbd0: Disconnected due to user request.
+[ 1051.851400] block nbd0: shutting down sockets

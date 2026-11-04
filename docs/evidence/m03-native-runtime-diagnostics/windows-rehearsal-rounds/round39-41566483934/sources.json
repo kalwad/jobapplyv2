@@ -1,0 +1,211 @@
+{
+ "conhost__closure.json": {
+  "bytes": 992,
+  "origin": "artifact diag39-win11-rehearsal-conhost:closure.json",
+  "sha256": "78b7bb34bbbb64208ec2c31635dd296691860f55f2626fc639b4646c84fc8782"
+ },
+ "conhost__diag-bootstrap.ps1": {
+  "bytes": 9899,
+  "origin": "artifact diag39-win11-rehearsal-conhost:diag-bootstrap.ps1",
+  "sha256": "9019f5717a163afe273a4ab2a2a8d4116a3a3df44e12f601cad7c99e4bcef388"
+ },
+ "conhost__diag-host-marks.json": {
+  "bytes": 141,
+  "origin": "artifact diag39-win11-rehearsal-conhost:diag-host-marks.json",
+  "sha256": "5e68d39bd24689599723022133722c6bb914050495ec2dd366f407156f8c39fa"
+ },
+ "conhost__diag-inputs.json": {
+  "bytes": 565,
+  "origin": "artifact diag39-win11-rehearsal-conhost:diag-inputs.json",
+  "sha256": "be7d33b48034568a6a1cc3fc5b03529dbc3b82deec337e827ee04b87946267f2"
+ },
+ "conhost__frame-environment.json": {
+  "bytes": 246,
+  "origin": "artifact diag39-win11-rehearsal-conhost:frame-environment.json",
+  "sha256": "826ddd2cdd4330500c3a8207f2c92def3a1169f30ba6c9fa2b74f4966c93b324"
+ },
+ "conhost__frame-win11-progress-1.json": {
+  "bytes": 240,
+  "origin": "artifact diag39-win11-rehearsal-conhost:frame-win11-progress-1.json",
+  "sha256": "3063128d728efab8f9531e7d814faf137a00a8ed8feff3f3e940e657063df1a4"
+ },
+ "conhost__frame-win11-progress-2.json": {
+  "bytes": 240,
+  "origin": "artifact diag39-win11-rehearsal-conhost:frame-win11-progress-2.json",
+  "sha256": "03c61f835d56c01a0b600f1e45a5a2b430c8bea9b7d65965f3d3e3ea9e28deaa"
+ },
+ "conhost__guest-results__proof__attestor-trace.txt": {
+  "bytes": 497,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag39-win11-rehearsal-conhost:guest-results/proof/attestor-trace.txt",
+  "sha256": "d7fc66985cb067b4a10c6150d9b0364fda9e13a46b0b11f3a5b75ba4aa7d0d1c"
+ },
+ "conhost__guest-results__proof__diag-dxdiag-owned.txt": {
+  "bytes": 52,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag39-win11-rehearsal-conhost:guest-results/proof/diag-dxdiag-owned.txt",
+  "sha256": "2dd9e66edc95f160a385b34c2f73feb202742e6526472c0ba9dcf5770c8744bf"
+ },
+ "conhost__guest-results__proof__diag-dxdiag.json": {
+  "bytes": 4813,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag39-win11-rehearsal-conhost:guest-results/proof/diag-dxdiag.json",
+  "sha256": "5b421caf8156c5178da0abddf7ae8f0b0448ec2d531eef77c477ccf9a3834622"
+ },
+ "conhost__guest-results__proof__diag-serial-writes.txt": {
+  "bytes": 48,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag39-win11-rehearsal-conhost:guest-results/proof/diag-serial-writes.txt",
+  "sha256": "1c17fc4c4843c15e8153d6859ed1662c2e7499a0da3eff915d64ff98091f3b02"
+ },
+ "conhost__guest-results__proof__diag-shell-state.ndjson": {
+  "bytes": 769,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag39-win11-rehearsal-conhost:guest-results/proof/diag-shell-state.ndjson",
+  "sha256": "750a7617503dd8c2e6a7b0ee82b6af00faa7eb211f77ae5ce484ed3b157dbf90"
+ },
+ "conhost__guest-results__proof__environment.json": {
+  "bytes": 977,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag39-win11-rehearsal-conhost:guest-results/proof/environment.json",
+  "sha256": "33897a89df6a3927b81b9da1c06261cbd47711d78a8e9d82b41dda3853c435d3"
+ },
+ "conhost__guest-results__proof__receipts.ndjson": {
+  "bytes": 992,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag39-win11-rehearsal-conhost:guest-results/proof/receipts.ndjson",
+  "sha256": "c937f47c6b70f71e135d55ebecccaffa037169c72daefdb4ddb8eb88388c6c04"
+ },
+ "conhost__host-cpu.json": {
+  "bytes": 208,
+  "origin": "artifact diag39-win11-rehearsal-conhost:host-cpu.json",
+  "sha256": "e0cabddb166f2d68b1e69cd6ce6eb30ad70919011e38301e10bfd70ec9fb5a8a"
+ },
+ "conhost__win11-environment.png": {
+  "bytes": 3072016,
+  "converted_from_ppm_to_png": true,
+  "origin": "artifact diag39-win11-rehearsal-conhost:win11-environment.ppm",
+  "sha256": "8926bd76b71374e23189ce642ffc9e803ff11f8eb74244c7aa5b2242ba969cf2"
+ },
+ "conhost__win11-failure.png": {
+  "bytes": 3072016,
+  "converted_from_ppm_to_png": true,
+  "origin": "artifact diag39-win11-rehearsal-conhost:win11-failure.ppm",
+  "sha256": "6350f73fa4a270d3a2188296a34094a89056649ee848661bee6c892b3d749477"
+ },
+ "guest-driver-vs-2100780.diff": {
+  "bytes": 23639,
+  "derived": "diff -u of scripts/windows11/{windows11_bootstrap.ps1,windows11_guest.ps1,windows11_owned.cs,windows11_source_check.ps1} at repository commit 2100780 against diag/repo-root/scripts/windows11 at scratch commit 83a362e8473a86c5b4c53eb6efac3567423af54f",
+  "sha256": "dac2f7c14c9269f0d39014e87180a3218a13551244f6cec2ce08ea9530451010"
+ },
+ "source-check-job-log-extract.txt": {
+  "bytes": 2286,
+  "derived": "lines 217-244 (the printed source-check.json) of the log of job 125689187075, retrieved with gh api repos/kalwad/jobapplyv2/actions/jobs/125689187075/logs; that log was 22807 bytes, sha256 f302f75f097e7a737209601d398ff3ab913053e34d7e7ef80b7eff82fcf86273",
+  "sha256": "d20deffe99f00ec494754ff900ef377c77f0d03cb88c724623b3f0d0c73c0b2d"
+ },
+ "terminal__closure.json": {
+  "bytes": 993,
+  "origin": "artifact diag39-win11-rehearsal-terminal:closure.json",
+  "sha256": "017a7785a95e2f046074e57a3b93f0d3bf30176788da1878bf19212de2e53e16"
+ },
+ "terminal__diag-bootstrap.ps1": {
+  "bytes": 9384,
+  "origin": "artifact diag39-win11-rehearsal-terminal:diag-bootstrap.ps1",
+  "sha256": "79613ee71b13998116ca106b744300892df8f7ea45267b8675a0ac4aea8a9e61"
+ },
+ "terminal__diag-host-marks.json": {
+  "bytes": 141,
+  "origin": "artifact diag39-win11-rehearsal-terminal:diag-host-marks.json",
+  "sha256": "b05a306a3b7e1a4ff3df0f1041d3797d459d211097e6bf78ffecbd89a9586bb4"
+ },
+ "terminal__diag-inputs.json": {
+  "bytes": 590,
+  "origin": "artifact diag39-win11-rehearsal-terminal:diag-inputs.json",
+  "sha256": "eb0e3017004160d60b4b9a8c2e89e69c8a4f91f8925e413d16c15904804c14cf"
+ },
+ "terminal__firmware-console.raw": {
+  "bytes": 1592,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag39-win11-rehearsal-terminal:firmware-console.raw",
+  "sha256": "6f4bd05257bdae5b7dcd94b0167815499fdec403678b82036aa2a4e6165a1f6c"
+ },
+ "terminal__frame-environment.json": {
+  "bytes": 246,
+  "origin": "artifact diag39-win11-rehearsal-terminal:frame-environment.json",
+  "sha256": "cdbf8cbc46da1c4324b4b68a606c9f61408b3661e3ed81f3939a9c871c03352a"
+ },
+ "terminal__frame-win11-progress-1.json": {
+  "bytes": 240,
+  "origin": "artifact diag39-win11-rehearsal-terminal:frame-win11-progress-1.json",
+  "sha256": "ccc7782f25e45c4a3a0f44f31f2e2c880bd271d093809987ed2d308eaf797090"
+ },
+ "terminal__guest-results__proof__attestor-trace.txt": {
+  "bytes": 497,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag39-win11-rehearsal-terminal:guest-results/proof/attestor-trace.txt",
+  "sha256": "d01778dd49d180211a9a43114e28f5e32efc06e21de105b455448434c9c87bc7"
+ },
+ "terminal__guest-results__proof__diag-dxdiag-owned.txt": {
+  "bytes": 51,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag39-win11-rehearsal-terminal:guest-results/proof/diag-dxdiag-owned.txt",
+  "sha256": "c45124de25f506e8b8584aa55bce914f2f719d869b373a9b3bea87d9c734d820"
+ },
+ "terminal__guest-results__proof__diag-dxdiag.json": {
+  "bytes": 1682,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag39-win11-rehearsal-terminal:guest-results/proof/diag-dxdiag.json",
+  "sha256": "b8fbac3498e99a32f271fec8a03a3469396f528f61460efadd9f2b650e7d74cd"
+ },
+ "terminal__guest-results__proof__diag-serial-writes.txt": {
+  "bytes": 48,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag39-win11-rehearsal-terminal:guest-results/proof/diag-serial-writes.txt",
+  "sha256": "7a553e0e7a6e7cc045c5ec0fb446d92cc587fdcc461ec8d2b956275f434b50ac"
+ },
+ "terminal__guest-results__proof__diag-shell-state.ndjson": {
+  "bytes": 781,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag39-win11-rehearsal-terminal:guest-results/proof/diag-shell-state.ndjson",
+  "sha256": "49feb7231349cd69d8109c661147fc4fd01ccd2a568a390ac280181b922e0f4f"
+ },
+ "terminal__guest-results__proof__environment.json": {
+  "bytes": 977,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag39-win11-rehearsal-terminal:guest-results/proof/environment.json",
+  "sha256": "99f7326b8767450b63f5de790f5bdb3f6a71359ceec2963fdbf42adf669ee0c6"
+ },
+ "terminal__guest-results__proof__receipts.ndjson": {
+  "bytes": 992,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag39-win11-rehearsal-terminal:guest-results/proof/receipts.ndjson",
+  "sha256": "69f86762aeba2282e8ca2921133c70710779355f78f57257090ba5dac6d1d402"
+ },
+ "terminal__host-cpu.json": {
+  "bytes": 209,
+  "origin": "artifact diag39-win11-rehearsal-terminal:host-cpu.json",
+  "sha256": "547ccb97ce6de400535f3fc9250728e9333c2003fe5ff09301e2539674b2f9cc"
+ },
+ "terminal__win11-environment.png": {
+  "bytes": 3072016,
+  "converted_from_ppm_to_png": true,
+  "origin": "artifact diag39-win11-rehearsal-terminal:win11-environment.ppm",
+  "sha256": "baa6da7b275a08ddda86d6c0af868127a672b9139f11d848ee49621094456741"
+ },
+ "terminal__win11-failure.png": {
+  "bytes": 3072016,
+  "converted_from_ppm_to_png": true,
+  "origin": "artifact diag39-win11-rehearsal-terminal:win11-failure.ppm",
+  "sha256": "d4154f489ad1fe61e9dc488411e80ce1c02cf0e6cb6a2591b6f815c4dce7e87d"
+ },
+ "win11_rehearsal.py": {
+  "bytes": 8492,
+  "origin": "diag/windows-service-env@83a362e8473a86c5b4c53eb6efac3567423af54f:diag/win11_rehearsal.py",
+  "sha256": "d2358985aea1861eebc47c122673a2a99c782d110458af79bb6bf1c5cf3a9bb7"
+ },
+ "workflow.yml": {
+  "bytes": 3412,
+  "origin": "diag/windows-service-env@83a362e8473a86c5b4c53eb6efac3567423af54f:.github/workflows/ci.yml",
+  "sha256": "f7bedd9ebcb8ca5a6fd806656bfa9e0db640102b50af809c76176bd28cb7fb85"
+ }
+}

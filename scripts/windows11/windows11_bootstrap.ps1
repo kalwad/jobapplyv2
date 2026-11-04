@@ -56,6 +56,14 @@ try {
     $bootTime=$os.LastBootUpTime.ToUniversalTime().ToString('o')
     $system=Get-CimInstance -ClassName Win32_ComputerSystem
     $step='interactive-user'; TraceStep $step
+    # The logon trigger can start this task before Windows reports the console user
+    # (rehearsal round 49: none 38 s after boot). An empty user is read again for up
+    # to 60 s; any other user fails at once (KI-0186).
+    $userClock=[Diagnostics.Stopwatch]::StartNew()
+    while([string]::IsNullOrEmpty([string]$system.UserName) -and $userClock.Elapsed.TotalSeconds -lt 60) {
+        Start-Sleep -Seconds 1
+        $system=Get-CimInstance -ClassName Win32_ComputerSystem
+    }
     if($system.UserName -cne ($env:COMPUTERNAME+'\JappFixture')) { throw ('Exact synthetic interactive fixture required; observed user: '+[string]$system.UserName) }
     # Microsoft's LogonCount=1 off-by-one is settled by the protected first-logon task.
     # No interactive account is elevated to perform this setup.
@@ -99,6 +107,31 @@ $principal = New-ScheduledTaskPrincipal -UserId 'SYSTEM' -LogonType ServiceAccou
 # a stalled run, which the scheduler kills with no catch; its trace keeps the last step.
 $settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Minutes 10) -AllowStartIfOnBatteries
 Register-ScheduledTask -TaskName 'JappOwnedMachineAttestation' -Action $action -Trigger $trigger -Principal $principal -Settings $settings | Out-Null
+# The fixture's first-logon state, set in the Default profile it is created from
+# (KI-0177): Windows opens Start by itself at a first logon unless this is set, and
+# Start then holds the foreground the guest needs (diagnostic rounds 34, 35, 38). The
+# guest's console is the classic console host, whose console process owns its window;
+# under it every guest foreground request succeeded at once (rounds 43 and 44).
+# Every first-logon step completes before the fixture's startup entry is written, so a
+# failed step leaves no guest to run in an unreviewed first-logon state.
+$profileHive = 'HKU\JappDefaultProfile'
+& reg.exe load $profileHive 'C:\Users\Default\NTUSER.DAT' | Out-Null
+if ($LASTEXITCODE -ne 0) { throw 'Default profile hive load failed' }
+try {
+    & reg.exe add ($profileHive + '\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced') /v StartShownOnUpgrade /t REG_DWORD /d 1 /f | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw 'First-logon Start setting failed' }
+    foreach ($delegation in @('DelegationConsole', 'DelegationTerminal')) {
+        & reg.exe add ($profileHive + '\Console\%%Startup') /v $delegation /t REG_SZ /d '{B23D10C0-E52E-411E-9D5B-C09FDF709C7D}' /f | Out-Null
+        if ($LASTEXITCODE -ne 0) { throw 'Console host setting failed' }
+    }
+} finally {
+    & reg.exe unload $profileHive | Out-Null
+}
+if ($LASTEXITCODE -ne 0) { throw 'Default profile hive unload failed' }
+# The display stays on for the whole run: framed phases need a live frame. With no
+# input it went black 326 to 352 s after logon (KI-0179; rounds 34 and 35).
+& powercfg.exe /change monitor-timeout-ac 0
+if ($LASTEXITCODE -ne 0) { throw 'Display timeout setting failed' }
 # Explorer's normal startup runs this as the created standard user, with UAC unchanged.
 $startup = 'C:\Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'
 New-Item -ItemType Directory -Path $startup -Force | Out-Null

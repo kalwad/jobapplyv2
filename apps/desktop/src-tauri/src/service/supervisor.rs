@@ -39,7 +39,13 @@ pub enum ServiceState {
 }
 #[derive(Clone, Copy)]
 pub struct Policy {
+    /// A relaunch's bound, from preflight to READY, inside the restart cycle.
     pub startup_timeout: Duration,
+    /// The first start's bound, from preflight to READY. In three nested Windows 11
+    /// VMs without Hyper-V enlightenments, the first start missed the 10 s bound: the
+    /// service process appeared 4.5 to 8.8 s after the desktop process, and the
+    /// service started on its own sent READY 7.6 s after its spawn began (KI-0182).
+    pub initial_startup_timeout: Duration,
     pub shutdown_timeout: Duration,
     pub poll_interval: Duration,
     pub bind_attempts: u8,
@@ -48,6 +54,7 @@ impl Default for Policy {
     fn default() -> Self {
         Self {
             startup_timeout: Duration::from_secs(10),
+            initial_startup_timeout: Duration::from_secs(30),
             shutdown_timeout: Duration::from_secs(3),
             poll_interval: Duration::from_millis(10),
             bind_attempts: 3,
@@ -182,6 +189,8 @@ impl<A: RuntimeAdapter, C: Clock> Supervisor<A, C> {
     pub fn new(adapter: A, clock: C, policy: Policy) -> Result<Self, SupervisorError> {
         if policy.startup_timeout.is_zero()
             || policy.startup_timeout > Duration::from_secs(30)
+            || policy.initial_startup_timeout < policy.startup_timeout
+            || policy.initial_startup_timeout > Duration::from_secs(30)
             || policy.shutdown_timeout.is_zero()
             || policy.shutdown_timeout > Duration::from_secs(10)
             || policy.poll_interval.is_zero()
@@ -289,11 +298,20 @@ impl<A: RuntimeAdapter, C: Clock> Supervisor<A, C> {
         self.secret = None;
         self.identity = None;
     }
+    /// The first start, under the initial bound.
     pub fn start(&mut self) -> Result<ServiceIdentity, SupervisorError> {
-        self.start_until(Duration::MAX)
+        self.start_within(self.policy.initial_startup_timeout, Duration::MAX)
     }
+    /// A relaunch, under the relaunch bound and the restart cycle's deadline.
     pub(super) fn start_until(
         &mut self,
+        outer_deadline: Duration,
+    ) -> Result<ServiceIdentity, SupervisorError> {
+        self.start_within(self.policy.startup_timeout, outer_deadline)
+    }
+    fn start_within(
+        &mut self,
+        startup_timeout: Duration,
         outer_deadline: Duration,
     ) -> Result<ServiceIdentity, SupervisorError> {
         if self.cancellation.load(Ordering::Acquire) {
@@ -303,7 +321,7 @@ impl<A: RuntimeAdapter, C: Clock> Supervisor<A, C> {
             return Err(SupervisorError::AlreadyRunning);
         }
         self.failure_cause = None;
-        let deadline = (self.clock.now() + self.policy.startup_timeout).min(outer_deadline);
+        let deadline = (self.clock.now() + startup_timeout).min(outer_deadline);
         let permit = SpawnPermit {
             cancellation: &self.cancellation,
             clock: &self.clock,
@@ -863,6 +881,7 @@ mod tests {
         };
         let policy = Policy {
             startup_timeout: Duration::from_millis(50),
+            initial_startup_timeout: Duration::from_millis(50),
             shutdown_timeout: Duration::from_millis(30),
             poll_interval: Duration::from_millis(10),
             bind_attempts: 3,
@@ -1262,6 +1281,49 @@ mod tests {
         s.adapter.preflight_elapsed = Some((Arc::clone(&s.clock.0), Duration::from_millis(100)));
         assert_eq!(s.start(), Err(SupervisorError::StartupTimeout));
         assert_eq!(r.lock().unwrap().spawn, 0);
+    }
+    #[test]
+    fn first_start_bound_covers_a_cold_preflight_that_a_relaunch_bound_refuses() {
+        // A cold first launch spent most of the relaunch bound in the runtime-integrity
+        // preflight and spawn (KI-0182); the first start has its own, longer bound.
+        let (mut s, r) = harness(vec![Outcome::Ready]);
+        s.policy.initial_startup_timeout = Duration::from_millis(200);
+        s.adapter.preflight_elapsed = Some((Arc::clone(&s.clock.0), Duration::from_millis(100)));
+        assert!(s.start().is_ok());
+        assert_eq!(s.state(), ServiceState::Running);
+        assert_eq!(r.lock().unwrap().spawn, 1);
+    }
+    #[test]
+    fn relaunch_bound_still_includes_preflight_and_prevents_late_spawn() {
+        let (mut s, r) = harness(vec![Outcome::Ready]);
+        s.policy.initial_startup_timeout = Duration::from_millis(200);
+        s.adapter.preflight_elapsed = Some((Arc::clone(&s.clock.0), Duration::from_millis(100)));
+        assert_eq!(
+            s.start_until(Duration::MAX),
+            Err(SupervisorError::StartupTimeout)
+        );
+        assert_eq!(r.lock().unwrap().spawn, 0);
+    }
+    #[test]
+    fn first_start_bound_is_never_below_the_relaunch_bound_or_above_the_cap() {
+        for initial in [Duration::from_millis(49), Duration::from_millis(30_001)] {
+            let (r, _) = harness(vec![]);
+            let result = Supervisor::new(
+                r.adapter,
+                FakeClock::default(),
+                Policy {
+                    startup_timeout: Duration::from_millis(50),
+                    initial_startup_timeout: initial,
+                    ..Policy::default()
+                },
+            );
+            assert!(matches!(result, Err(SupervisorError::InvalidPolicy)));
+        }
+        let policy = Policy::default();
+        assert_eq!(policy.startup_timeout, Duration::from_secs(10));
+        assert_eq!(policy.initial_startup_timeout, Duration::from_secs(30));
+        let (r, _) = harness(vec![]);
+        assert!(Supervisor::new(r.adapter, FakeClock::default(), policy).is_ok());
     }
     #[test]
     fn queued_ready_after_poll_overshoot_cannot_authorize_running() {

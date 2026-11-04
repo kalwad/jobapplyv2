@@ -2465,16 +2465,16 @@ WINDOWS11_PYTHON_MODULES = frozenset(
 )
 WINDOWS11_NATIVE_PINS = {
     "windows11_owned.cs": (
-        "5b2e50706692e1814087362f56cf3abeb8b92e4ca0bb8266903bfb25faf7f540"
+        "fa142841142cba8e55314bf0c087035d8024feafea6a4fc9c2a26211ba0160e8"
     ),
     "windows11_source_check.ps1": (
-        "8fe860dee981b6392ee291fd63c4d057b4174b3673926e5e385a4f55bed7e822"
+        "83252d914a2960d4d47a86f40343bb36184462fa3c4356b42945c599ad691b5f"
     ),
     "windows11_guest.ps1": (
-        "84049740b725ffcc4462b41cefa3524879db82b0ac40a2c0d6cf80b01a11b189"
+        "e6d3040ae9e701838b140e0a88c6c1af2bbb9a296f7dc6fdca35ca87d263da75"
     ),
     "windows11_bootstrap.ps1": (
-        "c212a0790f70bd87d6f9e7353c28d67a84021622d9c4181aefb7e5cd833699ca"
+        "4f63af202ccb088624ce35f14e98d4b5e36a7877c6221bd017db3adf86b4fe8c"
     ),
 }
 WINDOWS11_MODULES = WINDOWS11_PYTHON_MODULES | WINDOWS11_NATIVE_PINS.keys()

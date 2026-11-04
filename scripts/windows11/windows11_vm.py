@@ -76,6 +76,20 @@ INSTALL_MEDIA_STARTED = (
     b"BdsDxe: starting Boot",
     b" from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x1,0xFFFF,0x0)",
 )
+# The host CPU, so the guest attests the runner's own processor, with the standard
+# Hyper-V enlightenments Windows uses as a guest. Hosted runners give KVM no
+# performance-monitoring unit, so a guest RDPMC raises #GP; without these Windows
+# programmed the counters and bugchecked (0x3B in HalpAllocatePmcCounterSetEx, for an
+# ETW session of whesvc) after the product launch. With them it did not touch the
+# counters in any VM and ran Setup about twice as fast (KI-0181, rounds 39 to 44).
+GUEST_CPU = (
+    "host,hv-relaxed,hv-vapic,hv-spinlocks=0x1fff,hv-vpindex,hv-runtime,"
+    "hv-time,hv-synic,hv-stimer,hv-frequencies"
+)
+# OVMF's boot-manager prefix, written to its console on every boot. After the
+# first guest receipt it means the VM restarted and the guest controller is gone
+# (diagnostic run 41566483934: both VMs restarted after 'environment').
+FIRMWARE_BOOT_LINE = b"BdsDxe: "
 MIN_FREE = 48 * 1024**3
 MIN_MEMORY = 8 * 1024**3
 # Phases whose QMP frame the guest waits for before its next UI action.
@@ -475,7 +489,7 @@ def qemu_argv(work: Path, iso: Path, seed_iso: Path) -> list[str]:
         "-accel",
         "kvm",
         "-cpu",
-        "host",
+        GUEST_CPU,
         "-smp",
         "2",
         "-m",
@@ -687,6 +701,7 @@ def observe(  # noqa: PLR0912, PLR0915 - bounded ordered receipt protocol
     key_sent = False
     progress = 0
     next_progress = started + PROGRESS_FRAME_SECONDS
+    boots_at_first_receipt: int | None = None
     with (
         firmware,
         serial,
@@ -745,6 +760,14 @@ def observe(  # noqa: PLR0912, PLR0915 - bounded ordered receipt protocol
                 console_raw.write(chunk)
                 console_raw.flush()
                 mirror.console(chunk)
+                if (
+                    boots_at_first_receipt is not None
+                    and console.count(FIRMWARE_BOOT_LINE) > boots_at_first_receipt
+                ):
+                    raise ValueError(
+                        "Owned Windows VM restarted after the guest started;"
+                        " its guest controller is gone"
+                    )
             if serial not in readable:
                 continue
             data = serial.recv(65536)
@@ -795,6 +818,8 @@ def observe(  # noqa: PLR0912, PLR0915 - bounded ordered receipt protocol
                     if row["attestation"]["package_sha256"] != package_pin:
                         raise ValueError("Actual environment package binding differs")
                 receipts.append(row)
+                if boots_at_first_receipt is None:
+                    boots_at_first_receipt = console.count(FIRMWARE_BOOT_LINE)
                 if len(receipts) > len(REQUIRED_PHASES):
                     raise ValueError("Guest phase count exceeds bound")
                 if row["phase"] in FRAMED_PHASES:

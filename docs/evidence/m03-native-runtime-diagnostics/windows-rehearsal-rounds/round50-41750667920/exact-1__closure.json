@@ -1,0 +1,54 @@
+{
+  "scope": "DIAGNOSTIC_REHEARSAL_ONLY_NOT_ACCEPTANCE",
+  "variant": "exact-1",
+  "status": "DIAGNOSTIC_REHEARSAL_PASS_NOT_ACCEPTANCE",
+  "guest_terminal": "PASS",
+  "guest_stop": {
+    "request": "system_powerdown",
+    "bound_seconds": 180,
+    "acpi_s3_s4": "DISABLED",
+    "graceful": true,
+    "forced_quit": false,
+    "seconds": 9.984,
+    "exit_code": 0,
+    "vm_output_cap_exceeded": false
+  },
+  "vm_closure": {
+    "vm_started": true,
+    "direct_child_reaped": true,
+    "exit_code": 0,
+    "signals": [],
+    "group_authority_verified": false,
+    "group_after_reap": "ABSENT",
+    "qmp_quit_error_type": null,
+    "pending_commands": [],
+    "universal_escaped_descendant_absence_claimed": false
+  },
+  "forensics": {
+    "returncode": 0,
+    "seconds": 5.3,
+    "stderr": ""
+  },
+  "host_marks": [
+    {
+      "t": 0.9,
+      "mark": "seed"
+    },
+    {
+      "t": 0.9,
+      "mark": "qemu-started"
+    },
+    {
+      "t": 701.1,
+      "mark": "monitor-environment-boots-2"
+    },
+    {
+      "t": 791.7,
+      "mark": "guest-pass"
+    },
+    {
+      "t": 801.7,
+      "mark": "post-pass-checks"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "variant": "exact-2",
+  "harness_sources": {
+    "windows11_bootstrap.ps1": "1624583707fc50464785e55802267f485d02bcddf58bdfae1fb6d0be811794cf",
+    "windows11_candidate.py": "394761bedc6a725ae01029de53f762d650415fcd081259b1bd92434529aefb89",
+    "windows11_deployment.py": "f822aa3f85161275b3a6cb8cb979fb9d71bad250ce9f5bd0f635749fc054af1b",
+    "windows11_guest.ps1": "591391b84dd98ac177a2637a5616d88f00b04b8179390ec7b0ab0ce68aaa4e4f",
+    "windows11_inputs.py": "15939a41b27889f92085b121df43bca02053be36cde1ebd0a91d5fbd3b278652",
+    "windows11_owned.cs": "6298898d8364534f460bf9bd4a7a313c85ef0dd8d1f9a68ed014c0b16b08654b",
+    "windows11_platform.py": "fc8949ba1d89314d90b21a027e697e339f77da341a31d9a88a393fd8536d2460",
+    "windows11_process.py": "1bed1775fe376d05f32e125c310e538b4693cb475dfd075edb47ff70579ead7a",
+    "windows11_request.py": "f41224c17c0c62fc1df2bdafa1ab609a62bd091ed674bfdcc2828cf886f9cf27",
+    "windows11_resources.py": "eb061cb5f1ac08f6f390586298514b3ccd3322c802ccf6cc6d8a18ac3e14c51a",
+    "windows11_source_check.ps1": "83252d914a2960d4d47a86f40343bb36184462fa3c4356b42945c599ad691b5f",
+    "windows11_vm.py": "8e1a0619e838e3c2d8cbbb56df10b498e2f8f1f099c4d8aafa4570578ce7e993"
+  },
+  "guest_driver": {
+    "windows11_bootstrap.ps1": "1624583707fc50464785e55802267f485d02bcddf58bdfae1fb6d0be811794cf",
+    "windows11_guest.ps1": "591391b84dd98ac177a2637a5616d88f00b04b8179390ec7b0ab0ce68aaa4e4f",
+    "windows11_owned.cs": "6298898d8364534f460bf9bd4a7a313c85ef0dd8d1f9a68ed014c0b16b08654b"
+  },
+  "package_manifest_sha256": "0396ddf437aa100e9e75ffec032ee432165bb8a01958e652690965b62d4299d4",
+  "iso_sha256_checked_by_workflow": "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38"
+}

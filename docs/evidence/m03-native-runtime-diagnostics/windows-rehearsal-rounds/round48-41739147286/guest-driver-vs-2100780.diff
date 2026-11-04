@@ -1,0 +1,236 @@
+--- a/scripts/windows11/windows11_bootstrap.ps1
++++ b/scripts/windows11/windows11_bootstrap.ps1
+@@ -103,3 +103,28 @@
+ $startup = 'C:\Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'
+ New-Item -ItemType Directory -Path $startup -Force | Out-Null
+ Set-Content -LiteralPath (Join-Path $startup 'JappFixture.cmd') -Encoding ASCII -Value '@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy RemoteSigned -File "C:\ProgramData\JappHarness\windows11_guest.ps1" -Configuration "C:\ProgramData\JappHarness\guest-config.json"'
++# The fixture's first-logon state, set in the Default profile it is created from
++# (KI-0177): Windows opens Start by itself at a first logon unless this is set, and
++# Start then holds the foreground the guest needs (diagnostic rounds 34, 35, 38). The
++# guest's console is the classic console host, whose console process owns its window;
++# under it every guest foreground request succeeded at once (rounds 43 and 44).
++$profileHive = 'HKU\JappDefaultProfile'
++& reg.exe load $profileHive 'C:\Users\Default\NTUSER.DAT' | Out-Null
++if ($LASTEXITCODE -ne 0) { throw 'Default profile hive load failed' }
++try {
++    & reg.exe add ($profileHive + '\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced') /v StartShownOnUpgrade /t REG_DWORD /d 1 /f | Out-Null
++    if ($LASTEXITCODE -ne 0) { throw 'First-logon Start setting failed' }
++    foreach ($delegation in @('DelegationConsole', 'DelegationTerminal')) {
++        & reg.exe add ($profileHive + '\Console\%%Startup') /v $delegation /t REG_SZ /d '{B23D10C0-E52E-411E-9D5B-C09FDF709C7D}' /f | Out-Null
++        if ($LASTEXITCODE -ne 0) { throw 'Console host setting failed' }
++    }
++} finally {
++    # Release PowerShell's own handles into the hive before it is unloaded.
++    [GC]::Collect()
++    & reg.exe unload $profileHive | Out-Null
++}
++if ($LASTEXITCODE -ne 0) { throw 'Default profile hive unload failed' }
++# The display stays on for the whole run: framed phases need a live frame. With no
++# input it went black 326 to 352 s after logon (KI-0179; rounds 34 and 35).
++& powercfg.exe /change monitor-timeout-ac 0
++if ($LASTEXITCODE -ne 0) { throw 'Display timeout setting failed' }
+--- a/scripts/windows11/windows11_guest.ps1
++++ b/scripts/windows11/windows11_guest.ps1
+@@ -5,7 +5,10 @@
+ # The protocol port opens before anything else can fail, so a preflight failure
+ # reaches the host as one terminal row instead of at the host's work deadline.
+ $serial = New-Object IO.Ports.SerialPort('COM2',115200,'None',8,'One')
+-$serial.WriteTimeout = 500
++# A whole receipt line is written within this bound. The ~1 KB environment receipt
++# took 43 to 70 ms in the VM (diagnostic rounds 39 and 40), so the ~10.8 KB keyboard
++# receipt needs about a second; 500 ms would refuse it (KI-0178).
++$serial.WriteTimeout = 30000
+ $serial.Open()
+ $config = $null
+ function ConfigPin([string]$Name) {
+--- a/scripts/windows11/windows11_owned.cs
++++ b/scripts/windows11/windows11_owned.cs
+@@ -54,10 +54,77 @@
+         [DllImport("user32.dll")] static extern bool IsWindowVisible(IntPtr window);
+         [DllImport("user32.dll")] static extern bool SetForegroundWindow(IntPtr window);
+         [DllImport("user32.dll")] static extern IntPtr GetForegroundWindow();
++        // A window of this owner becomes the foreground within a fixed bound, or the
++        // request fails with its own refusal; no input is sent to take it. Under the
++        // corrected first-logon state every request succeeded at once (KI-0177).
++        const int ForegroundMilliseconds=10000;
++        static void OwnForeground(IntPtr hwnd,string refusal) {
++            Stopwatch watch=Stopwatch.StartNew();
++            while(!(SetForegroundWindow(hwnd)&&GetForegroundWindow()==hwnd)) {
++                if(watch.ElapsedMilliseconds>=ForegroundMilliseconds) throw new InvalidOperationException(refusal);
++                Thread.Sleep(100);
++            }
++        }
+         [StructLayout(LayoutKind.Sequential)] struct KeyboardInput { public ushort key,scan; public uint flags,time; public UIntPtr extra; }
+         [StructLayout(LayoutKind.Explicit,Size=32)] struct InputUnion { [FieldOffset(0)] public KeyboardInput keyboard; }
+         [StructLayout(LayoutKind.Sequential)] struct Input { public uint type; public InputUnion data; }
+         [DllImport("user32.dll",SetLastError=true)] static extern uint SendInput(uint count,Input[] inputs,int size);
++        // A UIA SetFocus on WebView2 content also activates the window that hosts the
++        // element, and the two focus changes race: Win32 focus can end on WebView2's
++        // accessibility-only child window, which drops keyboard input until focus moves
++        // again. Every lost key in diagnostic rounds 45 to 47 was sent with focus there;
++        // in round 47's trace each followed a UIA SetFocus, and the focus changes of all
++        // 132 requests ended within 85 ms (KI-0184). A fixed key is sent only after Win32
++        // focus has stayed on WebView2's keyboard window, inside the owned window, for a
++        // quiet interval. Focus on the accessibility child is handed to the keyboard
++        // window that holds it, never taken with input.
++        [StructLayout(LayoutKind.Sequential)] struct GuiThreadInfo { public uint cbSize,flags; public IntPtr hwndActive,hwndFocus,hwndCapture,hwndMenuOwner,hwndMoveSize,hwndCaret; public int left,top,right,bottom; }
++        [DllImport("user32.dll",SetLastError=true)] static extern bool GetGUIThreadInfo(uint thread,ref GuiThreadInfo info);
++        [DllImport("user32.dll",CharSet=CharSet.Unicode,SetLastError=true)] static extern int GetClassName(IntPtr window,StringBuilder name,int max);
++        [DllImport("user32.dll")] static extern IntPtr GetParent(IntPtr window);
++        [DllImport("user32.dll")] static extern bool IsChild(IntPtr parent,IntPtr window);
++        [DllImport("user32.dll",SetLastError=true)] static extern bool AttachThreadInput(uint thread,uint target,bool attach);
++        [DllImport("user32.dll",SetLastError=true)] static extern IntPtr SetFocus(IntPtr window);
++        [DllImport("kernel32.dll")] static extern uint GetCurrentThreadId();
++        const string WebViewKeyboardClass="Chrome_WidgetWin_1";
++        const string WebViewAccessibilityClass="Chrome_RenderWidgetHostHWND";
++        const int FocusQuietMilliseconds=250,FocusSettleMilliseconds=3000,FocusMoveBound=3;
++        static string WindowClass(IntPtr window) {
++            StringBuilder name=new StringBuilder(257);
++            int length=GetClassName(window,name,name.Capacity);
++            if(length<=0||length>=256) throw new InvalidOperationException("Actual focused window class unavailable");
++            return name.ToString();
++        }
++        void SettleKeyboardFocus(IntPtr hwnd) {
++            Stopwatch watch=Stopwatch.StartNew(); IntPtr held=IntPtr.Zero; long since=0; int moves=0; string last="none";
++            while(true) {
++                if(GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Owned foreground changed before fixed key sequence");
++                IntPtr focus=IntPtr.Zero; uint focusPid=0,focusThread=0; string kind;
++                try {
++                    uint pid; uint windowThread=GetWindowThreadProcessId(hwnd,out pid);
++                    GuiThreadInfo info=new GuiThreadInfo(); info.cbSize=(uint)Marshal.SizeOf(typeof(GuiThreadInfo));
++                    if(windowThread==0||pid!=Pid||!GetGUIThreadInfo(windowThread,ref info)) throw new InvalidOperationException("Actual owned keyboard focus unavailable");
++                    focus=info.hwndFocus; focusThread=focus==IntPtr.Zero?0:GetWindowThreadProcessId(focus,out focusPid);
++                    kind=(focusThread!=0&&(focus==hwnd||IsChild(hwnd,focus))&&new HashSet<uint>(Members()).Contains(focusPid))?WindowClass(focus):"outside owned window";
++                } catch(Exception error) { if(!Transient(error)) throw; kind="not yet: "+error.GetType().FullName+": "+Bounded(error.Message,128); }
++                if(kind==WebViewAccessibilityClass) {
++                    IntPtr parent=GetParent(focus); uint parentPid=0;
++                    if(parent==IntPtr.Zero||GetWindowThreadProcessId(parent,out parentPid)!=focusThread||parentPid!=focusPid||WindowClass(parent)!=WebViewKeyboardClass) throw new OwnedInvariantException("Owned WebView2 keyboard window required");
++                    if(++moves>FocusMoveBound) throw new InvalidOperationException("Owned keyboard focus kept returning to the WebView2 accessibility window");
++                    uint own=GetCurrentThreadId();
++                    if(!AttachThreadInput(own,focusThread,true)) throw new Win32Exception();
++                    try { SetFocus(parent); }
++                    finally { if(!AttachThreadInput(own,focusThread,false)) throw new Win32Exception(); }
++                    held=IntPtr.Zero;
++                } else if(kind==WebViewKeyboardClass) {
++                    if(focus!=held) { held=focus; since=watch.ElapsedMilliseconds; }
++                    else if(watch.ElapsedMilliseconds-since>=FocusQuietMilliseconds) return;
++                } else held=IntPtr.Zero;
++                last=kind;
++                if(watch.ElapsedMilliseconds>=FocusSettleMilliseconds) throw new InvalidOperationException("Owned WebView2 keyboard focus did not settle; last: "+last);
++                Thread.Sleep(10);
++            }
++        }
+ 
+         IntPtr job=IntPtr.Zero,process=IntPtr.Zero,thread=IntPtr.Zero;
+         bool started=false;
+@@ -79,6 +146,10 @@
+         static string QuoteArgument(string value) {
+             if(value==null||value.Length>4096||value.IndexOf('\0')>=0||value.IndexOf('\r')>=0||value.IndexOf('\n')>=0)
+                 throw new ArgumentException("Bounded literal argument required");
++            // A token with no space, tab or quote is passed bare: CRT parsing reads it
++            // the same either way, and dxdiag's own parser writes nothing for a quoted
++            // "/x" (exit 127; KI-0180, diagnostic run 41573731214).
++            if(value.Length>0&&value.IndexOfAny(new char[]{' ','\t','"'})<0) return value;
+             StringBuilder quoted=new StringBuilder("\"");
+             int slashes=0;
+             foreach(char character in value) {
+@@ -124,7 +195,10 @@
+                 uint returned;
+                 if(!QueryInformationJobObject(job,3,data,(uint)(8+64*IntPtr.Size),out returned)) throw new Win32Exception();
+                 int assigned=Marshal.ReadInt32(data),count=Marshal.ReadInt32(data,4);
+-                if(count<0||count>64||assigned!=count) throw new OwnedInvariantException("Finite complete owned job list required");
++                if(count<0||count>64||assigned>64||count>assigned) throw new OwnedInvariantException("Finite complete owned job list required");
++                // A member that has begun to exit is still counted but no longer listed, so
++                // the list is briefly incomplete: 'not yet', never a partial list (KI-0185).
++                if(count<assigned) throw new InvalidOperationException("Owned job member exit in progress");
+                 uint[] ids=new uint[count];
+                 for(int i=0;i<count;i++) ids[i]=checked((uint)Marshal.ReadIntPtr(data,8+i*IntPtr.Size).ToInt64());
+                 return ids;
+@@ -166,7 +240,9 @@
+         public bool WaitEmpty(int milliseconds) {
+             Stopwatch clock=Stopwatch.StartNew();
+             while(clock.ElapsedMilliseconds<milliseconds) {
+-                if(Members().Length==0&&(process==IntPtr.Zero||WaitForSingleObject(process,0)==0)) return true;
++                uint[] members=null;
++                try { members=Members(); } catch(InvalidOperationException error) { if(error is ObjectDisposedException) throw; }
++                if(members!=null&&members.Length==0&&(process==IntPtr.Zero||WaitForSingleObject(process,0)==0)) return true;
+                 Thread.Sleep(25);
+             }
+             return false;
+@@ -278,7 +354,7 @@
+         // Closed key sequences only, in this isolated guest's retained foreground window.
+         void Keys(bool quit) {
+             AutomationElement window=Window(); IntPtr hwnd=new IntPtr(window.Current.NativeWindowHandle);
+-            if(!SetForegroundWindow(hwnd)||GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Owned keyboard foreground acknowledgment required");
++            OwnForeground(hwnd,"Owned keyboard foreground acknowledgment required");
+             if(!quit) {
+                 AutomationElement button=OwnedControl("Check again",InvokePattern.Pattern); button.SetFocus();
+                 if(!Settles(()=>{
+@@ -289,6 +365,7 @@
+             ushort[] keys=quit?new ushort[]{0x11,0x51,0x51,0x11}:new ushort[]{0x0D,0x0D};
+             Input[] sequence=new Input[keys.Length];
+             for(int i=0;i<keys.Length;i++) { sequence[i].type=1; sequence[i].data.keyboard.key=keys[i]; sequence[i].data.keyboard.flags=(uint)(i>=keys.Length/2?2:0); }
++            SettleKeyboardFocus(hwnd);
+             if(GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Owned foreground changed before fixed key sequence");
+             if(Marshal.SizeOf(typeof(Input))!=40||SendInput((uint)sequence.Length,sequence,40)!=(uint)sequence.Length) throw new Win32Exception();
+         }
+@@ -454,7 +531,7 @@
+         [DllImport("user32.dll")] static extern IntPtr GetKeyboardLayout(uint thread);
+         void ShellForeground() {
+             AutomationElement window=Window(); IntPtr hwnd=new IntPtr(window.Current.NativeWindowHandle);
+-            if(!SetForegroundWindow(hwnd)||GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Owned shell foreground acknowledgment required");
++            OwnForeground(hwnd,"Owned shell foreground acknowledgment required");
+         }
+         AutomationElement ShellUnique(string name,ControlType type,string role,bool requireVisible=true) {
+             AutomationElementCollection nodes=Window().FindAll(TreeScope.Descendants,new PropertyCondition(AutomationElement.NameProperty,name));
+@@ -518,6 +595,7 @@
+                 sequence[i].type=1;sequence[i].data.keyboard.key=keys[i];
+                 sequence[keys.Length+i].type=1;sequence[keys.Length+i].data.keyboard.key=keys[keys.Length-i-1];sequence[keys.Length+i].data.keyboard.flags=2;
+             }
++            SettleKeyboardFocus(hwnd);
+             if(GetForegroundWindow()!=hwnd||Marshal.SizeOf(typeof(Input))!=40||SendInput((uint)sequence.Length,sequence,40)!=(uint)sequence.Length) throw new Win32Exception();
+         }
+         public object[] ShellTree() {
+@@ -593,7 +671,7 @@
+         public void CloseWindow() { ((WindowPattern)Window().GetCurrentPattern(WindowPattern.Pattern)).Close(); }
+         public void Capture(string path) {
+             AutomationElement window=Window(); IntPtr hwnd=new IntPtr(window.Current.NativeWindowHandle);
+-            if(!SetForegroundWindow(hwnd)||GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Actual owned foreground window required for capture");
++            OwnForeground(hwnd,"Actual owned foreground window required for capture");
+             System.Windows.Rect r=window.Current.BoundingRectangle;
+             if(r.Width<640||r.Height<480||r.Width>1920||r.Height>1200) throw new OwnedInvariantException("Owned window capture geometry outside bounds");
+             using(System.Drawing.Bitmap image=new System.Drawing.Bitmap((int)r.Width,(int)r.Height))
+--- a/scripts/windows11/windows11_source_check.ps1
++++ b/scripts/windows11/windows11_source_check.ps1
+@@ -10,10 +10,24 @@
+     $before[$name]=@{bytes=(Get-Item -LiteralPath $path).Length;sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $path).Hash.ToLowerInvariant()}
+     if($name.EndsWith('.ps1')) {
+         $tokens=$null; $errors=$null
+-        [void][Management.Automation.Language.Parser]::ParseFile($path,[ref]$tokens,[ref]$errors)
++        $ast=[Management.Automation.Language.Parser]::ParseFile($path,[ref]$tokens,[ref]$errors)
+         if($errors.Count -ne 0) { throw ('Target PowerShell parser rejected '+$name+': '+($errors|ForEach-Object {$_.ErrorId} | Select-Object -First 5)) }
++        if($name -ceq 'windows11_bootstrap.ps1') {
++            # The SYSTEM attestor is the one single-quoted here-string assigned to $attestor.
++            # The file parse sees it only as a string, so its body is parsed as the script
++            # the task runs (KI-0176).
++            $assignments=@($ast.FindAll({param($node) $node -is [Management.Automation.Language.AssignmentStatementAst] -and $node.Left -is [Management.Automation.Language.VariableExpressionAst] -and $node.Left.VariablePath.UserPath -ieq 'attestor'},$true))
++            if($assignments.Count -ne 1) { throw 'Exactly one attestor assignment required' }
++            $value=$assignments[0].Right
++            if($value -isnot [Management.Automation.Language.CommandExpressionAst] -or $value.Expression -isnot [Management.Automation.Language.StringConstantExpressionAst] -or $value.Expression.StringConstantType -ne [Management.Automation.Language.StringConstantType]::SingleQuotedHereString) { throw 'Single-quoted attestor here-string required' }
++            $bodyTokens=$null; $bodyErrors=$null
++            [void][Management.Automation.Language.Parser]::ParseInput($value.Expression.Value,[ref]$bodyTokens,[ref]$bodyErrors)
++            if($bodyErrors.Count -ne 0) { throw ('Target PowerShell parser rejected the attestor body: '+($bodyErrors|ForEach-Object {$_.ErrorId} | Select-Object -First 5)) }
++            $attestorBodyParsed=$true
++        }
+     }
+ }
++if(-not (Test-Path -LiteralPath variable:attestorBodyParsed)) { throw 'Attestor body parse required' }
+ # Only compile declarations. Never construct OwnedApp or call a native import.
+ $framework=[Runtime.InteropServices.RuntimeEnvironment]::GetRuntimeDirectory()
+     $references=@((Join-Path $framework 'System.dll'),(Join-Path $framework 'System.Core.dll'),(Join-Path $framework 'System.Drawing.dll'),(Join-Path $framework 'WPF\UIAutomationClient.dll'),(Join-Path $framework 'WPF\UIAutomationTypes.dll'),(Join-Path $framework 'WPF\WindowsBase.dll'))
+@@ -25,4 +39,4 @@
+ }
+ $parent=Split-Path -Parent $Proof
+ New-Item -ItemType Directory -Path $parent -Force | Out-Null
+-[ordered]@{schema='japp-win11-target-source-check-v1';status='WINDOWS_POWERSHELL51_PARSE_AND_CS_COMPILE_PASS';files=$before;PowerShell=$PSVersionTable.PSVersion.ToString();native_API_calls=0;VMs=0;product_launches=0;Windows11_acceptance=$false}|ConvertTo-Json -Depth 8|Set-Content -LiteralPath $Proof -Encoding UTF8
++[ordered]@{schema='japp-win11-target-source-check-v1';status='WINDOWS_POWERSHELL51_PARSE_AND_CS_COMPILE_PASS';files=$before;attestor_body_parsed=$attestorBodyParsed;PowerShell=$PSVersionTable.PSVersion.ToString();native_API_calls=0;VMs=0;product_launches=0;Windows11_acceptance=$false}|ConvertTo-Json -Depth 8|Set-Content -LiteralPath $Proof -Encoding UTF8

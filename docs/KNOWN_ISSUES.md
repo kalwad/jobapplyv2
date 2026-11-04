@@ -58,38 +58,154 @@ Current scoped correction supersedes the pending source/focus statements: all te
 
 The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
 
-### KI-0177 — Windows 11 first-logon Start menu holds the foreground the guest needs
+### KI-0187 — Windows 11 guest's ready capture was refused the foreground for an unrecorded reason
 
 - Severity: MEDIUM
 - State: OPEN
+- Discovered: diagnostic Windows 11 campaign rehearsal round 49 (run 41747013174), 2026-11-04UTC.
+- Affects: M03-W07 Windows 11 VM campaign, ready phase. `OwnForeground` in scripts/windows11/windows11_owned.cs (Capture in Snapshot 'ready').
+- Description: in one of the six round 49 VMs (exact-5, an AMD EPYC 9V74 runner), the ready phase failed with "Actual owned foreground window required for capture": for 10 s, SetForegroundWindow on the product window did not leave it the foreground. In rounds 43 to 47 every measured foreground request succeeded on its first attempt, and no other VM in rounds 48 to 50 was refused. The refusal did not record what held the foreground, and the failure frame, taken after cleanup, shows only the guest's console. The VM's disk was encrypted, so its event logs could not be read. The cause is unknown.
+- Reproduction: docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds/round49-41747013174 (exact-5).
+- Workaround: re-release the campaign; the phase fails closed.
+- Resolution + evidence link: open. A refused foreground request (`OwnForeground`, used by the capture and before every key sequence) now names the process and window class that held the foreground when it was refused (diagnostic text only, read once at the refusal and never part of any condition), so a recurrence at those points records its cause. A foreground lost only during the key-focus settle, or between the settle and SendInput, still fails without naming the holder. A test pins it, and a mutant that makes it part of the foreground condition is killed.
+
+### KI-0186 — Windows 11 attestor can read the console user before Windows reports it
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic Windows 11 campaign rehearsal round 49 (run 41747013174), 2026-11-04UTC.
+- Affects: M03-W07 Windows 11 VM campaign, environment phase. The SYSTEM attestor's interactive-user step in scripts/windows11/windows11_bootstrap.ps1.
+- Description: in one of the six round 49 VMs (exact-2), the attestor failed at its interactive-user step with "Exact synthetic interactive fixture required; observed user: " (empty). The logon trigger started it 36 s after boot, and it read `Win32_ComputerSystem.UserName` once, 1.5 s later, before Windows reported the console user. The guest then failed closed with "Protected machine attestor failed; its named step is retained". The attestor passed this step in every other VM that reached it in rounds 35 and 38 to 50, including two (round 48 exact-6, round 49 exact-4) that reached it within 2.3 s of starting, so how soon Windows reports the user varies.
+- Reproduction: docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds/round49-41747013174 (exact-2 attestor-trace.txt and machine-error.json).
+- Workaround: re-release the campaign.
+- Resolution + evidence link: corrected in source, pending a reviewed campaign. While the user reads as empty, the attestor reads it again every second for up to 60 s; any other user, and an empty one at that bound, still fails the exact fixture check at once. The attestor starts at logon, before the guest; in the seventeen passing runs of rounds 48 to 50 (traces retained) it took 9.1 to 89.6 s, and each receipt was ready before its guest's environment phase (21.1 to 28.4 s of the guest clock). Round 50 ran this wait in seven VMs, and every attestation passed. The guest still waits only to its 150 s mark, so a run delayed past it fails closed. A test pins the bound and that only an empty user is read again; three mutants (no wait, a wait for any user, and a 600 s bound) are each killed.
+
+### KI-0185 — Windows 11 guest fails a teardown phase while an owned process is exiting
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic Windows 11 campaign rehearsal round 47 (run 41733587131), 2026-11-03UTC.
+- Affects: M03-W07 Windows 11 VM campaign. `Members` and `WaitEmpty` in scripts/windows11/windows11_owned.cs, and every phase that waits for the owned job to empty (forced-parent, quit, close).
+- Description: in one of the six round 47 VMs, the forced-parent phase failed with `Exception calling "WaitEmpty" with "1" argument(s): "Finite complete owned job list required"`. The phase terminates the app's root process, then waits for the owned job to empty. `Members` reads the job's process ID list and treated any difference between the job's assigned-process count and the number of listed IDs as a broken invariant. The query succeeded, and its buffer holds 64 IDs, so the list did not overflow. The likely cause is a member that was exiting, so that the count and the list briefly disagreed. The two values were not recorded, so neither the cause nor which way they differed was measured. The same phase passed in the other VMs that reached it (four in rounds 45 and 47).
+- Reproduction: docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds/round47-41733587131 (hv-5 failure.json).
+- Workaround: none in a campaign; the phase fails closed.
+- Resolution + evidence link: corrected in source, pending a reviewed campaign. `Members` now treats any difference between the count and the list, either way, as 'not yet' (`InvalidOperationException`, which every bounded wait retries) and never returns a list in that state. A negative or overflowing result still fails at once as an owned invariant. Both refusals now name the two values. `WaitEmpty` keeps waiting through the 'not yet' state, and if the list is still changing at its deadline it fails with that refusal, so a recurrence records both values. A disposed owner still fails at once, and a caller outside any wait (an endpoint or member lookup) fails at once on the 'not yet' state, as it did on the old invariant. Tests pin both, and three mutants (one direction left unhandled, `WaitEmpty` failing on the 'not yet' state, and `WaitEmpty` dropping the values at its deadline) are each killed. Every VM that reached the forced-parent, quit and close phases in rounds 48 to 50 (five, four and seven) passed them.
+
+### KI-0184 — Windows 11 guest's fixed keys can be lost after a UIA focus request into WebView2
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic Windows 11 campaign rehearsal rounds 43 to 46 (runs 41686846768, 41707301526, 41717391994 and 41721262751), 2026-11-03UTC; traced in round 47 (run 41733587131).
+- Affects: M03-W07 Windows 11 VM campaign, keyboard phase and native shell capture. `Keys` and `ShellKeys` in scripts/windows11/windows11_owned.cs, after the UIA focus requests in `Keys` (Check again), `ShellFocusRoute` and `ShellFocusSkip`.
+- Description: a fixed Tab or Enter sent to the product window sometimes had no effect. Nine of the ten VMs that reached the keyboard phase in rounds 43 to 46 failed it with the same refusal (the shell focus did not settle): all four in rounds 43 and 44, two of three in round 45 and all three in round 46. Rounds 43 and 44 did not record the focus window; round 44's waits show the wait after Tab timing out in both of its VMs. The product window answered WM_NULL at once and was not hung, and the same key resent every 5 s for a minute still had no effect. After each of the 41 Tab presses that worked in rounds 45 and 46, Win32 focus was on WebView2's `Chrome_WidgetWin_1` window. At each of the five lost keys it was on `Chrome_RenderWidgetHostHWND`, WebView2's accessibility-only child window.
+  - Round 47 traced every foreground and Win32 focus change against the guest's own steps in six VMs. A UIA SetFocus on a WebView2 element briefly made that child window the foreground. The product window was then reactivated, and it forwarded focus to `Chrome_WidgetWin_1`. The two focus changes race. When the child takes focus last, it keeps focus and drops keys.
+  - All 132 UIA focus requests' focus changes ended within 85 ms (median 47 ms). Of 279 fixed keys, 9 were sent while the child held focus, each straight after a UIA focus request, and 7 of those were lost. These 7 were every lost key in the round. No key sent after any other step found focus there.
+  - Two VMs lost the first key (the Check again Enter) and failed. In three VMs the diagnostic recoveries continued the run. Handing Win32 focus from the child to its parent keyboard window worked all three times it was tried. Repeating the UIA focus request worked both times. Three VMs passed the whole guest, two of them only through those recoveries.
+  - This is WebView2's behaviour under an external UIA SetFocus. Whether an assistive technology's focus requests hit the same race in the product was not measured.
+- Reproduction: docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds/round45-41717391994, round46-41721262751 (diag-focus.txt and diag-waits.txt) and round47-41733587131 (diag-focus-trace.txt).
+- Workaround: none in a campaign; a lost key fails its phase closed.
+- Resolution + evidence link: corrected in source, pending a reviewed campaign.
+  - Before every fixed key sequence (`Keys` and `ShellKeys`), the owner waits, within 3 s, until Win32 focus has stayed on WebView2's keyboard window for 250 ms. That window must be inside the owned window and belong to a current job member. A focused window inside the owned window from any other process fails at once as an owned invariant.
+  - When focus is on the accessibility child, the owner hands it to the child's parent with `AttachThreadInput` and `SetFocus`, at most three times. The parent must be the keyboard window, on the same thread. No input is sent. The handoff runs on its own thread, never starts after the 3 s bound, and is waited for only within what is left of it, so a WebView2 thread that stops responding cannot hold the guest past it.
+  - While the race's own brief foreground change lasts, the wait continues; SendInput still requires the owned window to be the foreground.
+  - The settle adds at least 250 ms to each of the guest's 68 key sequences, at least 17 s in all.
+  - Tests pin the window classes, the bounds, the handoff and both call sites. Eleven mutants are each killed: either call site removed, the handoff removed, a zero quiet interval, any window accepted, the focused window's process taken from the owned window, a foreground change failing at once, a non-member's window retried, and an unbounded, late-started or silently failed handoff.
+  - Diagnostic round 48 (run 41739147286) ran the repository's first version of this correction, byte for byte and with no instrumentation, in six VMs; device encryption was on in the five that finished Setup. The hosted Windows PowerShell 5.1 job parsed and compiled it. Those five ran the whole guest to PASS with the host's post-PASS checks, with no lost key.
+  - Diagnostic round 49 (run 41747013174) ran the reviewed version the same way. Four of six VMs passed the whole guest, with no lost key; the other two failed earlier, for KI-0186 and KI-0187. Diagnostic round 50 (run 41750667920) then ran the final version, after both reviews and the round 49 fixes, the same way in eight VMs: seven passed the whole guest with no lost key, and the eighth froze in Setup (KI-0183).
+
+### KI-0183 — Windows Setup can freeze in its first (WinPE) stage on a hosted runner
+
+- Severity: MEDIUM
+- State: OPEN
+- Discovered: diagnostic Windows 11 campaign rehearsal rounds 43 and 44 (runs 41686846768 and 41707301526), 2026-11-03UTC; seen again in rounds 46, 48 and 50 (runs 41721262751, 41739147286 and 41750667920).
+- Affects: M03-W07 Windows 11 VM campaign (scripts/windows11/windows11_vm.py; the hosted ubuntu-24.04 runner's nested KVM).
+- Description: five of the 52 rehearsal VMs in rounds 38 to 50 never left Setup's "Installing Windows 11" stage. They stopped at 23% (round 43, `-cpu host`), 54% (round 44), 40% (round 46), 18% (round 48) and 20% (round 50), the last four with Hyper-V enlightenments. Two were on AMD EPYC 7763 runners, the only CPU the campaign's gate accepts, and two on Intel Xeon 6975P-C runners. In the first three, all five progress frames, taken ten minutes apart, are byte-identical, so the spinner had stopped and the VM was frozen, not slow; the failure frame at the 55-minute host deadline still shows the same percentage. In the round 48 VM the first two progress frames are identical, and every later frame capture failed; in the round 50 VM every capture after the first failed. The firmware console shows only the media boot, and the KVM trace has no RDPMC exit or injected #GP. All five freezes came before the reviewed bootstrap runs, so no guest change explains them. A campaign that hits this fails closed at the host's work deadline.
+- Reproduction: the nodiagtrack VM of round 43, the hv-a VM of round 44, the hv-3 VM of round 46, the exact-1 VM of round 48 and the exact-4 VM of round 50, with their progress-frame records (docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds).
+- Workaround: re-release the campaign; no guest or product state survives a failed campaign.
+- Resolution + evidence link: open. A diagnostic round could record vCPU state and block-device progress during a freeze. Until then a campaign may need more than one release.
+
+### KI-0182 — Desktop app's first local-service start fails on a cold Windows 11 machine
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: diagnostic Windows 11 campaign rehearsal rounds 40 and 42 (runs 41573532694 and 41593519821), 2026-11-03UTC.
+- Affects: M03-W05 and M03-W07. `Supervisor::start_until` and `RestartOwner::start_initial` in apps/desktop/src-tauri/src/service/supervisor.rs and restart.rs; the packaged Windows desktop app.
+- Description: in three VMs without Hyper-V enlightenments, the product window opened, but its local service never became ready. They are round 40 ignore-terminal and round 42 host-terminal on Intel runners, and round 44 host-nowhesvc on an AMD EPYC 7763 runner. In round 42 the window title still read "Desktop App — Starting local service" 13.8 s after launch and read "Desktop App — Local service failed" by 19.9 s; the service process and its console host had left the owned job. Nothing restarted it, even though the guest pressed "Check again" every 2 s for 240 s. Each VM was a fresh Windows 11 Enterprise Evaluation install (2 nested vCPUs, Defender on) at the package's first execution. The service's 10 s startup deadline covers the runtime-integrity preflight, which hashes every packaged runtime file. In round 42 the service process first appeared 4.5 to 8.8 s after the desktop process (process samples were about 2.2 s apart); that gap also includes the desktop's own setup before the deadline starts. `start_initial` makes one attempt, and on failure the state is terminal with no automatic retry. With Hyper-V enlightenments, which the campaign now uses, all 15 VMs that launched the product in rounds 43 to 47 reached Ready within the 10 s bound, and so did the five round 48 VMs.
+- Reproduction: docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds/round42-41593519821 (host-terminal: diag-ready.ndjson, diag-procs.txt, guest-terminal.json) and round40-41573532694 (ignore-terminal).
+- Workaround: none in the product. A user would have to quit and relaunch, with no guarantee the second start is faster.
+- Resolution + evidence link: corrected in source, pending a rebuilt package and a reviewed campaign.
+  - Diagnostic round 43 (run 41686846768) started the packaged service on its own on a fresh VM (an Intel runner, `-cpu host`), outside the desktop app: Process.Start returned after 1.3 s, and READY arrived 7.6 s after the spawn began. With the runtime-integrity preflight inside the same deadline, that exceeds the 10 s bound on such a machine. The preflight's own time was not measured separately.
+  - `Policy` now carries `initial_startup_timeout` (30 s, the supervisor's existing cap), which bounds the first start, `Supervisor::start`, from preflight to READY. Relaunches through `start_until` keep the reviewed 10 s `startup_timeout` and the 24 s restart cycle. The startup deadline still includes the preflight and still prevents a late spawn. The constructor refuses a first-start bound below the relaunch bound or above 30 s.
+  - The first start still checks cancellation at every permit check, as before; whether a Quit during a slow first start ends within the quit cap is not separately measured.
+  - Four new Rust tests pin the first-start bound, the unchanged relaunch bound and the policy limits, and drive the restart owner through a first start and a relaunch that each fail at their own bound. All 272 desktop service tests pass. Four mutants are each killed: the first start on the relaunch bound, a supervisor relaunch on the first-start bound, the restart owner's relaunch on the first-start bound, and dropping the lower limit.
+
+### KI-0181 — Windows 11 guest bugchecks when an ETW session allocates hardware counters on a runner without a virtual PMU
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: diagnostic Windows 11 campaign rehearsal rounds 39 to 42, 2026-11-03UTC.
+- Affects: M03-W07 Windows 11 VM campaign on hosted ubuntu-24.04 runners (QEMU `-cpu host` under KVM, nested on Azure). The VM configuration in scripts/windows11/windows11_vm.py `qemu_argv`.
+- Description: after the environment phase, the guest VM restarted or hung on a SYSTEM_SERVICE_EXCEPTION (0x3B, c0000096) about 20 s after the product launch. It happened in all seven `-cpu host` VMs on AMD runners that reached the product launch with whesvc enabled (rounds 39, 40, 42 and 43), whichever console host they used, and in none of the three on Intel runners. For one of the seven, round 39's Windows Terminal VM, the evidence is a restart, not a dump: its firmware console shows a third Windows Boot Manager start where a run to the environment phase shows two, and its failure frame shows the lock screen. Round 39's conhost VM also bugchecked once during Setup. The AMD runners' kernel logs "kvm_amd: PMU virtualization is disabled": the Azure host gives those runners no performance-monitoring unit, so KVM has none to give the guest. The campaign's CPU gate accepts only an AMD EPYC 7763 runner. Just before each crash, the guest programmed the AMD legacy counters (MSR C001_0004 = -10000, C001_0000 = 0x530076, C001_0001 = 0x4300c0); KVM logged these writes as unhandled and ignored them. The round 42 trace of the two crashing VMs shows exactly one RDPMC exit at the faulting address, followed by an injected #GP. The kernel minidump, resolved with Microsoft's public ntoskrnl.exe and ntkrnlmp.pdb for build 26100, puts the fault at the `rdpmc` in `HalpAllocatePmcCounterSetEx`. It was reached from a system call in svchost.exe (PID 5980), with `EtwpEnableStackCaching` on the stack. So a Windows service starts an ETW session that requests hardware counters; under KVM with no vPMU, RDPMC raises #GP, and the kernel bugchecks. Setting `ignore_msrs=1` (round 40) and `-cpu host,pmu=off` (round 42) did not prevent it; RDPMC is not an MSR access.
+- Reproduction: docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds/round42-41593519821 (kvm-trace.txt, dmesg-kvm.txt, the minidump triage summary, symbolized-stack.json and the host-conhost bugcheck frame); rounds 39 and 40.
+- Workaround: none measured. No guest phase after environment can run reliably until this is addressed.
+- Resolution + evidence link: corrected in source, pending a reviewed campaign.
+  - Round 43 (run 41686846768) mapped the crashing svchost (PID 4804 in its dump) to `whesvc`, the Windows Health and Optimized Experiences service. Disabling the Diagnostic Policy services did not prevent the crash.
+  - With QEMU's standard Hyper-V enlightenments, Windows never wrote a counter MSR or executed RDPMC in any of the three VMs that reached the desktop in rounds 43 and 44 (two on AMD runners, two with whesvc enabled). It also ran Setup to the environment phase in 525 to 645 s, against 925 to 1207 s for `-cpu host`. No enlightened VM bugchecked in rounds 45 to 48 either.
+  - With `-cpu host` and whesvc disabled (round 44), the guest also did not touch the counters over 4 minutes. Disabling a Windows service would change the target OS, so it is not adopted.
+  - `qemu_argv` now passes `-cpu host,hv-relaxed,hv-vapic,hv-spinlocks=0x1fff,hv-vpindex,hv-runtime,hv-time,hv-synic,hv-stimer,hv-frequencies`. The host CPU, and so its attested name, is unchanged, and there is no model, vendor or `hv-vendor-id` override. The enlightenments do make the guest see QEMU's default Hyper-V hypervisor signature instead of KVM's, which is how Windows takes its enlightened code paths. A test pins the exact flag list. The VMs' guests still attested the host CPU name.
+  - Separately, because a bugcheck restarts the VM and the guest controller with it, the host's `observe()` now fails at once when OVMF's boot-manager line (`BdsDxe: `) appears again after the first guest receipt, instead of waiting for the 55-minute work deadline. Tests cover a restart, and firmware text without a boot line. It has not fired in a VM: no round 48 VM restarted.
+
+### KI-0180 — Owned dxdiag launch writes no display report in the Windows 11 guest
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic Windows 11 campaign rehearsal round 38 (run 41562893419), 2026-11-03UTC.
+- Affects: M03-W07 Windows 11 VM campaign, environment phase. The guest's `$dx.StartCommand('C:\Windows\System32\dxdiag.exe',@('/whql:off','/x',$dxPath))` in scripts/windows11/windows11_guest.ps1; `QuoteArgument` in scripts/windows11/windows11_owned.cs.
+- Description: in every round 38 VM the owned dxdiag job emptied but no XML existed, so the environment phase failed with ItemNotFoundException on the report path. In round 39 (run 41566483934) the same guest first started dxdiag directly three ways in each VM, and each wrote its report: the owned launch's switches (`/whql:off /x`, about 168 KB of XML in 26 to 27 s), `/whql:off /t` (an 84 to 85 KB text report in 10 to 14 s) and `/x` alone (about 168 KB of XML in 10 s). The owned launch that followed still wrote nothing, and its job emptied after about 10 s. The owned launcher quoted every argument (`"/whql:off" "/x" "C:\...xml"`). Diagnostic round 41 (run 41573731214, hosted Windows Server 2025, Windows PowerShell 5.1) launched dxdiag 10 ways into an 8.3 and a long-form directory. With every argument quoted, from the owned launcher or a plain process, it never wrote a report, and the plain process exited 127. With bare tokens, the owned launcher, a plain process and Start-Process each wrote the 165,182-byte report in about 4 s. So dxdiag does not accept its arguments fully quoted; whether it accepts a quoted path after bare switches was not tested.
+- Reproduction: docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds (rounds 38, 39 and 41).
+- Workaround: none in a campaign.
+- Resolution + evidence link: corrected in source, pending a reviewed campaign. `QuoteArgument` now passes a token with no space, tab or quote unquoted. CRT parsing reads such a token the same either way, and every other token keeps the bounded CRT quoting. The guest's report path has no space, so every dxdiag argument is now bare; a path with a space would still be quoted, which is untested. A test pins the bare-token return and its place after the bound check; removing it fails the test. Every VM that reached the environment phase in rounds 42 to 48 wrote the report through the owned launcher.
+
+### KI-0177 — Windows 11 first-logon Start menu holds the foreground the guest needs
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
 - Discovered: completeness critic of the 2100780 candidate review (wf_3d706db2-168), 2026-11-03UTC.
 - Affects: M03-W07 Windows 11 VM campaign. Guest foreground assertions in scripts/windows11/windows11_owned.cs (Capture, Keys, ShellFocusRoute, ShellKeys, ShellFocusSkip). The first-logon state set by scripts/windows11/windows11_bootstrap.ps1.
 - Description: Windows 11 opens the Start menu by itself at the fixture's first logon, and it stays open. It was open in every post-logon frame of diagnostic rounds 34 (22 frames, about 7.5 minutes) and 35 (21 frames), and in the a03aadf campaign's failure frame. Throughout, the guest console's taskbar button shows a refused activation. The guest's first foreground assertion, Capture in Snapshot 'ready', requires SetForegroundWindow to succeed on the product window, and it has no retry. Nothing suppresses Start or relaxes the foreground lock. A campaign would therefore very likely fail closed at 'ready' for a harness reason, never reaching the product.
 - Reproduction: docs/evidence/m03-w07-win11-campaign-a03aadf/run41505468952/retained/win11-failure.png. The frames of diagnostic runs 41514384986 and 41520516660 (rounds 34 and 35; artifact ZIP digests in docs/evidence/m03-native-runtime-diagnostics/run-metadata.json). docs/evidence/m03-native-candidates-2100780-review.
 - Workaround: none. The 2100780 candidate was not released.
-- Resolution + evidence link: open. A bounded, auditable first-logon state and foreground strategy must be measured in a Windows 11 VM before a new candidate. Every assertion must keep the strict foreground check before SendInput.
+- Resolution + evidence link: corrected in source, pending a reviewed campaign.
+  - Round 38 (run 41562893419): with `StartShownOnUpgrade=1` in the Default profile the fixture is created from, Start did not open at first logon and the console held the foreground. Without it, Start opened and SearchHost held the foreground.
+  - The bootstrap sets that value in the Default profile hive, loaded and unloaded around the change, with every native step checked. It also delegates the fixture's console to the classic console host. In rounds 43 and 44, under that console, every one of more than 140 guest foreground requests succeeded on the first attempt.
+  - Each foreground request is now one bounded retry loop (10 s) of the same SetForegroundWindow request, never input sent to take the foreground; every key sequence still checks the foreground just before SendInput. Tests pin the Default-profile value, the console host, the bound and the three call sites.
 
 ### KI-0178 — Windows 11 guest serial write timeout is unmeasured for its largest receipt
 
 - Severity: LOW
-- State: OPEN
+- State: IN_PROGRESS
 - Discovered: 2100780 candidate review (wf_3d706db2-168; lenses win-ki0175 and win-later-phases, NON_BLOCKING after refutation), 2026-11-03UTC.
 - Affects: scripts/windows11/windows11_guest.ps1 (`$serial.WriteTimeout=500`, one WriteLine per receipt); the host receipt parser in scripts/windows11/windows11_vm.py observe().
 - Description: each phase receipt is written to COM2 in one WriteLine with a 500 ms timeout. The environment receipt is about 1 KB. The keyboard receipt, with its native shell capture, is about 10.8 KB and would need at least about 21.7 KB/s, a rate never measured on the campaign's emulated UART. A timeout fails closed: a write error, or a truncated line that the host refuses as JSON.
 - Reproduction: static only, with no VM measurement. The receipt sizes are reviewer estimates: the native shell capture was 10,440 B compact in hosted Windows Server 2025 diagnostic rounds 21, 23 and 26 (docs/evidence/m03-native-runtime-diagnostics).
 - Workaround: none measured.
-- Resolution + evidence link: open. Bound the write by the existing deadlines rather than 500 ms, and measure a full-size receipt in a Windows 11 VM.
+- Resolution + evidence link: corrected in source and measured, pending a reviewed campaign.
+  - Rounds 39 and 40 measured the ~1 KB environment receipt's write at 43 to 70 ms across five VMs (`-cpu host`). With Hyper-V enlightenments, the ~10.8 KB keyboard receipt took 197 to 287 ms in five VMs (rounds 45 and 47). At the `-cpu host` rates it would take about 0.47 to 0.77 s, at or past the old 500 ms. A partial write at that bound would have truncated the line, which the host refuses.
+  - The write bound is now 30 s, inside the guest's own work budget; the guest's 64 KB receipt bound keeps every line finite. A test pins the value and that it is set before the port opens.
 
 ### KI-0179 — Windows 11 guest work budget and display timeout are unmeasured in the VM
 
 - Severity: MEDIUM
-- State: OPEN
+- State: IN_PROGRESS
 - Discovered: 2100780 candidate review (wf_3d706db2-168), 2026-11-03UTC.
 - Affects: scripts/windows11/windows11_guest.ps1 (WithinBudget, 300 s from the guest clock; the 150 s machine-receipt mark); the first-logon display state.
 - Description: the guest's 300 s budget includes the up-to-150 s wait for the attestor. What remains must cover dxdiag, the package hashing and extraction, six launches, five framed host accepts and the shell capture. In hosted Windows Server 2025 diagnostic rounds 21, 23 and 26 (4 vCPUs; without COM2, frames, dxdiag or extraction), the product phases took 64.6 to 69.4 s; they have never been measured on Windows 11 with 2 nested vCPUs. A budget overrun inside a wait is reported with that phase's own message, so it can look like a product failure. Separately, with no input the Windows 11 display went black 326 to 352 s after logon (rounds 34 and 35). Framed phases need a non-blank frame, so a larger budget also requires the display timeout to be off.
 - Reproduction: rounds 34 and 35 frames; docs/evidence/m03-native-candidates-2100780-review.
 - Workaround: none measured.
-- Resolution + evidence link: open. Measure the phase durations in a Windows 11 VM, size the budget from that measurement within the host's WORK_SECONDS, and keep the display on for the run.
+- Resolution + evidence link: corrected in source and measured, pending a reviewed campaign.
+  - The bootstrap sets the display timeout off (`powercfg /change monitor-timeout-ac 0`, checked). In rounds 39 to 48 every VM that reached logon kept a live display, and the setting read 0 for AC power in the guest where it was read (rounds 38 to 42).
+  - Round 45 (run 41717391994, Hyper-V enlightenments) ran the whole guest to PASS in one VM. Environment at 24.5 s, ready at 44.5 s, keyboard (the full native shell capture) at 70.1 s, and cleanup at 107.5 s of the guest clock. Across the nine VMs with the enlightenments that reached logon (rounds 43 to 46), environment came at 21.7 to 29.7 s. In round 48, with the KI-0184 focus settle and Windows' device encryption on (the diagnostic bootstraps of rounds 42 to 47 had prevented it; see the evidence README), the five passing VMs took 85.8 to 96.3 s from environment to cleanup (environment at 25.7 to 27.6 s, cleanup at 111.5 to 123.2 s); the four round 49 passes took 84.3 to 94.7 s, and the seven round 50 passes 83.1 to 95.5 s. The guest reads the attestation before it runs dxdiag, and the owned dxdiag took 19.5 to 27.0 s in the 15 VMs of rounds 42 to 46 that retained its timing, within its 45 s bound. So with the attestation at the 150 s mark, its worst case, the measured phases end by about 273 s, and at dxdiag's own bound by about 291 s, inside the 300 s budget.
+  - Every bounded UI wait that succeeded took 24 to 426 ms (round 44, 30 s diagnostic bounds), well inside the existing 3 s and 6 s bounds, which are unchanged. The lost-key failures are KI-0184.
 
 ### KI-0175 — Windows 11 guest gives up on the SYSTEM machine attestation before it is written
 
@@ -118,13 +234,16 @@ The reviewed guest/COM/parser composition now passes441canonical Python tests/27
 ### KI-0176 — No gate parses the Windows 11 attestor body before a campaign
 
 - Severity: LOW
-- State: OPEN
+- State: IN_PROGRESS
 - Discovered: separate review of the KI-0175 correction, 2026-11-02UTC.
 - Affects: M03-W07 download-only preparation (scripts/windows11/windows11_source_check.ps1); the attestor here-string in scripts/windows11/windows11_bootstrap.ps1.
 - Description: the prepare run's Windows PowerShell 5.1 source check parses windows11_bootstrap.ps1 and windows11_guest.ps1. But the attestor is a single-quoted here-string inside the bootstrap, so it is parsed only as a string. A syntax error in it would first show in a VM campaign, as a missing machine receipt.
-- Reproduction: read windows11_source_check.ps1; it calls ParseFile on the two .ps1 files only.
+- Reproduction: read windows11_source_check.ps1 at 2100780; it calls ParseFile on the two .ps1 files only.
 - Workaround: diagnostic round 37 parsed the current attestor body under Windows PowerShell 5.1 (docs/evidence/m03-native-runtime-diagnostics, windows-attestor-rounds).
-- Resolution + evidence link: open. The source check could take the here-string from the bootstrap's syntax tree and parse it too, as round 37's probe does.
+- Resolution + evidence link: corrected in source, pending a reviewed campaign.
+  - The source check takes the bootstrap's one `$attestor` assignment from its syntax tree, requires a single-quoted here-string, and parses its body with `Parser::ParseInput`. It refuses to write a receipt unless that parse ran without errors, and the receipt records `attestor_body_parsed`.
+  - The candidate refuses a receipt unless `attestor_body_parsed` is `true`; tests cover a missing field, null, false and a string.
+  - The hosted Windows PowerShell 5.1 source-check jobs of diagnostic rounds 39 and 48 (runs 41566483934 and 41739147286) ran this source check, and each receipt records `attestor_body_parsed: true` (round 39's job log extract is retained).
 
 ### KI-0174 — Prepare-time gpgv accepts any key in the runner archive keyring
 

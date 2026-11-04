@@ -1,0 +1,18 @@
+[
+  {
+    "t": 0.7,
+    "mark": "seed"
+  },
+  {
+    "t": 0.9,
+    "mark": "qemu-started"
+  },
+  {
+    "t": 525.1,
+    "mark": "monitor-environment-boots-2"
+  },
+  {
+    "t": 551.3,
+    "mark": "error"
+  }
+]

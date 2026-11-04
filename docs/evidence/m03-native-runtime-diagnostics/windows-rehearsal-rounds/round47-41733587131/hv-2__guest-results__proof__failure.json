@@ -1,0 +1,9 @@
+﻿{
+    "terminal":  "FAIL",
+    "phase":  "keyboard",
+    "nonce":  "28292ce8c69b848946618667bff31f46055f87d1e80381cdbc316d9b6514dbbd",
+    "package_sha256":  "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+    "elapsed_ms":  75111,
+    "error_type":  "System.Management.Automation.RuntimeException",
+    "message":  "Owned Enter keyboard action did not advance Checked at"
+}

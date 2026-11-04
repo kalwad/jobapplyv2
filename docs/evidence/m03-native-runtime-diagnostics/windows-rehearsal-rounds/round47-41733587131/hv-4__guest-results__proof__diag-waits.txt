@@ -1,0 +1,71 @@
+WaitCheckedAt ms=103 ok=True
+CheckedAdvance ms=386 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Jobs:pid=7496:hwnd=0 fg=Tauri Window:pid=7152 focus=Chrome_WidgetWin_1:131720 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms ms=60 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=54 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=168 ok=True
+ShellWait $Owner.ShellMainFocused() ms=286 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Tracker:pid=7496:hwnd=0 fg=Tauri Window:pid=7152 focus=Chrome_WidgetWin_1:131720 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms ms=34 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=31 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=134 ok=True
+ShellWait $Owner.ShellMainFocused() ms=189 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Documents / Resumes:pid=7496:hwnd=0 fg=Tauri Window:pid=7152 focus=Chrome_WidgetWin_1:131720 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms ms=29 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=34 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=127 ok=True
+ShellWait $Owner.ShellMainFocused() ms=193 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Profile:pid=7496:hwnd=0 fg=Tauri Window:pid=7152 focus=Chrome_WidgetWin_1:131720 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms ms=34 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=30 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=128 ok=True
+ShellWait $Owner.ShellMainFocused() ms=29542 ok=False
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Settings:pid=7496:hwnd=0 fg=Tauri Window:pid=7152 focus=Chrome_WidgetWin_1:131720 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms ms=35 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=28 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=119 ok=True
+ShellWait $Owner.ShellMainFocused() ms=182 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Diagnostics:pid=7496:hwnd=0 fg=Tauri Window:pid=7152 focus=Chrome_WidgetWin_1:131720 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms ms=33 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=29 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=105 ok=True
+ShellWait $Owner.ShellMainFocused() ms=168 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Open Diagnostics:pid=7496:hwnd=0 fg=Tauri Window:pid=7152 focus=Chrome_WidgetWin_1:131720 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms ms=30 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=37 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=125 ok=True
+WaitCheckedAt ms=131 ok=True
+ShellWait DesktopVersionsShown $Owner ms=62 ok=True
+CheckedAdvance ms=247 ok=True
+ShellWait $Owner.ShellMainFocused() ms=252 ok=True
+ShellMeasurement baseline ms=288 ok=True
+ShellMeasurement step1 ms=282 ok=True
+ShellMeasurement step2 ms=308 ok=True
+ShellMeasurement step3 ms=454 ok=True
+ShellMeasurement step4 ms=301 ok=True
+ShellMeasurement step5 ms=289 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Jobs:pid=7496:hwnd=0 fg=Tauri Window:pid=7152 focus=Chrome_WidgetWin_1:131720 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms ms=31 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=30 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=107 ok=True
+ShellWait $Owner.ShellMainFocused() ms=273 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Tracker:pid=7496:hwnd=0 fg=Tauri Window:pid=7152 focus=Chrome_WidgetWin_1:131720 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms ms=31 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=32 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=101 ok=True
+ShellWait $Owner.ShellMainFocused() ms=187 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Documents / Resumes:pid=7496:hwnd=0 fg=Tauri Window:pid=7152 focus=Chrome_WidgetWin_1:131720 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms ms=31 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=31 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=97 ok=True
+ShellWait $Owner.ShellMainFocused() ms=194 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Profile:pid=7496:hwnd=0 fg=Tauri Window:pid=7152 focus=Chrome_WidgetWin_1:131720 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms ms=32 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=31 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=100 ok=True
+ShellWait $Owner.ShellMainFocused() ms=182 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) ms=29874 ok=False
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=27 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=96 ok=True
+ShellWait $Owner.ShellMainFocused() ms=184 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Diagnostics:pid=7496:hwnd=0 fg=Tauri Window:pid=7152 focus=Chrome_WidgetWin_1:131720 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms ms=31 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=28 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=94 ok=True
+ShellWait $Owner.ShellMainFocused() ms=30626 ok=False
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Open Diagnostics:pid=7496:hwnd=0 fg=Tauri Window:pid=7152 focus=Chrome_WidgetWin_1:131720 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms ms=36 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=31 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=124 ok=True
+WaitCheckedAt ms=52 ok=True
+ShellWait DesktopVersionsShown $Owner ms=52 ok=True
+CheckedAdvance ms=245 ok=True
+ShellWait $Owner.ShellMainFocused() ms=222 ok=True
+ShellMeasurement reset ms=300 ok=True

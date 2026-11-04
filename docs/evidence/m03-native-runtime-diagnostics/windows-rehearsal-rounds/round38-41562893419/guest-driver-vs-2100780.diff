@@ -1,0 +1,198 @@
+--- a/scripts/windows11/windows11_bootstrap.ps1
++++ b/scripts/windows11/windows11_bootstrap.ps1
+@@ -103,3 +103,22 @@
+ $startup = 'C:\Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'
+ New-Item -ItemType Directory -Path $startup -Force | Out-Null
+ Set-Content -LiteralPath (Join-Path $startup 'JappFixture.cmd') -Encoding ASCII -Value '@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy RemoteSigned -File "C:\ProgramData\JappHarness\windows11_guest.ps1" -Configuration "C:\ProgramData\JappHarness\guest-config.json"'
++# First-logon state of the synthetic fixture, set in the Default profile it is created
++# from (KI-0177): Start does not open by itself at first logon, and the fixture's own
++# processes may bring their own windows to the foreground.
++$profileHive = 'HKU\JappDefaultProfile'
++& reg.exe load $profileHive 'C:\Users\Default\NTUSER.DAT' | Out-Null
++if ($LASTEXITCODE -ne 0) { throw 'Default profile hive load failed' }
++try {
++    & reg.exe add ($profileHive + '\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced') /v StartShownOnUpgrade /t REG_DWORD /d 1 /f | Out-Null # DIAG-START
++    if ($LASTEXITCODE -ne 0) { throw 'First-logon Start setting failed' } # DIAG-START
++    & reg.exe add ($profileHive + '\Control Panel\Desktop') /v ForegroundLockTimeout /t REG_DWORD /d 0 /f | Out-Null # DIAG-LOCK
++    if ($LASTEXITCODE -ne 0) { throw 'Foreground lock setting failed' } # DIAG-LOCK
++} finally {
++    [GC]::Collect()
++    & reg.exe unload $profileHive | Out-Null
++}
++if ($LASTEXITCODE -ne 0) { throw 'Default profile hive unload failed' }
++# The display stays on for the whole run: framed phases need a live frame (KI-0179).
++& powercfg.exe /change monitor-timeout-ac 0
++if ($LASTEXITCODE -ne 0) { throw 'Display timeout setting failed' }
+--- a/scripts/windows11/windows11_guest.ps1
++++ b/scripts/windows11/windows11_guest.ps1
+@@ -2,10 +2,11 @@
+ $ErrorActionPreference = 'Stop'
+ Set-StrictMode -Version Latest
+ $clock = [Diagnostics.Stopwatch]::StartNew()
++$budgetSeconds = 900 # DIAG: measure the phases without the budget as the cause
+ # The protocol port opens before anything else can fail, so a preflight failure
+ # reaches the host as one terminal row instead of at the host's work deadline.
+ $serial = New-Object IO.Ports.SerialPort('COM2',115200,'None',8,'One')
+-$serial.WriteTimeout = 500
++$serial.WriteTimeout = 30000
+ $serial.Open()
+ $config = $null
+ function ConfigPin([string]$Name) {
+@@ -52,10 +53,22 @@
+     $line = $row | ConvertTo-Json -Depth 10 -Compress
+     if ($line.Length -gt 65536) { throw 'Bounded phase receipt required' }
+     Add-Content -LiteralPath (Join-Path $proof 'receipts.ndjson') -Value $line -Encoding UTF8
++    $diagWrite=[Diagnostics.Stopwatch]::StartNew()
+     $serial.WriteLine('JAPP11 '+$line)
++    $diagWrite.Stop(); Add-Content -LiteralPath (Join-Path $proof 'diag-serial-writes.txt') -Value ($Name+' chars='+$line.Length+' write_ms='+$diagWrite.ElapsedMilliseconds+' at_ms='+$clock.ElapsedMilliseconds) -Encoding ASCII
+     if($framedPhases -ccontains $Name) { HostAccepted ('JAPP11-FRAME-ACCEPT '+$Name+' '+$config.nonce) 60000 ('Host did not accept the actual '+$Name+' frame') }
+ }
+-function WithinBudget { if ($clock.Elapsed.TotalSeconds -ge 300) { throw 'Guest work deadline exceeded' } }
++function DiagShell([string]$Stage) {
++    # DIAG only: the first-logon shell state this rehearsal measures (KI-0177/KI-0179).
++    try {
++        $desktop=Get-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -ErrorAction SilentlyContinue
++        $advanced=Get-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -ErrorAction SilentlyContinue
++        $video=(& powercfg.exe /query SCHEME_CURRENT SUB_VIDEO VIDEOIDLE) -join ' | '
++        $row=[ordered]@{stage=$Stage;at_ms=$clock.ElapsedMilliseconds;registry_foreground_lock=$(if($null -ne $desktop -and $desktop.PSObject.Properties['ForegroundLockTimeout']){[string]$desktop.ForegroundLockTimeout}else{'absent'});registry_start_shown=$(if($null -ne $advanced -and $advanced.PSObject.Properties['StartShownOnUpgrade']){[string]$advanced.StartShownOnUpgrade}else{'absent'});spi_foreground_lock=[string][JobApplyValidation.OwnedApp]::ForegroundLockTimeoutValue();foreground=[JobApplyValidation.OwnedApp]::ForegroundProcessName();video=$video.Substring(0,[Math]::Min(1500,$video.Length))}
++        Add-Content -LiteralPath (Join-Path $proof 'diag-shell-state.ndjson') -Value ($row|ConvertTo-Json -Compress) -Encoding UTF8
++    } catch { Add-Content -LiteralPath (Join-Path $proof 'diag-shell-state.ndjson') -Value ('{"stage":"'+$Stage+'","error":"'+$_.Exception.GetType().FullName+'"}') -Encoding UTF8 }
++}
++function WithinBudget { if ($clock.Elapsed.TotalSeconds -ge $budgetSeconds) { throw 'Guest work deadline exceeded' } }
+ function NotYet([Management.Automation.ErrorRecord]$Record) {
+     # A WebView2/UIA tree that is still changing is 'not yet', never a pass: every
+     # caller keeps polling within its bound and asserts strictly at its deadline.
+@@ -84,7 +97,7 @@
+     return $owner
+ }
+ function Ready($Owner) {
+-    $limit = [Math]::Min(300, $clock.Elapsed.TotalSeconds+35)
++    $limit = [Math]::Min($budgetSeconds, $clock.Elapsed.TotalSeconds+35)
+     $clicked = $false
+     $retried = $null
+     $transient = ''
+@@ -145,7 +158,7 @@
+     return [string]$found[0]
+ }
+ function WaitCheckedAt($Owner) {
+-    $limit=[Math]::Min(300,$clock.Elapsed.TotalSeconds+6)
++    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+6)
+     $transient=''
+     do {
+         WithinBudget
+@@ -155,7 +168,7 @@
+     throw ('Exactly one actual Checked at timestamp required'+$transient)
+ }
+ function CheckedAdvance($Owner,[string]$Before) {
+-    $limit=[Math]::Min(300,$clock.Elapsed.TotalSeconds+6)
++    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+6)
+     $transient=''
+     do {
+         WithinBudget
+@@ -170,7 +183,7 @@
+     throw ('Owned Enter keyboard action did not advance Checked at'+$transient)
+ }
+ function ShellWait([scriptblock]$Predicate) {
+-    $limit=[Math]::Min(300,$clock.Elapsed.TotalSeconds+3)
++    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+3)
+     $transient=''
+     do {
+         WithinBudget
+@@ -180,7 +193,7 @@
+     throw ('Actual bounded native shell focus or geometry did not settle'+$transient)
+ }
+ function ShellMeasurement($Owner,[string]$Stage,[string]$PreviousAnchors) {
+-    $limit=[Math]::Min(300,$clock.Elapsed.TotalSeconds+3)
++    $limit=[Math]::Min($budgetSeconds,$clock.Elapsed.TotalSeconds+3)
+     $last=''; $lastRow=$null; $transient=''
+     do {
+         WithinBudget
+@@ -337,6 +350,7 @@
+     $framework=[Runtime.InteropServices.RuntimeEnvironment]::GetRuntimeDirectory()
+     $references=@((Join-Path $framework 'System.dll'),(Join-Path $framework 'System.Core.dll'),(Join-Path $framework 'System.Drawing.dll'),(Join-Path $framework 'WPF\UIAutomationClient.dll'),(Join-Path $framework 'WPF\UIAutomationTypes.dll'),(Join-Path $framework 'WPF\WindowsBase.dll'))
+     Add-Type -TypeDefinition (Get-Content -LiteralPath 'C:\ProgramData\JappHarness\windows11_owned.cs' -Raw) -ReferencedAssemblies $references
++    DiagShell 'after-compile'
+     $os=Get-CimInstance Win32_OperatingSystem
+     $boot=$os.LastBootUpTime.ToUniversalTime().ToString('o')
+     $machinePath='C:\ProgramData\JappHarness\machine.json'
+@@ -441,7 +455,7 @@
+     }
+     $actual=@(Get-ChildItem -LiteralPath $packageRoot -File -Recurse)
+     if($actual.Count -ne @($config.portable_files.PSObject.Properties).Count) { throw 'Exact portable inventory differs' }
+-    $phase='ready'; $app=Launch; Ready $app; $endpoint=Endpoint $app; Snapshot 'ready' $app
++    $phase='ready'; $app=Launch; Ready $app; $endpoint=Endpoint $app; DiagShell 'before-ready-capture'; Snapshot 'ready' $app
+     Receipt 'ready' @{pid=[long]$app.Pid;service=$endpoint;version='0.0.1';api_version='1.0.0';unicode_spaces_path=$true}
+     $phase='unauthorized12'; $statuses=Unauthorized $endpoint.port; Receipt 'unauthorized12' @{statuses=$statuses}
+     $phase='keyboard'; $checkedBefore=WaitCheckedAt $app; $app.KeyboardCheckAgain(); $checkedAfter=CheckedAdvance $app $checkedBefore
+@@ -480,7 +494,7 @@
+     $phase='cleanup'; Receipt 'cleanup' @{remaining_owned_processes=0}
+     $terminal=[ordered]@{terminal='PASS';nonce=$config.nonce;package_sha256=$config.package_sha256}
+ } catch {
+-    $failure=[ordered]@{terminal='FAIL';phase=$phase;nonce=$config.nonce;package_sha256=$config.package_sha256;error_type=$_.Exception.GetType().FullName;message=$_.Exception.Message.Substring(0,[Math]::Min(512,$_.Exception.Message.Length))}
++    $failure=[ordered]@{terminal='FAIL';phase=$phase;nonce=$config.nonce;package_sha256=$config.package_sha256;elapsed_ms=[long]$clock.ElapsedMilliseconds;error_type=$_.Exception.GetType().FullName;message=$_.Exception.Message.Substring(0,[Math]::Min(512,$_.Exception.Message.Length))}
+     $failure|ConvertTo-Json -Depth 8|Set-Content -LiteralPath (Join-Path $proof 'failure.json') -Encoding UTF8
+     $terminal=$failure
+ } finally {
+@@ -508,5 +522,6 @@
+         } catch { $terminal=[ordered]@{terminal='FAIL';phase='package-after';nonce=$config.nonce;package_sha256=$config.package_sha256;error_type='PACKAGE_CHANGED';message='Actual package endpoint binding failed'} }
+     }
+     if(@($cleanup|Where-Object {-not $_.settled}).Count -gt 0) { $terminal=[ordered]@{terminal='FAIL';phase='cleanup';nonce=$config.nonce;package_sha256=$config.package_sha256;error_type='UNSETTLED_OWNED_CUSTODY';message='Retained cleanup-only native custody remains';prior_terminal=$terminal} }
++    try { DiagShell 'end'; @([JobApplyValidation.OwnedApp]::ForegroundLog)|Set-Content -LiteralPath (Join-Path $proof 'diag-foreground.txt') -Encoding ASCII } catch { }
+     try { $serial.WriteLine('JAPP11 '+($terminal|ConvertTo-Json -Depth 8 -Compress)) } finally { $serial.Close(); $serial.Dispose() }
+ }
+--- a/scripts/windows11/windows11_owned.cs
++++ b/scripts/windows11/windows11_owned.cs
+@@ -54,6 +54,26 @@
+         [DllImport("user32.dll")] static extern bool IsWindowVisible(IntPtr window);
+         [DllImport("user32.dll")] static extern bool SetForegroundWindow(IntPtr window);
+         [DllImport("user32.dll")] static extern IntPtr GetForegroundWindow();
++        [DllImport("user32.dll")] static extern bool SystemParametersInfo(uint action,uint param,ref uint value,uint winIni);
++        // DIAG: how each foreground request went, dumped by the guest at the end.
++        public static readonly List<string> ForegroundLog=new List<string>();
++        public static string ForegroundProcessName() {
++            IntPtr window=GetForegroundWindow(); if(window==IntPtr.Zero) return "none";
++            uint pid; GetWindowThreadProcessId(window,out pid);
++            try { return Process.GetProcessById((int)pid).ProcessName+":"+pid; } catch(Exception) { return "pid:"+pid; }
++        }
++        public static uint ForegroundLockTimeoutValue() { uint value=0; if(!SystemParametersInfo(0x2000,0,ref value,0)) return UInt32.MaxValue; return value; }
++        // A window of this owner becomes the foreground within a fixed bound, or the
++        // request fails with its own refusal; it never sends input to take it.
++        static void OwnForeground(IntPtr hwnd,string refusal) {
++            Stopwatch watch=Stopwatch.StartNew(); int attempts=0;
++            while(true) {
++                attempts++;
++                if(SetForegroundWindow(hwnd)&&GetForegroundWindow()==hwnd) { ForegroundLog.Add(refusal+" | ok attempts="+attempts+" ms="+watch.ElapsedMilliseconds); return; }
++                if(watch.ElapsedMilliseconds>=10000) { ForegroundLog.Add(refusal+" | FAIL attempts="+attempts+" foreground="+ForegroundProcessName()); throw new InvalidOperationException(refusal); }
++                Thread.Sleep(100);
++            }
++        }
+         [StructLayout(LayoutKind.Sequential)] struct KeyboardInput { public ushort key,scan; public uint flags,time; public UIntPtr extra; }
+         [StructLayout(LayoutKind.Explicit,Size=32)] struct InputUnion { [FieldOffset(0)] public KeyboardInput keyboard; }
+         [StructLayout(LayoutKind.Sequential)] struct Input { public uint type; public InputUnion data; }
+@@ -278,7 +298,7 @@
+         // Closed key sequences only, in this isolated guest's retained foreground window.
+         void Keys(bool quit) {
+             AutomationElement window=Window(); IntPtr hwnd=new IntPtr(window.Current.NativeWindowHandle);
+-            if(!SetForegroundWindow(hwnd)||GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Owned keyboard foreground acknowledgment required");
++            OwnForeground(hwnd,"Owned keyboard foreground acknowledgment required");
+             if(!quit) {
+                 AutomationElement button=OwnedControl("Check again",InvokePattern.Pattern); button.SetFocus();
+                 if(!Settles(()=>{
+@@ -454,7 +474,7 @@
+         [DllImport("user32.dll")] static extern IntPtr GetKeyboardLayout(uint thread);
+         void ShellForeground() {
+             AutomationElement window=Window(); IntPtr hwnd=new IntPtr(window.Current.NativeWindowHandle);
+-            if(!SetForegroundWindow(hwnd)||GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Owned shell foreground acknowledgment required");
++            OwnForeground(hwnd,"Owned shell foreground acknowledgment required");
+         }
+         AutomationElement ShellUnique(string name,ControlType type,string role,bool requireVisible=true) {
+             AutomationElementCollection nodes=Window().FindAll(TreeScope.Descendants,new PropertyCondition(AutomationElement.NameProperty,name));
+@@ -593,7 +613,7 @@
+         public void CloseWindow() { ((WindowPattern)Window().GetCurrentPattern(WindowPattern.Pattern)).Close(); }
+         public void Capture(string path) {
+             AutomationElement window=Window(); IntPtr hwnd=new IntPtr(window.Current.NativeWindowHandle);
+-            if(!SetForegroundWindow(hwnd)||GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Actual owned foreground window required for capture");
++            OwnForeground(hwnd,"Actual owned foreground window required for capture");
+             System.Windows.Rect r=window.Current.BoundingRectangle;
+             if(r.Width<640||r.Height<480||r.Width>1920||r.Height>1200) throw new OwnedInvariantException("Owned window capture geometry outside bounds");
+             using(System.Drawing.Bitmap image=new System.Drawing.Bitmap((int)r.Width,(int)r.Height))

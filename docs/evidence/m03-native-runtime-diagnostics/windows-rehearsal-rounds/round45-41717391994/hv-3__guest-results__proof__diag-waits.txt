@@ -1,0 +1,23 @@
+WaitCheckedAt ms=95 ok=True
+CheckedAdvance ms=284 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Jobs:pid=4948:hwnd=0 fg=Tauri Window:pid=5196 focus=Chrome_WidgetWin_1:917936 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 ms=61 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=45 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=166 ok=True
+ShellWait $Owner.ShellMainFocused() ms=215 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Tracker:pid=4948:hwnd=0 fg=Tauri Window:pid=5196 focus=Chrome_WidgetWin_1:917936 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 ms=31 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=26 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=113 ok=True
+ShellWait $Owner.ShellMainFocused() ms=191 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Documents / Resumes:pid=4948:hwnd=0 fg=Tauri Window:pid=5196 focus=Chrome_WidgetWin_1:917936 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 ms=28 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=27 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=108 ok=True
+ShellWait $Owner.ShellMainFocused() ms=177 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Profile:pid=4948:hwnd=0 fg=Tauri Window:pid=5196 focus=Chrome_WidgetWin_1:917936 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 ms=29 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=25 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=119 ok=True
+ShellWait $Owner.ShellMainFocused() ms=207 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Settings:pid=4948:hwnd=0 fg=Tauri Window:pid=5196 focus=Chrome_WidgetWin_1:917936 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 ms=30 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=32 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=138 ok=True
+ShellWait $Owner.ShellMainFocused() ms=211 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) ms=30065 ok=False

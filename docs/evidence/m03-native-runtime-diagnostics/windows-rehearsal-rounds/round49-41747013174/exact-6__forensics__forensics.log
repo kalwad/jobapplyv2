@@ -1,0 +1,17 @@
+2026-11-04T00:44:58Z start
+NAME     FSTYPE     SIZE LABEL
+nbd0                 80G 
+├─nbd0p1 vfat       260M SYSTEM
+├─nbd0p2             16M 
+├─nbd0p3 BitLocker 78.9G 
+└─nbd0p4 ntfs       892M 
+2026-11-04T00:45:03Z windows partition: /dev/nbd0p4
+ls: cannot access '/mnt/win/Windows/Minidump': No such file or directory
+ls: cannot access '/mnt/win/Windows/LiveKernelReports': No such file or directory
+ls: cannot access '/mnt/win/Windows/MEMORY.DMP': No such file or directory
+cp: cannot stat '/mnt/win/Windows/Minidump/*.dmp': No such file or directory
+cp: cannot stat '/mnt/win/Windows/System32/winevt/Logs/System.evtx': No such file or directory
+cp: cannot stat '/mnt/win/Windows/System32/winevt/Logs/Application.evtx': No such file or directory
+cp: cannot stat '/mnt/win/Windows/System32/winevt/Logs/Setup.evtx': No such file or directory
+/dev/nbd0 disconnected
+2026-11-04T00:45:04Z done

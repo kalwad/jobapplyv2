@@ -1,0 +1,39 @@
+[    0.000000] clocksource: hyperv_clocksource_msr: mask: 0xffffffffffffffff max_cycles: 0x24e6a1710, max_idle_ns: 440795202120 ns
+[    0.426409] x86/fpu: Supporting XSAVE feature 0x1000: 'Control-flow Kernel registers (KVM only)'
+[    2.453207] kvm_amd: TSC scaling supported
+[    2.453239] kvm_amd: Nested Virtualization enabled
+[    2.453256] kvm_amd: Nested Paging enabled
+[    2.453269] kvm_amd: kvm_amd: Hyper-V enlightened NPT TLB flush enabled
+[    2.453275] kvm_amd: kvm_amd: Hyper-V Direct TLB Flush enabled
+[    2.453281] kvm_amd: Virtual VMLOAD VMSAVE supported
+[    2.453286] kvm_amd: PMU virtualization is disabled
+[ 1188.194166] nbd0: detected capacity change from 0 to 167772160
+[ 1188.196624]  nbd0: p1 p2 p3 p4
+[ 1191.282741]  nbd0: p1 p2 p3 p4
+[ 1193.362597] ntfs3: Enabled Linux POSIX ACLs support
+[ 1193.362621] ntfs3: Read-only LZX/Xpress compression included
+[ 1193.421776] block nbd0: NBD_DISCONNECT
+[ 1193.421811] block nbd0: Disconnected due to user request.
+[ 1193.421833] block nbd0: shutting down sockets
+[ 1193.422904] I/O error, dev nbd0, sector 0 op 0x0:(READ) flags 0x800000 phys_seg 1 prio class 2
+[ 1193.422933] Buffer I/O error on dev nbd0, logical block 0, async page read
+[ 1193.422948] I/O error, dev nbd0, sector 0 op 0x0:(READ) flags 0x800000 phys_seg 1 prio class 2
+[ 1193.422960] Buffer I/O error on dev nbd0, logical block 0, async page read
+[ 1193.422972] I/O error, dev nbd0, sector 0 op 0x0:(READ) flags 0x800000 phys_seg 1 prio class 2
+[ 1193.422984] Buffer I/O error on dev nbd0, logical block 0, async page read
+[ 1193.422998] I/O error, dev nbd0, sector 0 op 0x0:(READ) flags 0x800000 phys_seg 1 prio class 2
+[ 1193.423009] Buffer I/O error on dev nbd0, logical block 0, async page read
+[ 1193.423021] I/O error, dev nbd0, sector 0 op 0x0:(READ) flags 0x800000 phys_seg 1 prio class 2
+[ 1193.423032] Buffer I/O error on dev nbd0, logical block 0, async page read
+[ 1193.423279] I/O error, dev nbd0, sector 0 op 0x0:(READ) flags 0x800000 phys_seg 1 prio class 2
+[ 1193.423295] Buffer I/O error on dev nbd0, logical block 0, async page read
+[ 1193.423307] I/O error, dev nbd0, sector 0 op 0x0:(READ) flags 0x800000 phys_seg 1 prio class 2
+[ 1193.423318] Buffer I/O error on dev nbd0, logical block 0, async page read
+[ 1193.423328] Dev nbd0: unable to read RDB block 0
+[ 1193.423338] I/O error, dev nbd0, sector 0 op 0x0:(READ) flags 0x800000 phys_seg 1 prio class 2
+[ 1193.423349] Buffer I/O error on dev nbd0, logical block 0, async page read
+[ 1193.423363] I/O error, dev nbd0, sector 24 op 0x0:(READ) flags 0x800000 phys_seg 1 prio class 2
+[ 1193.423375] Buffer I/O error on dev nbd0, logical block 3, async page read
+[ 1193.423387] I/O error, dev nbd0, sector 0 op 0x0:(READ) flags 0x800000 phys_seg 1 prio class 2
+[ 1193.423398] Buffer I/O error on dev nbd0, logical block 0, async page read
+[ 1193.423411]  nbd0: unable to read partition table

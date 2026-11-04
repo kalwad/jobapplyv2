@@ -1,0 +1,8 @@
+﻿{
+    "schema":  "japp-win11-protected-machine-error-v1",
+    "step":  "interactive-user",
+    "nonce":  "9e2aaf20003fb8f13569e6272dcdfaa852097fa2401e957007002ebe2b9a71bc",
+    "boot_time":  "2026-11-04T08:45:24.5000000Z",
+    "error_type":  "System.Management.Automation.RuntimeException",
+    "message":  "Exact synthetic interactive fixture required; observed user: "
+}

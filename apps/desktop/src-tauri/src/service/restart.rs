@@ -587,6 +587,7 @@ mod tests {
         let clock = FakeClock::default();
         let policy = Policy {
             startup_timeout: Duration::from_millis(50),
+            initial_startup_timeout: Duration::from_millis(50),
             shutdown_timeout: Duration::from_millis(30),
             poll_interval: Duration::from_millis(10),
             bind_attempts: 3,
@@ -873,6 +874,87 @@ mod tests {
             ));
             assert_eq!(record.lock().unwrap().spawns, 0);
         }
+    }
+    #[test]
+    fn first_start_and_relaunch_each_run_under_their_own_bound() {
+        // KI-0182: a cold first launch needs more than the relaunch bound; the restart
+        // cycle's reviewed relaunch bound is unchanged.
+        let policy = Policy {
+            startup_timeout: Duration::from_millis(50),
+            initial_startup_timeout: Duration::from_millis(120),
+            shutdown_timeout: Duration::from_millis(30),
+            poll_interval: Duration::from_millis(10),
+            bind_attempts: 1,
+        };
+        let record = Arc::new(Mutex::new(Record::default()));
+        let clock = FakeClock::default();
+        let mut owner = RestartOwner::new(
+            Adapter(Arc::clone(&record)),
+            clock.clone(),
+            policy,
+            RecoveryPolicy::default(),
+        )
+        .unwrap();
+        let first = Arc::new(Control::default());
+        first.never_ready.store(true, Ordering::Release);
+        record.lock().unwrap().queued.push_back(first);
+        assert!(owner.start_initial().is_err());
+        assert!(clock.now() >= Duration::from_millis(120));
+        assert!(clock.now() < Duration::from_millis(140));
+        assert_eq!(owner.snapshot().state, RecoveryState::Failed);
+        assert_eq!(owner.snapshot().reason, Some(LossReason::StartupFailed));
+        assert_eq!(record.lock().unwrap().spawns, 1);
+        // After a ready first start and an owned death, the relaunch that never becomes
+        // ready fails at the relaunch bound, not at the first-start bound.
+        let record = Arc::new(Mutex::new(Record::default()));
+        let clock = FakeClock::default();
+        let mut owner = RestartOwner::new(
+            Adapter(Arc::clone(&record)),
+            clock.clone(),
+            policy,
+            RecoveryPolicy::default(),
+        )
+        .unwrap();
+        owner.start_initial().unwrap();
+        let next = Arc::new(Control::default());
+        next.never_ready.store(true, Ordering::Release);
+        record.lock().unwrap().queued.push_back(next);
+        crash(&record);
+        owner.poll().unwrap();
+        owner.poll().unwrap();
+        assert_eq!(owner.snapshot().state, RecoveryState::Backoff);
+        clock.pause(Duration::from_millis(250));
+        let relaunch = clock.now();
+        let _ = owner.poll();
+        assert_eq!(record.lock().unwrap().spawns, 2);
+        let spent = clock.now() - relaunch;
+        assert!(spent >= Duration::from_millis(50), "{spent:?}");
+        assert!(spent < Duration::from_millis(120), "{spent:?}");
+        assert_eq!(owner.snapshot().state, RecoveryState::Failed);
+        assert_eq!(owner.snapshot().reason, Some(LossReason::StartupFailed));
+        // The production policies are accepted; a relaunch bound above 10 s is not.
+        let record = Arc::new(Mutex::new(Record::default()));
+        assert!(
+            RestartOwner::new(
+                Adapter(Arc::clone(&record)),
+                FakeClock::default(),
+                Policy::default(),
+                RecoveryPolicy::default()
+            )
+            .is_ok()
+        );
+        assert!(matches!(
+            RestartOwner::new(
+                Adapter(Arc::clone(&record)),
+                FakeClock::default(),
+                Policy {
+                    startup_timeout: Duration::from_millis(10_001),
+                    ..Policy::default()
+                },
+                RecoveryPolicy::default()
+            ),
+            Err(RecoveryFailure::InvalidPolicy)
+        ));
     }
     #[test]
     fn owner_drop_withdraws_requests_that_outlive_the_owner() {

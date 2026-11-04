@@ -1,0 +1,15 @@
+{
+  "variant": "host-nowhesvc",
+  "dropped_markers": [
+    "# DIAG-SVCFIRST",
+    "# DIAG-NODPS",
+    "# DIAG-NODIAGTRACK"
+  ],
+  "guest_driver": {
+    "windows11_bootstrap.ps1": "9c2f464df69be943f5f9479cc84c2aa2ad1a126da0ac05ed6be0c4b7d40c89b8",
+    "windows11_guest.ps1": "cce3f97816cce2b70782310f8600ec8d8d8889fa19d2008459d694a68e7f17c3",
+    "windows11_owned.cs": "a561f440559af9ca012bdd15b933aada192c73ce0cd44a27390e04153165fc3c"
+  },
+  "package_manifest_sha256": "0396ddf437aa100e9e75ffec032ee432165bb8a01958e652690965b62d4299d4",
+  "iso_sha256_checked_by_workflow": "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38"
+}

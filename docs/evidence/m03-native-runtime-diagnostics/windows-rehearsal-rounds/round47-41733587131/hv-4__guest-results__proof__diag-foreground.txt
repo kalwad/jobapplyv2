@@ -1,0 +1,138 @@
+Actual owned foreground window required for capture | ok attempts=1 ms=2
+Owned keyboard foreground acknowledgment required | ok attempts=1 ms=3
+Actual owned foreground window required for capture | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=5
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=6
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=5
+Owned shell foreground acknowledgment required | ok attempts=1 ms=4
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Actual owned foreground window required for capture | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=5
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Actual owned foreground window required for capture | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=4
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Actual owned foreground window required for capture | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=5
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Actual owned foreground window required for capture | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=4
+Actual owned foreground window required for capture | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Actual owned foreground window required for capture | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Actual owned foreground window required for capture | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Actual owned foreground window required for capture | ok attempts=1 ms=2
+Owned keyboard foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Actual owned foreground window required for capture | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=4
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Actual owned foreground window required for capture | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Actual owned foreground window required for capture | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Actual owned foreground window required for capture | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Actual owned foreground window required for capture | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=4
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Actual owned foreground window required for capture | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Actual owned foreground window required for capture | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Actual owned foreground window required for capture | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Actual owned foreground window required for capture | ok attempts=1 ms=1
+Owned keyboard foreground acknowledgment required | ok attempts=1 ms=3
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=2
+Owned shell foreground acknowledgment required | ok attempts=1 ms=1
+Owned shell foreground acknowledgment required | ok attempts=1 ms=3
+Actual owned foreground window required for capture | ok attempts=1 ms=2
+Actual owned foreground window required for capture | ok attempts=1 ms=1
+Actual owned foreground window required for capture | ok attempts=1 ms=1
+Actual owned foreground window required for capture | ok attempts=1 ms=1
+Owned keyboard foreground acknowledgment required | ok attempts=1 ms=2

@@ -1,0 +1,8 @@
+{
+  "terminal": "FAIL",
+  "phase": "preflight",
+  "nonce": "e5980e16ec27d1e994796cd24e8a62e95181fa04698aef7c03eb4d14a9d8d5eb",
+  "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+  "error_type": "System.Management.Automation.RuntimeException",
+  "message": "Fresh proof namespace required"
+}

@@ -1,0 +1,2 @@
+WaitCheckedAt ms=120 ok=True
+CheckedAdvance ms=29635 ok=False

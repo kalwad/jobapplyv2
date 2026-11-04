@@ -423,10 +423,16 @@ class CandidateOwner:
         return {"vm_started": False, "pending_commands": []}
 
 
-@pytest.mark.parametrize("plan", [CLEAN_PLAN, REMOVING_PLAN], ids=["clean", "drift"])
-def test_windows_candidate_retains_or_refuses_the_host_plan(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, plan: bytes
-) -> None:
+# A source-check receipt field the old source check never wrote.
+ABSENT = object()
+
+
+def run_candidate(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    plan: bytes,
+    attestor_body_parsed: object = True,
+) -> tuple[int, dict[str, Any], Path, list[Path]]:
     candidate = load("windows11_candidate", "windows11")
     artifact = tmp_path / "artifact"
     artifact.mkdir()
@@ -439,25 +445,25 @@ def test_windows_candidate_retains_or_refuses_the_host_plan(
     )
     source = ROOT / "windows11"
     checks = tmp_path / "source-check.json"
-    checks.write_text(
-        json.dumps(
-            {
-                "schema": "japp-win11-target-source-check-v1",
-                "status": "WINDOWS_POWERSHELL51_PARSE_AND_CS_COMPILE_PASS",
-                "native_API_calls": 0,
-                "VMs": 0,
-                "product_launches": 0,
-                "Windows11_acceptance": False,
-                "files": {
-                    name: {
-                        "bytes": (source / name).stat().st_size,
-                        "sha256": sha256(source / name),
-                    }
-                    for name in names
-                },
+    receipt: dict[str, object] = {
+        "schema": "japp-win11-target-source-check-v1",
+        "status": "WINDOWS_POWERSHELL51_PARSE_AND_CS_COMPILE_PASS",
+        "native_API_calls": 0,
+        "VMs": 0,
+        "product_launches": 0,
+        "Windows11_acceptance": False,
+        "attestor_body_parsed": attestor_body_parsed,
+        "files": {
+            name: {
+                "bytes": (source / name).stat().st_size,
+                "sha256": sha256(source / name),
             }
-        )
-    )
+            for name in names
+        },
+    }
+    if attestor_body_parsed is ABSENT:
+        del receipt["attestor_body_parsed"]
+    checks.write_text(json.dumps(receipt))
 
     retains: list[Path] = []
 
@@ -512,6 +518,14 @@ def test_windows_candidate_retains_or_refuses_the_host_plan(
     )
     code = candidate.main()
     closure = json.loads((output / "closure.json").read_text())
+    return code, closure, output, retains
+
+
+@pytest.mark.parametrize("plan", [CLEAN_PLAN, REMOVING_PLAN], ids=["clean", "drift"])
+def test_windows_candidate_retains_or_refuses_the_host_plan(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, plan: bytes
+) -> None:
+    code, closure, output, retains = run_candidate(tmp_path, monkeypatch, plan)
     if plan is CLEAN_PLAN:
         assert (code, closure["status"]) == (
             0,
@@ -524,6 +538,24 @@ def test_windows_candidate_retains_or_refuses_the_host_plan(
         assert (code, closure["status"]) == (1, "CANDIDATE_FAILED")
         assert "Remv systemd-sysv" in closure["message"]
         assert not (output / "host-install-plan.json").exists()
+
+
+@pytest.mark.parametrize(
+    "parsed", [ABSENT, None, False, "true"], ids=["absent", "null", "false", "string"]
+)
+def test_windows_candidate_refuses_a_source_check_without_the_attestor_body(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, parsed: object
+) -> None:
+    # KI-0176: only a receipt whose hosted parse covered the attestor body is accepted.
+    code, closure, output, _retains = run_candidate(
+        tmp_path, monkeypatch, CLEAN_PLAN, parsed
+    )
+    assert (code, closure["status"]) == (1, "CANDIDATE_FAILED")
+    assert (
+        closure["message"]
+        == "Actual target source-only parser/compiler receipt required"
+    )
+    assert not (output / "inputs" / "guest-source-check.json").exists()
 
 
 # Hosted CPU: an explicit reviewed allow-list with a recorded support basis.
@@ -557,6 +589,35 @@ def test_unreviewed_hosted_cpu_is_refused_naming_observed_and_allowed(
     assert vm.host_cpu_support is inputs.host_cpu_support
 
 
+def test_vm_cpu_is_the_host_with_hyper_v_enlightenments_only(
+    vm: ModuleType, tmp_path: Path
+) -> None:
+    # KI-0181: without a virtual PMU, Windows' counter allocation bugchecked the
+    # guest; the enlightenments keep the host CPU and its attested name unchanged.
+    argv = vm.qemu_argv(tmp_path, tmp_path / "media.iso", tmp_path / "seed.iso")
+    assert argv.count("-cpu") == 1
+    cpu = argv[argv.index("-cpu") + 1].split(",")
+    assert cpu[0] == "host"
+    assert cpu[1:] == [
+        "hv-relaxed",
+        "hv-vapic",
+        "hv-spinlocks=0x1fff",
+        "hv-vpindex",
+        "hv-runtime",
+        "hv-time",
+        "hv-synic",
+        "hv-stimer",
+        "hv-frequencies",
+    ]
+    # No model, vendor or hypervisor-identity override, and no passthrough set.
+    assert not any(
+        flag.split("=")[0]
+        in ("model-id", "vendor", "hv-vendor-id", "hv-passthrough", "pmu", "hypervisor")
+        or flag.startswith(("-", "+"))
+        for flag in cpu[1:]
+    )
+
+
 def test_vm_has_no_acpi_sleep_or_hibernate_state(
     vm: ModuleType, tmp_path: Path
 ) -> None:
@@ -577,7 +638,7 @@ class Running:
 
 
 @pytest.fixture
-def protocol(
+def protocol(  # noqa: PLR0915 - one fake per protocol seam
     vm: ModuleType, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> Iterator[Callable[[bytes, float], SimpleNamespace]]:
     sockets: list[socket.socket] = []
@@ -600,6 +661,7 @@ def protocol(
         guest = pairs["serial"][1]
         guest.setblocking(False)
         state = SimpleNamespace(owner=owner, calls=[], frames=[], received=b"")
+        state.firmware, state.after_frame = pairs["firmware"][1], {}
 
         def drain() -> bytes:
             while True:
@@ -626,6 +688,8 @@ def protocol(
 
         def frame(name: str) -> dict[str, object]:
             state.frames.append((name, drain()))
+            if name in state.after_frame:
+                state.firmware.sendall(state.after_frame[name])
             return {"file": name + ".ppm", "width": 1280, "height": 800}
 
         def rest() -> bytes:
@@ -705,6 +769,33 @@ def test_each_framed_phase_is_acknowledged_after_its_frame(
         assert b"FRAME-ACCEPT " + phase.encode() + b" " not in seen
     # Progress frames stop at the first receipt.
     assert "screendump" not in state.calls
+
+
+def test_a_restart_after_the_first_receipt_fails_at_once(
+    vm: ModuleType,
+    protocol: Callable[[bytes, float], SimpleNamespace],
+) -> None:
+    # Both diagnostic round 39 VMs restarted after 'environment' and came back to
+    # the lock screen; the host then waited out its whole work deadline.
+    display = {"display_width": 1280, "display_height": 800, "package_sha256": PACKAGE}
+    state = protocol(receipt("environment", attestation=display), 30.0)
+    state.after_frame["win11-environment"] = OBSERVED_CONSOLE
+    started = time.monotonic()
+    with pytest.raises(ValueError, match="restarted after the guest started"):
+        vm.observe(state.owner, NONCE, PACKAGE, "cpu")
+    assert time.monotonic() - started < 10
+    assert [name for name, _seen in state.frames] == ["win11-environment"]
+
+
+def test_firmware_text_without_a_boot_line_after_the_first_receipt_is_kept(
+    vm: ModuleType,
+    protocol: Callable[[bytes, float], SimpleNamespace],
+) -> None:
+    display = {"display_width": 1280, "display_height": 800, "package_sha256": PACKAGE}
+    state = protocol(receipt("environment", attestation=display), 1.5)
+    state.after_frame["win11-environment"] = b"\x1b[2J\x1b[01;01H"
+    with pytest.raises(TimeoutError, match="setup/guest deadline expired"):
+        vm.observe(state.owner, NONCE, PACKAGE, "cpu")
 
 
 def test_setup_wait_keeps_bounded_low_rate_progress_frames(

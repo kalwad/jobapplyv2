@@ -1,0 +1,15 @@
+WaitCheckedAt ms=113 ok=True
+CheckedAdvance ms=426 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) ms=53 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=44 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=177 ok=True
+ShellWait $Owner.ShellMainFocused() ms=261 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) ms=25 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=28 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=147 ok=True
+ShellWait $Owner.ShellMainFocused() ms=237 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) ms=30 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=35 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=142 ok=True
+ShellWait $Owner.ShellMainFocused() ms=203 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) ms=29644 ok=False

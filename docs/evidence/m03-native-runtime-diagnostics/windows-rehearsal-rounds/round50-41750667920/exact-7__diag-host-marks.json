@@ -1,0 +1,22 @@
+[
+  {
+    "t": 0.8,
+    "mark": "seed"
+  },
+  {
+    "t": 0.9,
+    "mark": "qemu-started"
+  },
+  {
+    "t": 669.0,
+    "mark": "monitor-environment-boots-2"
+  },
+  {
+    "t": 762.1,
+    "mark": "guest-pass"
+  },
+  {
+    "t": 772.0,
+    "mark": "post-pass-checks"
+  }
+]

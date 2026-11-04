@@ -1,0 +1,21 @@
+t_ms=489 count=155 new=844:AggregatorHost,168:backgroundTaskHost,1152:backgroundTaskHost,4196:backgroundTaskHost,4440:backgroundTaskHost,6724:backgroundTaskHost,7556:backgroundTaskHost,8584:backgroundTaskHost,8688:backgroundTaskHost,8716:backgroundTaskHost,8796:backgroundTaskHost,8832:backgroundTaskHost,8876:backgroundTaskHost,4336:CloudExperienceHostBroker,1704:cmd,5560:conhost,7292:conhost,6620:CrossDeviceResume,628:csrss,7836:csrss,6652:ctfmon,7604:dllhost,7956:dwm,2616:explorer,992:fontdrvhost,7940:fontdrvhost,0:Idle,848:lsass,2804:Memory Compression,4448:MicrosoftEdgeUpdate,980:MidiSrv,3456:MpDefenderCoreService,5512:msedgewebview2,6340:msedgewebview2,7564:msedgewebview2,8252:msedgewebview2,8256:msedgewebview2,8316:msedgewebview2,3508:MsMpEng,4784:NisSrv,3816:OneDriveSetup,5000:powershell,5072:powershell,96:Registry,2384:RuntimeBroker,5748:RuntimeBroker,6256:RuntimeBroker,8516:RuntimeBroker,8824:RuntimeBroker,1444:SearchHost,4120:SearchIndexer,8308:SecurityHealthService,2412:SecurityHealthSystray,832:services,7752:ShellExperienceHost,6084:ShellHost,732:sihost,6752:smartscreen,452:smss,3168:spoolsv,5552:SppExtComObj,588:sppsvc,6276:StartMenuExperienceHost,632:svchost,724:svchost,768:svchost,860:svchost,972:svchost,1092:svchost,1164:svchost,1244:svchost,1264:svchost,1344:svchost,1524:svchost,1608:svchost,1652:svchost,1720:svchost,1744:svchost,1752:svchost,1796:svchost,1804:svchost,1824:svchost,1880:svchost,1932:svchost,1968:svchost,1996:svchost,2004:svchost,2012:svchost,2020:svchost,2028:svchost,2036:svchost,2044:svchost,2092:svchost,2164:svchost,2244:svchost,2300:svchost,2352:svchost,2392:svchost,2532:svchost,2624:svchost,2632:svchost,2660:svchost,2748:svchost,2788:svchost,2880:svchost,2932:svchost,2940:svchost,3056:svchost,3064:svchost,3212:svchost,3272:svchost,3280:svchost,3292:svchost,3316:svchost,3336:svchost,3416:svchost,3460:svchost,3480:svchost,3500:svchost,3680:svchost,3748:svchost,4052:svchost,4260:svchost,4416:svchost,4472:svchost,4492:svchost,4584:svchost,4912:svchost,5220:svchost,5368:svchost,5452:svchost,6024:svchost,6192:svchost,6712:svchost,6924:svchost,7064:svchost,7244:svchost,7376:svchost,7768:svchost,8476:svchost,8992:svchost,4:System,3200:taskhostw,4032:taskhostw,6472:taskhostw,4852:TiWorker,2668:TrustedInstaller,2956:UserOOBEBroker,9052:Widgets,696:wininit,7880:winlogon,3472:wlms,2928:WmiPrvSE,4664:WmiPrvSE,2556:WUDFHost etw=Data Collector Set                      Type                          Status ; ------------------------------------------------------------------------------- ; The command completed successfully.
+t_ms=1773 count=162 new=7804:desktop,7288:msedgewebview2,7316:msedgewebview2,9280:msedgewebview2,9288:msedgewebview2,9336:msedgewebview2,9348:msedgewebview2
+t_ms=2971 count=165 new=9612:backgroundTaskHost,9728:conhost,9708:japp-orchestrator
+t_ms=4087 count=166 new=9880:backgroundTaskHost,9912:OneDriveSetup,9948:RuntimeBroker
+t_ms=5326 count=165 new=
+t_ms=6362 count=165 new=
+t_ms=7463 count=165 new=
+t_ms=8478 count=165 new=
+t_ms=9516 count=164 new=
+t_ms=10626 count=164 new=
+t_ms=11656 count=164 new=
+t_ms=12868 count=163 new=
+t_ms=14136 count=165 new=7568:MicrosoftEdgeUpdate,10056:MicrosoftEdgeUpdate,8832:svchost
+t_ms=15199 count=166 new=7304:regsvr32
+t_ms=16362 count=165 new=
+t_ms=17721 count=165 new=
+t_ms=18803 count=166 new=10160:drvinst
+t_ms=19888 count=166 new=10168:svchost
+t_ms=21015 count=166 new=
+t_ms=22066 count=166 new=1508:dllhost,2160:svchost,6068:svchost,10232:svchost
+t_ms=23096 count=160 new=

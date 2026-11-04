@@ -12652,3 +12652,31 @@ Windows 11 candidate review at 2100780 (2026-11-03UTC):
 - Exact docs/evidence/m03-native-candidates-2100780-review.
 
 Next READY package: NONE while M03-W07 is IN_PROGRESS.
+
+## M03-W07 — Windows 11 campaign rehearsals 38–50 and the KI-0176–KI-0187 correction (2026-11-04UTC)
+
+Scratch-branch rehearsals on hosted ubuntu-24.04 runners under KVM (exact docs/evidence/m03-native-runtime-diagnostics, windows-rehearsal-rounds). Each ran the harness's own `seed()`, `qemu_argv()`, `observe()` and post-PASS checks on the pinned ISO and the 2100780 CI package (run 41538198385), with the reviewed bundle, release receipt, source binding and runner gates skipped. None is campaign evidence, and no campaign was released.
+- Rounds 38 to 47 (runs 41562893419 to 41733587131; round 41 on `diag/windows-dxdiag-args`) diagnosed KI-0177 to KI-0185 with instrumented guest controllers. The evidence README's table and each KI give the per-round results.
+- Round 48 (run 41739147286) ran the first KI-0184/KI-0185 correction byte for byte with no instrumentation. Five of six VMs passed the whole guest lifecycle and the host's post-PASS checks, and one froze in Setup (KI-0183).
+- Round 49 (run 41747013174) ran the correction after review 1. Four of six VMs passed; KI-0186 and KI-0187 were found.
+- Round 50 (run 41750667920) ran the final bytes: guest driver `windows11_owned.cs` `fa142841…`, bootstrap `4f63af20…`, guest `e6d3040a…` and source check `83252d91…`, with no instrumentation, on eight VMs. The hosted Windows PowerShell 5.1 job parsed and compiled them. Seven VMs passed the whole guest lifecycle and the host's post-PASS checks, with cleanup at 104.2 to 123.9 s of the guest clock; four of them ran on AMD EPYC 7763 runners, and all seven ran with device encryption on. The eighth, on an Intel Xeon 6975P-C runner, never left Setup's "Installing Windows 11" stage (KI-0183).
+
+Correction (uncommitted at the time of these commands; details in each KI):
+- KI-0181: QEMU Hyper-V enlightenments. KI-0177: first-logon Start setting, console host and bounded foreground requests. KI-0178: COM2 write bound. KI-0179: display timeout and measured budget. KI-0180: bare dxdiag tokens.
+- KI-0182: the desktop app's 30 s first-start bound (Rust). KI-0184: keyboard-focus settle. KI-0185: job-list 'not yet' state. KI-0186: attestor user wait. KI-0187: foreground-holder diagnostic. KI-0176: attestor-body parse.
+- The host fails at once on a VM restart after the first receipt.
+- The bootstrap applies every first-logon step before the guest's startup entry.
+- Sixteen new Python test IDs; the exact inventory is now 3189 common + 2 POSIX-only (3173 before). WINDOWS11_NATIVE_PINS are re-pinned to the hashes above.
+
+Review and mutation (exact docs/evidence/m03-w07-win11-rehearsal-correction-review):
+- Separate-context workflow wf_14f24cc1-da9 (72 agents) and the follow-up wf_7bf4ba4b-061 (34 agents) were launched by the implementing session, so they are not owner-independent. Every surviving finding and every critic finding is corrected.
+- `mutants.py` kills 20 of 20 mutants and restores the sources. The Rust restart owner's relaunch moved to the first-start bound fails `first_start_and_relaunch_each_run_under_their_own_bound`.
+
+Commands (macOS arm64; PATH with node@24 and rustup; PYTHONDONTWRITEBYTECODE=1):
+- `.venv/bin/python -I -B -m pytest -q -p no:cacheprovider scripts/tests/test_windows11_guest_driver.py scripts/tests/test_windows11_host_runtime.py`: `106 passed`.
+- In apps/desktop/src-tauri: `cargo test --lib -q service::` gives `272 passed`, and `cargo clippy --all-targets -q -- -D warnings` exits 0.
+- `uv run --frozen python scripts/verify.py --suite <s>` for format, lint, typecheck, portability, rust, traceability, status, integrity and python: each exits 0, and the tree did not change during the run. Python gives `3191 passed in 646.51s` (the exact inventory), and the Rust suite's desktop library gives `355 passed`. Only this sentence changed afterwards, and format, status, traceability and integrity were run once more on it.
+
+The protected guest sources and the desktop service changed, so the package must be rebuilt by exact-SHA hosted CI, and a new Windows 11 candidate, review and campaign are required.
+
+Next READY package: NONE while M03-W07 is IN_PROGRESS.

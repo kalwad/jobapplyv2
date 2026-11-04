@@ -1,0 +1,50 @@
+﻿{
+    "probes":  [
+                   {
+                       "probe":  "x-long",
+                       "exited":  true,
+                       "exit_code":  "0",
+                       "process_ms":  24624,
+                       "file_bytes":  168346,
+                       "file_wait_ms":  24643,
+                       "seen":  [
+                                    "7068:dxdiag"
+                                ],
+                       "titles":  [
+
+                                  ]
+                   },
+                   {
+                       "probe":  "t-long",
+                       "exited":  true,
+                       "exit_code":  "0",
+                       "process_ms":  10866,
+                       "file_bytes":  84233,
+                       "file_wait_ms":  10867,
+                       "seen":  [
+                                    "8552:dxdiag"
+                                ],
+                       "titles":  [
+
+                                  ]
+                   },
+                   {
+                       "probe":  "x-temp-noflag",
+                       "exited":  true,
+                       "exit_code":  "0",
+                       "process_ms":  9759,
+                       "file_bytes":  168350,
+                       "file_wait_ms":  9761,
+                       "seen":  [
+                                    "7176:dxdiag"
+                                ],
+                       "titles":  [
+
+                                  ]
+                   }
+               ],
+    "events":  [
+
+               ],
+    "temp":  "C:\\Users\\JAPPFI~1\\AppData\\Local\\Temp"
+}

@@ -1,0 +1,2 @@
+FAIL at_ms=77105 ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Settings:pid=4948:hwnd=0 fg=Tauri Window:pid=5196 focus=Chrome_RenderWidgetHostHWND:196810 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0
+DIAG-RETRY-FAIL key=tab | uia=ControlType.Hyperlink:Settings:pid=4948:hwnd=0 fg=Tauri Window:pid=5196 focus=Chrome_RenderWidgetHostHWND:196810 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0

@@ -1,0 +1,67 @@
+﻿{
+    "probes":  [
+                   {
+                       "probe":  "x-long",
+                       "exited":  true,
+                       "exit_code":  "0",
+                       "process_ms":  26987,
+                       "file_bytes":  169006,
+                       "file_wait_ms":  27073,
+                       "seen":  [
+                                    "2816:dxdiag"
+                                ],
+                       "titles":  [
+
+                                  ]
+                   },
+                   {
+                       "probe":  "t-long",
+                       "exited":  true,
+                       "exit_code":  "0",
+                       "process_ms":  14265,
+                       "file_bytes":  85115,
+                       "file_wait_ms":  14267,
+                       "seen":  [
+                                    "7848:dxdiag"
+                                ],
+                       "titles":  [
+
+                                  ]
+                   },
+                   {
+                       "probe":  "x-temp-noflag",
+                       "exited":  true,
+                       "exit_code":  "0",
+                       "process_ms":  10288,
+                       "file_bytes":  169232,
+                       "file_wait_ms":  10291,
+                       "seen":  [
+                                    "7916:dxdiag"
+                                ],
+                       "titles":  [
+
+                                  ]
+                   }
+               ],
+    "events":  [
+                   {
+                       "provider":  "Windows Error Reporting",
+                       "id":  1001,
+                       "time":  "2026-11-03T10:56:54.3364213Z",
+                       "message":  "Fault bucket , type 0\r\nEvent Name: BlueScreen\r\nResponse: Not available\r\nCab Id: 0\r\n\r\nProblem signature:\r\nP1: 3b\r\nP2: c0000096\r\nP3: fffff805c90c7f61\r\nP4: fffff8055b7ad900\r\nP5: 0\r\nP6: 10_0_26300\r\nP7: 0_0\r\nP8: 256_1\r\nP9: \r\nP10: \r\n\r\nAttached files:\r\n\\\\?\\C:\\WINDOWS\\Minidump\\110326-23015-01.dmp\r\n\\\\?\\C:\\WINDOWS\\SystemTemp\\WER-137390-0.sysdata.xml\r\n\\\\?\\C:\\WINDOWS\\MEMORY.DMP\r\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\Temp\\WER.927732ff-d101-49f1-b633-b7c3095eb53c.tmp.xml\r\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\Temp\\WER.a4c98af1-e612-4bbb-bc34-d07402a06ca5.tmp.WERInternalMetadata.xml\r\n\r\nThese files may be available here:\r\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\ReportQueue\\Kernel_3b_adb37f7062bf7a18d"
+                   },
+                   {
+                       "provider":  "Windows Error Reporting",
+                       "id":  1001,
+                       "time":  "2026-11-03T10:56:10.6165970Z",
+                       "message":  "Fault bucket , type 0\r\nEvent Name: BlueScreen\r\nResponse: Not available\r\nCab Id: 0\r\n\r\nProblem signature:\r\nP1: 3b\r\nP2: c0000096\r\nP3: fffff805c90c7f61\r\nP4: fffff8055b7ad900\r\nP5: 0\r\nP6: 10_0_26300\r\nP7: 0_0\r\nP8: 256_1\r\nP9: \r\nP10: \r\n\r\nAttached files:\r\n\\\\?\\C:\\WINDOWS\\Minidump\\110326-23015-01.dmp\r\n\\\\?\\C:\\WINDOWS\\SystemTemp\\WER-137390-0.sysdata.xml\r\n\\\\?\\C:\\WINDOWS\\MEMORY.DMP\r\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\Temp\\WER.927732ff-d101-49f1-b633-b7c3095eb53c.tmp.xml\r\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\Temp\\WER.a4c98af1-e612-4bbb-bc34-d07402a06ca5.tmp.WERInternalMetadata.xml\r\n\r\nThese files may be available here:\r\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\ReportQueue\\Kernel_3b_adb37f7062bf7a18d"
+                   },
+                   {
+                       "provider":  "Windows Error Reporting",
+                       "id":  1001,
+                       "time":  "2026-11-03T10:56:09.1140800Z",
+                       "message":  "Fault bucket , type 0\r\nEvent Name: BlueScreen\r\nResponse: Not available\r\nCab Id: 0\r\n\r\nProblem signature:\r\nP1: 3b\r\nP2: c0000096\r\nP3: fffff805c90c7f61\r\nP4: fffff8055b7ad900\r\nP5: 0\r\nP6: 10_0_26300\r\nP7: 0_0\r\nP8: 256_1\r\nP9: \r\nP10: \r\n\r\nAttached files:\r\n\\\\?\\C:\\WINDOWS\\Minidump\\110326-23015-01.dmp\r\n\\\\?\\C:\\WINDOWS\\SystemTemp\\WER-137390-0.sysdata.xml\r\n\\\\?\\C:\\WINDOWS\\MEMORY.DMP\r\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\Temp\\WER.927732ff-d101-49f1-b633-b7c3095eb53c.tmp.xml\r\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\Temp\\WER.a4c98af1-e612-4bbb-bc34-d07402a06ca5.tmp.WERInternalMetadata.xml\r\n\r\nThese files may be available here:\r\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\ReportQueue\\Kernel_3b_adb37f7062bf7a18d"
+                   }
+               ],
+    "temp":  "C:\\Users\\JAPPFI~1\\AppData\\Local\\Temp"
+}

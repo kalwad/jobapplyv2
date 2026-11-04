@@ -2,7 +2,7 @@
 
 Spec version: 1.4
 Repository revision: M03-W06 VERIFIED at9872aca/treef2d982d; M03-W07 IN_PROGRESS; M02 ACCEPTED / Gate A PASS
-Last updated: 2026-10-31
+Last updated: 2026-11-04
 Current phase: B — Local platform and desktop foundation
 Current milestone: M03
 Current work package: M03-W07
@@ -73,7 +73,20 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
   - Scratch-branch rounds 36 and 37 (runs 41532813750 and 41534670479, hosted Windows Server 2025, Windows PowerShell 5.1, no VM) parsed and ran the attestor body, the guest's receipt reader and its trace retention against real files: all 20, then all 26 checks pass on the final bytes.
 - The correction is committed as 2100780. Hosted run 41538198385 attempt 2 is green; attempt 1's Windows verify hit the 60-minute job limit (KI-0172).
 - The fresh 2100780 Windows 11 candidate (prepare run 41554286753) was NOT released. Integrity and provenance are clear, but a separate 32-agent review found a blocking harness defect, KI-0177: the first-logon Start menu holds the foreground and the guest's first capture has no retry. KI-0178 (COM2 write timeout) and KI-0179 (guest budget and display timeout) are filed. Exact docs/evidence/m03-native-candidates-2100780-review.
-- Next actions: measure a first-logon state and foreground strategy, the serial write, the phase durations and the display timeout in a scratch-branch Windows 11 VM rehearsal that runs the real seed, QEMU and host protocol with the corrected guest and the CI package. No acceptance can come from it. Then commit the correction, run exact-SHA hosted CI, and take a fresh candidate through review, release and campaign.
+- Scratch-branch Windows 11 campaign rehearsals, rounds 38–50 (runs 41562893419 to 41750667920): the harness's own seed, QEMU and COM2 protocol on the pinned ISO and the 2100780 CI package, in disposable hosted VMs. No acceptance can come from them. They found and corrected:
+  - KI-0177: the first-logon Start foreground.
+  - KI-0178 and KI-0179: the COM2 write bound, the display timeout and the measured guest budget.
+  - KI-0180: dxdiag's quoted arguments.
+  - KI-0181 (HIGH): the Windows bugcheck on AMD runners without a virtual PMU, fixed with QEMU's Hyper-V enlightenments.
+  - KI-0182 (HIGH, product): the desktop app's cold first local-service start, now under a 30 s first-start bound.
+  - KI-0184: the WebView2 keyboard-focus race after a UIA SetFocus.
+  - KI-0185: the job-list race at teardown.
+  - KI-0186: the attestor's console-user race.
+  - KI-0176: the attestor-body parse.
+  KI-0183 (Setup freezes in about one VM in ten) and KI-0187 (a foreground refusal at ready, cause unknown; the refusal now names its holder) stay open. Exact docs/evidence/m03-native-runtime-diagnostics (windows-rehearsal-rounds).
+- Round 50 ran the final correction bytes with no instrumentation in eight VMs: seven passed the whole guest lifecycle and the host's post-PASS checks (four on AMD EPYC 7763 runners, all with device encryption on), and one froze in Setup (KI-0183). No campaign or acceptance claim follows from it.
+- Two separate-context reviews launched by the implementing session (wf_14f24cc1-da9, 72 agents; wf_7bf4ba4b-061, 34 agents) had every surviving finding corrected, and 20 of 20 mutants are killed. Exact docs/evidence/m03-w07-win11-rehearsal-correction-review.
+- Next actions: commit the correction, run exact-SHA hosted CI (which also rebuilds the Windows package with the KI-0182 fix), then take a fresh download-only candidate through review, release on an AMD EPYC 7763 runner and run the campaign.
 
 - Current cf9b60d/tree94fb9c9 local full passes doctor28/all20ACTIVE suites, Python2880PASS440.14s and verify1249.932067s; different4863finite joins CLEAR binds2388source/runtime40/fullmodes/cleanstatus/HEAD-tree. Automated visual17PASS adds no fresh appearance/native/baseline claim. Exact docs/evidence/m03-w07-full-cf9b60d.
 - Hosted cf9/run40981941122 is terminal FAILURE despite all three verify jobs passing20ACTIVE suites: Windows2878Python1100.64s, Mac2880/887.00s and Ubuntu2880/712.62s. Both package jobs fail before their native service actor at the unchanged exact wheel/source gate: all18 orchestrator paths match, but wheel client6613 differs from source977e; contracts110files and other17orchestrator files match. Zero eligible curated exports; four auxiliary workflows remain disabled/SKIP. Different16874joins validate the actual record, not packagePASS; exact docs/evidence/m03-w07-ci-cf9b60d-terminal.
@@ -489,6 +502,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 - KI-0157 (HIGH, IN_PROGRESS) — packaged Windows desktop refuses its own verbatim-path runtime, so its local service never starts
 - KI-0158 (HIGH, IN_PROGRESS) — Windows Ctrl+Q never reaches the File→Quit accelerator while WebView2 has focus
+- KI-0181 (HIGH, IN_PROGRESS) — Windows 11 guest bugchecks when an ETW session allocates hardware counters on a runner without a virtual PMU
+- KI-0182 (HIGH, IN_PROGRESS) — desktop app's first local-service start fails on a cold Windows 11 machine
 
 ## Status conventions and update rules
 

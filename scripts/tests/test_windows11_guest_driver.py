@@ -29,6 +29,7 @@ ORCHESTRATOR = ROOT / "services" / "orchestrator" / "src" / "orchestrator"
 GUEST = (SOURCE / "windows11_guest.ps1").read_text(encoding="ascii")
 OWNED = (SOURCE / "windows11_owned.cs").read_text(encoding="ascii")
 BOOTSTRAP = (SOURCE / "windows11_bootstrap.ps1").read_text(encoding="ascii")
+SOURCE_CHECK = (SOURCE / "windows11_source_check.ps1").read_text(encoding="ascii")
 FRAMED_PHASES = ("ready", "keyboard", "restart", "relaunch", "collision")
 # The attestor's one trace writer: the UTC time and the name it is given, appended
 # with read sharing (KI-0175). A trace failure never stops the attestor or its
@@ -700,6 +701,8 @@ OWNED_INVARIANTS = (
     "Glyph range outside retained job",
     "Native text provider outside retained job",
     "Actual per-monitor owned-window DPI required",
+    "Owned WebView2 keyboard window required",
+    "Owned keyboard focus window outside retained job",
 )
 # Replaced or still-rendering UIA nodes stay 'not yet' within each bound.
 OWNED_TRANSIENTS = (
@@ -710,7 +713,273 @@ OWNED_TRANSIENTS = (
     "Native element changed during ARIA observation",
     "Exact unique whole glyph label required",
     "One actual owned native text provider required",
+    "Owned job list changing; assigned ",
+    "Owned keyboard focus handoff did not return within its bound",
+    "Actual owned keyboard focus unavailable",
+    "Actual focused window class unavailable",
+    "Owned keyboard focus kept returning to the WebView2 accessibility window",
+    "Owned WebView2 keyboard focus did not settle; last: ",
 )
+
+
+def test_every_foreground_request_is_bounded_and_strictly_acknowledged() -> None:
+    # KI-0177: a bounded retry of the same request, never input sent to take the
+    # foreground; every key sequence still checks the foreground just before SendInput.
+    body = OWNED[OWNED.index("static void OwnForeground(") :]
+    body = body[: body.index("\n        }\n") + 10]
+    assert "while(!(SetForegroundWindow(hwnd)&&GetForegroundWindow()==hwnd)) {" in body
+    assert (
+        "if(watch.ElapsedMilliseconds>=ForegroundMilliseconds) throw new "
+        'InvalidOperationException(refusal+"; foreground: "+ForegroundOwner());' in body
+    )
+    assert "SendInput" not in body
+    # The refusal names the foreground's process and window class (KI-0187): text
+    # only, read once at the refusal, never part of any condition.
+    owner = statements(cs_member(r"static string ForegroundOwner\(\) "), "cs")
+    assert owner == [
+        "try {",
+        ('IntPtr window=GetForegroundWindow(); if(window==IntPtr.Zero) return "none";'),
+        "uint pid; GetWindowThreadProcessId(window,out pid);",
+        (
+            "string name; try { using(Process owner=Process.GetProcessById((int)pid)) "
+            'name=owner.ProcessName; } catch(Exception) { name="unavailable"; }'
+        ),
+        ('return Bounded(name,64)+":"+pid+"/"+Bounded(WindowClass(window),64);'),
+        ('} catch(Exception error) { return "unavailable:"+error.GetType().Name; }'),
+    ]
+    assert OWNED.count("ForegroundOwner()") == 2
+    assert "keybd_event" not in OWNED
+    assert re.findall(r"const int ForegroundMilliseconds=(\d+);", OWNED) == ["10000"]
+    assert OWNED.count("SetForegroundWindow(") == 2  # the import and OwnForeground
+    for refusal in (
+        "Owned keyboard foreground acknowledgment required",
+        "Owned shell foreground acknowledgment required",
+        "Actual owned foreground window required for capture",
+    ):
+        assert OWNED.count('OwnForeground(hwnd,"' + refusal + '");') == 1
+    assert OWNED.count("OwnForeground(hwnd,") == 3
+    assert (
+        "if(GetForegroundWindow()!=hwnd||Marshal.SizeOf(typeof(Input))!=40||SendInput("
+        in OWNED
+    )
+    assert (
+        'if(GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Owned '
+        'foreground changed before fixed key sequence");' in OWNED
+    )
+
+
+def test_fixed_keys_wait_for_focus_held_by_the_webview_keyboard_window() -> None:
+    # KI-0184: a UIA SetFocus can leave Win32 focus on WebView2's accessibility child,
+    # which drops keys. Each key sender settles focus just before SendInput; the
+    # settle hands focus from that child to its own keyboard window, never with input.
+    assert re.findall(r'const string WebViewKeyboardClass="([^"]*)";', OWNED) == [
+        "Chrome_WidgetWin_1"
+    ]
+    assert re.findall(r'const string WebViewAccessibilityClass="([^"]*)";', OWNED) == [
+        "Chrome_RenderWidgetHostHWND"
+    ]
+    assert (
+        "const int FocusQuietMilliseconds=250,FocusSettleMilliseconds=3000,"
+        "FocusMoveBound=3;" in OWNED
+    )
+    body = cs_member(r"void SettleKeyboardFocus\(IntPtr hwnd\) ")
+    code = statements(body, "cs")
+    assert not any(
+        "SendInput" in line or "SetForegroundWindow" in line for line in code
+    )
+    assert code[:5] == [
+        (
+            "Stopwatch watch=Stopwatch.StartNew(); IntPtr held=IntPtr.Zero; long "
+            "since=0; "
+            'int moves=0; string last="none";'
+        ),
+        "while(true) {",
+        "IntPtr focus=IntPtr.Zero; uint focusPid=0,focusThread=0; string kind;",
+        "try {",
+        'if(GetForegroundWindow()!=hwnd) kind="foreground elsewhere";',
+    ]
+    # The focused window, its thread and its process come from the owned window's
+    # input state; only a member's window inside the owned window is classified, and
+    # a non-member's window there is an owned invariant, never 'not yet'.
+    observe = code[code.index("else {") + 1 : code.index("}", code.index("else {"))]
+    assert observe == [
+        "uint pid; uint windowThread=GetWindowThreadProcessId(hwnd,out pid);",
+        (
+            "GuiThreadInfo info=new GuiThreadInfo(); info.cbSize=(uint)Marshal.SizeOf"
+            "(typeof(GuiThreadInfo));"
+        ),
+        (
+            "if(windowThread==0||pid!=Pid||!GetGUIThreadInfo(windowThread,ref info)) "
+            "throw "
+            'new InvalidOperationException("Actual owned keyboard focus unavailable");'
+        ),
+        (
+            "focus=info.hwndFocus; focusThread=focus==IntPtr.Zero?0:"
+            "GetWindowThreadProcessId(focus,out focusPid);"
+        ),
+        (
+            "if(focusThread==0||!(focus==hwnd||IsChild(hwnd,focus))) "
+            'kind="outside owned window";'
+        ),
+        (
+            "else if(!new HashSet<uint>(Members()).Contains(focusPid)) throw new "
+            'OwnedInvariantException("Owned keyboard focus window outside retained '
+            'job");'
+        ),
+        "else kind=WindowClass(focus);",
+    ]
+    assert (
+        '} catch(Exception error) { if(!Transient(error)) throw; kind="not yet: '
+        '"+error.'
+        'GetType().FullName+": "+Bounded(error.Message,128); }'
+    ) in code
+    handoff = code[code.index("if(kind==WebViewAccessibilityClass) {") :]
+    assert handoff[:8] == [
+        "if(kind==WebViewAccessibilityClass) {",
+        "IntPtr parent=GetParent(focus); uint parentPid=0;",
+        (
+            "if(parent==IntPtr.Zero||GetWindowThreadProcessId(parent,out parentPid)!="
+            "focusThread||parentPid!=focusPid||WindowClass(parent)"
+            "!=WebViewKeyboardClass) "
+            'throw new OwnedInvariantException("Owned WebView2 keyboard window '
+            'required");'
+        ),
+        (
+            'if(++moves>FocusMoveBound) throw new InvalidOperationException("Owned '
+            "keyboard "
+            'focus kept returning to the WebView2 accessibility window");'
+        ),
+        "long left=FocusSettleMilliseconds-watch.ElapsedMilliseconds;",
+        (
+            'if(left<=0) throw new InvalidOperationException("Owned WebView2 keyboard '
+            'focus did not settle; last: "+kind);'
+        ),
+        "HandFocus(focusThread,parent,(int)left);",
+        "held=IntPtr.Zero;",
+    ]
+    # Only the keyboard window, unchanged for the whole quiet interval, ends the wait.
+    assert handoff[8:14] == [
+        "} else if(kind==WebViewKeyboardClass) {",
+        "if(focus!=held) { held=focus; since=watch.ElapsedMilliseconds; }",
+        "else if(watch.ElapsedMilliseconds-since>=FocusQuietMilliseconds) return;",
+        "} else held=IntPtr.Zero;",
+        "last=kind;",
+        (
+            "if(watch.ElapsedMilliseconds>=FocusSettleMilliseconds) throw new "
+            'InvalidOperationException("Owned WebView2 keyboard focus did not settle; '
+            'last: "'
+            "+last);"
+        ),
+    ]
+    assert len(re.findall(r"\breturn\b", body)) == 1
+    # The handoff thread attaches, sets focus and detaches; its caller waits for it
+    # only within what is left of the settle's own bound.
+    hand = statements(
+        cs_member(
+            r"static void HandFocus\(uint target,IntPtr window,int milliseconds\) "
+        ),
+        "cs",
+    )
+    assert hand == [
+        "Exception failure=null;",
+        "Thread worker=new Thread(()=>{",
+        "try {",
+        "uint own=GetCurrentThreadId();",
+        "if(!AttachThreadInput(own,target,true)) throw new Win32Exception();",
+        "try { SetFocus(window); }",
+        (
+            "finally { if(!AttachThreadInput(own,target,false)) throw new "
+            "Win32Exception(); }"
+        ),
+        "} catch(Exception error) { failure=error; }",
+        "});",
+        "worker.IsBackground=true; worker.Start();",
+        (
+            'if(!worker.Join(milliseconds)) throw new InvalidOperationException("Owned '
+            'keyboard focus handoff did not return within its bound");'
+        ),
+        "if(failure!=null) throw failure;",
+    ]
+    assert OWNED.count("HandFocus(") == 2
+    assert OWNED.count("SetFocus(window)") == 1
+    assert OWNED.count("AttachThreadInput(") == 3
+    # Both key senders settle focus just before their foreground check and SendInput.
+    assert OWNED.count("SettleKeyboardFocus(hwnd);") == 2
+    for sender in (
+        r"void Keys\(bool quit\) ",
+        r"public void ShellKeys\(string operation\) ",
+    ):
+        lines = statements(cs_member(sender), "cs")
+        index = lines.index("SettleKeyboardFocus(hwnd);")
+        assert lines[index + 1].startswith("if(GetForegroundWindow()!=hwnd")
+        assert "SendInput(" in lines[index + 1] or "SendInput(" in lines[index + 2]
+        assert index + 3 >= len(lines) - 1
+
+
+def test_an_exiting_job_member_is_not_yet_never_a_partial_list() -> None:
+    # KI-0185: while a member exits, the job's count and its list can differ for a
+    # moment; either way is 'not yet', and the refusals name both values.
+    members = statements(cs_member(r"public uint\[\] Members\(\) "), "cs")
+    bound = (
+        "if(count<0||count>64||assigned<0||assigned>64) throw new "
+        "OwnedInvariantException("
+        '"Finite complete owned job list required; assigned "+assigned+", listed '
+        '"+count);'
+    )
+    assert bound in members
+    assert members[members.index(bound) + 1] == (
+        'if(count!=assigned) throw new InvalidOperationException("Owned job list '
+        "changing; "
+        'assigned "+assigned+", listed "+count);'
+    )
+    # Nothing is copied out of the list before both checks.
+    copy = next(i for i, x in enumerate(members) if "ids[i]" in x)
+    assert members.index(bound) < copy
+    wait = statements(cs_member(r"public bool WaitEmpty\(int milliseconds\) "), "cs")
+    assert wait == [
+        (
+            "Stopwatch clock=Stopwatch.StartNew(); "
+            "InvalidOperationException changing=null;"
+        ),
+        "while(clock.ElapsedMilliseconds<milliseconds) {",
+        "uint[] members=null;",
+        (
+            "try { members=Members(); changing=null; } catch(InvalidOperationException "
+            "error) { if(error is ObjectDisposedException) throw; changing=error; }"
+        ),
+        (
+            "if(members!=null&&members.Length==0&&(process==IntPtr.Zero||"
+            "WaitForSingleObject(process,0)==0)) return true;"
+        ),
+        "Thread.Sleep(25);",
+        "}",
+        "if(changing!=null) throw changing;",
+        "return false;",
+    ]
+
+
+def test_bare_tokens_reach_the_native_parser_unquoted() -> None:
+    # dxdiag's own parser writes nothing for a quoted "/x" and exits 127, while the
+    # same switches unquoted write the XML (KI-0180, diagnostic run 41573731214).
+    body = OWNED[
+        OWNED.index("static string QuoteArgument(") : OWNED.index(
+            "public void Start(string image)"
+        )
+    ]
+    bare = (
+        "if(value.Length>0&&value.IndexOfAny(new char[]{' ','\\t','\"'})<0) "
+        "return value;"
+    )
+    assert body.count(bare) == 1
+    bound = 'throw new ArgumentException("Bounded literal argument required");'
+    assert body.index(bound) < body.index(bare) < body.index("StringBuilder quoted=")
+    assert body.count("return value;") == 1
+    # Every argument and the image still pass through the one bounded quoting.
+    assert OWNED.count("QuoteArgument(") == 3
+    assert (
+        "$dx.StartCommand('C:\\Windows\\System32\\dxdiag.exe',@('/whql:off','/x',"
+        "$dxPath))" in GUEST
+    )
 
 
 def test_owned_invariants_are_a_distinct_type_no_wait_retries() -> None:
@@ -850,7 +1119,8 @@ def test_invoke_and_expand_use_the_one_owned_enabled_pattern_node() -> None:
     expand = statements(cs_member(r"public void Expand\(string name\)"), "cs")
     assert expand[0] == (
         "ExpandCollapsePattern menu=(ExpandCollapsePattern)OwnedControl(name,"
-        "ExpandCollapsePattern.Pattern).GetCurrentPattern(ExpandCollapsePattern.Pattern);"
+        "ExpandCollapsePattern.Pattern).GetCurrentPattern(ExpandCollapsePattern.Pattern"
+        ");"
     )
     keys = cs_member(r"void Keys\(bool quit\)")
     assert (
@@ -929,7 +1199,8 @@ def test_quit_popup_is_the_one_visible_owned_win32_menu_window() -> None:
         ),
         "object supported;",
         (
-            "if(!item.Current.IsEnabled||!item.TryGetCurrentPattern(InvokePattern.Pattern,"
+            "if(!item.Current.IsEnabled||!item.TryGetCurrentPattern("
+            "InvokePattern.Pattern,"
             "out supported)) continue;"
         ),
         (
@@ -1346,6 +1617,114 @@ def test_attestor_task_limit_is_ten_minutes_beyond_the_guest_wait() -> None:
     assert int(wait[0]) < 10 * 60
 
 
+def test_a_whole_receipt_line_has_a_measured_write_bound() -> None:
+    # The ~10.8 KB keyboard receipt took 197 to 287 ms with Hyper-V enlightenments
+    # (rounds 45, 47) and would take about 0.47 to 0.77 s at the rate measured
+    # without them (rounds 39, 40), at or past the old 500 ms (KI-0178).
+    assert re.findall(r"(?im)^\s*\$serial\.WriteTimeout\s*=\s*(.+)$", GUEST) == [
+        "30000"
+    ]
+    assert len(re.findall(r"(?i)WriteTimeout", GUEST)) == 1
+    assert GUEST.index("$serial.WriteTimeout = 30000") < GUEST.index("$serial.Open()")
+    # The guest's own receipt bound keeps the longest line finite.
+    assert (
+        "if ($line.Length -gt 65536) { throw 'Bounded phase receipt required' }"
+        in GUEST
+    )
+
+
+def test_first_logon_start_is_suppressed_in_the_default_profile() -> None:
+    # Windows 11 opened Start by itself at the fixture's first logon and it held the
+    # foreground (KI-0177); diagnostic round 38 measured this value as the cause.
+    tail = BOOTSTRAP[BOOTSTRAP.index("$profileHive = ") :]
+    assert re.findall(r"(?im)^\$profileHive = (.+)$", BOOTSTRAP) == [
+        "'HKU\\JappDefaultProfile'"
+    ]
+    load = "& reg.exe load $profileHive 'C:\\Users\\Default\\NTUSER.DAT' | Out-Null"
+    add = (
+        "& reg.exe add ($profileHive + '\\Software\\Microsoft\\Windows\\"
+        "CurrentVersion\\Explorer\\Advanced') /v StartShownOnUpgrade /t REG_DWORD"
+        " /d 1 /f | Out-Null"
+    )
+    unload = "& reg.exe unload $profileHive | Out-Null"
+    for line in (load, add, unload):
+        assert BOOTSTRAP.count(line) == 1, line
+    # Each native step is checked, and the hive is unloaded on every path.
+    assert tail.index(load) < tail.index("try {") < tail.index(add)
+    assert tail.index(add) < tail.index("} finally {") < tail.index(unload)
+    assert tail.count("if ($LASTEXITCODE -ne 0) { throw ") == 5
+    assert (
+        len(
+            re.findall(
+                r"(?i)reg(?:\.exe)?\s+(?:load|add|unload|delete|import)\b", BOOTSTRAP
+            )
+        )
+        == 4
+    )
+    # The classic console host for both delegation values, inside the same hive bracket.
+    console = (
+        "& reg.exe add ($profileHive + '\\Console\\%%Startup') /v $delegation /t REG_SZ"
+        " /d '{B23D10C0-E52E-411E-9D5B-C09FDF709C7D}' /f | Out-Null"
+    )
+    assert BOOTSTRAP.count(console) == 1
+    assert (
+        "foreach ($delegation in @('DelegationConsole', 'DelegationTerminal')) {"
+        in BOOTSTRAP
+    )
+    assert tail.index(add) < tail.index(console) < tail.index("} finally {")
+    assert len(re.findall(r"(?i)Delegation(?:Console|Terminal)", BOOTSTRAP)) == 2
+    # Only the Default profile's hive, before the fixture is created from it.
+    assert len(re.findall(r"(?i)StartShownOnUpgrade", BOOTSTRAP)) == 1
+    assert "HKCU" not in BOOTSTRAP
+    assert "[GC]" not in BOOTSTRAP
+    # Every checked first-logon step precedes the fixture's startup entry, so a failed
+    # step leaves no guest to run in an unreviewed first-logon state.
+    fixture = BOOTSTRAP.index("'JappFixture.cmd'")
+    assert BOOTSTRAP.index("throw 'Default profile hive unload failed'") < fixture
+    assert BOOTSTRAP.index("throw 'Display timeout setting failed'") < fixture
+    assert BOOTSTRAP.count("JappFixture.cmd") == 1
+
+
+def test_display_stays_on_for_the_whole_run() -> None:
+    # With no input the display went black 326 to 352 s after logon (KI-0179).
+    assert re.findall(r"(?im)^.*powercfg.*$", BOOTSTRAP) == [
+        "& powercfg.exe /change monitor-timeout-ac 0"
+    ]
+    after = BOOTSTRAP[BOOTSTRAP.index("& powercfg.exe") :].splitlines()
+    assert (
+        after[1]
+        == "if ($LASTEXITCODE -ne 0) { throw 'Display timeout setting failed' }"
+    )
+
+
+def test_attestor_waits_a_bounded_time_only_for_an_unreported_console_user() -> None:
+    # KI-0186: the logon trigger can start the attestor before Windows reports the
+    # console user. Only an empty user is read again, for at most 60 s; any other
+    # user, and an empty one at the bound, fails the exact fixture check at once.
+    code = statements(attestor_source(), "ps")
+    start = code.index("$step='interactive-user'; TraceStep $step")
+    assert code[start - 1] == "$system=Get-CimInstance -ClassName Win32_ComputerSystem"
+    assert code[start + 1 : start + 7] == [
+        "$userClock=[Diagnostics.Stopwatch]::StartNew()",
+        (
+            "while([string]::IsNullOrEmpty([string]$system.UserName) -and "
+            "$userClock.Elapsed.TotalSeconds -lt 60) {"
+        ),
+        "Start-Sleep -Seconds 1",
+        "$system=Get-CimInstance -ClassName Win32_ComputerSystem",
+        "}",
+        (
+            "if($system.UserName -cne ($env:COMPUTERNAME+'\\JappFixture')) { throw "
+            "('Exact synthetic interactive fixture required; observed user: '+"
+            "[string]$system.UserName) }"
+        ),
+    ]
+    joined = "\n".join(code)
+    assert len(re.findall(r"(?i)\bwhile\s*\(", joined)) == 1
+    assert len(re.findall(r"(?i)Start-Sleep", joined)) == 1
+    assert len(re.findall(r"(?i)Win32_ComputerSystem", joined)) == 2
+
+
 def test_only_a_current_attestor_error_ends_the_machine_wait_early() -> None:
     wait = GUEST.index("$machineLimit=")
     loop = statements(block(GUEST, GUEST.index("do {", wait), "ps")[0], "ps")
@@ -1619,3 +1998,45 @@ def test_framed_phases_and_accept_lines_equal_the_host_owner(vm: ModuleType) -> 
     # The host ends each line with LF; the guest's ReadLine keeps its default LF.
     assert 'serial.sendall((accept + "\\n").encode())' in inspect.getsource(vm.observe)
     assert ".NewLine" not in GUEST
+
+
+def test_source_check_parses_the_attestor_body_as_the_script_it_runs() -> None:
+    # KI-0176: the bootstrap's file parse sees the attestor only as a string, so the
+    # hosted Windows PowerShell 5.1 check also parses that string's body.
+    assert re.findall(r"(?im)^\s*\$attestor\s*=\s*(.*)$", BOOTSTRAP) == ["@'"]
+    assert len(re.findall(r"(?i)\$attestor\b", BOOTSTRAP)) == 2
+    code = SOURCE_CHECK
+    assert code.count("ParseFile(") == 1
+    assert code.count("ParseInput(") == 1
+    assert (
+        "$node.Left -is [Management.Automation.Language.VariableExpressionAst] -and "
+        "$node.Left.VariablePath.UserPath -ieq 'attestor'"
+    ) in code
+    assert (
+        "if($assignments.Count -ne 1) { throw 'Exactly one attestor assignment "
+        "required' }" in code
+    )
+    assert (
+        "$value.Expression.StringConstantType -ne "
+        "[Management.Automation.Language.StringConstantType]::SingleQuotedHereString"
+    ) in code
+    assert (
+        "[void][Management.Automation.Language.Parser]::ParseInput("
+        "$value.Expression.Value,[ref]$bodyTokens,[ref]$bodyErrors)"
+    ) in code
+    assert (
+        "if($bodyErrors.Count -ne 0) { throw ('Target PowerShell parser rejected the "
+        "attestor body: '" in code
+    )
+    # Only the bootstrap's parse sets the flag; no receipt is written without it.
+    assert code.count("$attestorBodyParsed=$true") == 1
+    assert code.index("$attestorBodyParsed=$true") > code.index(
+        "if($name -ceq 'windows11_bootstrap.ps1') {"
+    )
+    guard = (
+        "if(-not (Test-Path -LiteralPath variable:attestorBodyParsed)) { "
+        "throw 'Attestor body parse required' }"
+    )
+    assert code.count(guard) == 1
+    assert code.index(guard) < code.index("Add-Type -TypeDefinition")
+    assert "attestor_body_parsed=$attestorBodyParsed;" in code

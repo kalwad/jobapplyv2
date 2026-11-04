@@ -1,0 +1,1338 @@
+{
+ "bytes": 675836,
+ "version": [
+  15,
+  26100
+ ],
+ "bugcheck_code": "0x3b",
+ "bugcheck_parameters": [
+  "0xc0000096",
+  "0xfffff807898c7f61",
+  "0xfffff8071bf31900",
+  "0x0"
+ ],
+ "dump_type": 4,
+ "header_exception": {
+  "code": "0x80000003",
+  "address": "0xfffff807898fd130"
+ },
+ "header_context_rip": "0xfffff807898fd130",
+ "triage": {
+  "ServicePackBuild": 0,
+  "SizeOfDump": 569772,
+  "ValidOffset": "0x8b1a8",
+  "ContextOffset": "0x348",
+  "ExceptionOffset": "0xf00",
+  "MmOffset": "0x2080",
+  "UnloadedDriversOffset": "0x20d0",
+  "PrcbOffset": "0x2308",
+  "ProcessOffset": "0xf208",
+  "ThreadOffset": "0xfa48",
+  "CallStackOffset": "0x101e0",
+  "SizeOfCallStack": 4184,
+  "DriverListOffset": "0x115d8",
+  "DriverCount": 162,
+  "StringPoolOffset": "0x170f8",
+  "StringPoolSize": 14016,
+  "BrokenDriverOffset": "0x0",
+  "TriageOptions": 4294967295,
+  "TopOfStack": "0xfffff8071bf30fa8"
+ },
+ "driver_entry_stride": "0x90",
+ "drivers": [
+  {
+   "name": "\\SystemRoot\\system32\\ntoskrnl.exe",
+   "base": "0xfffff80789400000",
+   "size": "0x1450000",
+   "timestamp": "0xfda9ed74"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\hal.dll",
+   "base": "0xfffff8078ac00000",
+   "size": "0x6000",
+   "timestamp": "0xeb9deaa9"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\kd.dll",
+   "base": "0xfffff8071ac10000",
+   "size": "0xb000",
+   "timestamp": "0x7c46e6c1"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\mcupdate_AuthenticAMD.dll",
+   "base": "0xfffff80716be0000",
+   "size": "0x27000",
+   "timestamp": "0x65bc13ef"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\symcryptk.dll",
+   "base": "0xfffff8071ac20000",
+   "size": "0xd000",
+   "timestamp": "0x98293ecd"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\cng.sys",
+   "base": "0xfffff8071ad10000",
+   "size": "0xe9000",
+   "timestamp": "0x4e806f3c"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\CLFS.SYS",
+   "base": "0xfffff8071ac70000",
+   "size": "0x8c000",
+   "timestamp": "0x9f1fb9dc"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\tm.sys",
+   "base": "0xfffff8071ac40000",
+   "size": "0x2a000",
+   "timestamp": "0x60fd2ae0"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\winaccel.sys",
+   "base": "0xfffff8071ae00000",
+   "size": "0x15000",
+   "timestamp": "0xff85d401"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\PSHED.dll",
+   "base": "0xfffff8071ae20000",
+   "size": "0x1d000",
+   "timestamp": "0xd5240205"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\BOOTVID.dll",
+   "base": "0xfffff8071ae50000",
+   "size": "0xd000",
+   "timestamp": "0x6e4a77d6"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\FLTMGR.SYS",
+   "base": "0xfffff8071af90000",
+   "size": "0x9a000",
+   "timestamp": "0x54ad72bc"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\msrpc.sys",
+   "base": "0xfffff8071b070000",
+   "size": "0x65000",
+   "timestamp": "0x8cfd115d"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\ksecdd.sys",
+   "base": "0xfffff8071b030000",
+   "size": "0x36000",
+   "timestamp": "0xf9b59c24"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\clipsp.sys",
+   "base": "0xfffff8071ae70000",
+   "size": "0x117000",
+   "timestamp": "0x6a9a5911"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\cmimcext.sys",
+   "base": "0xfffff8071b0e0000",
+   "size": "0x12000",
+   "timestamp": "0xa419e7ab"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\werkernel.sys",
+   "base": "0xfffff8071b100000",
+   "size": "0x17000",
+   "timestamp": "0xa6edf41c"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\ntosext.sys",
+   "base": "0xfffff8071b120000",
+   "size": "0xd000",
+   "timestamp": "0x33f8a971"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\watchdog.sys",
+   "base": "0xfffff8071b210000",
+   "size": "0x20000",
+   "timestamp": "0xf3c582f0"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\WMILIB.SYS",
+   "base": "0xfffff8071b760000",
+   "size": "0xd000",
+   "timestamp": "0xbf8195c9"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\dxgkrnl.sys",
+   "base": "0xfffff8071b240000",
+   "size": "0x50d000",
+   "timestamp": "0xa0f677d5"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\win32k.sys",
+   "base": "0xfffff8071b140000",
+   "size": "0xc7000",
+   "timestamp": "0x1058de7b"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\CI.dll",
+   "base": "0xfffff8071b780000",
+   "size": "0x11a000",
+   "timestamp": "0x4a10cef7"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\globmerger.sys",
+   "base": "0xfffff8071b8a0000",
+   "size": "0x20000",
+   "timestamp": "0x5ea3f06d"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\Wdf01000.sys",
+   "base": "0xfffff8071b8d0000",
+   "size": "0xf0000",
+   "timestamp": "0xe27e5f8c"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\WppRecorder.sys",
+   "base": "0xfffff8071b9f0000",
+   "size": "0x13000",
+   "timestamp": "0xe3c6511c"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\WDFLDR.SYS",
+   "base": "0xfffff8071b9d0000",
+   "size": "0x17000",
+   "timestamp": "0x962d91c3"
+  },
+  {
+   "name": "PRM.sys",
+   "base": "0xfffff8071ba10000",
+   "size": "0xf000",
+   "timestamp": "0x514faa80"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\acpiex.sys",
+   "base": "0xfffff8071ba30000",
+   "size": "0x2a000",
+   "timestamp": "0xffb0e915"
+  },
+  {
+   "name": "msseccore.sys",
+   "base": "0xfffff8071ba60000",
+   "size": "0xf000",
+   "timestamp": "0x456b22af"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\ACPI.sys",
+   "base": "0xfffff8071ba80000",
+   "size": "0xd6000",
+   "timestamp": "0xb9c5fa56"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\msisadrv.sys",
+   "base": "0xfffff8071bb60000",
+   "size": "0xc000",
+   "timestamp": "0xc0cacea5"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\pci.sys",
+   "base": "0xfffff8071bb80000",
+   "size": "0x92000",
+   "timestamp": "0xb0fbb7fd"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\tpm.sys",
+   "base": "0xfffff8071bc20000",
+   "size": "0x5a000",
+   "timestamp": "0xeb6923bb"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\amdwps.sys",
+   "base": "0xfffff8071c090000",
+   "size": "0xe000",
+   "timestamp": "0x3dc3fe93"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\WindowsTrustedRT.sys",
+   "base": "0xfffff8071c0b0000",
+   "size": "0x18000",
+   "timestamp": "0x7847e5af"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\intelpep.sys",
+   "base": "0xfffff8071c0d0000",
+   "size": "0x9f000",
+   "timestamp": "0xaccca7da"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\WindowsTrustedRTProxy.sys",
+   "base": "0xfffff8071c180000",
+   "size": "0xc000",
+   "timestamp": "0x7dda7461"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\IntelPMT.sys",
+   "base": "0xfffff8071c1a0000",
+   "size": "0x13000",
+   "timestamp": "0x9c2ca217"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\pcw.sys",
+   "base": "0xfffff8071c1c0000",
+   "size": "0x17000",
+   "timestamp": "0x5be4bc2f"
+  },
+  {
+   "name": "vdrvroot.sys",
+   "base": "0xfffff8071c1e0000",
+   "size": "0x1c000",
+   "timestamp": "0x87db0809"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\pdc.sys",
+   "base": "0xfffff8071c210000",
+   "size": "0x35000",
+   "timestamp": "0xdd07b484"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\CEA.sys",
+   "base": "0xfffff8071c250000",
+   "size": "0x18000",
+   "timestamp": "0xb7693342"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\partmgr.sys",
+   "base": "0xfffff8071c270000",
+   "size": "0x36000",
+   "timestamp": "0xdcdafb92"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\spaceport.sys",
+   "base": "0xfffff8071c2b0000",
+   "size": "0xf8000",
+   "timestamp": "0x77e96b88"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\volmgr.sys",
+   "base": "0xfffff8071c3b0000",
+   "size": "0x1e000",
+   "timestamp": "0x63943c2b"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\volmgrx.sys",
+   "base": "0xfffff8071c3e0000",
+   "size": "0x66000",
+   "timestamp": "0xa127aa22"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\mountmgr.sys",
+   "base": "0xfffff8071c450000",
+   "size": "0x23000",
+   "timestamp": "0x862d9efb"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\storahci.sys",
+   "base": "0xfffff8071c480000",
+   "size": "0x37000",
+   "timestamp": "0x66a8e242"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\storport.sys",
+   "base": "0xfffff8071c4c0000",
+   "size": "0x281000",
+   "timestamp": "0xc6628551"
+  },
+  {
+   "name": "fileinfo.sys",
+   "base": "0xfffff8071c780000",
+   "size": "0x1d000",
+   "timestamp": "0xe7d4aa87"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\Wof.sys",
+   "base": "0xfffff8071c7b0000",
+   "size": "0x46000",
+   "timestamp": "0x4be7c7e3"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\WdFilter.sys",
+   "base": "0xfffff8071c800000",
+   "size": "0x9b000",
+   "timestamp": "0x6de7a78c"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\Ntfs.sys",
+   "base": "0xfffff8071c8a0000",
+   "size": "0x37d000",
+   "timestamp": "0x489f48c4"
+  },
+  {
+   "name": "Fs_Rec.sys",
+   "base": "0xfffff8071cc30000",
+   "size": "0xf000",
+   "timestamp": "0x1671dc59"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\ndis.sys",
+   "base": "0xfffff8071cc50000",
+   "size": "0x1ca000",
+   "timestamp": "0x21d1fbec"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\NETIO.SYS",
+   "base": "0xfffff8071ce20000",
+   "size": "0xb7000",
+   "timestamp": "0x14053f28"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\ksecpkg.sys",
+   "base": "0xfffff8071cee0000",
+   "size": "0x38000",
+   "timestamp": "0x62c07290"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\Kerb3961Kernel.sys",
+   "base": "0xfffff8071cf20000",
+   "size": "0x24000",
+   "timestamp": "0x1d31a52d"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\tcpip.sys",
+   "base": "0xfffff8071cf50000",
+   "size": "0x359000",
+   "timestamp": "0x7636b763"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\fwpkclnt.sys",
+   "base": "0xfffff8071d2b0000",
+   "size": "0x8b000",
+   "timestamp": "0x93e8a9fc"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\wfplwfs.sys",
+   "base": "0xfffff8071d340000",
+   "size": "0x3b000",
+   "timestamp": "0x8c1645e1"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\DRIVERS\\fvevol.sys",
+   "base": "0xfffff8071d380000",
+   "size": "0xf1000",
+   "timestamp": "0x9a24df20"
+  },
+  {
+   "name": "volume.sys",
+   "base": "0xfffff8071d480000",
+   "size": "0xb000",
+   "timestamp": "0xb2729186"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\volsnap.sys",
+   "base": "0xfffff8071d490000",
+   "size": "0x84000",
+   "timestamp": "0x232f319a"
+  },
+  {
+   "name": "rdyboost.sys",
+   "base": "0xfffff8071d520000",
+   "size": "0x4e000",
+   "timestamp": "0x506bcd44"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\nvmedisk.sys",
+   "base": "0xfffff8071d580000",
+   "size": "0x1d000",
+   "timestamp": "0x8698a9ee"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\mup.sys",
+   "base": "0xfffff8071d5b0000",
+   "size": "0x2b000",
+   "timestamp": "0xe75a3c1c"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\iorate.sys",
+   "base": "0xfffff8071d5e0000",
+   "size": "0x14000",
+   "timestamp": "0x9a1cfec2"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\disk.sys",
+   "base": "0xfffff8071d620000",
+   "size": "0x20000",
+   "timestamp": "0x757dd5c"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\CLASSPNP.SYS",
+   "base": "0xfffff8071d650000",
+   "size": "0x7b000",
+   "timestamp": "0x8c8d62d"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\crashdmp.sys",
+   "base": "0xfffff8071e0e0000",
+   "size": "0x28000",
+   "timestamp": "0x363b806d"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\cdrom.sys",
+   "base": "0xfffff8071da30000",
+   "size": "0x39000",
+   "timestamp": "0x731c7a19"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\filecrypt.sys",
+   "base": "0xfffff8071da70000",
+   "size": "0x17000",
+   "timestamp": "0xc6c0a88b"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\tbs.sys",
+   "base": "0xfffff8071da90000",
+   "size": "0xf000",
+   "timestamp": "0x1bf929e1"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\Null.SYS",
+   "base": "0xfffff8071dab0000",
+   "size": "0xd000",
+   "timestamp": "0xb4e46da9"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\Beep.SYS",
+   "base": "0xfffff8071dad0000",
+   "size": "0xa000",
+   "timestamp": "0x59390532"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\DriverStore\\FileRepository\\basicdisplay.inf_amd64_9f34636ebdd89def\\BasicDisplay.sys",
+   "base": "0xfffff8071db00000",
+   "size": "0x1a000",
+   "timestamp": "0xb0ddbe8b"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\DriverStore\\FileRepository\\basicrender.inf_amd64_cf45ae7c2c82746d\\BasicRender.sys",
+   "base": "0xfffff8071db20000",
+   "size": "0x12000",
+   "timestamp": "0x766daa39"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\Npfs.SYS",
+   "base": "0xfffff8071db40000",
+   "size": "0x1c000",
+   "timestamp": "0xd2e1f0d0"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\Msfs.SYS",
+   "base": "0xfffff8071db70000",
+   "size": "0x13000",
+   "timestamp": "0x51f93c00"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\CimFS.SYS",
+   "base": "0xfffff8071db90000",
+   "size": "0x44000",
+   "timestamp": "0x597cbe"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\DRIVERS\\tdx.sys",
+   "base": "0xfffff8071dbe0000",
+   "size": "0x2a000",
+   "timestamp": "0xac790020"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\DRIVERS\\TDI.SYS",
+   "base": "0xfffff8071dc10000",
+   "size": "0x11000",
+   "timestamp": "0x370a2188"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\DRIVERS\\netbt.sys",
+   "base": "0xfffff8071dc30000",
+   "size": "0x59000",
+   "timestamp": "0x4bdb35da"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\afunix.sys",
+   "base": "0xfffff8071dc90000",
+   "size": "0x15000",
+   "timestamp": "0x1a287830"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\afd.sys",
+   "base": "0xfffff8071dcb0000",
+   "size": "0xb3000",
+   "timestamp": "0x8023c97f"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\vwififlt.sys",
+   "base": "0xfffff8071dd70000",
+   "size": "0x1e000",
+   "timestamp": "0x5684b951"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\pacer.sys",
+   "base": "0xfffff8071dda0000",
+   "size": "0x31000",
+   "timestamp": "0xe207021b"
+  },
+  {
+   "name": "ndiscap.sys",
+   "base": "0xfffff8071dde0000",
+   "size": "0x18000",
+   "timestamp": "0x499ab3c"
+  },
+  {
+   "name": "netbios.sys",
+   "base": "0xfffff8071de00000",
+   "size": "0x16000",
+   "timestamp": "0xe5427add"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\Vid.sys",
+   "base": "0xfffff8071de20000",
+   "size": "0xdc000",
+   "timestamp": "0xe1e29ebe"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\winhvr.sys",
+   "base": "0xfffff8071df10000",
+   "size": "0x29000",
+   "timestamp": "0x31b98fba"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\DRIVERS\\rdbss.sys",
+   "base": "0xfffff8071df40000",
+   "size": "0x8e000",
+   "timestamp": "0xe15f2cd2"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\csc.sys",
+   "base": "0xfffff8071dfe0000",
+   "size": "0x99000",
+   "timestamp": "0x144cde86"
+  },
+  {
+   "name": "nsiproxy.sys",
+   "base": "0xfffff8071e080000",
+   "size": "0x13000",
+   "timestamp": "0xdd7566a9"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\npsvctrig.sys",
+   "base": "0xfffff8071e0a0000",
+   "size": "0xf000",
+   "timestamp": "0xfbc183a"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\mssmbios.sys",
+   "base": "0xfffff8071e0c0000",
+   "size": "0x11000",
+   "timestamp": "0xc7c306a0"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\dfsc.sys",
+   "base": "0xfffff8071eb30000",
+   "size": "0x31000",
+   "timestamp": "0xb6dee29d"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\bam.sys",
+   "base": "0xfffff8071ebc0000",
+   "size": "0x1c000",
+   "timestamp": "0x1fa2d07f"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\DRIVERS\\ahcache.sys",
+   "base": "0xfffff8071e200000",
+   "size": "0x5c000",
+   "timestamp": "0x2e259f8"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\DriverStore\\FileRepository\\compositebus.inf_amd64_8cf6fa9d3afdfa25\\CompositeBus.sys",
+   "base": "0xfffff8071e270000",
+   "size": "0x14000",
+   "timestamp": "0xacd7da51"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\kdnic.sys",
+   "base": "0xfffff8071e290000",
+   "size": "0x11000",
+   "timestamp": "0xc95cf3eb"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\DriverStore\\FileRepository\\umbus.inf_amd64_914dd46b4b013b1b\\umbus.sys",
+   "base": "0xfffff8071e2b0000",
+   "size": "0x16000",
+   "timestamp": "0x74744632"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\USBXHCI.SYS",
+   "base": "0xfffff8071e2d0000",
+   "size": "0xc0000",
+   "timestamp": "0x935fefc1"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\ucx01000.sys",
+   "base": "0xfffff8071e3a0000",
+   "size": "0x48000",
+   "timestamp": "0x2f922d54"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\serial.sys",
+   "base": "0xfffff8071e3f0000",
+   "size": "0x1e000",
+   "timestamp": "0x5394fa4b"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\serenum.sys",
+   "base": "0xfffff8071e420000",
+   "size": "0x10000",
+   "timestamp": "0xc76a04f0"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\i8042prt.sys",
+   "base": "0xfffff8071e440000",
+   "size": "0x26000",
+   "timestamp": "0x72755524"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\kbdclass.sys",
+   "base": "0xfffff8071e470000",
+   "size": "0x15000",
+   "timestamp": "0x590094fc"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\mouclass.sys",
+   "base": "0xfffff8071e490000",
+   "size": "0x15000",
+   "timestamp": "0x45d9b600"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\amdppm.sys",
+   "base": "0xfffff8071e4b0000",
+   "size": "0x4a000",
+   "timestamp": "0x4065e819"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\NdisVirtualBus.sys",
+   "base": "0xfffff8071e500000",
+   "size": "0xe000",
+   "timestamp": "0x9cf5d8e6"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\DriverStore\\FileRepository\\swenum.inf_amd64_8b9dd76f362e3ec6\\swenum.sys",
+   "base": "0xfffff8071e520000",
+   "size": "0xc000",
+   "timestamp": "0x8dbce1d4"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\ks.sys",
+   "base": "0xfffff8071e540000",
+   "size": "0x86000",
+   "timestamp": "0x67e713bc"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\rdpbus.sys",
+   "base": "0xfffff8071e5d0000",
+   "size": "0x10000",
+   "timestamp": "0x28083b5a"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\UsbHub3.sys",
+   "base": "0xfffff8071e5f0000",
+   "size": "0xb3000",
+   "timestamp": "0x27fea747"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\USBD.SYS",
+   "base": "0xfffff8071e6b0000",
+   "size": "0x10000",
+   "timestamp": "0xc3c8b943"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\USBSTOR.SYS",
+   "base": "0xfffff8071e6d0000",
+   "size": "0x30000",
+   "timestamp": "0x5ee7ffd3"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\fastfat.SYS",
+   "base": "0xfffff8071e710000",
+   "size": "0x6b000",
+   "timestamp": "0xf89d469d"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\DRIVERS\\udfs.sys",
+   "base": "0xfffff8071e780000",
+   "size": "0x64000",
+   "timestamp": "0xcf5689a6"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\win32kbase.sys",
+   "base": "0xfffff8071f150000",
+   "size": "0x346000",
+   "timestamp": "0x1ae11bf2"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\HIDPARSE.SYS",
+   "base": "0xfffff8071f4d0000",
+   "size": "0x19000",
+   "timestamp": "0x4848edc5"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\DRIVERS\\cdfs.sys",
+   "base": "0xfffff8071f4a0000",
+   "size": "0x22000",
+   "timestamp": "0xee8a8bbb"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\dump_diskdump.sys",
+   "base": "0xfffff8071f510000",
+   "size": "0x11000",
+   "timestamp": "0xd75e9fe1"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\dump_storahci.sys",
+   "base": "0xfffff8071f570000",
+   "size": "0x37000",
+   "timestamp": "0x66a8e242"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\Drivers\\dump_dumpfve.sys",
+   "base": "0xfffff8071ec00000",
+   "size": "0x24000",
+   "timestamp": "0x20747ed1"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\win32kfull.sys",
+   "base": "0xfffff8071ec30000",
+   "size": "0x431000",
+   "timestamp": "0xa326e51b"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\win32kbase_rs.sys",
+   "base": "0xfffff8071f070000",
+   "size": "0x26000",
+   "timestamp": "0x37d21429"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\monitor.sys",
+   "base": "0xfffff8071f0a0000",
+   "size": "0x1f000",
+   "timestamp": "0x8f066c32"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\dxgmms2.sys",
+   "base": "0xfffff8071e7f0000",
+   "size": "0x128000",
+   "timestamp": "0xc29c590a"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\cdd.dll",
+   "base": "0xfffff8071f0d0000",
+   "size": "0x52000",
+   "timestamp": "0x328d2b48"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\condrv.sys",
+   "base": "0xfffff8071f130000",
+   "size": "0x14000",
+   "timestamp": "0xe032aaa"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\appid.sys",
+   "base": "0xfffff8071e920000",
+   "size": "0x3e000",
+   "timestamp": "0xac91b6f1"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\bfs.sys",
+   "base": "0xfffff8071e970000",
+   "size": "0x29000",
+   "timestamp": "0x858445a2"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\luafv.sys",
+   "base": "0xfffff8071e9a0000",
+   "size": "0x34000",
+   "timestamp": "0xa57d5bee"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\wcifs.sys",
+   "base": "0xfffff8071e9e0000",
+   "size": "0x3d000",
+   "timestamp": "0x7c849e50"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\cldflt.sys",
+   "base": "0xfffff8071ea30000",
+   "size": "0x94000",
+   "timestamp": "0xcd2cecd2"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\UnionFS.sys",
+   "base": "0xfffff8071e110000",
+   "size": "0x78000",
+   "timestamp": "0x9c95a2e1"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\storqosflt.sys",
+   "base": "0xfffff8071ead0000",
+   "size": "0x1c000",
+   "timestamp": "0x242f6baf"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\DRIVERS\\WUDFRd.sys",
+   "base": "0xfffff8071e190000",
+   "size": "0x63000",
+   "timestamp": "0xbf47116"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\WpdUpFltr.sys",
+   "base": "0xfffff8071f5e0000",
+   "size": "0xf000",
+   "timestamp": "0x74db1a12"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\UCPD.sys",
+   "base": "0xfffff8071eb70000",
+   "size": "0x30000",
+   "timestamp": "0xfdbcdc8a"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\applockerfltr.sys",
+   "base": "0xfffff8071eb00000",
+   "size": "0xf000",
+   "timestamp": "0x52c1f0d2"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\bindflt.sys",
+   "base": "0xfffff807200c0000",
+   "size": "0x2e000",
+   "timestamp": "0x4e2ae6d0"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\lltdio.sys",
+   "base": "0xfffff80720100000",
+   "size": "0x1a000",
+   "timestamp": "0xf9a04930"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\mslldp.sys",
+   "base": "0xfffff80720120000",
+   "size": "0x1b000",
+   "timestamp": "0xcaee946b"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\rspndr.sys",
+   "base": "0xfffff80720140000",
+   "size": "0x1c000",
+   "timestamp": "0xf0d5a75f"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\wtd.sys",
+   "base": "0xfffff80720170000",
+   "size": "0x1d000",
+   "timestamp": "0x2b21ed45"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\HTTP.sys",
+   "base": "0xfffff8071f600000",
+   "size": "0x216000",
+   "timestamp": "0x13a67df2"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\DRIVERS\\bowser.sys",
+   "base": "0xfffff8071f820000",
+   "size": "0x28000",
+   "timestamp": "0x93b7b9dc"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\DRIVERS\\mrxsmb.sys",
+   "base": "0xfffff8071f850000",
+   "size": "0xe2000",
+   "timestamp": "0xb8b21d7d"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\mpsdrv.sys",
+   "base": "0xfffff8071f940000",
+   "size": "0x1d000",
+   "timestamp": "0x8d5f4bf8"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\DRIVERS\\mrxsmb20.sys",
+   "base": "0xfffff8071f970000",
+   "size": "0x5d000",
+   "timestamp": "0x73f9fa5"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\DRIVERS\\srvnet.sys",
+   "base": "0xfffff8071f9e0000",
+   "size": "0x64000",
+   "timestamp": "0xf8e43ca8"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\DRIVERS\\srv2.sys",
+   "base": "0xfffff8071fa50000",
+   "size": "0xf8000",
+   "timestamp": "0xf732e879"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\mmcss.sys",
+   "base": "0xfffff8071fb50000",
+   "size": "0x16000",
+   "timestamp": "0x94b89cd3"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\Ndu.sys",
+   "base": "0xfffff8071fb70000",
+   "size": "0x2e000",
+   "timestamp": "0x33f53252"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\peauth.sys",
+   "base": "0xfffff8071fbe0000",
+   "size": "0xd5000",
+   "timestamp": "0x55bd54"
+  },
+  {
+   "name": "\\SystemRoot\\System32\\drivers\\tcpipreg.sys",
+   "base": "0xfffff8071fcc0000",
+   "size": "0x16000",
+   "timestamp": "0x75980a42"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\drivers\\KslD.sys",
+   "base": "0xfffff8071fce0000",
+   "size": "0x55000",
+   "timestamp": "0x21a84f0"
+  },
+  {
+   "name": "\\SystemRoot\\system32\\Drivers\\WdNisDrv.sys",
+   "base": "0xfffff8071fd40000",
+   "size": "0x1b000",
+   "timestamp": "0x6c9c800b"
+  }
+ ],
+ "parameter_modules": [
+  null,
+  "\\SystemRoot\\system32\\ntoskrnl.exe+0x4c7f61",
+  null,
+  null
+ ],
+ "exception_record": {
+  "code": "0x80000003",
+  "flags": "0x1",
+  "address": "0xfffff807898fd130",
+  "address_module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x4fd130",
+  "parameters": []
+ },
+ "context": {
+  "rip": "0xfffff807898fd130",
+  "rip_module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x4fd130",
+  "rsp": "0xfffff8071bf30fa8",
+  "rcx": "0x3b",
+  "rax": "0xfffff8071bf310b0",
+  "rdx": "0xc0000096"
+ },
+ "data_blocks": {
+  "offset": "0x1a7b8",
+  "count": 1096
+ },
+ "data_page": {
+  "address": "0x0",
+  "offset": "0x0",
+  "size": "0x0"
+ },
+ "blocks_covering_parameters": [
+  {
+   "address": "0xfffff8071bf31900",
+   "bytes_from_address": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+   "starts_16_before": true
+  },
+  {
+   "address": "0xfffff807898c7f61",
+   "bytes_from_address": "0c83f9017515418b0f0f32eb05418b0f0f3348c1e220480bc2eb0233c0488b4c2470ff442440488944cb18488d14cd3c",
+   "starts_16_before": true
+  }
+ ],
+ "stack_module_addresses": [
+  {
+   "slot": "0xfffff8071bf30fa8",
+   "value": "0xfffff80789ac26e9",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x6c26e9"
+  },
+  {
+   "slot": "0xfffff8071bf30fc0",
+   "value": "0xfffff807898c7f61",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x4c7f61"
+  },
+  {
+   "slot": "0xfffff8071bf31088",
+   "value": "0xfffff80789ac1d55",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x6c1d55"
+  },
+  {
+   "slot": "0xfffff8071bf31098",
+   "value": "0xfffff807896b7ad6",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x2b7ad6"
+  },
+  {
+   "slot": "0xfffff8071bf310a0",
+   "value": "0xfffff80789400000",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x0"
+  },
+  {
+   "slot": "0xfffff8071bf310a8",
+   "value": "0xfffff80789ac1d55",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x6c1d55"
+  },
+  {
+   "slot": "0xfffff8071bf310e0",
+   "value": "0xfffff80789ac1d55",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x6c1d55"
+  },
+  {
+   "slot": "0xfffff8071bf310e8",
+   "value": "0xfffff80789ac173c",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x6c173c"
+  },
+  {
+   "slot": "0xfffff8071bf31100",
+   "value": "0xfffff807894d418c",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0xd418c"
+  },
+  {
+   "slot": "0xfffff8071bf31108",
+   "value": "0xfffff80789ac16c0",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x6c16c0"
+  },
+  {
+   "slot": "0xfffff8071bf31120",
+   "value": "0xfffff80789ac1d55",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x6c1d55"
+  },
+  {
+   "slot": "0xfffff8071bf31128",
+   "value": "0xfffff80789ab7ccf",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x6b7ccf"
+  },
+  {
+   "slot": "0xfffff8071bf31140",
+   "value": "0xfffff80789400000",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x0"
+  },
+  {
+   "slot": "0xfffff8071bf31158",
+   "value": "0xfffff807896b4e67",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x2b4e67"
+  },
+  {
+   "slot": "0xfffff8071bf31160",
+   "value": "0xfffff80789400000",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x0"
+  },
+  {
+   "slot": "0xfffff8071bf31168",
+   "value": "0xfffff80789400000",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x0"
+  },
+  {
+   "slot": "0xfffff8071bf31170",
+   "value": "0xfffff80789ac1d55",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x6c1d55"
+  },
+  {
+   "slot": "0xfffff8071bf31178",
+   "value": "0xfffff807895184a8",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x1184a8"
+  },
+  {
+   "slot": "0xfffff8071bf31370",
+   "value": "0xfffff807894e0000",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0xe0000"
+  },
+  {
+   "slot": "0xfffff8071bf31378",
+   "value": "0xfffff80789400000",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x0"
+  },
+  {
+   "slot": "0xfffff8071bf31578",
+   "value": "0xfffff8078976e11c",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x36e11c"
+  },
+  {
+   "slot": "0xfffff8071bf315c8",
+   "value": "0xfffff807896ba87c",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x2ba87c"
+  },
+  {
+   "slot": "0xfffff8071bf31608",
+   "value": "0xfffff8078985d685",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x45d685"
+  },
+  {
+   "slot": "0xfffff8071bf31658",
+   "value": "0xfffff807896b4c8c",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x2b4c8c"
+  },
+  {
+   "slot": "0xfffff8071bf316e8",
+   "value": "0xfffff80789400000",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x0"
+  },
+  {
+   "slot": "0xfffff8071bf31700",
+   "value": "0xfffff80789ac16c0",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x6c16c0"
+  },
+  {
+   "slot": "0xfffff8071bf31708",
+   "value": "0xfffff807894c29f8",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0xc29f8"
+  },
+  {
+   "slot": "0xfffff8071bf31720",
+   "value": "0xfffff807895184a8",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x1184a8"
+  },
+  {
+   "slot": "0xfffff8071bf31730",
+   "value": "0xfffff80789ac1d55",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x6c1d55"
+  },
+  {
+   "slot": "0xfffff8071bf31738",
+   "value": "0xfffff80789400000",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x0"
+  },
+  {
+   "slot": "0xfffff8071bf31740",
+   "value": "0xfffff807895184a8",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x1184a8"
+  },
+  {
+   "slot": "0xfffff8071bf31760",
+   "value": "0xfffff80789ac16c0",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x6c16c0"
+  },
+  {
+   "slot": "0xfffff8071bf31768",
+   "value": "0xfffff807894c29f8",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0xc29f8"
+  },
+  {
+   "slot": "0xfffff8071bf317a8",
+   "value": "0xfffff807898c7da0",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x4c7da0"
+  },
+  {
+   "slot": "0xfffff8071bf317b0",
+   "value": "0xfffff80789f3be46",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0xb3be46"
+  },
+  {
+   "slot": "0xfffff8071bf317b8",
+   "value": "0xfffff80789400000",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x0"
+  },
+  {
+   "slot": "0xfffff8071bf317c0",
+   "value": "0xfffff807894ff8fc",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0xff8fc"
+  },
+  {
+   "slot": "0xfffff8071bf317c8",
+   "value": "0xfffff80789400000",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x0"
+  },
+  {
+   "slot": "0xfffff8071bf317d0",
+   "value": "0xfffff8078953e8fc",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x13e8fc"
+  },
+  {
+   "slot": "0xfffff8071bf317d8",
+   "value": "0xfffff80789400000",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x0"
+  },
+  {
+   "slot": "0xfffff8071bf317e0",
+   "value": "0xfffff807895447dc",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x1447dc"
+  },
+  {
+   "slot": "0xfffff8071bf317e8",
+   "value": "0xfffff80789400000",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x0"
+  },
+  {
+   "slot": "0xfffff8071bf317f0",
+   "value": "0xfffff80789540138",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x140138"
+  },
+  {
+   "slot": "0xfffff8071bf317f8",
+   "value": "0xfffff80789400000",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x0"
+  },
+  {
+   "slot": "0xfffff8071bf31800",
+   "value": "0xfffff807895184a8",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x1184a8"
+  },
+  {
+   "slot": "0xfffff8071bf31888",
+   "value": "0xfffff80789837204",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x437204"
+  },
+  {
+   "slot": "0xfffff8071bf318c8",
+   "value": "0xfffff807897eb132",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x3eb132"
+  },
+  {
+   "slot": "0xfffff8071bf319f8",
+   "value": "0xfffff807898c7f61",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x4c7f61"
+  },
+  {
+   "slot": "0xfffff8071bf31d78",
+   "value": "0xfffff807898ee8b7",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x4ee8b7"
+  },
+  {
+   "slot": "0xfffff8071bf31fa8",
+   "value": "0xfffff80789aae8f2",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x6ae8f2"
+  },
+  {
+   "slot": "0xfffff8071bf31fd8",
+   "value": "0xfffff80789aae8c0",
+   "module": "\\SystemRoot\\system32\\ntoskrnl.exe+0x6ae8c0"
+  }
+ ],
+ "process_name_candidates": [
+  {
+   "offset": "0x338",
+   "text": "svchost.exe"
+  },
+  {
+   "offset": "0x680",
+   "text": "8d._"
+  },
+  {
+   "offset": "0x688",
+   "text": "8d._"
+  },
+  {
+   "offset": "0x698",
+   "text": "8d._"
+  }
+ ],
+ "process_id_26100": 4804,
+ "thread_cid_26100": [
+  4804,
+  4156
+ ]
+}

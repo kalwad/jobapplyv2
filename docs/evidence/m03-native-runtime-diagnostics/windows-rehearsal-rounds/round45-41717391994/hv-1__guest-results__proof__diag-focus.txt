@@ -1,0 +1,2 @@
+FAIL at_ms=92046 ShellWait $Owner.ShellMainFocused() | uia=ControlType.Hyperlink:Skip to main content:pid=8688:hwnd=0 fg=Tauri Window:pid=7600 focus=Chrome_RenderWidgetHostHWND:66230 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0
+DIAG-RETRY-FAIL key=enter | uia=ControlType.Hyperlink:Skip to main content:pid=8688:hwnd=0 fg=Tauri Window:pid=7600 focus=Chrome_RenderWidgetHostHWND:66230 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0

@@ -1,0 +1,10 @@
+{
+  "observed": {
+    "model name": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "vendor_id": "GenuineIntel",
+    "cpu family": "6",
+    "model": "207",
+    "stepping": "2"
+  },
+  "gate": "NOT_APPLIED_DIAGNOSTIC"
+}

@@ -1,0 +1,11 @@
+[    0.000000] clocksource: hyperv_clocksource_msr: mask: 0xffffffffffffffff max_cycles: 0x24e6a1710, max_idle_ns: 440795202120 ns
+[    0.805703] x86/fpu: Supporting XSAVE feature 0x1000: 'Control-flow Kernel registers (KVM only)'
+[    3.130618] kvm_intel: Using Hyper-V Enlightened VMCS
+[ 1228.581227] nbd0: detected capacity change from 0 to 167772160
+[ 1228.583187]  nbd0: p1 p2 p3 p4
+[ 1231.642995]  nbd0: p1 p2 p3 p4
+[ 1233.689451] ntfs3: Enabled Linux POSIX ACLs support
+[ 1233.689463] ntfs3: Read-only LZX/Xpress compression included
+[ 1233.765415] block nbd0: NBD_DISCONNECT
+[ 1233.765438] block nbd0: Disconnected due to user request.
+[ 1233.765453] block nbd0: shutting down sockets
