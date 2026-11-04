@@ -5,9 +5,10 @@ $clock = [Diagnostics.Stopwatch]::StartNew()
 # The protocol port opens before anything else can fail, so a preflight failure
 # reaches the host as one terminal row instead of at the host's work deadline.
 $serial = New-Object IO.Ports.SerialPort('COM2',115200,'None',8,'One')
-# A whole receipt line is written within this bound. The ~1 KB environment receipt
-# took 43 to 70 ms in the VM (diagnostic rounds 39 and 40), so the ~10.8 KB keyboard
-# receipt needs about a second; 500 ms would refuse it (KI-0178).
+# A whole receipt line is written within this bound. The ~10.8 KB keyboard receipt
+# took 197 to 287 ms in five VMs with Hyper-V enlightenments (diagnostic rounds 45 and
+# 47); at the ~1 KB environment receipt's 43 to 70 ms without them (rounds 39 and 40)
+# it would take about 0.5 to 0.8 s, past the old 500 ms (KI-0178).
 $serial.WriteTimeout = 30000
 $serial.Open()
 $config = $null

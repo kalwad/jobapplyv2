@@ -1,4 +1,4 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Round 48 (the repository's KI-0184/KI-0185
+# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Round 49 (the repository's reviewed KI-0184/KI-0185
 # correction, byte for byte, with no instrumentation, six replicas): rehearse the Windows 11
 # campaign with the harness's own seed/QEMU/COM2 protocol and the real CI package.
 # No acceptance can come from it.
@@ -85,7 +85,7 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag48-win11-rehearsal-${{ matrix.variant }}
+          name: diag49-win11-rehearsal-${{ matrix.variant }}
           path: |
             ${{ runner.temp }}/out
             !${{ runner.temp }}/out/private-work
@@ -94,7 +94,7 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag48-raw-dumps-and-logs-${{ matrix.variant }}
+          name: diag49-raw-dumps-and-logs-${{ matrix.variant }}
           path: ${{ runner.temp }}/out/forensics/raw
           if-no-files-found: ignore
           retention-days: 3

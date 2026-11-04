@@ -3,8 +3,8 @@
 Rehearse the Windows 11 campaign with the harness's own code: windows11_vm.seed(),
 qemu_argv(), observe() (the real COM2 receipt/frame protocol), stop_after_pass()
 and the post-PASS checks, on the pinned ISO and the real CI package, with the
-guest controller files from diag/repo-root, copied byte for byte. Round 48 runs the
-repository's own correction with no diagnostic instrumentation: diag/repo-root/scripts is the
+guest controller files from diag/repo-root, copied byte for byte. Round 49 runs the
+repository's own correction, after its separate review, with no diagnostic instrumentation: diag/repo-root/scripts is the
 working tree's scripts/windows11 (including windows11_vm.py and its GUEST_CPU) and the
 unchanged shared helpers. It skips only what a scratch run cannot satisfy: the reviewed
 bundle, release receipt, source binding, runner-image and CPU gates.

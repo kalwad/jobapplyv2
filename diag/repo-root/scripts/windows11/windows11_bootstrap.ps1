@@ -99,15 +99,13 @@ $principal = New-ScheduledTaskPrincipal -UserId 'SYSTEM' -LogonType ServiceAccou
 # a stalled run, which the scheduler kills with no catch; its trace keeps the last step.
 $settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Minutes 10) -AllowStartIfOnBatteries
 Register-ScheduledTask -TaskName 'JappOwnedMachineAttestation' -Action $action -Trigger $trigger -Principal $principal -Settings $settings | Out-Null
-# Explorer's normal startup runs this as the created standard user, with UAC unchanged.
-$startup = 'C:\Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'
-New-Item -ItemType Directory -Path $startup -Force | Out-Null
-Set-Content -LiteralPath (Join-Path $startup 'JappFixture.cmd') -Encoding ASCII -Value '@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy RemoteSigned -File "C:\ProgramData\JappHarness\windows11_guest.ps1" -Configuration "C:\ProgramData\JappHarness\guest-config.json"'
 # The fixture's first-logon state, set in the Default profile it is created from
 # (KI-0177): Windows opens Start by itself at a first logon unless this is set, and
 # Start then holds the foreground the guest needs (diagnostic rounds 34, 35, 38). The
 # guest's console is the classic console host, whose console process owns its window;
 # under it every guest foreground request succeeded at once (rounds 43 and 44).
+# Every first-logon step completes before the fixture's startup entry is written, so a
+# failed step leaves no guest to run in an unreviewed first-logon state.
 $profileHive = 'HKU\JappDefaultProfile'
 & reg.exe load $profileHive 'C:\Users\Default\NTUSER.DAT' | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'Default profile hive load failed' }
@@ -119,8 +117,6 @@ try {
         if ($LASTEXITCODE -ne 0) { throw 'Console host setting failed' }
     }
 } finally {
-    # Release PowerShell's own handles into the hive before it is unloaded.
-    [GC]::Collect()
     & reg.exe unload $profileHive | Out-Null
 }
 if ($LASTEXITCODE -ne 0) { throw 'Default profile hive unload failed' }
@@ -128,3 +124,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Default profile hive unload failed' }
 # input it went black 326 to 352 s after logon (KI-0179; rounds 34 and 35).
 & powercfg.exe /change monitor-timeout-ac 0
 if ($LASTEXITCODE -ne 0) { throw 'Display timeout setting failed' }
+# Explorer's normal startup runs this as the created standard user, with UAC unchanged.
+$startup = 'C:\Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'
+New-Item -ItemType Directory -Path $startup -Force | Out-Null
+Set-Content -LiteralPath (Join-Path $startup 'JappFixture.cmd') -Encoding ASCII -Value '@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy RemoteSigned -File "C:\ProgramData\JappHarness\windows11_guest.ps1" -Configuration "C:\ProgramData\JappHarness\guest-config.json"'

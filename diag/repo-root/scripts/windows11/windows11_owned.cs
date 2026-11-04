@@ -98,23 +98,26 @@ namespace JobApplyValidation {
         void SettleKeyboardFocus(IntPtr hwnd) {
             Stopwatch watch=Stopwatch.StartNew(); IntPtr held=IntPtr.Zero; long since=0; int moves=0; string last="none";
             while(true) {
-                if(GetForegroundWindow()!=hwnd) throw new InvalidOperationException("Owned foreground changed before fixed key sequence");
                 IntPtr focus=IntPtr.Zero; uint focusPid=0,focusThread=0; string kind;
                 try {
-                    uint pid; uint windowThread=GetWindowThreadProcessId(hwnd,out pid);
-                    GuiThreadInfo info=new GuiThreadInfo(); info.cbSize=(uint)Marshal.SizeOf(typeof(GuiThreadInfo));
-                    if(windowThread==0||pid!=Pid||!GetGUIThreadInfo(windowThread,ref info)) throw new InvalidOperationException("Actual owned keyboard focus unavailable");
-                    focus=info.hwndFocus; focusThread=focus==IntPtr.Zero?0:GetWindowThreadProcessId(focus,out focusPid);
-                    kind=(focusThread!=0&&(focus==hwnd||IsChild(hwnd,focus))&&new HashSet<uint>(Members()).Contains(focusPid))?WindowClass(focus):"outside owned window";
+                    // The race itself briefly makes the accessibility child the foreground,
+                    // so another foreground is 'not yet' here; SendInput still requires ours.
+                    if(GetForegroundWindow()!=hwnd) kind="foreground elsewhere";
+                    else {
+                        uint pid; uint windowThread=GetWindowThreadProcessId(hwnd,out pid);
+                        GuiThreadInfo info=new GuiThreadInfo(); info.cbSize=(uint)Marshal.SizeOf(typeof(GuiThreadInfo));
+                        if(windowThread==0||pid!=Pid||!GetGUIThreadInfo(windowThread,ref info)) throw new InvalidOperationException("Actual owned keyboard focus unavailable");
+                        focus=info.hwndFocus; focusThread=focus==IntPtr.Zero?0:GetWindowThreadProcessId(focus,out focusPid);
+                        if(focusThread==0||!(focus==hwnd||IsChild(hwnd,focus))) kind="outside owned window";
+                        else if(!new HashSet<uint>(Members()).Contains(focusPid)) throw new OwnedInvariantException("Owned keyboard focus window outside retained job");
+                        else kind=WindowClass(focus);
+                    }
                 } catch(Exception error) { if(!Transient(error)) throw; kind="not yet: "+error.GetType().FullName+": "+Bounded(error.Message,128); }
                 if(kind==WebViewAccessibilityClass) {
                     IntPtr parent=GetParent(focus); uint parentPid=0;
                     if(parent==IntPtr.Zero||GetWindowThreadProcessId(parent,out parentPid)!=focusThread||parentPid!=focusPid||WindowClass(parent)!=WebViewKeyboardClass) throw new OwnedInvariantException("Owned WebView2 keyboard window required");
                     if(++moves>FocusMoveBound) throw new InvalidOperationException("Owned keyboard focus kept returning to the WebView2 accessibility window");
-                    uint own=GetCurrentThreadId();
-                    if(!AttachThreadInput(own,focusThread,true)) throw new Win32Exception();
-                    try { SetFocus(parent); }
-                    finally { if(!AttachThreadInput(own,focusThread,false)) throw new Win32Exception(); }
+                    HandFocus(focusThread,parent,(int)Math.Max(1,FocusSettleMilliseconds-watch.ElapsedMilliseconds));
                     held=IntPtr.Zero;
                 } else if(kind==WebViewKeyboardClass) {
                     if(focus!=held) { held=focus; since=watch.ElapsedMilliseconds; }
@@ -124,6 +127,23 @@ namespace JobApplyValidation {
                 if(watch.ElapsedMilliseconds>=FocusSettleMilliseconds) throw new InvalidOperationException("Owned WebView2 keyboard focus did not settle; last: "+last);
                 Thread.Sleep(10);
             }
+        }
+        // The handoff runs on its own thread, attached to the focused window's input
+        // queue: a focus change waits on that window's thread, and the settle's bound
+        // must hold even if that thread stops responding.
+        static void HandFocus(uint target,IntPtr window,int milliseconds) {
+            Exception failure=null;
+            Thread worker=new Thread(()=>{
+                try {
+                    uint own=GetCurrentThreadId();
+                    if(!AttachThreadInput(own,target,true)) throw new Win32Exception();
+                    try { SetFocus(window); }
+                    finally { if(!AttachThreadInput(own,target,false)) throw new Win32Exception(); }
+                } catch(Exception error) { failure=error; }
+            });
+            worker.IsBackground=true; worker.Start();
+            if(!worker.Join(milliseconds)) throw new InvalidOperationException("Owned keyboard focus handoff did not return within its bound");
+            if(failure!=null) throw failure;
         }
 
         IntPtr job=IntPtr.Zero,process=IntPtr.Zero,thread=IntPtr.Zero;
@@ -195,10 +215,10 @@ namespace JobApplyValidation {
                 uint returned;
                 if(!QueryInformationJobObject(job,3,data,(uint)(8+64*IntPtr.Size),out returned)) throw new Win32Exception();
                 int assigned=Marshal.ReadInt32(data),count=Marshal.ReadInt32(data,4);
-                if(count<0||count>64||assigned>64||count>assigned) throw new OwnedInvariantException("Finite complete owned job list required");
-                // A member that has begun to exit is still counted but no longer listed, so
-                // the list is briefly incomplete: 'not yet', never a partial list (KI-0185).
-                if(count<assigned) throw new InvalidOperationException("Owned job member exit in progress");
+                if(count<0||count>64||assigned<0||assigned>64) throw new OwnedInvariantException("Finite complete owned job list required; assigned "+assigned+", listed "+count);
+                // While a member exits, the job's count and its list can differ for a moment
+                // (round 47; which way was not recorded): 'not yet', never a partial list (KI-0185).
+                if(count!=assigned) throw new InvalidOperationException("Owned job list changing; assigned "+assigned+", listed "+count);
                 uint[] ids=new uint[count];
                 for(int i=0;i<count;i++) ids[i]=checked((uint)Marshal.ReadIntPtr(data,8+i*IntPtr.Size).ToInt64());
                 return ids;
