@@ -275,18 +275,87 @@ def capacity(work: Path) -> dict[str, Any]:
     return row
 
 
+# One runner-provided package: (version, architecture, dpkg status).
+RunnerRow = tuple[str, str, str]
+RUNNER_INSTALLED = frozenset({"install ok installed", "hold ok installed"})
+
+
+def runner_packages(owner: Owner, names: list[str]) -> dict[str, RunnerRow]:
+    """Installed name -> (version, architecture, status) for these packages.
+
+    Only amd64 and all instances count, as at prepare: QEMU and its host tools
+    are amd64, so another architecture's instance of a name is never loaded.
+    """
+    queried = owner.command(
+        [
+            "/usr/bin/dpkg-query",
+            "-W",
+            "-f=${Package}\t${Version}\t${Architecture}\t${Status}\n",
+            *names,
+        ]
+    )
+    actual: dict[str, RunnerRow] = {}
+    for line in queried.decode().split("\n"):
+        if not line:
+            continue
+        name, version, arch, status = line.split("\t")
+        if arch not in {"amd64", "all"}:
+            continue
+        if status not in RUNNER_INSTALLED or name in actual:
+            raise ValueError("Runner-provided host package must be installed once")
+        actual[name] = (version, arch, status)
+    return actual
+
+
+def reviewed_runner_packages(
+    lock: dict[str, Any], packages: list[dict[str, Any]]
+) -> dict[str, RunnerRow]:
+    """The lock's runner-provided rows as name -> (version, architecture, status)."""
+    provided = lock.get("runner_provided_packages")
+    if not isinstance(provided, list) or len(provided) > HOST_PACKAGE_CAP:
+        raise ValueError("Finite runner-provided package list required")
+    reviewed: dict[str, RunnerRow] = {}
+    for row in provided:
+        if (
+            not isinstance(row, dict)
+            or set(row) != {"package", "version", "architecture", "status"}
+            or row["package"] in reviewed
+            or row["status"] not in RUNNER_INSTALLED
+        ):
+            raise ValueError("Exact unique runner-provided package rows required")
+        reviewed[row["package"]] = (row["version"], row["architecture"], row["status"])
+    if reviewed.keys() & {row["package"] for row in packages}:
+        raise ValueError("A host package cannot be both locked and runner-provided")
+    return reviewed
+
+
+def require_runner_packages(
+    owner: Owner, reviewed: dict[str, RunnerRow], refusal: str
+) -> None:
+    if reviewed and runner_packages(owner, sorted(reviewed)) != reviewed:
+        raise ValueError(refusal)
+
+
 def install_tools(bundle: Path, owner: Owner, expected: str) -> None:
     path = bundle / "host-tools-lock.json"
     if digest(path, METADATA_CAP) != hex_pin(expected):
         raise ValueError("Reviewed host tool lock differs")
     lock = document(path)
-    if lock["schema"] != "japp-win11-host-tools-v1" or lock[
-        "runner_image_version"
-    ] != os.environ.get(RUNNER_IMAGE_VERSION):
+    if lock.get("schema") != "japp-win11-host-tools-v2":
+        raise ValueError("Reviewed v2 host tool lock required")
+    # ADR-0009 binds the runner-provided packages through this image version.
+    image = os.environ.get(RUNNER_IMAGE_VERSION)
+    if not image or lock["runner_image_version"] != image:
         raise ValueError("Exact reviewed disposable runner image required")
     packages = lock["packages"]
     if not isinstance(packages, list) or not 1 <= len(packages) <= HOST_PACKAGE_CAP:
         raise ValueError("Finite host archive closure required")
+    # ADR-0009: packages the reviewed runner image already provided at prepare
+    # time are used as installed, at exactly the reviewed versions and status.
+    reviewed = reviewed_runner_packages(lock, packages)
+    require_runner_packages(
+        owner, reviewed, "Runner-provided host packages differ from the reviewed lock"
+    )
     archives = []
     for row in packages:
         name = row["filename"]
@@ -329,11 +398,15 @@ def install_tools(bundle: Path, owner: Owner, expected: str) -> None:
     }
     if actual != expected_packages or len(expected_packages) != len(packages):
         raise ValueError("Installed locked package versions differ")
+    require_runner_packages(
+        owner, reviewed, "Runner-provided host packages changed during install"
+    )
     write(
         owner.proof / "host-tools.json",
         {
             "tools": lock["tools"],
             "packages": actual,
+            "runner_provided_packages": reviewed,
             "runner_image_version": os.environ.get(RUNNER_IMAGE_VERSION),
         },
     )

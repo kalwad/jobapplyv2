@@ -1,9 +1,9 @@
 {
-  "scope": "Exact committed bytes of scratch-branch diagnostic probe sources, selected artifact files and bounded extracts from the 56 runs listed in run-metadata.json, and GitHub API metadata. Text copies are LF-normalized for the repository's eol=lf rule by replacing CRLF with LF repeatedly until none remains; PPM frames are converted to PNG. Original artifact file sizes and hashes are in run-metadata.json (rounds 1-11 and the product builds) and in the sources.json of rounds 12-28 and 36-50; rounds 29-35 record only their artifact ZIP digests, in run-metadata.json.",
+  "scope": "Exact committed bytes of scratch-branch diagnostic probe sources, selected artifact files and bounded extracts from the 60 runs listed in run-metadata.json, and GitHub API metadata. Text copies are LF-normalized for the repository's eol=lf rule by replacing CRLF with LF repeatedly until none remains; PPM frames are converted to PNG. Original artifact file sizes and hashes are in run-metadata.json (rounds 1-11 and the product builds) and in the sources.json of rounds 12-28, 36-50 and 51-54; rounds 29-35 record only their artifact ZIP digests, in run-metadata.json.",
   "files": {
     "README.md": {
-      "bytes": 28948,
-      "sha256": "cadded762824a559fbfb4f7684a0c6f18d1403c197893f54b7e24e6e2d41ee3e"
+      "bytes": 32594,
+      "sha256": "2cb2a0bb510e89061662def4d3f918640347c1107660a254503105aaf0345b17"
     },
     "gnome-e2e-rounds/round12-41233236511/01-launch.json": {
       "bytes": 197,
@@ -610,8 +610,8 @@
       "sha256": "b092be99f72dbe0f25a953829af8c8e4e35f1b5e225ccd8ffae3d3f0dc4b4fc4"
     },
     "run-metadata.json": {
-      "bytes": 96934,
-      "sha256": "35e52c0999117df8cd7916f70c3ce28bd9a28ce1584864e0480175e659cef397"
+      "bytes": 100781,
+      "sha256": "b04a04893f0e1d8d223c232987ced905a248d144126c378c3c8f40e55576e243"
     },
     "windows-attestor-rounds/round33-41509581288/attestor_probe.ps1": {
       "bytes": 2817,
@@ -1052,6 +1052,118 @@
     "windows-guest-rounds/workflow-last.yml": {
       "bytes": 1743,
       "sha256": "a029a0dc629714445d34061245cb0d890b3dc28acee346739902943039770c7d"
+    },
+    "windows-host-closure/round51-41912040314/ci.yml": {
+      "bytes": 1330,
+      "sha256": "bd91e67beaaa0e2c9155657a3a671f22c8bc972bc46a41661e45a245609be2dd"
+    },
+    "windows-host-closure/round51-41912040314/host_closure.py": {
+      "bytes": 1986,
+      "sha256": "106214f3184d5afad622d6b826b8b8b0c9bd86b8cb3a6fb0c90a390419648287"
+    },
+    "windows-host-closure/round51-41912040314/runner-status-host-install-plan.json": {
+      "bytes": 1174,
+      "sha256": "6fcf8e58e31f00b72cbde8c290c0d35be37eb9569b562d62f6394708679cbe44"
+    },
+    "windows-host-closure/round51-41912040314/runner-status-lock.json": {
+      "bytes": 49475,
+      "sha256": "255db712e3f76b683642e03cdf3074cdc5c499d0920125d114ed3a3dd2373a1c"
+    },
+    "windows-host-closure/round51-41912040314/runner-step-log-extract.txt": {
+      "bytes": 545,
+      "sha256": "6c652d41d581c642454e46a2e2a97a52a2257fe89fd485797c395dedc9970658"
+    },
+    "windows-host-closure/round51-41912040314/sources.json": {
+      "bytes": 3604,
+      "sha256": "02b95c76da628d9abec366a632c4da721aff3a8a5cf284d6b7e926e69dfc72a0"
+    },
+    "windows-host-closure/round51-41912040314/summary.json": {
+      "bytes": 22782,
+      "sha256": "55bbf949f6561b8dfaca06d345093b8f514af3b3c8d321ee1434a350a0ea8d8f"
+    },
+    "windows-host-closure/round52-41918821956/ci.yml": {
+      "bytes": 1330,
+      "sha256": "bd91e67beaaa0e2c9155657a3a671f22c8bc972bc46a41661e45a245609be2dd"
+    },
+    "windows-host-closure/round52-41918821956/host_closure.py": {
+      "bytes": 1986,
+      "sha256": "106214f3184d5afad622d6b826b8b8b0c9bd86b8cb3a6fb0c90a390419648287"
+    },
+    "windows-host-closure/round52-41918821956/runner-status-host-install-plan.json": {
+      "bytes": 1174,
+      "sha256": "6fcf8e58e31f00b72cbde8c290c0d35be37eb9569b562d62f6394708679cbe44"
+    },
+    "windows-host-closure/round52-41918821956/runner-status-lock.json": {
+      "bytes": 52995,
+      "sha256": "97df8092f27d4b91c011830fca418518e2e383b369389cef69185a76ab60592b"
+    },
+    "windows-host-closure/round52-41918821956/runner-step-log-extract.txt": {
+      "bytes": 545,
+      "sha256": "f81abfd1a693b6c4c0f00e20155063a1035f55bfe95cef0bab262efef3a58628"
+    },
+    "windows-host-closure/round52-41918821956/sources.json": {
+      "bytes": 3604,
+      "sha256": "b5cfc25c7831ec9f88666888a2a87863d1c1bce1f314ccce296a50ee6668c4b7"
+    },
+    "windows-host-closure/round52-41918821956/summary.json": {
+      "bytes": 26478,
+      "sha256": "8ca066768301446894e453c10c841e326732259680b235c8963ab5f3ceaeaf0a"
+    },
+    "windows-host-closure/round53-41929794476/ci.yml": {
+      "bytes": 1330,
+      "sha256": "bd91e67beaaa0e2c9155657a3a671f22c8bc972bc46a41661e45a245609be2dd"
+    },
+    "windows-host-closure/round53-41929794476/host_closure.py": {
+      "bytes": 1986,
+      "sha256": "106214f3184d5afad622d6b826b8b8b0c9bd86b8cb3a6fb0c90a390419648287"
+    },
+    "windows-host-closure/round53-41929794476/runner-status-host-install-plan.json": {
+      "bytes": 1174,
+      "sha256": "6fcf8e58e31f00b72cbde8c290c0d35be37eb9569b562d62f6394708679cbe44"
+    },
+    "windows-host-closure/round53-41929794476/runner-status-lock.json": {
+      "bytes": 52995,
+      "sha256": "97df8092f27d4b91c011830fca418518e2e383b369389cef69185a76ab60592b"
+    },
+    "windows-host-closure/round53-41929794476/runner-step-log-extract.txt": {
+      "bytes": 545,
+      "sha256": "640fd81d8cb2c28d7b429cdfffda91cd79bf7c949e52945c5d7856a0c5ee141c"
+    },
+    "windows-host-closure/round53-41929794476/sources.json": {
+      "bytes": 3604,
+      "sha256": "6927e180c6ebe86873ca261ef0aa03460fa5f80798f48dc5672a5aa2b8bffe02"
+    },
+    "windows-host-closure/round53-41929794476/summary.json": {
+      "bytes": 26478,
+      "sha256": "9826341d7cb528da5361fc2279cd00b28ee33d30fa0f0547ecb6595fb8012c57"
+    },
+    "windows-host-closure/round54-41943736342/ci.yml": {
+      "bytes": 1330,
+      "sha256": "bd91e67beaaa0e2c9155657a3a671f22c8bc972bc46a41661e45a245609be2dd"
+    },
+    "windows-host-closure/round54-41943736342/host_closure.py": {
+      "bytes": 1986,
+      "sha256": "106214f3184d5afad622d6b826b8b8b0c9bd86b8cb3a6fb0c90a390419648287"
+    },
+    "windows-host-closure/round54-41943736342/runner-status-host-install-plan.json": {
+      "bytes": 1174,
+      "sha256": "6fcf8e58e31f00b72cbde8c290c0d35be37eb9569b562d62f6394708679cbe44"
+    },
+    "windows-host-closure/round54-41943736342/runner-status-lock.json": {
+      "bytes": 52995,
+      "sha256": "e2181388b3d278eade47b238036c3b964b5e8726d6fd500bb6221abaf0498a7c"
+    },
+    "windows-host-closure/round54-41943736342/runner-step-log-extract.txt": {
+      "bytes": 545,
+      "sha256": "daf97d384a97175e89a88d6e7cb5e4b89cb3d1bfc5ca613d935460bf948c4c70"
+    },
+    "windows-host-closure/round54-41943736342/sources.json": {
+      "bytes": 3604,
+      "sha256": "ae70ff9a977d368cd47ba64dc68e61fb90022ff84ae53d56d149a09ed5cd4813"
+    },
+    "windows-host-closure/round54-41943736342/summary.json": {
+      "bytes": 26478,
+      "sha256": "31a7ae531f1a1e5ac5542c4b94006c406ce03a9cc487995c80bd1af50fe6055c"
     },
     "windows-product-builds/accelerator-logging-head.patch": {
       "bytes": 1760,

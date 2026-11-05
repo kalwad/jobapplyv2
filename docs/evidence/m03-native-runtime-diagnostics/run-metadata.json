@@ -1,6 +1,6 @@
 {
   "retrieved_with": "gh api (2026-10-31UTC to 2026-11-04UTC); selected fields only",
-  "scratch_branch": "diag/windows-service-env (never merged)",
+  "scratch_branch": "diag/windows-service-env; rounds 51-54 diag/win11-host-closure (never merged)",
   "runs": [
     {
       "id": 41165269919,
@@ -2600,6 +2600,126 @@
           "digest": "sha256:ae7e01dee01e0b055a8a2349dd1fe9c42864b26bf91f730acaf88541ccee99a5"
         }
       ]
+    },
+    {
+      "id": 41912040314,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win11-host-closure",
+      "head_sha": "338742595bc90ad2538fd0cf18f0b4eceae6f674",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-04T21:01:00Z",
+      "updated_at": "2026-11-04T21:02:17Z",
+      "jobs": [
+        {
+          "id": 126861862443,
+          "name": "windows11 host closure resolution",
+          "conclusion": "success",
+          "started_at": "2026-11-04T21:01:04Z",
+          "completed_at": "2026-11-04T21:02:16Z",
+          "runner_name": "GitHub Actions 1000001242"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13363620703,
+          "name": "host-closure",
+          "size_in_bytes": 760962,
+          "digest": "sha256:f2b4e65f9680b12439d31767d21a215f8174626bbca96bc176f3c05568317cab"
+        }
+      ]
+    },
+    {
+      "id": 41918821956,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win11-host-closure",
+      "head_sha": "4d218445149e0163add20a6cf290e64a459762d4",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-04T21:44:02Z",
+      "updated_at": "2026-11-04T21:45:03Z",
+      "jobs": [
+        {
+          "id": 126885577264,
+          "name": "windows11 host closure resolution",
+          "conclusion": "success",
+          "started_at": "2026-11-04T21:44:06Z",
+          "completed_at": "2026-11-04T21:45:02Z",
+          "runner_name": "GitHub Actions 1000001243"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13366990205,
+          "name": "host-closure",
+          "size_in_bytes": 761081,
+          "digest": "sha256:9ab1d23d4776d68b71eec66635a2b7d9bb117bc643e6295d104d437764429415"
+        }
+      ]
+    },
+    {
+      "id": 41929794476,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win11-host-closure",
+      "head_sha": "022cbe859cab934770024e971a60554706e56795",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-04T22:58:00Z",
+      "updated_at": "2026-11-04T22:59:06Z",
+      "jobs": [
+        {
+          "id": 126923497380,
+          "name": "windows11 host closure resolution",
+          "conclusion": "success",
+          "started_at": "2026-11-04T22:58:04Z",
+          "completed_at": "2026-11-04T22:59:06Z",
+          "runner_name": "GitHub Actions 1000001244"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13370243522,
+          "name": "host-closure",
+          "size_in_bytes": 760996,
+          "digest": "sha256:1866f817cd7a9045830c8695a255235920a8f63102c7aa68c34713aa7ca9575d"
+        }
+      ]
+    },
+    {
+      "id": 41943736342,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win11-host-closure",
+      "head_sha": "ede3fdd29f495564a39a92a968db6601da1ae22f",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-05T00:45:51Z",
+      "updated_at": "2026-11-05T00:46:55Z",
+      "jobs": [
+        {
+          "id": 126970656730,
+          "name": "windows11 host closure resolution",
+          "conclusion": "success",
+          "started_at": "2026-11-05T00:45:56Z",
+          "completed_at": "2026-11-05T00:46:54Z",
+          "runner_name": "GitHub Actions 1000001245"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13377257451,
+          "name": "host-closure",
+          "size_in_bytes": 760962,
+          "digest": "sha256:10bcc48fbf485286d48424c29ceea5d0239e8a80d09507e676fed7ea93537552"
+        }
+      ]
     }
   ],
   "downloaded_artifact_files_before_LF_normalization": {
@@ -2809,5 +2929,5 @@
       }
     }
   },
-  "notes": "Runs on diag/windows-service-env, diag/windows-dxdiag-args, diag/win-guest-lifecycle, diag/win-gui-service and diag/win-product-final are scratch diagnostics (never merged). Run 41228660641 ran round 7 before the hidden runtime/.gitignore restore and is superseded by run41228853420. Rounds 12+ keep their per-round sources.json (every diag/ file's hash at the branch commit, and each retained file's artifact bytes and hash before LF normalization or PNG conversion)."
+  "notes": "Runs on diag/windows-service-env, diag/windows-dxdiag-args, diag/win-guest-lifecycle, diag/win-gui-service, diag/win-product-final and diag/win11-host-closure are scratch diagnostics (never merged). Run 41228660641 ran round 7 before the hidden runtime/.gitignore restore and is superseded by run41228853420. Rounds 12+ keep their per-round sources.json (every diag/ file's hash at the branch commit, and each retained file's artifact bytes and hash before LF normalization or PNG conversion)."
 }

@@ -78,6 +78,7 @@ Canonical registry of (a) owner decisions that override earlier plans and
 | ADR-0006 | Continuous execution and owner-controlled holdout waiver | ACCEPTED | 2026-10-16 | Operational owner-holdout/process clauses; all four gates; no numerical threshold or compatibility change |
 | ADR-0007 | Direct Simplify comparison and executed public-form evidence waiver | ACCEPTED | 2026-10-17 | Only direct Simplify/public-form evidence prerequisites project-wide; all other requirements and concrete gate decisions preserved |
 | ADR-0008 | Delegated project acceptance without routine approval prompts | ACCEPTED | 2026-10-18 | Owner-only operational acceptance clauses; evidence and independent reviews preserved |
+| ADR-0009 | Resolve the native campaign host-tool closure against the hosted runner's installed packages | ACCEPTED | 2026-11-04 | M03-W07/M03-W08 native campaign preparation (host-tool lock and its review); no specification text, requirement, threshold or compatibility change |
 
 ### ADR-0001 — Adopt JAPP-MASTER-001 v1.2 (Workday-first critical-risk rebaseline) as the canonical specification
 
@@ -461,8 +462,8 @@ Canonical registry of (a) owner decisions that override earlier plans and
 
 ### ADR-0009 — Resolve the native campaign host-tool closure against the hosted runner's installed packages
 
-- Status: PROPOSED
-- Date proposed / date decided: 2026-11-04 / pending
+- Status: ACCEPTED
+- Date proposed / date decided: 2026-11-04 / 2026-11-04
 - Observed constraint (with evidence): the download-only prepare resolves the host-tool closure (QEMU, OVMF, swtpm and their dependencies) against an empty dpkg status, so every dependency is locked at the newest version in noble, noble-updates and noble-security. It then simulates the install against the runner's actual dpkg status and refuses any plan that would replace or remove a runner package (scripts/linux_gnome/ubuntu_gnome_prepare.py, ubuntu_gnome_host.closed_install_plan). Ubuntu published pcre2 10.42-4ubuntu2.2 (noble-security, 2026-11-03) and sqlite3 3.45.1-1ubuntu2.9 (noble-updates, 2026-11-04). The prepare's runner (image 20261025.353.1) carries 10.42-4ubuntu2.1 and 3.45.1-1ubuntu2.8. Image 20261101.360, which is rolling out, was built before both updates, so it is expected to carry the older versions too. The Windows 11 prepare run 41907004859 for 2bf7a4d therefore failed closed: its simulated install would upgrade libpcre2-8-0 and libsqlite3-0 and remove php8.3-dev, libpcre2-dev, libsqlite3-dev and sqlite3 (KI-0189). Every candidate fails this way until GitHub ships a runner image that carries both updates.
 - Alternatives considered:
   - (A) No change: wait for an ubuntu-24.04 image that carries both updates (likely the image built after 2026-11-04, plus its rollout), then request a fresh candidate. No trust-boundary change; the delay is outside the project's control, and the next archive update can repeat it.
@@ -474,9 +475,14 @@ Canonical registry of (a) owner decisions that override earlier plans and
 - Benchmark and gate impact: none. No product behaviour, threshold, corpus or gate criterion changes. It changes only whether a reviewed candidate can be prepared.
 - Test impact: new tests for the runner-status resolution, the recorded runner-provided packages, and the campaign-time re-check, refusing a runner whose installed version differs. The existing refusal tests stay.
 - Rollback plan: revert to empty-status resolution. Candidates prepared under (B) are not reused afterwards.
-- Proposed decision: (B), unless the owner prefers (A).
+- Proposed decision: (B), unless the owner prefers (A). Decided: (B).
 - Spec sections, requirements, milestones, schemas, gates, and compatibility promises affected: M03-W07 and M03-W08 native campaign preparation (the host-tool lock and its review); no specification text, requirement mapping or compatibility promise.
-- Owner approval: pending.
+- Owner approval: the owner, in the implementing session's chat on 2026-11-04UTC. Asked to choose between accepting ADR-0009, waiting for a new runner image, and rejecting both, the owner chose "Accept ADR-0009 (Recommended)".
+- Implementation note (2026-11-04, a record of how (B) was implemented, not a change to the decision):
+  - (B) applies only to the Windows 11 host closure. The GNOME host closure (M03-W08) still resolves against an empty status (KI-0189).
+  - Every root is still downloaded, including the two the image already carries, acl and python3. apt only prints a notice for a root it cannot reinstall, so the prepare requires every root in the lock. For acl, this also keeps setfacl pinned from a hashed deb; python3 carries no pinned file. For those two roots an archive update ahead of the image still fails the prepare closed, so (B) does not end the coupling for them.
+  - The lock records each runner-provided package's name, version, architecture and dpkg Status: every installed package the downloaded closure declares a dependency on. Packages need not declare Essential packages, so an Essential package that no walked relation declares is not recorded and stays bound only through the image version; dpkg and tar are declared and recorded. The candidate also retains the runner status it resolved against.
+  - 20261025.353.1 is the failing prepare's job-log banner; its `ImageVersion`, the value locks record and the campaign checks, was not recorded. Runners with that banner (round 51 and the 2100780 prepare) recorded `ImageVersion` 20261026.354.1. Image 20261101.360.1 carries the older pcre2 and sqlite3 versions, as expected (round 52 in docs/evidence/m03-native-runtime-diagnostics).
 
 
 ## ADR template

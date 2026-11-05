@@ -14,6 +14,7 @@ import sys
 from importlib.machinery import PathFinder
 from pathlib import Path, PurePath, PurePosixPath, PureWindowsPath
 from types import ModuleType, SimpleNamespace
+from typing import Any
 
 import pytest
 
@@ -240,16 +241,318 @@ def test_actual_provision_writer_supplies_exact_controller_export(
     assert set(result) == {guest.MAIN, guest.SERVICE}
 
 
-def test_resolve_retains_replayable_signed_index_archive_chain(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+INSTALLED_OK, HELD_OK = "install ok installed", "hold ok installed"
+RUNNER_STATUS = (
+    "Package: libc6\nStatus: install ok installed\nArchitecture: amd64\n"
+    "Version: 2.39-0ubuntu8.6\nDepends: libgcc-s1\nDescription: synthetic\n"
+    " folded description line\n\n"
+    "Package: libc6\nStatus: install ok installed\nArchitecture: i386\n"
+    "Version: 2.39-0ubuntu8.6\n\n"
+    "Package: libgcc-s1\nStatus: install ok installed\nArchitecture: amd64\n"
+    "Version: 14.2.0-4ubuntu2~24.04\n\n"
+    "Package: mawk\nStatus: install ok installed\nArchitecture: amd64\n"
+    "Version: 1.3.4.20240123-1build1\nProvides: awk\n\n"
+    "Package: gawk\nStatus: install ok installed\nArchitecture: amd64\n"
+    "Version: 1:5.2.1-2build3\nProvides: awk\n\n"
+    "Package: mta-a\nStatus: install ok installed\nArchitecture: amd64\n"
+    "Version: 1\nProvides: mail-transport\n\n"
+    "Package: mta-b\nStatus: install ok installed\nArchitecture: amd64\n"
+    "Version: 2\nProvides: mail-transport (= 2)\n\n"
+    "Package: cpio\nStatus: install ok installed\nArchitecture: amd64\n"
+    "Version: 2.15+dfsg-1ubuntu2\n\n"
+    "Package: bar\nStatus: install ok installed\nArchitecture: all\n"
+    "Version: 1\nPre-Depends: libmd0 (>= 1.0)\n\n"
+    "Package: libmd0\nStatus: install ok installed\nArchitecture: amd64\n"
+    "Version: 1.1.0-2build1.1\n\n"
+    "Package: libpcre2-8-0\nStatus: hold ok installed\nArchitecture: amd64\n"
+    "Version: 10.42-4ubuntu2.1\nDepends: libc6 (>= 2.34),\n libgcc-s1\n\n"
+    "Package: zlib1g\nStatus: install ok installed\nArchitecture: amd64\n"
+    "Version: 1:1.3.dfsg-3.1ubuntu2.1\n\n"
+    "Package: libfdt1\nStatus: install ok installed\nArchitecture: amd64\n"
+    "Version: 1.7.0-2build1\n\n"
+    # Unreached packages still parse as dpkg would: lines end only at LF, and
+    # a name may use any character dpkg's name check allows.
+    "Package: unrelated\nStatus: install ok installed\nArchitecture: amd64\n"
+    "Version: 1\nProvides: vendor_tool, r\n"
+    "Description: form\x0cfeed and line\N{LINE SEPARATOR}separator\n\n"
+    "Package: foo\nStatus: deinstall ok config-files\nArchitecture: amd64\n"
+    "Version: 1\n"
+)
+
+
+def runner_row(
+    package: str, version: str, architecture: str = "amd64"
+) -> dict[str, str]:
+    status = HELD_OK if package == "libpcre2-8-0" else INSTALLED_OK
+    return {
+        "package": package,
+        "version": version,
+        "architecture": architecture,
+        "status": status,
+    }
+
+
+# What the walk must record: every installed amd64/all package reachable from
+# the downloaded closure, through every alternative, by name or Provides, with
+# its dpkg status. The runner's own libfdt1 is not one: the lock downloads it
+# (a reinstalled root).
+RUNNER_ROWS = [
+    runner_row("bar", "1", "all"),
+    runner_row("cpio", "2.15+dfsg-1ubuntu2"),
+    runner_row("gawk", "1:5.2.1-2build3"),
+    runner_row("libc6", "2.39-0ubuntu8.6"),
+    runner_row("libgcc-s1", "14.2.0-4ubuntu2~24.04"),
+    runner_row("libmd0", "1.1.0-2build1.1"),
+    runner_row("libpcre2-8-0", "10.42-4ubuntu2.1"),
+    runner_row("mawk", "1.3.4.20240123-1build1"),
+    runner_row("mta-a", "1"),
+    runner_row("mta-b", "2"),
+    runner_row("zlib1g", "1:1.3.dfsg-3.1ubuntu2.1"),
+]
+DOWNLOADED_CONTROLS = {
+    "qemu-utils": {
+        "Package": "qemu-utils",
+        # awk and mawk | gawk: two installed alternatives, both recorded.
+        # qemu-common | cpio: the lock satisfies it, the runner's cpio is still
+        # recorded. qemu-common and qemu-virtual: only the lock satisfies them,
+        # by name and by Provides. mail-transport: a virtual name only two
+        # installed packages provide, and nothing names them; both recorded.
+        "Depends": (
+            "libc6 (>= 2.34), awk, foo | bar, mawk | gawk,"
+            " libpcre2-8-0:any (>= 10.22), libfdt1 (= 1.7.0-2build1),"
+            " qemu-common, qemu-virtual, qemu-common | cpio, mail-transport"
+        ),
+    },
+    # zlib1g is reached only through this Pre-Depends, and libmd0 only through
+    # the runner's bar's own Pre-Depends.
+    "libfdt1": {"Package": "libfdt1", "Pre-Depends": "zlib1g (>= 1:1.1.4)"},
+    "qemu-common": {"Package": "qemu-common", "Provides": "qemu-virtual (= 1)"},
+}
+
+
+class DpkgQueryOwner:
+    """Answers dpkg-query -W as dpkg does from a table of live instances.
+
+    A name with no instance at all fails, as dpkg-query exits 1 for it and the
+    real Owner refuses a failed command.
+    """
+
+    def __init__(self, live: list[tuple[str, str, str, str]]) -> None:
+        self.live = live
+        self.queries: list[list[str]] = []
+
+    def command(self, argv: list[str], **_kwargs: object) -> bytes:
+        if argv[:3] != [
+            "/usr/bin/dpkg-query",
+            "-W",
+            "-f=${Package}\t${Version}\t${Architecture}\t${Status}\n",
+        ]:
+            raise AssertionError("Only the exact dpkg-query is expected here")
+        self.queries.append(argv)
+        names = argv[3:]
+        if any(name not in {row[0] for row in self.live} for name in names):
+            raise RuntimeError("Owned command failed; no packages found matching")
+        return "".join(
+            "\t".join(row) + "\n" for row in self.live if row[0] in names
+        ).encode()
+
+
+def live_rows(
+    rows: list[dict[str, str]], status: str | None = None
+) -> list[tuple[str, str, str, str]]:
+    return [
+        (r["package"], r["version"], r["architecture"], status or r["status"])
+        for r in rows
+    ]
+
+
+def runner_status_file(tmp_path: Path, text: str | bytes = RUNNER_STATUS) -> Path:
+    status = tmp_path / "status"
+    status.write_bytes(text.encode() if isinstance(text, str) else text)
+    return status
+
+
+# dpkg does not require UTF-8: an unreached third-party package may carry Latin-1.
+LATIN1_PARAGRAPH = (
+    b"\nPackage: vendor-latin1\nStatus: install ok installed\nArchitecture: amd64\n"
+    b"Version: 1\nDescription: caf\xe9\n"
+)
+
+
+def test_runner_provided_walks_every_alternative_and_provider(tmp_path: Path) -> None:
+    prepare = load("ubuntu_gnome_prepare")
+    live = [*live_rows(RUNNER_ROWS), ("libc6", "2.39-0ubuntu8.6", "i386", INSTALLED_OK)]
+    owner = DpkgQueryOwner(live)
+    status = runner_status_file(tmp_path, RUNNER_STATUS.encode() + LATIN1_PARAGRAPH)
+    rows = prepare.runner_provided(owner, status, DOWNLOADED_CONTROLS)
+    assert rows == RUNNER_ROWS
+    # The live database is asked about exactly the recorded names, once.
+    assert [argv[3:] for argv in owner.queries] == [[r["package"] for r in rows]]
+
+
+def test_runner_provided_reads_a_closure_only_the_lock_satisfies(
+    tmp_path: Path,
 ) -> None:
+    prepare = load("ubuntu_gnome_prepare")
+    controls = {
+        "qemu-system-x86": {
+            "Package": "qemu-system-x86",
+            "Depends": "qemu-common, qemu-virtual (>= 1)",
+        },
+        "qemu-common": {"Package": "qemu-common", "Provides": "qemu-virtual (= 1)"},
+    }
+    owner = DpkgQueryOwner([])
+    assert prepare.runner_provided(owner, runner_status_file(tmp_path), controls) == []
+    assert owner.queries == []
+
+
+@pytest.mark.parametrize(
+    ("controls", "live", "refusal"),
+    [
+        (
+            {"qemu-utils": {"Package": "qemu-utils", "Depends": "libmissing | foo"}},
+            live_rows(RUNNER_ROWS),
+            "satisfied by neither the lock nor the runner: libmissing | foo",
+        ),
+        (
+            {"qemu-utils": {"Package": "qemu-utils", "Depends": "libc6 [amd64]"}},
+            live_rows(RUNNER_ROWS),
+            "Unexpected Debian relation",
+        ),
+        (
+            DOWNLOADED_CONTROLS,
+            [
+                (*row[:1], "2.39-0ubuntu8.7", *row[2:]) if row[0] == "libc6" else row
+                for row in live_rows(RUNNER_ROWS)
+            ],
+            "differs from its copied status: libc6$",
+        ),
+        (
+            DOWNLOADED_CONTROLS,
+            live_rows(RUNNER_ROWS, INSTALLED_OK),
+            "differs from its copied status: libpcre2-8-0$",
+        ),
+        (
+            DOWNLOADED_CONTROLS,
+            live_rows(RUNNER_ROWS, "install ok unpacked"),
+            "must be installed once: bar$",
+        ),
+        (
+            DOWNLOADED_CONTROLS,
+            [
+                (*row[:2], "i386", row[3]) if row[0] == "mawk" else row
+                for row in live_rows(RUNNER_ROWS)
+            ],
+            "differs from its copied status: mawk$",
+        ),
+        (
+            DOWNLOADED_CONTROLS,
+            [*live_rows(RUNNER_ROWS), live_rows(RUNNER_ROWS)[0]],
+            "must be installed once: bar$",
+        ),
+    ],
+    ids=[
+        "unsatisfied",
+        "malformed",
+        "live-newer",
+        "live-unheld",
+        "live-unpacked",
+        "live-foreign-only",
+        "live-two-instances",
+    ],
+)
+def test_runner_provided_refuses_an_unproven_runner_closure(
+    tmp_path: Path,
+    controls: dict[str, dict[str, str]],
+    live: list[tuple[str, str, str, str]],
+    refusal: str,
+) -> None:
+    prepare = load("ubuntu_gnome_prepare")
+    with pytest.raises(ValueError, match=refusal.replace("|", r"\|")):
+        prepare.runner_provided(
+            DpkgQueryOwner(live), runner_status_file(tmp_path), controls
+        )
+
+
+@pytest.mark.parametrize(
+    ("text", "refusal"),
+    [
+        (
+            RUNNER_STATUS + "\nPackage: libc6\nStatus: install ok installed\n"
+            "Architecture: amd64\nVersion: 2\n",
+            "Duplicate installed runner package: libc6$",
+        ),
+        (
+            RUNNER_STATUS + "\nPackage: x\nnot a field\n",
+            "Malformed Debian control paragraph: 'not a field'$",
+        ),
+        (
+            RUNNER_STATUS + "\nPackage: x\nPackage: y\n",
+            "Malformed Debian control paragraph: 'Package: y'$",
+        ),
+        (
+            " orphan continuation\n\n" + RUNNER_STATUS,
+            "continuation line without a field: ' orphan continuation'$",
+        ),
+    ],
+    ids=["duplicate-package", "no-colon", "duplicate-field", "orphan-continuation"],
+)
+def test_runner_provided_refuses_a_malformed_runner_status(
+    tmp_path: Path, text: str, refusal: str
+) -> None:
+    prepare = load("ubuntu_gnome_prepare")
+    with pytest.raises(ValueError, match=refusal):
+        prepare.runner_provided(
+            DpkgQueryOwner(live_rows(RUNNER_ROWS)),
+            runner_status_file(tmp_path, text),
+            DOWNLOADED_CONTROLS,
+        )
+
+
+@pytest.mark.parametrize(
+    ("cap", "value", "refusal"),
+    [
+        ("DPKG_STATUS_CAP", 64, "Bounded runner dpkg status required"),
+        ("LOCK_PACKAGE_CAP", len(RUNNER_ROWS) - 1, "Runner-provided closure exceeds"),
+    ],
+    ids=["status-bytes", "package-count"],
+)
+def test_runner_provided_is_finite(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, cap: str, value: int, refusal: str
+) -> None:
+    prepare = load("ubuntu_gnome_prepare")
+    monkeypatch.setattr(prepare, cap, value)
+    owner = DpkgQueryOwner(live_rows(RUNNER_ROWS))
+    with pytest.raises(ValueError, match=refusal):
+        prepare.runner_provided(
+            owner, runner_status_file(tmp_path), DOWNLOADED_CONTROLS
+        )
+    assert owner.queries == []
+
+
+LIVE_AFTER_COPY = RUNNER_STATUS.replace("2.39-0ubuntu8.6", "2.39-0ubuntu8.7")
+
+
+def resolve_fixture(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    runner_status: bool,
+    roots: tuple[str, ...] = ("fixturepkg",),
+) -> tuple[dict[str, Any], Path, Path, bytes, str, list[bytes]]:
+    """resolve() over one synthetic signed index, archive and runner status.
+
+    The last value is the private dpkg status apt saw at each apt-get command.
+    Once apt starts, the live runner status changes (a newer libc6), so only a
+    resolution that reads its own private copy gives the copy's results.
+    """
     prepare = load("ubuntu_gnome_prepare")
     root, destination = tmp_path / "apt", tmp_path / "retained"
     payload = b"synthetic inert package bytes"
     pin = hashlib.sha256(payload).hexdigest()
     index = (
         "Package: fixturepkg\nVersion: 1\nArchitecture: amd64\n"
-        "Filename: pool/f/fixturepkg.deb\n"
+        "Depends: libc6 (>= 2.34)\nFilename: pool/f/fixturepkg.deb\n"
         f"Size: {len(payload)}\nSHA256: {pin}\n\n"
     ).encode()
     release = (
@@ -259,10 +562,12 @@ def test_resolve_retains_replayable_signed_index_archive_chain(
         + str(len(index))
         + " main/binary-amd64/Packages\n"
     ).encode()
+    seen: list[bytes] = []
 
     def config(selected: Path) -> Path:
         (selected / "archives").mkdir(parents=True)
         (selected / "lists").mkdir()
+        (selected / "status").write_bytes(b"")
         (selected / "archives/fixturepkg.deb").write_bytes(payload)
         (selected / "lists/fixture_InRelease").write_bytes(b"SYNTHETIC NOT A SIGNATURE")
         (selected / "lists/index-from-apt").write_bytes(index)
@@ -274,8 +579,20 @@ def test_resolve_retains_replayable_signed_index_archive_chain(
 
     class Owner:
         def command(self, argv: list[str], **_kwargs: object) -> bytes:
+            if "/usr/bin/apt-get" in argv and {"update", "install"} & set(argv):
+                seen.append((root / "status").read_bytes())
+                runner.write_bytes(LIVE_AFTER_COPY.encode())
+                return b""
             if "/usr/bin/dpkg-deb" in argv or "/usr/bin/apt-cache" in argv:
                 return index
+            if "/usr/bin/dpkg-query" in argv:
+                return (
+                    "".join(
+                        "\t".join(row) + "\n"
+                        for row in live_rows(RUNNER_ROWS)
+                        if row[0] in {"libc6", "libgcc-s1"}
+                    )
+                ).encode()
             if "indextargets" in argv:
                 return (
                     "Identifier: Packages\nMetaKey: main/binary-amd64/Packages\n"
@@ -288,8 +605,22 @@ def test_resolve_retains_replayable_signed_index_archive_chain(
                 Path(argv[argv.index("--output") + 1]).write_bytes(release)
             return b""
 
+    runner = tmp_path / "runner-dpkg-status"
+    runner.write_bytes(RUNNER_STATUS.encode())
+    monkeypatch.setattr(prepare, "DPKG_STATUS", runner)
     monkeypatch.setattr(prepare, "apt_config", config)
-    result = prepare.resolve(Owner(), root, destination, ("fixturepkg",))
+    # The default call is the empty-status resolution the GNOME closures use.
+    options = {"runner_status": True} if runner_status else {}
+    result = prepare.resolve(Owner(), root, destination, roots, **options)
+    return result, root, destination, index, pin, seen
+
+
+def test_resolve_retains_replayable_signed_index_archive_chain(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    result, root, destination, index, pin, seen = resolve_fixture(
+        tmp_path, monkeypatch, runner_status=False
+    )
     assert "signed_index_chain" in result
     chain = result["signed_index_chain"]
     assert chain["packages"][0]["sha256"] == pin
@@ -297,6 +628,74 @@ def test_resolve_retains_replayable_signed_index_archive_chain(
     assert retained.read_bytes() == index
     assert chain["indexes"][0]["sha256"] == hashlib.sha256(index).hexdigest()
     assert chain["indexes"][0]["bytes"] == len(index)
+    # The guest closure keeps its empty private dpkg status, also while apt runs.
+    assert seen == [b"", b""]
+    assert (root / "status").read_bytes() == b""
+    assert result["empty_status_resolution"] is True
+    assert "runner_provided_packages" not in result
+    assert "dpkg_status_sha256" not in result
+
+
+def test_resolve_against_runner_status_records_runner_provided_packages(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # ADR-0009: a host-tool closure resolves against a copy of the runner's
+    # dpkg status and records what it uses from the runner.
+    result, root, destination, _index, _pin, seen = resolve_fixture(
+        tmp_path, monkeypatch, runner_status=True
+    )
+    # apt update and the download both resolve against the runner's status,
+    # which replaced apt_config's placeholder whole.
+    assert seen == [RUNNER_STATUS.encode()] * 2
+    assert not (root / "status.copying").exists()
+    assert (root / "status").read_bytes() == RUNNER_STATUS.encode()
+    assert result["empty_status_resolution"] is False
+    assert (
+        result["dpkg_status_sha256"]
+        == hashlib.sha256(RUNNER_STATUS.encode()).hexdigest()
+    )
+    assert result["runner_provided_packages"] == [
+        row for row in RUNNER_ROWS if row["package"] in {"libc6", "libgcc-s1"}
+    ]
+    assert json.loads((destination / "lock.json").read_text()) == result
+
+
+def test_resolve_against_runner_status_requires_every_root_downloaded(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # apt skips a root it cannot reinstall with only a notice; -qq hides it.
+    with pytest.raises(ValueError, match="Every root must be downloaded: acl"):
+        resolve_fixture(
+            tmp_path, monkeypatch, runner_status=True, roots=("fixturepkg", "acl")
+        )
+    assert not (tmp_path / "retained" / "lock.json").exists()
+
+
+@pytest.mark.parametrize("shape", ["symlink", "oversize"])
+def test_resolve_refuses_a_runner_status_that_is_not_a_bounded_regular_file(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, shape: str
+) -> None:
+    prepare = load("ubuntu_gnome_prepare")
+    target = tmp_path / "real-status"
+    target.write_bytes(RUNNER_STATUS.encode())
+    if shape == "symlink":
+        status = tmp_path / "status-link"
+        status.symlink_to(target)
+    else:
+        status = target
+        monkeypatch.setattr(prepare, "DPKG_STATUS_CAP", len(RUNNER_STATUS) - 1)
+    monkeypatch.setattr(prepare, "DPKG_STATUS", status)
+
+    class Owner:
+        def command(self, argv: list[str], **_kwargs: object) -> bytes:
+            raise AssertionError("No command may run: " + " ".join(argv))
+
+    monkeypatch.setattr(prepare, "apt_config", lambda root: root.mkdir() or root)
+    with pytest.raises(ValueError, match="Bounded regular input required"):
+        prepare.resolve(
+            Owner(), tmp_path / "apt", tmp_path / "out", ("x",), runner_status=True
+        )
+    assert not (tmp_path / "apt" / "status").exists()
 
 
 def session_model(

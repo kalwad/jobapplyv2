@@ -1,0 +1,90 @@
+{
+  "artifact": [
+    {
+      "id": 13377257451,
+      "name": "host-closure",
+      "size_in_bytes": 760962,
+      "digest": "sha256:10bcc48fbf485286d48424c29ceea5d0239e8a80d09507e676fed7ea93537552"
+    }
+  ],
+  "retained_from_artifact": {
+    "summary.json": {
+      "from": "summary.json",
+      "bytes": 26478,
+      "sha256": "31a7ae531f1a1e5ac5542c4b94006c406ce03a9cc487995c80bd1af50fe6055c",
+      "note": "byte-identical to the artifact member"
+    },
+    "runner-status-lock.json": {
+      "from": "runner-status/lock.json",
+      "bytes": 52995,
+      "sha256": "e2181388b3d278eade47b238036c3b964b5e8726d6fd500bb6221abaf0498a7c",
+      "note": "byte-identical to the artifact member"
+    },
+    "runner-status-host-install-plan.json": {
+      "from": "runner-status/host-install-plan.json",
+      "bytes": 1174,
+      "sha256": "6fcf8e58e31f00b72cbde8c290c0d35be37eb9569b562d62f6394708679cbe44",
+      "note": "byte-identical to the artifact member"
+    }
+  },
+  "not_retained": {
+    "runner-dpkg-status": {
+      "bytes": 1233294,
+      "sha256": "72837c21f9c7d2675ee718b35767eb35f28255f0977c1bf63dce8a99f760353f",
+      "reason": "the hosted image's own 1.2 MB package database; its SHA-256 equals the runner-status lock's dpkg_status_sha256"
+    },
+    "command_records": {
+      "files": 921,
+      "reason": "apt, gpgv and dpkg command records of both resolutions"
+    },
+    "empty-status/lock.json": {
+      "bytes": 145540,
+      "sha256": "dbaec264a96a4e5890e5ab8d5e8d8f331a00f20ef3ab6c393102a395ca1bde89",
+      "reason": "the old empty-status resolution's 117-package lock; its packages and versions are in summary.json"
+    }
+  },
+  "scratch_branch": "diag/win11-host-closure (never merged)",
+  "branch_commit": "ede3fdd29f495564a39a92a968db6601da1ae22f",
+  "sources_at_branch_commit": {
+    "scripts/linux_gnome/ubuntu_gnome_prepare.py": {
+      "bytes": 23356,
+      "sha256": "b975d5eabe4637250114511c66eb0733bf9b4ae70fb6f8fc9a3de19e0a4deb62"
+    },
+    "scripts/linux_gnome/ubuntu_gnome_host.py": {
+      "bytes": 11270,
+      "sha256": "de0b6093f0230a4d9dcde2150e7f8de2272b12073ff69c961c126b66a181fb83"
+    },
+    "scripts/linux_gnome/ubuntu_gnome_signed_indexes.py": {
+      "bytes": 12056,
+      "sha256": "c1eb1b2d6ae0c1b8eb511ba2aff3021a01f3d669d6f17d3feffb1c1f90870494"
+    },
+    "scripts/linux_gnome/ubuntu_gnome_vm.py": {
+      "bytes": 65324,
+      "sha256": "4f4c54b00174b27aab7d7c12fcbcc7d03369c12abdd59df7174196a1eaa7fbe5"
+    },
+    "scripts/windows11/windows11_candidate.py": {
+      "bytes": 16867,
+      "sha256": "1e06e3b7461ac8bd8c5f88e01168d873e51dcc87e208013fbe4b7e352795fd0e"
+    },
+    "scripts/windows11/windows11_vm.py": {
+      "bytes": 52222,
+      "sha256": "87422f383c8d4ebe7b60292b1d6af8f07d26fd5f5aa0ca3207407221fa324ce3"
+    },
+    "diag/host_closure.py": {
+      "bytes": 1986,
+      "sha256": "106214f3184d5afad622d6b826b8b8b0c9bd86b8cb3a6fb0c90a390419648287"
+    },
+    ".github/workflows/ci.yml": {
+      "bytes": 1330,
+      "sha256": "bd91e67beaaa0e2c9155657a3a671f22c8bc972bc46a41661e45a245609be2dd"
+    }
+  },
+  "artifact_members": 926,
+  "derived": {
+    "runner-step-log-extract.txt": {
+      "bytes": 545,
+      "sha256": "daf97d384a97175e89a88d6e7cb5e4b89cb3d1bfc5ca613d935460bf948c4c70",
+      "derived": "lines 17-18 (the runner image banner) and 206-214 (the output of the Runner step) of the log of job 126970656730, retrieved with gh api repos/kalwad/jobapplyv2/actions/jobs/126970656730/logs, CRLF normalized to LF; that log was 22025 bytes, sha256 caed85201a91369689de7f2242cd9b74bd681ddf31e77aa3f3c4302714e2b566"
+    }
+  }
+}

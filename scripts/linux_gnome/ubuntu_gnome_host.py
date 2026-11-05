@@ -116,11 +116,17 @@ def require_host() -> None:
 def closed_install_plan(plan: bytes, packages: list[dict[str, Any]]) -> dict[str, Any]:
     """A simulated local-only install may only add exact locked packages.
 
-    The host lock is resolved against an empty dpkg status, so a locked version
-    of a package the runner image already carries would replace it, and the
-    runner packages that pin the old version would be removed. Either one is
-    refused, naming the plan lines; the raw plan stays retained as command
-    output.
+    A host lock resolved against an empty dpkg status (the GNOME host) can hold
+    a version of a package the runner image already carries; installing it
+    would replace that package and remove the runner packages that pin the old
+    version. The Windows host lock is resolved against the runner's own status
+    (ADR-0009), so it normally holds none: a root the image carries (acl,
+    python3) at the locked version is left as installed. Only a root the
+    archive has updated ahead of the image, with the runner packages that
+    root requires at its exact version, would replace runner packages, and
+    this check refuses that.
+    Either change is refused, naming the plan lines; the raw plan stays
+    retained as command output.
     """
     locked = {(row["package"], row["version"]) for row in packages}
     added: list[str] = []

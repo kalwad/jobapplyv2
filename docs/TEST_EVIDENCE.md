@@ -12714,3 +12714,45 @@ Download-only request `7a0ee8c` bound S 2bf7a4d and run 41886247050 attempt 2. `
 - No candidate exists, so nothing was reviewed or released.
 
 Next READY package: NONE while M03-W07 is IN_PROGRESS.
+
+## M03-W07 — ADR-0009: the Windows 11 host closure resolves against the runner's dpkg status (KI-0189, 2026-11-04UTC)
+
+The owner accepted ADR-0009. The Windows 11 prepare now resolves its host-tool closure against a copy of the hosted runner's dpkg status:
+- It records each installed runner package that the downloaded closure declares a dependency on, with its version, architecture and dpkg status. It requires every root to be downloaded.
+- The candidate retains the status it used, also when resolution refuses after the runner's status was copied. Its v2 host-tools lock carries that status's SHA-256 and a named runner image.
+- The campaign re-checks every recorded package before its simulated install and after its real install.
+
+The GNOME host closure is unchanged. Details: KI-0189, ADR-0009's implementation note and docs/evidence/m03-w07-adr0009-host-closure-review.
+
+Commands run on the final working tree before commit, with their results:
+- `.venv/bin/python -I -B -m pytest -q -p no:cacheprovider scripts/tests/test_windows11_host_runtime.py scripts/tests/test_ubuntu_gnome_review_regressions.py` gave `132 passed`.
+- `uv run ruff check --config pyproject.toml scripts` gave `All checks passed!`.
+- `uv run mypy --config-file pyproject.toml` gave `Success: no issues found` on each of the six changed Python files: ubuntu_gnome_prepare.py, ubuntu_gnome_host.py, windows11_candidate.py, windows11_vm.py and the two test files.
+- `python3 scripts/validate_status.py` gave `PASS: all checks passed (45 check groups)`.
+- The exact Python test inventory is now 3240 common plus 2 POSIX-only IDs (3189 common before), and collection gives exactly those 3242.
+- Mutation: `docs/evidence/m03-w07-adr0009-host-closure-review/mutants.py`, run on a fresh copy of the final sources and tests (byte-identical to this commit's), killed all 68 mutants (`mutants-result.txt`).
+- `uv run --frozen python scripts/verify.py --suite <s>` for format, lint, typecheck, portability, traceability, status, integrity and python: each exited 0, and the tree, untracked files included, did not change during the run. Python gave `3242 passed in 552.35s`. This sentence was appended afterwards; Rust sources did not change, so the rust suite was not rerun.
+
+Reviews, all separate-context workflows launched by the implementing session, so none is owner-independent:
+- **wf_8b1c4c96-433 (37 agents):** 16 findings. 15 survived at least one of their two refuting verifiers, and both verifiers refuted the other one. The completeness critic added 4 findings, which no verifier checked. All are corrected except one part of one finding, which is recorded as a KI-0189 limit and in ADR-0009's implementation note: the installed roots acl and python3 are still downloaded. At that point 50 of 52 mutants were killed. Both survivors changed only which refusal fired, and the tests now pin the exact refusal and a non-iterable row.
+- **wf_3c8d4e79-2d4 (38 agents):** it re-checked every disposition and replayed the resolver offline over round 52's real runner status. That replay parsed all 1213 paragraphs and gave the same 88 rows. It found 16 findings, each surviving at least one verifier, plus 3 critic findings; one was blocking: this entry had said the critic findings survived verification. All are corrected:
+  - Record precision: the review wording, the runner image labels, the artifact accounting, the extract provenance and the manifest scope.
+  - Tests: an architecture-`all` row and an architecture change at the campaign; a purged package; the copy-time size bound; GNOME's empty-status calls; the walk and hash reading the private copy; non-UTF-8 status bytes.
+  - Diagnosability: refusals now name the package or line, and the candidate keeps the runner status when resolution refuses.
+- **wf_c6d10595-e2a (22 agents):** it re-checked every review-2 disposition and every record against the artifacts, job logs and gh api, recomputed both manifests, and re-ran the mutants. It found 5 findings and 4 critic findings, each verified by two refuters and each surviving at least one; none was blocking. All are corrected:
+  - A refusal before the runner's status was copied could leave apt's empty placeholder retained as `runner-dpkg-status`. Only a status byte-identical to the runner's own is retained now.
+  - Records overstated three things, now corrected: that only what the image lacks is downloaded (acl and python3 are too), the failing prepare's unrecorded `ImageVersion`, and the reason python3 is downloaded.
+  - Essential packages: the records now name the scope of the walk.
+  - The mypy line.
+  - A test for a virtual name only two runner packages provide.
+- **wf_9f7f0884-cc0 (21 agents):** a final check of the review-3 fixes and every changed record. It re-ran the mutants, recomputed both manifests, and re-fetched the job logs and branch sources. It found 8 findings and 1 critic finding, each verified by two refuters and each surviving at least one; none was blocking. All are corrected:
+  - The status retention compared the private copy with the live runner status, so it would have dropped the copy in exactly the 'differs from its copied status' refusal. resolve() now replaces apt_config's empty placeholder atomically with a complete copy, and the candidate retains any non-empty private status. A success with nothing retained is refused by name.
+  - Tests now pin that refusal, that retention never raises, and a runner package's own Pre-Depends.
+  - Wording: Essential packages (dpkg and tar are walked and recorded), the `closed_install_plan` docstring, which round ran which sources, and two README phrases.
+
+Real-runner diagnostics ran on scratch branch `diag/win11-host-closure`. They are not campaign evidence. Rounds 51 (run 41912040314, `ImageVersion` 20261026.354.1, with the failing prepare's job-log banner 20261025.353.1, pre-review code), 52 (run 41918821956, `ImageVersion` 20261101.360.1, after review 1) 53 (run 41929794476, `ImageVersion` 20261101.360.1, after review 2) and 54 (run 41943736342, `ImageVersion` 20261026.354.1, the committed sources) gave the same results:
+- The old empty-status resolution reproduced the KI-0189 refusal.
+- The new resolution downloaded 29 packages, including all ten roots, and recorded 88 runner-provided packages.
+- The simulated install was accepted.
+
+Next READY package: NONE while M03-W07 is IN_PROGRESS.

@@ -188,7 +188,27 @@ def tool_pin(root: Path, name: str) -> dict[str, Any]:
     return {"path": name, "link": link, "target": target, "sha256": digest(actual)}
 
 
+def retain_runner_status(private: Path, output: Path) -> None:
+    """Retain the private dpkg status apt resolved against, as runner-dpkg-status.
+
+    apt_config first writes an empty placeholder, which resolve() replaces
+    atomically with a complete copy of the runner's status. So only a non-empty
+    private status is retained: a refusal before the copy must not leave the
+    placeholder as the runner's record. This runs in a finally block, so it
+    never raises.
+    """
+    try:
+        if private.is_file() and private.stat().st_size > 0:
+            shutil.copyfile(private, output / "runner-dpkg-status")
+    except OSError:
+        return
+
+
 def stage_host(owner: Owner, closure: Path, lock: dict[str, Any], output: Path) -> None:
+    # ADR-0009 binds the runner-provided packages through this image version.
+    image = os.environ.get(RUNNER_IMAGE_VERSION)
+    if not image:
+        raise ValueError("Named hosted runner image version required")
     extracted = owner.work / "host-extracted"
     extracted.mkdir()
     for row in lock["packages"]:
@@ -209,11 +229,16 @@ def stage_host(owner: Owner, closure: Path, lock: dict[str, Any], output: Path) 
     write(
         output / "host-tools-lock.json",
         {
-            "schema": "japp-win11-host-tools-v1",
+            "schema": "japp-win11-host-tools-v2",
             "review_state": "UNREVIEWED",
-            "runner_image_version": os.environ.get(RUNNER_IMAGE_VERSION),
+            "runner_image_version": image,
             "tools": tools,
             "packages": lock["packages"],
+            # ADR-0009: resolved against the runner's dpkg status, retained
+            # beside the inputs as runner-dpkg-status.
+            "empty_status_resolution": lock["empty_status_resolution"],
+            "runner_dpkg_status_sha256": lock["dpkg_status_sha256"],
+            "runner_provided_packages": lock["runner_provided_packages"],
             "signed_index_chain": lock["signed_index_chain"],
         },
     )
@@ -316,7 +341,18 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one custody/endpoint bracket
             },
         )
         host = work / "host-candidate"
-        lock = resolve(owner, work / "apt", host, HOST_ROOTS)
+        # ADR-0009: a dependency the pinned runner image already provides is
+        # recorded by version and re-checked by the campaign instead of
+        # downloaded; every root is still downloaded.
+        try:
+            lock = resolve(owner, work / "apt", host, HOST_ROOTS, runner_status=True)
+        finally:
+            # Retained even when resolution refuses, so a refusal can be traced
+            # to the runner package that caused it.
+            retain_runner_status(work / "apt" / "status", args.output)
+        retained = args.output / "runner-dpkg-status"
+        if not retained.is_file() or digest(retained) != lock["dpkg_status_sha256"]:
+            raise ValueError("Retained runner dpkg status differs from the resolution")
         simulate_host_install(owner, host, lock["packages"])
         stage_host(owner, host, lock, inputs)
         shutil.copytree(args.artifact, inputs / "original-native-artifact")

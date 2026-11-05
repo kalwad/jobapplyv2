@@ -250,17 +250,104 @@ def host_bundle(tmp_path: Path, packages_key: str, schema: dict[str, Any]) -> Pa
 
 
 QUERY = b"libfdt1\t1.7.0-2build1\tamd64\nqemu-utils\t1:8.2.2+ds-0ubuntu1.18\tamd64\n"
+# ADR-0009: a dependency the pinned runner image already provides at prepare.
+RUNNER_PROVIDED = [
+    {
+        "package": "libpcre2-8-0",
+        "version": "10.42-4ubuntu2.1",
+        "architecture": "amd64",
+        "status": "install ok installed",
+    }
+]
+INSTALLED_OK, HELD_OK = "install ok installed", "hold ok installed"
+# A field left out entirely: a source-check receipt field the old source check
+# never wrote, or a host lock field a v1 lock never had.
+ABSENT = object()
+
+
+class RunnerOwner(AptOwner):
+    """AptOwner whose dpkg-query answers each named package from a runner table."""
+
+    def __init__(
+        self,
+        tmp_path: Path,
+        plan: bytes,
+        runner: dict[str, Any],
+        after_install: dict[str, Any] | None = None,
+    ) -> None:
+        super().__init__(tmp_path, plan)
+        self.runner = runner
+        # The runner's table once the real (unsimulated) install has run.
+        self.after_install = after_install
+
+    def command(self, argv: list[str], **kwargs: object) -> bytes:
+        if not any(part.endswith("dpkg-query") for part in argv):
+            output = super().command(argv, **kwargs)
+            if "/usr/bin/apt-get" in argv and "-s" not in argv and self.after_install:
+                self.runner = self.after_install
+            return output
+        self.commands.append(argv)
+        form = next(part for part in argv if part.startswith("-f="))
+        names = argv[argv.index(form) + 1 :]
+        rows = []
+        if any(name not in self.runner for name in names):
+            # dpkg-query exits 1 for a name with no instance; the Owner refuses it.
+            raise RuntimeError("Owned command failed; original raw output retained")
+        for name in names:
+            # One installed instance, or a list of them (one per architecture).
+            instances = self.runner[name]
+            for version, arch, status in (
+                instances if isinstance(instances, list) else [instances]
+            ):
+                fields = [name, version, arch]
+                if "${Status}" in form:
+                    fields.append(status)
+                rows.append("\t".join(fields))
+        return ("\n".join(rows) + "\n").encode()
+
+    def runner_queries(self) -> list[list[str]]:
+        return [
+            argv
+            for argv in self.commands
+            if any(part.endswith("dpkg-query") for part in argv)
+            and any("${Status}" in part for part in argv)
+        ]
+
+
+INSTALLED = {
+    "libfdt1": ("1.7.0-2build1", "amd64", INSTALLED_OK),
+    "qemu-utils": ("1:8.2.2+ds-0ubuntu1.18", "amd64", INSTALLED_OK),
+    "libpcre2-8-0": ("10.42-4ubuntu2.1", "amd64", INSTALLED_OK),
+    "tzdata": ("2026e-0ubuntu0.24.04.1", "all", INSTALLED_OK),
+}
+# An architecture-all runner-provided row, as real locks hold (tzdata, debconf).
+TZDATA = {
+    "package": "tzdata",
+    "version": "2026e-0ubuntu0.24.04.1",
+    "architecture": "all",
+    "status": INSTALLED_OK,
+}
 
 
 def windows_install(
-    vm: ModuleType, owner: AptOwner, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    vm: ModuleType,
+    owner: AptOwner,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    lock: dict[str, object] | None = None,
 ) -> None:
     monkeypatch.setenv("ImageVersion", "fixture-image")
     monkeypatch.setattr(vm, "TOOLS", {})
     monkeypatch.setattr(vm, "FIRMWARE", {})
-    bundle = host_bundle(
-        tmp_path, "packages", {"schema": "japp-win11-host-tools-v1", "tools": {}}
-    )
+    fields = {
+        "schema": "japp-win11-host-tools-v2",
+        "tools": {},
+        "runner_provided_packages": [],
+        **(lock or {}),
+    }
+    # ABSENT leaves a field out of the lock.
+    fields = {key: value for key, value in fields.items() if value is not ABSENT}
+    bundle = host_bundle(tmp_path, "packages", fields)
     vm.install_tools(bundle, owner, sha256(bundle / "host-tools-lock.json"))
 
 
@@ -315,6 +402,226 @@ def test_windows_host_drift_fails_before_any_install(
         windows_install(vm, owner, tmp_path, monkeypatch)
     assert len(owner.apt()) == 1
     assert "-s" in owner.apt()[0]
+
+
+@pytest.mark.parametrize(
+    "instances",
+    [
+        ("10.42-4ubuntu2.1", "amd64", INSTALLED_OK),
+        [
+            ("10.42-4ubuntu2.1", "i386", INSTALLED_OK),
+            ("10.42-4ubuntu2.1", "amd64", INSTALLED_OK),
+        ],
+    ],
+    ids=["installed", "with-foreign-instance"],
+)
+def test_windows_runner_provided_packages_are_checked_before_and_after_install(
+    vm: ModuleType, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, instances: object
+) -> None:
+    # ADR-0009: the runner's own copies are used at exactly the reviewed versions.
+    owner = RunnerOwner(tmp_path, CLEAN_PLAN, {**INSTALLED, "libpcre2-8-0": instances})
+    windows_install(
+        vm,
+        owner,
+        tmp_path,
+        monkeypatch,
+        lock={"runner_provided_packages": [*RUNNER_PROVIDED, TZDATA]},
+    )
+    assert_simulated_then_no_remove(owner)
+    queries = owner.runner_queries()
+    assert len(queries) == 2
+    assert all(argv[-2:] == ["libpcre2-8-0", "tzdata"] for argv in queries)
+    runner_at = [i for i, argv in enumerate(owner.commands) if argv in queries]
+    apt_at = [i for i, argv in enumerate(owner.commands) if "/usr/bin/apt-get" in argv]
+    # Before the simulated install, and after the real one.
+    assert runner_at[0] < apt_at[0] < apt_at[1] < runner_at[1]
+    tools = json.loads((owner.proof / "host-tools.json").read_text())
+    assert tools["runner_provided_packages"] == {
+        "libpcre2-8-0": ["10.42-4ubuntu2.1", "amd64", INSTALLED_OK],
+        "tzdata": ["2026e-0ubuntu0.24.04.1", "all", INSTALLED_OK],
+    }
+
+
+def test_windows_runner_provided_held_package_is_checked_as_held(
+    vm: ModuleType, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    held = {**RUNNER_PROVIDED[0], "status": HELD_OK}
+    runner = {**INSTALLED, "libpcre2-8-0": ("10.42-4ubuntu2.1", "amd64", HELD_OK)}
+    owner = RunnerOwner(tmp_path, CLEAN_PLAN, runner)
+    windows_install(
+        vm, owner, tmp_path, monkeypatch, {"runner_provided_packages": [held]}
+    )
+    assert len(owner.runner_queries()) == 2
+
+
+def test_windows_runner_provided_change_during_install_is_refused(
+    vm: ModuleType, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # The real install itself must leave every runner-provided package as reviewed.
+    after = {**INSTALLED, "libpcre2-8-0": ("10.42-4ubuntu2.2", "amd64", INSTALLED_OK)}
+    owner = RunnerOwner(tmp_path, CLEAN_PLAN, INSTALLED, after_install=after)
+    with pytest.raises(ValueError, match="changed during install"):
+        windows_install(
+            vm,
+            owner,
+            tmp_path,
+            monkeypatch,
+            {"runner_provided_packages": RUNNER_PROVIDED},
+        )
+    assert len(owner.apt()) == 2
+    assert not (owner.proof / "host-tools.json").exists()
+
+
+DIFFERS = "Runner-provided host packages differ from the reviewed lock"
+NOT_ONCE = "Runner-provided host package must be installed once"
+
+
+def test_windows_runner_provided_purged_package_fails_before_any_apt(
+    vm: ModuleType, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # A package purged from the runner has no instance at all: dpkg-query fails.
+    runner = {name: row for name, row in INSTALLED.items() if name != "libpcre2-8-0"}
+    owner = RunnerOwner(tmp_path, CLEAN_PLAN, runner)
+    with pytest.raises(RuntimeError, match="Owned command failed"):
+        windows_install(
+            vm,
+            owner,
+            tmp_path,
+            monkeypatch,
+            {"runner_provided_packages": RUNNER_PROVIDED},
+        )
+    assert owner.apt() == []
+
+
+@pytest.mark.parametrize(
+    ("instances", "refusal"),
+    [
+        (("10.42-4ubuntu2.2", "amd64", INSTALLED_OK), DIFFERS),
+        (("10.42-4ubuntu2.1", "amd64", "deinstall ok config-files"), NOT_ONCE),
+        (("10.42-4ubuntu2.1", "amd64", HELD_OK), DIFFERS),
+        (("10.42-4ubuntu2.1", "all", INSTALLED_OK), DIFFERS),
+        (("10.42-4ubuntu2.1", "i386", INSTALLED_OK), DIFFERS),
+        (
+            [
+                ("10.42-4ubuntu2.1", "amd64", INSTALLED_OK),
+                ("10.42-4ubuntu2.1", "amd64", INSTALLED_OK),
+            ],
+            NOT_ONCE,
+        ),
+    ],
+    ids=["newer", "removed", "now-held", "now-all", "foreign-only", "two-instances"],
+)
+def test_windows_runner_provided_drift_fails_before_any_apt(
+    vm: ModuleType,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    instances: object,
+    refusal: str,
+) -> None:
+    owner = RunnerOwner(tmp_path, CLEAN_PLAN, {**INSTALLED, "libpcre2-8-0": instances})
+    with pytest.raises(ValueError, match=f"^{refusal}$"):
+        windows_install(
+            vm,
+            owner,
+            tmp_path,
+            monkeypatch,
+            lock={"runner_provided_packages": RUNNER_PROVIDED},
+        )
+    assert owner.apt() == []
+
+
+@pytest.mark.parametrize(
+    "provided",
+    [
+        [{**RUNNER_PROVIDED[0], "sha256": "0" * 64}],
+        [{key: RUNNER_PROVIDED[0][key] for key in ("package", "version")}],
+        [{**RUNNER_PROVIDED[0], "status": "install ok unpacked"}],
+        RUNNER_PROVIDED * 2,
+        [{**RUNNER_PROVIDED[0], "package": "libfdt1", "version": "1.7.0-2build1"}],
+        {"libpcre2-8-0": "10.42-4ubuntu2.1"},
+        ["libpcre2-8-0"],
+        [5],
+        ABSENT,
+    ],
+    ids=[
+        "extra-key",
+        "missing-key",
+        "not-installed",
+        "duplicate",
+        "also-locked",
+        "not-a-list",
+        "not-a-row",
+        "number-row",
+        "absent",
+    ],
+)
+def test_windows_runner_provided_rows_are_exact_and_disjoint(
+    vm: ModuleType,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    provided: object,
+) -> None:
+    owner = RunnerOwner(tmp_path, CLEAN_PLAN, INSTALLED)
+    with pytest.raises(ValueError, match="runner-provided"):
+        windows_install(
+            vm, owner, tmp_path, monkeypatch, {"runner_provided_packages": provided}
+        )
+    assert owner.commands == []
+
+
+def test_windows_runner_provided_list_is_finite(
+    vm: ModuleType, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(vm, "HOST_PACKAGE_CAP", 2)
+    owner = RunnerOwner(tmp_path, CLEAN_PLAN, INSTALLED)
+    rows = [{**RUNNER_PROVIDED[0], "package": f"lib{n}"} for n in range(3)]
+    with pytest.raises(ValueError, match="Finite runner-provided package list"):
+        windows_install(
+            vm, owner, tmp_path, monkeypatch, {"runner_provided_packages": rows}
+        )
+    assert owner.commands == []
+
+
+def test_windows_v1_host_lock_without_runner_provided_rows_is_refused(
+    vm: ModuleType, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # The v1 lock the earlier candidates produced has no runner-provided rows.
+    owner = RunnerOwner(tmp_path, CLEAN_PLAN, INSTALLED)
+    v1 = {"schema": "japp-win11-host-tools-v1", "runner_provided_packages": ABSENT}
+    with pytest.raises(ValueError, match="Reviewed v2 host tool lock required"):
+        windows_install(vm, owner, tmp_path, monkeypatch, v1)
+    assert owner.commands == []
+
+
+@pytest.mark.parametrize("image", [None, ""], ids=["unset", "empty"])
+def test_windows_host_lock_requires_a_named_runner_image(
+    vm: ModuleType, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, image: str | None
+) -> None:
+    # ADR-0009 binds the runner-provided packages through the image version, so
+    # an unnamed image on both sides is no match.
+    monkeypatch.setattr(vm, "TOOLS", {})
+    monkeypatch.setattr(vm, "FIRMWARE", {})
+    bundle = host_bundle(
+        tmp_path,
+        "packages",
+        {
+            "schema": "japp-win11-host-tools-v2",
+            "tools": {},
+            "runner_provided_packages": [],
+        },
+    )
+    path = bundle / "host-tools-lock.json"
+    path.write_text(
+        json.dumps({**json.loads(path.read_text()), "runner_image_version": image})
+    )
+    if image is None:
+        monkeypatch.delenv("ImageVersion", raising=False)
+    else:
+        monkeypatch.setenv("ImageVersion", image)
+    owner = RunnerOwner(tmp_path, CLEAN_PLAN, INSTALLED)
+    with pytest.raises(ValueError, match="Exact reviewed disposable runner image"):
+        vm.install_tools(bundle, owner, sha256(path))
+    assert owner.commands == []
 
 
 def test_gnome_host_install_simulates_first_then_installs_without_removal(
@@ -376,17 +683,21 @@ def test_gnome_candidate_fails_on_host_drift_before_extracting_tools(
         for name in ("ubuntu_gnome_prepare.py", "ubuntu_gnome_host.py")
     }
     monkeypatch.setattr(prepare, "bind_source", lambda *_args: (before, {}))
-    locks = {
+    locks: dict[str, dict[str, Any]] = {
         "guest-closure": {"packages": []},
         "host-candidate": {
             "packages": [{**row, "filename": row["package"] + ".deb"} for row in LOCKED]
         },
     }
-    monkeypatch.setattr(
-        prepare,
-        "resolve",
-        lambda _owner, _root, destination, _roots: locks[destination.name],
-    )
+    resolved: list[tuple[str, dict[str, object]]] = []
+
+    def resolve(
+        _owner: object, _root: Path, destination: Path, _roots: object, **kwargs: object
+    ) -> dict[str, Any]:
+        resolved.append((destination.name, kwargs))
+        return locks[destination.name]
+
+    monkeypatch.setattr(prepare, "resolve", resolve)
     extracted: list[object] = []
     monkeypatch.setattr(
         prepare, "extract_host_tools", lambda *args: extracted.append(args)
@@ -400,6 +711,9 @@ def test_gnome_candidate_fails_on_host_drift_before_extracting_tools(
         prepare.prepare_candidate(args, owner, {})
     assert extracted == []
     assert len(owner.apt()) == 1
+    # ADR-0009 covers only the Windows host closure: both GNOME closures keep
+    # the default empty-status resolution.
+    assert resolved == [("guest-closure", {}), ("host-candidate", {})]
 
 
 class CandidateOwner:
@@ -423,8 +737,7 @@ class CandidateOwner:
         return {"vm_started": False, "pending_commands": []}
 
 
-# A source-check receipt field the old source check never wrote.
-ABSENT = object()
+RUNNER_STATUS = b"Package: libpcre2-8-0\nStatus: install ok installed\n"
 
 
 def run_candidate(
@@ -432,7 +745,12 @@ def run_candidate(
     monkeypatch: pytest.MonkeyPatch,
     plan: bytes,
     attestor_body_parsed: object = True,
+    *,
+    resolution: dict[str, str] | None = None,
 ) -> tuple[int, dict[str, Any], Path, list[Path]]:
+    """Run the candidate with fakes; `resolution` may set the fake host
+    resolution's dpkg_status_sha256 or make it raise `refusal`."""
+    resolution = resolution or {}
     candidate = load("windows11_candidate", "windows11")
     artifact = tmp_path / "artifact"
     artifact.mkdir()
@@ -466,6 +784,32 @@ def run_candidate(
     checks.write_text(json.dumps(receipt))
 
     retains: list[Path] = []
+    resolved: list[dict[str, object]] = []
+
+    def resolve(
+        _owner: object, root: Path, *_args: object, **kwargs: object
+    ) -> dict[str, Any]:
+        resolved.append(kwargs)
+        root.mkdir(mode=0o700)
+        # apt_config's empty placeholder, then the copy of the runner's status.
+        (root / "status").write_bytes(b"")
+        if "refusal-before-copy" in resolution:
+            raise ValueError(resolution["refusal-before-copy"])
+        if "leave-placeholder" not in resolution:
+            (root / "status").write_bytes(RUNNER_STATUS)
+        if "refusal" in resolution:
+            raise ValueError(resolution["refusal"])
+        return {
+            "packages": [
+                {**row, "filename": row["package"] + ".deb"} for row in LOCKED
+            ],
+            "empty_status_resolution": False,
+            "dpkg_status_sha256": resolution.get(
+                "dpkg_status_sha256", hashlib.sha256(RUNNER_STATUS).hexdigest()
+            ),
+            "runner_provided_packages": RUNNER_PROVIDED,
+            "signed_index_chain": {"fixture": True},
+        }
 
     def download(
         url: str, destination: Path, _cap: int, _deadline: float
@@ -482,9 +826,7 @@ def run_candidate(
         "download": download,
         "publisher_digest": lambda _html: candidate.MEDIA_SHA256,
         "host_cpu": lambda: CPU_7763,
-        "resolve": lambda *_args: {
-            "packages": [{**row, "filename": row["package"] + ".deb"} for row in LOCKED]
-        },
+        "resolve": resolve,
         "stage_host": lambda *_args: None,
         # Retention names members with POSIX separators (Linux-only by design).
         "retain": lambda proof, **_kwargs: retains.append(proof),
@@ -518,7 +860,124 @@ def run_candidate(
     )
     code = candidate.main()
     closure = json.loads((output / "closure.json").read_text())
+    # ADR-0009: the host closure is the one resolution against the runner status.
+    assert resolved in ([], [{"runner_status": True}])
+    if code == 0:
+        assert resolved == [{"runner_status": True}]
     return code, closure, output, retains
+
+
+def stage_fixture(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, image: str | None
+) -> tuple[ModuleType, Path, list[dict[str, Any]]]:
+    candidate = load("windows11_candidate", "windows11")
+    monkeypatch.setattr(candidate, "TOOLS", {})
+    monkeypatch.setattr(candidate, "FIRMWARE", {})
+    if image is None:
+        monkeypatch.delenv(candidate.RUNNER_IMAGE_VERSION, raising=False)
+    else:
+        monkeypatch.setenv(candidate.RUNNER_IMAGE_VERSION, image)
+    closure, output = tmp_path / "closure", tmp_path / "inputs"
+    (closure / "debs").mkdir(parents=True)
+    (closure / "signed-metadata").mkdir()
+    output.mkdir()
+    owner = CandidateOwner(tmp_path / "work", tmp_path / "proof")
+    owner.work.mkdir()
+    rows = [{**row, "filename": row["package"] + ".deb"} for row in LOCKED]
+    candidate.stage_host(
+        owner,
+        closure,
+        {
+            "packages": rows,
+            "empty_status_resolution": False,
+            "dpkg_status_sha256": "d" * 64,
+            "runner_provided_packages": RUNNER_PROVIDED,
+            "signed_index_chain": {"fixture": True},
+        },
+        output,
+    )
+    return candidate, output, rows
+
+
+def test_windows_candidate_host_lock_records_runner_provided_packages(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _candidate, output, rows = stage_fixture(tmp_path, monkeypatch, "fixture-image")
+    lock = json.loads((output / "host-tools-lock.json").read_text())
+    assert lock["schema"] == "japp-win11-host-tools-v2"
+    assert lock["packages"] == rows
+    assert lock["runner_provided_packages"] == RUNNER_PROVIDED
+    assert lock["runner_image_version"] == "fixture-image"
+    assert lock["empty_status_resolution"] is False
+    assert lock["runner_dpkg_status_sha256"] == "d" * 64
+
+
+@pytest.mark.parametrize("image", [None, ""], ids=["unset", "empty"])
+def test_windows_candidate_host_lock_requires_a_named_runner_image(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, image: str | None
+) -> None:
+    with pytest.raises(ValueError, match="Named hosted runner image version"):
+        stage_fixture(tmp_path, monkeypatch, image)
+    assert not (tmp_path / "inputs" / "host-tools-lock.json").exists()
+
+
+@pytest.mark.parametrize("when", ["refusal", "refusal-before-copy"])
+def test_windows_candidate_retains_the_runner_status_when_resolution_refuses(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, when: str
+) -> None:
+    refusal = "Duplicate installed runner package: libc6"
+    code, closure, output, retains = run_candidate(
+        tmp_path, monkeypatch, CLEAN_PLAN, resolution={when: refusal}
+    )
+    assert (code, closure["status"], closure["message"]) == (
+        1,
+        "CANDIDATE_FAILED",
+        refusal,
+    )
+    assert retains == [output]
+    retained = output / "runner-dpkg-status"
+    if when == "refusal":
+        # The status the refusal came from stays retained beside the inputs.
+        assert retained.read_bytes() == RUNNER_STATUS
+    else:
+        # apt_config's empty placeholder is never retained as the runner's status.
+        assert not retained.exists()
+
+
+def test_windows_candidate_refuses_a_resolution_whose_status_was_not_retained(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # A resolution that never replaced apt_config's empty placeholder leaves
+    # nothing retained, so its lock's status digest has nothing to bind.
+    code, closure, output, _retains = run_candidate(
+        tmp_path, monkeypatch, CLEAN_PLAN, resolution={"leave-placeholder": "1"}
+    )
+    assert (code, closure["status"]) == (1, "CANDIDATE_FAILED")
+    assert (
+        closure["message"] == "Retained runner dpkg status differs from the resolution"
+    )
+    assert not (output / "runner-dpkg-status").exists()
+
+
+def test_windows_candidate_status_retention_never_raises(tmp_path: Path) -> None:
+    # It runs in a finally block: an unwritable output must not mask the refusal.
+    candidate = load("windows11_candidate", "windows11")
+    private = tmp_path / "status"
+    private.write_bytes(RUNNER_STATUS)
+    candidate.retain_runner_status(private, tmp_path / "missing-output")
+    assert not (tmp_path / "missing-output").exists()
+
+
+def test_windows_candidate_refuses_a_retained_status_that_differs(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    code, closure, _output, _retains = run_candidate(
+        tmp_path, monkeypatch, CLEAN_PLAN, resolution={"dpkg_status_sha256": "0" * 64}
+    )
+    assert (code, closure["status"]) == (1, "CANDIDATE_FAILED")
+    assert (
+        closure["message"] == "Retained runner dpkg status differs from the resolution"
+    )
 
 
 @pytest.mark.parametrize("plan", [CLEAN_PLAN, REMOVING_PLAN], ids=["clean", "drift"])
@@ -534,6 +993,8 @@ def test_windows_candidate_retains_or_refuses_the_host_plan(
         retained = output / "host-install-plan.json"
         assert json.loads(retained.read_text())["upgraded"] == 0
         assert retains == [output]
+        # ADR-0009: the status the closure was resolved against is retained.
+        assert (output / "runner-dpkg-status").read_bytes() == RUNNER_STATUS
     else:
         assert (code, closure["status"]) == (1, "CANDIDATE_FAILED")
         assert "Remv systemd-sysv" in closure["message"]
