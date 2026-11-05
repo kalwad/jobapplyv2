@@ -1,0 +1,101 @@
+{
+  "archive_sha256": "946a85efbb9984d5b3c6796f0f1fc4f90678308acb9b950b55720baafa34ec9c",
+  "archive_bytes": 81750,
+  "regular_members": 19,
+  "files": [
+    {
+      "path": "author/identity.json",
+      "bytes": 1300,
+      "sha256": "cfd329c9dc37bf38f394e3b4e2f5ddbc3ddd2895f41a88d6f4e116348de8fa6e"
+    },
+    {
+      "path": "author/proof.tar.gz",
+      "bytes": 65563,
+      "sha256": "9876e918573a2c5d13a3f84e61c11ecdaa181c455679a5fd34acbb1354c13a82"
+    },
+    {
+      "path": "integrated-source/e2e/extension/public-contact/playwright.config.ts",
+      "bytes": 564,
+      "sha256": "49ba994caa17728465f1c83ee5e5ad7af8407a77202d23e28a4d67e46fd2db71"
+    },
+    {
+      "path": "integrated-source/e2e/extension/public-research/playwright.config.ts",
+      "bytes": 569,
+      "sha256": "ae2a301b9028cf5ef238101b1cbfa282ab9559e69f079ab28dbf3e0e1ddbe4dd"
+    },
+    {
+      "path": "integrated-source/scripts/tests/test_ci_workflow.py",
+      "bytes": 32083,
+      "sha256": "39bcb0dbb93db3135bec0cf6eba6f0225df7799fa6f2647224ee7ba3ab10882a"
+    },
+    {
+      "path": "packaging/builder.py",
+      "bytes": 4920,
+      "sha256": "ed481c35e77916d067a2abbb5f987f297fe0e8cd5d9568ade0c9b500334d1dc8"
+    },
+    {
+      "path": "packaging/inputs.json",
+      "bytes": 4599,
+      "sha256": "a3a25fdeafb7ae6ff67885915b42e262f82bf74dd32e7eabcb47094d256ccd6c"
+    },
+    {
+      "path": "packaging/review-index.json",
+      "bytes": 3535,
+      "sha256": "cc730db1b6e016dbb7ae7f414c644d53feba43cb191b16173d05dc45fdc6de7c"
+    },
+    {
+      "path": "root-checks/commands.json",
+      "bytes": 3376,
+      "sha256": "ce2126d74e428da259ccd99de7432ca4c7441d58712938d089211c9d219f83c1"
+    },
+    {
+      "path": "root-checks/diff.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "root-checks/eslint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "root-checks/initial-selection-failure.derived.json",
+      "bytes": 458,
+      "sha256": "5e5061ba7322e972ad6e248fc699cc96709b68cdf720dd219870f95a8eb297ef"
+    },
+    {
+      "path": "root-checks/mypy.log",
+      "bytes": 42,
+      "sha256": "5d4b6d285b77932e3d08212c3b4974d0a803f98ec60408ac6ccf6a063fa6c19e"
+    },
+    {
+      "path": "root-checks/prettier.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "root-checks/pytest.log",
+      "bytes": 99,
+      "sha256": "35fbe52b52180bc44e1bad5caa8c95920f95777c312e2b5eb607266d2819f807"
+    },
+    {
+      "path": "root-checks/ruff-format.log",
+      "bytes": 25,
+      "sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50"
+    },
+    {
+      "path": "root-checks/ruff.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "root-checks/run.py",
+      "bytes": 1593,
+      "sha256": "50c2b5ce588c2f41f59739de2789d550501a816a23f876a84b11d9f4fff143b8"
+    }
+  ],
+  "exhaustive_comparison": "PASS",
+  "authority": "NONE",
+  "owner_decision": "PENDING",
+  "gate_state": "IN_PROGRESS"
+}

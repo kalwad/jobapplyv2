@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "operation": "shell_focus_profile",
+  "result": {
+    "focused": true
+  },
+  "elapsed_seconds": 0.26512527699998145
+}

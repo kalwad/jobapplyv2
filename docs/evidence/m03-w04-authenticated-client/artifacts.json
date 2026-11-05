@@ -1,0 +1,298 @@
+{
+  "real-owner-http.tar.gz": {
+    "source": "/tmp/japp-m03-w04-real-owner-http-retained-20261019/real-owner-http-selected.tar.gz",
+    "sha256": "030da6298a66b6faf79832f27b179bf0faf4686e53ed16b7dc51c7cec91481b1",
+    "bytes": 2846894,
+    "safe_regular_members": 424,
+    "scope": "Original selected evidence; stated omissions, original failures and limits unchanged"
+  },
+  "current-command-coverage.tar.gz": {
+    "source": "/tmp/japp-m03-w04-current-tooling-command-independent-review-20261019-retained/proof.tar.gz",
+    "sha256": "9e0065b1851fa65127203cb0be314dbf20d0d5f60d3856cc18fa989827b702ca",
+    "bytes": 3079765,
+    "safe_regular_members": 520,
+    "scope": "Original selected evidence; stated omissions, original failures and limits unchanged"
+  },
+  "current-app-build.tar.gz": {
+    "source": "/tmp/japp-m03-w04-current-app-build-independent-review-20261019-retained/selected-proof.tar.gz",
+    "sha256": "7c253912e4ebe7d9d50b36fc5a84a2384b3a58ea9556bdcd4c26604c685759a8",
+    "bytes": 1692309,
+    "safe_regular_members": 398,
+    "scope": "Original selected evidence; stated omissions, original failures and limits unchanged"
+  },
+  "real-owner-independent-review.tar.gz": {
+    "source": "/tmp/japp-m03-w04-independent-real-owner-http-review-20261019",
+    "sha256": "4c5feca4042d476a07cf0cc1479741cfdc4febbc807f076164644c38ab7986a6",
+    "bytes": 337797,
+    "members": {
+      "REVIEW.md": {
+        "bytes": 7542,
+        "sha256": "6562808fc7cc8561d1892918b872e7462ab960287717d19e5530343ae2274882"
+      },
+      "audit_hashes.py": {
+        "bytes": 11510,
+        "sha256": "5bb608d47a9684dc8506e277ee0e6b6ea0b38c8b9ba852c1e7f53eb40b1f5f4c"
+      },
+      "audit_light.py": {
+        "bytes": 17303,
+        "sha256": "2649a4039c3790cd5a9be0b8bc04f49e6ff573fa49174c01c6d5a8907a026ded"
+      },
+      "audit_supplement_join.py": {
+        "bytes": 10448,
+        "sha256": "dbf40184b0e7d65f8473500ff125f58af9af5be557c3682f863bd0c76d998dfc"
+      },
+      "collector-source-bindings.json": {
+        "bytes": 1166,
+        "sha256": "1f5ede2053f20e018a8f1f96b53b1ae2a6f6e90cbcc3cdf7a268c30fa5eccbad"
+      },
+      "deferred-hash-requests.json": {
+        "bytes": 4672,
+        "sha256": "b44e2447612a3dc9db2b7c9b26c77f822b14d151d6c11e1ab37fed08bc5c9f84"
+      },
+      "findings.json": {
+        "bytes": 7352,
+        "sha256": "229b3539e1f230957d51828d12841c91b8ed0276840317b9956bbd51fa7edd76"
+      },
+      "hash-results.json": {
+        "bytes": 24162,
+        "sha256": "cc0a01c5b60c1641e06791499ac7de02d1a18301d8970336b3896f14a85e73e8"
+      },
+      "light-input-hashes.json": {
+        "bytes": 144738,
+        "sha256": "a0d100788855c7cca284085265d0b8fcc28731e2f11a25c7e19855217406e41b"
+      },
+      "light-results.json": {
+        "bytes": 4180,
+        "sha256": "a9c3d533274bd7bf4b9e959aa486d105b9f6bdfbdac1fa25d78770af6a2cd454"
+      },
+      "phase-clear.json": {
+        "bytes": 355,
+        "sha256": "4f7c2b487065577f7adda319287863119edb67c4fbeefdbe5177d814ec8daff1"
+      },
+      "physical-hash-index.json": {
+        "bytes": 1541611,
+        "sha256": "cb53daaf3812dde32ed056534d57fc3dde0b1c6c0610de4e585c4b0248cd6a21"
+      },
+      "retention-manifest.json": {
+        "bytes": 2838,
+        "sha256": "73758751fbc390d767cbbadc279e310ed30a7cff80a6273513b3dc34991b89c2"
+      },
+      "reviewer-diagnostics.json": {
+        "bytes": 388,
+        "sha256": "612f2f0e5eb2243e9946cf2a3fe52e7170b3a1c3fe3276c52d833a6d22c92f26"
+      },
+      "source-review-notes.json": {
+        "bytes": 4350,
+        "sha256": "faa3bc38c2bf409059a44c722ddde581637e0520a5ae3f369538bae8d6bfaaa8"
+      },
+      "supplement-join-results.json": {
+        "bytes": 2491,
+        "sha256": "ef7884f6b3d7fe67aaa47caab13ba8fc42b005f002ef2fc19d353d92fc6dd4cd"
+      }
+    },
+    "scope": "Original independent review bytes including raw documentary failures; no execution by retainer"
+  },
+  "canonical-adoption-independent-review.tar.gz": {
+    "source": "/tmp/japp-m03-w04-independent-canonical-adoption-review-20261019",
+    "sha256": "0d0d4c288faff66100e154bc7f69f9d216e5fc497a04536c81379a82e03605ab",
+    "bytes": 6225,
+    "members": {
+      "REVIEW.md": {
+        "bytes": 4446,
+        "sha256": "f711f45331572aaf033a23a3ac724750c2c238f44082755f9244ac05bf1f6402"
+      },
+      "audit.py": {
+        "bytes": 7898,
+        "sha256": "76c0c22bcd5f8d3ca840c5a58ce75218266e0ace2cf083ac881761ee32f55636"
+      },
+      "findings.json": {
+        "bytes": 3734,
+        "sha256": "6e3e02cb7272e6b90f5ebda734ffdc83f7749a333592d354e4ef93e948a5ad52"
+      },
+      "retention-manifest.json": {
+        "bytes": 565,
+        "sha256": "1978e742aaca9658b8dbc79bfbe4c71460f0dc00d8fadb299cc780bd6dc9951b"
+      }
+    },
+    "scope": "Original independent review bytes including raw documentary failures; no execution by retainer"
+  },
+  "current-root-focused.tar.gz": {
+    "sha256": "5e0232422d40bd09e71155b6a7fe1372eeae1f0b9803346879f2dc539cd240cc",
+    "bytes": 232564,
+    "members": {
+      "focused/closure.json": {
+        "bytes": 21206,
+        "sha256": "9cd132dd6e189e279d2e0a8b4e1e14776125af7e0c8a3b7254de89b2141f9576"
+      },
+      "focused/contract-unit-result.json": {
+        "bytes": 2504,
+        "sha256": "31650577120972ff944cb9966a6d6fbb8a32360ee297e30271ca3faafe24f110"
+      },
+      "focused/contract-unit-upfront.json": {
+        "bytes": 2104,
+        "sha256": "880d0423fa5bf5a6ec3f0a0af12d076a403e9755b34cd45f051b645e60030ecc"
+      },
+      "focused/contract-unit.stderr": {
+        "bytes": 13,
+        "sha256": "cb7efe2ed065b3202856f854f1645179984b659249d4ea99dde8467ed4a4b173"
+      },
+      "focused/contract-unit.stdout": {
+        "bytes": 7468,
+        "sha256": "046bd24223d8c430ccdf3ca78af320d491894fc5c705524fddd2f9bc662dd7b7"
+      },
+      "focused/desktop-unit-result.json": {
+        "bytes": 2503,
+        "sha256": "2e8d321c398a3ff71f89235c2883d5c1b7f2aa2f68e901166cc1963e83631ded"
+      },
+      "focused/desktop-unit-upfront.json": {
+        "bytes": 2102,
+        "sha256": "4bffed857dee5a793a6e8f0d7709c60be90db6c5617058aa8ea87b87cbe54e39"
+      },
+      "focused/desktop-unit.stderr": {
+        "bytes": 13,
+        "sha256": "cb7efe2ed065b3202856f854f1645179984b659249d4ea99dde8467ed4a4b173"
+      },
+      "focused/desktop-unit.stdout": {
+        "bytes": 800,
+        "sha256": "88c73bf66875b7fc2886059ee16a170a4e3a19db27db00bc907b1d8360df2b49"
+      },
+      "focused/executed-wrapper.py": {
+        "bytes": 3403,
+        "sha256": "9cdb0cc6d0194c9e3f063d8d9a4cdbe5a669d462b7d3bc77e1f6146489a42bee"
+      },
+      "focused/format-result.json": {
+        "bytes": 2496,
+        "sha256": "0dc701e6e138f74e082e01157e1647319e66edd7301181142b44547b8e49fb16"
+      },
+      "focused/format-upfront.json": {
+        "bytes": 2096,
+        "sha256": "e23524f78e8e0d0f25c31b184de61de852db301e7877ec6e1f4a1a67cab0aa14"
+      },
+      "focused/format.stderr": {
+        "bytes": 49,
+        "sha256": "b52d798ddf9cf28efae9cb6ff5ea39ae714500e7a739326f036a1e83014d68cc"
+      },
+      "focused/format.stdout": {
+        "bytes": 891,
+        "sha256": "a3f55952d46c90c7ce77223c2e51d961dafdea7831cfdd92e838bc1336d8e22c"
+      },
+      "focused/frozen-node-result.json": {
+        "bytes": 2512,
+        "sha256": "d96b73345573c0c10f8e5c5dab5f141a9cab3cddd981ae3f4da6e1617cd37c14"
+      },
+      "focused/frozen-node-upfront.json": {
+        "bytes": 2110,
+        "sha256": "0db7dad62109dad886ebac44387f3675fac1a72b8bdf3eca242a0c1beb554b2d"
+      },
+      "focused/frozen-node.stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "focused/frozen-node.stdout": {
+        "bytes": 86,
+        "sha256": "c8162fc50ebfdbd12801bf7280434f74bd7ca8ddd27903980e8e9d0a42dfac21"
+      },
+      "focused/locked-python-result.json": {
+        "bytes": 2457,
+        "sha256": "2a551654bd2990fa573727018ba3700cff542cee17bd7f0169678e49f345a234"
+      },
+      "focused/locked-python-upfront.json": {
+        "bytes": 2054,
+        "sha256": "131f847d40d22b99d1685f766efa9bf0573f5c5093ffc721b99b55b16e27c5bc"
+      },
+      "focused/locked-python.stderr": {
+        "bytes": 55,
+        "sha256": "921aa94726571795cb59e7c0c1818994b694d7775ff8f8838b64e0754222b48d"
+      },
+      "focused/locked-python.stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "focused/native-result.json": {
+        "bytes": 2495,
+        "sha256": "ec4873f369aac367b56f7119a69b298193517ca0ccb06ba1804a569babf387c2"
+      },
+      "focused/native-upfront.json": {
+        "bytes": 2095,
+        "sha256": "26f867f39e38780b92b7edeab0ca1230045de795424eec8751d49329a2346d7e"
+      },
+      "focused/native.stderr": {
+        "bytes": 47,
+        "sha256": "db90b251e63283c5d8e145eb2393c76d43147104375a05f7c8d4ba9e0fc1fd6b"
+      },
+      "focused/native.stdout": {
+        "bytes": 52501,
+        "sha256": "3371af2e0749115c45be954b853a313536d2edaf43e3976988c4f1ebc4bc8a52"
+      },
+      "focused/service-python-result.json": {
+        "bytes": 2480,
+        "sha256": "5726d8b8928eeaa76e79654c48a2b7393130d4518f468211b27b62a6e1b59aa7"
+      },
+      "focused/service-python-upfront.json": {
+        "bytes": 2079,
+        "sha256": "231aadc94a0fd66ca45347a1630c2b0c3608970705bc08da90a635fba36601bd"
+      },
+      "focused/service-python.stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "focused/service-python.stdout": {
+        "bytes": 181,
+        "sha256": "3d12905b53aa75a3a8b1fa618e5c9c2ad5a2e8bd1116d8eee6a31951d0edebaf"
+      },
+      "focused/source-after.json": {
+        "bytes": 319093,
+        "sha256": "2a392f0a80a9973a084ddb8ac3880fddceb6b322a82ca50434eeb0c50ff8c4a8"
+      },
+      "focused/source-before.json": {
+        "bytes": 319093,
+        "sha256": "2a392f0a80a9973a084ddb8ac3880fddceb6b322a82ca50434eeb0c50ff8c4a8"
+      },
+      "focused/typecheck-result.json": {
+        "bytes": 2500,
+        "sha256": "0a9c0b6b2dc2ea878afc059b7e34ffe2613bacf7078668c51d46ee2e5f813033"
+      },
+      "focused/typecheck-upfront.json": {
+        "bytes": 2099,
+        "sha256": "ff466300f50e0b6ef627c6688be63552dec6bd307152b0c2db16b12d239b10c3"
+      },
+      "focused/typecheck.stderr": {
+        "bytes": 52,
+        "sha256": "c58a2b12d171c9a14ca93e6b9b43db2d86ab2206fc31299cce355a9280aecc91"
+      },
+      "focused/typecheck.stdout": {
+        "bytes": 3160,
+        "sha256": "46d5cb91788a744b068a07968fd91eecad328799d17a2d030020881001e8b83b"
+      },
+      "adoption.json": {
+        "bytes": 30773,
+        "sha256": "d36769202aff5d2a9bb60cf38984f52c2bdd07d7c97364bc51ce393c116f2ed2"
+      },
+      "generation-closure.json": {
+        "bytes": 30949,
+        "sha256": "a2787b7c7853094276887fc95f78964bfc325838511710a11169015e3f68344f"
+      },
+      "generate.stdout": {
+        "bytes": 283,
+        "sha256": "b89737118f40e0d10748fa6d0c8a5fc1092b1aa1d99f48f108df1c8e3be0ab69"
+      },
+      "generate.stderr": {
+        "bytes": 37,
+        "sha256": "56e67ea38221a6f25e1ac9e1a225e0fc5c18586bfaedadb686378ce93b079543"
+      },
+      "runtime-stage-upfront.json": {
+        "bytes": 43677,
+        "sha256": "544c6a4d4853a2d710788cef7985b642c1f61c27c9b0c55b01d78a2306b38532"
+      },
+      "runtime-stage-closure.json": {
+        "bytes": 8602,
+        "sha256": "e7232ad6dfdd29beb519662aa1792c97d5ee98eccb7a522ebef73deb60f83006"
+      },
+      "focused.outer.log": {
+        "bytes": 572,
+        "sha256": "9eb355c5d1c071674c4930d7feb58de5620656bfe8b3e29376ce89a1c1a48c2c"
+      }
+    },
+    "scope": "Current-root focused checks at unchanged1873 source paths; not full aggregate or GUI. Old40runtime COW backup and dependency/cache bodies omitted explicitly; exact maps/declared references retained, no reconstructed missing inputs."
+  }
+}

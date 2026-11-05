@@ -1,0 +1,70 @@
+{
+  "head": "b8b1423bb009afe655d0951a74bb39666ead8715",
+  "exit_code": 0,
+  "active_suites": 19,
+  "passed_active_suites": 19,
+  "default_browser_passed": 228,
+  "controlled_contact_passed": 61,
+  "python_passed": 1454,
+  "unit_ts_passed": 3859,
+  "native128_target_samples": 20,
+  "native128_p95_ms": 1480.3922500000008,
+  "tracked_status_before": "CLEAN",
+  "tracked_status_after": "CLEAN",
+  "w14_metrics": {
+    "executed_cases": 200,
+    "scored_cases": 200,
+    "refused_cases": 0,
+    "measurement_error_cases": 0,
+    "scored_logical_controls": 4020,
+    "preservation": {
+      "expected": 90,
+      "correct": 90,
+      "violations": 0,
+      "empty_abstention_violations": 0
+    },
+    "ordinary_attempted_precision": {
+      "numerator": 1485,
+      "denominator": 1485,
+      "rate": 1
+    },
+    "required_ordinary_recall": {
+      "numerator": 1275,
+      "denominator": 1275,
+      "rate": 1
+    },
+    "required_reporting": {
+      "numerator": 770,
+      "denominator": 770,
+      "rate": 1
+    },
+    "observed_persistence": {
+      "numerator": 1485,
+      "denominator": 1485,
+      "rate": 1
+    },
+    "counts": {
+      "required_silent": 0,
+      "sensitive_fills": 0,
+      "honeypot_fills": 0,
+      "catastrophic_option_errors": 0,
+      "duplicate_actions": 0
+    },
+    "full_settle_scan_fill_timing": {
+      "sample_count": 200,
+      "p95_ms": 865.8358330000192,
+      "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+      "includes_fixture_setup": false,
+      "includes_browser_setup": false,
+      "includes_reporting": false
+    }
+  },
+  "w14_immutability": {
+    "source_unchanged": true,
+    "build_unchanged": true,
+    "declarations_unchanged": true,
+    "end_source_digest": "sha256:9b9d53d41d36475297a761dbc455501de9d5860c55cf22e6659bd216642dc4cc",
+    "end_build_digest": "sha256:d431e1d15a86d82e1dd54cfe04f9d03b79eb00501e3d2793f894d42836bceed8"
+  },
+  "visual": "NOT_YET_APPLICABLE_NOT_A_PASS"
+}

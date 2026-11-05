@@ -1,0 +1,2 @@
+$ node scripts/generate-contracts.ts --check
+generated contracts are up to date (183 files, byte-identical)

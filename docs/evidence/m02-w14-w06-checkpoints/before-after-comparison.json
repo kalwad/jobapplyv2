@@ -1,0 +1,84 @@
+{
+  "format_version": "W14_W06_UNCHANGED_ORACLE_COMPARISON_1",
+  "authority": "NONE",
+  "predeclared_oracle_digest": "sha256:3c14417d5700a326390aaf60b6a6f45c5cb1a02bea7d950e25f807150790775c",
+  "predeclared_files_byte_identical": true,
+  "before": {
+    "format_version": "W14_W06_MOUNTED_CONTACT_ASSESSMENT_1",
+    "authority": "NONE",
+    "gate_decision": "NOT_DECIDED",
+    "complete_development_gate_evidence": false,
+    "expected_catalog_cases": 32,
+    "recorded_catalog_cases": 32,
+    "expected_contact_controls": 43,
+    "correct_contact_controls": 40,
+    "unreported_required_controls": 1,
+    "scanner_gaps": 1,
+    "errors": 0,
+    "safety": {
+      "unsupported_writes": 0,
+      "unsupported_value_changes": 0,
+      "duplicate_primary_events": 0,
+      "button_clicks": 0,
+      "submissions": 0
+    },
+    "source_unchanged": true,
+    "build_unchanged": true,
+    "limitations": [
+      "All 32 frozen catalog cases are accounted for, not 32 successful fill scenarios.",
+      "67 frozen W03 scenario transitions remain separately NOT_EXERCISED; no transition, upload, non-contact widget, receipt or navigation certification follows.",
+      "This supplementary 11-fact contact profile is not byte-identical to the W12 10-fact input.",
+      "Open-shadow scanner gaps and missing required reports are failures, never safe abstention credit.",
+      "125ms settle and single mounted-route executions are not Gate A p95 performance proof.",
+      "W06 baseline/fixture/schema record checks remain a separate required evidence slice."
+    ]
+  },
+  "after": {
+    "format_version": "W14_W06_MOUNTED_CONTACT_ASSESSMENT_1",
+    "authority": "NONE",
+    "gate_decision": "NOT_DECIDED",
+    "complete_development_gate_evidence": false,
+    "expected_catalog_cases": 32,
+    "recorded_catalog_cases": 32,
+    "expected_contact_controls": 43,
+    "correct_contact_controls": 43,
+    "unreported_required_controls": 0,
+    "scanner_gaps": 0,
+    "errors": 0,
+    "safety": {
+      "unsupported_writes": 0,
+      "unsupported_value_changes": 0,
+      "duplicate_primary_events": 0,
+      "button_clicks": 0,
+      "submissions": 0
+    },
+    "source_unchanged": true,
+    "build_unchanged": true,
+    "limitations": [
+      "All 32 frozen catalog cases are accounted for, not 32 successful fill scenarios.",
+      "67 frozen W03 scenario transitions remain separately NOT_EXERCISED; no transition, upload, non-contact widget, receipt or navigation certification follows.",
+      "This supplementary 11-fact contact profile is not byte-identical to the W12 10-fact input.",
+      "Open-shadow scanner gaps and missing required reports are failures, never safe abstention credit.",
+      "125ms settle and single mounted-route executions are not Gate A p95 performance proof.",
+      "W06 baseline/fixture/schema record checks remain a separate required evidence slice."
+    ]
+  },
+  "runs": [
+    {
+      "run": "before-shadow-fix",
+      "source_inventory_digest": "sha256:bc574652eb9b849f1a1786193eea51191e3de9019e2cd012e7aef70ec582a9b5",
+      "source_files": 808,
+      "build_digest": "sha256:4ba496fa95f74480ff6c562249ad92c8afb61472cd7e76af8488bbf1e2976883",
+      "raw_bundle_digest": "sha256:84f6cc4705a6aa7893e61dcca1875529e8a0875df1e86221ba32296817637f1d"
+    },
+    {
+      "run": "after-shadow-fix",
+      "source_inventory_digest": "sha256:84fa616068b769a929ba3df8ce0df62c7fb34aea95060a035c2d03c857a9dd87",
+      "source_files": 811,
+      "build_digest": "sha256:274a30b1cb3ce2fce9d12f27d973d6c64538ebb5e420bd7af1972daba3dad0d2",
+      "raw_bundle_digest": "sha256:d89861a3f3d382d25c10b7e5bea2f30c48dc14c752bca2e0224cca3ef804d85a"
+    }
+  ],
+  "source_preimages_and_builds_verified_and_archived": true,
+  "current_repository_verification_claim": false
+}

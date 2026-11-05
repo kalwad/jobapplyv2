@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Desktop App
+Exec=/usr/bin/japp-desktop
+TryExec=/usr/bin/japp-desktop
+Icon=japp-desktop
+Terminal=false
+StartupWMClass=japp-desktop

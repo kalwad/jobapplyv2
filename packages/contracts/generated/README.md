@@ -26,13 +26,13 @@ Layout:
   `error/catalog-data.v1.ts` (canonical error-catalog metadata),
   `security/policy-data.v1.ts` (immutable authorization catalogs,
   lookups, and fail-closed authorization),
-  `semantic/rules.v1.ts` (finite reviewed semantic-rule evaluators), and
+  `semantic/rules.v1.ts` (frozen inherited semantics) and `semantic/rules.v2.ts` (current finite evaluators), and
   `index.ts`
   (the stable export surface re-exported by `@japp/contracts/generated`).
 - `python/src/japp_contracts/` — the generated strict Pydantic v2 package
   (one module per schema document plus `_runtime.py` and
   `error/catalog_data_v1.py`, `security/policy_data_v1.py`, and
-  `semantic/rules_v1.py`);
+  `semantic/rules_v1.py` and `semantic/rules_v2.py`);
   importable as `japp_contracts` through
   the repository mypy/pytest path configuration.
 

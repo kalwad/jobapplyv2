@@ -1,0 +1,9 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/tanishkalwad/jobapplyv2
+configfile: pyproject.toml
+collected 157 items / 149 deselected / 8 selected
+
+scripts/tests/test_validate_status.py ........                           [100%]
+
+====================== 8 passed, 149 deselected in 1.17s =======================

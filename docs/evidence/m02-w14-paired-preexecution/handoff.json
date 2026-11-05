@@ -1,0 +1,60 @@
+{
+  "format_version": "W14_PAIRED_PREEXECUTION_HANDOFF_1",
+  "patch": "/tmp/japp-w14-paired-rebind-draft/paired-preexecution-rebind.patch",
+  "patch_sha256": "268753b9130df5e5da5b8087dbc05957bf27665a0f93258afc9723033beb3cae",
+  "files": [
+    ".prettierignore",
+    "e2e/extension/legacy-paired-options/campaign.mjs",
+    "e2e/extension/legacy-paired-options/paired-options.proof.ts",
+    "e2e/extension/legacy-paired-options/runtime-inventory.ts",
+    "e2e/extension/legacy-paired-options/runtime-inventory.test.mjs",
+    "e2e/extension/legacy-paired-options/prepare-preexecution-rebind.mjs",
+    "e2e/extension/legacy-paired-options/PREEXECUTION.md",
+    "e2e/extension/legacy-paired-options/preexecution-history/revision-3/campaign.lock.json",
+    "e2e/extension/legacy-paired-options/preexecution-history/revision-3/campaign.lock.sha256",
+    "e2e/extension/legacy-paired-options/preexecution-history/revision-3/predeclaration.json",
+    "e2e/extension/legacy-paired-options/preexecution-history/revision-3/source-bindings.json",
+    "e2e/extension/legacy-paired-options/campaign.lock.json",
+    "e2e/extension/legacy-paired-options/campaign.lock.sha256",
+    "e2e/extension/legacy-paired-options/predeclaration.json",
+    "e2e/extension/legacy-paired-options/source-bindings.json"
+  ],
+  "reviewed_lock_digest": "sha256:1a0b76cef2a7f5b7218aa031c836ea71550b53391b621327f6701164a4ac2d7b",
+  "candidate_runtime_file_count": 352,
+  "candidate_runtime_inventory_digest": "sha256:1ac47982914c5e7786e5aa395f3b5d296930fa238018974719c916e49adbffe2",
+  "final_kernel_patch_sha256": "8a889e0916bda5cc4ee55bdbf0ed97af5653b4104e8f7e732d258143d9bbd0df",
+  "final_kernel_manifest_sha256": "4290937bab75ce3f0eef89b3cee7933f9a66dec4eda6815715acedbe582b72fb",
+  "final_kernel_manifest_files_verified": 18,
+  "prior_lock_preserved": "sha256:561bc786d35c51e9705b0c0659bec6b180e0bbd7c59bc9ea28752e9e690a759d",
+  "data_hashes_unchanged": {
+    "paired-inputs.json": "sha256:2d1ce7ba5acf2414f5936b47055e9afd412ffbee0f8a247cd2c6f583548c3812",
+    "paired-oracles.json": "sha256:96a9fa8780c4b0c5bee78edf9f0b721ea171c598ef3e9cd89cd33ddf8ccb3626",
+    "legacy-projections.json": "sha256:7c7cd5d546aee296ddaa50455b95b4baf7c32e2984ba1df53ddacf5c445531ed"
+  },
+  "validation": {
+    "pure_structural_checks_passed": 35,
+    "new_runtime_inventory_structural_checks": 9,
+    "prior_lifecycle_and_join_checks": 26,
+    "strict_root_typescript": "PASS",
+    "scoped_typed_lint": "PASS",
+    "active_root_runtime_source_preflight": "PASS",
+    "unchanged_legacy_sources_verified": 31,
+    "pinned_legacy_python": "3.12.13",
+    "pinned_legacy_dependencies_verified": 13,
+    "root_writes": 0,
+    "browser_launches": 0,
+    "builds": 0,
+    "actual_candidate_paired_runs": 0,
+    "actual_legacy_paired_runs": 0,
+    "patch_roundtrip_all_15_files_byte_exact": "PASS",
+    "frozen_data_roundtrip_unchanged": "PASS",
+    "read_only_root_apply_check": "PASS",
+    "format": "PASS"
+  },
+  "notes": [
+    "Final source inventory excludes Python/build/dependency caches; ordinary source files named like excluded directories remain included.",
+    "Actual paired candidate4 and legacy4 and comparison remain required after parent review/apply and fresh default build.",
+    "The first local revision4 proposal was superseded before external review or execution only to clarify the authoring-only inspect/propose runbook; all data and runtime source hashes stayed fixed."
+  ],
+  "runbook_correction": "For actual default build, strip JAPP_W14_PUBLIC_INSPECTION (without _EVALUATION suffix); see parent message. Reviewed lock/patch bytes were not silently altered."
+}

@@ -1,0 +1,22 @@
+{
+  "label": "before",
+  "utc": "2026-10-28T23:53:35.445216+00:00",
+  "physical_memory_bytes": {
+    "exit_code": 0,
+    "stdout": "25769803776\n",
+    "stdout_bytes": 12,
+    "truncated": false
+  },
+  "swap_usage": {
+    "exit_code": 0,
+    "stdout": "vm.swapusage: total = 3072.00M  used = 2520.31M  free = 551.69M  (encrypted)\n",
+    "stdout_bytes": 77,
+    "truncated": false
+  },
+  "vm_stat": {
+    "exit_code": 0,
+    "stdout": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    96204.\nPages active:                                 503895.\nPages inactive:                               486720.\nPages speculative:                             15797.\nPages throttled:                                   0.\nPages wired down:                             167491.\nPages purgeable:                               14756.\n\"Translation faults\":                     4917547683.\nPages copy-on-write:                       174907714.\nPages zero filled:                        3042748586.\nPages reactivated:                         193108782.\nPages purged:                               48450814.\nFile-backed pages:                            332688.\nAnonymous pages:                              673724.\nPages stored in compressor:                   493881.\nPages occupied by compressor:                 248591.\nDecompressions:                            564267045.\nCompressions:                              602285524.\nPageins:                                   129182119.\nPageouts:                                      97742.\nSwapins:                                      928626.\nSwapouts:                                    1322956.\nPages tagged:                                 177645.\nPages tagged resident:                        119500.\nPages tagged compressed:                       58145.\nPages tag-storage:                             49152.\nPages tag-storage holding tags:                 6077.\nPages tag-storage free:                          940.\nPages tag-storage non-tag pageable:            41829.\nPages tag-storage non-tag wired:                  85.\nBytes of compressed tags:                    9006464.\nTagged compressions:                        18900109.\nTagged decompressions:                      18438824.\n",
+    "stdout_bytes": 1841,
+    "truncated": false
+  }
+}

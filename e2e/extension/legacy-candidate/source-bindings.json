@@ -1,0 +1,1026 @@
+{
+  "format_version": "W14_FROZEN_LEGACY_CANDIDATE_BINDING_1",
+  "created_at": "2026-10-16T16:54:45.615380+00:00",
+  "authority": "NONE",
+  "mode": "SINGLE_SHARED_LEGACY_COMPONENT_VS_CURRENT_MV3_SYNTHETIC_INPUTS",
+  "legacy_identity": {
+    "repository": "https://github.com/kalwad/JobApply",
+    "commit": "c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd",
+    "tree": "7a1a830ddb2519c7e23043fb9e46c364cbada3cf"
+  },
+  "upstream_identity": {
+    "commit": "629aa992f3e3c3d05575686f350a7173e8b5e108",
+    "committer_date": "2026-04-15T00:33:34Z",
+    "repository_url": "https://github.com/tcpsyn/CareerPulse",
+    "tree": "4e134dae19fc3661dd71bb0ff0476ed32be35e29"
+  },
+  "shared_component_equivalence": {
+    "upstream_extension_git_tree": "1fa9e0aab2d5134d6eab5a189342d20afa9f57a3",
+    "jobapply_extension_git_tree": "1fa9e0aab2d5134d6eab5a189342d20afa9f57a3",
+    "upstream_app_git_tree": "8eb2a24cce4eddb9ee58027d67f00737485026f1",
+    "jobapply_app_git_tree": "8eb2a24cce4eddb9ee58027d67f00737485026f1",
+    "license_blob": "9f4d2c46a0df879c11efa36dce0bca7b1284a512",
+    "provenance": "JobApply pinned ATTRIBUTION.md names upstream CareerPulse repository and baseline/careerpulse-upstream tag. GH API tag resolves to the pinned upstream commit; Git tree object IDs prove component bytes identical. One actual component execution is shared-byte evidence, not two independent product runs."
+  },
+  "sources": [
+    {
+      "path": "preimages/evaluation-browser.mjs.txt",
+      "original_path": "/tmp/japp-legacy-cleanroom.ByLBQU/evaluation-browser.mjs",
+      "sha256": "sha256:ec39443ac8742faf650ab6aa92d7c791a37061f9cbb400a157cfa7547eb51572",
+      "bytes": 8927
+    },
+    {
+      "path": "preimages/evaluation-browser.pre-rerender.mjs.txt",
+      "original_path": "/tmp/japp-legacy-cleanroom.ByLBQU/evaluation-browser.pre-rerender.mjs",
+      "sha256": "sha256:4ba0053ef41ad6b5a2830630410be173a78f3995dda32d6e566dedfa5eef2e38",
+      "bytes": 8080
+    },
+    {
+      "path": "preimages/evaluation-server.py.txt",
+      "original_path": "/tmp/japp-legacy-cleanroom.ByLBQU/evaluation-server.py",
+      "sha256": "sha256:19351b8961f9b41e04eb8a16a45161ead70faf35f26cce6a6d3010a1eaa77f81",
+      "bytes": 1533
+    },
+    {
+      "path": "preimages/evaluation-inputs.json",
+      "original_path": "/tmp/japp-legacy-cleanroom.ByLBQU/evaluation-inputs.json",
+      "sha256": "sha256:aadd86c855f39a55302345bae1d5397343be08157edf82a46ee7f95b16bce2cf",
+      "bytes": 25760
+    },
+    {
+      "path": "preimages/evaluation-profile.json",
+      "original_path": "/tmp/japp-legacy-cleanroom.ByLBQU/evaluation-profile.json",
+      "sha256": "sha256:be75e89455f72d9e688e865199f039d76350c25846703b4f4567a2a9d1366b45",
+      "bytes": 339
+    },
+    {
+      "path": "preimages/evaluation-runtime.freeze.txt",
+      "original_path": "/tmp/japp-legacy-cleanroom.ByLBQU/evaluation-runtime.freeze.txt",
+      "sha256": "sha256:f3d6d82db6f5d94efa3f28cba4b15229b719947a7981c426b9571c6d308060d8",
+      "bytes": 235
+    },
+    {
+      "path": "preimages/upstream-identity.json",
+      "original_path": "/tmp/japp-legacy-cleanroom.ByLBQU/upstream-identity.json",
+      "sha256": "sha256:9c72560b40fe1fdd233cb67950db1f3f427c37bf12dfd40476518e67e15c5d35",
+      "bytes": 201
+    },
+    {
+      "path": "preimages/upstream-components.json",
+      "original_path": "/tmp/japp-legacy-cleanroom.ByLBQU/upstream-components.json",
+      "sha256": "sha256:0ca000a5e381c344e640d221c5877302d87a906c219a033783ea49016ef942b5",
+      "bytes": 311
+    },
+    {
+      "path": "preimages/upstream-tag.json",
+      "original_path": "/tmp/japp-legacy-cleanroom.ByLBQU/upstream-tag.json",
+      "sha256": "sha256:d78c8cc4c6db267597961086f21cd9717dc33a81a2fc858dff01d724acda946b",
+      "bytes": 232
+    },
+    {
+      "path": "preimages/LICENSE",
+      "original_path": "/tmp/japp-legacy-cleanroom.ByLBQU/LICENSE",
+      "sha256": "sha256:fed2427e2fbff544d7bceda916d48039fa1a823308fa56921b0d6aacc5769cd6",
+      "bytes": 1126
+    },
+    {
+      "path": "preimages/capture-summary.json",
+      "original_path": "/tmp/japp-legacy-cleanroom.ByLBQU/capture-summary.json",
+      "sha256": "sha256:02fd904f1c4af21dac949c259a9b544f5e2253a9ff94e2cfba85fc52db271691",
+      "bytes": 10098
+    },
+    {
+      "path": "preimages/capture-rerender.json",
+      "original_path": "/tmp/japp-legacy-cleanroom.ByLBQU/capture-rerender.json",
+      "sha256": "sha256:6ea6ec758d1a0976d9841bafdbf3943bc3a24ab20850262e59d995d936069385",
+      "bytes": 49928
+    },
+    {
+      "path": "preimages/w13-declarations.json",
+      "original_path": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w13-harness-development/development-run.json#/cases",
+      "sha256": "sha256:f6906cbfb65853f6a12ee16d2a31981d1f3b36a5aa5e4653c6551cba460f32f1",
+      "bytes": 50311
+    }
+  ],
+  "inputs_file_sha256": "sha256:aadd86c855f39a55302345bae1d5397343be08157edf82a46ee7f95b16bce2cf",
+  "meter_function_sha256": "sha256:fbb9567d2f62c9e9cfdd1c1d7eee8142d2b2391902e3d92d7626823b5753b239",
+  "meter_function_source": {
+    "path": "preimages/evaluation-browser.mjs.txt",
+    "source_sha256": "sha256:ec39443ac8742faf650ab6aa92d7c791a37061f9cbb400a157cfa7547eb51572",
+    "extraction": "Exact delay => {...} argument to context.addInitScript; no semantic edits; invoked with literal 20."
+  },
+  "legacy_backend_profile_sha256": "sha256:be75e89455f72d9e688e865199f039d76350c25846703b4f4567a2a9d1366b45",
+  "legacy_browser_version": "151.0.7922.34",
+  "legacy_rerender_delay_ms": 20,
+  "current_origin": "http://127.0.0.1:4761",
+  "legacy_origin": "http://127.0.0.1:18885",
+  "origin_equivalence_claim": false,
+  "canonical_case_preimage_available": true,
+  "cases": [
+    {
+      "index": 0,
+      "case_id": "benchmarkcase_7FHETQGRS7Q4VX31SGMAHK338T",
+      "fixture_id": "W12-WORKDAY-GROUPED-en-US-MY_INFORMATION",
+      "input_digest": "sha256:f1690e3e2812cc2a57caa00034d0540416f52a17f1ad417aebb4920addc2d04d",
+      "html_digest": "sha256:947e1889e76f9fa974e55f41d7456eafda315b3f026a54b426be027644335521",
+      "profile_digest": "sha256:1df7d7861ea8f05c6b4de3112381e7fc204f820623bee8a0e14a34f968d5bff8",
+      "ordinary_expectations": [
+        {
+          "key": "first-name",
+          "concept": "FIRST_NAME",
+          "value": "Synthetic",
+          "required": true
+        },
+        {
+          "key": "last-name",
+          "concept": "LAST_NAME",
+          "value": "Applicant",
+          "required": true
+        },
+        {
+          "key": "email",
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid",
+          "required": true
+        },
+        {
+          "key": "phone",
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100",
+          "required": true
+        },
+        {
+          "key": "website",
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile",
+          "required": false
+        },
+        {
+          "key": "street-address",
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue",
+          "required": true
+        },
+        {
+          "key": "city",
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City",
+          "required": true
+        },
+        {
+          "key": "state",
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan",
+          "required": true
+        },
+        {
+          "key": "postal-code",
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104",
+          "required": true
+        },
+        {
+          "key": "country",
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States",
+          "required": true
+        }
+      ],
+      "legacy_final_fields": [
+        {
+          "key": "first-name",
+          "value": "Synthetic",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "last-name",
+          "value": "Applicant",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "email",
+          "value": "synthetic@example.invalid",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "phone",
+          "value": "(202) 555-0100",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "website",
+          "value": "https://example.invalid/profile",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "optional-note",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "city",
+          "value": "Synthetic City",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "street-address",
+          "value": "100 Synthetic Avenue",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "state",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "postal-code",
+          "value": "48104",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "resume",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country-code",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "contact-method",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "availability-date",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "sensitive-disclosure",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "honeypot",
+          "value": "",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "privacy-consent",
+          "value": "on",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        }
+      ],
+      "legacy_exact_matches": [
+        "first-name",
+        "last-name",
+        "email",
+        "website",
+        "city",
+        "street-address",
+        "postal-code"
+      ],
+      "legacy_exact_mismatches": [
+        {
+          "key": "phone",
+          "value": "(202) 555-0100"
+        }
+      ],
+      "legacy_empty": [
+        "country",
+        "state"
+      ],
+      "legacy_physical_witnesses": 8,
+      "legacy_rerenders": 8,
+      "legacy_navigation": 0,
+      "legacy_submissions": 0,
+      "canonical_case_digest": "sha256:50e5ef6ad8c56b81410b18d9e436682d3b14d21a6a603057726873c5bd9aa05f",
+      "oracle_digest": "sha256:5403d4f0a59d814d7e1036ab0eb3385404ba5099baf110f4ff34ce1e8ede29c4"
+    },
+    {
+      "index": 1,
+      "case_id": "benchmarkcase_5ZFV555N324C5TW0D3Y3ZKQC0B",
+      "fixture_id": "W12-GREENHOUSE-GROUPED-en-US-MY_INFORMATION",
+      "input_digest": "sha256:0d09096eb8ec8095c86b0495a1bdf03ebc5b773e6fff09fc0cf15635c892b1d3",
+      "html_digest": "sha256:0525c26dc41139bb71e4720bee51bb311d7441744defefad9992564a7c2298ff",
+      "profile_digest": "sha256:1df7d7861ea8f05c6b4de3112381e7fc204f820623bee8a0e14a34f968d5bff8",
+      "ordinary_expectations": [
+        {
+          "key": "first-name",
+          "concept": "FIRST_NAME",
+          "value": "Synthetic",
+          "required": true
+        },
+        {
+          "key": "last-name",
+          "concept": "LAST_NAME",
+          "value": "Applicant",
+          "required": true
+        },
+        {
+          "key": "email",
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid",
+          "required": true
+        },
+        {
+          "key": "phone",
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100",
+          "required": true
+        },
+        {
+          "key": "website",
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile",
+          "required": false
+        },
+        {
+          "key": "street-address",
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue",
+          "required": true
+        },
+        {
+          "key": "city",
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City",
+          "required": true
+        },
+        {
+          "key": "state",
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan",
+          "required": true
+        },
+        {
+          "key": "postal-code",
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104",
+          "required": true
+        },
+        {
+          "key": "country",
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States",
+          "required": true
+        }
+      ],
+      "legacy_final_fields": [
+        {
+          "key": "first-name",
+          "value": "Synthetic",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "last-name",
+          "value": "Applicant",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "email",
+          "value": "synthetic@example.invalid",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "phone",
+          "value": "(202) 555-0100",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "website",
+          "value": "https://example.invalid/profile",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "optional-note",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "city",
+          "value": "Synthetic City",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "street-address",
+          "value": "100 Synthetic Avenue",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "state",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "postal-code",
+          "value": "48104",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "resume",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country-code",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "contact-method",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "availability-date",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "sensitive-disclosure",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "honeypot",
+          "value": "",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "privacy-consent",
+          "value": "on",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        }
+      ],
+      "legacy_exact_matches": [
+        "first-name",
+        "last-name",
+        "email",
+        "website",
+        "city",
+        "street-address",
+        "postal-code"
+      ],
+      "legacy_exact_mismatches": [
+        {
+          "key": "phone",
+          "value": "(202) 555-0100"
+        }
+      ],
+      "legacy_empty": [
+        "country",
+        "state"
+      ],
+      "legacy_physical_witnesses": 8,
+      "legacy_rerenders": 8,
+      "legacy_navigation": 0,
+      "legacy_submissions": 0,
+      "canonical_case_digest": "sha256:d7799f24e1988b31b2a08677bbe4ec3f08ce38730aa7d428477240752d640741",
+      "oracle_digest": "sha256:addd374475e09662293e34dd6df65790bd9e5ca3db4443101414a6bb6be034bb"
+    },
+    {
+      "index": 2,
+      "case_id": "benchmarkcase_03V44C83WM2VFNX01STRHHGRXF",
+      "fixture_id": "W12-LEVER-GROUPED-en-US-MY_INFORMATION",
+      "input_digest": "sha256:aec4c666d6a6ed88579a89513e576eb6cf1f4b0d279be1d1b2b4fc7bff2f6680",
+      "html_digest": "sha256:3cbda61754b6c3e590cecda8b936f90cd4dec4b49c56360d463c1c25aa257522",
+      "profile_digest": "sha256:1df7d7861ea8f05c6b4de3112381e7fc204f820623bee8a0e14a34f968d5bff8",
+      "ordinary_expectations": [
+        {
+          "key": "first-name",
+          "concept": "FIRST_NAME",
+          "value": "Synthetic",
+          "required": true
+        },
+        {
+          "key": "last-name",
+          "concept": "LAST_NAME",
+          "value": "Applicant",
+          "required": true
+        },
+        {
+          "key": "email",
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid",
+          "required": true
+        },
+        {
+          "key": "phone",
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100",
+          "required": true
+        },
+        {
+          "key": "website",
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile",
+          "required": false
+        },
+        {
+          "key": "street-address",
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue",
+          "required": true
+        },
+        {
+          "key": "city",
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City",
+          "required": true
+        },
+        {
+          "key": "state",
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan",
+          "required": true
+        },
+        {
+          "key": "postal-code",
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104",
+          "required": true
+        },
+        {
+          "key": "country",
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States",
+          "required": true
+        }
+      ],
+      "legacy_final_fields": [
+        {
+          "key": "first-name",
+          "value": "Synthetic",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "last-name",
+          "value": "Applicant",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "email",
+          "value": "synthetic@example.invalid",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "phone",
+          "value": "(202) 555-0100",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "website",
+          "value": "https://example.invalid/profile",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "optional-note",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "city",
+          "value": "Synthetic City",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "street-address",
+          "value": "100 Synthetic Avenue",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "state",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "postal-code",
+          "value": "48104",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "resume",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country-code",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "contact-method",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "availability-date",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "sensitive-disclosure",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "honeypot",
+          "value": "",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "privacy-consent",
+          "value": "on",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        }
+      ],
+      "legacy_exact_matches": [
+        "first-name",
+        "last-name",
+        "email",
+        "website",
+        "city",
+        "street-address",
+        "postal-code"
+      ],
+      "legacy_exact_mismatches": [
+        {
+          "key": "phone",
+          "value": "(202) 555-0100"
+        }
+      ],
+      "legacy_empty": [
+        "country",
+        "state"
+      ],
+      "legacy_physical_witnesses": 8,
+      "legacy_rerenders": 8,
+      "legacy_navigation": 0,
+      "legacy_submissions": 0,
+      "canonical_case_digest": "sha256:9f4e54bb65edea144e2d6617b276b36ee30f815d2f477b84979f86e649179c75",
+      "oracle_digest": "sha256:3bb842e0ff7ed410e019d4d59121c7a8c057625456f601e489fc157d9646f18b"
+    },
+    {
+      "index": 3,
+      "case_id": "benchmarkcase_2J80QHS92HHFAJD1WZQ7DZ1X15",
+      "fixture_id": "W12-ASHBY-GROUPED-en-US-MY_INFORMATION",
+      "input_digest": "sha256:34a8f74e1af2b3bd071d03c395fb0a3c9d1a3487abe9b4e167aa8e525c1763bf",
+      "html_digest": "sha256:4ca1939c8531c3130c7d4ecd0c101474eefde6700324285b0dd035ef0e5a19f0",
+      "profile_digest": "sha256:1df7d7861ea8f05c6b4de3112381e7fc204f820623bee8a0e14a34f968d5bff8",
+      "ordinary_expectations": [
+        {
+          "key": "first-name",
+          "concept": "FIRST_NAME",
+          "value": "Synthetic",
+          "required": true
+        },
+        {
+          "key": "last-name",
+          "concept": "LAST_NAME",
+          "value": "Applicant",
+          "required": true
+        },
+        {
+          "key": "email",
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid",
+          "required": true
+        },
+        {
+          "key": "phone",
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100",
+          "required": true
+        },
+        {
+          "key": "website",
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile",
+          "required": false
+        },
+        {
+          "key": "street-address",
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue",
+          "required": true
+        },
+        {
+          "key": "city",
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City",
+          "required": true
+        },
+        {
+          "key": "state",
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan",
+          "required": true
+        },
+        {
+          "key": "postal-code",
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104",
+          "required": true
+        },
+        {
+          "key": "country",
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States",
+          "required": true
+        }
+      ],
+      "legacy_final_fields": [
+        {
+          "key": "first-name",
+          "value": "Synthetic",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "last-name",
+          "value": "Applicant",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "email",
+          "value": "synthetic@example.invalid",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "phone",
+          "value": "(202) 555-0100",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "website",
+          "value": "https://example.invalid/profile",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "optional-note",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "city",
+          "value": "Synthetic City",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "street-address",
+          "value": "100 Synthetic Avenue",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "state",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "postal-code",
+          "value": "48104",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "resume",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country-code",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "contact-method",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "availability-date",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "sensitive-disclosure",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "honeypot",
+          "value": "",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "privacy-consent",
+          "value": "on",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        }
+      ],
+      "legacy_exact_matches": [
+        "first-name",
+        "last-name",
+        "email",
+        "website",
+        "city",
+        "street-address",
+        "postal-code"
+      ],
+      "legacy_exact_mismatches": [
+        {
+          "key": "phone",
+          "value": "(202) 555-0100"
+        }
+      ],
+      "legacy_empty": [
+        "country",
+        "state"
+      ],
+      "legacy_physical_witnesses": 8,
+      "legacy_rerenders": 8,
+      "legacy_navigation": 0,
+      "legacy_submissions": 0,
+      "canonical_case_digest": "sha256:90be584059b064ab88a7688a05e45ef1da9cdf6bd1919c1295d08d0d2b7e4b3a",
+      "oracle_digest": "sha256:95b98fe6c2b9a88d81f2a2f9a4076afaa4ed788976a8fdd763a7c0033cdcbc1a"
+    }
+  ],
+  "limitations": [
+    "One identical extension/app component execution serves both pinned legacy names; this is not two independent product runs.",
+    "Current default MV3 loopback scope remains 4761/4762. HTML/profile and literal rerender function are exact; legacy origin used port 18885, so URL equality is not claimed.",
+    "No W14 valueToken, execution_mode or site_runtime fields are added to the frozen W13 input.",
+    "Legacy unchanged router ran in a synthetic in-memory wrapper with AI absent. No full legacy scheduler/database or public ATS was exercised.",
+    "Exact final DOM-value comparisons remain descriptive; timing, canonical Gate A pass, site production behavior and general framework persistence are not claimed.",
+    "Canonical W13 case/input/oracle preimages were extracted from only the frozen declaration portion of the retained W13 artifact; their original commitments match the legacy capture summary."
+  ],
+  "w13_declaration_source": {
+    "path": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w13-harness-development/development-run.json",
+    "sha256": "sha256:f94a3a5d875c2bdaebc1985923715fa3bf044050324b094e37f05c1bd6f50d5c",
+    "extraction": "Only cases[*].benchmarkCase, oracle and input; no raw candidate observations or score fields used."
+  }
+}

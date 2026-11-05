@@ -1,0 +1,138 @@
+{
+ "retrieved_with": "gh api (2026-11-03UTC); selected fields only",
+ "runs": [
+  {
+   "id": 41538198385,
+   "name": "ci",
+   "event": "pull_request",
+   "head_branch": "codex/autofill-evaluation-hardening",
+   "head_sha": "2100780385817ca71a3be892f7d250deefb1b79c",
+   "path": ".github/workflows/ci.yml",
+   "run_attempt": 2,
+   "conclusion": "success",
+   "created_at": "2026-11-02T22:32:58Z",
+   "updated_at": "2026-11-03T00:36:34Z",
+   "jobs": [
+    {
+     "id": 125623285656,
+     "name": "doctor + verify (windows-2025)",
+     "conclusion": "success",
+     "started_at": "2026-11-02T23:34:49Z",
+     "completed_at": "2026-11-03T00:27:18Z",
+     "runner_name": "GitHub Actions 1000001118"
+    },
+    {
+     "id": 125623286852,
+     "name": "doctor + verify (macos-15)",
+     "conclusion": "success",
+     "started_at": "2026-11-02T22:38:02Z",
+     "completed_at": "2026-11-02T23:31:12Z",
+     "runner_name": "GitHub Actions 1000001117"
+    },
+    {
+     "id": 125623344487,
+     "name": "doctor + verify (ubuntu-24.04)",
+     "conclusion": "success",
+     "started_at": "2026-11-02T22:33:02Z",
+     "completed_at": "2026-11-02T23:03:46Z",
+     "runner_name": "GitHub Actions 1000001115"
+    },
+    {
+     "id": 125644838692,
+     "name": "native development package (windows-2025)",
+     "conclusion": "success",
+     "started_at": "2026-11-03T00:27:21Z",
+     "completed_at": "2026-11-03T00:36:34Z",
+     "runner_name": "GitHub Actions 1000001119"
+    },
+    {
+     "id": 125644838768,
+     "name": "native development package (ubuntu-24.04)",
+     "conclusion": "success",
+     "started_at": "2026-11-03T00:27:21Z",
+     "completed_at": "2026-11-03T00:32:51Z",
+     "runner_name": "GitHub Actions 1000001120"
+    }
+   ],
+   "artifacts": [
+    {
+     "id": 13193412608,
+     "name": "gnome-package-input-fdba3c3d3c52d130681e047359f7103b7225a504",
+     "size_in_bytes": 85704581,
+     "digest": "sha256:1b207642bd35011bdd7d1807f8694a1b32b94c420e138386f2339ce067121a64"
+    },
+    {
+     "id": 13193278787,
+     "name": "native-development-windows-2025-fdba3c3d3c52d130681e047359f7103b7225a504",
+     "size_in_bytes": 191252296,
+     "digest": "sha256:1628e749f1383e0a560e15b16eb8778fb74eedb137756f1731c401aa882ec195"
+    },
+    {
+     "id": 13191669799,
+     "name": "native-development-ubuntu-24.04-fdba3c3d3c52d130681e047359f7103b7225a504",
+     "size_in_bytes": 259125183,
+     "digest": "sha256:f359ae0b20388b3fff3c7d5620b7592ba0576d53e84af0c7ad9c82c997540208"
+    }
+   ]
+  },
+  {
+   "id": 41554286753,
+   "name": "prepare unreviewed Windows11 media and host-tool candidate",
+   "event": "pull_request",
+   "head_branch": "codex/autofill-evaluation-hardening",
+   "head_sha": "b802f8fb0d92eb21b3d9bcb7d6d55a022e100122",
+   "path": ".github/workflows/windows11-native-prepare.yml",
+   "run_attempt": 1,
+   "conclusion": "success",
+   "created_at": "2026-11-03T00:38:22Z",
+   "updated_at": "2026-11-03T00:42:31Z",
+   "jobs": [
+    {
+     "id": 125649240972,
+     "name": "authorize",
+     "conclusion": "success",
+     "started_at": "2026-11-03T00:38:25Z",
+     "completed_at": "2026-11-03T00:38:51Z",
+     "runner_name": "GitHub Actions 1000001121"
+    },
+    {
+     "id": 125649428857,
+     "name": "guest-source-checks",
+     "conclusion": "success",
+     "started_at": "2026-11-03T00:38:54Z",
+     "completed_at": "2026-11-03T00:39:52Z",
+     "runner_name": "GitHub Actions 1000001128"
+    },
+    {
+     "id": 125649800943,
+     "name": "download-only",
+     "conclusion": "success",
+     "started_at": "2026-11-03T00:39:55Z",
+     "completed_at": "2026-11-03T00:42:30Z",
+     "runner_name": "GitHub Actions 1000001129"
+    }
+   ],
+   "artifacts": [
+    {
+     "id": 13194085502,
+     "name": "win11-download-only-request-41554286753",
+     "size_in_bytes": 126454,
+     "digest": "sha256:a3757cc0ff0c8be6dbd58c38e9bc97770624d1b827c240a859150400e880e36c"
+    },
+    {
+     "id": 13193836341,
+     "name": "unreviewed-windows11-inputs-2100780385817ca71a3be892f7d250deefb1b79c-41554286753",
+     "size_in_bytes": 278996754,
+     "digest": "sha256:a8f47613c53dadf31d613905a0fb71b7abe7b1ff670b18121922e5b2ebf396d0"
+    },
+    {
+     "id": 13193448698,
+     "name": "win11-source-check-2100780385817ca71a3be892f7d250deefb1b79c-41554286753",
+     "size_in_bytes": 661,
+     "digest": "sha256:11381911d44f46a43ee1ecfd79cfe2c3dde43516b85cbaa65be10092c79982e9"
+    }
+   ]
+  }
+ ],
+ "notes": "Run 41538198385 attempt 1's Windows verify (job 125595341977) was cancelled by its 60-minute limit (KI-0172); the package artifacts come from attempt 2."
+}

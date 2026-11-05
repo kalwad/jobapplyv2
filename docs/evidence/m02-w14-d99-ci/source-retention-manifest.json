@@ -1,0 +1,13 @@
+{
+  "archive_path": "/tmp/japp-w14-d99-ci-retained/d99-ci-evidence.tar.gz",
+  "archive_bytes": 1160764,
+  "archive_sha256": "7fceae5ae0ee5b0c4bff5a90f45f5bc33f473accd53cedc1914baa5104fec6e1",
+  "regular_members": 80,
+  "uncompressed_payload_bytes": 5627128,
+  "member_manifest_sha256": "caec57a821e1453520d15a406e03d58d02a0d73607daa62463acee4ec8f45691",
+  "source_head": "d99c5921338984d6727a0a81bc38d7c628b41199",
+  "tested_commit": "cb58e4a85d51fe47cf4c77dd232cb867af9f652c",
+  "source_tree": "616f54ca25ac97db7de6ac6eea204a140610364c",
+  "complete_raw_job_logs": 3,
+  "all_members_verified": true
+}

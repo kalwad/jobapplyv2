@@ -1,0 +1,15 @@
+{
+  "scope": "Independent read-only obligations audit",
+  "files": [
+    {
+      "path": "REVIEW.md",
+      "bytes": 12998,
+      "sha256": "257f5468c98134fb73955010c26874133b5310129916eb82638be27566a305fb"
+    },
+    {
+      "path": "input-bindings.json",
+      "bytes": 3149,
+      "sha256": "abf66974a7250445870f3f483b2644cb350198ab572b2a3a2000b53f4dd11699"
+    }
+  ]
+}

@@ -105,6 +105,15 @@ from japp_contracts.common.stable_id_v1 import (
 from japp_contracts.common.timestamp_utc_v1 import (
     CommonTimestampUtcV1UtcTimestamp,
 )
+from japp_contracts.desktop.service_cancellation_v1 import (
+    DesktopServiceCancellationV1,
+)
+from japp_contracts.desktop.service_diagnostics_v1 import (
+    DesktopServiceDiagnosticsV1,
+)
+from japp_contracts.desktop.service_request_v1 import (
+    DesktopServiceRequestV1,
+)
 from japp_contracts.error.catalog_data_v1 import (
     ERROR_CATALOG_V1,
     ERROR_CODES_V1,
@@ -181,10 +190,25 @@ from japp_contracts.gate.decision_v1 import (
     GateDecisionV1ReasonCode,
     GateDecisionV1ThresholdEvidenceSummary,
 )
+from japp_contracts.gate.decision_v2 import (
+    GateDecisionV2,
+    GateDecisionV2GateDecision,
+    GateDecisionV2IndependentReviewState,
+    GateDecisionV2OwnerDecisionState,
+    GateDecisionV2ReasonCode,
+    GateDecisionV2ThresholdEvidenceSummary,
+)
 from japp_contracts.gate.evidence_bundle_v1 import (
     GateEvidenceBundleV1,
     GateEvidenceBundleV1CompletenessInventory,
     GateEvidenceBundleV1GateId,
+)
+from japp_contracts.gate.evidence_bundle_v2 import (
+    GateEvidenceBundleV2,
+    GateEvidenceBundleV2CompletenessInventory,
+    GateEvidenceBundleV2GateId,
+    GateEvidenceBundleV2HoldoutAssessment,
+    GateEvidenceBundleV2OwnerHoldoutWaiver,
 )
 from japp_contracts.platform.browser_discovery_request_v1 import (
     PlatformBrowserDiscoveryRequestV1,
@@ -429,12 +453,33 @@ from japp_contracts.semantic.rule_catalog_v1 import (
     SemanticRuleCatalogV1RuleEntry,
     SemanticRuleCatalogV1RuleKind,
 )
+from japp_contracts.semantic.rule_catalog_v2 import (
+    SemanticRuleCatalogV2,
+    SemanticRuleCatalogV2RuleEntry,
+    SemanticRuleCatalogV2RuleKind,
+)
 from japp_contracts.semantic.rules_v1 import (
     SEMANTIC_RULES_V1,
     SemanticRuleEntryV1,
     SemanticValidationIssueV1,
     SemanticValidationOutcomeV1,
     validate_semantic_contract_v1,
+)
+from japp_contracts.semantic.rules_v2 import (
+    SEMANTIC_RULES_V2,
+    SemanticRuleEntryV2,
+    SemanticValidationIssueV2,
+    SemanticValidationOutcomeV2,
+    validate_semantic_contract_v2,
+)
+from japp_contracts.service.health_v1 import (
+    ServiceHealthV1,
+)
+from japp_contracts.service.ready_v1 import (
+    ServiceReadyV1,
+)
+from japp_contracts.service.version_v1 import (
+    ServiceVersionV1,
 )
 from japp_contracts.session.application_session_v1 import (
     SessionApplicationSessionV1,
@@ -559,6 +604,9 @@ __all__ = [
     "CommonStableIdV1StableId",
     "CommonTimestampUtcV1UtcTimestamp",
     "ContractModel",
+    "DesktopServiceCancellationV1",
+    "DesktopServiceDiagnosticsV1",
+    "DesktopServiceRequestV1",
     "ERROR_CATALOG_V1",
     "ERROR_CODES_V1",
     "ErrorCatalogV1",
@@ -610,9 +658,20 @@ __all__ = [
     "GateDecisionV1OwnerDecisionState",
     "GateDecisionV1ReasonCode",
     "GateDecisionV1ThresholdEvidenceSummary",
+    "GateDecisionV2",
+    "GateDecisionV2GateDecision",
+    "GateDecisionV2IndependentReviewState",
+    "GateDecisionV2OwnerDecisionState",
+    "GateDecisionV2ReasonCode",
+    "GateDecisionV2ThresholdEvidenceSummary",
     "GateEvidenceBundleV1",
     "GateEvidenceBundleV1CompletenessInventory",
     "GateEvidenceBundleV1GateId",
+    "GateEvidenceBundleV2",
+    "GateEvidenceBundleV2CompletenessInventory",
+    "GateEvidenceBundleV2GateId",
+    "GateEvidenceBundleV2HoldoutAssessment",
+    "GateEvidenceBundleV2OwnerHoldoutWaiver",
     "JsonValue",
     "PRINCIPAL_CATALOG_V1",
     "PRINCIPAL_IDS_V1",
@@ -729,6 +788,7 @@ __all__ = [
     "ResumePlanV1RequirementEntry",
     "ResumePlanV1TerminologyDecision",
     "SEMANTIC_RULES_V1",
+    "SEMANTIC_RULES_V2",
     "SecurityAuthorizationPolicyV1",
     "SecurityAuthorizationPolicyV1AuthorizationAllowRow",
     "SecurityAuthorizationRequestV1",
@@ -747,9 +807,18 @@ __all__ = [
     "SemanticRuleCatalogV1",
     "SemanticRuleCatalogV1RuleEntry",
     "SemanticRuleCatalogV1RuleKind",
+    "SemanticRuleCatalogV2",
+    "SemanticRuleCatalogV2RuleEntry",
+    "SemanticRuleCatalogV2RuleKind",
     "SemanticRuleEntryV1",
+    "SemanticRuleEntryV2",
     "SemanticValidationIssueV1",
+    "SemanticValidationIssueV2",
     "SemanticValidationOutcomeV1",
+    "SemanticValidationOutcomeV2",
+    "ServiceHealthV1",
+    "ServiceReadyV1",
+    "ServiceVersionV1",
     "SessionApplicationSessionV1",
     "SessionApplicationSessionV1RevalidationState",
     "SessionApplicationSessionV1RuntimeMetadata",
@@ -799,5 +868,6 @@ __all__ = [
     "require_error_catalog_entry_v1",
     "validate_calendar_date",
     "validate_semantic_contract_v1",
+    "validate_semantic_contract_v2",
     "validate_utc_timestamp",
 ]

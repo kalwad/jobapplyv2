@@ -1,0 +1,716 @@
+{
+ "guest-driver-vs-2100780.diff": {
+  "bytes": 50067,
+  "derived": "diff -u of scripts/windows11/{windows11_bootstrap.ps1,windows11_guest.ps1,windows11_owned.cs,windows11_source_check.ps1} at repository commit 2100780 against diag/repo-root/scripts/windows11 at scratch commit 873b20a5e662d5cc10a9898b6ccaa0a91b1ad41c",
+  "sha256": "4e07f0b2d447d3a63388733d6f7e5ec7c64a188628d21ecb2bdb4c2c4f6cca4d"
+ },
+ "hv-1__closure.json": {
+  "bytes": 1121,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:closure.json",
+  "sha256": "efffcce3944379ec8ac3dad6ae131926e9ad8671c16c60d02cb849287af45787"
+ },
+ "hv-1__diag-host-marks.json": {
+  "bytes": 268,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:diag-host-marks.json",
+  "sha256": "ea98a5cc634670a073424c59923dc3a6436973d99274324a64863e5ce17c99e8"
+ },
+ "hv-1__diag-inputs.json": {
+  "bytes": 656,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:diag-inputs.json",
+  "sha256": "22827913b1062c9bb67b83f52e2134296e47d7904fab0cb5dfc809575b63f600"
+ },
+ "hv-1__dmesg-kvm.txt": {
+  "bytes": 1122,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:dmesg-kvm.txt",
+  "sha256": "fcdbe0549ac28a53478940a3def234e8a8b7d192816743b47b9fa29181c75dbe"
+ },
+ "hv-1__forensics__forensics.log": {
+  "bytes": 705,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:forensics/forensics.log",
+  "sha256": "428ffef6cb3b870eb06ac14eb41f8609b0d26823ba0f6ddeb5f538dd6a85c60b"
+ },
+ "hv-1__frame-environment.json": {
+  "bytes": 246,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:frame-environment.json",
+  "sha256": "c0f992ba2d19511c9fbc249ef181723f7325fe186994f82333361e29bd7cc065"
+ },
+ "hv-1__guest-results__proof__diag-focus-trace.txt": {
+  "bytes": 263171,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:guest-results/proof/diag-focus-trace.txt",
+  "sha256": "4b04e7a303ada7206fbe93c2238027e21f4639b118a3aa75be1ce5789d023393"
+ },
+ "hv-1__guest-results__proof__diag-focus.txt": {
+  "bytes": 829,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:guest-results/proof/diag-focus.txt",
+  "sha256": "c1fea7edd3825024124e2df656ec28d09c466c4ea82488b80852b4ad5e11ec03"
+ },
+ "hv-1__guest-results__proof__diag-foreground.txt": {
+  "bytes": 9432,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:guest-results/proof/diag-foreground.txt",
+  "sha256": "86d26ba82691402d0f0296e618ba1a0a3af1eb4a965510dd86fd37fe265329fd"
+ },
+ "hv-1__guest-results__proof__diag-procs.txt": {
+  "bytes": 6444,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:guest-results/proof/diag-procs.txt",
+  "sha256": "af95c8da9f23bb2a08fba2b080f7a81c9affb9889726501de879e5354c8e59a4"
+ },
+ "hv-1__guest-results__proof__diag-progress.txt": {
+  "bytes": 198,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:guest-results/proof/diag-progress.txt",
+  "sha256": "443ff5ed5742080d7321b024d65226e3b03fd61e6239e53d3c60cff9ef37e68f"
+ },
+ "hv-1__guest-results__proof__diag-serial-writes.txt": {
+  "bytes": 575,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:guest-results/proof/diag-serial-writes.txt",
+  "sha256": "bac9aa042810399236599d5def452dbba29f7eb4c07342b9c651b8d70a5382af"
+ },
+ "hv-1__guest-results__proof__diag-waits.txt": {
+  "bytes": 6385,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:guest-results/proof/diag-waits.txt",
+  "sha256": "731c61b5c4a1258e9d93c56b2154a56144fc2fdac195786572032c3220718266"
+ },
+ "hv-1__guest-results__proof__environment.json": {
+  "bytes": 977,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:guest-results/proof/environment.json",
+  "sha256": "d9e9f9fda5500e7fdba882a4a28e1d237f3a0f1df5ee4278e1ee489f010f5a93"
+ },
+ "hv-1__guest-results__proof__native-shell.json": {
+  "bytes": 44326,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:guest-results/proof/native-shell.json",
+  "sha256": "a2e7e10b713b3cc15aba64e261a914bc8b561ab790ca00562ade9f1a1843ca64"
+ },
+ "hv-1__guest-results__proof__owned-cleanup.json": {
+  "bytes": 295,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:guest-results/proof/owned-cleanup.json",
+  "sha256": "721c3f9a0aa376b50f52274de026e4a269228ffbbea13ac372b418357354db69"
+ },
+ "hv-1__guest-results__proof__receipts.ndjson": {
+  "bytes": 15279,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:guest-results/proof/receipts.ndjson",
+  "sha256": "69d6eac3e01d1df67299f920bf65d28f6dd6929d838659baf0329a43b901c77d"
+ },
+ "hv-1__guest-terminal.json": {
+  "bytes": 192,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:guest-terminal.json",
+  "sha256": "744c753f5c0842c947128718a761d7ec04365ea992d4025ef3b7b6757e3dff6a"
+ },
+ "hv-1__host-cpu.json": {
+  "bytes": 209,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:host-cpu.json",
+  "sha256": "547ccb97ce6de400535f3fc9250728e9333c2003fe5ff09301e2539674b2f9cc"
+ },
+ "hv-1__kvm-trace.txt": {
+  "bytes": 515,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:kvm-trace.txt",
+  "sha256": "21a3653188730d1f422a5f190c3b24f9ea3c3b2db227799fb5b624f9ceafabbe"
+ },
+ "hv-1__lifecycle.json": {
+  "bytes": 29957,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:lifecycle.json",
+  "sha256": "4abd99122f70afd82012cd5e25af5b800a707e532e78cedd2c3efb0dfccd1bb1"
+ },
+ "hv-1__qemu-argv.json": {
+  "bytes": 2000,
+  "origin": "artifact diag47-win11-rehearsal-hv-1:qemu-argv.json",
+  "sha256": "2320cad0fbd1d3eadec81c6a38bff049b30869ad3a216640e8d1c25126b5bbcb"
+ },
+ "hv-2__closure.json": {
+  "bytes": 1120,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:closure.json",
+  "sha256": "a5948bba097fa40fa002d7ad1e81a242065f838290f9b1fa4d1fcc7341942e07"
+ },
+ "hv-2__diag-host-marks.json": {
+  "bytes": 207,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:diag-host-marks.json",
+  "sha256": "d8e9ffd7cbdcd60a925c9f6984b5d68b6be88952495b072a27d8c0c1ca84f300"
+ },
+ "hv-2__diag-inputs.json": {
+  "bytes": 656,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:diag-inputs.json",
+  "sha256": "1f04ef983f7bebf19b1e63dc84188191f79ef0000285e42d52ab7d5c9cad798b"
+ },
+ "hv-2__dmesg-kvm.txt": {
+  "bytes": 693,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:dmesg-kvm.txt",
+  "sha256": "fd9fbbe360d5a5f8cccddbfe0b441bdbcbd419df7c9dd037f138257481789a2e"
+ },
+ "hv-2__forensics__forensics.log": {
+  "bytes": 705,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:forensics/forensics.log",
+  "sha256": "ed50b92f6e31ecf2455f313d081d748d6f6de87dc31a996925ac2e52a1095711"
+ },
+ "hv-2__frame-environment.json": {
+  "bytes": 246,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:frame-environment.json",
+  "sha256": "a731de20ba6c59290c632babadc8932767a329565d2e0675fc538099ea74c06b"
+ },
+ "hv-2__guest-results__proof__diag-focus-trace.txt": {
+  "bytes": 17019,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:guest-results/proof/diag-focus-trace.txt",
+  "sha256": "9abedf9e1ba734f9a5d97d771b7d4b90f610f9eb9d050b0a2f407daa90f4df8e"
+ },
+ "hv-2__guest-results__proof__diag-foreground.txt": {
+  "bytes": 146,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:guest-results/proof/diag-foreground.txt",
+  "sha256": "2979812911060499632a1704c3aafea15369f0679bf836fc745d025e623e83fb"
+ },
+ "hv-2__guest-results__proof__diag-procs.txt": {
+  "bytes": 4109,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:guest-results/proof/diag-procs.txt",
+  "sha256": "abb34d2f1061bd3b1b166339cdd6b4696afd35b72ba5c54e20b89fc15ccda5fa"
+ },
+ "hv-2__guest-results__proof__diag-progress.txt": {
+  "bytes": 198,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:guest-results/proof/diag-progress.txt",
+  "sha256": "d69b0468806cf069d897e3c140c27df9f5eaa17fd200d5471bce49e87acdba92"
+ },
+ "hv-2__guest-results__proof__diag-serial-writes.txt": {
+  "bytes": 137,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:guest-results/proof/diag-serial-writes.txt",
+  "sha256": "594b830160440e1d0fd57fcebfeea561dd2a24a3cbfc57babb3ec1788ce58d17"
+ },
+ "hv-2__guest-results__proof__diag-waits.txt": {
+  "bytes": 64,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:guest-results/proof/diag-waits.txt",
+  "sha256": "12c90f817dbf9ddb1c4aedf335edf73b3fb2db87f9091fb5aa0ba2a207c40792"
+ },
+ "hv-2__guest-results__proof__environment.json": {
+  "bytes": 961,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:guest-results/proof/environment.json",
+  "sha256": "ed2bed1dc9386e03d52b7a01143728d37a563c42da5553d87cbb93adb88da25e"
+ },
+ "hv-2__guest-results__proof__failure.json": {
+  "bytes": 407,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:guest-results/proof/failure.json",
+  "sha256": "14cc0abd713ddea3bf8f195401a4b4eba8354f2ad6f4a0faee6aa233da34945c"
+ },
+ "hv-2__guest-results__proof__owned-cleanup.json": {
+  "bytes": 90,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:guest-results/proof/owned-cleanup.json",
+  "sha256": "6741c2f0b7d2702fa3a943e35dc535a60c0dd650bec04b42c260916f0b09816c"
+ },
+ "hv-2__guest-results__proof__receipts.ndjson": {
+  "bytes": 1620,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:guest-results/proof/receipts.ndjson",
+  "sha256": "20fe34c2071d363a2cb1f219937b7f6a251cba86dbab32ece8cf146b7c116780"
+ },
+ "hv-2__guest-terminal.json": {
+  "bytes": 374,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:guest-terminal.json",
+  "sha256": "d5d578f6b75a7226088c4d16609f5e3ae8cf82ab843d8280468f5ab142849486"
+ },
+ "hv-2__host-cpu.json": {
+  "bytes": 209,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:host-cpu.json",
+  "sha256": "48b5a8b46e81f6bf7c037e065014b541d70a679cf049ece350e865009f4b4948"
+ },
+ "hv-2__kvm-trace.txt": {
+  "bytes": 515,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:kvm-trace.txt",
+  "sha256": "21a3653188730d1f422a5f190c3b24f9ea3c3b2db227799fb5b624f9ceafabbe"
+ },
+ "hv-2__qemu-argv.json": {
+  "bytes": 2000,
+  "origin": "artifact diag47-win11-rehearsal-hv-2:qemu-argv.json",
+  "sha256": "2320cad0fbd1d3eadec81c6a38bff049b30869ad3a216640e8d1c25126b5bbcb"
+ },
+ "hv-3__closure.json": {
+  "bytes": 1120,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:closure.json",
+  "sha256": "7ad386cfe2925df8087005abc4444172c137d8a70f28f75889e27daa66b0896a"
+ },
+ "hv-3__diag-host-marks.json": {
+  "bytes": 207,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:diag-host-marks.json",
+  "sha256": "271753fbfa622b6c69ca6e097691d17b80f544f8837caec079222623800c1d34"
+ },
+ "hv-3__diag-inputs.json": {
+  "bytes": 656,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:diag-inputs.json",
+  "sha256": "66068c8fd9bb7d45327b8f1c1793610ef88a0a104244dd9dd2a274e1de3148ed"
+ },
+ "hv-3__dmesg-kvm.txt": {
+  "bytes": 1034,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:dmesg-kvm.txt",
+  "sha256": "e198a6fbb4483016151d303239f7b490834f29e6934c8eee548c49024fdb85ec"
+ },
+ "hv-3__forensics__forensics.log": {
+  "bytes": 705,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:forensics/forensics.log",
+  "sha256": "af2cd64fc85bf33c00f2a347e5358feeecc876e28fa96a0b92817e2362e0743c"
+ },
+ "hv-3__frame-environment.json": {
+  "bytes": 246,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:frame-environment.json",
+  "sha256": "99180aa5177ad58c6e59357785ec89dccdf125b485b6ea2a54371fbd07e2c35e"
+ },
+ "hv-3__guest-results__proof__diag-focus-trace.txt": {
+  "bytes": 19862,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:guest-results/proof/diag-focus-trace.txt",
+  "sha256": "e3b2d61e5a57702a4050f8d9123224049593d20abaf288fb5c81fe205fe91c37"
+ },
+ "hv-3__guest-results__proof__diag-foreground.txt": {
+  "bytes": 146,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:guest-results/proof/diag-foreground.txt",
+  "sha256": "bd3960cf74c1a9ac4369173a6bf3f160460ff1e56a1c98d87c965105414e8346"
+ },
+ "hv-3__guest-results__proof__diag-procs.txt": {
+  "bytes": 4112,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:guest-results/proof/diag-procs.txt",
+  "sha256": "a4bdd51c0bbff5a46896b4454030b55287c0e8a1f2516e04378b4c31ab5a01b6"
+ },
+ "hv-3__guest-results__proof__diag-progress.txt": {
+  "bytes": 198,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:guest-results/proof/diag-progress.txt",
+  "sha256": "73e71812a9e2f0523872aee7f16c90060465ad82826c5b989cb23b245bb58bb7"
+ },
+ "hv-3__guest-results__proof__diag-serial-writes.txt": {
+  "bytes": 136,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:guest-results/proof/diag-serial-writes.txt",
+  "sha256": "6450e623796fa0384b264d615854faf6c80ab31e83b3dd5aa1b2cb0edd5f6d99"
+ },
+ "hv-3__guest-results__proof__diag-waits.txt": {
+  "bytes": 64,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:guest-results/proof/diag-waits.txt",
+  "sha256": "4c2125858164b8484095b568f306028968c609e0876a9ef6f5eabee30e20778d"
+ },
+ "hv-3__guest-results__proof__environment.json": {
+  "bytes": 977,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:guest-results/proof/environment.json",
+  "sha256": "58d8db2977cca0992d02711399a3cb122a401dfb2d3e4f8efa2893b7ea4538ce"
+ },
+ "hv-3__guest-results__proof__failure.json": {
+  "bytes": 407,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:guest-results/proof/failure.json",
+  "sha256": "672a2f7f71c5b785b8e69d9784738987794bb1b2cde76da7e54034700fb1e8c4"
+ },
+ "hv-3__guest-results__proof__owned-cleanup.json": {
+  "bytes": 90,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:guest-results/proof/owned-cleanup.json",
+  "sha256": "6741c2f0b7d2702fa3a943e35dc535a60c0dd650bec04b42c260916f0b09816c"
+ },
+ "hv-3__guest-results__proof__receipts.ndjson": {
+  "bytes": 1636,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:guest-results/proof/receipts.ndjson",
+  "sha256": "2d572d5a71ec11d91d2d8b3d75c994bb6304a4dc9f0415955cc03eefda9cf2ee"
+ },
+ "hv-3__guest-terminal.json": {
+  "bytes": 374,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:guest-terminal.json",
+  "sha256": "109b65caf6314f5e52e1a14e0088539057a370fe54df229c1e40bfb5a03e488d"
+ },
+ "hv-3__host-cpu.json": {
+  "bytes": 209,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:host-cpu.json",
+  "sha256": "547ccb97ce6de400535f3fc9250728e9333c2003fe5ff09301e2539674b2f9cc"
+ },
+ "hv-3__kvm-trace.txt": {
+  "bytes": 515,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:kvm-trace.txt",
+  "sha256": "21a3653188730d1f422a5f190c3b24f9ea3c3b2db227799fb5b624f9ceafabbe"
+ },
+ "hv-3__qemu-argv.json": {
+  "bytes": 2000,
+  "origin": "artifact diag47-win11-rehearsal-hv-3:qemu-argv.json",
+  "sha256": "2320cad0fbd1d3eadec81c6a38bff049b30869ad3a216640e8d1c25126b5bbcb"
+ },
+ "hv-4__closure.json": {
+  "bytes": 1122,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:closure.json",
+  "sha256": "61a1382cc7805d74f1f8748ec346fa6d8cf94f5dc184c5e46f4685db900adbfc"
+ },
+ "hv-4__diag-host-marks.json": {
+  "bytes": 268,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:diag-host-marks.json",
+  "sha256": "73231c3555a98b5c441949a8a9dea75d213ca8fe82be3a0df32015bc375af35f"
+ },
+ "hv-4__diag-inputs.json": {
+  "bytes": 656,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:diag-inputs.json",
+  "sha256": "56530b2291eb3d15794a9bf859e55876744667c2d7f2357daed36046a4fbac5e"
+ },
+ "hv-4__dmesg-kvm.txt": {
+  "bytes": 2900,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:dmesg-kvm.txt",
+  "sha256": "f424b8f64dbd318c069fdeb60549ff8956bf8392c1fb1bb5dda8fd861f9c8c8b"
+ },
+ "hv-4__forensics__forensics.log": {
+  "bytes": 705,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:forensics/forensics.log",
+  "sha256": "c26c258f99b713f1f34438002761f1f559ea49d69c17cb4198d23e5936e6d109"
+ },
+ "hv-4__frame-environment.json": {
+  "bytes": 246,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:frame-environment.json",
+  "sha256": "a551c7497d0d2616f6482ff950b9897775d4fa6d2ddf1495a50d0b0792a89992"
+ },
+ "hv-4__guest-results__proof__diag-focus-trace.txt": {
+  "bytes": 257616,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:guest-results/proof/diag-focus-trace.txt",
+  "sha256": "1cf040fdc07b029afbb69d66ca67d8fa1255663ab2c0a3bb7b659662f1be3c9f"
+ },
+ "hv-4__guest-results__proof__diag-focus.txt": {
+  "bytes": 3208,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:guest-results/proof/diag-focus.txt",
+  "sha256": "5336d767600b32b5c8d9361a36d71627fcd9d503ab31b2c9cb224e302b0d88a6"
+ },
+ "hv-4__guest-results__proof__diag-foreground.txt": {
+  "bytes": 9649,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:guest-results/proof/diag-foreground.txt",
+  "sha256": "4ec853d1200b31bd84ba39682ae9dc8e073c908cda79a1576109dea9581498a0"
+ },
+ "hv-4__guest-results__proof__diag-procs.txt": {
+  "bytes": 8107,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:guest-results/proof/diag-procs.txt",
+  "sha256": "384481dcbbd0eef0437f4fb6c0bce449e3aab9eb98a3f1d31686c497de168ad6"
+ },
+ "hv-4__guest-results__proof__diag-progress.txt": {
+  "bytes": 198,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:guest-results/proof/diag-progress.txt",
+  "sha256": "1ce8b58520b6e1a53d776656ca5ecbc3c934e916c686f232bc3f9847351c97a0"
+ },
+ "hv-4__guest-results__proof__diag-serial-writes.txt": {
+  "bytes": 579,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:guest-results/proof/diag-serial-writes.txt",
+  "sha256": "790969f064390f9b01719c6b608af5e26f68485cd466d5b57750c63102790627"
+ },
+ "hv-4__guest-results__proof__diag-waits.txt": {
+  "bytes": 6407,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:guest-results/proof/diag-waits.txt",
+  "sha256": "cd86cc48a842335bf8de1d333a266e03f3ab92557eac3528db10f9a79898901b"
+ },
+ "hv-4__guest-results__proof__environment.json": {
+  "bytes": 977,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:guest-results/proof/environment.json",
+  "sha256": "bc6c77f9f2eb4b53d6897a4e44dd1f6afc48e251d75a77cb3643f5081af54e5c"
+ },
+ "hv-4__guest-results__proof__native-shell.json": {
+  "bytes": 44298,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:guest-results/proof/native-shell.json",
+  "sha256": "90a101a2d2081a3df0fd7782e00a08081ba490f7caa75f1560e6c94c8a6f60c3"
+ },
+ "hv-4__guest-results__proof__owned-cleanup.json": {
+  "bytes": 295,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:guest-results/proof/owned-cleanup.json",
+  "sha256": "721c3f9a0aa376b50f52274de026e4a269228ffbbea13ac372b418357354db69"
+ },
+ "hv-4__guest-results__proof__receipts.ndjson": {
+  "bytes": 15256,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:guest-results/proof/receipts.ndjson",
+  "sha256": "9459e6e7cd61a85c38ccb5f3ad3e117c8b0f6fe4fdd07a51c7f06c31e642de2a"
+ },
+ "hv-4__guest-terminal.json": {
+  "bytes": 192,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:guest-terminal.json",
+  "sha256": "37fed5fa86f582ab86306337a620a25a744a565ed8310da557a468e6bfe776b8"
+ },
+ "hv-4__host-cpu.json": {
+  "bytes": 209,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:host-cpu.json",
+  "sha256": "547ccb97ce6de400535f3fc9250728e9333c2003fe5ff09301e2539674b2f9cc"
+ },
+ "hv-4__kvm-trace.txt": {
+  "bytes": 515,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:kvm-trace.txt",
+  "sha256": "21a3653188730d1f422a5f190c3b24f9ea3c3b2db227799fb5b624f9ceafabbe"
+ },
+ "hv-4__lifecycle.json": {
+  "bytes": 29934,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:lifecycle.json",
+  "sha256": "f67d0cc94ba9145cf42df64057b1c1fb9669f24f61a27a0fce8d1114ec94cba6"
+ },
+ "hv-4__qemu-argv.json": {
+  "bytes": 2000,
+  "origin": "artifact diag47-win11-rehearsal-hv-4:qemu-argv.json",
+  "sha256": "2320cad0fbd1d3eadec81c6a38bff049b30869ad3a216640e8d1c25126b5bbcb"
+ },
+ "hv-5__closure.json": {
+  "bytes": 1120,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:closure.json",
+  "sha256": "fb3cd2ce7b65dfcfa887ce4c82bb30beb36a88eaa9d93d2424dfe64f2df77fc0"
+ },
+ "hv-5__diag-host-marks.json": {
+  "bytes": 207,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:diag-host-marks.json",
+  "sha256": "a1a6c71ed7d2c7580d7b6f4383996fd7e0e851f7f2d483dcdfb3f45e2467943e"
+ },
+ "hv-5__diag-inputs.json": {
+  "bytes": 656,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:diag-inputs.json",
+  "sha256": "0d9953997004a0653b8ddc39ce424a4b9317fc1129857efb8486a7255cdd6dd5"
+ },
+ "hv-5__dmesg-kvm.txt": {
+  "bytes": 1034,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:dmesg-kvm.txt",
+  "sha256": "30c2f62ab48aa7c12249a0683319456c3bc373fe0a115d68bc31337321afb860"
+ },
+ "hv-5__forensics__forensics.log": {
+  "bytes": 705,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:forensics/forensics.log",
+  "sha256": "963007725d94604e0ae7a6d8bd44480b995d8a1013f2702861028c292beed5ae"
+ },
+ "hv-5__frame-environment.json": {
+  "bytes": 246,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:frame-environment.json",
+  "sha256": "92345285defc467ff13c59d13117bfab05a9105cc149f0f27464ffcdcabfa5ef"
+ },
+ "hv-5__guest-results__proof__diag-focus-trace.txt": {
+  "bytes": 259516,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:guest-results/proof/diag-focus-trace.txt",
+  "sha256": "56f50e2cb4b8fc5242868771d3949389ec8a5782e4fa80290d13ab726df201cf"
+ },
+ "hv-5__guest-results__proof__diag-focus.txt": {
+  "bytes": 842,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:guest-results/proof/diag-focus.txt",
+  "sha256": "fa9fcd0f5f968eec255b27fa700cdc604cdaa498d8b64a177a4b001044335e6f"
+ },
+ "hv-5__guest-results__proof__diag-foreground.txt": {
+  "bytes": 9432,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:guest-results/proof/diag-foreground.txt",
+  "sha256": "c85961b3e86ef8d359a39b05d0dbba52d519e52f98fb6e455fdc62b9f31454af"
+ },
+ "hv-5__guest-results__proof__diag-procs.txt": {
+  "bytes": 6387,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:guest-results/proof/diag-procs.txt",
+  "sha256": "a711f4e83365dd4bc5eeec6bde0572a08d4e5b0925e6475ffbcc4f09022e46e1"
+ },
+ "hv-5__guest-results__proof__diag-progress.txt": {
+  "bytes": 198,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:guest-results/proof/diag-progress.txt",
+  "sha256": "f79cb063fd682cfa9f889fd9f8840dfabaea68414ade68805deeae2035fd256b"
+ },
+ "hv-5__guest-results__proof__diag-serial-writes.txt": {
+  "bytes": 490,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:guest-results/proof/diag-serial-writes.txt",
+  "sha256": "359d631c0d9918cf69c8aa041369ccb33f5ccbf1cbd218aec8dd95091e3609eb"
+ },
+ "hv-5__guest-results__proof__diag-waits.txt": {
+  "bytes": 6400,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:guest-results/proof/diag-waits.txt",
+  "sha256": "28d15c77481a55f3d349ed7daad36e8abfcd472e2ae8f80eb360fb73217a9566"
+ },
+ "hv-5__guest-results__proof__environment.json": {
+  "bytes": 977,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:guest-results/proof/environment.json",
+  "sha256": "0000716f7e99104494fcab91136e8022457da86aae4dff11237a53738d9e2aab"
+ },
+ "hv-5__guest-results__proof__failure.json": {
+  "bytes": 467,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:guest-results/proof/failure.json",
+  "sha256": "631b6904689d811b7106f7e2e71a8fa7d54d0469495257d287965b23a776c726"
+ },
+ "hv-5__guest-results__proof__native-shell.json": {
+  "bytes": 44297,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:guest-results/proof/native-shell.json",
+  "sha256": "0c4640fed6ed4a67fc6efe73626b21625c463b662803e9c6cdde4d1ba5def102"
+ },
+ "hv-5__guest-results__proof__owned-cleanup.json": {
+  "bytes": 295,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:guest-results/proof/owned-cleanup.json",
+  "sha256": "721c3f9a0aa376b50f52274de026e4a269228ffbbea13ac372b418357354db69"
+ },
+ "hv-5__guest-results__proof__receipts.ndjson": {
+  "bytes": 14688,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:guest-results/proof/receipts.ndjson",
+  "sha256": "f0a237c0ce393d0f5bad1771b43a003e720a4b1cbe02828807993e89c5033d29"
+ },
+ "hv-5__guest-terminal.json": {
+  "bytes": 434,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:guest-terminal.json",
+  "sha256": "de010541750f67141ec7526dbee8443f784c0633f02bf8abe2e49d77ae4d3cc1"
+ },
+ "hv-5__host-cpu.json": {
+  "bytes": 208,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:host-cpu.json",
+  "sha256": "e0cabddb166f2d68b1e69cd6ce6eb30ad70919011e38301e10bfd70ec9fb5a8a"
+ },
+ "hv-5__kvm-trace.txt": {
+  "bytes": 515,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:kvm-trace.txt",
+  "sha256": "21a3653188730d1f422a5f190c3b24f9ea3c3b2db227799fb5b624f9ceafabbe"
+ },
+ "hv-5__qemu-argv.json": {
+  "bytes": 2000,
+  "origin": "artifact diag47-win11-rehearsal-hv-5:qemu-argv.json",
+  "sha256": "2320cad0fbd1d3eadec81c6a38bff049b30869ad3a216640e8d1c25126b5bbcb"
+ },
+ "hv-6__closure.json": {
+  "bytes": 1122,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:closure.json",
+  "sha256": "ebde81d4be8660b6327310c6576fd1100b809b938292dcbc8a8482fd55bc1008"
+ },
+ "hv-6__diag-host-marks.json": {
+  "bytes": 268,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:diag-host-marks.json",
+  "sha256": "9fc28d860857186479490cc55fe8fd11795e91476d2438a08caef190978ccf34"
+ },
+ "hv-6__diag-inputs.json": {
+  "bytes": 656,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:diag-inputs.json",
+  "sha256": "4d4029d3fd8a95f556a03902063ad7b8442618c1dcd44421506ed6fe2bf98a3a"
+ },
+ "hv-6__dmesg-kvm.txt": {
+  "bytes": 1034,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:dmesg-kvm.txt",
+  "sha256": "c124e6b0f87b0af4925e9745d440bd0f944b42dd52534963ec166d2141d903e3"
+ },
+ "hv-6__forensics__forensics.log": {
+  "bytes": 705,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:forensics/forensics.log",
+  "sha256": "ff71eeab04637a59bd53203af6c4bc7add5de8631e089f99c6ddcf5863ab0468"
+ },
+ "hv-6__frame-environment.json": {
+  "bytes": 246,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:frame-environment.json",
+  "sha256": "30bd882d8cb01f7c35e59febfa4a500446da0b4448c4081ddff1f842fb64068b"
+ },
+ "hv-6__guest-results__proof__diag-focus-trace.txt": {
+  "bytes": 259575,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:guest-results/proof/diag-focus-trace.txt",
+  "sha256": "4e10042d4099b1cd64626658197d4ed714da5755e9ac294d1783b9d10294ff3f"
+ },
+ "hv-6__guest-results__proof__diag-foreground.txt": {
+  "bytes": 9151,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:guest-results/proof/diag-foreground.txt",
+  "sha256": "fef65a7fdd317505b9b6d42f01a3322b52cd48b42d5b667b7562269d9832770e"
+ },
+ "hv-6__guest-results__proof__diag-procs.txt": {
+  "bytes": 5620,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:guest-results/proof/diag-procs.txt",
+  "sha256": "6a623d5ade53c0b0ea0d69687ea47bc9571d24268766de80c9d998537d1c44f7"
+ },
+ "hv-6__guest-results__proof__diag-progress.txt": {
+  "bytes": 198,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:guest-results/proof/diag-progress.txt",
+  "sha256": "6aad541a5412f95f82eb188056adc5c969062c246f80339626e3ed14bef19923"
+ },
+ "hv-6__guest-results__proof__diag-serial-writes.txt": {
+  "bytes": 579,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:guest-results/proof/diag-serial-writes.txt",
+  "sha256": "f5c6b58e6570ae3b8592da5773af203cddaf3f5c5c2a581990163d42663d7bbf"
+ },
+ "hv-6__guest-results__proof__diag-waits.txt": {
+  "bytes": 6573,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:guest-results/proof/diag-waits.txt",
+  "sha256": "133fec6f78156962909b06673f7c73814126abf018c88dc69c62967e0f818bec"
+ },
+ "hv-6__guest-results__proof__environment.json": {
+  "bytes": 977,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:guest-results/proof/environment.json",
+  "sha256": "0fb2784e5a675477910a9f041e434c870e3b6dae85685f21de75d37b434fdfe6"
+ },
+ "hv-6__guest-results__proof__native-shell.json": {
+  "bytes": 44327,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:guest-results/proof/native-shell.json",
+  "sha256": "a3ba46596cf12b84cae56cd6a19eb07cdc0a289d94f85172285a322fba1fa94a"
+ },
+ "hv-6__guest-results__proof__owned-cleanup.json": {
+  "bytes": 295,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:guest-results/proof/owned-cleanup.json",
+  "sha256": "721c3f9a0aa376b50f52274de026e4a269228ffbbea13ac372b418357354db69"
+ },
+ "hv-6__guest-results__proof__receipts.ndjson": {
+  "bytes": 15275,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:guest-results/proof/receipts.ndjson",
+  "sha256": "75f50dcf062d8c6138f1db305ad6e7082fad442cd4f55de0af2c7ebe3bc8e1d1"
+ },
+ "hv-6__guest-terminal.json": {
+  "bytes": 192,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:guest-terminal.json",
+  "sha256": "48bda0bf8362aa4ae761b7c91684ab79e94196b0ced130073603ae3e018209f0"
+ },
+ "hv-6__host-cpu.json": {
+  "bytes": 208,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:host-cpu.json",
+  "sha256": "e0cabddb166f2d68b1e69cd6ce6eb30ad70919011e38301e10bfd70ec9fb5a8a"
+ },
+ "hv-6__kvm-trace.txt": {
+  "bytes": 515,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:kvm-trace.txt",
+  "sha256": "21a3653188730d1f422a5f190c3b24f9ea3c3b2db227799fb5b624f9ceafabbe"
+ },
+ "hv-6__lifecycle.json": {
+  "bytes": 29953,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:lifecycle.json",
+  "sha256": "c366201e8706947f77fe1f0c83a46957406fa83b27d3701f8cf467cf26f9edb0"
+ },
+ "hv-6__qemu-argv.json": {
+  "bytes": 2000,
+  "origin": "artifact diag47-win11-rehearsal-hv-6:qemu-argv.json",
+  "sha256": "2320cad0fbd1d3eadec81c6a38bff049b30869ad3a216640e8d1c25126b5bbcb"
+ },
+ "win11_rehearsal.py": {
+  "bytes": 11780,
+  "origin": "diag/windows-service-env@873b20a5e662d5cc10a9898b6ccaa0a91b1ad41c:diag/win11_rehearsal.py",
+  "sha256": "de2417dbcd5b9cbf6c2e79ed2b243d366f1ca2cdb56efbcac7c09762d0233bfb"
+ },
+ "workflow.yml": {
+  "bytes": 5374,
+  "origin": "diag/windows-service-env@873b20a5e662d5cc10a9898b6ccaa0a91b1ad41c:.github/workflows/ci.yml",
+  "sha256": "23f0e369ca81b725bbbd1f7b8a01f6702e9a27ae6fbfd3172e9fc1f186653d92"
+ }
+}

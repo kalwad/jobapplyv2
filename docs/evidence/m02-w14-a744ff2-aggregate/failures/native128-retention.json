@@ -1,0 +1,20 @@
+{
+  "source_test_result_directory": "test-results/extension-extension-benchm-632bb-g-includes-work-outside-W11-chromium",
+  "files": [
+    {
+      "path": "error-context.md",
+      "sha256": "6ec3fdc7ee08857470d268f7c2fce884f87793e135fc876f6c14aeff4924a99e",
+      "bytes": 10093
+    },
+    {
+      "path": "test-failed-1.png",
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401",
+      "bytes": 4254
+    },
+    {
+      "path": "trace.zip",
+      "sha256": "0b3c163442a58e1bd0027903f5e70f2ec8742595088970c22dab72d97240854f",
+      "bytes": 15320353
+    }
+  ]
+}

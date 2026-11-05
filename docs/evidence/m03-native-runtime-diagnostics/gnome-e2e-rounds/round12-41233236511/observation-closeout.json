@@ -1,0 +1,47 @@
+{
+  "closed": true,
+  "retained_unreaped_count": 0,
+  "groups": [
+    {
+      "pgid": 15730,
+      "direct_child_reaped": true,
+      "group_after_reap": "ABSENT"
+    },
+    {
+      "pgid": 15734,
+      "direct_child_reaped": true,
+      "group_after_reap": "ABSENT"
+    },
+    {
+      "pgid": 15736,
+      "direct_child_reaped": true,
+      "group_after_reap": "ABSENT"
+    },
+    {
+      "pgid": 15740,
+      "direct_child_reaped": true,
+      "group_after_reap": "ABSENT"
+    },
+    {
+      "pgid": 15891,
+      "direct_child_reaped": true,
+      "group_after_reap": "ABSENT"
+    },
+    {
+      "pgid": 15898,
+      "direct_child_reaped": true,
+      "group_after_reap": "ABSENT"
+    },
+    {
+      "pgid": 15912,
+      "direct_child_reaped": true,
+      "group_after_reap": "ABSENT"
+    },
+    {
+      "pgid": 15924,
+      "direct_child_reaped": true,
+      "group_after_reap": "ABSENT"
+    }
+  ],
+  "cleanup_errors": []
+}

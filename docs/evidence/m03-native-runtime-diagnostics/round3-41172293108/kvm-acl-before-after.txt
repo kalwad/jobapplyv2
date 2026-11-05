@@ -1,0 +1,17 @@
+# file: dev/kvm
+user::rw-
+group::rw-
+other::---
+##[group]Run sudo -n setfacl -m "u:$(id -u):rw" /dev/kvm; getfacl /dev/kvm
+# file: dev/kvm
+user::rw-
+user:runner:rw-
+group::rw-
+mask::rw-
+other::---
+##[group]Run getfacl /dev/kvm
+# file: dev/kvm
+user::rw-
+group::rw-
+mask::rw-
+other::---

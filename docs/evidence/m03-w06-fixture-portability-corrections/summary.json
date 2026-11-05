@@ -1,0 +1,35 @@
+{
+  "scope": "TWO_TEST_FIXTURE_CORRECTIONS_NO_PRODUCTION_OR_VERIFIER_CHANGES",
+  "metadata": {
+    "file": "services/orchestrator/tests/test_runtime_metadata.py",
+    "before_sha256": "2c08041a85861075602f0c88eee789bc294a6d1b4ec42d1dc7ddeb9702cf9cb0",
+    "after_sha256": "50b5e27e4076a60012e17f57f4b0b8a2f3a8777da87665f6436a9eecdd771add",
+    "wire_payload_bytes": 66,
+    "all_2120_collected_IDs_unchanged": true,
+    "outside_cases": 105,
+    "canonical_cases": 105,
+    "canonical_actor_source_count": 2136,
+    "canonical_runtime_count": 40,
+    "canonical_endpoint_neutral": true,
+    "current_integrity": "Actual root --suite integrity exit0, tool output observed; raw not separately retained, nextcleanfullseparate"
+  },
+  "windows": {
+    "file": "apps/desktop/src-tauri/src/service/platform_adapters/app_owner_tests.rs",
+    "before_sha256": "856f248a8a56567a52745ba49a2bbd3a7c0c1049fa6cef80dc3a297fc4f5ecd7",
+    "after_sha256": "3e4ebeb0c51b1aff9352631b5e5bcedfef04ea576d4fe95fb522ba8a754edf22",
+    "change": "Three fake roots use valid absolute local C drive on Windows, same POSIX values. FakeOps never touches those paths. All test bodies/assertions/budgets unchanged.",
+    "outside_Mac_focus": [
+      12,
+      15
+    ],
+    "actual_Mac_catalog": 342,
+    "actual_corrected_Windows": "PENDING_FRESH_CI",
+    "preparation_failures_retained": [
+      "stale2070observerprechildstop",
+      "missingtestcatalogcompile"
+    ]
+  },
+  "root_different_source_review": "Completepatchesreadandapproved; byte/hashguardedadoption; authorfocusedresultsnotrepresentedasindependentfullacceptance",
+  "original_failures": "204bc06 local18PASS2FAIL and Windows300PASS16FAIL preservedseparately",
+  "package_gate_or_release_promotion": false
+}

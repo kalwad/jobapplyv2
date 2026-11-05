@@ -1,0 +1,12 @@
+{
+  "exit_code": 0,
+  "required_cases": {
+    "extension-benchmark.spec.ts": true,
+    "W13 L: total scan and re-resolution scaling includes work outside W11": true,
+    "extension-w14-evaluation.spec.ts": true,
+    "W14: execute all 200 immutable W12 recipes and preserve incomplete measurement evidence": true
+  },
+  "summary": [
+    "208"
+  ]
+}

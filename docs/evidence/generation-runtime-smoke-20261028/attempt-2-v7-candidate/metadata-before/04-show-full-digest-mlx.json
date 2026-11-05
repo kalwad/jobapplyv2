@@ -1,0 +1,34 @@
+{
+  "label": "show-full-digest-mlx",
+  "endpoint": "http://127.0.0.1:11434",
+  "received_bytes": 21847,
+  "received_sha256": "b19f345d6e5420ddecd3595292ea0899ec65d31f528d2794995a21a69dcf850f",
+  "retention": "PUBLIC_ALLOWLIST_PROJECTION",
+  "public": {
+    "details": {
+      "format": "safetensors",
+      "family": "gemma4_unified",
+      "parameter_size": "12.4B",
+      "quantization_level": "nvfp4",
+      "runner": null
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "audio",
+      "tools",
+      "thinking"
+    ],
+    "thinking": {
+      "values": [
+        false,
+        true
+      ],
+      "default": true
+    },
+    "manifests": [],
+    "requires": "0.31.0",
+    "remote_host": "",
+    "remote_model": ""
+  }
+}

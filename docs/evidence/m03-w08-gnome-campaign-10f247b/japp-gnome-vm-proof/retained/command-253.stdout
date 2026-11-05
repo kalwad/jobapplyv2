@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "operation": "close_observe",
+  "result": {
+    "app": {
+      "pid": 16069,
+      "ppid": 1033,
+      "starttime_ticks": 18057,
+      "state": "S",
+      "uid": 1000,
+      "executable": "/usr/bin/japp-desktop",
+      "device": 64769,
+      "inode": 86381
+    },
+    "service": {
+      "pid": 28629,
+      "ppid": 16069,
+      "starttime_ticks": 31865,
+      "state": "S",
+      "uid": 1000,
+      "executable": "/usr/lib/Desktop App/runtime/japp-orchestrator/japp-orchestrator",
+      "device": 64769,
+      "inode": 278467
+    },
+    "port": 33599,
+    "known_identities_absent": true,
+    "exclusive_bind_release": true,
+    "elapsed_seconds": 0.0001469940000333736,
+    "universal_escaped_descendant_absence_claimed": false
+  },
+  "elapsed_seconds": 0.0001867789999892011
+}

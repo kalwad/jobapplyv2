@@ -1,0 +1,210 @@
+{
+  "scope": "INDEPENDENT_RETAINED_FAILED_LOCAL_AGGREGATE_DATA_REVIEW_NO_RETROACTIVE_PYTHON_OR_FULL_PASS",
+  "verdict": "CLEAR_AS_ACCURATELY_RECORDED_FAILURE",
+  "passed_checks": 2097,
+  "commit": "204bc06a374631f4b40d4fc382f573a77ef9242a",
+  "tree": "5b5bfeda09b60654adce335e0e21cd9ad056e120",
+  "start_utc": "2026-10-29T00:06:35.760558+00:00",
+  "end_utc": "2026-10-29T00:20:18.701551+00:00",
+  "actual_results": [
+    {
+      "name": "doctor",
+      "argv": [
+        "pnpm",
+        "run",
+        "doctor"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 6.355295917019248,
+      "direct_child_reaped": true,
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": []
+    },
+    {
+      "name": "verify",
+      "argv": [
+        "pnpm",
+        "verify"
+      ],
+      "exit_code": 1,
+      "timeout": false,
+      "seconds": 816.3347743339837,
+      "direct_child_reaped": true,
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": []
+    }
+  ],
+  "aggregate_suites": [
+    {
+      "suite": "toolchain",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "format",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "lint",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "typecheck",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "unit-ts",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "contract-gen",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "fixture-corpus",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "evaluation-corpus",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "contract",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "build",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "e2e-browser",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "w14-public-controlled",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "w14-public-contact-controlled",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "visual",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "python",
+      "state": "ACTIVE",
+      "result": "FAIL"
+    },
+    {
+      "suite": "rust",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "portability",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "traceability",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "status",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "integrity",
+      "state": "ACTIVE",
+      "result": "FAIL"
+    }
+  ],
+  "unit_package_counts": {
+    "@japp/mock-ats-lab": 32,
+    "@japp/extension": 257,
+    "@japp/platform": 1,
+    "@japp/ui": 11,
+    "@japp/evaluation-baselines": 171,
+    "@japp/test-fixtures": 166,
+    "@japp/resume-schema": 1,
+    "@japp/desktop": 39,
+    "@japp/ats-adapters": 65,
+    "@japp/evaluation-corpus": 218,
+    "@japp/domain": 1,
+    "@japp/security": 1,
+    "@japp/form-engine": 106,
+    "@japp/evaluation-runner": 377,
+    "@japp/contracts": 2560
+  },
+  "ordinary_unit_passed": 4006,
+  "browser_passed": 278,
+  "dedicated_visual_passed": 17,
+  "python_execution": "NOT_RUN_PREFLIGHT_REFUSED_BEFORE_COLLECTION",
+  "source_files": 2070,
+  "runtime_files": 40,
+  "retained_visual_files": 33,
+  "limits": [
+    "No complete Vitest per-case ID channel",
+    "Source-neutrality endpoints do not prove every intermediate state",
+    "Rust test PASS is not packaged GUI or desktop-native foreign-OS acceptance",
+    "Separate focused fixture correction is later evidence; original aggregate remains failed"
+  ],
+  "native_modes": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "apps/desktop/src-tauri/Cargo.toml"
+      ],
+      "passed": 342,
+      "names_sha256": "0480c36b3eedd3b7486abc194b17085c64bfa7b5b6ffcc2b68db18bb7db57554"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "apps/desktop/src-tauri/Cargo.toml",
+        "--all-features"
+      ],
+      "passed": 342,
+      "names_sha256": "0480c36b3eedd3b7486abc194b17085c64bfa7b5b6ffcc2b68db18bb7db57554"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "apps/desktop/src-tauri/Cargo.toml",
+        "--features",
+        "tauri/custom-protocol"
+      ],
+      "passed": 342,
+      "names_sha256": "0480c36b3eedd3b7486abc194b17085c64bfa7b5b6ffcc2b68db18bb7db57554"
+    }
+  ],
+  "historical_aggregate_verdict": "FAIL_18_PASS_2_FAIL_PYTHON_PREFLIGHT_NOT_EXECUTED",
+  "state_promotion": "NONE"
+}

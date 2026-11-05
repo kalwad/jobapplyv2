@@ -1,0 +1,177 @@
+name: prepare unreviewed Windows11 media and host-tool candidate
+"on":
+  pull_request:
+    types:
+      - synchronize
+  workflow_dispatch:
+    inputs:
+      expected-head:
+        description: Exact reviewed source and original package commit SHA
+        required: true
+        type: string
+      package-run-id:
+        description: Original same-repository package build run ID
+        required: true
+        type: string
+      package-artifact-id:
+        description: Exact original package export artifact ID
+        required: true
+        type: string
+      package-manifest-sha256:
+        description: Independently verified original curated package manifest SHA256
+        required: true
+        type: string
+      package-run-attempt:
+        description: Exact original completed run attempt
+        required: true
+        type: string
+      package-artifact-digest-sha256:
+        description: Root-reviewed exact artifact ZIP digest SHA256
+        required: true
+        type: string
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: win11-download-only-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+jobs:
+  authorize:
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.id == github.event.repository.id && github.event.pull_request.base.repo.id == github.event.repository.id && github.event.pull_request.head.ref == 'codex/autofill-evaluation-hardening') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      enabled: ${{ steps.request.outputs.enabled }}
+      mode: ${{ steps.request.outputs.mode }}
+      source_sha: ${{ steps.request.outputs.source_sha }}
+      package_build_sha: ${{ steps.request.outputs.package_build_sha }}
+      source_tree_sha: ${{ steps.request.outputs.source_tree_sha }}
+      artifact_run_id: ${{ steps.request.outputs.artifact_run_id }}
+      artifact_id: ${{ steps.request.outputs.artifact_id }}
+      package_manifest_sha256: ${{ steps.request.outputs.package_manifest_sha256 }}
+      request_id: ${{ steps.request.outputs.request_id }}
+      bundle_sha256: ${{ steps.request.outputs.bundle_sha256 }}
+      media_lock_sha256: ${{ steps.request.outputs.media_lock_sha256 }}
+      host_tools_sha256: ${{ steps.request.outputs.host_tools_sha256 }}
+      guest_driver_sha256: ${{ steps.request.outputs.guest_driver_sha256 }}
+    steps:
+      - name: Check out exact control head with complete ancestry
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+          path: control
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Read actual executing workflow commit separately
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: workflow-origin
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Bind explicit root request and immutable artifact metadata
+        id: request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B control/scripts/windows11/windows11_request.py \
+            --mode download-only \
+            --control "$GITHUB_WORKSPACE/control" \
+            --workflow-source "$GITHUB_WORKSPACE/workflow-origin" \
+            --proof "$RUNNER_TEMP/japp-win11-download-only-request"
+      - name: Retain metadata gate without package or VM claim
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: win11-download-only-request-${{ github.run_id }}
+          path: ${{ runner.temp }}/japp-win11-download-only-request/
+          if-no-files-found: error
+          retention-days: 7
+  guest-source-checks:
+    needs: authorize
+    if: ${{ needs.authorize.outputs.enabled == 'true' && needs.authorize.outputs.mode == 'DOWNLOAD_ONLY' }}
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact reviewed guest controller source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ needs.authorize.outputs.source_sha }}
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Parse target PowerShell and compile declarations without native calls
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy RemoteSigned -File scripts/windows11/windows11_source_check.ps1 -Proof "$env:RUNNER_TEMP\japp-win11-source-check\source-check.json"
+      - name: Retain target source check without Windows11 acceptance
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: win11-source-check-${{ needs.authorize.outputs.source_sha }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/japp-win11-source-check/
+          if-no-files-found: error
+          retention-days: 7
+  download-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    env:
+      EXPECTED_HEAD: ${{ needs.authorize.outputs.source_sha }}
+      PACKAGE_BUILD_HEAD: ${{ needs.authorize.outputs.package_build_sha }}
+      SOURCE_TREE: ${{ needs.authorize.outputs.source_tree_sha }}
+      MANIFEST_SHA256: ${{ needs.authorize.outputs.package_manifest_sha256 }}
+      PACKAGE_MANIFEST_SHA256: ${{ needs.authorize.outputs.package_manifest_sha256 }}
+      BUNDLE_SHA256: ${{ needs.authorize.outputs.bundle_sha256 }}
+      MEDIA_LOCK_SHA256: ${{ needs.authorize.outputs.media_lock_sha256 }}
+      HOST_TOOLS_SHA256: ${{ needs.authorize.outputs.host_tools_sha256 }}
+      GUEST_DRIVER_SHA256: ${{ needs.authorize.outputs.guest_driver_sha256 }}
+    steps:
+      - name: Check out exact reviewed preparer and shipping source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ needs.authorize.outputs.source_sha }}
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Download exact original curated Windows package artifact
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          artifact-ids: ${{ needs.authorize.outputs.artifact_id }}
+          run-id: ${{ needs.authorize.outputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          path: ${{ runner.temp }}/japp-original-windows-artifact
+          digest-mismatch: error
+      - name: Download target source-only receipt from this exact preparation run
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          name: win11-source-check-${{ needs.authorize.outputs.source_sha }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/japp-win11-source-check
+      - name: Download official publisher media and signed host-tool candidate only
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+          python3 -B scripts/windows11/windows11_candidate.py \
+            --source "$GITHUB_WORKSPACE" \
+            --artifact "$RUNNER_TEMP/japp-original-windows-artifact" \
+            --guest-source-checks "$RUNNER_TEMP/japp-win11-source-check/source-check.json" \
+            --manifest-sha256 "$MANIFEST_SHA256" \
+            --output "$RUNNER_TEMP/japp-unreviewed-win11-candidate" \
+            --expected-head "$EXPECTED_HEAD" \
+            --package-build-head "$PACKAGE_BUILD_HEAD" \
+            --source-tree "$SOURCE_TREE"
+      - name: Retain candidate and first failure without install or VM claim
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: unreviewed-windows11-inputs-${{ needs.authorize.outputs.source_sha }}-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/japp-unreviewed-win11-candidate/retained/
+            ${{ runner.temp }}/japp-unreviewed-win11-candidate/retention-failure.json
+          if-no-files-found: error
+          retention-days: 7
+    needs: [authorize, guest-source-checks]
+    if: ${{ needs.authorize.outputs.enabled == 'true' && needs.authorize.outputs.mode == 'DOWNLOAD_ONLY' }}

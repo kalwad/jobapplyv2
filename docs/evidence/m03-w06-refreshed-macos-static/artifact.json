@@ -1,0 +1,10 @@
+{
+  "archive": {
+    "bytes": 997016,
+    "sha256": "78f2ee13722824baeae10ee715f41878947be0d66004c76287ab363f33b8bb15",
+    "safe_regular_members": 58
+  },
+  "review_sha256": "801e8c3fc9df6294ea9888c86938987719cf56df13d2ee3a55f71520878e87e0",
+  "audit_sha256": "5af84bf4e93aa622c12beceb8a0b7fee7ea5f566747826710a6de756f9ee0936",
+  "scope": "INDEPENDENT_REFRESHED_LOCAL_MACOS_RUNTIME_AND_APP_STATIC_DATA_REVIEW_NO_GUI_ACCEPTANCE"
+}

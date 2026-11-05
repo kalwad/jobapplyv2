@@ -1,0 +1,7 @@
+WaitCheckedAt ms=147 ok=True
+CheckedAdvance ms=493 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Jobs:pid=1372:hwnd=0 fg=Tauri Window:pid=8284 focus=Chrome_WidgetWin_1:66238 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms ms=69 ok=True
+ShellWait $Owner.ShellRouteLinkFocused($label) ms=55 ok=True
+ShellWait $Owner.ShellRouteFocused($label) ms=237 ok=True
+ShellWait $Owner.ShellMainFocused() ms=373 ok=True
+ShellWait -not $Owner.ShellRouteLinkFocused($label) ms=30524 ok=False

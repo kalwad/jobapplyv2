@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-japp-schema-version": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "$id": "urn:japp:schema:service:version:v1",
+  "title": "Service version payload",
+  "description": "Actual installed orchestrator distribution version and the exact local API version. No platform or AI capability is inferred.",
+  "required": ["service_version", "api_version", "instance_id", "generation"],
+  "properties": {
+    "service_version": {
+      "$ref": "urn:japp:schema:common:schema-version:v1#/$defs/schemaVersion"
+    },
+    "api_version": {
+      "type": "string",
+      "pattern": "^1\\.0\\.0$",
+      "minLength": 5,
+      "maxLength": 5
+    },
+    "instance_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "generation": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    }
+  }
+}

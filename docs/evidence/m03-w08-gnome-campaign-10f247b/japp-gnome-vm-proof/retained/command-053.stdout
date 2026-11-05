@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "operation": "shell_back_home",
+  "result": {
+    "back_returned": true
+  },
+  "elapsed_seconds": 0.26785477899997545
+}

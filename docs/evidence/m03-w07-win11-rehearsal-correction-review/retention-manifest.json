@@ -1,0 +1,25 @@
+{
+  "scope": "Exact committed bytes of the two separate review workflow results, the mutant script and its output for the Windows 11 rehearsal correction (KI-0176 to KI-0187)",
+  "files": {
+    "README.md": {
+      "bytes": 5099,
+      "sha256": "8d41b203deb586fb33e4ac68c344e4b373f4ee66de2b2c5b49f1618830dd4bf7"
+    },
+    "mutants-result.txt": {
+      "bytes": 1420,
+      "sha256": "6aaecc54f74f8778b4b16a22e75be1957b9360bee0b7c4b4b0b27d073338c11c"
+    },
+    "mutants.py": {
+      "bytes": 5474,
+      "sha256": "332f78e317697f55dfab3c7cfeb99a5274d35b993fa8f54f427cb03906da2ef6"
+    },
+    "review-1-workflow-result.json": {
+      "bytes": 235401,
+      "sha256": "53a5e46378aa2b009c2a5e12f3f258d412c4030fc68ec287f921d0fb960f4370"
+    },
+    "review-2-workflow-result.json": {
+      "bytes": 124192,
+      "sha256": "5c52e7eb3a6c27c3f363d3a9da0a292daee0f362572df967ebf4fcaa1fdcd2ff"
+    }
+  }
+}

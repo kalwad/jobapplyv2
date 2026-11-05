@@ -1,0 +1,66 @@
+# Run 41133099895 (diag/windows-service-env 2aecfea, windows-2025), steps 'Download the exact
+# b74d867 Windows package artifact' and 'Probe empty versus SystemRoot-only environments'.
+# Job/step columns and ANSI colour codes stripped; blank timestamp-only lines dropped.
+
+2026-10-30T21:43:53.7672890Z ##[group]Run gh run download 41124431600 -R kalwad/jobapplyv2 -n native-development-windows-2025-af74040c1371eab07d9671f2464d909a60ad626d -D "$env:RUNNER_TEMP\art"
+2026-10-30T21:43:53.7674663Z gh run download 41124431600 -R kalwad/jobapplyv2 -n native-development-windows-2025-af74040c1371eab07d9671f2464d909a60ad626d -D "$env:RUNNER_TEMP\art"
+2026-10-30T21:43:53.7675989Z Expand-Archive "$env:RUNNER_TEMP\art\packages\windows-portable.zip" "$env:RUNNER_TEMP\portable"
+2026-10-30T21:43:53.7677072Z Get-FileHash "$env:RUNNER_TEMP\portable\runtime\japp-orchestrator\japp-orchestrator.exe" -Algorithm SHA256 | Format-List
+2026-10-30T21:43:53.8423110Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-30T21:43:53.8423842Z env:
+2026-10-30T21:43:53.8429803Z   GH_TOKEN: ***
+2026-10-30T21:43:53.8430186Z ##[endgroup]
+2026-10-30T21:44:04.9110133Z Algorithm : SHA256
+2026-10-30T21:44:04.9111700Z Hash      : CA4D41983AE0A62EC878A471D6F1D93AB70B0AB28F60B828EBF128165F0DCAC1
+2026-10-30T21:44:04.9113021Z Path      : D:\a\_temp\portable\runtime\japp-orchestrator\japp-orchestrator.exe
+2026-10-30T21:44:04.9938193Z ##[group]Run python scripts\diag\env_probe.py "$env:RUNNER_TEMP\portable\runtime\japp-orchestrator\japp-orchestrator.exe"
+2026-10-30T21:44:04.9939171Z python scripts\diag\env_probe.py "$env:RUNNER_TEMP\portable\runtime\japp-orchestrator\japp-orchestrator.exe"
+2026-10-30T21:44:05.0074262Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-30T21:44:05.0074656Z ##[endgroup]
+2026-10-30T21:44:10.7803547Z runner python 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)] SystemRoot C:\Windows
+2026-10-30T21:44:10.7804633Z == py-environ-empty exit=0
+2026-10-30T21:44:10.7804979Z stdout: []
+2026-10-30T21:44:10.7805277Z stderr: 
+2026-10-30T21:44:10.7805575Z == py-socket-empty exit=1
+2026-10-30T21:44:10.7805875Z stdout: 
+2026-10-30T21:44:10.7806155Z stderr: Traceback (most recent call last):
+2026-10-30T21:44:10.7806571Z   File "<string>", line 1, in <module>
+2026-10-30T21:44:10.7807250Z   File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\socket.py", line 233, in __init__
+2026-10-30T21:44:10.7807974Z     _socket.socket.__init__(self, family, type, proto, fileno)
+2026-10-30T21:44:10.7808691Z OSError: [WinError 10106] The requested service provider could not be loaded or initialized
+2026-10-30T21:44:10.7809334Z == py-socket-systemroot exit=0
+2026-10-30T21:44:10.7809648Z stdout: ok
+2026-10-30T21:44:10.7809879Z stderr: 
+2026-10-30T21:44:10.7810121Z == py-asyncio-empty exit=1
+2026-10-30T21:44:10.7810412Z stdout: 
+2026-10-30T21:44:10.7810672Z stderr: Traceback (most recent call last):
+2026-10-30T21:44:10.7811062Z   File "<string>", line 1, in <module>
+2026-10-30T21:44:10.7811697Z   File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\__init__.py", line 43, in <module>
+2026-10-30T21:44:10.7812362Z     from .windows_events import *
+2026-10-30T21:44:10.7813040Z   File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\windows_events.py", line 8, in <module>
+2026-10-30T21:44:10.7813790Z     import _overlapped
+2026-10-30T21:44:10.7814659Z OSError: [WinError 10106] The requested service provider could not be loaded or initialized
+2026-10-30T21:44:10.7815391Z == service-empty exit=1 ack_after=2.30s
+2026-10-30T21:44:10.7817135Z ack: None
+2026-10-30T21:44:10.7817442Z stderr: Traceback (most recent call last):
+2026-10-30T21:44:10.7817908Z   File "service_entry.py", line 1, in <module>
+2026-10-30T21:44:10.7818496Z   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-10-30T21:44:10.7819261Z   File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-10-30T21:44:10.7820006Z   File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-10-30T21:44:10.7820631Z   File "pyimod02_importers.py", line 457, in exec_module
+2026-10-30T21:44:10.7821193Z   File "orchestrator\runner.py", line 5, in <module>
+2026-10-30T21:44:10.7821783Z   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-10-30T21:44:10.7822537Z   File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-10-30T21:44:10.7823319Z   File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-10-30T21:44:10.7823913Z   File "pyimod02_importers.py", line 457, in exec_module
+2026-10-30T21:44:10.7824378Z   File "asyncio\__init__.py", line 43, in <module>
+2026-10-30T21:44:10.7824896Z   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2026-10-30T21:44:10.7827789Z   File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2026-10-30T21:44:10.7828463Z   File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2026-10-30T21:44:10.7829027Z   File "pyimod02_importers.py", line 457, in exec_module
+2026-10-30T21:44:10.7829527Z   File "asyncio\windows_events.py", line 8, in <module>
+2026-10-30T21:44:10.7830183Z OSError: [WinError 10106] The requested service provider could not be loaded or initialized
+2026-10-30T21:44:10.7831019Z [PYI-2996:ERROR] Failed to execute script 'service_entry' due to unhandled exception!
+2026-10-30T21:44:10.7831648Z == service-systemroot exit=0 ack_after=0.88s
+2026-10-30T21:44:10.7832677Z ack: {"protocol":"JAPP_SERVICE_STATUS_V1","schema_version":"1.0.0","status":"READY","bind_host":"127.0.0.1","bind_port":55576,"instance_id":"svc_00000000000000000000000001","generation":1}
+2026-10-30T21:44:10.7833682Z stderr: (empty)

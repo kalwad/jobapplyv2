@@ -1,0 +1,27 @@
+{
+  "attempt": 1,
+  "immutable_source_blobs": 2255,
+  "masked_ids_are_multisets_not_individual_proof": true,
+  "masked_python_case_ids_per_platform": 12,
+  "original_compact": {
+    "bytes": 3628214,
+    "path": "proof.tar.gz",
+    "sha256": "81f48075448f1ea19a7e4891484f5fed1be8b9f7853b70bf2dc5f3143d75b7c8"
+  },
+  "original_outcome": "Windows19PASS1FAIL/Python2474PASS2setupteardownERRORsameoversizedcase/MacUbuntu20PASS2477each/nativepackagesSKIPzeroexports",
+  "proof": {
+    "bytes": 3879408,
+    "sha256": "8e15997cdc62953a10bb1c7207892075660c343799f79fd38a26fd094fcb0143"
+  },
+  "run": 40914184628,
+  "scope": "CLEAR_AS_RECORDED_CI_FAILURE_WITH_MASKED_PYTHON_IDENTITIES",
+  "source": "f5a05bad78d8421a5c1e0094eb928fdbb464cdc7",
+  "supplementary_case_joins": 109,
+  "terminal_data_review_joins": 7863,
+  "tested_merge": "719b96622ffb28a2f0f1b994955d0c3b77d504e9",
+  "tree": "aa9fbaa9addd16052eaeca6259852bc00bb03702",
+  "unmasked_python_individual_identity_joins": {
+    "posix": 2465,
+    "windows": 2463
+  }
+}

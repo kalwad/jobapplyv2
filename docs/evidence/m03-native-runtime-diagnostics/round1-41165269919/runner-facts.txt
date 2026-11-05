@@ -1,0 +1,10 @@
+ImageVersion=20261026.354.1
+uid=1001(runner) gid=1001(runner) groups=1001(runner),4(adm),100(users),118(docker),999(systemd-journal)
+Mem:              15           1          12           0           2          14
+/dev/root       145G   60G   85G  42% /
+/dev/root       145G   60G   85G  42% /
+crw-rw---- 1 root kvm 10, 232 Oct 31 03:37 /dev/kvm
+model name	: AMD EPYC 9V74 80-Core Processor
+crw-rw----+ 1 root kvm 10, 232 Oct 31 03:37 /dev/kvm
+KVM API 12
+sha256 bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38

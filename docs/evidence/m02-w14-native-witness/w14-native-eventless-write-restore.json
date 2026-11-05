@@ -1,0 +1,438 @@
+{
+  "measurement": {
+    "native_witness": {
+      "format_version": "W14_NATIVE_WITNESS_1",
+      "source": "CDP_EXTENSION_ISOLATED_REALM_NATIVE_1",
+      "realm": "ACTUAL_EXTENSION_CONTENT_SCRIPT",
+      "coverage": "COMPLETE_INSTALLED_NATIVE_SURFACES",
+      "surfaces": [
+        "INPUT_VALUE",
+        "TEXTAREA_VALUE",
+        "SELECT_VALUE",
+        "INPUT_CHECKED",
+        "INPUT_FILES",
+        "SELECT_INDEX",
+        "SCROLL_TOP",
+        "ACTIVATION",
+        "FOCUS",
+        "BLUR",
+        "EVENT_DISPATCH"
+      ],
+      "native_mutation_count": 2,
+      "interaction_count": 0,
+      "witnesses": [
+        {
+          "sequence": 1,
+          "surface": "INPUT_VALUE",
+          "key": "first",
+          "tag": "INPUT",
+          "type": "text",
+          "succeeded": true,
+          "value_digest": "sha256:7b7b6bf34276dd86a1d76e08b71818bf21172157d5716fb3fa220c26d76745a0"
+        },
+        {
+          "sequence": 2,
+          "surface": "INPUT_VALUE",
+          "key": "first",
+          "tag": "INPUT",
+          "type": "text",
+          "succeeded": true,
+          "value_digest": "sha256:36e771f88ec16fa25cf1e1fbe950d4555c0951acd8c9b7a0340e27af137ca20f"
+        }
+      ],
+      "witnesses_digest": "sha256:8d99264d0d0534ddb962ba022c1ea641506b1a7b88b201c78cc58a8d90a48f41",
+      "limitations": [
+        "Test-only prototype wrappers in the single actual extension realm; main-world page mutations are separate site behavior.",
+        "Counts attempted calls to installed native surfaces; browser-internal effects of an activation are represented by that activation.",
+        "No claim covers retained pre-install native references, other realms, uninstalled mutation APIs, closed shadow roots, or live employer forms."
+      ]
+    },
+    "visibility": {
+      "before": {
+        "state": "visible",
+        "hidden": false
+      },
+      "after": {
+        "state": "visible",
+        "hidden": false
+      }
+    },
+    "declared_initial": [
+      {
+        "key": "first",
+        "native_keys": [
+          "first"
+        ],
+        "label": "Employer",
+        "valid": true,
+        "required": false,
+        "disabled": false,
+        "kind": "text",
+        "attribute_fingerprint": "sha256:23d9c293577d3312dac8aeb207e5c9edda78bf90cf47b24a5cb31ad698f3b858",
+        "value_digest": "sha256:36e771f88ec16fa25cf1e1fbe950d4555c0951acd8c9b7a0340e27af137ca20f"
+      }
+    ],
+    "initial": [
+      {
+        "key": "first",
+        "native_keys": [
+          "first"
+        ],
+        "label": "Employer",
+        "valid": true,
+        "required": false,
+        "disabled": false,
+        "kind": "text",
+        "attribute_fingerprint": "sha256:23d9c293577d3312dac8aeb207e5c9edda78bf90cf47b24a5cb31ad698f3b858",
+        "value_digest": "sha256:36e771f88ec16fa25cf1e1fbe950d4555c0951acd8c9b7a0340e27af137ca20f"
+      }
+    ],
+    "final": [
+      {
+        "key": "first",
+        "native_keys": [
+          "first"
+        ],
+        "label": "Employer",
+        "valid": true,
+        "required": false,
+        "disabled": false,
+        "kind": "text",
+        "attribute_fingerprint": "sha256:23d9c293577d3312dac8aeb207e5c9edda78bf90cf47b24a5cb31ad698f3b858",
+        "value_digest": "sha256:36e771f88ec16fa25cf1e1fbe950d4555c0951acd8c9b7a0340e27af137ca20f"
+      }
+    ],
+    "measurement_issues": [
+      "MEASUREMENT_ERROR:NATIVE_EVENT_ACTION_COUNT_MISMATCH"
+    ],
+    "observed": {
+      "scan_fill_duration_ms": 319.06104100000016,
+      "phase_timings_ms": {
+        "initial_scan": 6.222875000000158,
+        "planning_and_unbatched_execution": 175.71399999999994,
+        "batched_execution": 0.00045799999998052954,
+        "final_reconciliation": 137.12370800000008
+      },
+      "fields": [
+        {
+          "key": "first",
+          "status": "ABSTAINED",
+          "observed_digest": "sha256:36e771f88ec16fa25cf1e1fbe950d4555c0951acd8c9b7a0340e27af137ca20f",
+          "persistence": "UNKNOWN",
+          "site_acceptance": "UNKNOWN",
+          "reason": "POLICY_ABSTAIN",
+          "report_digest": "sha256:7bdd0c5b009643e16ee1ee47600ee79376dd10c3f622cd5590ec939b2e0a822a"
+        }
+      ],
+      "scanner_fields": [
+        {
+          "field_id": "field_62NV0Y1RD66609MXZWX1QJGZ53",
+          "attribute_fingerprint": "sha256:23d9c293577d3312dac8aeb207e5c9edda78bf90cf47b24a5cb31ad698f3b858",
+          "label": "Employer",
+          "required": false,
+          "visible": true,
+          "kind": "TEXT"
+        }
+      ],
+      "meter": {
+        "actions": [],
+        "navigation": 0,
+        "submission": 0,
+        "rerenders": 0
+      },
+      "reconciliation": {
+        "status": "RECONCILED",
+        "inventory": {
+          "inventory_id": "inv_7SVVJSZEFQSXKP6980EMQGGDPW",
+          "session_id": "session_4STPTF1G8QH0S1J09SNQZNR4SX",
+          "page_id": "page_6XA0JGSE6W7QP7GXTADC7Q8J48",
+          "document_id": "document_6XQV05PW8JKJ41Z221SAFNXB0S",
+          "page_generation": 0,
+          "proof_generation": 0,
+          "items": [
+            {
+              "item_id": "item_7WXM9G68EYBRX40GP6KKMW2GHB",
+              "field_id": "field_62NV0Y1RD66609MXZWX1QJGZ53",
+              "field_address_digest": "sha256:72fc81e75decd1843eeb941e0e911280104db92d36af17bec11799b1cb50c778",
+              "required": false,
+              "visible": true,
+              "enabled": true,
+              "category": "UNSUPPORTED_OR_SKIPPED",
+              "document_state": "NOT_APPLICABLE",
+              "changed_value": false,
+              "confirmation_state": "NOT_APPLICABLE",
+              "mandatory_uncertain": false
+            }
+          ],
+          "counts": {
+            "total": 1,
+            "verified_filled": 0,
+            "needs_review": 0,
+            "blocked_sensitive": 0,
+            "unsupported_or_skipped": 1,
+            "required_unresolved": 0,
+            "page_changed_value": 0,
+            "stale_document": 0,
+            "unconfirmed_consequential": 0,
+            "mandatory_uncertain": 0
+          },
+          "readiness": "READY",
+          "evidence_digest": "sha256:239138aff07db03e6e819ca316854f5c1fa650d22640d18c08aedda344a8a438",
+          "correlation_id": "cor_7M45STC9XF7J8XTTT9PG3HS4GT"
+        },
+        "snapshot": {
+          "observation_state": "IDLE",
+          "generations": {
+            "route_generation": 0,
+            "page_generation": 0,
+            "dom_observation_generation": 1,
+            "root_generation": 0
+          },
+          "memory": {
+            "available": true,
+            "used_js_heap_bytes": 4031363,
+            "total_js_heap_bytes": 6594651
+          },
+          "cpu": {
+            "available": false,
+            "reason": "NO_IN_PAGE_PROCESS_CPU_SOURCE"
+          },
+          "scanner_work": {
+            "scan_calls": 2,
+            "reresolution_calls": 0,
+            "candidates_examined": 2,
+            "descriptors_built": 2,
+            "nodes_examined": 6,
+            "label_elements_examined": 2,
+            "total_duration_ms": 2,
+            "total_duration_us": 1700,
+            "root_scan_calls": 2,
+            "root_scan_duration_us": 1700,
+            "subtree_scan_calls": 0,
+            "subtree_scan_duration_us": 0,
+            "candidate_enumerations": 2,
+            "candidate_enumeration_duration_us": 0,
+            "descriptor_duration_us": 1300,
+            "descriptor_builds_started": 2,
+            "identity_pairs_examined": 0,
+            "identity_matching_duration_us": 0,
+            "root_detection_calls": 5,
+            "root_detection_duration_us": 502,
+            "capacity_checks": 11,
+            "capacity_check_duration_us": 100,
+            "preflight_reresolutions": 0,
+            "preflight_reresolution_duration_us": 0,
+            "preaction_reresolutions": 0,
+            "preaction_reresolution_duration_us": 0,
+            "settle_reresolutions": 0,
+            "settle_reresolution_duration_us": 0,
+            "reconcile_reresolutions": 0,
+            "reconcile_reresolution_duration_us": 0,
+            "other_reresolutions": 0,
+            "other_reresolution_duration_us": 0,
+            "generations_observed": 1,
+            "index_rebuilds": 0,
+            "index_hits": 0,
+            "index_invalidations": 0,
+            "index_rebuild_duration_us": 0,
+            "semantic_match_checks": 0,
+            "topology_full_captures": 6,
+            "topology_subtree_captures": 27,
+            "topology_nodes_visited": 149,
+            "topology_host_checks": 10,
+            "topology_roots_discovered": 0,
+            "topology_capacity_refusals": 0,
+            "topology_duration_us": 402
+          },
+          "mutation_callbacks": 0,
+          "mutation_records": 0,
+          "records_during_action": 0,
+          "batches_processed": 0,
+          "batches_action_origin": 0,
+          "affected_subtree_scans": 0,
+          "root_rescans": 1,
+          "root_rescans_route_changed": 0,
+          "root_rescans_root_replaced": 0,
+          "root_rescans_overflow": 0,
+          "root_rescans_observation_start": 1,
+          "full_document_scans": 0,
+          "nodes_considered": 3,
+          "descriptors_produced": 1,
+          "conditional_fields_discovered": 0,
+          "conditional_fields_removed": 0,
+          "actions_considered": 0,
+          "actions_executed": 0,
+          "actions_suppressed_duplicate": 0,
+          "page_changed_detected": 0,
+          "reconciliation_passes": 1,
+          "last_batch_duration_ms": 0,
+          "last_reconciliation_duration_ms": 1,
+          "total_scan_duration_ms": 0,
+          "inventory_size": 1,
+          "ledger_size": 0,
+          "registry_size": 0,
+          "queue_length": 0,
+          "max_queue_length": 0
+        }
+      },
+      "decisions": [
+        {
+          "decision_id": "decision_58Q5847F4ZD0Y3TK300FHA6QYW",
+          "field_id": "field_62NV0Y1RD66609MXZWX1QJGZ53",
+          "field_address_digest": "sha256:72fc81e75decd1843eeb941e0e911280104db92d36af17bec11799b1cb50c778",
+          "field_concept": "UNKNOWN",
+          "classification_confidence": 0,
+          "value_source_type": "NONE",
+          "value_confidence": 0,
+          "sensitivity_class": "PERSONAL",
+          "policy_decision": "UNSUPPORTED",
+          "final_decision": "BLOCK_UNSUPPORTED",
+          "confirmation_state": "NOT_REQUIRED",
+          "reason_codes": [
+            "UNSUPPORTED_FIELD",
+            "LOW_CLASSIFICATION_CONFIDENCE",
+            "LOW_VALUE_CONFIDENCE"
+          ],
+          "provenance": {
+            "source_kind": "PAGE_CAPTURE",
+            "source_id": "field_62NV0Y1RD66609MXZWX1QJGZ53",
+            "observed_at": "2026-10-16T17:09:35.713Z",
+            "source_digest": "sha256:29ee4a119167a0bc80d197456b5dc8e0197fc3094acac5eb70de42a950465c95"
+          },
+          "correlation_id": "cor_6P0NMVXW48991B9DJPSDQT1MZN",
+          "causation_id": "field_62NV0Y1RD66609MXZWX1QJGZ53"
+        }
+      ],
+      "results": []
+    }
+  },
+  "oldEventOnlyScore": {
+    "canonical_score": {
+      "format_version": "W13_SCORE_1",
+      "scorer_version": "1.0.0",
+      "case_id": "benchmarkcase_00000000000000000000000001",
+      "oracle_digest": "sha256:7be28710c05d1cc13ba919c0c4c0d40250f551bc9f52702cc151566eef585a9d",
+      "raw_digest": "sha256:c754d1f1744fd311ba6bdeb5a1198bf7135970e7f8e3a51a848b44eb92050afd",
+      "physical_digest": "sha256:2546fd9cacb628d807003726ff1e0cfb8e2aba1f69783b49b67ac91a908debbe",
+      "counts": {
+        "fields": 1,
+        "ordinary_fields": 0,
+        "sensitive_fields": 0,
+        "honeypot_fields": 0,
+        "unsupported_fields": 1,
+        "ambiguous_fields": 0,
+        "expected_abstentions": 1,
+        "required_fields": 0,
+        "optional_fields": 1,
+        "expected_fills": 0,
+        "expected_required_fills": 0,
+        "attempted_fills": 0,
+        "correct_fills": 0,
+        "incorrect_fills": 0,
+        "correct_required_fills": 0,
+        "correct_abstentions": 0,
+        "incorrect_abstentions": 1,
+        "required_unresolved": 0,
+        "required_reported": 0,
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "correct_options": 0,
+        "persisted": 0,
+        "reverted": 0,
+        "persistence_unknown": 0,
+        "site_accepted": 0,
+        "site_rejected": 0,
+        "site_unknown": 0,
+        "physical_actions": 0,
+        "duplicate_actions": 0,
+        "navigation_activations": 0,
+        "submission_activations": 0
+      },
+      "rates": {
+        "precision": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null
+        },
+        "recall": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null
+        },
+        "required_recall": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null
+        },
+        "required_reporting": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null
+        },
+        "persistence": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null
+        },
+        "site_acceptance": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null
+        }
+      },
+      "fields": [
+        {
+          "key": "first",
+          "expected_class": "UNSUPPORTED",
+          "required": false,
+          "supported": false,
+          "expected": "ABSTAIN",
+          "persistence": "UNKNOWN",
+          "site_acceptance": "UNKNOWN",
+          "primary": "INCORRECT_ABSTENTION",
+          "attempted": false,
+          "persisted": false,
+          "accepted": false,
+          "reason": "POLICY_ABSTAIN",
+          "required_unresolved": false,
+          "explicitly_reported": false
+        }
+      ]
+    },
+    "preservation": {
+      "format_version": "W14_PRESERVATION_SCORE_1",
+      "scorer_version": "1.0.0",
+      "authority": "NONE",
+      "case_id": "benchmarkcase_00000000000000000000000001",
+      "oracle_digest": "sha256:7be28710c05d1cc13ba919c0c4c0d40250f551bc9f52702cc151566eef585a9d",
+      "initial_oracle_digest": "sha256:ef3531549177f4a2aef6a1085cfa9ab3cbda17c668c910f80f749b27a9b43994",
+      "state_observation_digest": "sha256:77fcb0e9e97216782ee69cb93a512f7514fad6a6e0ba1cbc15878708596bc0e7",
+      "canonical_score_digest": "sha256:530c4793fed23f328a02406482337843201b5a7a1471cb2af48acc21634e541b",
+      "candidate_digest": "sha256:c754d1f1744fd311ba6bdeb5a1198bf7135970e7f8e3a51a848b44eb92050afd",
+      "physical_digest": "sha256:2546fd9cacb628d807003726ff1e0cfb8e2aba1f69783b49b67ac91a908debbe",
+      "counts": {
+        "fields": 1,
+        "expected_preservations": 1,
+        "correct_preservations": 1,
+        "preservation_violations": 0,
+        "expected_empty_abstentions": 0,
+        "correct_empty_abstentions": 0,
+        "abstention_violations": 0,
+        "protected_physical_actions": 0,
+        "changed_without_action": 0
+      },
+      "fields": [
+        {
+          "key": "first",
+          "expected_state": "PRESERVE",
+          "initial_digest": "sha256:36e771f88ec16fa25cf1e1fbe950d4555c0951acd8c9b7a0340e27af137ca20f",
+          "final_digest": "sha256:36e771f88ec16fa25cf1e1fbe950d4555c0951acd8c9b7a0340e27af137ca20f",
+          "physical_actions": 0,
+          "outcome": "CORRECT_PRESERVATION"
+        }
+      ]
+    }
+  }
+}

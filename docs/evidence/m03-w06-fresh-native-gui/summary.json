@@ -1,0 +1,80 @@
+{
+  "schema": "M03_W06_FRESH_NATIVE_MAC_GUI_LOCAL_ACTUAL_V1",
+  "scope": "INDEPENDENT_FRESH_LOCAL_MACOS_NATIVE_GUI_LIFECYCLE_EVIDENCE_NO_MILESTONE_PROMOTION",
+  "verdict": "CLEAR_LOCAL_NATIVE_GUI_SCOPE",
+  "reference_head": "9872acaf6191ce77fd1c077ef27ea972b71b8315",
+  "reference_tree": "f2d982dfe441ca6a98c2f9ae2862c3efd1e4373a",
+  "package_build_reference": "204bc06a374631f4b40d4fc382f573a77ef9242a; unchanged prior package, not a new9872build",
+  "app_files": 43,
+  "app_bytes": 80530670,
+  "source_endpoint_files": 2141,
+  "runtime_files": 40,
+  "app_main_sha256": "be0474f4a05f1315fcef71327021c830a17811f2e8a45e3d5d1233f1d7580596",
+  "compile_bound_manifest_sha256": "ad2c977971924201a3d1eb7b8c6631db2c8739831f5fe131f2448e0b7914abd9",
+  "app_full_mode_endpoint_scope": "post-launch baseline to end, equal; prior static byte inventory also equal",
+  "source_runtime_full_modes": "clean-full endpoint to GUI end, equal; immutable Git bytes/executable class separate",
+  "versions": {
+    "app": "0.0.1",
+    "Tauri": "2.12.4",
+    "service": "0.0.1",
+    "API": "1.0.0"
+  },
+  "observations": {
+    "native_diagnostics_ready": true,
+    "keyboard_focus_reverse_and_refresh_timestamp_advance": true,
+    "unauthorized_requests": 12,
+    "all_401": true,
+    "service_only_crash_restart_same_app_new_service_and_port": true,
+    "normal_close_known_cohort_absent_port_released": true,
+    "native_menu_quit_known_cohort_absent_port_released": true,
+    "forced_parent_known_cohort_absent_port_released": true,
+    "forced_parent_poll_seconds": 0.29647866706363857,
+    "later_separate_starting_ready_launch_and_final_keyboard_quit_retained": true,
+    "final_observed_pid_count": 9,
+    "final_remaining_cohort_or_exact_images": [],
+    "prior_ports_bind_released": 5
+  },
+  "later_supplemental_host": {
+    "utc": "2026-10-29T01:06:05.488116+00:00",
+    "source_sha256": "e8089ac2c518d00d9b979debca7023d61f75d8e9cf27e9627f38be5f294da393",
+    "macOS": "27.2",
+    "build": "26B5101f",
+    "architecture": "arm64",
+    "CPU": "Apple M5",
+    "memory_GiB": 24,
+    "start_time_attestation": false
+  },
+  "screenshots": [
+    {
+      "original_path": "01-ready.png",
+      "media_type": "image/jpeg",
+      "transformed": false
+    },
+    {
+      "original_path": "08-recovered-ready.png",
+      "media_type": "image/jpeg",
+      "transformed": false
+    }
+  ],
+  "independent_review": {
+    "read_only_joins_passed": 2301,
+    "product_tests_added": 0,
+    "review_sha256": "8b00aef7b685f14709fe9fb5422869eb156a5003bf7704d94aa020da3d0b657c",
+    "manifest_sha256": "7f7476b1624c8607ef62a3fdb63e337937fc57e0c92d98e81e4228d4f9632b0e",
+    "initial_review_assumption_failures_retained": 26,
+    "subject_rerun_for_review": false
+  },
+  "prior_static_evidence": "docs/evidence/m03-w06-refreshed-macos-static",
+  "physical_app_or_runtime_bodies_in_archive": false,
+  "no_milestone_or_release_promotion": true,
+  "limits": [
+    "Initial app inventory is postlaunch; initial HomeAX is tool-output-only and not reconstructed.",
+    "Saved GUI states/outcomes and author action record are not a full raw CUA command transcript.",
+    "No controlledGUI PATH/environment/raw LaunchServices provenance, kernel birth/held-process-handle or escaped-descendant attestation.",
+    "NormalClose/Quit poll timings are post-UI observation timings, not shutdown latency.",
+    "The post-force getAX observation shows a separate new launch; cause is unknown, later cleanup is retained distinctly.",
+    "The original png-named bodies are JPEG; original bytes/names and initial reviewer format/mode mistakes are retained.",
+    "Later host-context receipt is not backdated to startup.",
+    "Local debug/ad-hoc package remains separate from notarization/distribution/Gatekeeper, foreign GUI, Keychain/model qualification or whole-project acceptance."
+  ]
+}

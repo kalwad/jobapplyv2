@@ -1,0 +1,659 @@
+{
+  "format_version": "W14_DEVELOPMENT_ASSESSMENT_1",
+  "authority": "NONE",
+  "gate_decision": "NOT_DECIDED",
+  "complete_gate_evidence": false,
+  "source_inventory_digest": "sha256:6f98ddd6ea6fb40ccf769b6c977bc8d28830eeea5623dbde74451f22b1075350",
+  "matrix_digest": "sha256:c160e7e006a3801443db43a0aa7926540d1949229cf5ffe11ae4649f6d01a878",
+  "canonical_runner": {
+    "execution_id": "evalrun_64WY2BVC336D6P5WSAG0ECS670",
+    "request_digest": "sha256:6d18cd8a3d2a0a61fa0fc91eb087c9ede5a243f0bdd204560023e86f6f682636",
+    "threshold_scope": "DECLARED_ZERO_TOLERANCE_SAFETY_COUNTS_ONLY",
+    "aggregate": {
+      "aggregate_format_version": "1.0.0",
+      "counts": {
+        "total_cases": 200,
+        "complete": 200,
+        "partial": 0,
+        "failed_setup": 0,
+        "comparable": 200,
+        "incomparable": 0,
+        "pass": 200,
+        "fail": 0,
+        "invalid": 0,
+        "environment_match": 200,
+        "environment_mismatch": 0,
+        "environment_unknown": 0,
+        "hash_match": 200,
+        "hash_mismatch": 0,
+        "hash_unknown": 0,
+        "holdout_valid": 0,
+        "holdout_not_applicable": 200,
+        "holdout_unavailable": 0,
+        "holdout_invalid": 0,
+        "zero_tolerance_failure_count": 0
+      },
+      "pass_rate": {
+        "numerator": 200,
+        "denominator": 200,
+        "rate": 1
+      },
+      "comparable_rate": {
+        "numerator": 200,
+        "denominator": 200,
+        "rate": 1
+      },
+      "failure_error_code_counts": {},
+      "metric_summaries": [
+        {
+          "metric_id": "CATASTROPHIC_OPTION_ERRORS",
+          "unit": "COUNT",
+          "required_count": 200,
+          "observed_count": 200,
+          "missing_count": 0,
+          "pass_count": 200,
+          "fail_count": 0,
+          "pass_rate": {
+            "numerator": 200,
+            "denominator": 200,
+            "rate": 1
+          },
+          "pass_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 200,
+            "denominator": 200,
+            "lower_bound": "0.981154673623",
+            "upper_bound": "1",
+            "note": null
+          },
+          "proportion_observation_count": 0,
+          "pooled_proportion": null,
+          "proportion_uncertainty": {
+            "interval": null,
+            "note": "NON_BERNOULLI_METRIC"
+          },
+          "uncertainty_notes": [],
+          "zero_tolerance_failure_count": 0,
+          "zero_tolerance_uncertainty": {
+            "interval": null,
+            "note": "ZERO_TOLERANCE_COUNT"
+          }
+        },
+        {
+          "metric_id": "DUPLICATE_ACTIONS",
+          "unit": "COUNT",
+          "required_count": 200,
+          "observed_count": 200,
+          "missing_count": 0,
+          "pass_count": 200,
+          "fail_count": 0,
+          "pass_rate": {
+            "numerator": 200,
+            "denominator": 200,
+            "rate": 1
+          },
+          "pass_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 200,
+            "denominator": 200,
+            "lower_bound": "0.981154673623",
+            "upper_bound": "1",
+            "note": null
+          },
+          "proportion_observation_count": 0,
+          "pooled_proportion": null,
+          "proportion_uncertainty": {
+            "interval": null,
+            "note": "NON_BERNOULLI_METRIC"
+          },
+          "uncertainty_notes": [],
+          "zero_tolerance_failure_count": 0,
+          "zero_tolerance_uncertainty": {
+            "interval": null,
+            "note": "ZERO_TOLERANCE_COUNT"
+          }
+        },
+        {
+          "metric_id": "HONEYPOT_FILLS",
+          "unit": "COUNT",
+          "required_count": 200,
+          "observed_count": 200,
+          "missing_count": 0,
+          "pass_count": 200,
+          "fail_count": 0,
+          "pass_rate": {
+            "numerator": 200,
+            "denominator": 200,
+            "rate": 1
+          },
+          "pass_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 200,
+            "denominator": 200,
+            "lower_bound": "0.981154673623",
+            "upper_bound": "1",
+            "note": null
+          },
+          "proportion_observation_count": 0,
+          "pooled_proportion": null,
+          "proportion_uncertainty": {
+            "interval": null,
+            "note": "NON_BERNOULLI_METRIC"
+          },
+          "uncertainty_notes": [],
+          "zero_tolerance_failure_count": 0,
+          "zero_tolerance_uncertainty": {
+            "interval": null,
+            "note": "ZERO_TOLERANCE_COUNT"
+          }
+        },
+        {
+          "metric_id": "NAVIGATION_ACTIVATIONS",
+          "unit": "COUNT",
+          "required_count": 200,
+          "observed_count": 200,
+          "missing_count": 0,
+          "pass_count": 200,
+          "fail_count": 0,
+          "pass_rate": {
+            "numerator": 200,
+            "denominator": 200,
+            "rate": 1
+          },
+          "pass_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 200,
+            "denominator": 200,
+            "lower_bound": "0.981154673623",
+            "upper_bound": "1",
+            "note": null
+          },
+          "proportion_observation_count": 0,
+          "pooled_proportion": null,
+          "proportion_uncertainty": {
+            "interval": null,
+            "note": "NON_BERNOULLI_METRIC"
+          },
+          "uncertainty_notes": [],
+          "zero_tolerance_failure_count": 0,
+          "zero_tolerance_uncertainty": {
+            "interval": null,
+            "note": "ZERO_TOLERANCE_COUNT"
+          }
+        },
+        {
+          "metric_id": "SENSITIVE_FILLS",
+          "unit": "COUNT",
+          "required_count": 200,
+          "observed_count": 200,
+          "missing_count": 0,
+          "pass_count": 200,
+          "fail_count": 0,
+          "pass_rate": {
+            "numerator": 200,
+            "denominator": 200,
+            "rate": 1
+          },
+          "pass_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 200,
+            "denominator": 200,
+            "lower_bound": "0.981154673623",
+            "upper_bound": "1",
+            "note": null
+          },
+          "proportion_observation_count": 0,
+          "pooled_proportion": null,
+          "proportion_uncertainty": {
+            "interval": null,
+            "note": "NON_BERNOULLI_METRIC"
+          },
+          "uncertainty_notes": [],
+          "zero_tolerance_failure_count": 0,
+          "zero_tolerance_uncertainty": {
+            "interval": null,
+            "note": "ZERO_TOLERANCE_COUNT"
+          }
+        },
+        {
+          "metric_id": "SUBMISSION_ACTIVATIONS",
+          "unit": "COUNT",
+          "required_count": 200,
+          "observed_count": 200,
+          "missing_count": 0,
+          "pass_count": 200,
+          "fail_count": 0,
+          "pass_rate": {
+            "numerator": 200,
+            "denominator": 200,
+            "rate": 1
+          },
+          "pass_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 200,
+            "denominator": 200,
+            "lower_bound": "0.981154673623",
+            "upper_bound": "1",
+            "note": null
+          },
+          "proportion_observation_count": 0,
+          "pooled_proportion": null,
+          "proportion_uncertainty": {
+            "interval": null,
+            "note": "NON_BERNOULLI_METRIC"
+          },
+          "uncertainty_notes": [],
+          "zero_tolerance_failure_count": 0,
+          "zero_tolerance_uncertainty": {
+            "interval": null,
+            "note": "ZERO_TOLERANCE_COUNT"
+          }
+        }
+      ],
+      "precision_recall_summaries": [
+        {
+          "group_id": "AUTOFILL_ANY_ATTEMPT_ELIGIBLE_TRUTH",
+          "true_positive": 1485,
+          "false_positive": 0,
+          "false_negative": 0,
+          "precision": {
+            "numerator": 1485,
+            "denominator": 1485,
+            "rate": 1
+          },
+          "recall": {
+            "numerator": 1485,
+            "denominator": 1485,
+            "rate": 1
+          },
+          "precision_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 1485,
+            "denominator": 1485,
+            "lower_bound": "0.997419833524",
+            "upper_bound": "1",
+            "note": null
+          },
+          "recall_uncertainty": {
+            "method": "WILSON_SCORE",
+            "confidence_level": 0.95,
+            "numerator": 1485,
+            "denominator": 1485,
+            "lower_bound": "0.997419833524",
+            "upper_bound": "1",
+            "note": null
+          },
+          "uncertainty_notes": []
+        }
+      ],
+      "implementation_groups": [
+        {
+          "kind": "IMPLEMENTATION",
+          "identity": "japp-mv3",
+          "version": "1.0.0",
+          "source_digest": "sha256:6f98ddd6ea6fb40ccf769b6c977bc8d28830eeea5623dbde74451f22b1075350",
+          "case_count": 200,
+          "pass_count": 200,
+          "fail_count": 0,
+          "invalid_count": 0
+        }
+      ]
+    },
+    "report_manifest_digest": "sha256:da449dfde370685c7d3dd7ece3b5ca7c8366f11cfdfdb3acea02c4b88c4e2ec9",
+    "autofill_run_manifest_digest": "sha256:42d5b85c3f8fa26c67ef85a2a64379f36377fedfeade89d57b25998c8c0517d2",
+    "manifest_issues": [],
+    "adapter_invoked_case_count": 200,
+    "live_observed_case_count": 200,
+    "row_timestamps": "ACCEPTED_RUNNER_REAL_WALL_CLOCK_WITNESSES"
+  },
+  "expected_cases": 200,
+  "recorded_cases": 200,
+  "authored_logical_controls": 4020,
+  "observed_native_controls": 4060,
+  "metrics": {
+    "executed_cases": 200,
+    "scored_cases": 200,
+    "refused_cases": 0,
+    "measurement_error_cases": 0,
+    "scored_logical_controls": 4020,
+    "preservation": {
+      "expected": 90,
+      "correct": 90,
+      "violations": 0,
+      "empty_abstention_violations": 0
+    },
+    "ordinary_attempted_precision": {
+      "numerator": 1485,
+      "denominator": 1485,
+      "rate": 1
+    },
+    "required_ordinary_recall": {
+      "numerator": 1275,
+      "denominator": 1275,
+      "rate": 1
+    },
+    "required_reporting": {
+      "numerator": 770,
+      "denominator": 770,
+      "rate": 1
+    },
+    "observed_persistence": {
+      "numerator": 1485,
+      "denominator": 1485,
+      "rate": 1
+    },
+    "counts": {
+      "required_silent": 0,
+      "sensitive_fills": 0,
+      "honeypot_fills": 0,
+      "catastrophic_option_errors": 0,
+      "duplicate_actions": 0
+    },
+    "full_settle_scan_fill_timing": {
+      "sample_count": 200,
+      "p95_ms": 864.5065410000025,
+      "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+      "includes_fixture_setup": false,
+      "includes_browser_setup": false,
+      "includes_reporting": false
+    }
+  },
+  "family_metrics": {
+    "WORKDAY": {
+      "executed_cases": 80,
+      "scored_cases": 80,
+      "refused_cases": 0,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 1620,
+      "preservation": {
+        "expected": 36,
+        "correct": 36,
+        "violations": 0,
+        "empty_abstention_violations": 0
+      },
+      "ordinary_attempted_precision": {
+        "numerator": 585,
+        "denominator": 585,
+        "rate": 1
+      },
+      "required_ordinary_recall": {
+        "numerator": 510,
+        "denominator": 510,
+        "rate": 1
+      },
+      "required_reporting": {
+        "numerator": 317,
+        "denominator": 317,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 585,
+        "denominator": 585,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 80,
+        "p95_ms": 861.9067090000026,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    },
+    "GREENHOUSE": {
+      "executed_cases": 40,
+      "scored_cases": 40,
+      "refused_cases": 0,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 800,
+      "preservation": {
+        "expected": 18,
+        "correct": 18,
+        "violations": 0,
+        "empty_abstention_violations": 0
+      },
+      "ordinary_attempted_precision": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "required_ordinary_recall": {
+        "numerator": 255,
+        "denominator": 255,
+        "rate": 1
+      },
+      "required_reporting": {
+        "numerator": 151,
+        "denominator": 151,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 40,
+        "p95_ms": 865.119832999997,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    },
+    "LEVER": {
+      "executed_cases": 40,
+      "scored_cases": 40,
+      "refused_cases": 0,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 800,
+      "preservation": {
+        "expected": 18,
+        "correct": 18,
+        "violations": 0,
+        "empty_abstention_violations": 0
+      },
+      "ordinary_attempted_precision": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "required_ordinary_recall": {
+        "numerator": 255,
+        "denominator": 255,
+        "rate": 1
+      },
+      "required_reporting": {
+        "numerator": 151,
+        "denominator": 151,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 40,
+        "p95_ms": 861.7479170000006,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    },
+    "ASHBY": {
+      "executed_cases": 40,
+      "scored_cases": 40,
+      "refused_cases": 0,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 800,
+      "preservation": {
+        "expected": 18,
+        "correct": 18,
+        "violations": 0,
+        "empty_abstention_violations": 0
+      },
+      "ordinary_attempted_precision": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "required_ordinary_recall": {
+        "numerator": 255,
+        "denominator": 255,
+        "rate": 1
+      },
+      "required_reporting": {
+        "numerator": 151,
+        "denominator": 151,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 40,
+        "p95_ms": 864.2722499999945,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    }
+  },
+  "physical_safety_all_executed_cases": {
+    "sensitive_fills": 0,
+    "honeypot_fills": 0,
+    "catastrophic_option_errors": 0,
+    "duplicate_actions": 0,
+    "navigation_activations": 0,
+    "submission_activations": 0,
+    "paused_boundary_actions": 0
+  },
+  "physical_safety_coverage": {
+    "expected_cases": 200,
+    "observed_cases": 200,
+    "state": "OBSERVED",
+    "raw_physical_actions": 1485,
+    "audited_physical_actions": 1485,
+    "orphan_physical_actions": 0
+  },
+  "immutability": {
+    "source_unchanged": true,
+    "build_unchanged": true,
+    "declarations_unchanged": true,
+    "end_source_digest": "sha256:6f98ddd6ea6fb40ccf769b6c977bc8d28830eeea5623dbde74451f22b1075350",
+    "end_build_digest": "sha256:4ba496fa95f74480ff6c562249ad92c8afb61472cd7e76af8488bbf1e2976883"
+  },
+  "measurement_refusals": [],
+  "unsupported_scored_feature_coverage": [
+    {
+      "feature": "FILE_UPLOAD",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "REPEATER_OPERATION",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "DATE_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "CHECKBOX_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "RADIO_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "CUSTOM_COMBOBOX_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "IFRAME",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "SHADOW_DOM",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "PAGE_TRANSITION",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "PARSER_EFFECT",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "LONG_SESSION_SOAK",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    }
+  ],
+  "actual_external_execution": {
+    "holdout": "HOLDOUT_WAIVED_OWNER_ADR0006",
+    "public_no_submit": "NOT_EXECUTED",
+    "simplify": "NOT_EXECUTED",
+    "legacy": [
+      {
+        "system": "CAREERPULSE",
+        "status": "UNAVAILABLE",
+        "source_revision": null
+      },
+      {
+        "system": "LEGACY_JOBAPPLY",
+        "status": "NOT_ATTEMPTED",
+        "source_revision": "c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd"
+      }
+    ]
+  },
+  "limitations": [
+    "Visible synthetic W12 expansion only; W06 parent corpus is separately committed and is not wholly executed by this campaign.",
+    "Supported ordinary cohort is the predeclared contact profile; other features retain separate W10/W12 tests and have no scored support claim here.",
+    "W13 canonical abstention counts remain unchanged. A separately committed W14 initial-state model measures preservation with live initial/final snapshots and zero-write proof.",
+    "Timing uses full settlement across different pages; this is not a repeated 128-control target-Mac performance proof.",
+    "No comparison or independent critical-gate approval is inferred from development metrics."
+  ],
+  "compressed_bundle_digest": "sha256:43a5395922029e67e2b436af085911911f3fa440d1508cbefe57f9243dcc6d2a",
+  "compressed_bundle_bytes": 3958742
+}

@@ -1,0 +1,73 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_w14_contact_child_environment_is_narrow_and_parent_flags_do_not_mutate __
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a83a7b0>
+
+    def test_w14_contact_child_environment_is_narrow_and_parent_flags_do_not_mutate(
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        flags = (
+            "JAPP_W14_PUBLIC_INSPECTION",
+            "JAPP_W14_PUBLIC_CONTACT_EVALUATION",
+            "JAPP_W14_PUBLIC_CONTACT_RUN",
+        )
+        reporter_paths = (
+            "PLAYWRIGHT_JSON_OUTPUT_NAME",
+            "PLAYWRIGHT_JSON_OUTPUT_FILE",
+            "PLAYWRIGHT_JSON_OUTPUT_DIR",
+        )
+        for name in (*flags, *reporter_paths):
+            monkeypatch.setenv(name, "ambient-untrusted")
+        observed: list[dict[str, str]] = []
+        monkeypatch.setattr(
+            portability, "host_resolve_executable", lambda _name: "resolved-tool"
+        )
+    
+        def run(
+            argv: tuple[str, ...], **kwargs: object
+        ) -> subprocess.CompletedProcess[str]:
+            environment = kwargs["env"]
+            assert isinstance(environment, dict)
+            assert kwargs.get("shell", False) is False
+            observed.append(dict(environment))
+            return subprocess.CompletedProcess(argv, 0, stdout="", stderr="")
+    
+        monkeypatch.setattr(subprocess, "run", run)
+        inspection = {flags[0]: "1"}
+        contact = {flags[1]: "1"}
+        commands: tuple[tuple[tuple[str, ...], dict[str, str]], ...] = (
+            (verify.W14_PUBLIC_BUILD_COMMAND, inspection),
+            (verify.W14_PUBLIC_CONTROLLED_COMMAND, inspection),
+            ((*verify.W14_PUBLIC_CONTROLLED_COMMAND, "--list"), inspection),
+            (verify.W14_CONTACT_BUILD_COMMAND, contact),
+            (verify.W14_CONTACT_CONTROLLED_COMMAND, {**inspection, **contact}),
+            ((*verify.W14_CONTACT_CONTROLLED_COMMAND, "--list"), {**inspection, **contact}),
+            (verify.W14_CONTACT_PURE_COMMAND, {}),
+            ((*verify.W14_CONTACT_PURE_COMMAND, "--reporter=default"), {}),
+            (verify.W14_PUBLIC_PURE_COMMAND, {}),
+            (verify.W14_PUBLIC_DEFAULT_BUILD_COMMAND, {}),
+            (("node", "e2e/extension/public-contact/run-contact.ts"), {}),
+            (("node", "e2e/extension/public-research/run-inspection.ts"), {}),
+            (("pnpm", "exec", "playwright", "test"), {}),
+        )
+        for argv, expected in commands:
+            assert verify.run_command(_ctx(), argv)[0] == 0
+            actual = {key: value for key, value in observed[-1].items() if key in flags}
+            assert actual == expected
+            if verify._w14_contact_inspection_opt_in(argv):
+                assert all(key not in observed[-1] for key in reporter_paths)
+                assert observed[-1]["NO_COLOR"] == "1"
+>               assert "FORCE_COLOR" not in observed[-1]
+E               AssertionError: assert 'FORCE_COLOR' not in {'BROWSER_USE_ACCESS_VERIFYING_IDENTITY': 'MCowBQYDK2VwAyEACP/2+WAUKh/FS7oGar99u6Tb4YbSDIeDDV0rgr3zCPI=', 'CODEX_APPLY... 'CODEX_APP_TOOLS_PIPE_PATH': '/tmp/codex-browser-use/bb17b670-c1eb-451b-b767-a5c449398bbb.sock', 'CODEX_CI': '1', ...}
+
+scripts/tests/test_w14_contact_controlled_proof.py:213: AssertionError
+----------------------------- Captured stdout call -----------------------------
+$ pnpm --filter @japp/extension exec wxt build -b chrome -c test/m02-w14/public-inspection/wxt.config.ts
+$ pnpm exec playwright test --config e2e/extension/public-research/playwright.config.ts
+$ pnpm exec playwright test --config e2e/extension/public-research/playwright.config.ts --list
+$ pnpm --filter @japp/extension exec wxt build -b chrome -c test/m02-w14/public-contact/wxt.config.ts
+$ pnpm exec playwright test --config e2e/extension/public-contact/playwright.config.ts --reporter=list,json
+=========================== short test summary info ============================
+FAILED scripts/tests/test_w14_contact_controlled_proof.py::test_w14_contact_child_environment_is_narrow_and_parent_flags_do_not_mutate
+1 failed in 0.02s

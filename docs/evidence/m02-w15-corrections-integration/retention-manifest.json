@@ -1,0 +1,1971 @@
+{
+  "archive_sha256": "87a507c911329262572c159537a4ee7bffb5ad3a7db40b00f1e126fbf6278481",
+  "archive_bytes": 5091105,
+  "regular_members": 393,
+  "files": [
+    {
+      "path": "history/catalog.json",
+      "bytes": 10139,
+      "sha256": "2a81298b62a63b409e570fafc3c634c9a46e1cbb7d55cb5758503cc97641ab5e"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/auditor-source.py",
+      "bytes": 10225,
+      "sha256": "da4dc49360c99737df50a70b0a7a44985a18bd366cd5aa7548ab612b0405e9ba"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/findings.json",
+      "bytes": 66435,
+      "sha256": "cc5453d1322c9038590a52c7703c2c9e6b76951512782d0b55350206366cb0ac"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/green-command.json",
+      "bytes": 3536,
+      "sha256": "6fadfc2b4e6594b250b2afa78eaefdb680f861e27667c4fc9f64824d514153ec"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/green-completion.json",
+      "bytes": 100,
+      "sha256": "8bd7e469ef90ba6c9f0e35cde30fca292f8ef84401cac5a686e11a5ca82b65ed"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/green-native-artifact-retention.json",
+      "bytes": 5559,
+      "sha256": "240aa827ed4dfb2ba8ca3b91d24bbbd09204de5917d6f8601acc8cba576e3023"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/green-results.json",
+      "bytes": 477117,
+      "sha256": "2c1b27abb4ac1efa3ee7274cc3969d24ff0748d6737eb4430927f0af714991de"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/green-viewport-date-EXECUTE.json",
+      "bytes": 11043,
+      "sha256": "30e9b67403c8d1a06c64041a778d78c58d6cde5c7918f98c63e356644b9757e2"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/green-viewport-date-UNDO.json",
+      "bytes": 9921,
+      "sha256": "27a98c4ed23a06536c931c47f81760717a6237ad01dcdb971a96d75ac67fdf27"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/green-viewport-text-EXECUTE.json",
+      "bytes": 11019,
+      "sha256": "20a0364a1fa06ace9c7a1c0221c403d89fcdcf034d0ae81e8784a2b5699f2890"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/green-viewport-text-UNDO.json",
+      "bytes": 9891,
+      "sha256": "a864397c6227ae627adab5ab034a1a9b754f831cefb644ec3ae675c6f93de2ad"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/inspection-attempt1-error.json",
+      "bytes": 323,
+      "sha256": "f71d59b830a33fde50fe558b4e2dc41c8bb4948f5c6d7802ed931828b36077fb"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/primary-source-context.json",
+      "bytes": 2382,
+      "sha256": "8f553d7a80852acb9fa66e070685368a33a76a9a47c18456aa516eb67e20f410"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/red-command.json",
+      "bytes": 2458,
+      "sha256": "2056017189dce936d0247dfb7f6f345a321950fc3195120213a4df984a27912c"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/red-completion.json",
+      "bytes": 101,
+      "sha256": "aeffdae02492eaed6ccd9b7e5b9a08d22274a31ab758902f692ed9e4ac6cbf34"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/red-native-artifact-retention.json",
+      "bytes": 3108,
+      "sha256": "64e0e445dcf57cf24b87541188c00eb818b6d12a97d4d77ad3202e726652a48e"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/red-results.json",
+      "bytes": 80626,
+      "sha256": "522039d2198e4c3ba9c78baaf8d3060b6e8fed9be99e8ce0334dc472074a2d6b"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/red-viewport-date-EXECUTE.json",
+      "bytes": 11044,
+      "sha256": "dd6e2ee71eb7630790a7eed280420c53fce7a1f8ca7ee4a96fd50d0b5effcbb4"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/red-viewport-date-UNDO.json",
+      "bytes": 9921,
+      "sha256": "c43ab92543d3a978417a288ff575a69d84aa5a6858c63001456dea49b70466bd"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/red-viewport-text-EXECUTE.json",
+      "bytes": 11022,
+      "sha256": "b524939e5514534adbbfbf8ee081611ce0c75eb967e6c84ada32e1003c8ed1c4"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/red-viewport-text-UNDO.json",
+      "bytes": 9892,
+      "sha256": "d8d38f9c0837b30c00c853ed5803be29b476fce5c84f1caaa52b3366bb302d40"
+    },
+    {
+      "path": "independent/focus-viewport-red-green-independent-v2/review.md",
+      "bytes": 4157,
+      "sha256": "5da27a726e075d89a2a55794d92d6ac1139d23556d4619d0c7cfabeb51a8fa3d"
+    },
+    {
+      "path": "independent/post-failure-source-delta-review/inherited-fixture-cleanup-review.json",
+      "bytes": 3964,
+      "sha256": "68daa74066edae765bbf5d05c3c9fa75dc2562a5df1a594d36af8b2638145b39"
+    },
+    {
+      "path": "independent/post-failure-source-delta-review/inherited-fixture-cleanup.patch",
+      "bytes": 13199,
+      "sha256": "7346d2cddf53ea3261e1d74fd8a4c6c36419dcd6d4ab5201aa669274d9ffc8a9"
+    },
+    {
+      "path": "independent/post-failure-source-delta-review/text-viewport-candidate.patch",
+      "bytes": 9656,
+      "sha256": "eaf66605e74f2bcc9e78fd1a093f8e9c6588bcec45006a1404f7fa3a2cedf312"
+    },
+    {
+      "path": "independent/post-failure-source-delta-review/text-viewport-fixture-review-erratum.json",
+      "bytes": 926,
+      "sha256": "a56edd0386b8083ba1c7c1885f79a892b1bb757b8cd7709e49b634ec0e7c3c30"
+    },
+    {
+      "path": "independent/post-failure-source-delta-review/text-viewport-manifest.json",
+      "bytes": 1157,
+      "sha256": "9b94b0dcd01b7c3dba95bd7552a7d47b1a99407eb6548735c2d0b5bec6ea9a78"
+    },
+    {
+      "path": "independent/post-failure-source-delta-review/text-viewport-source-review.json",
+      "bytes": 1184,
+      "sha256": "558da719c6fd57db9ec3515f2457e6d4e8e7c4280e8f01320df9cc62ef111369"
+    },
+    {
+      "path": "independent/post-failure-source-delta-review/text-viewport-v2-manifest.json",
+      "bytes": 1397,
+      "sha256": "2c4a93e18b8e75a5e78737555bea358669bdda6dbd9b280faf283a3381c08a5a"
+    },
+    {
+      "path": "independent/post-failure-source-delta-review/text-viewport-v2.patch",
+      "bytes": 9676,
+      "sha256": "987c4ff9697fa8b7ca53405ca3d352775285f2c0f391d78de535b4a3d350a665"
+    },
+    {
+      "path": "independent/r10-final-source-proposal-review/archive-closure-attempt1-error.json",
+      "bytes": 452,
+      "sha256": "2d5dbc7009dc5772bf73f752dc71af620cf1cd91243c02ead8fa52df8a2812ea"
+    },
+    {
+      "path": "independent/r10-final-source-proposal-review/archive-closure.json",
+      "bytes": 469,
+      "sha256": "6200db31916a9dbe4cceb26e8c2b47f2fcd877efb87605045318b68100a98b60"
+    },
+    {
+      "path": "independent/r10-final-source-proposal-review/auditor-source.py",
+      "bytes": 8673,
+      "sha256": "01e671deb6947c5abba054dd5243d2887afd13819830abde8bc446ad50ae85e5"
+    },
+    {
+      "path": "independent/r10-final-source-proposal-review/bind-r10-source.py",
+      "bytes": 9025,
+      "sha256": "81c5d367992e200c97fcbdb93f3e497e1f070eb2f2907a597fb48c34ed3edc3a"
+    },
+    {
+      "path": "independent/r10-final-source-proposal-review/execution-record-supplement.derived.json",
+      "bytes": 2634,
+      "sha256": "58964d2c74733f46cca4bd90ec47e74a5df6a9911ec5e9b8af88da6741cf9c5b"
+    },
+    {
+      "path": "independent/r10-final-source-proposal-review/execution-record.derived.json",
+      "bytes": 4315,
+      "sha256": "29ede54b761907d5b19bb2728d5a898bdccd5056238340546678357a50017ebe"
+    },
+    {
+      "path": "independent/r10-final-source-proposal-review/final-review-identity.json",
+      "bytes": 1084,
+      "sha256": "5571284889afb5226ea7d3c5e5c46e3d2692325c91eb8ea013d78d0ff4723bb4"
+    },
+    {
+      "path": "independent/r10-final-source-proposal-review/findings.json",
+      "bytes": 37004,
+      "sha256": "3db37f1f13918df75cf481c376a50b68b3fcaef713b84b90f7e6be929fb3ce8d"
+    },
+    {
+      "path": "independent/r10-final-source-proposal-review/proposal-source-manifest.json",
+      "bytes": 10734,
+      "sha256": "ac84dc54974d82418e64403ffa4e38825d308183a9d28e82b3e842e2bb630bcf"
+    },
+    {
+      "path": "independent/r10-final-source-proposal-review/r10-release.json",
+      "bytes": 955,
+      "sha256": "4bf01fdbc9a6dac64c0458f0208c0d6d29c082448e251db50dc274a4b3ac3ef0"
+    },
+    {
+      "path": "independent/r10-final-source-proposal-review/run-r10.py",
+      "bytes": 24089,
+      "sha256": "52b2eeff55f0897622c5c167286327775cd97c7efbb308f848d305c953617bc3"
+    },
+    {
+      "path": "independent/r10-materialized-source-review/auditor-source.py",
+      "bytes": 7183,
+      "sha256": "fa3e61a5e6d0186d1bff01d14cb09e3624e2617c9b06b0ba86221fea57d46f33"
+    },
+    {
+      "path": "independent/r10-materialized-source-review/findings.json",
+      "bytes": 1640,
+      "sha256": "ade4557adee9698fba628665ee75a55789c788b698fda4a4652dc67471523370"
+    },
+    {
+      "path": "independent/r10-materialized-source-review/frozen-source-manifest.json",
+      "bytes": 7807,
+      "sha256": "f3beb54dc561118f8f78cda76140fc94ecfc320d7ab901e542a9710bfd7757e5"
+    },
+    {
+      "path": "independent/r10-materialized-source-review/source-only-freeze-record.json",
+      "bytes": 138043,
+      "sha256": "619efd8bae385ccda3a34341240923c8921fb5cc93611b9728771577463f6d34"
+    },
+    {
+      "path": "inherited-fixture/afterimages/apps/extension/test/m02-w15/inherited-fixture-cleanup.test.ts",
+      "bytes": 10400,
+      "sha256": "1e39b5c14dd2c9a7c3c1354cfe804adae54d9fd307ce10b40847a40e9052e5d7"
+    },
+    {
+      "path": "inherited-fixture/afterimages/e2e/extension/support/extension-test.ts",
+      "bytes": 6444,
+      "sha256": "00ae82e2f237902e1081d99b3b7638030b7b5f239d10f3f226e460e0068d9e82"
+    },
+    {
+      "path": "inherited-fixture/history/first-authored-tests/apps/extension/test/m02-w15/inherited-fixture-cleanup.test.ts",
+      "bytes": 10400,
+      "sha256": "1e39b5c14dd2c9a7c3c1354cfe804adae54d9fd307ce10b40847a40e9052e5d7"
+    },
+    {
+      "path": "inherited-fixture/history/test-first.json",
+      "bytes": 512,
+      "sha256": "df680246cec376123d5d0e95377d0ad3c93cf1dabd631deea5f2c75387c6d4b3"
+    },
+    {
+      "path": "inherited-fixture/manifest.json",
+      "bytes": 1624,
+      "sha256": "3a4fa3f8dee79d98ddb555b744baa33467ff5c5aacc17e7d924b3b6dd849e9da"
+    },
+    {
+      "path": "inherited-fixture/preimages/e2e/extension/support/extension-test.ts",
+      "bytes": 5732,
+      "sha256": "e8caca3dc04e0613bb785b077d407ac1be5bcfdb6a47bce73d2d25570e72462a"
+    },
+    {
+      "path": "inherited-fixture/preimages/manifest.json",
+      "bytes": 235,
+      "sha256": "bbace968272cdc47b2aa2c9a712df0524be436c72713c623d4127b08fe955dad"
+    },
+    {
+      "path": "inherited-fixture/proofs/eslint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "inherited-fixture/proofs/extension-tsc.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "inherited-fixture/proofs/focused-cleanup-family.log",
+      "bytes": 261,
+      "sha256": "e81868d320278f11de43822929366576ffde5eb66e4f0a6d64206a54ef7cdd1c"
+    },
+    {
+      "path": "inherited-fixture/proofs/original-red.log",
+      "bytes": 8605,
+      "sha256": "c14b0298534b93a400af701a634e85723e7c6fe0a4393b4124018042c32173dd"
+    },
+    {
+      "path": "inherited-fixture/proofs/patched-green.log",
+      "bytes": 259,
+      "sha256": "fff4599c77f9101e4024a332fb9f2f93503cc7d51ba0f49877e37c4a70996a4a"
+    },
+    {
+      "path": "inherited-fixture/proofs/prettier.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "inherited-fixture/proofs/root-tsc.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "inherited-fixture/proofs/source-and-results.json",
+      "bytes": 1649,
+      "sha256": "6a50f9f69e96063a3d7f48bb637bd84248c1312d2d094072435b0e8373868aa7"
+    },
+    {
+      "path": "inherited-fixture/proofs/test-policy.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "inherited-fixture/proposal.patch",
+      "bytes": 13199,
+      "sha256": "7346d2cddf53ea3261e1d74fd8a4c6c36419dcd6d4ab5201aa669274d9ffc8a9"
+    },
+    {
+      "path": "inherited-fixture/proposal.txt",
+      "bytes": 1885,
+      "sha256": "a6e0c03a05e11e4830efdda0a7c5bc1dcb3203d67334a5efb62e807bb386d809"
+    },
+    {
+      "path": "integrated-source/.prettierignore",
+      "bytes": 3144,
+      "sha256": "686ab1ff44bf239365ae5acbe52a46dca5e7f2e88d4918ad3db5b2ddd56b9f4a"
+    },
+    {
+      "path": "integrated-source/apps/extension/src/drivers/text-like-drivers.ts",
+      "bytes": 7304,
+      "sha256": "543df12153d5c8ab0c97aa0c74dcd63eb4586e51bf849262755aba2d4698ed76"
+    },
+    {
+      "path": "integrated-source/apps/extension/test/m02-w15/inherited-fixture-cleanup.test.ts",
+      "bytes": 10400,
+      "sha256": "1e39b5c14dd2c9a7c3c1354cfe804adae54d9fd307ce10b40847a40e9052e5d7"
+    },
+    {
+      "path": "integrated-source/e2e/extension/extension-w15-text-viewport.spec.ts",
+      "bytes": 7806,
+      "sha256": "c46c9a27c5cce65cf3e7b61e16d0631adef765401cc373550ae79d368a5181a2"
+    },
+    {
+      "path": "integrated-source/e2e/extension/support/extension-test.ts",
+      "bytes": 6444,
+      "sha256": "00ae82e2f237902e1081d99b3b7638030b7b5f239d10f3f226e460e0068d9e82"
+    },
+    {
+      "path": "packaging/builder.py",
+      "bytes": 4920,
+      "sha256": "ed481c35e77916d067a2abbb5f987f297fe0e8cd5d9568ade0c9b500334d1dc8"
+    },
+    {
+      "path": "packaging/inputs.json",
+      "bytes": 143990,
+      "sha256": "7bd759c3e4f4e243a7b175e18fd640a7a9d0e2b69b7ddc23432fce72c4516337"
+    },
+    {
+      "path": "packaging/review-index.json",
+      "bytes": 94586,
+      "sha256": "1a6b6834e9f4e15ccab194405a7a806d89b57a6226502f3a47f117f94e3a79fb"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/campaign.lock.json",
+      "bytes": 5256,
+      "sha256": "0b7cdbb06061ef6f2ec6c4a0c3c26cf7fcaf701ac7e6a1ac48131d1d85f0fd09"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/campaign.lock.sha256",
+      "bytes": 72,
+      "sha256": "a3a99ff6d50dc005c2bb9fd696dcbb9100f0ca78714e5d1882a8fbfade85157d"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/campaign.mjs",
+      "bytes": 6875,
+      "sha256": "265ec2ef9cb1504ac146565b265a3a23141a078906a5a0e6e1aa0c8f7935f9bc"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/candidate-kernel.ts",
+      "bytes": 2882,
+      "sha256": "9b500ac28683c1abcc4f5f434506826a80ff0df0af9a0403f4f48b1b09d749ef"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/compare-paired.mjs",
+      "bytes": 12667,
+      "sha256": "f48305b617aba5bb5c215fa7b32c009dad4edd64d8b24dd562a8af6f328b04c2"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/compare-paired.structural.test.mjs",
+      "bytes": 9294,
+      "sha256": "a85c1235717855102631498ecf3420b3080c64a8b3d6eff83ab654bf36082087"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/legacy-browser-cleanup.test.mjs",
+      "bytes": 10269,
+      "sha256": "7fe68a93832ed71a12340d3ca94300af2cebc3850a7d059d1f87a6d8ff167f9b"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/legacy-browser.mjs",
+      "bytes": 13230,
+      "sha256": "aa925853f69ddbd9cfa09a8c8f45bf5f009c44e3ac93ed5b2731421e76a04ee4"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/legacy-projections.json",
+      "bytes": 3843,
+      "sha256": "7c7cd5d546aee296ddaa50455b95b4baf7c32e2984ba1df53ddacf5c445531ed"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/legacy-server.py",
+      "bytes": 7885,
+      "sha256": "65f328e5706e30419abc92b4a4502c832aab0687d47ecc595aa813dbf4026692"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/owned-child-lifecycle.mjs",
+      "bytes": 5957,
+      "sha256": "f60d3bdac60c76c0274a7e75a9d5cde93f6b057c71217ee435a4f999aa2baadb"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/owned-child-lifecycle.test.mjs",
+      "bytes": 6251,
+      "sha256": "f5ae4c3fdeccc6cb703592d458f836639f0a7b584d5eba670f2c653fef7cc3e9"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/paired-inputs.json",
+      "bytes": 26068,
+      "sha256": "2d1ce7ba5acf2414f5936b47055e9afd412ffbee0f8a247cd2c6f583548c3812"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/paired-options.proof.ts",
+      "bytes": 26508,
+      "sha256": "9054f203f9d0ef581cb28b784c8735570e9a594f1d705d2c07bdf3bdf35f87a8"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/paired-oracles.json",
+      "bytes": 31151,
+      "sha256": "96a9fa8780c4b0c5bee78edf9f0b721ea171c598ef3e9cd89cd33ddf8ccb3626"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/playwright.config.ts",
+      "bytes": 1852,
+      "sha256": "2d5560851abea1866cf25dfd021337c540b5594a22aa9245344fa19bd50445fa"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/predeclaration.json",
+      "bytes": 21543,
+      "sha256": "797bf53b0544880c910dd204c823a890d436de3b64b2f0d71fcf1ff46cfb95c2"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/preimages/LICENSE",
+      "bytes": 1126,
+      "sha256": "fed2427e2fbff544d7bceda916d48039fa1a823308fa56921b0d6aacc5769cd6"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/preimages/evaluation-browser.mjs.txt",
+      "bytes": 8927,
+      "sha256": "ec39443ac8742faf650ab6aa92d7c791a37061f9cbb400a157cfa7547eb51572"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/preimages/evaluation-inputs.json",
+      "bytes": 25760,
+      "sha256": "aadd86c855f39a55302345bae1d5397343be08157edf82a46ee7f95b16bce2cf"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/preimages/evaluation-profile.json",
+      "bytes": 339,
+      "sha256": "be75e89455f72d9e688e865199f039d76350c25846703b4f4567a2a9d1366b45"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/preimages/evaluation-runtime.freeze.txt",
+      "bytes": 235,
+      "sha256": "f3d6d82db6f5d94efa3f28cba4b15229b719947a7981c426b9571c6d308060d8"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/preimages/evaluation-server.py.txt",
+      "bytes": 1533,
+      "sha256": "19351b8961f9b41e04eb8a16a45161ead70faf35f26cce6a6d3010a1eaa77f81"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/preimages/legacy-meter-function.txt",
+      "bytes": 1644,
+      "sha256": "fbb9567d2f62c9e9cfdd1c1d7eee8142d2b2391902e3d92d7626823b5753b239"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/preimages/original-source-bindings.json",
+      "bytes": 30202,
+      "sha256": "663685f32767af360848bdcbf17dee5a6c6acbaa3e3e6d5a27409d8ea2a880e2"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/preimages/upstream-components.json",
+      "bytes": 311,
+      "sha256": "0ca000a5e381c344e640d221c5877302d87a906c219a033783ea49016ef942b5"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/preimages/upstream-identity.json",
+      "bytes": 201,
+      "sha256": "9c72560b40fe1fdd233cb67950db1f3f427c37bf12dfd40476518e67e15c5d35"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/preimages/upstream-tag.json",
+      "bytes": 232,
+      "sha256": "d78c8cc4c6db267597961086f21cd9717dc33a81a2fc858dff01d724acda946b"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/preimages/w13-declarations.json",
+      "bytes": 50311,
+      "sha256": "f6906cbfb65853f6a12ee16d2a31981d1f3b36a5aa5e4653c6551cba460f32f1"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/r10-readiness.d.mts",
+      "bytes": 130,
+      "sha256": "bbffae9bff67659878abfd0c68957663c0db887607a0321fbf12d71b09b44d62"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/r10-readiness.json",
+      "bytes": 804,
+      "sha256": "05fd554816ecb701b2d33494c5276de880849427b69c24f164812bd05f7682c9"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/r10-readiness.mjs",
+      "bytes": 2663,
+      "sha256": "15c55b34a343389c168d3a4756b02d737ab9db662a77d05f7ba3cba333dc5c81"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/run-legacy.mjs",
+      "bytes": 7030,
+      "sha256": "c9197e50aca4e211d972ee1646a27b9f032d1ca9b6dfc438b055bd9405c2febb"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/runtime-inventory.test.mjs",
+      "bytes": 5608,
+      "sha256": "bd8eb171125720cbcb3bd5f5ea896acef5c648b4503e72a5531725227c812a71"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/runtime-inventory.ts",
+      "bytes": 6124,
+      "sha256": "598b8cb335378864c51a50867a6d0fd545a3103ddfd786db8416b5b73a05f567"
+    },
+    {
+      "path": "r10-materialized/e2e/extension/legacy-paired-options-r10/source-bindings.json",
+      "bytes": 87774,
+      "sha256": "c3c84ae1244f08edcc034ab5ba3f67e1ef7e29e4b3fee1788dde1a9bd9e4d394"
+    },
+    {
+      "path": "r10-materialized/frozen-source-manifest.json",
+      "bytes": 7807,
+      "sha256": "f3beb54dc561118f8f78cda76140fc94ecfc320d7ab901e542a9710bfd7757e5"
+    },
+    {
+      "path": "r10-materialized/r10-frozen-source.patch",
+      "bytes": 435342,
+      "sha256": "60c79331f4503624a960a7f90ca36d04ec44fe193c49fde712af42930286d830"
+    },
+    {
+      "path": "r10-materialized/source-only-freeze-record.json",
+      "bytes": 138043,
+      "sha256": "619efd8bae385ccda3a34341240923c8921fb5cc93611b9728771577463f6d34"
+    },
+    {
+      "path": "r10-source-proposal-retained/proof.tar.gz",
+      "bytes": 205526,
+      "sha256": "db1018d635d94b76c699e338255235a1937ba305c1edd68cfec85349df850770"
+    },
+    {
+      "path": "r10-source-proposal-retained/retention-manifest.json",
+      "bytes": 20963,
+      "sha256": "c68f43fed26075a7017070d3b5bb626c925932bdbef2fb422696c0f03bed4fef"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/README.md",
+      "bytes": 2915,
+      "sha256": "9159434fd3b29361660ffcb94d02144c2f8ee592bfafebafb7c52914bd64452d"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/actual-closed-failure-summary.json",
+      "bytes": 3651,
+      "sha256": "54cf35fab1b5605c6718bbbb37e23f827c8e3ede682fc99182bd18b351c680aa"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/after-build.json",
+      "bytes": 9887,
+      "sha256": "0ac5964eecebefb23734811fdc57464a505989bf57d4cb14ec12b73efa504c6e"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/after-runtime.json",
+      "bytes": 67848,
+      "sha256": "7bb785344a20c54bc6ac299435591fe619277eee5669a492af76585831a6228d"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/after-sources.json",
+      "bytes": 353064,
+      "sha256": "51bbd0cc73359d2160ba7014c94d1e7f3f60d8bdcc0865e7014a0e34b1b1e09f"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/after-tools.json",
+      "bytes": 578,
+      "sha256": "6b09ccbe8434b9e46c4cb017a18af8df2af926499e8755ed8b9ef6595e05d828"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/before-build.json",
+      "bytes": 541,
+      "sha256": "0f22ff716ac573c9e81bdcaded06dff579542fc0e314f111c15f3f9e57afc89f"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/before-runtime.json",
+      "bytes": 67848,
+      "sha256": "7bb785344a20c54bc6ac299435591fe619277eee5669a492af76585831a6228d"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/before-sources.json",
+      "bytes": 353064,
+      "sha256": "5ab6a55ba9e77c08509f495e41a8ec62959314678bf84140068ec8e22ad42e10"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/before-tools.json",
+      "bytes": 578,
+      "sha256": "1114348efa0b8d126c91a48b805105a57195266461b21b6ff7b3b8e99af2068a"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/closed-date-trace-boundaries.json",
+      "bytes": 6208,
+      "sha256": "34d032068ec48f5203fc43a03b1cf237127d235947a145c559d8b47af18f95c8"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/command.json",
+      "bytes": 3536,
+      "sha256": "6fadfc2b4e6594b250b2afa78eaefdb680f861e27667c4fc9f64824d514153ec"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/completion.json",
+      "bytes": 100,
+      "sha256": "8bd7e469ef90ba6c9f0e35cde30fca292f8ef84401cac5a686e11a5ca82b65ed"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/discovery-command.json",
+      "bytes": 1328,
+      "sha256": "3f47b4b8f4f501ac063ff3dd970933725c28e4f4e7ede3691da6d0a4f0a9568a"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/discovery-summary.json",
+      "bytes": 2597,
+      "sha256": "ba48d8a2ce29bb1de4dc28807304cd65301caed958ed1233fcf264e7390ceb35"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/discovery.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/discovery.stdout.json",
+      "bytes": 22323,
+      "sha256": "4da1283f4da417411e69449115019cd9a95b062b7bea71dd0113e24c3c0ceea6"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/invocation-started.json",
+      "bytes": 98,
+      "sha256": "e178bec86a9f574edc6a8591c08e44f8e6df05ddb06bfa178485fcd635c927c9"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-artifact-retention.json",
+      "bytes": 5559,
+      "sha256": "240aa827ed4dfb2ba8ca3b91d24bbbd09204de5917d6f8601acc8cba576e3023"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/.last-run.json",
+      "bytes": 145,
+      "sha256": "4d7cc60e001331f9c9632578dab4c96be61592164a890e5597401fb05ed51476"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w14-fo-032fa-ler-preserves-current-value-chromium/native-independent-value-race-UNDO-date-focus-handler.json",
+      "bytes": 21695,
+      "sha256": "67720f37ed66723b6aeefa1b6abc553b46b513a4250902097ab789efef04b548"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w14-fo-0a51d-ged-preserves-current-value-chromium/native-independent-value-race-EXECUTE-text-unchanged.json",
+      "bytes": 16373,
+      "sha256": "4d8ff737e7a9fe143893cf39e54dd20c5cbc6ff15b88353de51d503cd6a43f1a"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w14-fo-1ecbb-ged-preserves-current-value-chromium/native-independent-value-race-UNDO-date-unchanged.json",
+      "bytes": 22454,
+      "sha256": "c80d39b3338577c7e5974a63ada27d3c26f0977f0e650d1bdf8844aae0c39b9c"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w14-fo-2dbf0-ged-preserves-current-value-chromium/native-independent-value-race-EXECUTE-date-unchanged.json",
+      "bytes": 16416,
+      "sha256": "b51c9404051b84e2065f0c5c2e3ab9acce38d25123fd273459f2ae7e48f7c512"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w14-fo-406cb-ler-preserves-current-value-chromium/native-independent-value-race-UNDO-text-focus-handler.json",
+      "bytes": 21662,
+      "sha256": "33bd4e4c3f28e788e9056a0f6ac8ca9e329135628da72d68e83b725e32a5ec14"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w14-fo-8c585-ged-preserves-current-value-chromium/native-independent-value-race-UNDO-text-unchanged.json",
+      "bytes": 22405,
+      "sha256": "b41e015ba8586a36a9f9391012083bddf75710bc9236fc4593847fdbfaee7982"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w14-fo-9aab4-ler-preserves-current-value-chromium/native-independent-value-race-EXECUTE-text-focus-handler.json",
+      "bytes": 15617,
+      "sha256": "1b4a9050abf760b769df736444cffeb5cee0e5f8b02344dff8cf995e3b1b3d1b"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w14-fo-d749d-ler-preserves-current-value-chromium/native-independent-value-race-EXECUTE-date-focus-handler.json",
+      "bytes": 15658,
+      "sha256": "a91d0fe0fffe7c52d56fbc00308bbbddfac89dd5abcec776221eb04cd54098f2"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w14-na-61e25-alidity-UNDO-late-rejection-chromium/native-fresh-native-validity-UNDO-true.json",
+      "bytes": 20274,
+      "sha256": "cb57835301d6f11aa289845f5bcd07e53a6969a7cd95f359314c7f5f26c134f2"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w14-na-61e50-ity-UNDO-unchanged-positive-chromium/native-fresh-native-validity-UNDO-false.json",
+      "bytes": 20214,
+      "sha256": "02bd58787a82f119c1a2b131e51f5a63ebd45f4f43bdd681c075f8a4ae3df1c7"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w14-na-8e336--EXECUTE-unchanged-positive-chromium/native-fresh-native-validity-EXECUTE-false.json",
+      "bytes": 15289,
+      "sha256": "7e95b87b06b615937c6969306f169456ee64c6cd9a5ce6f18c84b6365c436da9"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w14-na-a458b-validity-W11-late-rejection-chromium/native-fresh-native-validity-W11-true.json",
+      "bytes": 27672,
+      "sha256": "5dd8186dcbe347d0368bbe802a9647fa845096d26b9758d58ac11f60ee150bfe"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w14-na-c2c31-dity-EXECUTE-late-rejection-chromium/native-fresh-native-validity-EXECUTE-true.json",
+      "bytes": 15354,
+      "sha256": "f17d58d69676894bc763ae6f561d617e8cc4c5ecce9ad6b9e8c3d12b8512177e"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w14-na-f7767-dity-W11-unchanged-positive-chromium/native-fresh-native-validity-W11-false.json",
+      "bytes": 29005,
+      "sha256": "4ec42671de99f0484d7cad49b08b34471efd6b177d2e61b5bf4c532952ed0c9a"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w15-fo-971f8-ves-viewport-and-real-focus-chromium/error-context.md",
+      "bytes": 6075,
+      "sha256": "c428fecfb8332f42ec45b19b8a7edeaeb88334374b7ef535c7ce9cfb561d7f58"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w15-fo-971f8-ves-viewport-and-real-focus-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w15-fo-971f8-ves-viewport-and-real-focus-chromium/trace.zip",
+      "bytes": 173047,
+      "sha256": "b2fff1264fea6ae92de1a613cb4919bbed586b71dfaab9161c7a69546ce497c2"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w15-fo-c6250-ves-viewport-and-real-focus-chromium/error-context.md",
+      "bytes": 6072,
+      "sha256": "f1bca997518efe25b786dce69c748647c7474d802b379983e364761375badbd5"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w15-fo-c6250-ves-viewport-and-real-focus-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/native-test-results/extension-extension-w15-fo-c6250-ves-viewport-and-real-focus-chromium/trace.zip",
+      "bytes": 175903,
+      "sha256": "2d0f5afb6911f994452ed4cfb143f058624ccf238f5edd13c11ddd2a8325a7c0"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/prepared-build.json",
+      "bytes": 541,
+      "sha256": "92038101871b3fb627999ee8f16f27f9c654ddbfe8d4cb83c0b2ab8fd8176adc"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/prepared-runtime.json",
+      "bytes": 67848,
+      "sha256": "7bb785344a20c54bc6ac299435591fe619277eee5669a492af76585831a6228d"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/prepared-sources.json",
+      "bytes": 353064,
+      "sha256": "c80f76d376f7ab9934ef9e56d90a2f0211812ce46b9a796a8be2fd6025e622d4"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/prepared-tools.json",
+      "bytes": 578,
+      "sha256": "cad4973420d38937f15fca8f4dd37eb7913d4a45b418a8b737c55f66ebb2fefa"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/results.json",
+      "bytes": 477117,
+      "sha256": "2c1b27abb4ac1efa3ee7274cc3969d24ff0748d6737eb4430927f0af714991de"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/run.log",
+      "bytes": 10958,
+      "sha256": "49b3dec3b19e2b5627d0303a5a16408437f05eb5102161775130d900ca40049f"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/viewport-date-EXECUTE.json",
+      "bytes": 11043,
+      "sha256": "30e9b67403c8d1a06c64041a778d78c58d6cde5c7918f98c63e356644b9757e2"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/viewport-date-UNDO.json",
+      "bytes": 9921,
+      "sha256": "27a98c4ed23a06536c931c47f81760717a6237ad01dcdb971a96d75ac67fdf27"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/viewport-text-EXECUTE.json",
+      "bytes": 11019,
+      "sha256": "20a0364a1fa06ace9c7a1c0221c403d89fcdcf034d0ae81e8784a2b5699f2890"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/green/proof/viewport-text-UNDO.json",
+      "bytes": 9891,
+      "sha256": "a864397c6227ae627adab5ab034a1a9b754f831cefb644ec3ae675c6f93de2ad"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/postprocessor-correction.json",
+      "bytes": 997,
+      "sha256": "fbc3f2e3f91e28404b2fc1dd739085c2338e003b994e48ca458924fd694a49dc"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/postprocessor-correction.patch",
+      "bytes": 2723,
+      "sha256": "75c5fb774d5ff22f1a91855a8ae720977566dfb011e2f845a1096386cfe5bef2"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/primary-source-binding.json",
+      "bytes": 1228,
+      "sha256": "e7b5c503b09161f358ee8dee8abdaaed53e61ac64c45717e87958478a872e828"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/primary-source-supplied-by-root/date_time_edit_element.cc",
+      "bytes": 37155,
+      "sha256": "e42e89e5ccd4709018183eefcc97ee470e31d8d934572a3efe373a065900fb3c"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/primary-source-supplied-by-root/date_time_edit_element.cc.fetch.json",
+      "bytes": 1485,
+      "sha256": "fc0366b1201cc9db0e5bc1b80fb69c748035d744933f5dfc864185567196bf41"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/primary-source-supplied-by-root/date_time_field_element.cc",
+      "bytes": 10053,
+      "sha256": "e9efd7fd978b4aca665a9ce3886b11cfce3e7d1bd67b9372076d57d168d732d6"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/primary-source-supplied-by-root/date_time_field_element.cc.fetch.json",
+      "bytes": 1486,
+      "sha256": "1cf9bb2e2dec802e3be9ce8f537cb6238313d499786b96944b7e185fcd5aad65"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/primary-source-supplied-by-root/multiple_fields_temporal_input_type_view.cc",
+      "bytes": 24190,
+      "sha256": "0c5c0163acc3a0ac55e00f07a1c3908d9b1104e76fd531ba55a31ab0078b82df"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/primary-source-supplied-by-root/multiple_fields_temporal_input_type_view.cc.fetch.json",
+      "bytes": 1503,
+      "sha256": "e3e897f6dc01d8ef6be03c82c6d9c94010ce5283bdd35a4fa22f58af7e721e54"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/proof-identities.json",
+      "bytes": 18679,
+      "sha256": "af2033963b5afd9b5235c090f77174000e4acb00f9a354a4799427e2cc451a85"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/after-build.json",
+      "bytes": 9887,
+      "sha256": "428739b1533dd999b376446bd89618cf105056bbb80881c394457b3eabe094fc"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/after-runtime.json",
+      "bytes": 67848,
+      "sha256": "0d8ccc8c9b56f1e25df6914ed4311d5787389c00bb0b2748a1d9832b41785c64"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/after-sources.json",
+      "bytes": 352283,
+      "sha256": "3d41259399a7ed945a4492c69d1b2ece2cd951e4dd69e06f1d74a1efb81b952d"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/after-tools.json",
+      "bytes": 578,
+      "sha256": "639dfbc5f56178970d9a513f9bc421fe2d2b3166a17efff6613ff72c5a6e7d9e"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/before-build.json",
+      "bytes": 541,
+      "sha256": "37c228337207552a9d7c2e10f367a57e70b939179562da2c49e5fd5446558c39"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/before-runtime.json",
+      "bytes": 67848,
+      "sha256": "0d8ccc8c9b56f1e25df6914ed4311d5787389c00bb0b2748a1d9832b41785c64"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/before-sources.json",
+      "bytes": 352283,
+      "sha256": "e4cd83211d51a018d1ad02996671a84d0d434cf63d99bb558c41262d39cbb381"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/before-tools.json",
+      "bytes": 578,
+      "sha256": "b89cc7ffe6acd86920e699cdaf9ee6b5ea4cc2455985f70e95906905738a9079"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/command.json",
+      "bytes": 2458,
+      "sha256": "2056017189dce936d0247dfb7f6f345a321950fc3195120213a4df984a27912c"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/completion.json",
+      "bytes": 101,
+      "sha256": "aeffdae02492eaed6ccd9b7e5b9a08d22274a31ab758902f692ed9e4ac6cbf34"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/discovery-command.json",
+      "bytes": 447,
+      "sha256": "1d96f990792375c6e8b4fc997b1dba084997a18c0e1e388d692cf5de488f5b49"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/discovery-summary.json",
+      "bytes": 442,
+      "sha256": "b5d285139bf6dfa8d2ce05ec197ef46e51825897ac4d748bc6b7621f4074c267"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/discovery.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/discovery.stdout.json",
+      "bytes": 4908,
+      "sha256": "40c14bd86c2c4c25f98a5faf5820ed495509992a409c0a75622f221db99dcc63"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/invocation-started.json",
+      "bytes": 96,
+      "sha256": "53b1b63df6b1f6a6d6ef62f57c0e083eb0887728d1a31c7da4ffb6fa8ff1ab83"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/native-artifact-retention.json",
+      "bytes": 3108,
+      "sha256": "64e0e445dcf57cf24b87541188c00eb818b6d12a97d4d77ad3202e726652a48e"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/native-test-results/.last-run.json",
+      "bytes": 243,
+      "sha256": "e8433372256809987d17267405493bbb6abf876897ffa1aa5314bc2740ad6e0f"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-fo-0d745-ves-viewport-and-real-focus-chromium/error-context.md",
+      "bytes": 6075,
+      "sha256": "4313a8b308547b20a3c4716eee9643a9a701d6eb90aab4d4b046a5c738adb9c6"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-fo-0d745-ves-viewport-and-real-focus-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-fo-0d745-ves-viewport-and-real-focus-chromium/trace.zip",
+      "bytes": 161027,
+      "sha256": "7280b2d638b377911ae559b1b340f5a7d1b2f04b649f13f4c49c369ff49bb6e3"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-fo-1502d-ves-viewport-and-real-focus-chromium/error-context.md",
+      "bytes": 6072,
+      "sha256": "9da53e6c15cd9b07eaaab5bf1883390075e954b1137c3061442b05be50327be6"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-fo-1502d-ves-viewport-and-real-focus-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-fo-1502d-ves-viewport-and-real-focus-chromium/trace.zip",
+      "bytes": 174585,
+      "sha256": "c57b39c07479ed41cdbab2f9964ba312fe2076fd0f4ee1dcd5b9ff120202d49f"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-fo-971f8-ves-viewport-and-real-focus-chromium/error-context.md",
+      "bytes": 6075,
+      "sha256": "c428fecfb8332f42ec45b19b8a7edeaeb88334374b7ef535c7ce9cfb561d7f58"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-fo-971f8-ves-viewport-and-real-focus-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-fo-971f8-ves-viewport-and-real-focus-chromium/trace.zip",
+      "bytes": 173988,
+      "sha256": "8b3f2c60aca38d8e017f3e64c4bcc7cbf8824d785335df699c8b36cfad7ab4d9"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-fo-c6250-ves-viewport-and-real-focus-chromium/error-context.md",
+      "bytes": 6072,
+      "sha256": "f1bca997518efe25b786dce69c748647c7474d802b379983e364761375badbd5"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-fo-c6250-ves-viewport-and-real-focus-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-fo-c6250-ves-viewport-and-real-focus-chromium/trace.zip",
+      "bytes": 176421,
+      "sha256": "e54aab223c3c13367b7f2ded9ea2ad7f9c43aeadc916379e822b753ad4caa228"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/prepared-build.json",
+      "bytes": 541,
+      "sha256": "074a4cadcfe544a0aae87410e4940eaa9f9809ff8264bd4c8ab73291f8778927"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/prepared-runtime.json",
+      "bytes": 67848,
+      "sha256": "0d8ccc8c9b56f1e25df6914ed4311d5787389c00bb0b2748a1d9832b41785c64"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/prepared-sources.json",
+      "bytes": 352283,
+      "sha256": "6a147abdf4066a1466b8c7c68b3cc51fe4dbb9a87d056866e69550d03639509a"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/prepared-tools.json",
+      "bytes": 578,
+      "sha256": "daa020ff0fdb23f76f6099dbdfba545c72caf169a106a5dcfa473df5f61aeba5"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/regression-summary.json",
+      "bytes": 55634,
+      "sha256": "cd15a1b5a4a301f54757d042da54d2a014605b90742068712710c597decd0ff9"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/results.json",
+      "bytes": 80626,
+      "sha256": "522039d2198e4c3ba9c78baaf8d3060b6e8fed9be99e8ce0334dc472074a2d6b"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/run.log",
+      "bytes": 12481,
+      "sha256": "cf92ccece2691ec05ab75b0c1619e6a0c04d0b76ca65f3b8546104c4bbed6bf0"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/viewport-date-EXECUTE.json",
+      "bytes": 11044,
+      "sha256": "dd6e2ee71eb7630790a7eed280420c53fce7a1f8ca7ee4a96fd50d0b5effcbb4"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/viewport-date-UNDO.json",
+      "bytes": 9921,
+      "sha256": "c43ab92543d3a978417a288ff575a69d84aa5a6858c63001456dea49b70466bd"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/viewport-text-EXECUTE.json",
+      "bytes": 11022,
+      "sha256": "b524939e5514534adbbfbf8ee081611ce0c75eb967e6c84ada32e1003c8ed1c4"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/red/proof/viewport-text-UNDO.json",
+      "bytes": 9892,
+      "sha256": "d8d38f9c0837b30c00c853ed5803be29b476fce5c84f1caaa52b3366bb302d40"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/regression-wrapper-v2.py",
+      "bytes": 13411,
+      "sha256": "7e99588fe9edde2bc9cb8597291a5f441b580e91a27936ec130329c99c25822b"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/regression-wrapper.py",
+      "bytes": 13037,
+      "sha256": "369e28ed8a6735b65eeb021433d1b12b9aad2d1be62db9024d64f1547bf6ec01"
+    },
+    {
+      "path": "regressions/japp-m02-w15-focus-viewport-regression-20261017/root-authorization.json",
+      "bytes": 847,
+      "sha256": "ed4b56905df4d0f944bc2ff76296c75c77c9cd4f3361b597b0030863ba7b2f1c"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/green/proof/discovery-command.json",
+      "bytes": 1335,
+      "sha256": "7a1ee7e3fb4029aa3a8dcafd0e60ff1f9d4be85ba679ad0465f2a5b93b6d6750"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/green/proof/discovery-summary.json",
+      "bytes": 2580,
+      "sha256": "03cc546c5a42fc41774c0191c3d5b4a6d77c004e5b81bfa2279402088a466c34"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/green/proof/discovery.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/green/proof/discovery.stdout.json",
+      "bytes": 22303,
+      "sha256": "eacdd569fcecaa62ebb27577ecdf9191731ba4b671c429ef4863075af77e6e75"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/green/proof/prepared-build.json",
+      "bytes": 541,
+      "sha256": "93ade1c63eb92a0acc775bb62d9793bb1ede3693afb2a0d458f83b689de9986e"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/green/proof/prepared-runtime.json",
+      "bytes": 67848,
+      "sha256": "93a2ff6c8677a1fc77e85af807bbb8aa7a81891297be15a9e5517110a949c923"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/green/proof/prepared-sources.json",
+      "bytes": 354187,
+      "sha256": "4e316ce002a2bf5f6dfd70a4926791d978a2a972ce3d7fa52a58a0512debc717"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/green/proof/prepared-tools.json",
+      "bytes": 578,
+      "sha256": "1937fb8de330325591922c11c8aaea7bc501d6fb3c7cb04ba717439c8d5092c6"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/actual-red-incomplete-signature-summary.json",
+      "bytes": 3046,
+      "sha256": "e93656637d208091fdcc9310e719c38d1b280ac6e4e20a9ee9c5a81b83cbe3b1"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/after-build.json",
+      "bytes": 9887,
+      "sha256": "04df077eeeb5579de57828074b9a92640afc2a7c0ce1a1f13c60e4a099ebf7db"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/after-runtime.json",
+      "bytes": 67848,
+      "sha256": "0d8ccc8c9b56f1e25df6914ed4311d5787389c00bb0b2748a1d9832b41785c64"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/after-sources.json",
+      "bytes": 352281,
+      "sha256": "258044bddfdd76faceaad418837a2b54365c8edbeb96444e5f38bba80ce44504"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/after-tools.json",
+      "bytes": 578,
+      "sha256": "aefd436b682661c48ffd749c5aba3c489a2a420ef5b6a6d9c6b23165fc74e887"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/before-build.json",
+      "bytes": 541,
+      "sha256": "b25d88514d8c22a5cb16927c466083e0231b56095a7dd374bff0355357f8596a"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/before-runtime.json",
+      "bytes": 67848,
+      "sha256": "0d8ccc8c9b56f1e25df6914ed4311d5787389c00bb0b2748a1d9832b41785c64"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/before-sources.json",
+      "bytes": 352281,
+      "sha256": "5f71dbd8c00ad4f70d7eca9d7b7b4b24e9ac892e9b7bb48b05d326d776cb6eb9"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/before-tools.json",
+      "bytes": 578,
+      "sha256": "375ada32b1098b29317209bd5b660b13087e4096b1acdeb65e91f21e4b92996e"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/command.json",
+      "bytes": 2608,
+      "sha256": "5bb84b9ebdefd66f15a764639e9fa76cf73fa2c7ec88525f9e49dd6153d5b36b"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/completion.json",
+      "bytes": 100,
+      "sha256": "5878ef5543e645d990717bc2b137498c86a8a52b52dd0fefd3ac2401027ade27"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/discovery-command.json",
+      "bytes": 454,
+      "sha256": "d28609a52626fb1faa79d22921272d6f37ffd280fb5269596494e322d77d91ad"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/discovery-summary.json",
+      "bytes": 425,
+      "sha256": "ad477fa24a15ea9331a3c917063e25c595157f24b4c9aa447c3886661a824e69"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/discovery.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/discovery.stdout.json",
+      "bytes": 4888,
+      "sha256": "461c111e64a8ee9209feb76e48d30456728bc1b99d6c253ae3a29177f23641a6"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/invocation-started.json",
+      "bytes": 96,
+      "sha256": "a255e2c6f5ff8fae07afb01fc03048fe69e333f06d353c9202bc196327546600"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/native-artifact-retention.json",
+      "bytes": 3108,
+      "sha256": "959e72505767d8e66fcd45f25b31ab1c10f1de9aa890c9d4da3dca9b5f390103"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/native-test-results/.last-run.json",
+      "bytes": 243,
+      "sha256": "dd2866419e99e43cdf3cb1a794a8a3ecf8609b797eb403a3f337e8bee4656c46"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-te-14e4b-O-text-preserves-real-focus-chromium/error-context.md",
+      "bytes": 6095,
+      "sha256": "458e4a81eb5dcd0e865fe7d47f0cb0616df1ae9d9ef18e64f09074fb96aee9bb"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-te-14e4b-O-text-preserves-real-focus-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-te-14e4b-O-text-preserves-real-focus-chromium/trace.zip",
+      "bytes": 175203,
+      "sha256": "380d224081cf289a105c6845a4fe89575cb6457b54879db29bdc78d1a0d9bfe9"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-te-2ab1e-xtarea-preserves-real-focus-chromium/error-context.md",
+      "bytes": 8874,
+      "sha256": "254f2c4ec7403671c1afd9c41d4b3382f2e7458eb4e7129dc2baba9aa1c6ff38"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-te-2ab1e-xtarea-preserves-real-focus-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-te-2ab1e-xtarea-preserves-real-focus-chromium/trace.zip",
+      "bytes": 163243,
+      "sha256": "b8e522b4a16cf4929e9d11d4de442bbde0551c977f58a448fe6a4f7966961f6e"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-te-3f184-xtarea-preserves-real-focus-chromium/error-context.md",
+      "bytes": 8871,
+      "sha256": "f70524184cdd5c7a27528c1e6f86c1f37d9521765318d91ce1114d0a724befe0"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-te-3f184-xtarea-preserves-real-focus-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-te-3f184-xtarea-preserves-real-focus-chromium/trace.zip",
+      "bytes": 152390,
+      "sha256": "3b2a3f72e8333d257630a9ca3ef6ad958707ace786dbf8c39538256415d45dd9"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-te-9e6f8-E-text-preserves-real-focus-chromium/error-context.md",
+      "bytes": 6098,
+      "sha256": "9667b759981778d1c45f88d2897ed549e7647f504463d50301ad305475d38a7a"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-te-9e6f8-E-text-preserves-real-focus-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/native-test-results/extension-extension-w15-te-9e6f8-E-text-preserves-real-focus-chromium/trace.zip",
+      "bytes": 160920,
+      "sha256": "63f3da716e0f572680eeb62629506b5dee2e81cfe02a5237870ec384d3270899"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/prepared-build.json",
+      "bytes": 541,
+      "sha256": "93ea8dc6300c2557f1b99a94ee2ba3458797b3832f75a94085faf61a9f375a8e"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/prepared-runtime.json",
+      "bytes": 67848,
+      "sha256": "0d8ccc8c9b56f1e25df6914ed4311d5787389c00bb0b2748a1d9832b41785c64"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/prepared-sources.json",
+      "bytes": 352281,
+      "sha256": "6fe94ae6ef5118dfb5a5d4513f9e46aaf26d0ca8cb7dbbaa0bdc0d34d417b576"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/prepared-tools.json",
+      "bytes": 578,
+      "sha256": "8b2d07a980deb0f3dd99f6430551746ecbc26e7fef176d8bf703df1e52281d84"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/results.json",
+      "bytes": 50144,
+      "sha256": "28a1bcddd01434433c9c242de0cd92610b712f1aaf95003b5c4fca7e6fae63d8"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/run.log",
+      "bytes": 12225,
+      "sha256": "73a62f7aaeb3aeff4f2ced62f5590d070ae1ffdc51c71952cd90c4f452ae1809"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/viewport-text-EXECUTE.json",
+      "bytes": 11023,
+      "sha256": "c4078ba6244693ecd9a0f21e1677570d076f3c209063dcba0ced006d3540fc93"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/red/proof/viewport-text-UNDO.json",
+      "bytes": 9891,
+      "sha256": "ee516f203f53e3ae0e18d5162dd25adba9a9124419722f09ecc542a436d8ae34"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/regression-wrapper.py",
+      "bytes": 13416,
+      "sha256": "b55008814b5c541f56ea6c2b06c5316b38501f99842280df5ff939329930c72b"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/root-authorization.json",
+      "bytes": 816,
+      "sha256": "09dd71b24aed70cb65b6c80cd4309dde0628929810063b2836380db38b2f9860"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/wrapper-adaptation-preimage.py",
+      "bytes": 13411,
+      "sha256": "7e99588fe9edde2bc9cb8597291a5f441b580e91a27936ec130329c99c25822b"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-20261017/wrapper-adaptation.patch",
+      "bytes": 2021,
+      "sha256": "434f19c4ca6e642d1953f38fb15dd3971ff7e13c7ce4a852e23558bc134ebe3b"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/after-build.json",
+      "bytes": 9887,
+      "sha256": "13e45db0ce88cd5f8439b03f351ec30b8fe279e82d817c36988de2176863eca4"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/after-runtime.json",
+      "bytes": 67848,
+      "sha256": "93a2ff6c8677a1fc77e85af807bbb8aa7a81891297be15a9e5517110a949c923"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/after-sources.json",
+      "bytes": 354187,
+      "sha256": "bc4f86f6992b3e9a2f815876c85910f111bbb7afc77dacf2c095adbed158624b"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/after-tools.json",
+      "bytes": 578,
+      "sha256": "dc3b79990d3ab2e39e07c3213d67c22225b74cbed598b9972dbb16bd4b2fa5d9"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/before-build.json",
+      "bytes": 541,
+      "sha256": "211b89eed3ffccc0bc5fa8bba4dfcccadd31a5e1ca7931d475640543411b728c"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/before-runtime.json",
+      "bytes": 67848,
+      "sha256": "93a2ff6c8677a1fc77e85af807bbb8aa7a81891297be15a9e5517110a949c923"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/before-sources.json",
+      "bytes": 354187,
+      "sha256": "6ae6888665ca48c4cfc451ef1edfca0b6b776e8ef170d92a839015d97ed5df50"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/before-tools.json",
+      "bytes": 578,
+      "sha256": "2222ffa346cd278e74af6d77cb2939ea5dd02594bb4231b9e1b11f213b4dca12"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/command.json",
+      "bytes": 3491,
+      "sha256": "be04ce882b861da8f1717e38e3ceac1b3ff47d52cfe1638cf0f0b2634c61c6b2"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/completion.json",
+      "bytes": 101,
+      "sha256": "0643aeeacafba6fcaf57d2fef2f0c51be14db7caf3e013c1d2642a37c945fbfd"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/discovery-command.json",
+      "bytes": 1338,
+      "sha256": "33710ade61ae715aa1be9a963ba8a6b3d4b96fc16ce90401839ecc840e9f8dd0"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/discovery-summary.json",
+      "bytes": 2580,
+      "sha256": "436d93ece5eb5dd10b7aa3f879ef9b72714505647673aad97667fb6dcf8c83f0"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/discovery.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/discovery.stdout.json",
+      "bytes": 22310,
+      "sha256": "81c519186bd610da1263a798b9607427d4425131dae3baaec82715b8e6a83314"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/invocation-started.json",
+      "bytes": 98,
+      "sha256": "1b675d3dbc91cb00af5eea3e5ad930f5a214a2380ce06f136e6c4a0b479ab634"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-artifact-retention.json",
+      "bytes": 4120,
+      "sha256": "e7e7d05edc970e88a83eaf23c58ab2cef90999c4966106cf7c97847d437c5234"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-test-results/.last-run.json",
+      "bytes": 45,
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-test-results/extension-extension-w14-fo-032fa-ler-preserves-current-value-chromium/native-independent-value-race-UNDO-date-focus-handler.json",
+      "bytes": 21696,
+      "sha256": "4f79fcf6abe3f2bb864e13382fd0a28046c06747d0d23d4b306c46c00449445e"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-test-results/extension-extension-w14-fo-0a51d-ged-preserves-current-value-chromium/native-independent-value-race-EXECUTE-text-unchanged.json",
+      "bytes": 16373,
+      "sha256": "37f76911ef82d0f352933580da146647c851c6e807d3c41d8e8f2106f168af35"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-test-results/extension-extension-w14-fo-1ecbb-ged-preserves-current-value-chromium/native-independent-value-race-UNDO-date-unchanged.json",
+      "bytes": 22453,
+      "sha256": "63a89a21656a4610e2260a57a24b7e96aabc7ccf5edcd99b11dd2d80d3461a94"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-test-results/extension-extension-w14-fo-2dbf0-ged-preserves-current-value-chromium/native-independent-value-race-EXECUTE-date-unchanged.json",
+      "bytes": 16418,
+      "sha256": "7885d738927b8c843ee9d368fcbe206078b364679bfff9d44dcedc5730310073"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-test-results/extension-extension-w14-fo-406cb-ler-preserves-current-value-chromium/native-independent-value-race-UNDO-text-focus-handler.json",
+      "bytes": 21664,
+      "sha256": "216bc04656efbb2c60bf4c0e76088f9ce14fcaa97b2d396ef2eeca5ee028149a"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-test-results/extension-extension-w14-fo-8c585-ged-preserves-current-value-chromium/native-independent-value-race-UNDO-text-unchanged.json",
+      "bytes": 22404,
+      "sha256": "76c9aafeb81ece557599f164d7696a898b300679d637811194f6e9cfb2ed5988"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-test-results/extension-extension-w14-fo-9aab4-ler-preserves-current-value-chromium/native-independent-value-race-EXECUTE-text-focus-handler.json",
+      "bytes": 15619,
+      "sha256": "0400c8931a467c4b219755f263a50161839e917c7ef73dc89aa2d964bf97ee40"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-test-results/extension-extension-w14-fo-d749d-ler-preserves-current-value-chromium/native-independent-value-race-EXECUTE-date-focus-handler.json",
+      "bytes": 15654,
+      "sha256": "dc47e709efdaef910c698f841831f8d1ebd7a1e480f3f1b1a34f67d11413fb5f"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-test-results/extension-extension-w14-na-61e25-alidity-UNDO-late-rejection-chromium/native-fresh-native-validity-UNDO-true.json",
+      "bytes": 20282,
+      "sha256": "1961349b26b83ca337ad457379ab583795a702f0d86081d149de689757a46c4a"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-test-results/extension-extension-w14-na-61e50-ity-UNDO-unchanged-positive-chromium/native-fresh-native-validity-UNDO-false.json",
+      "bytes": 20216,
+      "sha256": "bc4f2772478046b63397b462048bd93c39de5936905f497747bddd4c7358a903"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-test-results/extension-extension-w14-na-8e336--EXECUTE-unchanged-positive-chromium/native-fresh-native-validity-EXECUTE-false.json",
+      "bytes": 15288,
+      "sha256": "5feafeac0141e698a894a4f0d5bbe931c62c49ee4c9fea294b8e58073d132fb0"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-test-results/extension-extension-w14-na-a458b-validity-W11-late-rejection-chromium/native-fresh-native-validity-W11-true.json",
+      "bytes": 27670,
+      "sha256": "e75d53fae893673a670e1fa31b74c22140ed7c49b58a35b0e53011afab7ac76b"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-test-results/extension-extension-w14-na-c2c31-dity-EXECUTE-late-rejection-chromium/native-fresh-native-validity-EXECUTE-true.json",
+      "bytes": 15357,
+      "sha256": "c83598f78ba7af67fbdb3f5ffa965c704f9d370374852bc6cf5b8faed4f64064"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/native-test-results/extension-extension-w14-na-f7767-dity-W11-unchanged-positive-chromium/native-fresh-native-validity-W11-false.json",
+      "bytes": 29006,
+      "sha256": "7e5507addd98103892706e0e6d1c3a108460cdc07f8d17030c8a1e9f550898c9"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/prepared-build.json",
+      "bytes": 541,
+      "sha256": "90ee28678a624ce6adb84786061626d063d2e63b9fd78c0dece296b658fef61b"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/prepared-runtime.json",
+      "bytes": 67848,
+      "sha256": "93a2ff6c8677a1fc77e85af807bbb8aa7a81891297be15a9e5517110a949c923"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/prepared-sources.json",
+      "bytes": 354187,
+      "sha256": "49d44f9c93a21322360eeaf1c400f9cfa2afdbd04077b00fbb83e28dcbab7bc7"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/prepared-tools.json",
+      "bytes": 578,
+      "sha256": "25a1d4f2cf5964193a3a7ef16f432d37cc5ab87b357bef5b3b22703851407e1c"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/regression-summary.json",
+      "bytes": 56665,
+      "sha256": "677374d62c4d50a361fe79e26baa8028ca12a402cdf073daa32c3cc46eb5e0fb"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/results.json",
+      "bytes": 468596,
+      "sha256": "190f7fdfe0fb49ccb73300e8137f65fe75bf64c5e01cee7bf7382bea47afd76e"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/run.log",
+      "bytes": 5917,
+      "sha256": "9e8f4dd91edcec544f50c52f126a050412dc4551fbd897ad1f16863732d74f01"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/viewport-text-EXECUTE.json",
+      "bytes": 11018,
+      "sha256": "ab5a843921d3c7ca9e2feb817c27ff387b8a8c555ad9bad85fde55598f3aa6e9"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/viewport-text-UNDO.json",
+      "bytes": 9890,
+      "sha256": "ebca5e26d2f357afcb1652595ede2db6e5bc667bc24d304ace9a3685ed4a75f4"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/viewport-textarea-EXECUTE.json",
+      "bytes": 11069,
+      "sha256": "40b7da6a0c96cd88b3123e9c1f901385b512d09e5484589b5507019d78629c02"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/green/proof/viewport-textarea-UNDO.json",
+      "bytes": 9942,
+      "sha256": "2e859c9c03e67a7389999310939c819c62702339724fb4a6d2abae3e2d77206a"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/proof-identities.json",
+      "bytes": 24510,
+      "sha256": "f216b7565660d2be87a9e7627b5e62f0c71033b00c69e8b78a8c14aebb8c78f4"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/after-build.json",
+      "bytes": 9887,
+      "sha256": "fd9cd326bd1271236c28316a05c49d48de5afb875ab9459afb197709a6ec3d86"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/after-runtime.json",
+      "bytes": 67848,
+      "sha256": "0d8ccc8c9b56f1e25df6914ed4311d5787389c00bb0b2748a1d9832b41785c64"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/after-sources.json",
+      "bytes": 352281,
+      "sha256": "3982da8655a8958c8036fb2ce777553222604896dc22cde04f8d6b0c85f709b9"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/after-tools.json",
+      "bytes": 578,
+      "sha256": "62be5b3497fbdb7b2cef93ffaf6697cecc750669d32f0265d860744d9144f51d"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/before-build.json",
+      "bytes": 541,
+      "sha256": "9edf729fb37072a56d35cf63c115e69abd8e30040fefea2af6c478d8df1660a2"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/before-runtime.json",
+      "bytes": 67848,
+      "sha256": "0d8ccc8c9b56f1e25df6914ed4311d5787389c00bb0b2748a1d9832b41785c64"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/before-sources.json",
+      "bytes": 352281,
+      "sha256": "a7be7ff0350a4e2c6126c2ddfaaae6c83ecdb7c595ecaf7b336be79317bcb25a"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/before-tools.json",
+      "bytes": 578,
+      "sha256": "87615f386e9f3bf22590e7bafbbe5c853c44139ad164487f585e406e8fbbc9e4"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/command.json",
+      "bytes": 2608,
+      "sha256": "ded8e8a8b55f81230b7acefd56ba3abc8a9c4c0d22518db2f0b853aecb6760a6"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/completion.json",
+      "bytes": 101,
+      "sha256": "7c657979a171bba9aa8bc5c5d5ef6fd9a862cd583f3f9d6425e9377099b3c467"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/discovery-command.json",
+      "bytes": 457,
+      "sha256": "8bb5bb174998477421d9ef42bc5350b3531efe832103404e337241b29f9b0637"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/discovery-summary.json",
+      "bytes": 425,
+      "sha256": "e1d10fd1da118600957dca3f47bbb8d6e2d3da16953f1ab58c6b9c69de94cda8"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/discovery.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/discovery.stdout.json",
+      "bytes": 4894,
+      "sha256": "919ef9b195a43b9ba45586904df4e6bbb3bc5121819075b48b53b567225d3496"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/invocation-started.json",
+      "bytes": 96,
+      "sha256": "6aff1ea1b7c630d753dc710d5c66b511d4f06c77e733a38aab8ab2abbc44471a"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/native-artifact-retention.json",
+      "bytes": 3108,
+      "sha256": "f8aa0d34850bc7f983ef57bedea14795c683ed60243868a2b43d4cf240bf2018"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/native-test-results/.last-run.json",
+      "bytes": 243,
+      "sha256": "dd2866419e99e43cdf3cb1a794a8a3ecf8609b797eb403a3f337e8bee4656c46"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/native-test-results/extension-extension-w15-te-14e4b-O-text-preserves-real-focus-chromium/error-context.md",
+      "bytes": 6095,
+      "sha256": "458e4a81eb5dcd0e865fe7d47f0cb0616df1ae9d9ef18e64f09074fb96aee9bb"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/native-test-results/extension-extension-w15-te-14e4b-O-text-preserves-real-focus-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/native-test-results/extension-extension-w15-te-14e4b-O-text-preserves-real-focus-chromium/trace.zip",
+      "bytes": 174786,
+      "sha256": "0dae8b0d09ad7a5c4a5554b5e17293946d22cd92dfa089806a6f1ffd1c688aa7"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/native-test-results/extension-extension-w15-te-2ab1e-xtarea-preserves-real-focus-chromium/error-context.md",
+      "bytes": 6102,
+      "sha256": "e13d09894429e45daee2006d0dd6a8913f7cf9a51fd2f7572e9a26d53c434c53"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/native-test-results/extension-extension-w15-te-2ab1e-xtarea-preserves-real-focus-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/native-test-results/extension-extension-w15-te-2ab1e-xtarea-preserves-real-focus-chromium/trace.zip",
+      "bytes": 173926,
+      "sha256": "7d33187547cd5c2dab35f1bc1a30496f16ef73dd7acf31066cf630fd867d095b"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/native-test-results/extension-extension-w15-te-3f184-xtarea-preserves-real-focus-chromium/error-context.md",
+      "bytes": 6099,
+      "sha256": "38f70f803d8a1a993047b352d38c16fcfa07a299479ca4a2b7cb066d52283a99"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/native-test-results/extension-extension-w15-te-3f184-xtarea-preserves-real-focus-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/native-test-results/extension-extension-w15-te-3f184-xtarea-preserves-real-focus-chromium/trace.zip",
+      "bytes": 176861,
+      "sha256": "d7e8aa5bed3a829e2ae34de009d69de7a5eaec7eb60f3a859f0d079fc490b318"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/native-test-results/extension-extension-w15-te-9e6f8-E-text-preserves-real-focus-chromium/error-context.md",
+      "bytes": 6098,
+      "sha256": "9667b759981778d1c45f88d2897ed549e7647f504463d50301ad305475d38a7a"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/native-test-results/extension-extension-w15-te-9e6f8-E-text-preserves-real-focus-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/native-test-results/extension-extension-w15-te-9e6f8-E-text-preserves-real-focus-chromium/trace.zip",
+      "bytes": 172791,
+      "sha256": "16b3d00115899d81f66c5a33b646e7311b8da9c37b66aa5a8dc5f647ce43614e"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/prepared-build.json",
+      "bytes": 541,
+      "sha256": "79fde0f30aede7a6a8cedbafb54eb4ea3c70e6664b56e3231549077367f3d236"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/prepared-runtime.json",
+      "bytes": 67848,
+      "sha256": "0d8ccc8c9b56f1e25df6914ed4311d5787389c00bb0b2748a1d9832b41785c64"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/prepared-sources.json",
+      "bytes": 352281,
+      "sha256": "238442371abcdfef91f4e4dcbc45c90d0edf5a03474aaaa0e19be833f7dbf841"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/prepared-tools.json",
+      "bytes": 578,
+      "sha256": "25a1d4f2cf5964193a3a7ef16f432d37cc5ab87b357bef5b3b22703851407e1c"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/regression-summary.json",
+      "bytes": 55670,
+      "sha256": "5db4652714b8b1ead27af6489b4e588dcb3494d6c2bd895583e0d81f289576e9"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/results.json",
+      "bytes": 80732,
+      "sha256": "d54405cc4d344554102ced4537061d25f3f0aeacb07870d340e85a3cf9b10f5f"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/run.log",
+      "bytes": 12425,
+      "sha256": "7b47313d9b7675865e44f8802e743521f8338ef4abc8a40c56d01349221d7ba9"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/viewport-text-EXECUTE.json",
+      "bytes": 11020,
+      "sha256": "aacd2f0d141fbcab4c5e66426a9bc1ce3e92bda59a49ba4ba267b8640f19ecc5"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/viewport-text-UNDO.json",
+      "bytes": 9891,
+      "sha256": "85df8612478885f1e627ee82a3023ce5c819de6771409150d73f3c6579c85150"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/viewport-textarea-EXECUTE.json",
+      "bytes": 11073,
+      "sha256": "323b2a3cc03f3ed491ae23c0da2f4f067c9aa04c686561f893a63ae422c72582"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/red/proof/viewport-textarea-UNDO.json",
+      "bytes": 9943,
+      "sha256": "c19dcd06033e395aabb307f829a1e47d2edcecf7077acfd84a721201678440e5"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/regression-wrapper.py",
+      "bytes": 13416,
+      "sha256": "3ce65c539bc316e0929cd381ed1632e14e370ab8fe4a8470852d923c53cdadfd"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/root-authorization.json",
+      "bytes": 807,
+      "sha256": "e12cc2adfc20dba99c049401f2f8bdddd069275e492095cc1883eaf36148bbf5"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/wrapper-adaptation-preimage.py",
+      "bytes": 13416,
+      "sha256": "b55008814b5c541f56ea6c2b06c5316b38501f99842280df5ff939329930c72b"
+    },
+    {
+      "path": "regressions/japp-m02-w15-text-viewport-regression-v2-20261017/wrapper-adaptation.patch",
+      "bytes": 566,
+      "sha256": "c57af76c88ffeaaebe41875f8626007088e30dd17da691114585d628c72d2e8f"
+    },
+    {
+      "path": "root-checks/commands.json",
+      "bytes": 1174,
+      "sha256": "d9ae56784da6ad2fb9d101f5f624b1ccd2f2c70b927d42b5c42464735cbbc038"
+    },
+    {
+      "path": "root-checks/continuation/commands.json",
+      "bytes": 757,
+      "sha256": "4dccbb3fb101d7b2f43026b1ef7a1e8f4a01792a16450339dc2567744f8bdead"
+    },
+    {
+      "path": "root-checks/continuation/r10-pure.log",
+      "bytes": 4088,
+      "sha256": "cd37f6438f3233fc7dbdbc5c63aecede7c5fdd56274b5fc2d2d3543672f6ec44"
+    },
+    {
+      "path": "root-checks/continuation/run.py",
+      "bytes": 1465,
+      "sha256": "239e680aa72e1e517f168654338a63addd8b25894087a8f4bea5948e2ea1922d"
+    },
+    {
+      "path": "root-checks/continuation2/commands.json",
+      "bytes": 3251,
+      "sha256": "76338213bcda9947801f42089d17f26aba87639994654d2e2650de13367cf60c"
+    },
+    {
+      "path": "root-checks/continuation2/diff.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "root-checks/continuation2/format.log",
+      "bytes": 837,
+      "sha256": "7d4f4a2eb584de4569aafa664f862eaeef464420589751dd6494ea063ac2f1d6"
+    },
+    {
+      "path": "root-checks/continuation2/lint.log",
+      "bytes": 11,
+      "sha256": "050c69da23536758722729aeda55a8d0fb9d557495ef6d33d70873a3b64a71c1"
+    },
+    {
+      "path": "root-checks/continuation2/r10-pure.log",
+      "bytes": 3998,
+      "sha256": "adcaecf0a0973fcb423c2a1f7e952fa7c56ec429945ee12a9cf615e252e4d1de"
+    },
+    {
+      "path": "root-checks/continuation2/run.py",
+      "bytes": 1560,
+      "sha256": "cda0091cee8588373b251df55f460242b5fbe62c7fac5d8ad65f2f6d392b37c9"
+    },
+    {
+      "path": "root-checks/continuation2/status.log",
+      "bytes": 3563,
+      "sha256": "84b501d18c32b2526bf9e2b72d40d08aa9d87edda83d25ca2cc8bc69a445ec55"
+    },
+    {
+      "path": "root-checks/continuation2/traceability.log",
+      "bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "path": "root-checks/continuation2/typecheck.log",
+      "bytes": 3067,
+      "sha256": "be3e13ee928b58b97d5fa3e7d76cb8970953e9d9644f6719d08997491d06a9bf"
+    },
+    {
+      "path": "root-checks/extension-unit.log",
+      "bytes": 286,
+      "sha256": "5f4a7e87f286a9569e1f1e400b95ce43b27db18d8b2ebc55ed344f3a78ded81a"
+    },
+    {
+      "path": "root-checks/r10-pure.log",
+      "bytes": 4123,
+      "sha256": "117ae937233e860c6d18b780c83a262fef55d7cc2afcee241375ff8483c330ba"
+    },
+    {
+      "path": "root-checks/run.py",
+      "bytes": 1421,
+      "sha256": "2c45ce8cf86baf57499cb3ab9d37852762e2865636f876695a832ececc50cfe5"
+    },
+    {
+      "path": "source-proposals/focus-scroll-candidate/focus-scroll-candidate.original-unformatted.patch",
+      "bytes": 8215,
+      "sha256": "daf67b4ae97647e7b359e109ebdebf706006b8619a9d15f4df770cddf8ac9cd7"
+    },
+    {
+      "path": "source-proposals/focus-scroll-candidate/focus-scroll-candidate.patch",
+      "bytes": 8321,
+      "sha256": "49b028ea2a1c4e30d8487b43a0efeb546c637442ae1b779a8f8c447cd3c1b07f"
+    },
+    {
+      "path": "source-proposals/focus-scroll-candidate/preimages/apps/extension/src/drivers/text-like-drivers.ts",
+      "bytes": 7165,
+      "sha256": "91756f25933420b515a974021cd7c4cf6c06795656b7eec10763cadbe1a1d923"
+    },
+    {
+      "path": "source-proposals/focus-scroll-candidate/proposal-manifest.json",
+      "bytes": 1327,
+      "sha256": "89db12957409fe6b0d835e65593fced3d9f01ab6a283a545807a1944770265d6"
+    },
+    {
+      "path": "source-proposals/focus-scroll-candidate/proposal-manifest.original-unformatted.json",
+      "bytes": 946,
+      "sha256": "6c13dc1bee2876eaa146223b33c33ad6fbf764e4d9dc3fec7d2f85dfb46e559f"
+    },
+    {
+      "path": "source-proposals/focus-scroll-candidate/proposal/apps/extension/src/drivers/text-like-drivers.ts",
+      "bytes": 7188,
+      "sha256": "8e3c5ca6b4ea217e765edebd7fbdafb8aaca88e631de4453a8b6668657fbd755"
+    },
+    {
+      "path": "source-proposals/focus-scroll-candidate/proposal/e2e/extension/extension-w15-focus-viewport.spec.ts",
+      "bytes": 7466,
+      "sha256": "bfa455c32f082067c286ae7a1536cd3e3b1bf4bec5c4da8ba71e7df2e13857d1"
+    },
+    {
+      "path": "source-proposals/focus-scroll-candidate/tests-first-authored.preformat.ts",
+      "bytes": 7367,
+      "sha256": "57086a20ca7bbebc8909e5db1b6d2764e55905c81e4b062617d442f227cea102"
+    },
+    {
+      "path": "source-proposals/focus-scroll-candidate/tests-first/e2e/extension/extension-w15-focus-viewport.spec.ts",
+      "bytes": 7466,
+      "sha256": "bfa455c32f082067c286ae7a1536cd3e3b1bf4bec5c4da8ba71e7df2e13857d1"
+    },
+    {
+      "path": "source-proposals/focus-scroll-candidate/validation-plan.md",
+      "bytes": 4049,
+      "sha256": "f4da5fdd1f50f31b895e58e791e0fcbc7ee9ece60081549253dad0063a91a216"
+    },
+    {
+      "path": "source-proposals/text-viewport-candidate-v2/fixture-correction-only.patch",
+      "bytes": 316,
+      "sha256": "02863dc068df8ee6416bc78b4a2e59426b3ef881696ff59f49c660aabb7da2c0"
+    },
+    {
+      "path": "source-proposals/text-viewport-candidate-v2/preimages/apps/extension/src/drivers/text-like-drivers.ts",
+      "bytes": 7165,
+      "sha256": "91756f25933420b515a974021cd7c4cf6c06795656b7eec10763cadbe1a1d923"
+    },
+    {
+      "path": "source-proposals/text-viewport-candidate-v2/proposal-manifest.json",
+      "bytes": 1397,
+      "sha256": "2c4a93e18b8e75a5e78737555bea358669bdda6dbd9b280faf283a3381c08a5a"
+    },
+    {
+      "path": "source-proposals/text-viewport-candidate-v2/proposal/apps/extension/src/drivers/text-like-drivers.ts",
+      "bytes": 7304,
+      "sha256": "543df12153d5c8ab0c97aa0c74dcd63eb4586e51bf849262755aba2d4698ed76"
+    },
+    {
+      "path": "source-proposals/text-viewport-candidate-v2/proposal/e2e/extension/extension-w15-text-viewport.spec.ts",
+      "bytes": 7806,
+      "sha256": "c46c9a27c5cce65cf3e7b61e16d0631adef765401cc373550ae79d368a5181a2"
+    },
+    {
+      "path": "source-proposals/text-viewport-candidate-v2/tests-first/e2e/extension/extension-w15-text-viewport.spec.ts",
+      "bytes": 7806,
+      "sha256": "c46c9a27c5cce65cf3e7b61e16d0631adef765401cc373550ae79d368a5181a2"
+    },
+    {
+      "path": "source-proposals/text-viewport-candidate-v2/text-viewport-candidate.patch",
+      "bytes": 9676,
+      "sha256": "987c4ff9697fa8b7ca53405ca3d352775285f2c0f391d78de535b4a3d350a665"
+    },
+    {
+      "path": "source-proposals/text-viewport-candidate/preimages/apps/extension/src/drivers/text-like-drivers.ts",
+      "bytes": 7165,
+      "sha256": "91756f25933420b515a974021cd7c4cf6c06795656b7eec10763cadbe1a1d923"
+    },
+    {
+      "path": "source-proposals/text-viewport-candidate/proposal-manifest.json",
+      "bytes": 1157,
+      "sha256": "9b94b0dcd01b7c3dba95bd7552a7d47b1a99407eb6548735c2d0b5bec6ea9a78"
+    },
+    {
+      "path": "source-proposals/text-viewport-candidate/proposal/apps/extension/src/drivers/text-like-drivers.ts",
+      "bytes": 7304,
+      "sha256": "543df12153d5c8ab0c97aa0c74dcd63eb4586e51bf849262755aba2d4698ed76"
+    },
+    {
+      "path": "source-proposals/text-viewport-candidate/proposal/e2e/extension/extension-w15-text-viewport.spec.ts",
+      "bytes": 7786,
+      "sha256": "6ff0651556bcb988cfaed49e3a163e3d7eb6dda21766c1984adfef30743b8e59"
+    },
+    {
+      "path": "source-proposals/text-viewport-candidate/tests-first/e2e/extension/extension-w15-text-viewport.spec.ts",
+      "bytes": 7786,
+      "sha256": "6ff0651556bcb988cfaed49e3a163e3d7eb6dda21766c1984adfef30743b8e59"
+    },
+    {
+      "path": "source-proposals/text-viewport-candidate/text-viewport-candidate.patch",
+      "bytes": 9656,
+      "sha256": "eaf66605e74f2bcc9e78fd1a093f8e9c6588bcec45006a1404f7fa3a2cedf312"
+    },
+    {
+      "path": "source-proposals/text-viewport-candidate/validation-plan.md",
+      "bytes": 2699,
+      "sha256": "42634ce54a0a0d186e3cb853365f01cbf7932912d064f3a995613dfbc7773faf"
+    }
+  ],
+  "exhaustive_comparison": "PASS",
+  "authority": "NONE",
+  "owner_decision": "PENDING",
+  "gate_state": "IN_PROGRESS"
+}

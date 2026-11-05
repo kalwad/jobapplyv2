@@ -1,0 +1,13 @@
+{
+  "archive": {
+    "bytes": 421295,
+    "sha256": "d1de82c609227463ada8bfcaf76bbf590ca65c349e084a3683b257950d81cab5",
+    "safe_regular_members": 13
+  },
+  "review_sha256": "3f5d9732c02648326602fd7931c561aa18b65b21d3ca1b502ce164bc16a9f642",
+  "actual_raw_verify": {
+    "bytes": 738676,
+    "sha256": "6a70d3162dc4a8c1cf6e128152d55709113228df64e8e05b708ef029951580cf"
+  },
+  "scope": "CLEAR_SOURCE_BOUND_LOCAL_FULL_OBSERVATION"
+}

@@ -1,0 +1,421 @@
+{
+  "format": "M02_W15_DOCUMENTARY_REVIEW_PACK_1",
+  "authority": "NONE",
+  "owner_decision": "PENDING",
+  "gate_state": "IN_PROGRESS",
+  "candidate": {
+    "commit": "2464519e0b04de123ef51c3d9cb0363456b5b0eb",
+    "tree": "75660b6a105a2873b0020d3a2d4c24dfb75e15e5",
+    "tracked_files": 1642,
+    "runtime_files": 355,
+    "runtime_bytes": 3372811,
+    "runtime_digest": "sha256:4f5a9608eb23a80a15a81b4a79494901907c4ad7e5c6a996fbce455b498c77d5",
+    "result": "TIMED_OUT",
+    "p95_ms": null
+  },
+  "result_references": [],
+  "scope_notes": [
+    "Onecanonicalexistingtarget20/nooverlay/no retry; original120000mstestdeadline expiresbeforeall20, noW13_SCALING/TARGET lines ⇒canonical aggregate/p95null.",
+    "Overallbudgetexhaustion:18native128iterationscomplete4batches+RECONCILED128;19thfirstbatchpendingfor~2.641msbeforeAfterHooks;20thnotstarted. Notone120secRPCstall or pagecrashproof.",
+    "Allcompleted18retain128VERIFIED/128DOMphysicalfills/512resolutions/768descriptors/1rebuild511hits3enumerations384candidates;8+32+18x128=2344returnedactions. These trace-derivedpartial observations are notcanonical20samples/p95 or independentnative-refsurfaceabsence proof.",
+    "Source/runtime/tools/build closure clean;6actualnativeartifactsretainedimmediately; trace6981879bytesSHA3f8bb66cc66964fb63965905ec5e4db1ec369887d4dd383fc3dc4bff5b48a15d.",
+    "Visibility/focus/timer/foregroundcausalityunobserved. Foregrounddiagnosticsourceproposalplannednotexecuted. Full/native/currentR10/finalGate/ownerdecision remainpending."
+  ],
+  "files": [
+    {
+      "member": "actual-timeout-proof/actual-timeout-summary.json",
+      "bytes": 6310,
+      "sha256": "aa9dad47de4ddb1dd79a592935761c6066419fd86444e9e6f1d4f968b11d5cb6"
+    },
+    {
+      "member": "actual-timeout-proof/after-build.json",
+      "bytes": 9928,
+      "sha256": "4b5cf6119be047ee4f5cc2606e0593b3c19bd0927108b6a18d7632f15c18cd66"
+    },
+    {
+      "member": "actual-timeout-proof/after-runtime.json",
+      "bytes": 67848,
+      "sha256": "ab7fc08971f2c6a672a38b429510ab1e98e6fbfcb864f2c0b646a8f21608bd86"
+    },
+    {
+      "member": "actual-timeout-proof/after-sources.json",
+      "bytes": 316828,
+      "sha256": "73098f514ba158b42bfddd916da86bbcd6aac605b6011222cf84f9ff148edc01"
+    },
+    {
+      "member": "actual-timeout-proof/after-tools.json",
+      "bytes": 600,
+      "sha256": "65fbb4fcf73035d26890ddc196b452d636de4b6459ef926e904218e383e78339"
+    },
+    {
+      "member": "actual-timeout-proof/before-build.json",
+      "bytes": 582,
+      "sha256": "1be32a52a151d7c367e3ad3a47e4f80bd8dceb2104603993f09a0ec037a1f65e"
+    },
+    {
+      "member": "actual-timeout-proof/before-runtime.json",
+      "bytes": 67848,
+      "sha256": "ab7fc08971f2c6a672a38b429510ab1e98e6fbfcb864f2c0b646a8f21608bd86"
+    },
+    {
+      "member": "actual-timeout-proof/before-sources.json",
+      "bytes": 316828,
+      "sha256": "6b2568a8ee5ef523d8ca7c802fa09960b6ff6bfef6c4f3030d239f26f8132f44"
+    },
+    {
+      "member": "actual-timeout-proof/before-tools.json",
+      "bytes": 600,
+      "sha256": "859f1f54a305a6153975473064421ab3da8d9c56c21ae57199c1e7e90e1a82bd"
+    },
+    {
+      "member": "actual-timeout-proof/closed-trace-analysis/analysis-output-identities.json",
+      "bytes": 901,
+      "sha256": "1c0ac42555120228b21fbf1182aebba36c405814297a08ff5e7260608f929581"
+    },
+    {
+      "member": "actual-timeout-proof/closed-trace-analysis/iterations.json",
+      "bytes": 196902,
+      "sha256": "056fc2a6da5d320ab3010406bc867dc42a1d8c80f4262ac7d0528c582356bba7"
+    },
+    {
+      "member": "actual-timeout-proof/closed-trace-analysis/physical-action-reads.json",
+      "bytes": 3006,
+      "sha256": "75f9449c24b208d395c16b04d3dba4cd36600fb339f4b0d4748af406fe82609b"
+    },
+    {
+      "member": "actual-timeout-proof/closed-trace-analysis/pinned-playwright-default-args-source.json",
+      "bytes": 4584,
+      "sha256": "1bf998688d872cccd716ec7d2736dd916d71fd369e999c88020529514b3b4b79"
+    },
+    {
+      "member": "actual-timeout-proof/closed-trace-analysis/rpc-records.json",
+      "bytes": 111403,
+      "sha256": "f836daa881ba17d9c27f18987f417fe71541cc7e8caed5631cec6fe7c0e5e73d"
+    },
+    {
+      "member": "actual-timeout-proof/closed-trace-analysis/summary.json",
+      "bytes": 11080,
+      "sha256": "be6b5a5c6b7fcbf3c4b62d50098aeaa700da6189c672dd6b1317af1c15d732f6"
+    },
+    {
+      "member": "actual-timeout-proof/command.json",
+      "bytes": 2008,
+      "sha256": "b8873fd7d4f96e9ab11084d6cd8a39e1abce54cb65e284198039f200db7e7975"
+    },
+    {
+      "member": "actual-timeout-proof/completion.json",
+      "bytes": 101,
+      "sha256": "0a07480daa9a87892c102d79660d45a4cad173cbf87c449768905b0e0f4c7f8b"
+    },
+    {
+      "member": "actual-timeout-proof/discovery-command.json",
+      "bytes": 485,
+      "sha256": "ca827fb829234a490d28d93b707d8c89de6f3d22ff2c85e3e9fb919e58969d49"
+    },
+    {
+      "member": "actual-timeout-proof/discovery-summary.json",
+      "bytes": 297,
+      "sha256": "be4e3fa28e89fd0dec5d35820fb93a1aade8b8e6357dc16a572bbceee4c14687"
+    },
+    {
+      "member": "actual-timeout-proof/discovery.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "actual-timeout-proof/discovery.stdout.json",
+      "bytes": 3019,
+      "sha256": "dbffeac6db9b094a980d63c9b8ee2e49333beb2ccb5f8da13e989f84628e439d"
+    },
+    {
+      "member": "actual-timeout-proof/independent-visibility-analysis/explicit-observable-token-search.json",
+      "bytes": 35325,
+      "sha256": "a2f65635d272fe0f71807ed783367657282771228e92e694f4cbb83507788df7"
+    },
+    {
+      "member": "actual-timeout-proof/independent-visibility-analysis/harness-sequence.json",
+      "bytes": 45126,
+      "sha256": "2cecfffeef862c8521ee12da5a546ef451e465c1b9fc95dd8f21c21e3b569024"
+    },
+    {
+      "member": "actual-timeout-proof/independent-visibility-analysis/library-api-events.json",
+      "bytes": 168139,
+      "sha256": "bfd2b6e6ebfd9eeb556f6fcdb6cd840464e7281c8e23b716dc1ced2c72ef9198"
+    },
+    {
+      "member": "actual-timeout-proof/independent-visibility-analysis/observations.md",
+      "bytes": 4187,
+      "sha256": "8a19e9cae4fe661f5b1f1f63668713f81a8df6e66e6c41a507459119093ad04f"
+    },
+    {
+      "member": "actual-timeout-proof/independent-visibility-analysis/page-navigation-identities.json",
+      "bytes": 5561,
+      "sha256": "58db5f4d34b82176d332ddd1273b5e32a7380540f0fd568c93b6c9463f444333"
+    },
+    {
+      "member": "actual-timeout-proof/invocation-started.json",
+      "bytes": 72,
+      "sha256": "a5fa8b79e4f1bd502ebe273eb2cb1053141a0acd03f05e1df20c0439492d71b4"
+    },
+    {
+      "member": "actual-timeout-proof/native-artifact-retention.json",
+      "bytes": 1437,
+      "sha256": "9c2d3c28c818df5065e9572c81b8af0e30769ba32ec2c549cbef48b2607b98a0"
+    },
+    {
+      "member": "actual-timeout-proof/native-test-results/.last-run.json",
+      "bytes": 96,
+      "sha256": "46d608870ae3e9e4db3dfc8f58c84aa9da292e4e2bd0e49517957ad99f431980"
+    },
+    {
+      "member": "actual-timeout-proof/native-test-results/extension-extension-benchm-632bb-g-includes-work-outside-W11-chromium/error-context.md",
+      "bytes": 8324,
+      "sha256": "23b33c008d37f293d9eb9e1ae70ec26491be742155e93b5cff981f79dcac647c"
+    },
+    {
+      "member": "actual-timeout-proof/native-test-results/extension-extension-benchm-632bb-g-includes-work-outside-W11-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "member": "actual-timeout-proof/native-test-results/extension-extension-benchm-632bb-g-includes-work-outside-W11-chromium/test-failed-2.png",
+      "bytes": 22368,
+      "sha256": "8b90ed392e0efb27a6f91764ea99e09c348db44dae439888059197c6334b6f8a"
+    },
+    {
+      "member": "actual-timeout-proof/native-test-results/extension-extension-benchm-632bb-g-includes-work-outside-W11-chromium/test-failed-3.png",
+      "bytes": 27162,
+      "sha256": "ab5fb88ab019f1b7cdea3dd9b947f868ab1eb474fb3741a94ee145914996ce0c"
+    },
+    {
+      "member": "actual-timeout-proof/native-test-results/extension-extension-benchm-632bb-g-includes-work-outside-W11-chromium/trace.zip",
+      "bytes": 6981879,
+      "sha256": "3f8bb66cc66964fb63965905ec5e4db1ec369887d4dd383fc3dc4bff5b48a15d"
+    },
+    {
+      "member": "actual-timeout-proof/prepared-build.json",
+      "bytes": 582,
+      "sha256": "222ec753cc63d359e664bace60a4a25d3bc264e7735766a19cdfbec9c4de6f93"
+    },
+    {
+      "member": "actual-timeout-proof/prepared-plan.json",
+      "bytes": 817,
+      "sha256": "3e5fa3f0ee42aa563210a67e595142174794753d051d4e9813f5897e0174a503"
+    },
+    {
+      "member": "actual-timeout-proof/prepared-runtime.json",
+      "bytes": 67848,
+      "sha256": "ab7fc08971f2c6a672a38b429510ab1e98e6fbfcb864f2c0b646a8f21608bd86"
+    },
+    {
+      "member": "actual-timeout-proof/prepared-sources.json",
+      "bytes": 316828,
+      "sha256": "090a054ce2af63bc0814b838bad30d0702cf1664fc11b6b3b706ff2afaf7f57a"
+    },
+    {
+      "member": "actual-timeout-proof/prepared-tools.json",
+      "bytes": 600,
+      "sha256": "e37e7ed2af6846ecba07b00a1c51e06461bbb002ed72d3a094777d86e3daaf4d"
+    },
+    {
+      "member": "actual-timeout-proof/results.json",
+      "bytes": 6871,
+      "sha256": "6da2cd6781b5795d5e426038869cbb510d282273a79991db13077c7c1a9cd956"
+    },
+    {
+      "member": "actual-timeout-proof/run.log",
+      "bytes": 5813,
+      "sha256": "25d2f80ea8d3b364b19f7b5b913bef2dd40072681d5374a1c2956c26e528ba35"
+    },
+    {
+      "member": "actual-timeout-proof/setup-commands.json",
+      "bytes": 922,
+      "sha256": "bc60aeb5b0decb0d5ab9e67cc3413241742068ce67336d4fa62c3ceaf6f654c8"
+    },
+    {
+      "member": "actual-timeout-proof/setup.log",
+      "bytes": 758,
+      "sha256": "7a6f7799d52342fd162060442e43ada1a6e25c5948719d7512f64bdd729ceb46"
+    },
+    {
+      "member": "actual-timeout-proof/timeout-component-identities.json",
+      "bytes": 450,
+      "sha256": "f3470e32fced031806cbef7cc274050cf5a336fd5a1aa26769a83c3fde07bc12"
+    },
+    {
+      "member": "actual-timeout-proof/timeout-component-manifest.json",
+      "bytes": 11975,
+      "sha256": "5438a3ce1cc748d45a32790668c8f869e8815a4536684b81696d3bc187807a2e"
+    },
+    {
+      "member": "actual-timeout-proof/timeout-component.json",
+      "bytes": 3063,
+      "sha256": "924397497f8e3c42efd602f9cfd9198fa1051bd8aaeb76cae969bb510f7ea9c8"
+    },
+    {
+      "member": "execution/canonical-target-wrapper.py",
+      "bytes": 13590,
+      "sha256": "006328ea7ffdbda4d3e050814bd8f25ecce6a615ac51c787fa824698c0c8959d"
+    },
+    {
+      "member": "execution/source-freeze.json",
+      "bytes": 274,
+      "sha256": "f4b640d1342c9f6788855196c8e947be694839de5ce25842a47fe90b3b07a0a8"
+    },
+    {
+      "member": "execution/root-actor-release.json",
+      "bytes": 164,
+      "sha256": "895a63758fa98fbbab1bc5290e04ea7c2392b116d3b1d48390a0da55329f8e9b"
+    },
+    {
+      "member": "independent/canonical-timeout-source-review-v2/auditor-source.py",
+      "bytes": 7366,
+      "sha256": "a16eb35830844dfae0c77d2358598d3edc1929d7650d6b3724b36bc90de8a2b8"
+    },
+    {
+      "member": "independent/canonical-timeout-source-review-v2/command.json",
+      "bytes": 2008,
+      "sha256": "b8873fd7d4f96e9ab11084d6cd8a39e1abce54cb65e284198039f200db7e7975"
+    },
+    {
+      "member": "independent/canonical-timeout-source-review-v2/completion.json",
+      "bytes": 101,
+      "sha256": "0a07480daa9a87892c102d79660d45a4cad173cbf87c449768905b0e0f4c7f8b"
+    },
+    {
+      "member": "independent/canonical-timeout-source-review-v2/findings.json",
+      "bytes": 12606,
+      "sha256": "f40fd13e9c5d01ad9905db8ec93d494dd9efa650aad1efe0da63ea589f8d325d"
+    },
+    {
+      "member": "independent/canonical-timeout-source-review-v2/native-artifact-retention.json",
+      "bytes": 1437,
+      "sha256": "9c2d3c28c818df5065e9572c81b8af0e30769ba32ec2c549cbef48b2607b98a0"
+    },
+    {
+      "member": "independent/canonical-timeout-source-review-v2/results.json",
+      "bytes": 6871,
+      "sha256": "6da2cd6781b5795d5e426038869cbb510d282273a79991db13077c7c1a9cd956"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/audit_trace.py",
+      "bytes": 22036,
+      "sha256": "b7e379412ca61240e74ecb42f968c63c06e0a7ee054212bb6a69a1da3a74b18e"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/critical-events.json",
+      "bytes": 4274230,
+      "sha256": "c03f3db6a1bc51e30409963d307cae419f250120fae8abb468404a8e9f3b5860"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/execution-record.json",
+      "bytes": 1166,
+      "sha256": "c04afe65631be4fba877782068edd8fe99bdb3962771cade1ffb1f76c688b439"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/findings.json",
+      "bytes": 10293,
+      "sha256": "c87f00cc71da03152b00c9799b999333d8feec5080553cefe944c4b81a006daf"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/initial-request-closure/audit_trace.py",
+      "bytes": 13131,
+      "sha256": "9dcb1a8772f73ba56a3ea7014332ccc345f9957abeb00c48fcb760bff2e05da4"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/initial-request-closure/critical-events.json",
+      "bytes": 4274230,
+      "sha256": "c03f3db6a1bc51e30409963d307cae419f250120fae8abb468404a8e9f3b5860"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/initial-request-closure/findings.json",
+      "bytes": 10293,
+      "sha256": "c87f00cc71da03152b00c9799b999333d8feec5080553cefe944c4b81a006daf"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/initial-request-closure/inputs.json",
+      "bytes": 1923,
+      "sha256": "76a6735af413ecbf35e36f3524683c061850fe8c8eb9ec7dcd4cbb52833b3389"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/initial-request-closure/iterations.json",
+      "bytes": 318843,
+      "sha256": "184a94fd8e8df19265a850e840406dd17c82fd6f4675991c7218391fb4293625"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/initial-request-closure/requests.json",
+      "bytes": 268977,
+      "sha256": "3691d9e48ee2ff4d5ef0571514c15e1342b840db60e78ab5bedf9e369c8934e1"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/initial-request-closure/trace-members.json",
+      "bytes": 986,
+      "sha256": "dd802bf86d498dc56286acce062f9e3a5fdc8f8ed63f859303ace909658e1f43"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/inputs.json",
+      "bytes": 1923,
+      "sha256": "76a6735af413ecbf35e36f3524683c061850fe8c8eb9ec7dcd4cbb52833b3389"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/iterations.json",
+      "bytes": 318843,
+      "sha256": "184a94fd8e8df19265a850e840406dd17c82fd6f4675991c7218391fb4293625"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/metric-boundary-joins.json",
+      "bytes": 145638,
+      "sha256": "f77a4fd9835e9280f8fc6f08d64b21a62cf55dddc68c33d794145b7d6754545d"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/requests.json",
+      "bytes": 268977,
+      "sha256": "3691d9e48ee2ff4d5ef0571514c15e1342b840db60e78ab5bedf9e369c8934e1"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/retention-manifest.json",
+      "bytes": 3829,
+      "sha256": "866d03f17e414e6dd9135d97a406ee9e24e7aa11d14756f8e780548feb8205c0"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/review.md",
+      "bytes": 5566,
+      "sha256": "7c68f6616979de645301c9287321d13dca5f9e0b8a4d70cd8ec900cd9b3ed120"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/rpc-spans.json",
+      "bytes": 43644,
+      "sha256": "c5ae01ad0d35128c4bfc6d0b54fba340563c86cbf1458375d482bbd08131e7c5"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/timing-attempt1-script.py",
+      "bytes": 22100,
+      "sha256": "b3963277db33524386f6409af05eaef461179e63119fe51337618219d99cbdd5"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/timing-audit-attempt1.log",
+      "bytes": 834,
+      "sha256": "9a124d044bc682d2c430ae73dfdbdd89c468390a477ccde1ded626df437aa34d"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/timing-audit-attempt2.log",
+      "bytes": 205,
+      "sha256": "4a1091f91d0b83218a9414af853f4407200205f888187760addcfa9f5a79c2f0"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/timing-brackets.json",
+      "bytes": 24117,
+      "sha256": "21bafa84a819697aa7643e4a3a5c0f3de0d7bc37f55f28288736e63665aef0f4"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/timing-closure-checks.json",
+      "bytes": 329,
+      "sha256": "20776d81e7dc7451e863e34f3b364c5c3705c027fa98a0c67059f4684954ac8a"
+    },
+    {
+      "member": "independent/canonical-stall-trace-child/trace-members.json",
+      "bytes": 986,
+      "sha256": "dd802bf86d498dc56286acce062f9e3a5fdc8f8ed63f859303ace909658e1f43"
+    }
+  ]
+}

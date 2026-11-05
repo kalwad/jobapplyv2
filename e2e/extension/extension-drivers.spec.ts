@@ -626,22 +626,27 @@ test("FW3/VAL1/VAL2/DATE2: immediate-only or site-rejected matches never verify"
   );
   const scannedReact = await descriptors(react);
   await react.page.evaluate(() => {
+    let rerenderScheduled = false;
     for (const eventName of ["input", "change"]) {
       document.addEventListener(
         eventName,
         (event) => {
           if ((event.target as HTMLElement).id === "react-full-name") {
             event.stopImmediatePropagation();
+            // Arm the rollback after the write, regardless of request preparation.
+            if (!rerenderScheduled) {
+              rerenderScheduled = true;
+              window.setTimeout(() => {
+                document
+                  .getElementById("react-rerender")
+                  ?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+              }, 20);
+            }
           }
         },
         true,
       );
     }
-    window.setTimeout(() => {
-      document
-        .getElementById("react-rerender")
-        ?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-    }, 20);
   });
   const rollback = await execute(
     react,
@@ -650,6 +655,8 @@ test("FW3/VAL1/VAL2/DATE2: immediate-only or site-rejected matches never verify"
     undefined,
     125,
   );
+  await expect(react.page.locator("#react-render-count")).toHaveText("2");
+  await expect(react.page.locator("#react-state-full-name")).toHaveText("");
   expect(rollback.result.outcome).toBe("FAILED");
   expect(rollback.result.reason_codes).toContain("PERSISTENCE_NOT_VERIFIED");
   expect(await react.page.locator("#react-full-name").inputValue()).toBe("");
@@ -846,8 +853,28 @@ test("TX7: immediately-before-action re-resolution blocks semantic replacement, 
 
   await harness.page.locator("#cbx-input").evaluate((input) => {
     let changed = false;
+    const meter = { authorizedClears: 0, staleRestores: 0, optionCommits: 0 };
+    (window as unknown as { staleProbeMeter: typeof meter }).staleProbeMeter =
+      meter;
+    document.addEventListener(
+      "click",
+      (event) => {
+        if (
+          changed &&
+          event.target instanceof Element &&
+          event.target.closest("[role='option']") !== null
+        )
+          meter.optionCommits++;
+      },
+      true,
+    );
     input.addEventListener("input", () => {
-      if (changed || (input as HTMLInputElement).value !== "") return;
+      if (changed) {
+        meter.staleRestores++;
+        return;
+      }
+      if ((input as HTMLInputElement).value !== "") return;
+      meter.authorizedClears++;
       changed = true;
       const label = document.querySelector("label[for='cbx-input']");
       if (label === null) throw new Error("combobox label missing");
@@ -859,13 +886,33 @@ test("TX7: immediately-before-action re-resolution blocks semantic replacement, 
     value_digest: await semanticDigest(`option-value-v1\0${intendedDisplay}`),
   });
   expect(staleAction.result.resolution_result).not.toBe("UNIQUE");
-  expect(await harness.page.locator("#cbx-input").inputValue()).toBe(
-    priorDisplay,
-  );
+  expect(staleAction.result.outcome).not.toBe("VERIFIED");
+  expect(staleAction.undo_available).toBe(false);
+  expect(
+    await harness.page.evaluate(
+      () =>
+        (
+          window as unknown as {
+            staleProbeMeter: {
+              authorizedClears: number;
+              staleRestores: number;
+              optionCommits: number;
+            };
+          }
+        ).staleProbeMeter,
+    ),
+  ).toEqual({ authorizedClears: 1, staleRestores: 0, optionCommits: 0 });
+  // Restoring the old display after a semantic replacement would itself be
+  // an unauthorized write. The single authorized probe clear stays cleared.
+  expect(await harness.page.locator("#cbx-input").inputValue()).toBe("");
 
   await harness.page.locator("label[for='cbx-input']").evaluate((label) => {
     label.textContent = "Office location";
   });
+  // Explicit test-owned fixture reset: the independent partial-failure
+  // case begins from the same prior display under the restored identity.
+  await harness.page.locator("#cbx-input").fill(priorDisplay);
+  await harness.page.locator("#cbx-input").press("Escape");
   scanned = await descriptors(harness);
   combo = descriptorByLabel(scanned, "Office location");
   await harness.page.locator("#cbx-input").evaluate((input) => {

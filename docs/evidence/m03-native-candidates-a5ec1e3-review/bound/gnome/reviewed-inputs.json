@@ -1,0 +1,3970 @@
+{
+  "schema": "japp-reviewed-gnome-inputs-v1",
+  "review_state": "UNREVIEWED_REQUIRES_DIFFERENT_REVIEW_AND_EXPLICIT_SHA",
+  "files": {
+    "guest-closure/debs/accountsservice_23.13.9-2ubuntu6.1_amd64.deb": {
+      "bytes": 71592,
+      "sha256": "efc0bca2de73236e90ded743b0e9224b3ace4e7bea41067af93b0559066d6d55"
+    },
+    "guest-closure/debs/acl_2.3.2-1build1.1_amd64.deb": {
+      "bytes": 39398,
+      "sha256": "0beec20d005bb4b3138ac9c99ab7c10a06acaf1ea1ad4e10ad760e56561edd58"
+    },
+    "guest-closure/debs/adduser_3.137ubuntu1_all.deb": {
+      "bytes": 100872,
+      "sha256": "542aff2395eb912a56833e11a78076342779689d8fede7adcf08d1d6b0d0cd8b"
+    },
+    "guest-closure/debs/adwaita-icon-theme_46.0-1_all.deb": {
+      "bytes": 722560,
+      "sha256": "530d1991a87ffda50f35f9a6d23712ed04c10b742c3e434097840fed50b1eb4e"
+    },
+    "guest-closure/debs/alsa-base_1.0.25+dfsg-0ubuntu7_all.deb": {
+      "bytes": 145152,
+      "sha256": "d0c99ed97cab93fb759be324947e26d79df81362106226baf353a4f5e2a39bd3"
+    },
+    "guest-closure/debs/alsa-utils_1.2.9-1ubuntu5_amd64.deb": {
+      "bytes": 1190378,
+      "sha256": "964331366e162595a595be0d4789e30fac939688006e0f0f569b53b0f6568716"
+    },
+    "guest-closure/debs/anacron_2.3-39ubuntu2_amd64.deb": {
+      "bytes": 28310,
+      "sha256": "2b4142e8a0a451f4d3922dfcc8f5d04f9bc4d301bc5ef86c0321a151fd06d2c2"
+    },
+    "guest-closure/debs/apg_2.2.3.dfsg.1-5build3_amd64.deb": {
+      "bytes": 40308,
+      "sha256": "a9724330bc937ba9b795cf51aa45074faecc318ed7dda835e5570e665dd6b87d"
+    },
+    "guest-closure/debs/apt_2.8.3_amd64.deb": {
+      "bytes": 1375526,
+      "sha256": "c9ace99efc7726fe0035f921a9acf262a9723bbf35b861aab4f9075a0be67442"
+    },
+    "guest-closure/debs/aptdaemon-data_1.1.1+bzr982-0ubuntu44_all.deb": {
+      "bytes": 159552,
+      "sha256": "02ba2f89f2733720c85f9572dff787ffea9d7f7385a5bbf499e4f7a7185384d8"
+    },
+    "guest-closure/debs/aptdaemon_1.1.1+bzr982-0ubuntu44_all.deb": {
+      "bytes": 12890,
+      "sha256": "a5d4d05ca65649e2ede3b6cbc42c9851fbbe960bf47e8ceec2a09b6421129483"
+    },
+    "guest-closure/debs/at-spi2-common_2.52.0-1build1_all.deb": {
+      "bytes": 8674,
+      "sha256": "7e05959b067031468f21ae46c6653a6813f1dccd994ef12a0b5f75de0ed346b6"
+    },
+    "guest-closure/debs/at-spi2-core_2.52.0-1build1_amd64.deb": {
+      "bytes": 56650,
+      "sha256": "ea2d24a3219ba639f72dadf92b896fe31dd2ffd8659432e0cee2362726b63ff4"
+    },
+    "guest-closure/debs/base-files_13ubuntu10.5_amd64.deb": {
+      "bytes": 73220,
+      "sha256": "87e8c41e62f61625fb78a982d0bc0a70f40ef8375bc313b154914d1b3759c823"
+    },
+    "guest-closure/debs/bash_5.2.21-2ubuntu4_amd64.deb": {
+      "bytes": 794086,
+      "sha256": "73de311a21e094e29ac01527d2b52226cc87fde0a5b57032902251b426d92c66"
+    },
+    "guest-closure/debs/bc_1.07.1-3ubuntu4_amd64.deb": {
+      "bytes": 85264,
+      "sha256": "cb85d5929476088533b3c5e1db2de5ab4593a69fa54243710f762197dbaea60d"
+    },
+    "guest-closure/debs/bsdextrautils_2.39.3-9ubuntu6.6_amd64.deb": {
+      "bytes": 73682,
+      "sha256": "aa1d336f8e54351528195a7e1bedb8176b04a81c60f3d9c97ecd044a044ac6fb"
+    },
+    "guest-closure/debs/bubblewrap_0.9.0-1ubuntu0.3_amd64.deb": {
+      "bytes": 50436,
+      "sha256": "2461f1beee9cb04c8942739fe1a2b37e7b7c2a3d518f0779dc75f9245baa3094"
+    },
+    "guest-closure/debs/ca-certificates_20260816ubuntu0.24.04.1_all.deb": {
+      "bytes": 138884,
+      "sha256": "8a0a754aaafed72cc8efb8c1731808133284a84fbfc76a4fcc73fce9e01b4187"
+    },
+    "guest-closure/debs/colord-data_1.4.7-1build2_all.deb": {
+      "bytes": 1211718,
+      "sha256": "019cd9382937d2cdfa6c86d22b2bf23a7f2c6a3c6acd8bca9738cb5aaf0af5fc"
+    },
+    "guest-closure/debs/colord_1.4.7-1build2_amd64.deb": {
+      "bytes": 189864,
+      "sha256": "66467a552054dc7fc2f0eba42b7a7cd3be1ec8265cfa8650e8e5fee12d43c239"
+    },
+    "guest-closure/debs/coreutils_9.4-3ubuntu6.3_amd64.deb": {
+      "bytes": 1413428,
+      "sha256": "e1e9a17892be0cc83b7cea747edf331ffeb6d6c010b4db296e60d888e8e9274c"
+    },
+    "guest-closure/debs/cpp-13-x86-64-linux-gnu_13.3.0-6ubuntu2~24.04.1_amd64.deb": {
+      "bytes": 10714542,
+      "sha256": "2ca48bf0c2d6465bc39322899715a85d934b4d7442dd5586a7bebbe3ce0f806b"
+    },
+    "guest-closure/debs/cpp-13_13.3.0-6ubuntu2~24.04.1_amd64.deb": {
+      "bytes": 1042,
+      "sha256": "c7535331fbb183c802c3bf4b6b210872dcc12d0421b3212b3c4b940f2c59ed3a"
+    },
+    "guest-closure/debs/cpp-x86-64-linux-gnu_4%3a13.2.0-7ubuntu1_amd64.deb": {
+      "bytes": 5326,
+      "sha256": "85059b30960de3582e8612740614da3dfe47241d0368a28dea686188cf7648dd"
+    },
+    "guest-closure/debs/cpp_4%3a13.2.0-7ubuntu1_amd64.deb": {
+      "bytes": 22442,
+      "sha256": "b51f8094760f7b41afdcb1fe1b5a57fc64b75a090859918af17450a10f8c7d31"
+    },
+    "guest-closure/debs/dbus-bin_1.14.10-4ubuntu4.1_amd64.deb": {
+      "bytes": 39310,
+      "sha256": "0d2c7e425967039594ea099f6128231769e1ed2cc2f6fd7d895fea135c9e1964"
+    },
+    "guest-closure/debs/dbus-daemon_1.14.10-4ubuntu4.1_amd64.deb": {
+      "bytes": 118148,
+      "sha256": "785ad36aafc8912300e44a1cea438e28ea36fb94c631f5849408aea85d2ab2bf"
+    },
+    "guest-closure/debs/dbus-session-bus-common_1.14.10-4ubuntu4.1_all.deb": {
+      "bytes": 80550,
+      "sha256": "aa88bf2f2107e7d948d0e01001b447fc6cae81b285a6e7daf33dcb62737de62f"
+    },
+    "guest-closure/debs/dbus-system-bus-common_1.14.10-4ubuntu4.1_all.deb": {
+      "bytes": 81648,
+      "sha256": "4db2e3e18c6abee1a1d1e2f91289e229dd862e6e1ef00463c5533c612c4f1809"
+    },
+    "guest-closure/debs/dbus-user-session_1.14.10-4ubuntu4.1_amd64.deb": {
+      "bytes": 9968,
+      "sha256": "e585b1694b854c3b75bfb39cc4022cafe7b14e44fd435433b613b8fb9919cb41"
+    },
+    "guest-closure/debs/dbus_1.14.10-4ubuntu4.1_amd64.deb": {
+      "bytes": 24300,
+      "sha256": "0d59be1393d5b01552edbf16c7b9357c473bf625aa47365ce2e8eef6da1dd2e1"
+    },
+    "guest-closure/debs/dconf-cli_0.40.0-4ubuntu0.1_amd64.deb": {
+      "bytes": 28022,
+      "sha256": "22ecac95cb00c31bbe96142b374bae8cf30c85adf79973bdc859aff5c0dedd09"
+    },
+    "guest-closure/debs/dconf-gsettings-backend_0.40.0-4ubuntu0.1_amd64.deb": {
+      "bytes": 22074,
+      "sha256": "2e6801f955d5960380b6240be3886162343e770b1c17c919674cbcb3d13be732"
+    },
+    "guest-closure/debs/dconf-service_0.40.0-4ubuntu0.1_amd64.deb": {
+      "bytes": 27576,
+      "sha256": "49bf5473474228d48373da639bbe3e77157b03d4467bfa2deb56168c2c03cd81"
+    },
+    "guest-closure/debs/debconf_1.5.86ubuntu1_all.deb": {
+      "bytes": 124096,
+      "sha256": "bb390da466a7461bfc87aa3e6b7cd145dae84af3e26bf437f2c0c218ba226294"
+    },
+    "guest-closure/debs/debianutils_5.17build1_amd64.deb": {
+      "bytes": 89890,
+      "sha256": "1047a9a57018e18531f76e5b00e226a68554b6f1d147f2a5c1b32518c7b20636"
+    },
+    "guest-closure/debs/desktop-file-utils_0.27-2build1_amd64.deb": {
+      "bytes": 53760,
+      "sha256": "a6b03256d0153a8d1213ee21123d15315945752308f31b63751d7b29543b8bc0"
+    },
+    "guest-closure/debs/dictionaries-common_1.29.7_all.deb": {
+      "bytes": 187642,
+      "sha256": "601e7cb4d662aca433785eaafd8094e51b1386aab5f5aef6572a1a565b80f21e"
+    },
+    "guest-closure/debs/dirmngr_2.4.4-2ubuntu17.6_amd64.deb": {
+      "bytes": 323226,
+      "sha256": "3c80161cf0918a3b94b78274bf4c63fafe76f15cc8060898527e0757b1df98fd"
+    },
+    "guest-closure/debs/distro-info-data_2026.10.12-0ubuntu0.24.04.1_all.deb": {
+      "bytes": 7836,
+      "sha256": "67404a569b4c1faa333f30424fe6bcc01fcf39297014efd720b47ab7a8b03154"
+    },
+    "guest-closure/debs/distro-info_1.7build1_amd64.deb": {
+      "bytes": 19874,
+      "sha256": "e93fb6f8e178de630c64abe15982d1695f6dadbd6b36617dc08cbda1b72b223c"
+    },
+    "guest-closure/debs/dmidecode_3.5-3ubuntu0.2_amd64.deb": {
+      "bytes": 73356,
+      "sha256": "b6a124313f744b7ddf7c20b9db040e5b66677685f22a8c9bd63a2a7312e83ede"
+    },
+    "guest-closure/debs/dmz-cursor-theme_0.4.5ubuntu1_all.deb": {
+      "bytes": 191480,
+      "sha256": "0d10fd2d5202a158d73daba7179d258dd1d68a50b6ed845146022b63ba211cea"
+    },
+    "guest-closure/debs/dpkg_1.22.6ubuntu6.6_amd64.deb": {
+      "bytes": 1282284,
+      "sha256": "ceb6aa4da59fbcb8a3b0549b4280c60b7d849b519859797c8668bdfbe378fb3b"
+    },
+    "guest-closure/debs/eject_2.39.3-9ubuntu6.6_amd64.deb": {
+      "bytes": 26278,
+      "sha256": "e49024f6e5c1becc7bdff11589ea7973b8f522ad77f515a94cfb8176dbb699e3"
+    },
+    "guest-closure/debs/emacsen-common_3.0.5_all.deb": {
+      "bytes": 12116,
+      "sha256": "d802bbf9167ad1d8aa633b65684439e08672379f15bf752662d7fd7b9798dce1"
+    },
+    "guest-closure/debs/evolution-data-server-common_3.52.3-0ubuntu1.2_all.deb": {
+      "bytes": 189892,
+      "sha256": "75059b31d3ad012d277258dc8a4eaa809c19db8d77083860a9c7c146ddf1115d"
+    },
+    "guest-closure/debs/fontconfig-config_2.15.0-1.1ubuntu2_amd64.deb": {
+      "bytes": 37298,
+      "sha256": "9df0579cd298a1f2b7a40efd519c849745aecd193a09733cf4d1032284a62bbf"
+    },
+    "guest-closure/debs/fontconfig_2.15.0-1.1ubuntu2_amd64.deb": {
+      "bytes": 180204,
+      "sha256": "ddf0aace42b13a5bc38904e848b145b787ea254cddf5213d150254bd654db6e5"
+    },
+    "guest-closure/debs/fonts-dejavu-core_2.37-8_all.deb": {
+      "bytes": 835172,
+      "sha256": "40049660c194f3b8a2541fc7369efebb10e9f94bdac836a2f38fafedd10fa73a"
+    },
+    "guest-closure/debs/fonts-dejavu-mono_2.37-8_all.deb": {
+      "bytes": 502232,
+      "sha256": "8a599d6553307db7ecb795d2f0e5a301e03234afc75c7358b0ba43466454c89a"
+    },
+    "guest-closure/debs/fonts-urw-base35_20200910-8_all.deb": {
+      "bytes": 10968180,
+      "sha256": "46e75490faa7fd6fddbc8df234d14e0f7b60ea5e98563227a24d6bf5e5008647"
+    },
+    "guest-closure/debs/foomatic-db-compressed-ppds_20230202-1_all.deb": {
+      "bytes": 300278,
+      "sha256": "6083d38df881b5b55083cf444098cf6ee3ef793cda0efe907223c85349b03cda"
+    },
+    "guest-closure/debs/fuse3_3.14.0-5build1_amd64.deb": {
+      "bytes": 25156,
+      "sha256": "1e5580eeb72e830f0b242254b2438669a94c9912abf1e2f188b2992f188cc995"
+    },
+    "guest-closure/debs/gcc-13-base_13.3.0-6ubuntu2~24.04.1_amd64.deb": {
+      "bytes": 51616,
+      "sha256": "e859aca26585bb91113a451f1e66bc0e5283cb08797d679aacc1d936ae6dff8e"
+    },
+    "guest-closure/debs/gcc-14-base_14.2.0-4ubuntu2~24.04.1_amd64.deb": {
+      "bytes": 51014,
+      "sha256": "b95c172411a7fdae70307cf33a9f5320ba5e056b556454543dd5b679d5ce1c4f"
+    },
+    "guest-closure/debs/gdm3_46.2-1ubuntu1~24.04.9_amd64.deb": {
+      "bytes": 335504,
+      "sha256": "d23b6242076fc4cd7e753db0f535d2500371109ab4e2c1ef002db1221fa3f27e"
+    },
+    "guest-closure/debs/geoclue-2.0_2.7.0-3ubuntu7_amd64.deb": {
+      "bytes": 121654,
+      "sha256": "c6de0d40f95f70565893f1cac5077999f36384ed18e6327fb24203edeb1b4aa3"
+    },
+    "guest-closure/debs/geocode-glib-common_3.26.3-6build3_all.deb": {
+      "bytes": 17866,
+      "sha256": "b4d05773411e3672f7ec07130b77befc1f8f2224be580cbe94c3b364abe6215c"
+    },
+    "guest-closure/debs/ghostscript_10.02.1~dfsg1-0ubuntu7.10_amd64.deb": {
+      "bytes": 43382,
+      "sha256": "e6d86c99b8c069fcb804ca9bdbc17833cf86e721ada2032761d316aab48d94cf"
+    },
+    "guest-closure/debs/gir1.2-accountsservice-1.0_23.13.9-2ubuntu6.1_amd64.deb": {
+      "bytes": 5312,
+      "sha256": "d071c8ec28a78f0de1b093a8569beb14c9905e42345fa20e006ff6e044e21227"
+    },
+    "guest-closure/debs/gir1.2-adw-1_1.5.0-1ubuntu2_amd64.deb": {
+      "bytes": 41778,
+      "sha256": "6f046fc47e98793b85280b343058cb805e0005564621f45c416d50a37b5f34da"
+    },
+    "guest-closure/debs/gir1.2-atk-1.0_2.52.0-1build1_amd64.deb": {
+      "bytes": 23136,
+      "sha256": "7181a43bc2d250f260872d322357896f5e4840aff3eee44f56936a0d2f8f369d"
+    },
+    "guest-closure/debs/gir1.2-atspi-2.0_2.52.0-1build1_amd64.deb": {
+      "bytes": 19788,
+      "sha256": "a30c955c8d81e3d2a2f74d52c3447e412117cc514560fcf7acae74d8b09f05cb"
+    },
+    "guest-closure/debs/gir1.2-freedesktop_1.80.1-1_amd64.deb": {
+      "bytes": 49680,
+      "sha256": "49944f1fc427b839b55b01c3764ea1c01affa44cacdafdd67f30d31363b178e7"
+    },
+    "guest-closure/debs/gir1.2-gck-2_4.2.0-5_amd64.deb": {
+      "bytes": 10880,
+      "sha256": "8cea24520837095907fcf0f5609ba5b17e9312e1953df30b4f3abd103c4ff983"
+    },
+    "guest-closure/debs/gir1.2-gcr-4_4.2.0-5_amd64.deb": {
+      "bytes": 12100,
+      "sha256": "acba974438fe7f34f2f8bd0dd8cccc36eb4a9c14863e3591d2601399841d3296"
+    },
+    "guest-closure/debs/gir1.2-gdesktopenums-3.0_46.1-0ubuntu1_amd64.deb": {
+      "bytes": 10214,
+      "sha256": "ecd9a8285a22f116e4e81d05725bae77c4b4fbe48c3dfebab1b2130ef67d95ab"
+    },
+    "guest-closure/debs/gir1.2-gdkpixbuf-2.0_2.42.10+dfsg-3ubuntu3.3_amd64.deb": {
+      "bytes": 9482,
+      "sha256": "d3043a9a50b907f774f0f31903b4d2bcec61f8a88bc3aeecaceda57faa6a0921"
+    },
+    "guest-closure/debs/gir1.2-gdm-1.0_46.2-1ubuntu1~24.04.9_amd64.deb": {
+      "bytes": 11290,
+      "sha256": "6733926a2ecdb15e7666f50e7f99f021532611c2ab62f6a9522486588e352bcd"
+    },
+    "guest-closure/debs/gir1.2-geoclue-2.0_2.7.0-3ubuntu7_amd64.deb": {
+      "bytes": 6182,
+      "sha256": "9d09f73401c3447036bcbec50396d2027ff2926e6514ecfeb20f8d32e8d6b1fd"
+    },
+    "guest-closure/debs/gir1.2-girepository-2.0_1.80.1-1_amd64.deb": {
+      "bytes": 24530,
+      "sha256": "fde3d3a4ef2b997bda1904ccd340f0c82abd7cae5c3e96a1519326b91caac19a"
+    },
+    "guest-closure/debs/gir1.2-glib-2.0_2.80.0-6ubuntu3.10_amd64.deb": {
+      "bytes": 183412,
+      "sha256": "8fea23cc31ce22d9623049b966a1c6cda2c08da7ef7fedc9b51ffcb9602fdd3d"
+    },
+    "guest-closure/debs/gir1.2-gnomeautoar-0.1_0.4.4-2build4_amd64.deb": {
+      "bytes": 4554,
+      "sha256": "0aa940de65a951d261528b2e50442a39102bfc05604d3dcc8933d5a6bbdd56bf"
+    },
+    "guest-closure/debs/gir1.2-gnomebg-4.0_44.0-5build2_amd64.deb": {
+      "bytes": 4470,
+      "sha256": "7f0d59cad74aad8415fffc9a936d49bd77c774098d74bf109820869114a72e2e"
+    },
+    "guest-closure/debs/gir1.2-gnomebluetooth-3.0_46.0-1ubuntu1_amd64.deb": {
+      "bytes": 3998,
+      "sha256": "209b32f32e4a01e968015974f5a657a34b955b6716637168cb94a44d5a947692"
+    },
+    "guest-closure/debs/gir1.2-gnomedesktop-3.0_44.0-5build2_amd64.deb": {
+      "bytes": 10036,
+      "sha256": "6665d433e221533894394087eca73dcf11687cb2ce0bd1e83f5398ef0c87897a"
+    },
+    "guest-closure/debs/gir1.2-gnomedesktop-4.0_44.0-5build2_amd64.deb": {
+      "bytes": 5816,
+      "sha256": "243fcffd8c615b64617e24f5cbfe39f7f191ce7a8eef3fecd03021a7ef4916fc"
+    },
+    "guest-closure/debs/gir1.2-graphene-1.0_1.10.8-3build2_amd64.deb": {
+      "bytes": 11146,
+      "sha256": "ce4a774ac27bc1f8e7baef66fc4edfafc5fc324bb8254f36f4f4be33e85e2729"
+    },
+    "guest-closure/debs/gir1.2-gstreamer-1.0_1.24.2-1ubuntu0.1_amd64.deb": {
+      "bytes": 88384,
+      "sha256": "48481538cad62c6c36ce1c97f0ad92c661a86c1f9565c3cd81a25dd0015964b2"
+    },
+    "guest-closure/debs/gir1.2-gtk-3.0_3.24.41-4ubuntu1.3_amd64.deb": {
+      "bytes": 244868,
+      "sha256": "2eafb3b246cafd0ab14183ee1f520a1733a2ca990327d5486259a23e392c713a"
+    },
+    "guest-closure/debs/gir1.2-gtk-4.0_4.14.5+ds-0ubuntu0.10_amd64.deb": {
+      "bytes": 223160,
+      "sha256": "027a65ddf6a652b92ca746d2f9b5f80178df0fc3d7f29a84115a5640f1dddc45"
+    },
+    "guest-closure/debs/gir1.2-gweather-4.0_4.4.2-1build1_amd64.deb": {
+      "bytes": 7408,
+      "sha256": "1a373d67768b8f318153e392e89187227fe1bf095fb70cb1c6d3a69a36c40a85"
+    },
+    "guest-closure/debs/gir1.2-handy-1_1.8.3-1build2_amd64.deb": {
+      "bytes": 17852,
+      "sha256": "a16dae36bc88494c7d98993a4055df8c06c7a6ed918dc50d483f655464901157"
+    },
+    "guest-closure/debs/gir1.2-harfbuzz-0.0_8.3.0-2build2_amd64.deb": {
+      "bytes": 44488,
+      "sha256": "a12fea17a9928cad074436d4178b3ac827a4245e253f9a71009557e1c6f34cfb"
+    },
+    "guest-closure/debs/gir1.2-ibus-1.0_1.5.29-2_amd64.deb": {
+      "bytes": 86282,
+      "sha256": "12eb51eb9ba91ec9f768c91e02d4ceb99e87b931f83305d94a50acbe387b0c65"
+    },
+    "guest-closure/debs/gir1.2-javascriptcoregtk-4.1_2.52.6-0ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 38616,
+      "sha256": "de763132bf381637ca0bb14322884f9f13db624a48328451b62e4005aea0d4b1"
+    },
+    "guest-closure/debs/gir1.2-javascriptcoregtk-6.0_2.52.6-0ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 38542,
+      "sha256": "f2435a4338eefbcc89756566995f3aef5d0123e331bea684d652b6b903f1d39c"
+    },
+    "guest-closure/debs/gir1.2-mutter-14_46.2-1ubuntu0.24.04.18_amd64.deb": {
+      "bytes": 131480,
+      "sha256": "803d916d4ee5cbda02f7d067d9e88b23cde69785822060fc9af962e338c62b46"
+    },
+    "guest-closure/debs/gir1.2-nm-1.0_1.46.0-1ubuntu2.8_amd64.deb": {
+      "bytes": 86810,
+      "sha256": "792095f9519b4a65b83a90f87ddcb9fc1d6ddd3a99bfb09dd8354b761f2315fd"
+    },
+    "guest-closure/debs/gir1.2-nma4-1.0_1.10.6-3build2_amd64.deb": {
+      "bytes": 6388,
+      "sha256": "9113e8cd2e6ebe94ec345c5d284211b9d12216cd490e27cdffd83f850d686a91"
+    },
+    "guest-closure/debs/gir1.2-packagekitglib-1.0_1.2.8-2ubuntu1.5_amd64.deb": {
+      "bytes": 25576,
+      "sha256": "f499a8403c1c51f018346dc130144110a9943c9473e5ec596387180acd4347f2"
+    },
+    "guest-closure/debs/gir1.2-pango-1.0_1.52.1+ds-1build1_amd64.deb": {
+      "bytes": 34750,
+      "sha256": "d410f1648893f8c13bab5ff1fc7e3656b500c23890aeb88b79a0c6bbffef2b79"
+    },
+    "guest-closure/debs/gir1.2-polkit-1.0_124-2ubuntu1.24.04.4_amd64.deb": {
+      "bytes": 8930,
+      "sha256": "3fbc6b0be991cba93ab9177b3895b5eb68192ebad5a8bff7d7f67b3b80a01399"
+    },
+    "guest-closure/debs/gir1.2-rsvg-2.0_2.58.0+dfsg-1ubuntu0.1_amd64.deb": {
+      "bytes": 11108,
+      "sha256": "3fdd86808e14382f57de473e08042557dbcde4ab45ae07de6e22484c3a90a5fc"
+    },
+    "guest-closure/debs/gir1.2-snapd-2_1.64-0ubuntu5_amd64.deb": {
+      "bytes": 16286,
+      "sha256": "e037530f2048cb3b23090776261899eba986f82d59c26fd4a56ea1764496ec83"
+    },
+    "guest-closure/debs/gir1.2-soup-3.0_3.4.4-5ubuntu0.9_amd64.deb": {
+      "bytes": 22476,
+      "sha256": "56c886ea35b327b63420eb8c9a09f7c66c6e830ecd9ce59eee520d5e7fe8aade"
+    },
+    "guest-closure/debs/gir1.2-upowerglib-1.0_1.90.3-1_amd64.deb": {
+      "bytes": 5424,
+      "sha256": "9ed161283e5896de9d5a173290c683e309e9b40ca1be6e5b553cc4e171dea85a"
+    },
+    "guest-closure/debs/gir1.2-vte-2.91_0.76.0-1ubuntu0.1_amd64.deb": {
+      "bytes": 11506,
+      "sha256": "90dc433ab370fb55ddb6545e55384f5d058b71dd3c49bd7f268dbf2db030483f"
+    },
+    "guest-closure/debs/gir1.2-webkit-6.0_2.52.6-0ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 70144,
+      "sha256": "75d91b7c8709c93db9161b2317a4074216a05c25e1be6ca32d5f546df068b26e"
+    },
+    "guest-closure/debs/gir1.2-webkit2-4.1_2.52.6-0ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 105182,
+      "sha256": "2926002b81cd1ad6a553c4f97f23cc8218b0c7f6c47f4f11acc5887c8befbffc"
+    },
+    "guest-closure/debs/gjs_1.80.2-1build2_amd64.deb": {
+      "bytes": 110248,
+      "sha256": "139af5aa37e59e115911005c2273b6432748f092e295a395a67b12687bf2e819"
+    },
+    "guest-closure/debs/glib-networking-common_2.80.0-1build1_all.deb": {
+      "bytes": 6702,
+      "sha256": "c9bc3b5c3dc8a75e752efcf246e5ef2d3b9e80cd1301fd37fcb0c36562062931"
+    },
+    "guest-closure/debs/glib-networking-services_2.80.0-1build1_amd64.deb": {
+      "bytes": 12830,
+      "sha256": "a8387f789fa6de0aaae9e09f56f07896a5820188ef82ee267c132b01c8a4859e"
+    },
+    "guest-closure/debs/glib-networking_2.80.0-1build1_amd64.deb": {
+      "bytes": 64136,
+      "sha256": "25b32675dd3f8bc258cd204e9010876ed03422ab627dd7e39a5a52226e2ada98"
+    },
+    "guest-closure/debs/gnome-bluetooth-3-common_46.0-1ubuntu1_all.deb": {
+      "bytes": 7018,
+      "sha256": "f88c99277521b98729629025cfa9f3610cefcc3e58fce8cd282431e633d00c8a"
+    },
+    "guest-closure/debs/gnome-control-center-data_1%3a46.7-0ubuntu0.24.04.6_all.deb": {
+      "bytes": 164366,
+      "sha256": "7c67c3049724e6834ea11521f6e5f0de0539fdb3219c7fa14b6d27a739be5f95"
+    },
+    "guest-closure/debs/gnome-control-center_1%3a46.7-0ubuntu0.24.04.6_amd64.deb": {
+      "bytes": 5014990,
+      "sha256": "32a241e3f7f80a40d6b1b6acca4685b444750b08cbbf0305a4d4060cc1921793"
+    },
+    "guest-closure/debs/gnome-desktop3-data_44.0-5build2_all.deb": {
+      "bytes": 29150,
+      "sha256": "dbbe9ede3e88c6da331a4fa6ec473d183e10f7d0fdcf71502dd99871a074e00e"
+    },
+    "guest-closure/debs/gnome-menus_3.36.0-1.1ubuntu3_amd64.deb": {
+      "bytes": 9866,
+      "sha256": "b0acb411dd04b69e2efdb4e658c817e82f0696d1ea09bba9de3c55a4ad1d6731"
+    },
+    "guest-closure/debs/gnome-session-bin_46.0-1ubuntu4_amd64.deb": {
+      "bytes": 126076,
+      "sha256": "2ffd9e13290e2898d1d75d90e415fddd15d0366a6c5d0a76e7026fd9bbf4c827"
+    },
+    "guest-closure/debs/gnome-session-canberra_0.30-10ubuntu10_amd64.deb": {
+      "bytes": 6920,
+      "sha256": "ad52fe9a83ce054dc13a77449e2f8117d3881924ec9fe86493e2816a0592291a"
+    },
+    "guest-closure/debs/gnome-session-common_46.0-1ubuntu4_all.deb": {
+      "bytes": 20198,
+      "sha256": "7243cb098c3cd6fc952faac7b5070875caf6937d51ff4fdbe42192517e13a79a"
+    },
+    "guest-closure/debs/gnome-settings-daemon-common_46.0-1ubuntu1.24.04.1_all.deb": {
+      "bytes": 27318,
+      "sha256": "f6f9c5d3b03d95b170f4cbea34c847b21b2df775b4e1a36d6a21fb0285e0ee5d"
+    },
+    "guest-closure/debs/gnome-settings-daemon_46.0-1ubuntu1.24.04.1_amd64.deb": {
+      "bytes": 323494,
+      "sha256": "91e1d2f2c09a30482de9267510743a298c2829b61bb19c15089e04dab7858327"
+    },
+    "guest-closure/debs/gnome-shell-common_46.0-0ubuntu6~24.04.16_all.deb": {
+      "bytes": 248982,
+      "sha256": "a38b8140341b024ef9bec56bda62e8b740ee203976297a478860bdcd5737ff2d"
+    },
+    "guest-closure/debs/gnome-shell-extension-appindicator_58-1ubuntu24.04.1_all.deb": {
+      "bytes": 49694,
+      "sha256": "b68ecc7f181f635e8badf8c65f589c7083f0bc01e1a09eaf0e2c64bbc0c63e2f"
+    },
+    "guest-closure/debs/gnome-shell-extension-desktop-icons-ng_46+really47.0.9-1ubuntu5_all.deb": {
+      "bytes": 67624,
+      "sha256": "32e990d830cdf5e985ec39b87b84731bfe28deb7abe7fa73bc1c33a99473c86f"
+    },
+    "guest-closure/debs/gnome-shell-extension-ubuntu-dock_90ubuntu3_all.deb": {
+      "bytes": 119506,
+      "sha256": "121e7c5a9b24269a079688d8f593cfc7e17eaa1375ffbf0bfbe4e2411bede3ca"
+    },
+    "guest-closure/debs/gnome-shell-extension-ubuntu-tiling-assistant_46-1ubuntu1.1_all.deb": {
+      "bytes": 72598,
+      "sha256": "0fb43f018929ee3861143c96c02adffb675f476a782fbff1a2f0ad64aeaea4e7"
+    },
+    "guest-closure/debs/gnome-shell_46.0-0ubuntu6~24.04.16_amd64.deb": {
+      "bytes": 955038,
+      "sha256": "5a9ab5994d4c57633b83db300b1d8f771fd062c38b4a3dca8baf8d3e1a264467"
+    },
+    "guest-closure/debs/gnome-terminal-data_3.52.0-1ubuntu2_all.deb": {
+      "bytes": 38484,
+      "sha256": "d3094f0a3b7b758a75736897e21535576a4b7ca63fe5f2530346e82b17e1aca3"
+    },
+    "guest-closure/debs/gnome-terminal_3.52.0-1ubuntu2_amd64.deb": {
+      "bytes": 217422,
+      "sha256": "0bd163e9f31c2ec618e2aae460656f514587cbac0fe1162607bb9372a933fcdf"
+    },
+    "guest-closure/debs/gnupg-utils_2.4.4-2ubuntu17.6_amd64.deb": {
+      "bytes": 109198,
+      "sha256": "d27240259f74be5ec4c07ec505d087a3d6a4a66eedef479eb067d8f364263a12"
+    },
+    "guest-closure/debs/gnupg_2.4.4-2ubuntu17.6_all.deb": {
+      "bytes": 358890,
+      "sha256": "d278c81e407d51dae2b7df30adc08ecd6a0acde5884fc5ba2d1ef107f0e8ab0b"
+    },
+    "guest-closure/debs/gpg-agent_2.4.4-2ubuntu17.6_amd64.deb": {
+      "bytes": 227154,
+      "sha256": "7b6778c1d297a4d4e889005917a0b9996a24d704e2e79d52be65b5d1f6b651ce"
+    },
+    "guest-closure/debs/gpg_2.4.4-2ubuntu17.6_amd64.deb": {
+      "bytes": 565004,
+      "sha256": "34a775d73a2fe9b6e9205668e39954fe0c1e5c046b1a30c307c7d1e6e22cd1a7"
+    },
+    "guest-closure/debs/gpgconf_2.4.4-2ubuntu17.6_amd64.deb": {
+      "bytes": 103894,
+      "sha256": "59d35df3b5d7e6dd8235c39c56f8008d1380275765d1a10343e5b9be185e2b7a"
+    },
+    "guest-closure/debs/gpgsm_2.4.4-2ubuntu17.6_amd64.deb": {
+      "bytes": 231628,
+      "sha256": "c19746c589c9cb7fa15de8a21790fef0a0b061c3e2758823536d3ac0973ca51a"
+    },
+    "guest-closure/debs/gpgv_2.4.4-2ubuntu17.6_amd64.deb": {
+      "bytes": 158120,
+      "sha256": "c8810069e98cd343c4c5c64b3ef5a0bb1f526419cff3266cd99ed4c87ad99868"
+    },
+    "guest-closure/debs/groff-base_1.23.0-3build2_amd64.deb": {
+      "bytes": 1019632,
+      "sha256": "1cd698c64bb1100a505a71894321716d807dc976c26d488b339f0b6289aad2fc"
+    },
+    "guest-closure/debs/gsettings-desktop-schemas_46.1-0ubuntu1_all.deb": {
+      "bytes": 35644,
+      "sha256": "4d15441e9197f95b29c0d2845d8fcdbf63fa4ac0c68fb221820ccd24131e3436"
+    },
+    "guest-closure/debs/gstreamer1.0-alsa_1.24.2-1ubuntu0.5_amd64.deb": {
+      "bytes": 42456,
+      "sha256": "0817bc85544f84a3ffab13a7f480a82dfc3eea9362aab7f19749466c20dd9b39"
+    },
+    "guest-closure/debs/gstreamer1.0-packagekit_1.2.8-2ubuntu1.5_amd64.deb": {
+      "bytes": 9256,
+      "sha256": "9649ee91ab14e5d19d584d275e8b003bfb80dba0664a3b6838e7c75dd5457029"
+    },
+    "guest-closure/debs/gstreamer1.0-pipewire_1.0.5-1ubuntu3.3_amd64.deb": {
+      "bytes": 49492,
+      "sha256": "4c3df6e130462a8a661e4ed85d4a42d80a694c3e8d9dcf5401ea26b4c8c674f2"
+    },
+    "guest-closure/debs/gstreamer1.0-plugins-base-apps_1.24.2-1ubuntu0.5_amd64.deb": {
+      "bytes": 38022,
+      "sha256": "61b35cea4d4e1428301acf9d44130cf487b787ff3cecdd2ff048a7b97bbc61c7"
+    },
+    "guest-closure/debs/gstreamer1.0-plugins-base_1.24.2-1ubuntu0.5_amd64.deb": {
+      "bytes": 721012,
+      "sha256": "2371d7571762fb78f6ec693d2a33c601521a216144a3be2e24b4e9bec9548ed1"
+    },
+    "guest-closure/debs/gstreamer1.0-plugins-good_1.24.2-1ubuntu1.8_amd64.deb": {
+      "bytes": 2236004,
+      "sha256": "dd20dbc6143df81b4d335fb7247e2b82f03bf6ef49d5c61cd111d784ee450fd3"
+    },
+    "guest-closure/debs/gstreamer1.0-tools_1.24.2-1ubuntu0.1_amd64.deb": {
+      "bytes": 67050,
+      "sha256": "6e805d084c7e22f47d0e9ec9191f2eede14b30fd48412f3fb090e7d4d7b61603"
+    },
+    "guest-closure/debs/gtk-update-icon-cache_3.24.41-4ubuntu1.3_amd64.deb": {
+      "bytes": 51898,
+      "sha256": "bd59cdd3d08524cfbf291efa5f9bed68916375e89476cc04ac5af515eb10e33c"
+    },
+    "guest-closure/debs/gvfs-common_1.54.4-0ubuntu1~24.04.4_all.deb": {
+      "bytes": 14344,
+      "sha256": "2d8fd097bd9d13a0ce97502d2aad498b153e7b648191503c792740bec0ef79d3"
+    },
+    "guest-closure/debs/gvfs-daemons_1.54.4-0ubuntu1~24.04.4_amd64.deb": {
+      "bytes": 116314,
+      "sha256": "5a1ec2ac593b583750f5f85a48bc39744fc2526cba9f548d73a8ebe0cde024b8"
+    },
+    "guest-closure/debs/gvfs-libs_1.54.4-0ubuntu1~24.04.4_amd64.deb": {
+      "bytes": 108080,
+      "sha256": "fd2387bfade14a2826fc8ac71c5ef456d0b9148105d034d5fbce99a471242e91"
+    },
+    "guest-closure/debs/gvfs_1.54.4-0ubuntu1~24.04.4_amd64.deb": {
+      "bytes": 115762,
+      "sha256": "d3b1540ad810632331dd6ecd7eeed432318e7185852bb02dbd0b301eeec84b25"
+    },
+    "guest-closure/debs/heif-gdk-pixbuf_1.17.6-1ubuntu4.9_amd64.deb": {
+      "bytes": 7138,
+      "sha256": "0776ae0fd7168568b3afb1bc7bf35e0ab4f1bdedcc9c8fa9c4c7a560f9008f89"
+    },
+    "guest-closure/debs/heif-thumbnailer_1.17.6-1ubuntu4.9_amd64.deb": {
+      "bytes": 13068,
+      "sha256": "4892997c258c20f81c6e9d18686f49497998cba946675e62040840bde1dbdb79"
+    },
+    "guest-closure/debs/hicolor-icon-theme_0.17-2_all.deb": {
+      "bytes": 9976,
+      "sha256": "9000eb98868252261978ff49501c0ace3124cb369c395e9f5015ddc556fe2ba6"
+    },
+    "guest-closure/debs/humanity-icon-theme_0.6.16_all.deb": {
+      "bytes": 1281812,
+      "sha256": "a9bb76c7eb926bd97e50455a79f266de826a246b2250e1ac4aebcda013dd51c7"
+    },
+    "guest-closure/debs/hunspell-en-us_1%3a2020.12.07-2_all.deb": {
+      "bytes": 280206,
+      "sha256": "d231c94b54792215038a4f719c562deafe8efe0a7710c0c7218974cab513330c"
+    },
+    "guest-closure/debs/init-system-helpers_1.66ubuntu1_all.deb": {
+      "bytes": 39402,
+      "sha256": "8eb801f9ce084dab9bf4cbc3ec0ee5ac75516a4cc1f25e3f92298c632e75b700"
+    },
+    "guest-closure/debs/inputattach_1%3a1.8.1-2build1_amd64.deb": {
+      "bytes": 23990,
+      "sha256": "0974be183f67dab4d814013b19c7f1ceecddc3e38cc64b4012a07c5c7df69da3"
+    },
+    "guest-closure/debs/iso-codes_4.16.0-1_all.deb": {
+      "bytes": 3491500,
+      "sha256": "cafca0a3a1f07b44fbba53ab7a1f1d9755e6b80cc041173afe2b52e53bed97a7"
+    },
+    "guest-closure/debs/keyboard-configuration_1.226ubuntu1.1_all.deb": {
+      "bytes": 212004,
+      "sha256": "efd41eab2266789a7b43b2f36516860c28f19920d0c656b3cdc2647547f61330"
+    },
+    "guest-closure/debs/keyboxd_2.4.4-2ubuntu17.6_amd64.deb": {
+      "bytes": 78268,
+      "sha256": "1bb5f40735b55a17abfb587607816724771fb38fd123b083b7d24bc606c2ecda"
+    },
+    "guest-closure/debs/kmod_31+20240202-2ubuntu7.2_amd64.deb": {
+      "bytes": 101742,
+      "sha256": "687693dfad23c96570d96a1c7cc1b8709d31a93f82ac765a11b2bd9130f1dfae"
+    },
+    "guest-closure/debs/language-selector-common_0.225_all.deb": {
+      "bytes": 258152,
+      "sha256": "5a607b54bd5216014246bca7011e25abe1726284179af890fbc717e6c60f1c24"
+    },
+    "guest-closure/debs/language-selector-gnome_0.225_all.deb": {
+      "bytes": 19688,
+      "sha256": "236314a406212c9e723fedcba5dfba798ba0eee9a692fcb2cc6a6375dcf766fb"
+    },
+    "guest-closure/debs/libaa1_1.4p5-51.1_amd64.deb": {
+      "bytes": 49938,
+      "sha256": "2648b362b9338770ba73382575859c38f49c35b5d23bd08a517b5cccfc226f57"
+    },
+    "guest-closure/debs/libaccountsservice0_23.13.9-2ubuntu6.1_amd64.deb": {
+      "bytes": 64008,
+      "sha256": "4b8d32b3cf2b84bec46625347b9549d18037e268f15c2c79dffe228b4cf7de28"
+    },
+    "guest-closure/debs/libacl1_2.3.2-1build1.1_amd64.deb": {
+      "bytes": 16792,
+      "sha256": "f2bfd3f8f00413d5f1f04fc723063803c56ac0f1e0efae3bc41f2d7276972ec3"
+    },
+    "guest-closure/debs/libadwaita-1-0_1.5.0-1ubuntu2_amd64.deb": {
+      "bytes": 408094,
+      "sha256": "be012cd1ba28e3a7af04ee857e60a8eda7c2b247024a99ef16ce913ad4b34730"
+    },
+    "guest-closure/debs/libaom3_3.8.2-2ubuntu0.2_amd64.deb": {
+      "bytes": 1942126,
+      "sha256": "d1ada7141fc5eb4e3ffdcdd027da2afc1177b41c3acac40eb3a132959241cb1f"
+    },
+    "guest-closure/debs/libapparmor1_4.0.1really4.0.1-0ubuntu0.24.04.9_amd64.deb": {
+      "bytes": 51476,
+      "sha256": "75b570d7517e24c3693c4503b4691ac1fd82934d93faa91460309f22104c5617"
+    },
+    "guest-closure/debs/libappstream5_1.0.2-1build6_amd64.deb": {
+      "bytes": 238266,
+      "sha256": "2c5d097a0ec6e918f986028844fc840d773bcf84a5a685a901f438dd48dcfe17"
+    },
+    "guest-closure/debs/libapt-pkg6.0t64_2.8.3_amd64.deb": {
+      "bytes": 984704,
+      "sha256": "500579fafa3c5ab8ba2002b7cd76690532ea76efe1b2f250569104c615b7042b"
+    },
+    "guest-closure/debs/libarchive13t64_3.7.2-2ubuntu0.9_amd64.deb": {
+      "bytes": 383406,
+      "sha256": "b4e618d2237da9b00b88947113ebad8f93134f07f670a2df59cc5201c6c4307f"
+    },
+    "guest-closure/debs/libargon2-1_0~20190702+dfsg-4build1_amd64.deb": {
+      "bytes": 20824,
+      "sha256": "e2c50cb5c50ca598585397f4d4ce43e6f0b5e3ddc212c23b30bdb34ca4a61f66"
+    },
+    "guest-closure/debs/libasound2-data_1.2.11-1ubuntu0.3_all.deb": {
+      "bytes": 21350,
+      "sha256": "0c26896193480d9dbb055e85e8ddfb9c9f34cf19afee340987cd6311e2886fc1"
+    },
+    "guest-closure/debs/libasound2t64_1.2.11-1ubuntu0.3_amd64.deb": {
+      "bytes": 397772,
+      "sha256": "5d17bfb5683eb99f1be951fe48e1be5bf3c52391913b6b74a8aecf9b4f5e779f"
+    },
+    "guest-closure/debs/libaspell15_0.60.8.1-1build1_amd64.deb": {
+      "bytes": 322544,
+      "sha256": "3461b6c567898d90d2b66cb2910b24cfd46e8c27d1fbcb81a1af1f44a3c99a8f"
+    },
+    "guest-closure/debs/libassuan0_2.5.6-1build1_amd64.deb": {
+      "bytes": 37256,
+      "sha256": "59c6ee6aa6fffb5d181f37373baec18c26791f5d1c907ceeb62163460b11daf2"
+    },
+    "guest-closure/debs/libasyncns0_0.8-6build4_amd64.deb": {
+      "bytes": 11276,
+      "sha256": "f8483917fd216e248143eba1c80dfc9384b94fb4dac402194a98c11505674269"
+    },
+    "guest-closure/debs/libatasmart4_0.19-5build3_amd64.deb": {
+      "bytes": 24196,
+      "sha256": "dcbc228bd01964b9a26cac40008ff5fca753dc20a9a213d2d3bd590c2dec9516"
+    },
+    "guest-closure/debs/libatk-adaptor_2.52.0-1build1_amd64.deb": {
+      "bytes": 6032,
+      "sha256": "6df99eafd015f299721f9ce0b4db72dc9d629d45afee8a1518191a0e618321e5"
+    },
+    "guest-closure/debs/libatk-bridge2.0-0t64_2.52.0-1build1_amd64.deb": {
+      "bytes": 66020,
+      "sha256": "22b7d47e3c0f7953a78d3cfd309d1b20771085de9220fbe610c0989b9e808c9b"
+    },
+    "guest-closure/debs/libatk1.0-0t64_2.52.0-1build1_amd64.deb": {
+      "bytes": 55282,
+      "sha256": "42c5d4b00954f17c2c3c4b866844f691eb8b6d57bf08b59203e65f12dc84a4f9"
+    },
+    "guest-closure/debs/libatomic1_14.2.0-4ubuntu2~24.04.1_amd64.deb": {
+      "bytes": 10466,
+      "sha256": "fe49cbbc7be753528380c724a8eef5f1e31dffa9221f692c5069048d81c7449d"
+    },
+    "guest-closure/debs/libatopology2t64_1.2.11-1ubuntu0.3_amd64.deb": {
+      "bytes": 49772,
+      "sha256": "20614fa6b0cf0b79154ca0b139bcf9c2deb4137461fbbe5110b45eb9bf4acd98"
+    },
+    "guest-closure/debs/libatspi2.0-0t64_2.52.0-1build1_amd64.deb": {
+      "bytes": 80548,
+      "sha256": "d686ace4080eca9c2d6ce8de69392a5ac56c846701894c0858922d4ce341a1d7"
+    },
+    "guest-closure/debs/libattr1_1%3a2.5.2-1ubuntu0.1_amd64.deb": {
+      "bytes": 11748,
+      "sha256": "a99e2e2dfcefbc0e9c99fdc0b284c8b35eaa58744163aaed476de1c93d3c4ef4"
+    },
+    "guest-closure/debs/libaudit-common_1%3a3.1.2-2.1ubuntu0.1_all.deb": {
+      "bytes": 5948,
+      "sha256": "b1b6fca3f7ed86db971c073352a6741f1f60f4a94eeb2c1eb0aca8a7e4b11660"
+    },
+    "guest-closure/debs/libaudit1_1%3a3.1.2-2.1ubuntu0.1_amd64.deb": {
+      "bytes": 47082,
+      "sha256": "326a55fce45a620f12b98baf581fb037eb0fcea1ab3969c54cf177f51be8abfe"
+    },
+    "guest-closure/debs/libavahi-client3_0.8-13ubuntu6.2_amd64.deb": {
+      "bytes": 26810,
+      "sha256": "00609b52ea5a1a9e35fcee4bfba03b6ff743a8015649026cb9109c356762f4d9"
+    },
+    "guest-closure/debs/libavahi-common-data_0.8-13ubuntu6.2_amd64.deb": {
+      "bytes": 30052,
+      "sha256": "9a03de928ae470c8d127a22dcb8fb8b582922a8f9406fc3ea879f5e98a02eab4"
+    },
+    "guest-closure/debs/libavahi-common3_0.8-13ubuntu6.2_amd64.deb": {
+      "bytes": 23444,
+      "sha256": "edd1f7a4a21e70504d0872c429600f2e13fdff7775c0952145f1afeacede1c82"
+    },
+    "guest-closure/debs/libavahi-glib1_0.8-13ubuntu6.2_amd64.deb": {
+      "bytes": 8186,
+      "sha256": "6d4ca866ba0c23ae4350911a21dfe84fc3de50e5658e547e7d10bb367b4c8740"
+    },
+    "guest-closure/debs/libavc1394-0_0.5.4-5build3_amd64.deb": {
+      "bytes": 15442,
+      "sha256": "28141f0e1a2011deef364a931b4a0fb9ab053416320ed7fd0b8747f251e6e5d7"
+    },
+    "guest-closure/debs/libayatana-appindicator3-1_0.5.93-1build3_amd64.deb": {
+      "bytes": 24694,
+      "sha256": "1d34a37a9782176d0845540a03da328301cfbffbd465b5a07f9fe025625a4075"
+    },
+    "guest-closure/debs/libayatana-ido3-0.4-0_0.10.1-1build2_amd64.deb": {
+      "bytes": 56616,
+      "sha256": "2b2b7a68a1d1f2668bae0dc56b0fcc2e3b220f762d9aec3c2828f15779105c36"
+    },
+    "guest-closure/debs/libayatana-indicator3-7_0.9.4-1build1_amd64.deb": {
+      "bytes": 31734,
+      "sha256": "b3d7ac6dc1808086709960891f8070f072a97e8de0dba973edbf168ba31b8820"
+    },
+    "guest-closure/debs/libblkid1_2.39.3-9ubuntu6.6_amd64.deb": {
+      "bytes": 124124,
+      "sha256": "3bcf169cd65e2539059b2287924090fc629f9bf90f595fc25465a7efe950ee82"
+    },
+    "guest-closure/debs/libblockdev-crypto3_3.1.1-1ubuntu0.1_amd64.deb": {
+      "bytes": 21316,
+      "sha256": "a6f82f205c4708405d7e72d1cc2162304327f2e190f1e2be6377e9bfc9c625c4"
+    },
+    "guest-closure/debs/libblockdev-fs3_3.1.1-1ubuntu0.1_amd64.deb": {
+      "bytes": 35218,
+      "sha256": "5af3af751896b08463bf82b009868e439b7ce56557ce085d53a0614342a14a0c"
+    },
+    "guest-closure/debs/libblockdev-loop3_3.1.1-1ubuntu0.1_amd64.deb": {
+      "bytes": 7178,
+      "sha256": "28c65e9e3b72509f2828d281a07149fe66d3dd8c1a89a35be068668ecadc5e1c"
+    },
+    "guest-closure/debs/libblockdev-mdraid3_3.1.1-1ubuntu0.1_amd64.deb": {
+      "bytes": 12550,
+      "sha256": "919bac9aee1f0606bc57c9485df5ddb2522aa00814a6dc6660700d144b41b05e"
+    },
+    "guest-closure/debs/libblockdev-nvme3_3.1.1-1ubuntu0.1_amd64.deb": {
+      "bytes": 17704,
+      "sha256": "0c89c4a709cfec3689f2f96bf8a068fe1f5fc45ce5e04c2bf40702a6de60f7ab"
+    },
+    "guest-closure/debs/libblockdev-part3_3.1.1-1ubuntu0.1_amd64.deb": {
+      "bytes": 15338,
+      "sha256": "dc220b51a8276c2ce9878833fa7979be3439b840907a4ca9da5df726f98bfaa6"
+    },
+    "guest-closure/debs/libblockdev-swap3_3.1.1-1ubuntu0.1_amd64.deb": {
+      "bytes": 7716,
+      "sha256": "a8da394b14fdc7e3c0b1cbc307dae056adb9dc1c03b5195a8fc172fb261a4f79"
+    },
+    "guest-closure/debs/libblockdev-utils3_3.1.1-1ubuntu0.1_amd64.deb": {
+      "bytes": 19240,
+      "sha256": "019c84bec89353717d2a26e5314499fe7fc8d6bc24fdb86aa8f05e8e5c145853"
+    },
+    "guest-closure/debs/libblockdev3_3.1.1-1ubuntu0.1_amd64.deb": {
+      "bytes": 47166,
+      "sha256": "96159cf0640f333e389de71eb4f302f0ae60a7264e2b138e4785ff3eff7e020d"
+    },
+    "guest-closure/debs/libbluetooth3_5.72-0ubuntu5.8_amd64.deb": {
+      "bytes": 86016,
+      "sha256": "90e6caad0eb80d5e5485ec22faf1e3ea51cdd24bc93bde5f2758fe838c9e1eed"
+    },
+    "guest-closure/debs/libbrotli1_1.1.0-2ubuntu0.1_amd64.deb": {
+      "bytes": 330968,
+      "sha256": "70b188a86d81f30d7510aab30e25d638ed5037dded6691af1533952b71ac61de"
+    },
+    "guest-closure/debs/libbsd0_0.12.1-1build1.1_amd64.deb": {
+      "bytes": 41238,
+      "sha256": "f3857b0863ac5cfd4263e9bf6cfb1d4be88d5321e4070d5bc2b62b0949e6c86f"
+    },
+    "guest-closure/debs/libbytesize-common_2.10-1ubuntu2_all.deb": {
+      "bytes": 3396,
+      "sha256": "5898cf3d8816da47e973ad78fae7f640b8dc54a04920a96fefa4166e2cb4b318"
+    },
+    "guest-closure/debs/libbytesize1_2.10-1ubuntu2_amd64.deb": {
+      "bytes": 13336,
+      "sha256": "d63d6f814653c79bad6e652a343399ee225a9a86379c2e512d3d8661b111e8b7"
+    },
+    "guest-closure/debs/libbz2-1.0_1.0.8-5.1ubuntu0.1_amd64.deb": {
+      "bytes": 34562,
+      "sha256": "36ee08b00b1ee5018b2fce02881b7d2d73c9b4e32990bde3388400d86c48126a"
+    },
+    "guest-closure/debs/libc6_2.39-0ubuntu8.9_amd64.deb": {
+      "bytes": 3264314,
+      "sha256": "ff5557d99b51f761c4b7c92368b9cc45565eda17df9bf9eb4b134d09825008be"
+    },
+    "guest-closure/debs/libcaca0_0.99.beta20-4ubuntu0.2_amd64.deb": {
+      "bytes": 208666,
+      "sha256": "f8ba81982beda87da75bef9a1035a2ff34479d613dfea757440442ae9d58c7af"
+    },
+    "guest-closure/debs/libcairo-gobject-perl_1.005-4build3_amd64.deb": {
+      "bytes": 11838,
+      "sha256": "ed6a5235e40ce021564319bd13b6054d0127e7bcf466461cdee05982ba42410f"
+    },
+    "guest-closure/debs/libcairo-gobject2_1.18.0-3build1_amd64.deb": {
+      "bytes": 126788,
+      "sha256": "f5483cbe43455fc9e9cba7f0e166bd0a731c02db2902ba562719848f72e8c403"
+    },
+    "guest-closure/debs/libcairo-perl_1.109-4build1_amd64.deb": {
+      "bytes": 93330,
+      "sha256": "fb982e92d582c59da257066f93ea8b93e601b2043c08753b88d4336775abf4c1"
+    },
+    "guest-closure/debs/libcairo-script-interpreter2_1.18.0-3build1_amd64.deb": {
+      "bytes": 60272,
+      "sha256": "e104466e7d816672a711db42746af528d210197231f12e3c712c06ac9a79b214"
+    },
+    "guest-closure/debs/libcairo2_1.18.0-3build1_amd64.deb": {
+      "bytes": 566292,
+      "sha256": "96950b306889ff6e4248bb937b0a3b56e72dacf643fe732214ce375f0f6bbb36"
+    },
+    "guest-closure/debs/libcamel-1.2-64t64_3.52.3-0ubuntu1.2_amd64.deb": {
+      "bytes": 500948,
+      "sha256": "629d57f0058f6d7ef1dd94cd906ca391e3855e30c536e2be1f723821b4197121"
+    },
+    "guest-closure/debs/libcanberra-gtk3-0t64_0.30-10ubuntu10_amd64.deb": {
+      "bytes": 8330,
+      "sha256": "638d1d1096b97bf82e1016aa7cea01707f3a5e8ea351aeafe45fe6230db6938a"
+    },
+    "guest-closure/debs/libcanberra0t64_0.30-10ubuntu10_amd64.deb": {
+      "bytes": 39418,
+      "sha256": "a7d61d9dc9911fe5af1dfe4021b3796c1a055aade3d44c71a36aebf46c786691"
+    },
+    "guest-closure/debs/libcap-ng0_0.8.4-2build2_amd64.deb": {
+      "bytes": 15180,
+      "sha256": "cf1e9437ac7ddf6539dbe87b68858cbdef84d78c6aac243ab3b6e564a52ed930"
+    },
+    "guest-closure/debs/libcap2-bin_1%3a2.66-5ubuntu2.4_amd64.deb": {
+      "bytes": 34134,
+      "sha256": "a8c875e1711a7a101e995814e6500c826cb658551660ef967ec15fbda79a3997"
+    },
+    "guest-closure/debs/libcap2_1%3a2.66-5ubuntu2.4_amd64.deb": {
+      "bytes": 30500,
+      "sha256": "23c627c77c66552a658e62852f244f4946dc543898e0ec5428d5dc6bffde2d6a"
+    },
+    "guest-closure/debs/libcbor0.10_0.10.2-1.2ubuntu2_amd64.deb": {
+      "bytes": 25844,
+      "sha256": "6ae45862612eb5d9918a005b882a67b722428cfde06d56bb651d3c04a47f4d2d"
+    },
+    "guest-closure/debs/libcdparanoia0_3.10.2+debian-14build3_amd64.deb": {
+      "bytes": 48476,
+      "sha256": "b49131a4784d7a4b4f955071d36ea6caff73229c9821977b3f895e8ea16b820a"
+    },
+    "guest-closure/debs/libcolord-gtk4-1t64_0.3.1-1build2_amd64.deb": {
+      "bytes": 17492,
+      "sha256": "96cbc5e69e4ff8064c4e4f1f046c5fbe2bb2b2f595c3ccc3e93354d6948c0533"
+    },
+    "guest-closure/debs/libcolord2_1.4.7-1build2_amd64.deb": {
+      "bytes": 148960,
+      "sha256": "ef148eb22d566506302a133516594e455e59307aa0dc9874c15a8618268e3355"
+    },
+    "guest-closure/debs/libcolorhug2_1.4.7-1build2_amd64.deb": {
+      "bytes": 37862,
+      "sha256": "7b6b8f5208095a302c10f9a493a8466547bdb340606a26b3f3dd86aebb845a91"
+    },
+    "guest-closure/debs/libcom-err2_1.47.0-2.4~exp1ubuntu4.1_amd64.deb": {
+      "bytes": 22982,
+      "sha256": "7ab24d3057dabf86db8f771ad6e43f073ed86b6b950d6e8ba22cb9fe6707bbc9"
+    },
+    "guest-closure/debs/libcrack2_2.9.6-5.1build2_amd64.deb": {
+      "bytes": 29034,
+      "sha256": "b0eefa13d0710de157e0c0fec82631f646bd86f790b5d28f161bc54a7f22e9fb"
+    },
+    "guest-closure/debs/libcrypt1_1%3a4.4.36-4build1_amd64.deb": {
+      "bytes": 82302,
+      "sha256": "9474785cd6f398512bf8c305c3901dbb111569dccb6f5832002373c0a8ac5832"
+    },
+    "guest-closure/debs/libcryptsetup12_2%3a2.7.0-1ubuntu4.2_amd64.deb": {
+      "bytes": 266122,
+      "sha256": "f6f6a7f35104da711997b52c92ab91ce1f47dd039d276d5beb797d713447c9f2"
+    },
+    "guest-closure/debs/libcue2_2.2.1-4.1build1_amd64.deb": {
+      "bytes": 18256,
+      "sha256": "9f5f922b84032beaab13cebb77c40c81e949c3e0bb16d09e4f9319366ba4b832"
+    },
+    "guest-closure/debs/libcups2t64_2.4.7-1.2ubuntu7.14_amd64.deb": {
+      "bytes": 274470,
+      "sha256": "b815a3d936718614e403035bb4a545e1323305ea624709bff2e9d94c214f9cc4"
+    },
+    "guest-closure/debs/libcurl3t64-gnutls_8.5.0-2ubuntu10.16_amd64.deb": {
+      "bytes": 336534,
+      "sha256": "f3993897876cd03ea10941c9b364965ff95d0226459f31f6c5f5b93562c80798"
+    },
+    "guest-closure/debs/libcurl4t64_8.5.0-2ubuntu10.16_amd64.deb": {
+      "bytes": 344412,
+      "sha256": "8196381b41f0078083a2a52b43f7e7ca9b0b79e5325451bf3948e4af7693cd8d"
+    },
+    "guest-closure/debs/libdatrie1_0.2.13-3build1_amd64.deb": {
+      "bytes": 18992,
+      "sha256": "1ae164e40e413eac4fbd38ce1c6ef9591f7a03278ad9076d71fa29258727f447"
+    },
+    "guest-closure/debs/libdb5.3t64_5.3.28+dfsg2-7_amd64.deb": {
+      "bytes": 734100,
+      "sha256": "a78a25c8fad8fdd0b7bc6b297da5d5685579be1e57732aa47870830e4a13161e"
+    },
+    "guest-closure/debs/libdbus-1-3_1.14.10-4ubuntu4.1_amd64.deb": {
+      "bytes": 209734,
+      "sha256": "5d630480f04b4b442300ce847a3fa705ea4d14d80ba6de91f99b51a4e4953b08"
+    },
+    "guest-closure/debs/libdbusmenu-glib4_18.10.20180917~bzr492+repack1-3.1ubuntu5_amd64.deb": {
+      "bytes": 42970,
+      "sha256": "50697e24febeeafc896ffecbb9dc811b0d576f0e14fa2c5ded37f25e007b0dfc"
+    },
+    "guest-closure/debs/libdbusmenu-gtk3-4_18.10.20180917~bzr492+repack1-3.1ubuntu5_amd64.deb": {
+      "bytes": 27646,
+      "sha256": "be9211290e51d056a1ff2234f311efdb21cc3adf85cd28f0ca080aaad1de3fad"
+    },
+    "guest-closure/debs/libdconf1_0.40.0-4ubuntu0.1_amd64.deb": {
+      "bytes": 39588,
+      "sha256": "86bf3825fbaec0d5159c5e6bd88f10ade991a086c821aeef15631c510c6d9904"
+    },
+    "guest-closure/debs/libdecor-0-0_0.2.2-1build2_amd64.deb": {
+      "bytes": 16508,
+      "sha256": "64bf085d16e504e9ed39b91d2a46748fb8881ad7f3603fbacef6c11c04aa7064"
+    },
+    "guest-closure/debs/libdee-1.0-4_1.2.7+17.10.20170616-7build5_amd64.deb": {
+      "bytes": 85360,
+      "sha256": "396534edbba9e5fb745bb79138c78298a4d43db4bb07912e7d9b7dc5716c48b6"
+    },
+    "guest-closure/debs/libdeflate0_1.19-1build1.1_amd64.deb": {
+      "bytes": 43914,
+      "sha256": "8e7dfa9e63a9b5058071b84da48bb2e30dea07de169e80fbc759fe0e68639269"
+    },
+    "guest-closure/debs/libdevmapper1.02.1_2%3a1.02.185-3ubuntu3.2_amd64.deb": {
+      "bytes": 139194,
+      "sha256": "0d43a02b9030a50edbc49c9580f88f01eef2b043baad1c6200672c39643c0efe"
+    },
+    "guest-closure/debs/libdrm-amdgpu1_2.4.125-1ubuntu0.1~24.04.2_amd64.deb": {
+      "bytes": 21374,
+      "sha256": "aa29b7898bae596bf07e55ba178cf8d5ea698fe83688e1b34520d86010251a7a"
+    },
+    "guest-closure/debs/libdrm-common_2.4.125-1ubuntu0.1~24.04.2_all.deb": {
+      "bytes": 9250,
+      "sha256": "0b60996bc18fa1545e60a47bb0fe1a7f360ec06fe62ba35fb8d8ba2a54e62166"
+    },
+    "guest-closure/debs/libdrm-intel1_2.4.125-1ubuntu0.1~24.04.2_amd64.deb": {
+      "bytes": 63868,
+      "sha256": "847195765b9ef7e7886677aeae9987aa54e496758b4e6e5a4ed2cb580b252244"
+    },
+    "guest-closure/debs/libdrm2_2.4.125-1ubuntu0.1~24.04.2_amd64.deb": {
+      "bytes": 41388,
+      "sha256": "4d3e858dd57be617c49d87c5ddcdb35df744a4f0a559981256ae2ba174718584"
+    },
+    "guest-closure/debs/libduktape207_2.7.0+tests-0ubuntu3_amd64.deb": {
+      "bytes": 143398,
+      "sha256": "6b7df26e298b890ebe6ca7b0d87fcfddb103b728b8fd731469ba5135d0bac183"
+    },
+    "guest-closure/debs/libdv4t64_1.0.0-17.1build1_amd64.deb": {
+      "bytes": 63192,
+      "sha256": "7799a45a5e8a2139bb940c5db3f0b85e781a08210bf50ef148b28d8d3240a57c"
+    },
+    "guest-closure/debs/libdw1t64_0.190-1.1ubuntu0.1_amd64.deb": {
+      "bytes": 261194,
+      "sha256": "edaa9ce4221d95f4bd72a9805100902e313092a2f31a7a51e7186be97734714d"
+    },
+    "guest-closure/debs/libecal-2.0-3_3.52.3-0ubuntu1.2_amd64.deb": {
+      "bytes": 175024,
+      "sha256": "46cb3e3517869ee05b8fae361455f36f23819739ceff16cdf57a3364d861fe18"
+    },
+    "guest-closure/debs/libedataserver-1.2-27t64_3.52.3-0ubuntu1.2_amd64.deb": {
+      "bytes": 282638,
+      "sha256": "ae202f3faca960022a225e7565f40b2389f6a2a4f1be869a96f3f87992c76bf3"
+    },
+    "guest-closure/debs/libedit2_3.1-20230828-1build1_amd64.deb": {
+      "bytes": 97586,
+      "sha256": "3afbc8ddf835049dd4d88275b9d13680e4c4cdd59e191cbd63424152cc08e00e"
+    },
+    "guest-closure/debs/libegl-mesa0_25.2.8-0ubuntu0.24.04.4_amd64.deb": {
+      "bytes": 117224,
+      "sha256": "2b8363cb29868603c827cb569a19373a45bebb29bdca5cd34de42dce2f3c9419"
+    },
+    "guest-closure/debs/libegl1_1.7.0-1build1_amd64.deb": {
+      "bytes": 28670,
+      "sha256": "e549f7776216f7bd3b1c216729fb40a97a562e2eb7c563cde632b4931f9a4e57"
+    },
+    "guest-closure/debs/libeis1_1.2.1-1_amd64.deb": {
+      "bytes": 40022,
+      "sha256": "e912e8136c615b2de91c73622c1a79a26a121cceeacee466eb33a647b6da390e"
+    },
+    "guest-closure/debs/libelf1t64_0.190-1.1ubuntu0.1_amd64.deb": {
+      "bytes": 57810,
+      "sha256": "b4aee123a37472d213647594b4f7d4a0d13615b0ca2a6fd33926b768d6b232c2"
+    },
+    "guest-closure/debs/libenchant-2-2_2.3.3-2build2_amd64.deb": {
+      "bytes": 51354,
+      "sha256": "4faecb5cee57ff00649b3ea4d83c072d9da2670797b7d2854708ff60cef17426"
+    },
+    "guest-closure/debs/libepoxy0_1.5.10-1build1_amd64.deb": {
+      "bytes": 220408,
+      "sha256": "e2e754da4e7fb89021476b093cb5ebe9b1859a688fa37739809e529627d39f1f"
+    },
+    "guest-closure/debs/libevdev2_1.13.1+dfsg-1build1_amd64.deb": {
+      "bytes": 37756,
+      "sha256": "a14b1ea7b3220a063458590734920879cec8431b4fc5160eb0f044dfb8d76515"
+    },
+    "guest-closure/debs/libexempi8_2.6.5-1build1_amd64.deb": {
+      "bytes": 535214,
+      "sha256": "f4c119ad233c9e75ab0e58342ccb1cd7f2232d1761572eb6dcdcbf06d299f63c"
+    },
+    "guest-closure/debs/libexif12_0.6.24-1ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 88336,
+      "sha256": "fd58a7c7e8841a51e6fc8c90bbf0dc9ec8159929e52f276a2176f14090ccf55a"
+    },
+    "guest-closure/debs/libexiv2-27_0.27.6-1ubuntu0.3_amd64.deb": {
+      "bytes": 839392,
+      "sha256": "346a05019b2456cb43eafdaaa974cdd79eb39c65d2f670e84679651b3fda8a4c"
+    },
+    "guest-closure/debs/libexpat1_2.6.1-2ubuntu0.6_amd64.deb": {
+      "bytes": 98940,
+      "sha256": "494b8e672f722130c6bca6a7bc4cc31a43ca891a31d60d868bfdd699a3c20b13"
+    },
+    "guest-closure/debs/libext2fs2t64_1.47.0-2.4~exp1ubuntu4.1_amd64.deb": {
+      "bytes": 221728,
+      "sha256": "276686704314749497f1530ff9e62fd0280328be786a28db0cfe2aa31c88119e"
+    },
+    "guest-closure/debs/libextutils-depends-perl_0.8001-2_all.deb": {
+      "bytes": 14376,
+      "sha256": "ce0274af0d1aae4fca0f640286aa0e48b392e74efc8d136fc8b723db50f3159c"
+    },
+    "guest-closure/debs/libfdisk1_2.39.3-9ubuntu6.6_amd64.deb": {
+      "bytes": 146344,
+      "sha256": "7f67b127d239f51218c1eb63c3b0c219bbf26f450349bed9ad5d9f10a6b80c1b"
+    },
+    "guest-closure/debs/libffi8_3.4.6-1build1_amd64.deb": {
+      "bytes": 24718,
+      "sha256": "637e6a7744de08cd331a41f4efd0d24e6ea9064843dea9d1c6ca87bdb5f038a2"
+    },
+    "guest-closure/debs/libfftw3-single3_3.3.10-1ubuntu3_amd64.deb": {
+      "bytes": 867878,
+      "sha256": "07d67e30d98e41e00ce9edcfd885e0ba7f4fe99fcf390f84726a69144b17cf2b"
+    },
+    "guest-closure/debs/libfido2-1_1.14.0-1build3_amd64.deb": {
+      "bytes": 83526,
+      "sha256": "1dfed970b870e3c949b983f2bcc28e33e1a1207c6cf5a60ee2cb226bb02b1da7"
+    },
+    "guest-closure/debs/libflac12t64_1.4.3+ds-2.1ubuntu2_amd64.deb": {
+      "bytes": 197320,
+      "sha256": "f2396692573407b2fbc92cd83148342d4aec717d42d5e24ac64c471204a0b7a9"
+    },
+    "guest-closure/debs/libfontconfig1_2.15.0-1.1ubuntu2_amd64.deb": {
+      "bytes": 138572,
+      "sha256": "a2bc05cfef021fdb84285036f98eda5ebec3c4b7a378f5aa2bdba5c4d3d8d586"
+    },
+    "guest-closure/debs/libfontenc1_1%3a1.1.8-1build1_amd64.deb": {
+      "bytes": 13996,
+      "sha256": "0c5d57211cac9659e7f4c856f5e1922c4a522fe8bcf5776e9707b2811f965702"
+    },
+    "guest-closure/debs/libfreeaptx0_0.1.1-2build1_amd64.deb": {
+      "bytes": 13456,
+      "sha256": "2280d6fdd41c841701a9da6b5076b77e8a0849e5c10c9c2945f817f753575a42"
+    },
+    "guest-closure/debs/libfreetype6_2.13.2+dfsg-1ubuntu0.2_amd64.deb": {
+      "bytes": 402610,
+      "sha256": "8c6d3bac5a6197fa2f48b2d56f04f3ffecaa7082eeab91b0939f97a40adc88a6"
+    },
+    "guest-closure/debs/libfribidi0_1.0.13-3build1_amd64.deb": {
+      "bytes": 26150,
+      "sha256": "6cd50259d39ce0dfafee2632c6268538e6a02590e77161a133e9683af346dd1d"
+    },
+    "guest-closure/debs/libfuse3-3_3.14.0-5build1_amd64.deb": {
+      "bytes": 83124,
+      "sha256": "3042159c6d7d4dcb3df9d49cd21e49ecb57f4ba8c4153a72102f512a4fc534a2"
+    },
+    "guest-closure/debs/libgbm1_25.2.8-0ubuntu0.24.04.4_amd64.deb": {
+      "bytes": 34172,
+      "sha256": "4bfe348b456db5b445a80e0a3ffb9e9a01b91499bb86e0e568ca3634b134da7e"
+    },
+    "guest-closure/debs/libgcc-s1_14.2.0-4ubuntu2~24.04.1_amd64.deb": {
+      "bytes": 78392,
+      "sha256": "aa7fadbe33b78bcf99885318040601c550c208929565b179891d9a3cc2aa68cd"
+    },
+    "guest-closure/debs/libgck-2-2_4.2.0-5_amd64.deb": {
+      "bytes": 76952,
+      "sha256": "3598c9a6bbf5960ffb97639f964567541970abb1d7a765001524b76c50de7639"
+    },
+    "guest-closure/debs/libgcr-4-4_4.2.0-5_amd64.deb": {
+      "bytes": 192400,
+      "sha256": "a4e29eba33714269df708316f02e1a52d59e801a8def898b2408c9fe64c85107"
+    },
+    "guest-closure/debs/libgcrypt20_1.10.3-2ubuntu0.2_amd64.deb": {
+      "bytes": 536494,
+      "sha256": "957b9eeaa83cf6f2d5d5d76dbb8aa31d3297e6781d8a02fa08dcc897ae650a0b"
+    },
+    "guest-closure/debs/libgd3_2.3.3-9ubuntu5_amd64.deb": {
+      "bytes": 127506,
+      "sha256": "dbef5ad99eec399fd6afeb6d0cc92d81a8b3295a7ac80ac71311ea09c49704ae"
+    },
+    "guest-closure/debs/libgdbm-compat4t64_1.23-5.1build1_amd64.deb": {
+      "bytes": 6710,
+      "sha256": "fb8564afd7b7d74d55207070ba50339478e22d29a39ec740dc482f069ac7ee65"
+    },
+    "guest-closure/debs/libgdbm6t64_1.23-5.1build1_amd64.deb": {
+      "bytes": 34440,
+      "sha256": "18d6d74a5c038b458d95ba0c0909e0f086cd50bb9a0fee32697902724fc5645e"
+    },
+    "guest-closure/debs/libgdk-pixbuf-2.0-0_2.42.10+dfsg-3ubuntu3.3_amd64.deb": {
+      "bytes": 147442,
+      "sha256": "de84e0d777d9c9e39148d8491338e6b8c62bc2d066867266b1643a7a725a86ba"
+    },
+    "guest-closure/debs/libgdk-pixbuf2.0-common_2.42.10+dfsg-3ubuntu3.3_all.deb": {
+      "bytes": 8302,
+      "sha256": "57f24caf1fe608d009933591bdbbf70851a4dbee8b75e9c097f68f57a9a72e07"
+    },
+    "guest-closure/debs/libgdm1_46.2-1ubuntu1~24.04.9_amd64.deb": {
+      "bytes": 77600,
+      "sha256": "d2592eb721f68675af5d8b1d9754294f837ac51cb8b886a53fdcb646c08881a4"
+    },
+    "guest-closure/debs/libgeoclue-2-0_2.7.0-3ubuntu7_amd64.deb": {
+      "bytes": 32954,
+      "sha256": "330a1c464501ec0da763f8e13348c56bd0886a98b84f5c4a9b30b29dc2267878"
+    },
+    "guest-closure/debs/libgeocode-glib-2-0_3.26.3-6build3_amd64.deb": {
+      "bytes": 45680,
+      "sha256": "59ad5d92ab683c45717042abef57e00334740bad110c444ad63bd2df16a8b78b"
+    },
+    "guest-closure/debs/libgexiv2-2_0.14.2-2build3_amd64.deb": {
+      "bytes": 78600,
+      "sha256": "ff0d51bbbd4e6c7bf5423a5c9c070dd57120a402ba47868325e4acfe06d336b7"
+    },
+    "guest-closure/debs/libgif7_5.2.2-1ubuntu1.2_amd64.deb": {
+      "bytes": 35608,
+      "sha256": "8137945ac9167f26d0264f403ffb48a45974f096e8acab5479e33fdba6c28a36"
+    },
+    "guest-closure/debs/libgirepository-1.0-1_1.80.1-1_amd64.deb": {
+      "bytes": 81920,
+      "sha256": "67ab4f3dc402229519f36f63b24a987a123a611e21cbef71ed4a110ed339e547"
+    },
+    "guest-closure/debs/libgjs0g_1.80.2-1build2_amd64.deb": {
+      "bytes": 386970,
+      "sha256": "32232951639506b382b0177f7fe0552b2022af89e28837ad5edd3752594988de"
+    },
+    "guest-closure/debs/libgl1-mesa-dri_25.2.8-0ubuntu0.24.04.4_amd64.deb": {
+      "bytes": 37950,
+      "sha256": "2dabbe4292b201ca07b38c0672352f68dbfc55b5850f96f89ef54d3b4b6c8a59"
+    },
+    "guest-closure/debs/libgl1_1.7.0-1build1_amd64.deb": {
+      "bytes": 101990,
+      "sha256": "e2b2fadeb883f073b566ad1d7874f6702397514d258473e96152a89d4d502a09"
+    },
+    "guest-closure/debs/libgles2_1.7.0-1build1_amd64.deb": {
+      "bytes": 17122,
+      "sha256": "9dec2d79a2eebb80522f7cce77995f7a8ded22f0e3916f13353d066c62f97fac"
+    },
+    "guest-closure/debs/libglib-object-introspection-perl_0.051-1build3_amd64.deb": {
+      "bytes": 67622,
+      "sha256": "fc6fe71e7572eeafa2fdc93d2991deacb1fee7d9dfbad3124abd92ef777b0805"
+    },
+    "guest-closure/debs/libglib-perl_3%3a1.329.3-3build3_amd64.deb": {
+      "bytes": 319938,
+      "sha256": "3073ecdb9c070dabb64eb10bf9e75549bcdb33ad38abd6be1c2b82c66695b323"
+    },
+    "guest-closure/debs/libglib2.0-0t64_2.80.0-6ubuntu3.10_amd64.deb": {
+      "bytes": 1547558,
+      "sha256": "ff1b650f655b36dfe202fdbae6bb02b363c7257b6dd23e4f95ab61f716190df3"
+    },
+    "guest-closure/debs/libglib2.0-bin_2.80.0-6ubuntu3.10_amd64.deb": {
+      "bytes": 97922,
+      "sha256": "0c60e75d4b5acadc44196bc9fd07eb15d6921c6d4f0a43406f028ed3c8aa458d"
+    },
+    "guest-closure/debs/libglib2.0-data_2.80.0-6ubuntu3.10_all.deb": {
+      "bytes": 50240,
+      "sha256": "f196e280e4286f6dfc5ddaaf8c09cc6e8502e0de77619385e3fde19ea2739122"
+    },
+    "guest-closure/debs/libglu1-mesa_9.0.2-1.1build1_amd64.deb": {
+      "bytes": 151722,
+      "sha256": "4288833eebfbf6b00d1ae98159f429e1f7f6398288c9305edeeb185d9ed048d9"
+    },
+    "guest-closure/debs/libglvnd0_1.7.0-1build1_amd64.deb": {
+      "bytes": 69594,
+      "sha256": "33f5e07c74f73c2bfb44086ae0f9e6da52acd6c104d30ffe8fd768d8253d5e82"
+    },
+    "guest-closure/debs/libglx-mesa0_25.2.8-0ubuntu0.24.04.4_amd64.deb": {
+      "bytes": 110128,
+      "sha256": "5aa6164059989d476b15caa8ade892b1dec37593934dc4f617ece7ea0d639bc0"
+    },
+    "guest-closure/debs/libglx0_1.7.0-1build1_amd64.deb": {
+      "bytes": 38558,
+      "sha256": "aa4953182f30abde90cb5b072e83d7286b557b325769b8686196a7bd396d8795"
+    },
+    "guest-closure/debs/libgmp10_2%3a6.3.0+dfsg-2ubuntu6.1_amd64.deb": {
+      "bytes": 253460,
+      "sha256": "285f8a505dfa8e1b33f357a9d8d3477ad35bf18c0b34771a6df4c25923f3ae0d"
+    },
+    "guest-closure/debs/libgnome-autoar-0-0_0.4.4-2build4_amd64.deb": {
+      "bytes": 29296,
+      "sha256": "35c4fa0fed125d2465295fdc84fd358a091ed95827f2853aa0f5c7b42c4e1f27"
+    },
+    "guest-closure/debs/libgnome-bg-4-2t64_44.0-5build2_amd64.deb": {
+      "bytes": 22350,
+      "sha256": "577ec4878b604d64a209b261aa08103df3cf60911b822648992c04d1369e2b2e"
+    },
+    "guest-closure/debs/libgnome-bluetooth-3.0-13_46.0-1ubuntu1_amd64.deb": {
+      "bytes": 49638,
+      "sha256": "ceb80bcab9dd77f9eca3d6f467984dfa634cf785df29e4936035b29f9bf6d72d"
+    },
+    "guest-closure/debs/libgnome-bluetooth-ui-3.0-13_46.0-1ubuntu1_amd64.deb": {
+      "bytes": 59812,
+      "sha256": "4499bc97f7eb871e8756215eda7eb75bf3a34809dee31910aaad3c3958cdb872"
+    },
+    "guest-closure/debs/libgnome-desktop-3-20t64_44.0-5build2_amd64.deb": {
+      "bytes": 89566,
+      "sha256": "abe9fd71f9770c90f5089e54483b0c029cabdefe7cb30dfb514b91df8ed92664"
+    },
+    "guest-closure/debs/libgnome-desktop-4-2t64_44.0-5build2_amd64.deb": {
+      "bytes": 83590,
+      "sha256": "a5714bcb882db1c7f9bd3f21112beac46fb538dff08a3792ad1892a70d36514b"
+    },
+    "guest-closure/debs/libgnome-rr-4-2t64_44.0-5build2_amd64.deb": {
+      "bytes": 71240,
+      "sha256": "453098d44a4fc03415211739a9e0e9ccba78ee60f88b0820541f09d34e7be1cc"
+    },
+    "guest-closure/debs/libgnutls30t64_3.8.3-1.1ubuntu3.6_amd64.deb": {
+      "bytes": 1002902,
+      "sha256": "b8944756260c5ea6b7fac019745f931f905aa7a4df0763676b1b25c911b692e2"
+    },
+    "guest-closure/debs/libgoa-1.0-0b_3.50.4-0ubuntu2_amd64.deb": {
+      "bytes": 68728,
+      "sha256": "4e5d2513e533a21b3095ab7603a9c9b0e87cffed96f9a4987d6a110e08ec800a"
+    },
+    "guest-closure/debs/libgoa-1.0-common_3.50.4-0ubuntu2_all.deb": {
+      "bytes": 5660,
+      "sha256": "65d9eecd262b8a08704be8342fcb3f532901ac5b5b7371049968267239dc2718"
+    },
+    "guest-closure/debs/libgoa-backend-1.0-2_3.50.4-0ubuntu2_amd64.deb": {
+      "bytes": 94802,
+      "sha256": "636f969d80091e4a052ef81a1091c9376a0b3f0fac16cd18762dff9c53444f95"
+    },
+    "guest-closure/debs/libgomp1_14.2.0-4ubuntu2~24.04.1_amd64.deb": {
+      "bytes": 148062,
+      "sha256": "e8a95ec58125b4933597f30ff56c2ae10edf90f287262e366d4b6edea3019144"
+    },
+    "guest-closure/debs/libgpg-error0_1.47-3build2.1_amd64.deb": {
+      "bytes": 70092,
+      "sha256": "93654ee8180a73a0363f25c51dc673d67cbabcbecd164187b8a2deb54d007aef"
+    },
+    "guest-closure/debs/libgpgme11t64_1.18.0-4.1ubuntu4_amd64.deb": {
+      "bytes": 135618,
+      "sha256": "b3640068e8af3becf16faec886ff139880736ed23a7fc605c1f0cece405a5606"
+    },
+    "guest-closure/debs/libgphoto2-6t64_2.5.31-2.1ubuntu1.1_amd64.deb": {
+      "bytes": 734596,
+      "sha256": "f60dc6e328494902a9d4ae6f156d0e7a5074271e9467d32e8887ed363e6f6f09"
+    },
+    "guest-closure/debs/libgphoto2-port12t64_2.5.31-2.1ubuntu1.1_amd64.deb": {
+      "bytes": 59212,
+      "sha256": "0a32510314ecd537f52dabd3e407882dd33535064b8b3d6fe1f2f106032c805c"
+    },
+    "guest-closure/debs/libgpm2_1.20.7-11_amd64.deb": {
+      "bytes": 14104,
+      "sha256": "158b9073bf5177286474dacb87cb60aac9ceb08613fdb5a1e1643ca5d07be7cf"
+    },
+    "guest-closure/debs/libgraphene-1.0-0_1.10.8-3build2_amd64.deb": {
+      "bytes": 46224,
+      "sha256": "5276c4173bff30bd2a368cce30639227089512aad85fc4af87c284456bafe8ff"
+    },
+    "guest-closure/debs/libgraphite2-3_1.3.14-2ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 73352,
+      "sha256": "2413ea0f6670d6610ee7c2f550551d69fa341f4b9c78e20eb397f0d1bbe914cb"
+    },
+    "guest-closure/debs/libgs-common_10.02.1~dfsg1-0ubuntu7.10_all.deb": {
+      "bytes": 176492,
+      "sha256": "308062f75bc23d651aff129d76a512e88da2d74df31471980e1cef50b0e329ab"
+    },
+    "guest-closure/debs/libgs10-common_10.02.1~dfsg1-0ubuntu7.10_all.deb": {
+      "bytes": 487942,
+      "sha256": "96510078dc0d53cd1c1dd1b77e977593be2248cf055b79f4f103e30166bf9a69"
+    },
+    "guest-closure/debs/libgs10_10.02.1~dfsg1-0ubuntu7.10_amd64.deb": {
+      "bytes": 3900232,
+      "sha256": "b3d38d8463517fba80c856a8ee86f28cd45937749f05425c6a6362384f3817c4"
+    },
+    "guest-closure/debs/libgsf-1-114_1.14.51-2ubuntu0.1_amd64.deb": {
+      "bytes": 104918,
+      "sha256": "fa61257611e56ecbf75f42de477016fbb3792bfce9c837232254bdb0a2820b26"
+    },
+    "guest-closure/debs/libgsf-1-common_1.14.51-2ubuntu0.1_all.deb": {
+      "bytes": 13260,
+      "sha256": "6bff0b613089d6ba7fdedddbcd7e60da2936067430524d5a14f3fdda8a14e434"
+    },
+    "guest-closure/debs/libgsound0t64_1.0.3-3.2build2_amd64.deb": {
+      "bytes": 9002,
+      "sha256": "3bc309b8efc2f01c79da284c6026f416795fe8e7f477d43975cef32c369c29f5"
+    },
+    "guest-closure/debs/libgssapi-krb5-2_1.20.1-6ubuntu2.10_amd64.deb": {
+      "bytes": 142830,
+      "sha256": "0d4a0187bcdbbe3e6a10bfa574100087d12052d0d0ef28614fd6210021c587b2"
+    },
+    "guest-closure/debs/libgstreamer-gl1.0-0_1.24.2-1ubuntu0.5_amd64.deb": {
+      "bytes": 213954,
+      "sha256": "fb87a72e431d2c57c35b0b2bd4189bb6a6e771788c3ba389a9e3623886486b22"
+    },
+    "guest-closure/debs/libgstreamer-plugins-base1.0-0_1.24.2-1ubuntu0.5_amd64.deb": {
+      "bytes": 862170,
+      "sha256": "3c5826eee14cb5077c7e53707fbe86cc0882c787ffe79b330cad636c0009473d"
+    },
+    "guest-closure/debs/libgstreamer-plugins-good1.0-0_1.24.2-1ubuntu1.8_amd64.deb": {
+      "bytes": 34294,
+      "sha256": "0d1c6e91d7bd051b6959315eb3cbd4da2f65acdc0356518cc9c320826f0b8407"
+    },
+    "guest-closure/debs/libgstreamer1.0-0_1.24.2-1ubuntu0.1_amd64.deb": {
+      "bytes": 1165196,
+      "sha256": "306a6a5cff08630b79b8a68e5f888da7d8e209a452e9b5e24449cca95d8e71f5"
+    },
+    "guest-closure/debs/libgtk-3-0t64_3.24.41-4ubuntu1.3_amd64.deb": {
+      "bytes": 2913080,
+      "sha256": "fd61e308234b12d243160798216d0efcb605d83af185bf3414ac99c2ed5166fc"
+    },
+    "guest-closure/debs/libgtk-3-common_3.24.41-4ubuntu1.3_all.deb": {
+      "bytes": 1425952,
+      "sha256": "193be16ae51e14f6a209de012e61916761be866c6babaa48d7faa9e641567950"
+    },
+    "guest-closure/debs/libgtk-4-1_4.14.5+ds-0ubuntu0.10_amd64.deb": {
+      "bytes": 3295234,
+      "sha256": "2361861e33d34a26f3d6c4906935fd9e6241eb44ff30564cb493b5671111a24f"
+    },
+    "guest-closure/debs/libgtk-4-common_4.14.5+ds-0ubuntu0.10_all.deb": {
+      "bytes": 1496922,
+      "sha256": "c4a62cbed476b05663f0ed03145234dad431d25ce329863c56cc80074c0bb2ed"
+    },
+    "guest-closure/debs/libgtk-4-media-gstreamer_4.14.5+ds-0ubuntu0.10_amd64.deb": {
+      "bytes": 67750,
+      "sha256": "cf54598c8de5fe11ba0c41eafab362fe5eb11dd5955178e9b5bf9497193d72f0"
+    },
+    "guest-closure/debs/libgtk3-perl_0.038-3_all.deb": {
+      "bytes": 29234,
+      "sha256": "1d1c8f2229c32fcf536c55862cc5db43b64a6cf1b3f6feca6d21cbf54e6271f4"
+    },
+    "guest-closure/debs/libgtop-2.0-11_2.41.3-1ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 40064,
+      "sha256": "f06209323597821e9fa0f13814786acf7db310455e3ac1152fdafe841fb27b77"
+    },
+    "guest-closure/debs/libgtop2-common_2.41.3-1ubuntu0.24.04.1_all.deb": {
+      "bytes": 3662,
+      "sha256": "007c02d8dea299b6b178b761b3f2282292af2108966cb7e5222f946c8a2c8dd4"
+    },
+    "guest-closure/debs/libgudev-1.0-0_1%3a238-5ubuntu1_amd64.deb": {
+      "bytes": 15906,
+      "sha256": "8bdd42c584a8d18759df2311b126dc679d438e9780038743b792cf5315f248dc"
+    },
+    "guest-closure/debs/libgusb2_0.4.8-1build2_amd64.deb": {
+      "bytes": 38502,
+      "sha256": "302583a31051cdaec8fcbceee32eba185cd27c72d92025cbaafbf485951e5d67"
+    },
+    "guest-closure/debs/libgweather-4-0t64_4.4.2-1build1_amd64.deb": {
+      "bytes": 361766,
+      "sha256": "c8638b99551c657a9fcea860095fd718c71f22e70147c57292a0e0a16ecff8ea"
+    },
+    "guest-closure/debs/libgweather-4-common_4.4.2-1build1_all.deb": {
+      "bytes": 192274,
+      "sha256": "80d1c1f26f96d4c14ac326325d57879c3809e46d52a41a08ccb8dfd4d9727a33"
+    },
+    "guest-closure/debs/libgxps2t64_0.3.2-4build3_amd64.deb": {
+      "bytes": 57930,
+      "sha256": "60611fe61133ce839f41e3aad269e046c2367501935f526736d1976a8f69f313"
+    },
+    "guest-closure/debs/libhandy-1-0_1.8.3-1build2_amd64.deb": {
+      "bytes": 232036,
+      "sha256": "1c89990bb8a011a5bd1f1f0380fec17b91e6d1b146f019db21ead2de684caa4d"
+    },
+    "guest-closure/debs/libharfbuzz-gobject0_8.3.0-2build2_amd64.deb": {
+      "bytes": 34332,
+      "sha256": "852ead77ff5695f7e5ccde583d2339fde63220f8fc60a507278918db551a56ce"
+    },
+    "guest-closure/debs/libharfbuzz-icu0_8.3.0-2build2_amd64.deb": {
+      "bytes": 13310,
+      "sha256": "9098670758e60b190d7edf367ad57e954bfc1b2a616def3f4e281062e036a843"
+    },
+    "guest-closure/debs/libharfbuzz0b_8.3.0-2build2_amd64.deb": {
+      "bytes": 468874,
+      "sha256": "d6f7eea2244f98aa0463a056680d4629476bf624767ede301560e24add686b5c"
+    },
+    "guest-closure/debs/libheif-plugin-aomdec_1.17.6-1ubuntu4.9_amd64.deb": {
+      "bytes": 11894,
+      "sha256": "d5494f16d0e51b897a653a1f91e6bbdce4917476d7be40867cb214462cbd4fb2"
+    },
+    "guest-closure/debs/libheif1_1.17.6-1ubuntu4.9_amd64.deb": {
+      "bytes": 277292,
+      "sha256": "1680862f44d1f15cb2a507596c268c0de30f636cd682e912859e241d7c033467"
+    },
+    "guest-closure/debs/libhogweed6t64_3.9.1-2.2build1.1_amd64.deb": {
+      "bytes": 198548,
+      "sha256": "a9b5f7e9d49ba9060e1c933567046fbc6feab6096799cbf550b7214dc9b0f49b"
+    },
+    "guest-closure/debs/libhunspell-1.7-0_1.7.2+really1.7.2-10build3_amd64.deb": {
+      "bytes": 294152,
+      "sha256": "77849069ed487a16c1dcf71122cc9578f6610542e52a85fc259aa0932a13da22"
+    },
+    "guest-closure/debs/libhyphen0_2.8.8-7build3_amd64.deb": {
+      "bytes": 26516,
+      "sha256": "b508d3a5da168ddb2ae6e79ea0521ba64cd121285db0ece438d0bd56ba628556"
+    },
+    "guest-closure/debs/libibus-1.0-5_1.5.29-2_amd64.deb": {
+      "bytes": 181364,
+      "sha256": "2f9aac6e9690690bda1fc1fdb608ac8d98e570cc9041fdaf3e1380fb7c833d07"
+    },
+    "guest-closure/debs/libical3t64_3.0.17-1.1build3_amd64.deb": {
+      "bytes": 305104,
+      "sha256": "dffaeb1dc8367a857d2224fffcadeb8abd8d9dd7b4470f6d75d25254128043c2"
+    },
+    "guest-closure/debs/libice6_2%3a1.0.10-1build3_amd64.deb": {
+      "bytes": 41398,
+      "sha256": "ad1edb5303574fee154e487947177e5bd15363aa71b92f78f5a2a7145fdb81c5"
+    },
+    "guest-closure/debs/libicu74_74.2-1ubuntu3.1_amd64.deb": {
+      "bytes": 10860078,
+      "sha256": "c9a70989678660eed9a1e904c74fa043da8bec8e2036856fc16e31ced79b04f8"
+    },
+    "guest-closure/debs/libidn12_1.42-1ubuntu0.1_amd64.deb": {
+      "bytes": 56086,
+      "sha256": "01a08872e3907a787bed80547b7818cd18ba42586c087d0390addaac7354b9dc"
+    },
+    "guest-closure/debs/libidn2-0_2.3.7-2build1.1_amd64.deb": {
+      "bytes": 66242,
+      "sha256": "46bfd10df095a23b65f58115de47a547c9a2d14627749bd0423ae78c14be77d3"
+    },
+    "guest-closure/debs/libiec61883-0_1.2.0-6build1_amd64.deb": {
+      "bytes": 24546,
+      "sha256": "a47c6ec10068f1fc37a334949f6174f7ecbf0889bfde9d36baea8d403d76a727"
+    },
+    "guest-closure/debs/libieee1284-3t64_0.2.11-14.1build1_amd64.deb": {
+      "bytes": 21970,
+      "sha256": "5ace6f818ddd9a7a85c97c32cfbace354018f07a327913168dd376033f0d0970"
+    },
+    "guest-closure/debs/libijs-0.35_0.35-15.1build1_amd64.deb": {
+      "bytes": 15318,
+      "sha256": "285a8ffd399dca55b949c79d071cd6a74bdd2600abd6614cea2422b65d173a40"
+    },
+    "guest-closure/debs/libimobiledevice6_1.3.0-8.1build3_amd64.deb": {
+      "bytes": 70302,
+      "sha256": "9c9f291b97eba10d9f0494c20bd309c36905d6aa01ae0a255802a7120c3243f7"
+    },
+    "guest-closure/debs/libinput-bin_1.25.0-1ubuntu3.7_amd64.deb": {
+      "bytes": 23570,
+      "sha256": "c5abfbe403051ab17721cf21369919a18bf83024c9594248ebb30375ca7d0d0b"
+    },
+    "guest-closure/debs/libinput10_1.25.0-1ubuntu3.7_amd64.deb": {
+      "bytes": 133474,
+      "sha256": "dd76b865f149d0b072d21a532539effefdce7983feb232b25e2adf354207237b"
+    },
+    "guest-closure/debs/libisl23_0.26-3build1.1_amd64.deb": {
+      "bytes": 679812,
+      "sha256": "4e040926e50fb961fae9bf95660189d468336a4a17bc321872c434fc8f777e7f"
+    },
+    "guest-closure/debs/libiw30t64_30~pre9-16.1ubuntu2_amd64.deb": {
+      "bytes": 18600,
+      "sha256": "d57ccf7ba9120c176b58a5cdcb3af1b600f6eaa0c9ad302cb3e66a507b7e9c02"
+    },
+    "guest-closure/debs/libjansson4_2.14-2build2_amd64.deb": {
+      "bytes": 32830,
+      "sha256": "0cf79113f5d193ce9af2be2ff4b2c3b30dd4e55a0b6c47f7d28f6c849ff3aa60"
+    },
+    "guest-closure/debs/libjavascriptcoregtk-4.1-0_2.52.6-0ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 8156176,
+      "sha256": "81ab415373b601a1379710c87dfbee82536805218920f66aa102fa3c9bdc2da2"
+    },
+    "guest-closure/debs/libjavascriptcoregtk-6.0-1_2.52.6-0ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 8157602,
+      "sha256": "cc625cf7bd51442188dbab5180d6a67f4c40e3f7674970b9f283b2ba56a10c43"
+    },
+    "guest-closure/debs/libjbig0_2.1-6.1ubuntu2_amd64.deb": {
+      "bytes": 29668,
+      "sha256": "074a760a86213a1286ad60f56394c90885cf45af070626a88c480d90b78c175a"
+    },
+    "guest-closure/debs/libjbig2dec0_0.20-1ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 65214,
+      "sha256": "e4d49fb9c4138e4f25aa3ded2d5320b2e61e7ad3a5aa961fbd5f899538458fd0"
+    },
+    "guest-closure/debs/libjpeg-turbo8_2.1.5-2ubuntu2_amd64.deb": {
+      "bytes": 149982,
+      "sha256": "f68b5b23bc8a1688fb787d2aed7e2cdf895a73022f6a5025e183162dac4500b2"
+    },
+    "guest-closure/debs/libjpeg8_8c-2ubuntu11_amd64.deb": {
+      "bytes": 2148,
+      "sha256": "4d6ed682972bddf62af158a06d68a0dda497e421423b7ca92fb450b3d9ceaac9"
+    },
+    "guest-closure/debs/libjson-c5_0.17-1build1_amd64.deb": {
+      "bytes": 35340,
+      "sha256": "3ac608d78e9e981e14ba7ceb141a46e3dd3ae8d6dbb3a7ecafd2698fe9930584"
+    },
+    "guest-closure/debs/libjson-glib-1.0-0_1.8.0-2build2_amd64.deb": {
+      "bytes": 68034,
+      "sha256": "4310fbbd91785adf38d3e0f0d6a94527430c077af8773eb83ec02a1fcbcba089"
+    },
+    "guest-closure/debs/libjson-glib-1.0-common_1.8.0-2build2_all.deb": {
+      "bytes": 4244,
+      "sha256": "04cd91689ac4903e260304627c0ae379f9df1c16061eed73e0cf9c91af5569ac"
+    },
+    "guest-closure/debs/libk5crypto3_1.20.1-6ubuntu2.10_amd64.deb": {
+      "bytes": 81944,
+      "sha256": "273f7cc95a68d927d7f71c3e78b7717a16a8d86e646a206bae7bf797150ae9db"
+    },
+    "guest-closure/debs/libkeyutils1_1.6.3-3build1_amd64.deb": {
+      "bytes": 9490,
+      "sha256": "0679f198b0128179e46cdf956fb2022c23c758664c00bc8efa0382d509683a8a"
+    },
+    "guest-closure/debs/libkmod2_31+20240202-2ubuntu7.2_amd64.deb": {
+      "bytes": 51830,
+      "sha256": "a9cbdc424bc0a5c8af3d6445488a48de76df5ff4d76b7dab8aaf88f712358bbc"
+    },
+    "guest-closure/debs/libkrb5-3_1.20.1-6ubuntu2.10_amd64.deb": {
+      "bytes": 347568,
+      "sha256": "60b48c5a3233f1d8caba30d6573edc8e131911ab6d63adcd664f7cbe62708362"
+    },
+    "guest-closure/debs/libkrb5support0_1.20.1-6ubuntu2.10_amd64.deb": {
+      "bytes": 34942,
+      "sha256": "9224ede3246a82a845ea97652ecfae57f88e8d8f520d8a186f9157167574fb34"
+    },
+    "guest-closure/debs/libksba8_1.6.6-1build1_amd64.deb": {
+      "bytes": 121958,
+      "sha256": "7b0e1f2c2c5ee7b3ed1c1558c6338c6cdd77d27280020abc3e1f3159cf564106"
+    },
+    "guest-closure/debs/liblc3-1_1.0.4-3build1_amd64.deb": {
+      "bytes": 69662,
+      "sha256": "cad9163dbd8c96060bf695a72331a0ff22adb56395af18d69e42b406482f010a"
+    },
+    "guest-closure/debs/liblcms2-2_2.14-2ubuntu0.1_amd64.deb": {
+      "bytes": 160898,
+      "sha256": "f48368ce55ac35c4723a158c74f2c48f4398570d6f3207874e3a14e1cdada71d"
+    },
+    "guest-closure/debs/libldacbt-abr2_2.0.2.3+git20200429+ed310a0-4ubuntu2_amd64.deb": {
+      "bytes": 4714,
+      "sha256": "41a556add83d3272e7adab56df41629265467fb312d7d39e4704195d56a377c1"
+    },
+    "guest-closure/debs/libldacbt-enc2_2.0.2.3+git20200429+ed310a0-4ubuntu2_amd64.deb": {
+      "bytes": 27118,
+      "sha256": "3f30273311e774954455d4a6e46a750510c8cbadfe01f68befd7418ad91d16b5"
+    },
+    "guest-closure/debs/libldap2_2.6.10+dfsg-0ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 197620,
+      "sha256": "7f3f8e565401256f21d5aa562c9f92dbb63537b73aaea6283e4db5264f1598f4"
+    },
+    "guest-closure/debs/libldb2_2%3a2.8.0+samba4.19.5+dfsg-4ubuntu9.8_amd64.deb": {
+      "bytes": 188440,
+      "sha256": "c43d3114298de29b0cbc92e12ed5c700f1349f795618f9b9241338bb0ae9f514"
+    },
+    "guest-closure/debs/liblerc4_4.0.0+ds-4ubuntu2_amd64.deb": {
+      "bytes": 179378,
+      "sha256": "f1b9dbfa28c56564f6b544f3757f5f3f4d549ce9962f39e897812c23b0a5d0e7"
+    },
+    "guest-closure/debs/libllvm20_1%3a20.1.2-0ubuntu1~24.04.3_amd64.deb": {
+      "bytes": 30574382,
+      "sha256": "f018e71c72c7a4742fb1aff9dc98b45586f42e6ea464d4918af7e3772b7f0658"
+    },
+    "guest-closure/debs/liblmdb0_0.9.31-1build1_amd64.deb": {
+      "bytes": 48066,
+      "sha256": "3439a5b9fd358df1619f7dca2d611195f22a7d7d83a3a968428ac1440f713b4e"
+    },
+    "guest-closure/debs/liblocale-gettext-perl_1.07-6ubuntu5_amd64.deb": {
+      "bytes": 15812,
+      "sha256": "19daa45d4ef74b06a6a7b88bf37e709e96c499a6375d0ea22a8171c42694b3f1"
+    },
+    "guest-closure/debs/libltdl7_2.4.7-7build1_amd64.deb": {
+      "bytes": 40258,
+      "sha256": "02d0d2d7e1bf73f838a92f8df7a9b07b698c837e82bd89aee6a581cf793cd966"
+    },
+    "guest-closure/debs/liblua5.4-0_5.4.6-3build2_amd64.deb": {
+      "bytes": 166226,
+      "sha256": "6a520259e5b06e86191a25af6d448387cdd2b3d291a0aa956ce272e84d071260"
+    },
+    "guest-closure/debs/liblz4-1_1.9.4-1build1.1_amd64.deb": {
+      "bytes": 63062,
+      "sha256": "319331270d5cc52d5ebffe51c941d7b01b432bc402c2924b557209a64d4ecbad"
+    },
+    "guest-closure/debs/liblzma5_5.6.1+really5.4.5-1ubuntu0.4_amd64.deb": {
+      "bytes": 127704,
+      "sha256": "5bcf5da2339331e21d3f42a831e82c61c54c6b2f29804010e8d59abd0ae52167"
+    },
+    "guest-closure/debs/liblzo2-2_2.10-2build4_amd64.deb": {
+      "bytes": 54148,
+      "sha256": "e0d13be155013138b8db4cfe68212b866080af661c78302c2eab0d2f9d0d454e"
+    },
+    "guest-closure/debs/libmalcontent-0-0_0.11.1-1ubuntu1.3_amd64.deb": {
+      "bytes": 22322,
+      "sha256": "1d165a5162ea457bc38124407513538793ba9e8d109fa24d3f5a2bab00d9197a"
+    },
+    "guest-closure/debs/libmanette-0.2-0_0.2.7-1build2_amd64.deb": {
+      "bytes": 30570,
+      "sha256": "8fbb67e94abf563c01398ad7458df1a6824f19a0b4337f67d61c0889771805db"
+    },
+    "guest-closure/debs/libmd0_1.1.0-2build1.1_amd64.deb": {
+      "bytes": 26976,
+      "sha256": "e5ba01d3c41f256aaf57ec59aa0554857162e3e7f97cdfbff1ed2c0e8d720ee7"
+    },
+    "guest-closure/debs/libmm-glib0_1.23.4-0ubuntu2_amd64.deb": {
+      "bytes": 250526,
+      "sha256": "c3bede995650bfb42b70210d411808e5b36625e68b003d07141c5c662cd4447b"
+    },
+    "guest-closure/debs/libmount1_2.39.3-9ubuntu6.6_amd64.deb": {
+      "bytes": 134082,
+      "sha256": "8f2c25589f187dacfdc5bb6be2af0aee6c2ba7b4d2edd1ca4b26753469f07aae"
+    },
+    "guest-closure/debs/libmozjs-115-0t64_115.10.0-1_amd64.deb": {
+      "bytes": 8914644,
+      "sha256": "af3dbc3ff4d082b2d8502586958c8fc0874f36532c218720bf3e53cdf38fcace"
+    },
+    "guest-closure/debs/libmp3lame0_3.100-6build1_amd64.deb": {
+      "bytes": 142342,
+      "sha256": "d739e9a3565f98b8b72a9e203a9a537bd1090af6cafb94c98adf8e27f9d3fb94"
+    },
+    "guest-closure/debs/libmpc3_1.3.1-1build1.1_amd64.deb": {
+      "bytes": 54636,
+      "sha256": "cebe6098bb3d66fdacac9dc6fe406a651216d9c00f27c3f9c159d15d96cdf864"
+    },
+    "guest-closure/debs/libmpfr6_4.2.1-1build1.1_amd64.deb": {
+      "bytes": 353020,
+      "sha256": "aebc1c8b69a1f98bb43dfc268daecd181116dbf40b13ee4e822eb4bdd52b493a"
+    },
+    "guest-closure/debs/libmpg123-0t64_1.32.5-1ubuntu1.1_amd64.deb": {
+      "bytes": 169494,
+      "sha256": "bbe32128e3358f141f9f58ef6e76a7bef3e07d09165203665d30fdc27372b418"
+    },
+    "guest-closure/debs/libmtdev1t64_1.1.6-1.1build1_amd64.deb": {
+      "bytes": 14380,
+      "sha256": "fa86080d67defabc076ead97d86ccff14c906d21fe4cc1625ba73a8cf8022dfa"
+    },
+    "guest-closure/debs/libmutter-14-0_46.2-1ubuntu0.24.04.18_amd64.deb": {
+      "bytes": 1393360,
+      "sha256": "74d7b16081a4129fcaf44a9f08e779ba3b4c4e0869db3b73f652bc3fe07345d4"
+    },
+    "guest-closure/debs/libnautilus-extension4_1%3a46.4-0ubuntu0.2_amd64.deb": {
+      "bytes": 22958,
+      "sha256": "e5e4c915b01c4eb398813315b63b9d7d31a4d899a302e6a962d20d678610836e"
+    },
+    "guest-closure/debs/libncurses6_6.4+20240113-1ubuntu2.2_amd64.deb": {
+      "bytes": 111902,
+      "sha256": "59e8527dfd14473393960bfb7c69566f1ad9d576423421dcb8b8dcdbb3e7fca1"
+    },
+    "guest-closure/debs/libncursesw6_6.4+20240113-1ubuntu2.2_amd64.deb": {
+      "bytes": 147816,
+      "sha256": "579c9488755d1ddd70f66480cafd2f68776f68314d15d9cf4b5449d0de0fc968"
+    },
+    "guest-closure/debs/libnettle8t64_3.9.1-2.2build1.1_amd64.deb": {
+      "bytes": 181636,
+      "sha256": "6d97fbc1972633083f08f51ccab433606c97bbceb897c631c66495117ca3406f"
+    },
+    "guest-closure/debs/libnghttp2-14_1.59.0-1ubuntu0.4_amd64.deb": {
+      "bytes": 74590,
+      "sha256": "73adcbb9df32cd7c9d46b1c7598bbbbcf249be705d62d966694cfc9976a15dfe"
+    },
+    "guest-closure/debs/libnl-3-200_3.7.0-0.3build1.1_amd64.deb": {
+      "bytes": 55706,
+      "sha256": "15b3f61db753dc3db6f62f4259f8b822299343e500886776486612a13a2ed247"
+    },
+    "guest-closure/debs/libnl-genl-3-200_3.7.0-0.3build1.1_amd64.deb": {
+      "bytes": 12232,
+      "sha256": "9ca0cb63f295d00e6346b9924278c07cfc61311cbd288b805b06e25aa08c9fd8"
+    },
+    "guest-closure/debs/libnl-route-3-200_3.7.0-0.3build1.1_amd64.deb": {
+      "bytes": 189094,
+      "sha256": "c9dbd29cb7fdcf1a0587726cbc5432a7d3e81242108dfcfa2dd6716c44c74d4d"
+    },
+    "guest-closure/debs/libnm0_1.46.0-1ubuntu2.8_amd64.deb": {
+      "bytes": 480672,
+      "sha256": "600dcf34ee60e99605e33b120545a71a3039e5dab3df114ff05aa207e7d41240"
+    },
+    "guest-closure/debs/libnma-common_1.10.6-3build2_all.deb": {
+      "bytes": 3676,
+      "sha256": "af5394ec3c75dd9776f1bb09d7fe054174aea84a030c36149e7973cf3d171fc5"
+    },
+    "guest-closure/debs/libnma-gtk4-0_1.10.6-3build2_amd64.deb": {
+      "bytes": 93130,
+      "sha256": "2bdb1b24195df0bfb9660058f6fe7b174700f7bae0b8e66fc6e7fd24b2c0451f"
+    },
+    "guest-closure/debs/libnotify-bin_0.8.3-1build2_amd64.deb": {
+      "bytes": 9936,
+      "sha256": "cc9f697ffb5f19a57d055b42e9642cc6355d1eed7fbdfd168a441d353e256157"
+    },
+    "guest-closure/debs/libnotify4_0.8.3-1build2_amd64.deb": {
+      "bytes": 25650,
+      "sha256": "4d856e960ac0ec137e9908b6df0fa295e04c175b0be239450de2243be49524df"
+    },
+    "guest-closure/debs/libnpth0t64_1.6-3.1build1_amd64.deb": {
+      "bytes": 8378,
+      "sha256": "b380eca1221a9ac855427652452801c5ca9161dd69e12446d300524eba00944e"
+    },
+    "guest-closure/debs/libnspr4_2%3a4.35-1.1build1_amd64.deb": {
+      "bytes": 117398,
+      "sha256": "e579e72d091f6c7a13f5a756c31065b15aae5b81840d61b069355aa2283c07b4"
+    },
+    "guest-closure/debs/libnss3_2%3a3.98-1ubuntu0.3_amd64.deb": {
+      "bytes": 1444912,
+      "sha256": "e11fdf8c09a068d0f0c3fd90ed971253dfed7227cc20d3d487fd615d4771f1bb"
+    },
+    "guest-closure/debs/libnvme1t64_1.8-3ubuntu1_amd64.deb": {
+      "bytes": 75770,
+      "sha256": "6cf86a02e66abf2fbdef9f97340775bbe0b58c7b687e146636cc1ed1702e4c59"
+    },
+    "guest-closure/debs/libogg0_1.3.5-3build1_amd64.deb": {
+      "bytes": 22686,
+      "sha256": "fbdb2fedbafb02c3f07f2c2ddeb4018b5e94e13462f93fbececdcefc06fe2ac1"
+    },
+    "guest-closure/debs/libopengl0_1.7.0-1build1_amd64.deb": {
+      "bytes": 32780,
+      "sha256": "da36bd4d30c13b40b697fa8b72cc09d309ff36a5bd9750341ef78492bf3f3966"
+    },
+    "guest-closure/debs/libopenjp2-7_2.5.0-2ubuntu0.5_amd64.deb": {
+      "bytes": 173572,
+      "sha256": "24b92ce9c4b306f5370e768024d35ec565792001678b510f0d40b6395b43524f"
+    },
+    "guest-closure/debs/libopus0_1.4-1build1_amd64.deb": {
+      "bytes": 208122,
+      "sha256": "6d8da32a832e655c9603543b47a0bc90c6f60bdee0c00fe7499bd50acad566cf"
+    },
+    "guest-closure/debs/liborc-0.4-0t64_1%3a0.4.38-1ubuntu0.1_amd64.deb": {
+      "bytes": 207380,
+      "sha256": "a546ca6e237748693596ba469e84a2e0581bc39113abc62b718931df00a4c682"
+    },
+    "guest-closure/debs/libp11-kit0_0.25.3-4ubuntu2.2_amd64.deb": {
+      "bytes": 297270,
+      "sha256": "e7c58aeac19d89f5f1492dfaa52b8623bcd56edc40983f5243ad56d94f477bf2"
+    },
+    "guest-closure/debs/libpackagekit-glib2-18_1.2.8-2ubuntu1.5_amd64.deb": {
+      "bytes": 120462,
+      "sha256": "1547df2ca59565e255616c8ffa9ca4088a48584103f92bbe56e1f3da984f902f"
+    },
+    "guest-closure/debs/libpam-modules-bin_1.5.3-5ubuntu5.7_amd64.deb": {
+      "bytes": 51866,
+      "sha256": "e6753b038042cd007843cbc79a81e732d82d0d2415bcf78ff2120c50b5e54f82"
+    },
+    "guest-closure/debs/libpam-modules_1.5.3-5ubuntu5.7_amd64.deb": {
+      "bytes": 286418,
+      "sha256": "c8e86ef52e3a743dc67d90f4c6654f7f529deafa6a523fe9076e809785aeea18"
+    },
+    "guest-closure/debs/libpam-runtime_1.5.3-5ubuntu5.7_all.deb": {
+      "bytes": 40754,
+      "sha256": "879a23df25b1ba28801c9caf73f1ac36724bdff9834b5a0db7d0ac5ba6f8e191"
+    },
+    "guest-closure/debs/libpam-systemd_255.4-1ubuntu8.18_amd64.deb": {
+      "bytes": 235370,
+      "sha256": "fb189407aefa51b5ac3ffde8d8e391826312067633bf8f5bb7a93e0c6f63ef6a"
+    },
+    "guest-closure/debs/libpam0g_1.5.3-5ubuntu5.7_amd64.deb": {
+      "bytes": 68124,
+      "sha256": "1d7f54e77f0455ab5e607cd5e78b576801d8efdc66115e02cf3c6e708d093667"
+    },
+    "guest-closure/debs/libpango-1.0-0_1.52.1+ds-1build1_amd64.deb": {
+      "bytes": 230606,
+      "sha256": "09dfa5c881ab273ec6bc1830adcefdc407fcd619316e68fb26ca3a23d0fc9f54"
+    },
+    "guest-closure/debs/libpangocairo-1.0-0_1.52.1+ds-1build1_amd64.deb": {
+      "bytes": 28828,
+      "sha256": "98cf5fc9076c2911fe20dfc1e41cd8f686a2bb5d539b1105fab18105b0db1376"
+    },
+    "guest-closure/debs/libpangoft2-1.0-0_1.52.1+ds-1build1_amd64.deb": {
+      "bytes": 42532,
+      "sha256": "cc6bc9d86ef5f329edacaa4895232d8a9b8f95c5cbc77c3c460a3f64cecc213d"
+    },
+    "guest-closure/debs/libpangoxft-1.0-0_1.52.1+ds-1build1_amd64.deb": {
+      "bytes": 20272,
+      "sha256": "ec0d4711e958ab6dc09ad52b48c55f8d8a549e73e8b19eb2cf483b2cfd0e57ab"
+    },
+    "guest-closure/debs/libpaper1_1.1.29build1_amd64.deb": {
+      "bytes": 13414,
+      "sha256": "63d0cc29eda7adc7d9269273e9b5542b8b6aacabc5e7caaa859995269bfe3cff"
+    },
+    "guest-closure/debs/libparted2t64_3.6-4build1_amd64.deb": {
+      "bytes": 151634,
+      "sha256": "24e84d557b5037d1ad984ba1b6e5136c56cc9a96f2af9d916392372d8513f775"
+    },
+    "guest-closure/debs/libpci3_1%3a3.10.0-2build1_amd64.deb": {
+      "bytes": 36458,
+      "sha256": "8e281ca777649e78755b064cb7ce0646a1cff6bede7e765ddc61f8bd1fb4e723"
+    },
+    "guest-closure/debs/libpciaccess0_0.17-3ubuntu0.24.04.3_amd64.deb": {
+      "bytes": 19220,
+      "sha256": "87a3b1c2a09f54d229e5e1f5424adc806e8f99bbb8aa8c8dea114b727f7a5a96"
+    },
+    "guest-closure/debs/libpcre2-8-0_10.42-4ubuntu2.1_amd64.deb": {
+      "bytes": 226662,
+      "sha256": "110a797a57673d3ee497a141cf988199258058c57525799c63194d81822529a0"
+    },
+    "guest-closure/debs/libpcsclite1_2.0.3-1build1_amd64.deb": {
+      "bytes": 21432,
+      "sha256": "703bacc9204a7ecc24486ac8c96d15d0b9e2c91c385388e132ad4fd8f56f035a"
+    },
+    "guest-closure/debs/libperl5.38t64_5.38.2-3.2ubuntu0.6_amd64.deb": {
+      "bytes": 4863614,
+      "sha256": "e9e5ac9a657e0cacf5f0de977c1573c696ee74515d5136c4e9a0ce9467d32ae7"
+    },
+    "guest-closure/debs/libpipeline1_1.5.7-2_amd64.deb": {
+      "bytes": 23586,
+      "sha256": "dcc1fa7ff2fa7c264a7de6fec3ddf673bed5819d92ee29c03cb9759822f67876"
+    },
+    "guest-closure/debs/libpipewire-0.3-0t64_1.0.5-1ubuntu3.3_amd64.deb": {
+      "bytes": 252198,
+      "sha256": "225786f83ecb81075b820652038e20f38ae8f72a9787b766c4e0aa1bd7dfead8"
+    },
+    "guest-closure/debs/libpipewire-0.3-modules_1.0.5-1ubuntu3.3_amd64.deb": {
+      "bytes": 814508,
+      "sha256": "ad8ec2b574774b1ccd1f9a6c59668c34c57326dc796cda6feeb0d5c48def6742"
+    },
+    "guest-closure/debs/libpixman-1-0_0.42.2-1build1_amd64.deb": {
+      "bytes": 279306,
+      "sha256": "d9c2931c4c424615eeab9dd5ae08bfc608b84e803c1d3ccddf319270db213421"
+    },
+    "guest-closure/debs/libplist-2.0-4_2.3.0-1~exp2build2_amd64.deb": {
+      "bytes": 47994,
+      "sha256": "e425c79a3e6e336ce05be7ad7d4171d0a956437cd69d13f27e0df98e272a6f26"
+    },
+    "guest-closure/debs/libpng16-16t64_1.6.43-5ubuntu0.7_amd64.deb": {
+      "bytes": 188998,
+      "sha256": "863d6abb089b2820ceba98e6b18f06eaacc55f9b05827001e7b4021a9a7b246c"
+    },
+    "guest-closure/debs/libpolkit-agent-1-0_124-2ubuntu1.24.04.4_amd64.deb": {
+      "bytes": 17436,
+      "sha256": "a866dda52a6db409bf3da9006a06ada11b1b921af760f016d091a480ececa8ce"
+    },
+    "guest-closure/debs/libpolkit-gobject-1-0_124-2ubuntu1.24.04.4_amd64.deb": {
+      "bytes": 49524,
+      "sha256": "e19b4dda5c402bf2982bd454c84177acd54f4c7b67b83c949b2c72443c10531e"
+    },
+    "guest-closure/debs/libpoppler-glib8t64_24.02.0-1ubuntu9.11_amd64.deb": {
+      "bytes": 156452,
+      "sha256": "c3aa1e3953d998b2b24b5a1fa1f4747f32da7b5bde8deffac08352db32ebfc44"
+    },
+    "guest-closure/debs/libpoppler134_24.02.0-1ubuntu9.11_amd64.deb": {
+      "bytes": 1117982,
+      "sha256": "fb25ad9d2bf31bf67840b8516bedc1a9bfc8f70d319c3eb9d341f722668e0151"
+    },
+    "guest-closure/debs/libpopt0_1.19+dfsg-1build1_amd64.deb": {
+      "bytes": 28562,
+      "sha256": "b3e7ea5192e57c847b77c527d51f5b8d4bce47988d2ba326a5c3193f6d173ded"
+    },
+    "guest-closure/debs/libportal-gtk4-1_0.7.1-5build5_amd64.deb": {
+      "bytes": 11484,
+      "sha256": "d26ab91533551a14df96475f3fc17dd82d66e4a26c537e83df2b57b223dd1671"
+    },
+    "guest-closure/debs/libportal1_0.7.1-5build5_amd64.deb": {
+      "bytes": 44704,
+      "sha256": "79fbd436d428e1f521292e27f0a78c9e8a6d0ee160211c2dc1503fba12946763"
+    },
+    "guest-closure/debs/libproc2-0_2%3a4.0.4-4ubuntu3.3_amd64.deb": {
+      "bytes": 58876,
+      "sha256": "8a73e2656ddcdb078e06e20abb5a92b182145e12376a9a9282db8374da34d228"
+    },
+    "guest-closure/debs/libproxy1v5_0.5.4-4build1_amd64.deb": {
+      "bytes": 26508,
+      "sha256": "4fa847fdf40dfaf198d94b1534bbc616410647dd917bca95bd28aba79d3796ba"
+    },
+    "guest-closure/debs/libpsl5t64_0.21.2-1.1build1_amd64.deb": {
+      "bytes": 57072,
+      "sha256": "a6c85d1303ae90b6a3209d73c4f047f82c27cdc963c48adfd95dd7abca64f039"
+    },
+    "guest-closure/debs/libpulse-mainloop-glib0_1%3a16.1+dfsg1-2ubuntu10.1_amd64.deb": {
+      "bytes": 12218,
+      "sha256": "4ebd61edd18e968ad9c9dbc02732bd84574910765de2a2ce4c051a4fd219407e"
+    },
+    "guest-closure/debs/libpulse0_1%3a16.1+dfsg1-2ubuntu10.1_amd64.deb": {
+      "bytes": 292098,
+      "sha256": "b8d52aa6c2f74ae99e749c9f98d6ad2dbf924fd422371ac469725245cdd919fc"
+    },
+    "guest-closure/debs/libpwquality-common_1.4.5-3build1_all.deb": {
+      "bytes": 7748,
+      "sha256": "39e46b23ff69f401dbc894ddaf52e5be7860f1ef20ef596c164bebd65ba80148"
+    },
+    "guest-closure/debs/libpwquality1_1.4.5-3build1_amd64.deb": {
+      "bytes": 13518,
+      "sha256": "a419fa34abfd8d67b2e26c17ee0afc6bb3f2d341ceb3b7d408b1b37924193f6c"
+    },
+    "guest-closure/debs/libpython3-stdlib_3.12.3-0ubuntu2.1_amd64.deb": {
+      "bytes": 10080,
+      "sha256": "57ebb378c59d2f9ef479bee0abc933c560878cc10e2c3af8e05d6fdb2ed63da4"
+    },
+    "guest-closure/debs/libpython3.12-minimal_3.12.3-1ubuntu0.17_amd64.deb": {
+      "bytes": 838536,
+      "sha256": "d646ad7112b5adec21ba0e1af015f04ae8ca7f5efdc619622547dd6673c4c14b"
+    },
+    "guest-closure/debs/libpython3.12-stdlib_3.12.3-1ubuntu0.17_amd64.deb": {
+      "bytes": 2070530,
+      "sha256": "45d3f530ba1f9d6e879ad46b92046fabab13fe50a82450e4f65557a3bbad1489"
+    },
+    "guest-closure/debs/libraw1394-11_2.1.2-2build3_amd64.deb": {
+      "bytes": 26192,
+      "sha256": "0a6c9d979bd0301175340546a832c6dd4e94164eff9c4bcabcae97fb0dcf215b"
+    },
+    "guest-closure/debs/libreadline8t64_8.2-4build1_amd64.deb": {
+      "bytes": 152856,
+      "sha256": "563977a16df03b611f5239cc1e9a0426e86479fcc616b5c9e200ea32063119e5"
+    },
+    "guest-closure/debs/librest-1.0-0_0.9.1-6build3_amd64.deb": {
+      "bytes": 34150,
+      "sha256": "8a1e5573453759b8268e87f1bbb5988adbfa6f17b72b979edcf454ae89c7901b"
+    },
+    "guest-closure/debs/libroc0.3_0.3.0+dfsg-7ubuntu2_amd64.deb": {
+      "bytes": 247064,
+      "sha256": "5b943a733055ef7dc53c037ed07c14086d149ce0ed004ef97ea9194747e750fb"
+    },
+    "guest-closure/debs/librsvg2-2_2.58.0+dfsg-1ubuntu0.1_amd64.deb": {
+      "bytes": 2140940,
+      "sha256": "47aa51a12ecc102b6dc867fe34319fcf6fa590c44bd8a3e22a2c473f3b8dd875"
+    },
+    "guest-closure/debs/librsvg2-common_2.58.0+dfsg-1ubuntu0.1_amd64.deb": {
+      "bytes": 11788,
+      "sha256": "e9d3f20d5113d4b4cbeb2834d15d2bdc4b5bacb0767b743380e7afcd91ec7415"
+    },
+    "guest-closure/debs/librtmp1_2.4+20151223.gitfa8646d.1-2build7_amd64.deb": {
+      "bytes": 56342,
+      "sha256": "967a39dbc14236d1580ede01d80fd78444668572e716734e1ac66c175052594e"
+    },
+    "guest-closure/debs/libsamplerate0_0.2.2-4build1_amd64.deb": {
+      "bytes": 1343954,
+      "sha256": "8a389d1cae81860c9fb7cd9641c3f9d38815e80c0379b3181b4317489126f738"
+    },
+    "guest-closure/debs/libsane-common_1.2.1-7build4_all.deb": {
+      "bytes": 906216,
+      "sha256": "9e3c4b748338f82d188b39fbb5c8a5e570a4c6c8b91e97fc348979e76265e3f5"
+    },
+    "guest-closure/debs/libsane1_1.2.1-7build4_amd64.deb": {
+      "bytes": 2806858,
+      "sha256": "2951bc8598c327e66d420949c83c9ccf2b0661387fd6d20b46f4564382094a41"
+    },
+    "guest-closure/debs/libsasl2-2_2.1.28+dfsg1-5ubuntu3.1_amd64.deb": {
+      "bytes": 53194,
+      "sha256": "eda097f98dcb3a08b9ce157d6191d140e4885c1cba47b683c94b8ca45e88f458"
+    },
+    "guest-closure/debs/libsasl2-modules-db_2.1.28+dfsg1-5ubuntu3.1_amd64.deb": {
+      "bytes": 20354,
+      "sha256": "1f13548b1774cd9c70c50b8c3267204a101334a4d2f979338896ba5a4c6f81b8"
+    },
+    "guest-closure/debs/libsasl2-modules_2.1.28+dfsg1-5ubuntu3.1_amd64.deb": {
+      "bytes": 69916,
+      "sha256": "a05457e0cc509235bcca25ab857ceb29465bfa23c559036f15b3ce557c8a5153"
+    },
+    "guest-closure/debs/libsbc1_2.0-1build1_amd64.deb": {
+      "bytes": 33918,
+      "sha256": "d4d453e7673218fc2f917dbabb2492a5a81155c2305f6fe63a37cadcaa806128"
+    },
+    "guest-closure/debs/libseccomp2_2.5.5-1ubuntu3.1_amd64.deb": {
+      "bytes": 50424,
+      "sha256": "33fc96f1e008d27c042a3db9bcd16f7f4d49e866f7a3141b758a799328dbdc3f"
+    },
+    "guest-closure/debs/libsecret-1-0_0.21.4-1build3_amd64.deb": {
+      "bytes": 116332,
+      "sha256": "7d7263ffc92c33042328f99c93433a846e8d9e549876dab18ba18606e6541ecd"
+    },
+    "guest-closure/debs/libsecret-common_0.21.4-1build3_all.deb": {
+      "bytes": 4962,
+      "sha256": "41866e9026e451fd25a4cbe887fa56c43219f9f3eda88d1831452ba6d6b8bb5b"
+    },
+    "guest-closure/debs/libselinux1_3.5-2ubuntu2.1_amd64.deb": {
+      "bytes": 79660,
+      "sha256": "6abaa6c26f46ef17764c4a753e0e84de1cdadde5634fd2987621fdc617988d19"
+    },
+    "guest-closure/debs/libsemanage-common_3.5-1build5_all.deb": {
+      "bytes": 10144,
+      "sha256": "e10cd93f0b6941566de04b860b723df57ca3fe4a9255a73b2be0d1dc7df2850e"
+    },
+    "guest-closure/debs/libsemanage2_3.5-1build5_amd64.deb": {
+      "bytes": 93178,
+      "sha256": "56102dcbd410416d03c5ffb80958f54ac63936f4d9eb3f6a98964e680a82ce37"
+    },
+    "guest-closure/debs/libsensors-config_1%3a3.6.0-9build1_all.deb": {
+      "bytes": 5546,
+      "sha256": "148103a436fd273dabfe0fe41dc54873df46227b59b2c7ac7339d7e2ddfd033b"
+    },
+    "guest-closure/debs/libsensors5_1%3a3.6.0-9build1_amd64.deb": {
+      "bytes": 26600,
+      "sha256": "515ed1fbe2bc99926c44fe10b1beb9c3510068c344adda334303098d669ba1e5"
+    },
+    "guest-closure/debs/libsepol2_3.5-2build1_amd64.deb": {
+      "bytes": 302950,
+      "sha256": "47272bab0c2fcc350431f9a8ae63afc49ce6d7e71e63c914639fbda6b1ca9f6a"
+    },
+    "guest-closure/debs/libsharpyuv0_1.3.2-0.4build3_amd64.deb": {
+      "bytes": 15786,
+      "sha256": "4e1763494e5b9d34192313aa88e38201fc67b3f13ea96ca268d26401a3002791"
+    },
+    "guest-closure/debs/libshout3_2.4.6-1build2_amd64.deb": {
+      "bytes": 50340,
+      "sha256": "b99146a88b414c828285435e10cb39e6ab10b299182b42c85727e2e8ec0eb156"
+    },
+    "guest-closure/debs/libslang2_2.3.3-3build2_amd64.deb": {
+      "bytes": 505982,
+      "sha256": "352deab8d4dcb023ecffc766088d9c5420c36a3bef9ef5b1c9b173d1c3c88bd7"
+    },
+    "guest-closure/debs/libsm6_2%3a1.2.3-1build3_amd64.deb": {
+      "bytes": 15684,
+      "sha256": "1d27ebc381b499075a28c504be4d7d424c63b6866354736ac7f8d25813860cdf"
+    },
+    "guest-closure/debs/libsmartcols1_2.39.3-9ubuntu6.6_amd64.deb": {
+      "bytes": 66282,
+      "sha256": "84f33a780d27cce20a2cd925e7ce8498daba2dbc614d433548a19fbb2c5dac18"
+    },
+    "guest-closure/debs/libsmbclient0_2%3a4.19.5+dfsg-4ubuntu9.8_amd64.deb": {
+      "bytes": 62406,
+      "sha256": "9cc6b81870c08f7a42d0a698ca92a8a6c493e1f39221899d0b4de9f161e882e8"
+    },
+    "guest-closure/debs/libsnapd-glib-2-1_1.64-0ubuntu5_amd64.deb": {
+      "bytes": 107152,
+      "sha256": "3d5bd0109f47792ead9291531c5187d0c8cd6fcb54fdcc69097a9bf008f393c2"
+    },
+    "guest-closure/debs/libsndfile1_1.2.2-1ubuntu5.24.04.1_amd64.deb": {
+      "bytes": 208508,
+      "sha256": "fe2461b27e747fa88ede157ea39c6379e2101c280a730cda9c825f566a3808e5"
+    },
+    "guest-closure/debs/libsnmp-base_5.9.4+dfsg-1.1ubuntu3.2_all.deb": {
+      "bytes": 206336,
+      "sha256": "01712c736d3c310686b4b1515c38f72190ec512c487d6850c13a11dcd628209b"
+    },
+    "guest-closure/debs/libsnmp40t64_5.9.4+dfsg-1.1ubuntu3.2_amd64.deb": {
+      "bytes": 1066226,
+      "sha256": "def89b069346ad9cc660d4af56a6ac3722c635446fcaf5e3f993c4e71370dc1e"
+    },
+    "guest-closure/debs/libsoup-3.0-0_3.4.4-5ubuntu0.9_amd64.deb": {
+      "bytes": 290828,
+      "sha256": "cd6bab2b426b0c81b0f7856df11f3633df118df33517378049545ff440751fcc"
+    },
+    "guest-closure/debs/libsoup-3.0-common_3.4.4-5ubuntu0.9_all.deb": {
+      "bytes": 12284,
+      "sha256": "950de96545c81a4bcf9c67600c6c6b84fcf5fd680f87d4301a1e3dc1238474f0"
+    },
+    "guest-closure/debs/libspa-0.2-bluetooth_1.0.5-1ubuntu3.3_amd64.deb": {
+      "bytes": 329522,
+      "sha256": "4eb43a34effd1db945959302017f90fe0a49c5614c5a2d70d8048431a85ec88f"
+    },
+    "guest-closure/debs/libspa-0.2-modules_1.0.5-1ubuntu3.3_amd64.deb": {
+      "bytes": 627974,
+      "sha256": "1a19e23575b05e832f51d195c401360df11150185e86ddf3035daee2bc3ff3e2"
+    },
+    "guest-closure/debs/libspeex1_1.2.1-2ubuntu2.24.04.1_amd64.deb": {
+      "bytes": 59578,
+      "sha256": "12d57caab1e3fa847cd385a21c1044f7d38209e97b0f87372fe41e346c2c17f7"
+    },
+    "guest-closure/debs/libspeexdsp1_1.2.1-1ubuntu3_amd64.deb": {
+      "bytes": 43138,
+      "sha256": "c16ccd12c2964ca5f30bd25670651550cce2d611cce2952c4807de44244da5a1"
+    },
+    "guest-closure/debs/libsqlite3-0_3.45.1-1ubuntu2.8_amd64.deb": {
+      "bytes": 701602,
+      "sha256": "b1190bb72359f5fcc47406aa46065eaf4f1ca208085c51224a52b04bedc0b4bb"
+    },
+    "guest-closure/debs/libssh-4_0.10.6-2ubuntu0.5_amd64.deb": {
+      "bytes": 191284,
+      "sha256": "2448ce5f99e49721d12f8b227f2472dd08ed7a78184dd819fd03a42693024a16"
+    },
+    "guest-closure/debs/libssl3t64_3.0.13-0ubuntu3.16_amd64.deb": {
+      "bytes": 1945300,
+      "sha256": "219f43b1cd836a4da550938db5fda93160d269d39a4edcf1f1ce698a470db797"
+    },
+    "guest-closure/debs/libstartup-notification0_0.12-6build3_amd64.deb": {
+      "bytes": 18444,
+      "sha256": "f714955edd342684c88e17bc08df222ef50406373c026de1115271ea1aa24d58"
+    },
+    "guest-closure/debs/libstdc++6_14.2.0-4ubuntu2~24.04.1_amd64.deb": {
+      "bytes": 792064,
+      "sha256": "a51f8de7829211db961a31f02158058ad1a95f92ac6d0a5dff6350e2821c54c0"
+    },
+    "guest-closure/debs/libstemmer0d_2.2.0-4build1_amd64.deb": {
+      "bytes": 160766,
+      "sha256": "131d145e9b110df4b4b953b5ab7b95a6531fab86e6d4b461728a63860fe00d53"
+    },
+    "guest-closure/debs/libsystemd-shared_255.4-1ubuntu8.18_amd64.deb": {
+      "bytes": 2077180,
+      "sha256": "20210e06618cfc824b19ebc0e2163d72cd57509d947fa71aad8d53d78b808caa"
+    },
+    "guest-closure/debs/libsystemd0_255.4-1ubuntu8.18_amd64.deb": {
+      "bytes": 436342,
+      "sha256": "2da3fa28302cf007075e89cdc3aabe6973916afcd62c3884b86f67b77c73a5b4"
+    },
+    "guest-closure/debs/libtag1v5-vanilla_1.13.1-1build1_amd64.deb": {
+      "bytes": 325994,
+      "sha256": "36efe5ed6005253c7790f5f572ac7ef52727d4ed8530c9c9a64c5589b5eaf1b2"
+    },
+    "guest-closure/debs/libtag1v5_1.13.1-1build1_amd64.deb": {
+      "bytes": 11684,
+      "sha256": "dfafc78203c6aa87d852acceca7a2a8fe98c5d3fe961e09692e3578a911ba7e5"
+    },
+    "guest-closure/debs/libtalloc2_2.4.2-1build2_amd64.deb": {
+      "bytes": 27260,
+      "sha256": "c9728388084bdccdbcfb3e97358535431855f4ce57992c2a775534dc1bd4935f"
+    },
+    "guest-closure/debs/libtasn1-6_4.19.0-3ubuntu0.24.04.2_amd64.deb": {
+      "bytes": 44468,
+      "sha256": "f82c9ad142f952ea523bda5bfca7bb0802af3a50b8c0f0dd9ec18cdfa104bde7"
+    },
+    "guest-closure/debs/libtdb1_1.4.10-1build1_amd64.deb": {
+      "bytes": 46772,
+      "sha256": "5b647b74d61b8bfe32f7bc03ffd22bac146a557df0724bd8e361b09f55237860"
+    },
+    "guest-closure/debs/libtevent0t64_0.16.1-2build1_amd64.deb": {
+      "bytes": 42628,
+      "sha256": "42be6d518cb261943109e62065fd17437e13bffdaeb061d1985916456efce97a"
+    },
+    "guest-closure/debs/libtext-iconv-perl_1.7-8build3_amd64.deb": {
+      "bytes": 13478,
+      "sha256": "b5f873b2d90987a112107a17d0f91aa3234a16b78a0d48fd7b557a85c5606e08"
+    },
+    "guest-closure/debs/libthai-data_0.1.29-2build1_all.deb": {
+      "bytes": 158016,
+      "sha256": "6035d4a714290b97816bed7f3bf64921c6358ddb84d1dacdddccdc1cf39bffb7"
+    },
+    "guest-closure/debs/libthai0_0.1.29-2build1_amd64.deb": {
+      "bytes": 18914,
+      "sha256": "5ada7045c5f84a4b774e6449151800aa6470e8d01dc9d6124ef4a44ae6af5508"
+    },
+    "guest-closure/debs/libtheora0_1.1.1+dfsg.1-16.1build3_amd64.deb": {
+      "bytes": 211470,
+      "sha256": "8514bf3bb1496516b3bd0b2a5fc3ac9ea061e36360dcdfde52d51fa01c437b05"
+    },
+    "guest-closure/debs/libtiff6_4.5.1+git230720-4ubuntu2.5_amd64.deb": {
+      "bytes": 199612,
+      "sha256": "564cdf59dda5e1a826c51b5868ee2785fffa26ee5a7bad95bc5e8c8224c931b8"
+    },
+    "guest-closure/debs/libtinfo6_6.4+20240113-1ubuntu2.2_amd64.deb": {
+      "bytes": 108086,
+      "sha256": "b67a6df2bdab61d273eabebd208bb6a3fb12618a390a067e1ee305a409ff03d9"
+    },
+    "guest-closure/debs/libtirpc-common_1.3.4+ds-1.1build1_all.deb": {
+      "bytes": 8094,
+      "sha256": "212d8873ac952bc68f4cf56d7eaf17566f86f5c7cc4b971899a0c56e174699cc"
+    },
+    "guest-closure/debs/libtirpc3t64_1.3.4+ds-1.1build1_amd64.deb": {
+      "bytes": 82558,
+      "sha256": "3a3cd37160399ab235fdf2f13159fd288940abb9660e0ed1afb418b44c73d43a"
+    },
+    "guest-closure/debs/libtotem-plparser-common_3.26.6-1build5_all.deb": {
+      "bytes": 3790,
+      "sha256": "1aeee550b1b169cc54a2ca783b976dd7fcc4f4ffc250a889b7cb9d128abd578d"
+    },
+    "guest-closure/debs/libtotem-plparser18_3.26.6-1build5_amd64.deb": {
+      "bytes": 61850,
+      "sha256": "a74433d7569618db5d241f4073978d51c042be001f6ec7a89e8d2516a4d869b7"
+    },
+    "guest-closure/debs/libtracker-sparql-3.0-0_3.7.1-1build1_amd64.deb": {
+      "bytes": 330050,
+      "sha256": "43a037dbb4d16acf13e9380e06aa9565c50520645963cc221bf3aec09cc52009"
+    },
+    "guest-closure/debs/libtwolame0_0.4.0-2build3_amd64.deb": {
+      "bytes": 52338,
+      "sha256": "0dc3f4ae19623d92eb2c7a131737355cc385047fb8891a6ae380e4884e3442c0"
+    },
+    "guest-closure/debs/libu2f-udev_1.1.10-3build3_all.deb": {
+      "bytes": 3218,
+      "sha256": "bce62d6d0e9215f2d3efced60e2afbfd70834d606be1fa3b490a641b42b8d2a6"
+    },
+    "guest-closure/debs/libuchardet0_0.0.8-1build1_amd64.deb": {
+      "bytes": 75342,
+      "sha256": "e2c390d8c1843059922f7ff3a74106c5af6fbf03c94532c07de16bf5af256fb4"
+    },
+    "guest-closure/debs/libudev1_255.4-1ubuntu8.18_amd64.deb": {
+      "bytes": 177836,
+      "sha256": "6de7321adcc37068f8702fe6826473662df73c36377e00f07f7acfeca2e40d4a"
+    },
+    "guest-closure/debs/libudisks2-0_2.10.1-6ubuntu1.5_amd64.deb": {
+      "bytes": 175028,
+      "sha256": "177ad727eb13f5ec515a11f1936224a727774533c08bb371357b8dbc96c67662"
+    },
+    "guest-closure/debs/libunistring5_1.1-2build1.1_amd64.deb": {
+      "bytes": 535554,
+      "sha256": "203d7657b5f54633fba1a9c9b784d556ef83c9f6787b3185ba55a88e07b865a3"
+    },
+    "guest-closure/debs/libunity-protocol-private0_7.1.4+19.04.20190319-6build4_amd64.deb": {
+      "bytes": 87352,
+      "sha256": "01388c6ecbe4921196e56e01989b7e30b0f2bf33e3c6e9a77f3ac05794c7be7a"
+    },
+    "guest-closure/debs/libunity-scopes-json-def-desktop_7.1.4+19.04.20190319-6build4_all.deb": {
+      "bytes": 3406,
+      "sha256": "5c91afddbf1c079b9781a672a0b3675327f87e5c8ebcee21143d6fb54913f512"
+    },
+    "guest-closure/debs/libunity9_7.1.4+19.04.20190319-6build4_amd64.deb": {
+      "bytes": 215518,
+      "sha256": "34e64f9dc0729c7b321f62e54146ebcdf957cb8cee4566b8ebca2507e0de0b60"
+    },
+    "guest-closure/debs/libunwind8_1.6.2-3build1.1_amd64.deb": {
+      "bytes": 55254,
+      "sha256": "825cb8724bb6b3389587e30c03ab3381f56a2422cafe3b1945f37e055c65e942"
+    },
+    "guest-closure/debs/libupower-glib3_1.90.3-1_amd64.deb": {
+      "bytes": 39018,
+      "sha256": "67f14004338e80896924e00052959b13c0262a84d0379bff889bfe6239ada622"
+    },
+    "guest-closure/debs/libusb-1.0-0_2%3a1.0.27-1_amd64.deb": {
+      "bytes": 54008,
+      "sha256": "d59e679a82ee2b724c556397e831e879936adbe8a007705872b65a5e1ec887b5"
+    },
+    "guest-closure/debs/libusbmuxd6_2.0.2-4build3_amd64.deb": {
+      "bytes": 20312,
+      "sha256": "7370f350f059d6b3c8ab8b6a9f0044c0589fc0eb87551273b71b49cc771fbf9b"
+    },
+    "guest-closure/debs/libuuid1_2.39.3-9ubuntu6.6_amd64.deb": {
+      "bytes": 36596,
+      "sha256": "7e2992d3a79fc05514dc5966558ee9c66a7214a47edf2a36017b9e2777528665"
+    },
+    "guest-closure/debs/libuv1t64_1.48.0-1.1build1_amd64.deb": {
+      "bytes": 97288,
+      "sha256": "72a1856b30af1e533494ab90742a2446f4491b15ddebcade6661a6e8d61b4359"
+    },
+    "guest-closure/debs/libv4l-0t64_1.26.1-4build3_amd64.deb": {
+      "bytes": 46892,
+      "sha256": "0cafac8bb1fca1ae042cd11d40e06412a8958e1a6faf268df421f4762989a6d9"
+    },
+    "guest-closure/debs/libv4lconvert0t64_1.26.1-4build3_amd64.deb": {
+      "bytes": 87636,
+      "sha256": "67811cffddbf1e601f5630d733455a26c1cadb6bc28795e5b673be82b55113b4"
+    },
+    "guest-closure/debs/libvisual-0.4-0_0.4.2-2build1_amd64.deb": {
+      "bytes": 115008,
+      "sha256": "2d64a0df6994e18d4fa21af12acce6f09db69c437ac972c622c7801fe858419f"
+    },
+    "guest-closure/debs/libvolume-key1_0.3.12-7build2_amd64.deb": {
+      "bytes": 39776,
+      "sha256": "24a129989abc229bfb5fdaeac9a14b5d78163e18aa33f4ff174e2c5771a1da44"
+    },
+    "guest-closure/debs/libvorbis0a_1.3.7-1build3_amd64.deb": {
+      "bytes": 97554,
+      "sha256": "d704ac0a5dd7a9797a2f2dc86fc8333c9973023b98b3510dcd2f1cc00da3624d"
+    },
+    "guest-closure/debs/libvorbisenc2_1.3.7-1build3_amd64.deb": {
+      "bytes": 80818,
+      "sha256": "866c561fe81d4430a48c820f4e62f3cd138f4c8c7664f9203f02c1ced2eb55d4"
+    },
+    "guest-closure/debs/libvorbisfile3_1.3.7-1build3_amd64.deb": {
+      "bytes": 17092,
+      "sha256": "fa12c52814bbfddff78186e7300b535bed30db02e4532fafae969aa9e5a79316"
+    },
+    "guest-closure/debs/libvpx9_1.14.0-1ubuntu2.3_amd64.deb": {
+      "bytes": 1143252,
+      "sha256": "a8555944c01f7308f3436b6f109328ebe680969e72066eab0a1f4c82a95e1740"
+    },
+    "guest-closure/debs/libvte-2.91-0_0.76.0-1ubuntu0.1_amd64.deb": {
+      "bytes": 229622,
+      "sha256": "48a0aa9de99fdcdbcabf3a74f4c4f4072ce561c3e2c76ac349d4439a205d04c4"
+    },
+    "guest-closure/debs/libvte-2.91-common_0.76.0-1ubuntu0.1_amd64.deb": {
+      "bytes": 13530,
+      "sha256": "83b9048ec660d2a6078e4ee7bcad51c116e69645a6e78372736115db4d2bacaa"
+    },
+    "guest-closure/debs/libvulkan1_1.3.275.0-1build1_amd64.deb": {
+      "bytes": 142010,
+      "sha256": "ccf4fe8f4461442f27ea2494c7ae650b60bd396fec2688b0c44a27d66a222f74"
+    },
+    "guest-closure/debs/libwacom-common_2.10.0-2_all.deb": {
+      "bytes": 63364,
+      "sha256": "416099ceae870ec8ce13f875dfdf71f81a884b3641e404a74eafd378c15a78b4"
+    },
+    "guest-closure/debs/libwacom9_2.10.0-2_amd64.deb": {
+      "bytes": 23874,
+      "sha256": "87c707e4e7cbef1080b7c6cfb14acb0e5b0a4b07b19ce5545923952fbcf82298"
+    },
+    "guest-closure/debs/libwavpack1_5.6.0-1build1_amd64.deb": {
+      "bytes": 84580,
+      "sha256": "20b3bf66bdeac236db7255139d8fd2460bca90ddb9155fa30411fb05b6dfd4ec"
+    },
+    "guest-closure/debs/libwayland-client0_1.22.0-2.1build1_amd64.deb": {
+      "bytes": 26406,
+      "sha256": "6af0aed41d75149bea22fa468f01eb058ffe3e35ef07ff2f13fb88a90387881d"
+    },
+    "guest-closure/debs/libwayland-cursor0_1.22.0-2.1build1_amd64.deb": {
+      "bytes": 10406,
+      "sha256": "29c20da27e8e37c984cf0518635c11cd0441f4cb6a2919a9f6eee1809171d327"
+    },
+    "guest-closure/debs/libwayland-egl1_1.22.0-2.1build1_amd64.deb": {
+      "bytes": 5628,
+      "sha256": "76cd17d2776428e0a0551b8f8fd954eeb3d39ca8ed2f88a38a5e4ce3ce3b2f16"
+    },
+    "guest-closure/debs/libwayland-server0_1.22.0-2.1build1_amd64.deb": {
+      "bytes": 33928,
+      "sha256": "edbfa4b6857691ae922cc768a753fab230eee9e956aa2ce4f2eaa8d9ad777dca"
+    },
+    "guest-closure/debs/libwbclient0_2%3a4.19.5+dfsg-4ubuntu9.8_amd64.deb": {
+      "bytes": 72308,
+      "sha256": "3dd1634973ae87c38cf4989572042cec0f8cdbd5aab5b995aaf051079b9d1508"
+    },
+    "guest-closure/debs/libwebkit2gtk-4.1-0_2.52.6-0ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 25528616,
+      "sha256": "3b3f7e2c36c679fd60392f6526b8c5659d6c5db324ebe792003831dc8108ac03"
+    },
+    "guest-closure/debs/libwebkitgtk-6.0-4_2.52.6-0ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 25313952,
+      "sha256": "2b4a539b550be822058ff0060d0b164da9c7a5d48b875ed17dd9b12c6dc8000b"
+    },
+    "guest-closure/debs/libwebp7_1.3.2-0.4build3_amd64.deb": {
+      "bytes": 230220,
+      "sha256": "c86f6439f0bbc531f7199794654231f3b29327d6585958511b958795d51c2484"
+    },
+    "guest-closure/debs/libwebpdemux2_1.3.2-0.4build3_amd64.deb": {
+      "bytes": 12388,
+      "sha256": "15e98f127e1fdbf0889cf4b2f5604b60a6da0b988f20bf34731c9a2307d490d6"
+    },
+    "guest-closure/debs/libwebpmux3_1.3.2-0.4build3_amd64.deb": {
+      "bytes": 25674,
+      "sha256": "0dd0f2de0fbbda7239209332ddfe512f4383d0489dd3f9fb25398f58c1621724"
+    },
+    "guest-closure/debs/libwebrtc-audio-processing1_0.3.1-0ubuntu6_amd64.deb": {
+      "bytes": 290030,
+      "sha256": "3992aae1942c96122ed29791abb125a664495816c4d4b418b200f24ba05b087d"
+    },
+    "guest-closure/debs/libwhoopsie-preferences0_23build3_amd64.deb": {
+      "bytes": 14362,
+      "sha256": "96f85ae5b1bf44ba06fa404a12b239773e112329c3575220b7ea5d87dab5f142"
+    },
+    "guest-closure/debs/libwhoopsie0_0.2.77ubuntu0.1_amd64.deb": {
+      "bytes": 11012,
+      "sha256": "2f179a32b6510782cfab3bd1c8a9561846b49e1147ce0ccbfaa70d6077330d49"
+    },
+    "guest-closure/debs/libwireplumber-0.4-0_0.4.17-1ubuntu4.1_amd64.deb": {
+      "bytes": 246688,
+      "sha256": "ae61b929803e7e5076d3f524b2faf2baf2516b5c9d97731b20832f5725575d48"
+    },
+    "guest-closure/debs/libwrap0_7.6.q-33_amd64.deb": {
+      "bytes": 47874,
+      "sha256": "36118b862539868408ee056411d6e470068d14c46e5296b29bfb744770f5d2ce"
+    },
+    "guest-closure/debs/libx11-6_2%3a1.8.7-1ubuntu0.1_amd64.deb": {
+      "bytes": 653072,
+      "sha256": "9102f73477081a9a57994c80587ca9760341f644ed51bdfa46f2248083d418b3"
+    },
+    "guest-closure/debs/libx11-data_2%3a1.8.7-1ubuntu0.1_all.deb": {
+      "bytes": 115970,
+      "sha256": "5cb70f7a8e7178e0bae4fd49eee49feaed623d2d821caf6ea5862b66f9e9630b"
+    },
+    "guest-closure/debs/libx11-xcb1_2%3a1.8.7-1ubuntu0.1_amd64.deb": {
+      "bytes": 7796,
+      "sha256": "5ce7093e58aaaf753ed0904351a4e07f209e0c282ee8ef4f5f7988d0b40dccc1"
+    },
+    "guest-closure/debs/libxau6_1%3a1.0.9-1build6_amd64.deb": {
+      "bytes": 7160,
+      "sha256": "e40d29f1d1a62393bacaedebe0da3d9006084152a9f7e5e029293f08ce1c5c80"
+    },
+    "guest-closure/debs/libxaw7_2%3a1.0.14-1build2_amd64.deb": {
+      "bytes": 186984,
+      "sha256": "2a9cdc82ecf566de76e05394efc604c9cced49e12c28b10e1ca101062b47bac0"
+    },
+    "guest-closure/debs/libxcb-damage0_1.15-1ubuntu2_amd64.deb": {
+      "bytes": 4980,
+      "sha256": "d028756c2a2059c7f034c5e39a4a121c3664ddd39ff69feca04d99329bcbdf7f"
+    },
+    "guest-closure/debs/libxcb-dri3-0_1.15-1ubuntu2_amd64.deb": {
+      "bytes": 7142,
+      "sha256": "3d3d0e95e56ae16010a84883196b8153cba62d6831f9aaee2a68c46f20c7c004"
+    },
+    "guest-closure/debs/libxcb-glx0_1.15-1ubuntu2_amd64.deb": {
+      "bytes": 24774,
+      "sha256": "d07cde26c70fe92df7c327928371e495cc4570fed2d6518758a5db5715cb34c1"
+    },
+    "guest-closure/debs/libxcb-present0_1.15-1ubuntu2_amd64.deb": {
+      "bytes": 5676,
+      "sha256": "2e36e6557e87dbfd64df3143cbf81a4f75c3447501a545b4730511d228b0dd17"
+    },
+    "guest-closure/debs/libxcb-randr0_1.15-1ubuntu2_amd64.deb": {
+      "bytes": 17862,
+      "sha256": "b5cb519823a05a617b543dc9b6a9289b7648b20048244abe021caa706309835a"
+    },
+    "guest-closure/debs/libxcb-render0_1.15-1ubuntu2_amd64.deb": {
+      "bytes": 16230,
+      "sha256": "7d83a0668b1a693b5ea2e496206e8371fb6beda4c54a2b4b3902005915c272c5"
+    },
+    "guest-closure/debs/libxcb-res0_1.15-1ubuntu2_amd64.deb": {
+      "bytes": 6682,
+      "sha256": "da25049a081ffd88b3389758b743eae177e4c46ce77a1d9714783e85b0e97acd"
+    },
+    "guest-closure/debs/libxcb-shape0_1.15-1ubuntu2_amd64.deb": {
+      "bytes": 6100,
+      "sha256": "ad57fed687ec9c2a4808b8e30ab1753d57daeddc9ad7fb883bfa0701f6da57c8"
+    },
+    "guest-closure/debs/libxcb-shm0_1.15-1ubuntu2_amd64.deb": {
+      "bytes": 5756,
+      "sha256": "229d1280d459f1ba44c22939d3f9b61d9d20932d9a646b3fe4ce50be4cdf2325"
+    },
+    "guest-closure/debs/libxcb-sync1_1.15-1ubuntu2_amd64.deb": {
+      "bytes": 9312,
+      "sha256": "14286795a258593259923619073e50c15345673befae2733f7b0577b07359aa8"
+    },
+    "guest-closure/debs/libxcb-util1_0.4.0-1build3_amd64.deb": {
+      "bytes": 10678,
+      "sha256": "b6ff05729519514bddcbcd460f8be7e55c986daa5a97ecdc612b2815614194ab"
+    },
+    "guest-closure/debs/libxcb-xfixes0_1.15-1ubuntu2_amd64.deb": {
+      "bytes": 10190,
+      "sha256": "0b2ab64af92a71e3d1a35e3c819880ee28d04bfac81360df68ae8d8e9663ebd2"
+    },
+    "guest-closure/debs/libxcb-xkb1_1.15-1ubuntu2_amd64.deb": {
+      "bytes": 32302,
+      "sha256": "53bc0a58834c981fa8ce5c3ab6195387e5c8a417039d82cc7a8b49724fa53228"
+    },
+    "guest-closure/debs/libxcb1_1.15-1ubuntu2_amd64.deb": {
+      "bytes": 47730,
+      "sha256": "e1c6611d11ad7398326f1bf028afc34c3b14c51d917a3426b966ed4b9687fa58"
+    },
+    "guest-closure/debs/libxcomposite1_1%3a0.4.5-1build3_amd64.deb": {
+      "bytes": 6320,
+      "sha256": "a12d5d9ae70b798cbbf284080eae32b87367561fc9c24492f641b8860ac0f308"
+    },
+    "guest-closure/debs/libxcursor1_1%3a1.2.1-1build1_amd64.deb": {
+      "bytes": 20748,
+      "sha256": "1a4beee621454e42fe0d2f4e1633611126e43d891f0aec28e4a06744f6e9f04d"
+    },
+    "guest-closure/debs/libxcvt0_0.1.2-1build1_amd64.deb": {
+      "bytes": 5684,
+      "sha256": "73215b31e1585e042aa2b9dc97cf4dfcfc6287fb0f6eca8bcab0b1f30a51c8e7"
+    },
+    "guest-closure/debs/libxdamage1_1%3a1.1.6-1build1_amd64.deb": {
+      "bytes": 6150,
+      "sha256": "6891faf325e996ebd28ef53ebb9c043dc96f67327500490affc3e89d366d35ed"
+    },
+    "guest-closure/debs/libxdmcp6_1%3a1.1.3-0ubuntu6_amd64.deb": {
+      "bytes": 10254,
+      "sha256": "bcd336fce11ce2a45f34d0f95e6980af22529f22147e8f98c156e5cee8ee42bb"
+    },
+    "guest-closure/debs/libxext6_2%3a1.3.4-1build2_amd64.deb": {
+      "bytes": 30406,
+      "sha256": "45783969a9ece9d7b7b733b8c60981584c53c6bc5ee3b42d295d2f80d1285679"
+    },
+    "guest-closure/debs/libxfixes3_1%3a6.0.0-2build1_amd64.deb": {
+      "bytes": 10764,
+      "sha256": "0ee1015cccd063249e01c0cd0bf45f513c8ac9a1e5e485070c12e69192455e4a"
+    },
+    "guest-closure/debs/libxfont2_1%3a2.0.6-1+deb13u1build0.24.04.2_amd64.deb": {
+      "bytes": 93972,
+      "sha256": "e2ed49a20ccff6ffa52719a6cd118538e24c434d9035acd7fb736e7e4f8d6485"
+    },
+    "guest-closure/debs/libxft2_2.3.6-1build1_amd64.deb": {
+      "bytes": 45280,
+      "sha256": "b4f4f3255c0b8773b260c61cbe20ee7c63799cfc0e4e389fa58375dd480b093a"
+    },
+    "guest-closure/debs/libxi6_2%3a1.8.1-1build1_amd64.deb": {
+      "bytes": 32404,
+      "sha256": "0ea7acb5e8a8ce4d6653b30e03a319bfe136db7bfb5ee7cad34c2aa1272ea8d9"
+    },
+    "guest-closure/debs/libxinerama1_2%3a1.1.4-3build1_amd64.deb": {
+      "bytes": 6396,
+      "sha256": "c8c93a3efdbb06e314f41bf48af4ca3652e4a3826bab5b9e00887660e619f239"
+    },
+    "guest-closure/debs/libxkbcommon-x11-0_1.6.0-1build1_amd64.deb": {
+      "bytes": 14536,
+      "sha256": "3befe840ce612ddfc0998d8610c6eed295726722a78e75cd08520bbd75065a23"
+    },
+    "guest-closure/debs/libxkbcommon0_1.6.0-1build1_amd64.deb": {
+      "bytes": 121944,
+      "sha256": "2b9caeb423efb540296a1cb20b872cc630c23908407ecb5c1c787a617622d664"
+    },
+    "guest-closure/debs/libxkbfile1_1%3a1.1.0-1build4_amd64.deb": {
+      "bytes": 70010,
+      "sha256": "22ac5b7dca740e606261cebdfaf1a07738e92ad3d123570694374ddb4d5afea2"
+    },
+    "guest-closure/debs/libxkbregistry0_1.6.0-1build1_amd64.deb": {
+      "bytes": 14232,
+      "sha256": "6911037a581872628eadcffdd3c0771db35fdce7bae7fc23b637623bf8a8f136"
+    },
+    "guest-closure/debs/libxml2_2.9.14+dfsg-1.3ubuntu3.10_amd64.deb": {
+      "bytes": 763592,
+      "sha256": "c5a065f85c1e6f605741e365e40cad71c3ceb0e85e2791400bd35b8896e12ad1"
+    },
+    "guest-closure/debs/libxmlb2_0.3.24-1~ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 67596,
+      "sha256": "69916d794b0aad84ae3d4a7d08caa06e595bcd99c80af32c9b3eaa2eba342d4c"
+    },
+    "guest-closure/debs/libxmu6_2%3a1.1.3-3build2_amd64.deb": {
+      "bytes": 47610,
+      "sha256": "05c13bce0e9a80139dfa72cc8e7a695b4f7d58b1884423929eade62179d99853"
+    },
+    "guest-closure/debs/libxmuu1_2%3a1.1.3-3build2_amd64.deb": {
+      "bytes": 8958,
+      "sha256": "27428f8d7b63c38424177d5b3b8b2b89d519956ccfe969927cd0a20cdec977c0"
+    },
+    "guest-closure/debs/libxpm4_1%3a3.5.17-1ubuntu0.24.04.2_amd64.deb": {
+      "bytes": 36684,
+      "sha256": "e14b1581dc675ded6519132f5fccb31b39d534117399d3153082e353b6fe2704"
+    },
+    "guest-closure/debs/libxrandr2_2%3a1.5.2-2build1_amd64.deb": {
+      "bytes": 19670,
+      "sha256": "f2955a5e594f5724b58ad241d9231ea191cb36574a0d5e5ca6b661cd41d6256d"
+    },
+    "guest-closure/debs/libxrender1_1%3a0.9.10-1.1build1_amd64.deb": {
+      "bytes": 19016,
+      "sha256": "d70bd831aebe8d4834b5dd2ed98df26dd6bd27f1042c47543bd7f66df1ae22ea"
+    },
+    "guest-closure/debs/libxshmfence1_1.3-1build5_amd64.deb": {
+      "bytes": 4764,
+      "sha256": "bc6de4bfaf9050a8ba83d4bcfb114131b081084a7972c03417f8523d52b5c742"
+    },
+    "guest-closure/debs/libxslt1.1_1.1.39-0exp1ubuntu0.24.04.3_amd64.deb": {
+      "bytes": 167806,
+      "sha256": "e716daf96ea2526cab92e5cc4708739d5f2f4b89fb76782dfda7f49283eeeb40"
+    },
+    "guest-closure/debs/libxt6t64_1%3a1.2.1-1.2build1_amd64.deb": {
+      "bytes": 170810,
+      "sha256": "2e4317d5ae1a45e517771ea0b8d93519b5f915ab08983facecd480d64dbd1489"
+    },
+    "guest-closure/debs/libxtst6_2%3a1.2.3-1.1ubuntu0.1_amd64.deb": {
+      "bytes": 12556,
+      "sha256": "2340688e034d5dd3f5ec180b1bed32407de16db1679ce85cec3e2d34625f50dd"
+    },
+    "guest-closure/debs/libxv1_2%3a1.0.11-1.1build1_amd64.deb": {
+      "bytes": 10672,
+      "sha256": "ddf5c60268d58fe0c57e80f241d6fa5e73ae2096a137c4d2de42f97cb379ece6"
+    },
+    "guest-closure/debs/libxxf86dga1_2%3a1.1.5-1build1_amd64.deb": {
+      "bytes": 11626,
+      "sha256": "bc029b3f329fa95ee46f8b8b826d703971ab74c1c688f8bc74d222db257f9f20"
+    },
+    "guest-closure/debs/libxxf86vm1_1%3a1.1.4-1build4_amd64.deb": {
+      "bytes": 9282,
+      "sha256": "48b2799f52b86505d2bc91dcb1bfa6536545635b9849cb693d274d934116a8da"
+    },
+    "guest-closure/debs/libxxhash0_0.8.2-2build1_amd64.deb": {
+      "bytes": 24056,
+      "sha256": "75de256c2d162dfc541beb69a83f025742cd13329262af9059eff3ca42a53239"
+    },
+    "guest-closure/debs/libyaml-0-2_0.2.5-1build1_amd64.deb": {
+      "bytes": 51492,
+      "sha256": "f5271b120d936dcc7ddf17b9e718df41d55386a6075555d0c634925eaef0b2ac"
+    },
+    "guest-closure/debs/libyelp0_42.2-1ubuntu0.24.04.2_amd64.deb": {
+      "bytes": 100578,
+      "sha256": "76dcbdd1be657170b9bd1811ea1d0a2688c38766dbc187340c92d77fbb5bd7b9"
+    },
+    "guest-closure/debs/libzstd1_1.5.5+dfsg2-2build1.1_amd64.deb": {
+      "bytes": 299472,
+      "sha256": "dfcf25061e07aad7efd3f4f880ba5ad4d4d09ebe7fc8cc77ab6b8a161d6d4727"
+    },
+    "guest-closure/debs/linux-sound-base_1.0.25+dfsg-0ubuntu7_all.deb": {
+      "bytes": 13344,
+      "sha256": "62cbc8c16ffb26ad8696cafe723dc61c88acf24a360993410e6e91938c3cbc54"
+    },
+    "guest-closure/debs/lsb-base_11.6_all.deb": {
+      "bytes": 4606,
+      "sha256": "08a563e3c1984acdb295f12b77b4ec18d2ccf52fd03280a5bea29e506a3350ee"
+    },
+    "guest-closure/debs/lsb-release_12.0-2_all.deb": {
+      "bytes": 6564,
+      "sha256": "0ae566092f2d6f3000ce25a7a68497a97b637abf8dc25cbdf961c8ee66e562a7"
+    },
+    "guest-closure/debs/lsof_4.95.0-1build3_amd64.deb": {
+      "bytes": 246736,
+      "sha256": "46165f06b9568f9e2718f1fdd3d3a8db46aa597f5ff163c1d21c0d1daa12191d"
+    },
+    "guest-closure/debs/man-db_2.12.0-4build2_amd64.deb": {
+      "bytes": 1236636,
+      "sha256": "d7ce31173a73bd3a93b7216a837a2e8641fff3fd7ae2dfc0ca705dbabe03e92b"
+    },
+    "guest-closure/debs/mawk_1.3.4.20240123-1build1_amd64.deb": {
+      "bytes": 127222,
+      "sha256": "dc7f7f4dad4b48f6012ea65de3198d8376604afef39f06d65ec6167740e203c9"
+    },
+    "guest-closure/debs/media-types_10.1.0_all.deb": {
+      "bytes": 27474,
+      "sha256": "31bfb7eec55ab6d34a50ba995150e1498d4cb897714085d8025e330d3b529747"
+    },
+    "guest-closure/debs/mesa-libgallium_25.2.8-0ubuntu0.24.04.4_amd64.deb": {
+      "bytes": 10783312,
+      "sha256": "0c50c3c18c1b3f3ac4243bbf1533c9202f9d7b4f646807e9ef0df4c801414256"
+    },
+    "guest-closure/debs/mount_2.39.3-9ubuntu6.6_amd64.deb": {
+      "bytes": 118192,
+      "sha256": "09e929ceb9fc5d11757f28429b3151601c44db4c96e0bc5ad46c501c8d56f4f9"
+    },
+    "guest-closure/debs/mutter-common-bin_46.2-1ubuntu0.24.04.18_amd64.deb": {
+      "bytes": 53790,
+      "sha256": "60dcb3bebe44bd77b779d51e9fe8d9990c0c03d16ce8b707f15bda4684633b1c"
+    },
+    "guest-closure/debs/mutter-common_46.2-1ubuntu0.24.04.18_all.deb": {
+      "bytes": 50852,
+      "sha256": "e001cb608a52da066be87269ba7789c7ece1602341e1024d4452a15d4036e414"
+    },
+    "guest-closure/debs/nautilus-data_1%3a46.4-0ubuntu0.2_all.deb": {
+      "bytes": 18056,
+      "sha256": "2e9339bcba5c31df4423ba0495a7ab8539380fb958d64f0703ff599afed3138e"
+    },
+    "guest-closure/debs/nautilus_1%3a46.4-0ubuntu0.2_amd64.deb": {
+      "bytes": 510116,
+      "sha256": "da412ab49451fa6a85472298e32a50bc5ee3b100f880716f97552cd7e1d0271d"
+    },
+    "guest-closure/debs/netbase_6.4_all.deb": {
+      "bytes": 13112,
+      "sha256": "8cdbc9c3dca01e660759bf9d840f72e45ac72faf5d19ca1faecacaf6a60c1a87"
+    },
+    "guest-closure/debs/openprinting-ppds_20230202-1_all.deb": {
+      "bytes": 5396066,
+      "sha256": "6202c3d6421bc75b481c5703fd9a766a0b4608e3c8d76de56a370504d1d35dee"
+    },
+    "guest-closure/debs/openssh-client_1%3a9.6p1-3ubuntu13.20_amd64.deb": {
+      "bytes": 908792,
+      "sha256": "5fb4429e9eff60a5b4ddb68ccf0c46ee67066b445794ede5fe181e64c4a8b795"
+    },
+    "guest-closure/debs/openssh-server_1%3a9.6p1-3ubuntu13.20_amd64.deb": {
+      "bytes": 511546,
+      "sha256": "5d0d5eb672ddc27601e2da4e8465c5736dc73375a21bc1cd1834fcb08fb155bf"
+    },
+    "guest-closure/debs/openssh-sftp-server_1%3a9.6p1-3ubuntu13.20_amd64.deb": {
+      "bytes": 37350,
+      "sha256": "111fb22cab9abf220b681f97eefa195ccfacef7d85561772ecef22e88db2d7bb"
+    },
+    "guest-closure/debs/openssl_3.0.13-0ubuntu3.16_amd64.deb": {
+      "bytes": 1003702,
+      "sha256": "675b84971ffd4467707008c25ef7520f90ea7c23ef27b7a76b0dccf1d7c4dc3f"
+    },
+    "guest-closure/debs/packagekit_1.2.8-2ubuntu1.5_amd64.deb": {
+      "bytes": 433842,
+      "sha256": "7731a59a7c9acbd0e32d957184ffd3bfc0034a68ba6309f22b7d177ca14067a7"
+    },
+    "guest-closure/debs/parted_3.6-4build1_amd64.deb": {
+      "bytes": 43322,
+      "sha256": "5029269a0aee1b5d94dff101fcb3cc4832625668213d05d9029b342734bd0158"
+    },
+    "guest-closure/debs/passwd_1%3a4.13+dfsg1-4ubuntu3.2_amd64.deb": {
+      "bytes": 844580,
+      "sha256": "139b51228c8065eefa3051f649d8480eb986f1cf629448e49d2eaf9813318412"
+    },
+    "guest-closure/debs/patch_2.7.6-7build3_amd64.deb": {
+      "bytes": 104048,
+      "sha256": "fb7d78ed25c2788a607802270f3c28ac5ed6857bfb6cce9f73ad2cafac9159b3"
+    },
+    "guest-closure/debs/pci.ids_0.0~2024.03.31-1ubuntu0.1_all.deb": {
+      "bytes": 275208,
+      "sha256": "1b8e5abfbd8d38c66cee2ecb843b26413d0a80e2844d2dbabf0197ab3dee9168"
+    },
+    "guest-closure/debs/pciutils_1%3a3.10.0-2build1_amd64.deb": {
+      "bytes": 69712,
+      "sha256": "f3a2f1237f611258684a4f7789c5b75f4c7f172988feebf990ef593f54bac324"
+    },
+    "guest-closure/debs/perl-base_5.38.2-3.2ubuntu0.6_amd64.deb": {
+      "bytes": 1825574,
+      "sha256": "50e1b2c2646387a94664fbea144af1d1b16cf6e0778426baa198166ca3246697"
+    },
+    "guest-closure/debs/perl-modules-5.38_5.38.2-3.2ubuntu0.6_all.deb": {
+      "bytes": 3110182,
+      "sha256": "9c4c90145209d4f85be9255417008e8decb9cd5d189f446fd39ad096e31199cf"
+    },
+    "guest-closure/debs/perl_5.38.2-3.2ubuntu0.6_amd64.deb": {
+      "bytes": 231438,
+      "sha256": "1a2341674a1c69e3247537ab243dc3d5878b74a39a696964232e1a4f5a27502d"
+    },
+    "guest-closure/debs/pinentry-curses_1.2.1-3ubuntu5_amd64.deb": {
+      "bytes": 35244,
+      "sha256": "d3df9109d1e8e4ca05630f3a6fb7d2231f71d97fc4205d0681e1c421cc77ce41"
+    },
+    "guest-closure/debs/pipewire-alsa_1.0.5-1ubuntu3.3_amd64.deb": {
+      "bytes": 48480,
+      "sha256": "86ad355d63e9ba352820f97225afb4c83b53be33f294b90cc443d2992c6f216a"
+    },
+    "guest-closure/debs/pipewire-audio_1.0.5-1ubuntu3.3_all.deb": {
+      "bytes": 4086,
+      "sha256": "dff8016d40d397c083a1b2ece53eb80c6acb757fbe82cb00fea4e67a01414a96"
+    },
+    "guest-closure/debs/pipewire-bin_1.0.5-1ubuntu3.3_amd64.deb": {
+      "bytes": 365188,
+      "sha256": "5d8aee0d1bf6d7696a2711b3cbc1c4a6a6d0660b83032ce841099b49f2217f04"
+    },
+    "guest-closure/debs/pipewire-pulse_1.0.5-1ubuntu3.3_amd64.deb": {
+      "bytes": 8454,
+      "sha256": "b7ccd7f1c5608523a74293ca037e3f84a1149e740e483a23d820632bceb2998c"
+    },
+    "guest-closure/debs/pipewire_1.0.5-1ubuntu3.3_amd64.deb": {
+      "bytes": 90088,
+      "sha256": "cfcbfe39dfbba3e6e906f930ee7f59294dedb418a8fc758e73bb2728084e6e13"
+    },
+    "guest-closure/debs/pkexec_124-2ubuntu1.24.04.4_amd64.deb": {
+      "bytes": 15870,
+      "sha256": "6a76aec2b5a5958398e4849f8130f8ab02d414058d5c705232fd84309d90349f"
+    },
+    "guest-closure/debs/policykit-1_124-2ubuntu1.24.04.4_amd64.deb": {
+      "bytes": 3526,
+      "sha256": "b1dacdc220317f7beaacbcdd176ef2b66a2baef80f3ea468af21313e42b16e1c"
+    },
+    "guest-closure/debs/polkitd_124-2ubuntu1.24.04.4_amd64.deb": {
+      "bytes": 95806,
+      "sha256": "67f33d33ef0253a85297d77945e6b402027a58dea6cc2f18bb6fd2774f1068a6"
+    },
+    "guest-closure/debs/poppler-data_0.4.12-1_all.deb": {
+      "bytes": 2059856,
+      "sha256": "1a34af9cae9fcf9b05b1527c8985b06aad70f4fc546442bdc3d6e5bc70673206"
+    },
+    "guest-closure/debs/printer-driver-pnm2ppa_1.13+nondbs-0ubuntu10_amd64.deb": {
+      "bytes": 249714,
+      "sha256": "cbb6f79d3d921aced7c48c3225bd1a898bdb7a216944315a9ce383037631a417"
+    },
+    "guest-closure/debs/procps_2%3a4.0.4-4ubuntu3.3_amd64.deb": {
+      "bytes": 707170,
+      "sha256": "08d7baeff0285804178a8ed99b49514f210d38881bd118157cd9e222646c17a5"
+    },
+    "guest-closure/debs/python-apt-common_2.7.7ubuntu5.3_all.deb": {
+      "bytes": 20456,
+      "sha256": "ee46d9a2cfb887c4e3b017137711c84d7a336e388e55c6af1870ad93d57eb373"
+    },
+    "guest-closure/debs/python3-apport_2.28.3-0ubuntu0.1_all.deb": {
+      "bytes": 93698,
+      "sha256": "285a2fe343de172af4ff36992ea6028a63567eaf3535f36063a9ebb5271ce8ff"
+    },
+    "guest-closure/debs/python3-apt_2.7.7ubuntu5.3_amd64.deb": {
+      "bytes": 169284,
+      "sha256": "f240266ebe34ec2562c277c4257b032a8546b479337fdba1536a8d19804d0eb2"
+    },
+    "guest-closure/debs/python3-aptdaemon.gtk3widgets_1.1.1+bzr982-0ubuntu44_all.deb": {
+      "bytes": 13054,
+      "sha256": "dd04e96771ba87db02d641e35843dfd23112345760a3d1bc2ecf3eaef70a3cfc"
+    },
+    "guest-closure/debs/python3-aptdaemon_1.1.1+bzr982-0ubuntu44_all.deb": {
+      "bytes": 77838,
+      "sha256": "4aee98f94a5eb9411b52128c0268c7aac86e066d8465adefa103ce958165f76a"
+    },
+    "guest-closure/debs/python3-blinker_1.7.0-1_all.deb": {
+      "bytes": 14312,
+      "sha256": "bb671458cb2ef3fca3ba8819e03d318a7821870ecd508de8921afcf0190356f2"
+    },
+    "guest-closure/debs/python3-certifi_2023.11.17-1_all.deb": {
+      "bytes": 164904,
+      "sha256": "1a7ee6751fdc263319f4a2e559e8104f7a1e9af0cdb9926e5a145ebfec0dd148"
+    },
+    "guest-closure/debs/python3-cffi-backend_1.16.0-2build1_amd64.deb": {
+      "bytes": 77292,
+      "sha256": "a49f5e49b15146f6b2217cb3b6e6d62c503b02a7b271295e6d569d483ccdf687"
+    },
+    "guest-closure/debs/python3-chardet_5.2.0+dfsg-1_all.deb": {
+      "bytes": 116904,
+      "sha256": "042ec127434ad634a1f312514680b8d0de7bd1e9733b255d93170a6bb843a043"
+    },
+    "guest-closure/debs/python3-click_8.1.6-2_all.deb": {
+      "bytes": 79018,
+      "sha256": "174eddcab141d350cf3c8386f5603d51346dcd181714c341ebb18336193fc8b7"
+    },
+    "guest-closure/debs/python3-colorama_0.4.6-4_all.deb": {
+      "bytes": 32082,
+      "sha256": "ff2c58893bfaf6dfad356c3c19a5d6575be38b4ee920c64c462078dca3c3c721"
+    },
+    "guest-closure/debs/python3-cryptography_41.0.7-4ubuntu0.4_amd64.deb": {
+      "bytes": 815068,
+      "sha256": "8fa33b608a16df054bf26ea3a653b1d512ab745d01e56fa938673ebc8c727060"
+    },
+    "guest-closure/debs/python3-dateutil_2.8.2-3ubuntu1_all.deb": {
+      "bytes": 79432,
+      "sha256": "cdee46578ba57ad77ade552a1c8b92d7b9350384c60564cc22aafb898c517d68"
+    },
+    "guest-closure/debs/python3-dbus_1.3.2-5build3_amd64.deb": {
+      "bytes": 100066,
+      "sha256": "45c94c9c4eda925a285dff3c1da01bd93b1467c8a83b10d764398ea8a8306419"
+    },
+    "guest-closure/debs/python3-debconf_1.5.86ubuntu1_all.deb": {
+      "bytes": 4158,
+      "sha256": "88bca2b9ace3465bcedf4e3cc53242c0ffcd6663bba3dce18666192a15b51584"
+    },
+    "guest-closure/debs/python3-debian_0.1.49ubuntu2_all.deb": {
+      "bytes": 114812,
+      "sha256": "5c84f0e08bc68517b28d5dd116d985ae9e644759355f9ef97063ab62d4da8a3b"
+    },
+    "guest-closure/debs/python3-defer_1.0.6-2.1ubuntu1_all.deb": {
+      "bytes": 11030,
+      "sha256": "ee6b5cc78f3e2d5b408b1e54ad21cd5031858287f21f591c69ba9dc03d21f969"
+    },
+    "guest-closure/debs/python3-distro-info_1.7build1_all.deb": {
+      "bytes": 7076,
+      "sha256": "41075b12af4a3f0acf8673dbb3224b2d989ae1a125201ad217a70db818c9eff5"
+    },
+    "guest-closure/debs/python3-distro_1.9.0-1_all.deb": {
+      "bytes": 19012,
+      "sha256": "eca0e60a27431b6f5d13067e9c78441d38c19108e4896da6f512adc6193d269a"
+    },
+    "guest-closure/debs/python3-distupgrade_1%3a24.04.29_all.deb": {
+      "bytes": 124666,
+      "sha256": "dc26117e19c9ae8ce4b3152054381e8c9f25f2d0747a8db13092cf9c26619eb5"
+    },
+    "guest-closure/debs/python3-gi_3.48.2-1_amd64.deb": {
+      "bytes": 232016,
+      "sha256": "2a69ad9d8ab3b5801725480986b9abbf83bd4a06c38450fe143f6689d19d4bd8"
+    },
+    "guest-closure/debs/python3-httplib2_0.20.4-3ubuntu0.1_all.deb": {
+      "bytes": 33234,
+      "sha256": "49b9bc8c0190f506d97605623cff309f98be845e650f8d18440147deae5c77de"
+    },
+    "guest-closure/debs/python3-idna_3.6-2ubuntu0.2_all.deb": {
+      "bytes": 49730,
+      "sha256": "9094258aba489349e87bbd3ed561c727c5c19f6b940835a431b4f89bae32c602"
+    },
+    "guest-closure/debs/python3-jwt_2.7.0-1ubuntu0.4_all.deb": {
+      "bytes": 23250,
+      "sha256": "4c5a995c435a69853ab1e93a61ded8ebef63ecf6806e6ad391ab598e8f2b579e"
+    },
+    "guest-closure/debs/python3-launchpadlib_1.11.0-6_all.deb": {
+      "bytes": 126540,
+      "sha256": "5c6eacd5deae0da0839a614e7c80ec371a0b5d1482af96ca952ff71a33804979"
+    },
+    "guest-closure/debs/python3-lazr.restfulclient_0.14.6-1_all.deb": {
+      "bytes": 50788,
+      "sha256": "a8898636573c29de3e0f4b4de74281cc8a792ddedcb3cc5065c3ef952e6b53e1"
+    },
+    "guest-closure/debs/python3-lazr.uri_1.0.6-3_all.deb": {
+      "bytes": 13492,
+      "sha256": "57efe41f87535afbb226f13755cf8a8e7d41f1c646ef70b982d93a4eb67ad782"
+    },
+    "guest-closure/debs/python3-minimal_3.12.3-0ubuntu2.1_amd64.deb": {
+      "bytes": 27442,
+      "sha256": "9ba5dd55cdcf6121c147dc5cb87403169b5933e3a56da0de57774f2ce819cf06"
+    },
+    "guest-closure/debs/python3-oauthlib_3.2.2-1_all.deb": {
+      "bytes": 89666,
+      "sha256": "de2429f930ca495315d06eba8646ef5299c8cf3848f31afb948856639dca79ff"
+    },
+    "guest-closure/debs/python3-pkg-resources_68.1.2-2ubuntu1.2_all.deb": {
+      "bytes": 167914,
+      "sha256": "13caaa69d5ba8b02e90087d4bcef714c0581e591e820804d15d12f582055147a"
+    },
+    "guest-closure/debs/python3-problem-report_2.28.3-0ubuntu0.1_all.deb": {
+      "bytes": 26544,
+      "sha256": "086f3998727cad0aff452385e9cedc0e9fd84cb61bb29c1bc49bbf61e21abe8f"
+    },
+    "guest-closure/debs/python3-pyparsing_3.1.1-1_all.deb": {
+      "bytes": 86192,
+      "sha256": "ec2395b1fe34a7a828f5cfabc4262217f6a86fb6ecb993fc18fbad3fc9edabba"
+    },
+    "guest-closure/debs/python3-requests_2.31.0+dfsg-1ubuntu1.2_all.deb": {
+      "bytes": 50798,
+      "sha256": "ee4785403eecf620f91cc0724b3017a5893f474f3dd3a521a13e15ef33ab5669"
+    },
+    "guest-closure/debs/python3-six_1.16.0-4_all.deb": {
+      "bytes": 12410,
+      "sha256": "54e6bb624a89feccbcf6bc16f0641b9aa24231dd1988d4e0b50f430b44a7a1ae"
+    },
+    "guest-closure/debs/python3-software-properties_0.99.49.4_all.deb": {
+      "bytes": 30004,
+      "sha256": "856df960f441aee189ac1851d79838bc3dc3287b4f48a4c2d5e56d47b93d41bd"
+    },
+    "guest-closure/debs/python3-update-manager_1%3a24.04.12_all.deb": {
+      "bytes": 43442,
+      "sha256": "55ee1fa2ac721e940a6e4f2e638b56a5364c0fc5525e661e0a5ceb758f1150d1"
+    },
+    "guest-closure/debs/python3-urllib3_2.0.7-1ubuntu0.8_all.deb": {
+      "bytes": 95900,
+      "sha256": "ea97aaa35a8d55fcdba5a00984bf6ecf35e632e70a9c120e6b195a876c221700"
+    },
+    "guest-closure/debs/python3-wadllib_1.3.6-5_all.deb": {
+      "bytes": 35856,
+      "sha256": "39d92d3a942b42a7a96e08ac09d20cbacb9138c407bdff02aec5ac4379159fe4"
+    },
+    "guest-closure/debs/python3-xkit_0.5.0ubuntu6_all.deb": {
+      "bytes": 17366,
+      "sha256": "e27fc3ae06b94dca90d77d31b22825bc620ba01e3252ba2103908b90bcc0ecf0"
+    },
+    "guest-closure/debs/python3-yaml_6.0.1-2build2_amd64.deb": {
+      "bytes": 122568,
+      "sha256": "315e59500af855f23ee4e95525b99009bd798c4d2658af8eb4b2d66a8a91ec23"
+    },
+    "guest-closure/debs/python3.12-minimal_3.12.3-1ubuntu0.17_amd64.deb": {
+      "bytes": 2334634,
+      "sha256": "d452689b9660845345a4c3e05e4ad82c082d5474e04031b7aa47f1a6d5610a6e"
+    },
+    "guest-closure/debs/python3.12_3.12.3-1ubuntu0.17_amd64.deb": {
+      "bytes": 650732,
+      "sha256": "6745c9463432e619d7402b117ad4ac86c31dcd3999ba20daa9e395f6f9909d86"
+    },
+    "guest-closure/debs/python3_3.12.3-0ubuntu2.1_amd64.deb": {
+      "bytes": 23004,
+      "sha256": "e691b9cc40841c41bbdc50bd794c876cb1b1801306ea27b06e9a1458180df1e9"
+    },
+    "guest-closure/debs/readline-common_8.2-4build1_all.deb": {
+      "bytes": 56484,
+      "sha256": "879bfd7f8a9bc4c0f7cdc777cdd8bc6de5f8c4a2ac80c060322a1b22f13504bb"
+    },
+    "guest-closure/debs/rfkill_2.39.3-9ubuntu6.6_amd64.deb": {
+      "bytes": 20196,
+      "sha256": "075c912a396ad093b68bb8b7b9be0aa46c84615ac284860562f1402cfbcddc63"
+    },
+    "guest-closure/debs/samba-libs_2%3a4.19.5+dfsg-4ubuntu9.8_amd64.deb": {
+      "bytes": 6019222,
+      "sha256": "2fe84917f55d0f2cbcbe6f67a8ee68ada08e3e6cfb31580c486a30f34e46f2aa"
+    },
+    "guest-closure/debs/sed_4.9-2ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 193590,
+      "sha256": "5406c0950df2653be3d4acaf9f169c51d30cf4a617b63423e64d2853b0d72b5c"
+    },
+    "guest-closure/debs/sensible-utils_0.0.22_all.deb": {
+      "bytes": 22462,
+      "sha256": "410c29ff82c6916d14e235b511287e67a45cb78d509b19aab48608acdc941254"
+    },
+    "guest-closure/debs/session-migration_0.3.9build1_amd64.deb": {
+      "bytes": 9034,
+      "sha256": "b8be9382fba445a345d8d311240f68d7772deea6a7f6a57c2a04db8492617728"
+    },
+    "guest-closure/debs/sgml-base_1.31_all.deb": {
+      "bytes": 11446,
+      "sha256": "b112268e2feca483398805e92e29e31b07592ddbc4bb021bd5f8f64f8042ca86"
+    },
+    "guest-closure/debs/shared-mime-info_2.4-4_amd64.deb": {
+      "bytes": 473572,
+      "sha256": "7a774ea291ab99bfa987866c6b68e825531eeea7c8a732dd47d14cf480453fda"
+    },
+    "guest-closure/debs/software-properties-common_0.99.49.4_all.deb": {
+      "bytes": 14438,
+      "sha256": "36e179d8d4f8be092b090db03c68dd4b9214c1917e4f5ab77b9ba06bf85723ae"
+    },
+    "guest-closure/debs/software-properties-gtk_0.99.49.4_all.deb": {
+      "bytes": 83230,
+      "sha256": "621f84c8a1a6e97e8cb7eba8dac8e14326c4fbdef51d1cfb3bbbf8fbc392dd3a"
+    },
+    "guest-closure/debs/sound-theme-freedesktop_0.8-2ubuntu1_all.deb": {
+      "bytes": 383992,
+      "sha256": "ce13c4dbf52340888a3cdd9563799cc74ccf03ce428dd2cee13e820caaabdc34"
+    },
+    "guest-closure/debs/spice-vdagent_0.22.1-4ubuntu0.1_amd64.deb": {
+      "bytes": 57440,
+      "sha256": "019a323f229a0f9c6a9342a8126aaa41a203a09a56f6394087979f097dec4a79"
+    },
+    "guest-closure/debs/systemd-dev_255.4-1ubuntu8.18_all.deb": {
+      "bytes": 107102,
+      "sha256": "08a19c4b503e54945510fac8db363782095b7cd68f017ffc60e758f24d4c82d3"
+    },
+    "guest-closure/debs/systemd-sysv_255.4-1ubuntu8.18_amd64.deb": {
+      "bytes": 11892,
+      "sha256": "6e16b759af4f32dfca76f20ce69f70a8bddf9078ad7ffb1f3469b95d93ac379c"
+    },
+    "guest-closure/debs/systemd_255.4-1ubuntu8.18_amd64.deb": {
+      "bytes": 3474856,
+      "sha256": "ba37e7dc1e33690d94a1063543d27f9b17c013a20791c3315b2423fbf9e7ae7b"
+    },
+    "guest-closure/debs/sysvinit-utils_3.08-6ubuntu3_amd64.deb": {
+      "bytes": 34170,
+      "sha256": "03cf5c9c28a5d186fb7f5214e464f831ff28177695cbb61e66083237267a047e"
+    },
+    "guest-closure/debs/tar_1.35+dfsg-3ubuntu0.4_amd64.deb": {
+      "bytes": 256392,
+      "sha256": "fdf41a87936824e50c8ac11b0b22d1395aeb0754feef2dae5575b5d5a93793ec"
+    },
+    "guest-closure/debs/tecla_46.0-1ubuntu0.1_amd64.deb": {
+      "bytes": 26402,
+      "sha256": "5fd758f64a9a13e7291e9ce10d2878736250dedc58ec20df427eaf9009626af0"
+    },
+    "guest-closure/debs/tracker-extract_3.7.1-1ubuntu0.1_amd64.deb": {
+      "bytes": 395592,
+      "sha256": "808d8a0eb1cd5704db56d8e7b0e9a08a51f256004d3b42356904ad1650460ccc"
+    },
+    "guest-closure/debs/tracker-miner-fs_3.7.1-1ubuntu0.1_amd64.deb": {
+      "bytes": 124406,
+      "sha256": "573bdac5dbd64761fe88f48bf54204f6ceb9f9c2e785e96a2e02ea0866f5ae41"
+    },
+    "guest-closure/debs/tracker_3.7.1-1build1_amd64.deb": {
+      "bytes": 384232,
+      "sha256": "cf0a8a341eed41e6e03f193c71c92d906e95be6c325f03982988259f85f356c5"
+    },
+    "guest-closure/debs/tzdata_2026e-0ubuntu0.24.04.1_all.deb": {
+      "bytes": 282136,
+      "sha256": "2f6794a7f31753fc947d9ac02ff03ea46510f34864f9d132a93d7b105e3c4447"
+    },
+    "guest-closure/debs/ubuntu-advantage-desktop-daemon_1.11ubuntu0.1_amd64.deb": {
+      "bytes": 22280,
+      "sha256": "801470b7fe37282252523e18f4a343f44718dd2fb9506149af9955096eea5575"
+    },
+    "guest-closure/debs/ubuntu-desktop-minimal_1.539.2_amd64.deb": {
+      "bytes": 11884,
+      "sha256": "fef7780320e50c1453e6d1346862c283e70616631204ecf73e29f41d038cbe48"
+    },
+    "guest-closure/debs/ubuntu-drivers-common_1%3a0.9.7.6ubuntu3.7_amd64.deb": {
+      "bytes": 66450,
+      "sha256": "7da09450cac83b5343966d15babba44f5edc53caae595c00b40d3f81137b21dc"
+    },
+    "guest-closure/debs/ubuntu-keyring_2023.11.28.1_all.deb": {
+      "bytes": 11124,
+      "sha256": "36de43b15853ccae0028e9a767613770c704833f82586f28eb262f0311adb8a8"
+    },
+    "guest-closure/debs/ubuntu-mono_24.04-0ubuntu1_all.deb": {
+      "bytes": 150904,
+      "sha256": "3a58114f10170b253d2a574db854fa1c4399565888c78f28bbe53ce889894cdb"
+    },
+    "guest-closure/debs/ubuntu-pro-client_38ubuntu0~24.04_amd64.deb": {
+      "bytes": 259430,
+      "sha256": "ca79c208feedf4e49ec7165a4a36f9a648b77b0e5d7f443c728c1478ef45f84d"
+    },
+    "guest-closure/debs/ubuntu-release-upgrader-core_1%3a24.04.29_all.deb": {
+      "bytes": 27188,
+      "sha256": "be3e4274cff3ecd4941b7cb6cd8b90865dcedded21dcf053298e2016629be3b5"
+    },
+    "guest-closure/debs/ubuntu-release-upgrader-gtk_1%3a24.04.29_all.deb": {
+      "bytes": 9058,
+      "sha256": "c2a15d610520d9ee11e2694b64cd6b3138c5d0ee32126851800a57edfe0649c5"
+    },
+    "guest-closure/debs/ubuntu-session_46.0-1ubuntu4_all.deb": {
+      "bytes": 5542,
+      "sha256": "21aa657e0660bd3f15f6017508cffc141351cd9009e8cf9515b01c488e23f509"
+    },
+    "guest-closure/debs/ubuntu-settings_24.04.6_all.deb": {
+      "bytes": 10198,
+      "sha256": "6c44f240032df2e818bdc57f54a8b2ad7cb40ae61f91c50cab14942c390396e1"
+    },
+    "guest-closure/debs/ubuntu-wallpapers-noble_24.04.2_all.deb": {
+      "bytes": 40189796,
+      "sha256": "528c1c7f55a351006ba2372de82c1f005b165cc5742d706a5fff90551dbfb9b0"
+    },
+    "guest-closure/debs/ubuntu-wallpapers_24.04.2_all.deb": {
+      "bytes": 9456574,
+      "sha256": "092f4cdcbb1c0c0bfa03c7f2b31d7a1863b8c36e4ee9efcb522b4a7332f78eba"
+    },
+    "guest-closure/debs/ucf_3.0043+nmu1_all.deb": {
+      "bytes": 56522,
+      "sha256": "397e541af11db776ed7facf1674ee37b56e7de51348c9f077d7a283912c4b458"
+    },
+    "guest-closure/debs/udev_255.4-1ubuntu8.18_amd64.deb": {
+      "bytes": 1875008,
+      "sha256": "1d7cadb0638e46995c1320d9c14fde7f776803e1a189d9fc4e896b30c169c15c"
+    },
+    "guest-closure/debs/udisks2_2.10.1-6ubuntu1.5_amd64.deb": {
+      "bytes": 297608,
+      "sha256": "407003db65592a6c5981b95a3d92ea813093fcb0ee94bb47787a68c8d5fee022"
+    },
+    "guest-closure/debs/unzip_6.0-28ubuntu4.1_amd64.deb": {
+      "bytes": 174454,
+      "sha256": "a505b9d491386167bd8e14e3383315a4a7d6539e4406745901ccf009a7988271"
+    },
+    "guest-closure/debs/update-manager-core_1%3a24.04.12_all.deb": {
+      "bytes": 11592,
+      "sha256": "7fdfc6d1ae8d81982b5982f70e4f27ccf08c3e4d60fbde8f228fe53db6f943d0"
+    },
+    "guest-closure/debs/update-manager_1%3a24.04.12_all.deb": {
+      "bytes": 553952,
+      "sha256": "7c88a0210bfb0399746601f12737d503442251994a40da6749878f5f33776fec"
+    },
+    "guest-closure/debs/update-notifier-common_3.192.68.2_all.deb": {
+      "bytes": 206730,
+      "sha256": "50c3303b52aaaaadcf11750e1a0afc905bdee0d6f75aa2f1febdd4416afe7fec"
+    },
+    "guest-closure/debs/update-notifier_3.192.68.2_amd64.deb": {
+      "bytes": 67036,
+      "sha256": "73a1125b22bee324fb9af0ff01bacf2cdba8a5f95c8ae1dcb7dc93333b4eddc7"
+    },
+    "guest-closure/debs/upower_1.90.3-1_amd64.deb": {
+      "bytes": 84388,
+      "sha256": "f2dd39ae2bf0940a70022815b76ca3ca906168b355397df791c3763a27235509"
+    },
+    "guest-closure/debs/usbutils_1%3a017-3build1_amd64.deb": {
+      "bytes": 84520,
+      "sha256": "7ea68d1bc78e1bde05d99832bacadb1d5df1d30a758617032d44344ab4698fc6"
+    },
+    "guest-closure/debs/webp-pixbuf-loader_0.2.4-2build2_amd64.deb": {
+      "bytes": 11174,
+      "sha256": "27815a0ef1dbb0a2cc424fd5e4356b457dabe54384a8d7129157f42045d1ba94"
+    },
+    "guest-closure/debs/whoopsie-preferences_23build3_amd64.deb": {
+      "bytes": 8850,
+      "sha256": "3817f66ac77c200b7e6dbec8d321ab8262772cebbae11d1d957fd52e5ad2a7ae"
+    },
+    "guest-closure/debs/wireless-tools_30~pre9-16.1ubuntu2_amd64.deb": {
+      "bytes": 109880,
+      "sha256": "3b441d83c1fe3c3506eba8ce97c0e71a9cfe2ebd01df1567dc46571eeee3d698"
+    },
+    "guest-closure/debs/wireplumber_0.4.17-1ubuntu4.1_amd64.deb": {
+      "bytes": 80024,
+      "sha256": "14d3aacef9850d5c3b82d1f225743b776a4619deb34f1089bcd21996cb131832"
+    },
+    "guest-closure/debs/wpasupplicant_2%3a2.10-21ubuntu0.4_amd64.deb": {
+      "bytes": 1471764,
+      "sha256": "342dcbd9eca155540a556c18862b7900fbdf23363f2b6f2922c00f69a749dd59"
+    },
+    "guest-closure/debs/x11-apps_7.7+11build3_amd64.deb": {
+      "bytes": 709312,
+      "sha256": "e81cbe75a3e46797bba360205d0ecb45809959c0137b52fda47d321fc556149b"
+    },
+    "guest-closure/debs/x11-common_1%3a7.7+23ubuntu3_all.deb": {
+      "bytes": 21748,
+      "sha256": "b545fa5196dd7467ba3770d6ce575abcd7941071961ea9f7535a319d9d20fd46"
+    },
+    "guest-closure/debs/x11-session-utils_7.7+6build2_amd64.deb": {
+      "bytes": 69732,
+      "sha256": "e1a0ecf1df8ba801ea38ac102f756d6aa88edf8772f9d47a93c8b595d2012af1"
+    },
+    "guest-closure/debs/x11-utils_7.7+6build2_amd64.deb": {
+      "bytes": 188800,
+      "sha256": "ffcc681f98ad4bd1857456f09c5464b5bdcb95a1162582899b2d93abaf361c74"
+    },
+    "guest-closure/debs/x11-xkb-utils_7.7+8build2_amd64.deb": {
+      "bytes": 170314,
+      "sha256": "69df4191e165f8b89d067f6234fcce89a4923d27d1e66dd92e6d63d6da93cdb0"
+    },
+    "guest-closure/debs/x11-xserver-utils_7.7+10build2_amd64.deb": {
+      "bytes": 169408,
+      "sha256": "ed933dc434b230239073640278f6eada663e6321e831f1f487743f8bf0558356"
+    },
+    "guest-closure/debs/xauth_1%3a1.1.2-1build1_amd64.deb": {
+      "bytes": 25594,
+      "sha256": "037e70571f39384e28c4ad0db07b44de11f0911ee6c02445560979b417012650"
+    },
+    "guest-closure/debs/xdg-dbus-proxy_0.1.5-1ubuntu0.2_amd64.deb": {
+      "bytes": 26382,
+      "sha256": "4ce84afa5e38cacc7c28d9b495d1bc453aa6a07b560e22b614e768c08609efa4"
+    },
+    "guest-closure/debs/xdg-desktop-portal-gnome_46.2-0ubuntu1_amd64.deb": {
+      "bytes": 134210,
+      "sha256": "0a1d5607e2229070678dbcbeb823dafdbb982dc05e7df8ef7afdf2616f219e8f"
+    },
+    "guest-closure/debs/xdg-desktop-portal-gtk_1.15.1-1build2_amd64.deb": {
+      "bytes": 80318,
+      "sha256": "111a166d3c90f566e04040dd22ac4696d4de91a4f197517f5c3cb175941c4abe"
+    },
+    "guest-closure/debs/xdg-desktop-portal_1.18.4-1ubuntu2.24.04.3_amd64.deb": {
+      "bytes": 307454,
+      "sha256": "a2c451bed0e0f8d2e7405904e5340e8cd702a5832ca7abe50b03bc5219d4500b"
+    },
+    "guest-closure/debs/xdg-user-dirs-gtk_0.11-1build2_amd64.deb": {
+      "bytes": 10132,
+      "sha256": "d5d8cdf9605cf5273995f88bd9cf6c3603e2c1a6c9c3bb13a53882cf8fc9b23a"
+    },
+    "guest-closure/debs/xdg-user-dirs_0.18-1build1_amd64.deb": {
+      "bytes": 18382,
+      "sha256": "98d8ee10654485b5ce515468e5d2e783337e03039889afe0107ead11c55463e8"
+    },
+    "guest-closure/debs/xfonts-base_1%3a1.0.5+nmu1_all.deb": {
+      "bytes": 5941436,
+      "sha256": "5fbb9f9e954cdde7a5c1b1c3b6c1fe3b4bf4a3aedc952b7b9745afe5dd9dc1eb"
+    },
+    "guest-closure/debs/xfonts-encodings_1%3a1.0.5-0ubuntu2_all.deb": {
+      "bytes": 578092,
+      "sha256": "3bac5ff1cba3b001aee1652e3af45d200c415b68e9b27932cb51fe9c464feb40"
+    },
+    "guest-closure/debs/xfonts-utils_1%3a7.7+6build3_amd64.deb": {
+      "bytes": 94438,
+      "sha256": "8da5fccbc50005d50dd69ef558ae72673435026e1d3134d0c1cc836d22953c44"
+    },
+    "guest-closure/debs/xinit_1.4.1-0ubuntu5_amd64.deb": {
+      "bytes": 16692,
+      "sha256": "963a74af258dc05721f2102fdc55995db4b5ab747d939ff4237816b702d090d4"
+    },
+    "guest-closure/debs/xinput_1.6.4-1build1_amd64.deb": {
+      "bytes": 28946,
+      "sha256": "9bdea92f6f257982a7c0c06fa0b2b40e15ab53350445bb830e7991f65a2a2512"
+    },
+    "guest-closure/debs/xkb-data_2.41-2ubuntu1.1_all.deb": {
+      "bytes": 397328,
+      "sha256": "e99f2a0b4c56cdf35dec489e56b6a8418826cab8ce6306ec6d0bd98e2cd0014a"
+    },
+    "guest-closure/debs/xml-core_0.19_all.deb": {
+      "bytes": 20340,
+      "sha256": "0775fdd720d5ed81250da73a1d825a863be7a997122ae11077c89db37d82cb6d"
+    },
+    "guest-closure/debs/xorg-docs-core_1%3a1.7.1-1.2_all.deb": {
+      "bytes": 41748,
+      "sha256": "8220128d3b9b29c0f0bae1d90ad8b3dcd95fc99f385bfb4c0cdcbbd4217351a5"
+    },
+    "guest-closure/debs/xorg_1%3a7.7+23ubuntu3_amd64.deb": {
+      "bytes": 2902,
+      "sha256": "cd67c42db3f35e1196895cefc0ccf46e4990c2ebabe925d758172d1596e0952b"
+    },
+    "guest-closure/debs/xserver-common_2%3a21.1.12-1ubuntu1.9_all.deb": {
+      "bytes": 35008,
+      "sha256": "ceeac76b9c94973c71e4e6566fa9ff5d3caae9716775d840810a4e1ad749a737"
+    },
+    "guest-closure/debs/xserver-xorg-core_2%3a21.1.12-1ubuntu1.9_amd64.deb": {
+      "bytes": 1476450,
+      "sha256": "75e1cfb00bdba255ddba089c9ef0f45e56a3665a483ed8fbcee80f29046c11ba"
+    },
+    "guest-closure/debs/xserver-xorg-input-all_1%3a7.7+23ubuntu3_amd64.deb": {
+      "bytes": 3864,
+      "sha256": "f9840b3fb03d54c4514d6499619d2cc847f0a8115eb284d7103608e064849c56"
+    },
+    "guest-closure/debs/xserver-xorg-input-libinput_1.4.0-1ubuntu24.04.1_amd64.deb": {
+      "bytes": 41374,
+      "sha256": "e3b07527148d2c6679aa2cf89dea52685adf447d4391194f184d4ed583308a1c"
+    },
+    "guest-closure/debs/xserver-xorg_1%3a7.7+23ubuntu3_amd64.deb": {
+      "bytes": 64494,
+      "sha256": "5e38ccc3a1719955f7a8424bae2234109151a5dbfd41c334a22499a67650171e"
+    },
+    "guest-closure/debs/xwayland_2%3a23.2.6-1ubuntu0.8_amd64.deb": {
+      "bytes": 946840,
+      "sha256": "ae2240a95cf1c798ff4a065c3df77dc58a3502e32562267b116ce1656a7d1881"
+    },
+    "guest-closure/debs/xz-utils_5.6.1+really5.4.5-1ubuntu0.4_amd64.deb": {
+      "bytes": 267426,
+      "sha256": "18ef3c30308990626cfbda8b6336ef6ef5a412d1991bdad0cdaa226fd2041ffe"
+    },
+    "guest-closure/debs/yaru-theme-gnome-shell_24.04.2-0ubuntu1_all.deb": {
+      "bytes": 127898,
+      "sha256": "cc02822bec8adf48178738e8f448994b841729aab27de0b1b169976f44c18c81"
+    },
+    "guest-closure/debs/yelp-xsl_42.1-2ubuntu0.24.04.1_all.deb": {
+      "bytes": 201376,
+      "sha256": "46a5a6f7a69d82285eec2f31028c3b2ce53f3c1ec37bc3f965e41091f84bad4d"
+    },
+    "guest-closure/debs/yelp_42.2-1ubuntu0.24.04.2_amd64.deb": {
+      "bytes": 546686,
+      "sha256": "fa17d00bd6ea7b89cc40d156b62fe65ddb3ddf3a4b68f713ada1a6568486c718"
+    },
+    "guest-closure/debs/zenity-common_4.0.1-1build3_all.deb": {
+      "bytes": 258942,
+      "sha256": "e25756d7a3c27af12e905f75df754edf59ea59fce95e7b8d7b66b4a6aade3442"
+    },
+    "guest-closure/debs/zenity_4.0.1-1build3_amd64.deb": {
+      "bytes": 72022,
+      "sha256": "37afad2802c237bed2966a4dbcc6473e30be7cbf84c2cbe22ba8a6a37e059e76"
+    },
+    "guest-closure/debs/zip_3.0-13ubuntu0.2_amd64.deb": {
+      "bytes": 175652,
+      "sha256": "30b325b542ef8e9a22a5e1e1cfce8c4f4b75db73e339e76bf405b635861f1f76"
+    },
+    "guest-closure/debs/zlib1g_1%3a1.3.dfsg-3.1ubuntu2.3_amd64.deb": {
+      "bytes": 63158,
+      "sha256": "376249c8de139568221dbb242318cc8cb8f02299e3a62b7432948e1754fbddf9"
+    },
+    "guest-closure/debs/zstd_1.5.5+dfsg2-2build1.1_amd64.deb": {
+      "bytes": 644020,
+      "sha256": "d7667f83e3a2caeaaecaca464d542ee6ccf537259a479622796c84afc96d6032"
+    },
+    "guest-closure/lock.json": {
+      "bytes": 933442,
+      "sha256": "4754901a2b97c43e36075f86c45637ee947fc28aa47e3ac2d6f0015f56e0bd6f"
+    },
+    "guest-closure/signed-metadata/packages-001": {
+      "bytes": 7165069,
+      "sha256": "8f6f71ae839c8cba390a7643fcbbdacddb0bc7d12c1583a2dd80a1f8443a30e5"
+    },
+    "guest-closure/signed-metadata/packages-002": {
+      "bytes": 669193,
+      "sha256": "f5620712a54076429190adbc8b3974250606ffb624c9b877bc240d8f2476118e"
+    },
+    "guest-closure/signed-metadata/packages-003": {
+      "bytes": 73379142,
+      "sha256": "687ffc969e7700137677b9cfe2f614ee2d638052a91a7c9bf31f3f6a3040a99a"
+    },
+    "guest-closure/signed-metadata/packages-004": {
+      "bytes": 1296005,
+      "sha256": "65765aa769593ed76ced26878dbdc5e4b8ae9c4046cd9d1af567bd231a72d98a"
+    },
+    "guest-closure/signed-metadata/packages-005": {
+      "bytes": 7617086,
+      "sha256": "a9e49228d93e7a8fa9244f9ff9df26891de3a3e67ebb67af3dcef53e8b65d9de"
+    },
+    "guest-closure/signed-metadata/packages-006": {
+      "bytes": 10749469,
+      "sha256": "58523f8729d92c9ca5f67fe2feb97c613384ca1f41e14ef824bf83a8b78654d1"
+    },
+    "guest-closure/signed-metadata/packages-007": {
+      "bytes": 10646537,
+      "sha256": "fc72c7f2b3d290d20317b6c2ba61dd425b7ae3b5e3a6c350432f2a78de0d6a2b"
+    },
+    "guest-closure/signed-metadata/packages-008": {
+      "bytes": 364594,
+      "sha256": "afc01812446b80676d82692225ba9f2595cb143c6e8e09f613516e252c6ac048"
+    },
+    "guest-closure/signed-metadata/packages-009": {
+      "bytes": 6241173,
+      "sha256": "dd8f0e30250c8a7df48247a76479d8b533acfcbd16e77181c2457ede52e6a618"
+    },
+    "guest-closure/signed-metadata/packages-010": {
+      "bytes": 10191421,
+      "sha256": "00d92b302818111b30b1fed0ccfce7b3acb5c837d8e83e4e28905326866160db"
+    },
+    "guest-closure/signed-metadata/packages-011": {
+      "bytes": 7675869,
+      "sha256": "9c5ba85b87832d284963422965704dde2c8ab861661f571aa1bf45e9180bf9bc"
+    },
+    "guest-closure/signed-metadata/packages-012": {
+      "bytes": 341833,
+      "sha256": "8617e75385f67eac40bcbb069ebd3ceaefdeb79ac91a513ec3d3f35c92f90ab7"
+    },
+    "guest-closure/signed-metadata/release-01.InRelease": {
+      "bytes": 126125,
+      "sha256": "86950a25d17620eb961ee8e232e778d26b50481db6aa35688669258da0323762"
+    },
+    "guest-closure/signed-metadata/release-01.Release": {
+      "bytes": 125243,
+      "sha256": "8d0a22ac46bee11c00e4a56fb6f73eacbc274b36d0fb865511cd9dc96d238f98"
+    },
+    "guest-closure/signed-metadata/release-02.InRelease": {
+      "bytes": 255850,
+      "sha256": "cdb2f31d809f589719a53c6ad15f255b27569c4059542ada282aaa21b8e164b0"
+    },
+    "guest-closure/signed-metadata/release-02.Release": {
+      "bytes": 254968,
+      "sha256": "26758a13cecfaff9ff274d31ea9a4633674a999bd130c09f6ecd66a4b8071184"
+    },
+    "guest-closure/signed-metadata/release-03.InRelease": {
+      "bytes": 126127,
+      "sha256": "b98a23bb0d3a8e45a891aef8b0120049329b135598eb6edc584049afc8407474"
+    },
+    "guest-closure/signed-metadata/release-03.Release": {
+      "bytes": 125245,
+      "sha256": "c860b895823a8ddb5e8950a695d1b7c3219421122d40641b2e963d1c5cbdaec8"
+    },
+    "guest-closure/signed-metadata/sources.list": {
+      "bytes": 594,
+      "sha256": "7df4518ac9ac1982f92eee566c81785722d8b69e3515a983ac10bea3c096c8d7"
+    },
+    "guest-closure/signed-metadata/ubuntu-archive-keyring.gpg": {
+      "bytes": 3607,
+      "sha256": "80a36b0a6de2f69f49d2df75ef473ccde121e9e190b9ea01d20a4f63778d5c31"
+    },
+    "host-debs/acl_2.3.2-1build1.1_amd64.deb": {
+      "bytes": 39398,
+      "sha256": "0beec20d005bb4b3138ac9c99ab7c10a06acaf1ea1ad4e10ad760e56561edd58"
+    },
+    "host-debs/adduser_3.137ubuntu1_all.deb": {
+      "bytes": 100872,
+      "sha256": "542aff2395eb912a56833e11a78076342779689d8fede7adcf08d1d6b0d0cd8b"
+    },
+    "host-debs/ca-certificates_20260816ubuntu0.24.04.1_all.deb": {
+      "bytes": 138884,
+      "sha256": "8a0a754aaafed72cc8efb8c1731808133284a84fbfc76a4fcc73fce9e01b4187"
+    },
+    "host-debs/cloud-image-utils_0.33-1_all.deb": {
+      "bytes": 19566,
+      "sha256": "c4203167b5f2ccc8d7e2ff66f6ed5bb55d1ce467511d27732b91e1389e15cd9e"
+    },
+    "host-debs/debconf_1.5.86ubuntu1_all.deb": {
+      "bytes": 124096,
+      "sha256": "bb390da466a7461bfc87aa3e6b7cd145dae84af3e26bf437f2c0c218ba226294"
+    },
+    "host-debs/dpkg_1.22.6ubuntu6.6_amd64.deb": {
+      "bytes": 1282284,
+      "sha256": "ceb6aa4da59fbcb8a3b0549b4280c60b7d849b519859797c8668bdfbe378fb3b"
+    },
+    "host-debs/e2fsprogs_1.47.0-2.4~exp1ubuntu4.1_amd64.deb": {
+      "bytes": 600736,
+      "sha256": "1d0fb19dcf14316d04602260871dba3c1441c0ecf3c3bde54eacba35dcc5a40b"
+    },
+    "host-debs/file_1%3a5.45-3build1_amd64.deb": {
+      "bytes": 22042,
+      "sha256": "17dae1d6e803d0304e318f451c8abf62cbd5bb2a0068300cdeea77c62075b895"
+    },
+    "host-debs/gcc-14-base_14.2.0-4ubuntu2~24.04.1_amd64.deb": {
+      "bytes": 51014,
+      "sha256": "b95c172411a7fdae70307cf33a9f5320ba5e056b556454543dd5b679d5ce1c4f"
+    },
+    "host-debs/genisoimage_9%3a1.1.11-3.5_amd64.deb": {
+      "bytes": 377720,
+      "sha256": "cfa9f63d8208a3e1b2c228357707f607e2b402334262d6f591abc44a429bb217"
+    },
+    "host-debs/gpgv_2.4.4-2ubuntu17.6_amd64.deb": {
+      "bytes": 158120,
+      "sha256": "c8810069e98cd343c4c5c64b3ef5a0bb1f526419cff3266cd99ed4c87ad99868"
+    },
+    "host-debs/ipxe-qemu_1.21.1+git-20220113.fbbdc3926-0ubuntu2_all.deb": {
+      "bytes": 1564600,
+      "sha256": "1f1612934b6ddaf4dd633760dfe5ef2a79ea2507341fd5efe394ff589a044707"
+    },
+    "host-debs/libacl1_2.3.2-1build1.1_amd64.deb": {
+      "bytes": 16792,
+      "sha256": "f2bfd3f8f00413d5f1f04fc723063803c56ac0f1e0efae3bc41f2d7276972ec3"
+    },
+    "host-debs/libaio1t64_0.3.113-6build1.1_amd64.deb": {
+      "bytes": 7210,
+      "sha256": "433212b33e26d424605c01cec1de33b63f2cc12870987b4cb7b3625baba66a19"
+    },
+    "host-debs/libasound2-data_1.2.11-1ubuntu0.3_all.deb": {
+      "bytes": 21350,
+      "sha256": "0c26896193480d9dbb055e85e8ddfb9c9f34cf19afee340987cd6311e2886fc1"
+    },
+    "host-debs/libasound2t64_1.2.11-1ubuntu0.3_amd64.deb": {
+      "bytes": 397772,
+      "sha256": "5d17bfb5683eb99f1be951fe48e1be5bf3c52391913b6b74a8aecf9b4f5e779f"
+    },
+    "host-debs/libassuan0_2.5.6-1build1_amd64.deb": {
+      "bytes": 37256,
+      "sha256": "59c6ee6aa6fffb5d181f37373baec18c26791f5d1c907ceeb62163460b11daf2"
+    },
+    "host-debs/libaudit-common_1%3a3.1.2-2.1ubuntu0.1_all.deb": {
+      "bytes": 5948,
+      "sha256": "b1b6fca3f7ed86db971c073352a6741f1f60f4a94eeb2c1eb0aca8a7e4b11660"
+    },
+    "host-debs/libaudit1_1%3a3.1.2-2.1ubuntu0.1_amd64.deb": {
+      "bytes": 47082,
+      "sha256": "326a55fce45a620f12b98baf581fb037eb0fcea1ab3969c54cf177f51be8abfe"
+    },
+    "host-debs/libblkid1_2.39.3-9ubuntu6.6_amd64.deb": {
+      "bytes": 124124,
+      "sha256": "3bcf169cd65e2539059b2287924090fc629f9bf90f595fc25465a7efe950ee82"
+    },
+    "host-debs/libbpf1_1%3a1.3.0-2build2_amd64.deb": {
+      "bytes": 165734,
+      "sha256": "5654cbb145c2b299472cd208dd06c7dc09bf06cad4c4663fc42a865a51a0d96f"
+    },
+    "host-debs/libbrlapi0.8_6.6-4ubuntu5_amd64.deb": {
+      "bytes": 31388,
+      "sha256": "82272b3090c912e45d92ff7ed200de289c47e504513559377a6f6c5a372cbcf5"
+    },
+    "host-debs/libbsd0_0.12.1-1build1.1_amd64.deb": {
+      "bytes": 41238,
+      "sha256": "f3857b0863ac5cfd4263e9bf6cfb1d4be88d5321e4070d5bc2b62b0949e6c86f"
+    },
+    "host-debs/libbz2-1.0_1.0.8-5.1ubuntu0.1_amd64.deb": {
+      "bytes": 34562,
+      "sha256": "36ee08b00b1ee5018b2fce02881b7d2d73c9b4e32990bde3388400d86c48126a"
+    },
+    "host-debs/libc6_2.39-0ubuntu8.9_amd64.deb": {
+      "bytes": 3264314,
+      "sha256": "ff5557d99b51f761c4b7c92368b9cc45565eda17df9bf9eb4b134d09825008be"
+    },
+    "host-debs/libcacard0_1%3a2.8.0-3build4_amd64.deb": {
+      "bytes": 36546,
+      "sha256": "7a75de14b0fdff2828a3d218a49e7fe4da2df533185ba9ccbabd0647db05e33c"
+    },
+    "host-debs/libcap-ng0_0.8.4-2build2_amd64.deb": {
+      "bytes": 15180,
+      "sha256": "cf1e9437ac7ddf6539dbe87b68858cbdef84d78c6aac243ab3b6e564a52ed930"
+    },
+    "host-debs/libcap2_1%3a2.66-5ubuntu2.4_amd64.deb": {
+      "bytes": 30500,
+      "sha256": "23c627c77c66552a658e62852f244f4946dc543898e0ec5428d5dc6bffde2d6a"
+    },
+    "host-debs/libcbor0.10_0.10.2-1.2ubuntu2_amd64.deb": {
+      "bytes": 25844,
+      "sha256": "6ae45862612eb5d9918a005b882a67b722428cfde06d56bb651d3c04a47f4d2d"
+    },
+    "host-debs/libcom-err2_1.47.0-2.4~exp1ubuntu4.1_amd64.deb": {
+      "bytes": 22982,
+      "sha256": "7ab24d3057dabf86db8f771ad6e43f073ed86b6b950d6e8ba22cb9fe6707bbc9"
+    },
+    "host-debs/libcrypt1_1%3a4.4.36-4build1_amd64.deb": {
+      "bytes": 82302,
+      "sha256": "9474785cd6f398512bf8c305c3901dbb111569dccb6f5832002373c0a8ac5832"
+    },
+    "host-debs/libdaxctl1_77-2ubuntu2_amd64.deb": {
+      "bytes": 21404,
+      "sha256": "c6629b49c79343fb11ae404aeaa3156f051168da6c6d3d9d8d516acd94705061"
+    },
+    "host-debs/libdb5.3t64_5.3.28+dfsg2-7_amd64.deb": {
+      "bytes": 734100,
+      "sha256": "a78a25c8fad8fdd0b7bc6b297da5d5685579be1e57732aa47870830e4a13161e"
+    },
+    "host-debs/libedit2_3.1-20230828-1build1_amd64.deb": {
+      "bytes": 97586,
+      "sha256": "3afbc8ddf835049dd4d88275b9d13680e4c4cdd59e191cbd63424152cc08e00e"
+    },
+    "host-debs/libelf1t64_0.190-1.1ubuntu0.1_amd64.deb": {
+      "bytes": 57810,
+      "sha256": "b4aee123a37472d213647594b4f7d4a0d13615b0ca2a6fd33926b768d6b232c2"
+    },
+    "host-debs/libexpat1_2.6.1-2ubuntu0.6_amd64.deb": {
+      "bytes": 98940,
+      "sha256": "494b8e672f722130c6bca6a7bc4cc31a43ca891a31d60d868bfdd699a3c20b13"
+    },
+    "host-debs/libext2fs2t64_1.47.0-2.4~exp1ubuntu4.1_amd64.deb": {
+      "bytes": 221728,
+      "sha256": "276686704314749497f1530ff9e62fd0280328be786a28db0cfe2aa31c88119e"
+    },
+    "host-debs/libfdt1_1.7.0-2build1_amd64.deb": {
+      "bytes": 20128,
+      "sha256": "274d20dfab9d6b216b5de85446a93f6ce5b2cd82c847b8dfdc508577f76eb96a"
+    },
+    "host-debs/libffi8_3.4.6-1build1_amd64.deb": {
+      "bytes": 24718,
+      "sha256": "637e6a7744de08cd331a41f4efd0d24e6ea9064843dea9d1c6ca87bdb5f038a2"
+    },
+    "host-debs/libfido2-1_1.14.0-1build3_amd64.deb": {
+      "bytes": 83526,
+      "sha256": "1dfed970b870e3c949b983f2bcc28e33e1a1207c6cf5a60ee2cb226bb02b1da7"
+    },
+    "host-debs/libfuse3-3_3.14.0-5build1_amd64.deb": {
+      "bytes": 83124,
+      "sha256": "3042159c6d7d4dcb3df9d49cd21e49ecb57f4ba8c4153a72102f512a4fc534a2"
+    },
+    "host-debs/libgcc-s1_14.2.0-4ubuntu2~24.04.1_amd64.deb": {
+      "bytes": 78392,
+      "sha256": "aa7fadbe33b78bcf99885318040601c550c208929565b179891d9a3cc2aa68cd"
+    },
+    "host-debs/libgcrypt20_1.10.3-2ubuntu0.2_amd64.deb": {
+      "bytes": 536494,
+      "sha256": "957b9eeaa83cf6f2d5d5d76dbb8aa31d3297e6781d8a02fa08dcc897ae650a0b"
+    },
+    "host-debs/libglib2.0-0t64_2.80.0-6ubuntu3.10_amd64.deb": {
+      "bytes": 1547558,
+      "sha256": "ff1b650f655b36dfe202fdbae6bb02b363c7257b6dd23e4f95ab61f716190df3"
+    },
+    "host-debs/libgmp10_2%3a6.3.0+dfsg-2ubuntu6.1_amd64.deb": {
+      "bytes": 253460,
+      "sha256": "285f8a505dfa8e1b33f357a9d8d3477ad35bf18c0b34771a6df4c25923f3ae0d"
+    },
+    "host-debs/libgnutls30t64_3.8.3-1.1ubuntu3.6_amd64.deb": {
+      "bytes": 1002902,
+      "sha256": "b8944756260c5ea6b7fac019745f931f905aa7a4df0763676b1b25c911b692e2"
+    },
+    "host-debs/libgpg-error0_1.47-3build2.1_amd64.deb": {
+      "bytes": 70092,
+      "sha256": "93654ee8180a73a0363f25c51dc673d67cbabcbecd164187b8a2deb54d007aef"
+    },
+    "host-debs/libgssapi-krb5-2_1.20.1-6ubuntu2.10_amd64.deb": {
+      "bytes": 142830,
+      "sha256": "0d4a0187bcdbbe3e6a10bfa574100087d12052d0d0ef28614fd6210021c587b2"
+    },
+    "host-debs/libhogweed6t64_3.9.1-2.2build1.1_amd64.deb": {
+      "bytes": 198548,
+      "sha256": "a9b5f7e9d49ba9060e1c933567046fbc6feab6096799cbf550b7214dc9b0f49b"
+    },
+    "host-debs/libibverbs1_50.0-2ubuntu0.2_amd64.deb": {
+      "bytes": 67960,
+      "sha256": "8489558105ee1d1c65ae6e0f1bac0e9b15f314a68f106ee9a63c89821242bd8e"
+    },
+    "host-debs/libidn2-0_2.3.7-2build1.1_amd64.deb": {
+      "bytes": 66242,
+      "sha256": "46bfd10df095a23b65f58115de47a547c9a2d14627749bd0423ae78c14be77d3"
+    },
+    "host-debs/libjpeg-turbo8_2.1.5-2ubuntu2_amd64.deb": {
+      "bytes": 149982,
+      "sha256": "f68b5b23bc8a1688fb787d2aed7e2cdf895a73022f6a5025e183162dac4500b2"
+    },
+    "host-debs/libjpeg8_8c-2ubuntu11_amd64.deb": {
+      "bytes": 2148,
+      "sha256": "4d6ed682972bddf62af158a06d68a0dda497e421423b7ca92fb450b3d9ceaac9"
+    },
+    "host-debs/libk5crypto3_1.20.1-6ubuntu2.10_amd64.deb": {
+      "bytes": 81944,
+      "sha256": "273f7cc95a68d927d7f71c3e78b7717a16a8d86e646a206bae7bf797150ae9db"
+    },
+    "host-debs/libkeyutils1_1.6.3-3build1_amd64.deb": {
+      "bytes": 9490,
+      "sha256": "0679f198b0128179e46cdf956fb2022c23c758664c00bc8efa0382d509683a8a"
+    },
+    "host-debs/libkmod2_31+20240202-2ubuntu7.2_amd64.deb": {
+      "bytes": 51830,
+      "sha256": "a9cbdc424bc0a5c8af3d6445488a48de76df5ff4d76b7dab8aaf88f712358bbc"
+    },
+    "host-debs/libkrb5-3_1.20.1-6ubuntu2.10_amd64.deb": {
+      "bytes": 347568,
+      "sha256": "60b48c5a3233f1d8caba30d6573edc8e131911ab6d63adcd664f7cbe62708362"
+    },
+    "host-debs/libkrb5support0_1.20.1-6ubuntu2.10_amd64.deb": {
+      "bytes": 34942,
+      "sha256": "9224ede3246a82a845ea97652ecfae57f88e8d8f520d8a186f9157167574fb34"
+    },
+    "host-debs/liblz4-1_1.9.4-1build1.1_amd64.deb": {
+      "bytes": 63062,
+      "sha256": "319331270d5cc52d5ebffe51c941d7b01b432bc402c2924b557209a64d4ecbad"
+    },
+    "host-debs/liblzma5_5.6.1+really5.4.5-1ubuntu0.4_amd64.deb": {
+      "bytes": 127704,
+      "sha256": "5bcf5da2339331e21d3f42a831e82c61c54c6b2f29804010e8d59abd0ae52167"
+    },
+    "host-debs/libmagic-mgc_1%3a5.45-3build1_amd64.deb": {
+      "bytes": 307366,
+      "sha256": "f0ed0e314a63ae1b7e5403d7e43a26c6e0c0ee69e9a305babcf9c6775607377a"
+    },
+    "host-debs/libmagic1t64_1%3a5.45-3build1_amd64.deb": {
+      "bytes": 87240,
+      "sha256": "fc2319f342c437e044ccf854e0c95bd472a7eb0b9363e1f76ad1524ab04df68e"
+    },
+    "host-debs/libmd0_1.1.0-2build1.1_amd64.deb": {
+      "bytes": 26976,
+      "sha256": "e5ba01d3c41f256aaf57ec59aa0554857162e3e7f97cdfbff1ed2c0e8d720ee7"
+    },
+    "host-debs/libmount1_2.39.3-9ubuntu6.6_amd64.deb": {
+      "bytes": 134082,
+      "sha256": "8f2c25589f187dacfdc5bb6be2af0aee6c2ba7b4d2edd1ca4b26753469f07aae"
+    },
+    "host-debs/libncursesw6_6.4+20240113-1ubuntu2.2_amd64.deb": {
+      "bytes": 147816,
+      "sha256": "579c9488755d1ddd70f66480cafd2f68776f68314d15d9cf4b5449d0de0fc968"
+    },
+    "host-debs/libndctl6_77-2ubuntu2_amd64.deb": {
+      "bytes": 62750,
+      "sha256": "4eab53588a8fa9e3192635e118c2d91bc069cde46a4a3785c77a0bb1ae001d02"
+    },
+    "host-debs/libnettle8t64_3.9.1-2.2build1.1_amd64.deb": {
+      "bytes": 181636,
+      "sha256": "6d97fbc1972633083f08f51ccab433606c97bbceb897c631c66495117ca3406f"
+    },
+    "host-debs/libnl-3-200_3.7.0-0.3build1.1_amd64.deb": {
+      "bytes": 55706,
+      "sha256": "15b3f61db753dc3db6f62f4259f8b822299343e500886776486612a13a2ed247"
+    },
+    "host-debs/libnl-route-3-200_3.7.0-0.3build1.1_amd64.deb": {
+      "bytes": 189094,
+      "sha256": "c9dbd29cb7fdcf1a0587726cbc5432a7d3e81242108dfcfa2dd6716c44c74d4d"
+    },
+    "host-debs/libnpth0t64_1.6-3.1build1_amd64.deb": {
+      "bytes": 8378,
+      "sha256": "b380eca1221a9ac855427652452801c5ca9161dd69e12446d300524eba00944e"
+    },
+    "host-debs/libnspr4_2%3a4.35-1.1build1_amd64.deb": {
+      "bytes": 117398,
+      "sha256": "e579e72d091f6c7a13f5a756c31065b15aae5b81840d61b069355aa2283c07b4"
+    },
+    "host-debs/libnss3_2%3a3.98-1ubuntu0.3_amd64.deb": {
+      "bytes": 1444912,
+      "sha256": "e11fdf8c09a068d0f0c3fd90ed971253dfed7227cc20d3d487fd615d4771f1bb"
+    },
+    "host-debs/libnuma1_2.0.18-1ubuntu0.24.04.1_amd64.deb": {
+      "bytes": 23396,
+      "sha256": "f333b8edf6f0b705c19f2a67008194df66f7aab0fa2350dc98510569a033ff29"
+    },
+    "host-debs/libp11-kit0_0.25.3-4ubuntu2.2_amd64.deb": {
+      "bytes": 297270,
+      "sha256": "e7c58aeac19d89f5f1492dfaa52b8623bcd56edc40983f5243ad56d94f477bf2"
+    },
+    "host-debs/libpam-modules-bin_1.5.3-5ubuntu5.7_amd64.deb": {
+      "bytes": 51866,
+      "sha256": "e6753b038042cd007843cbc79a81e732d82d0d2415bcf78ff2120c50b5e54f82"
+    },
+    "host-debs/libpam-modules_1.5.3-5ubuntu5.7_amd64.deb": {
+      "bytes": 286418,
+      "sha256": "c8e86ef52e3a743dc67d90f4c6654f7f529deafa6a523fe9076e809785aeea18"
+    },
+    "host-debs/libpam0g_1.5.3-5ubuntu5.7_amd64.deb": {
+      "bytes": 68124,
+      "sha256": "1d7f54e77f0455ab5e607cd5e78b576801d8efdc66115e02cf3c6e708d093667"
+    },
+    "host-debs/libpcre2-8-0_10.42-4ubuntu2.1_amd64.deb": {
+      "bytes": 226662,
+      "sha256": "110a797a57673d3ee497a141cf988199258058c57525799c63194d81822529a0"
+    },
+    "host-debs/libpcsclite1_2.0.3-1build1_amd64.deb": {
+      "bytes": 21432,
+      "sha256": "703bacc9204a7ecc24486ac8c96d15d0b9e2c91c385388e132ad4fd8f56f035a"
+    },
+    "host-debs/libpixman-1-0_0.42.2-1build1_amd64.deb": {
+      "bytes": 279306,
+      "sha256": "d9c2931c4c424615eeab9dd5ae08bfc608b84e803c1d3ccddf319270db213421"
+    },
+    "host-debs/libpmem1_1.13.1-1.1ubuntu2_amd64.deb": {
+      "bytes": 84760,
+      "sha256": "8f1be1cc834a98f0cf5c0950153f7f939a0c2c92095e98cd7bb40c752c545c1b"
+    },
+    "host-debs/libpng16-16t64_1.6.43-5ubuntu0.7_amd64.deb": {
+      "bytes": 188998,
+      "sha256": "863d6abb089b2820ceba98e6b18f06eaacc55f9b05827001e7b4021a9a7b246c"
+    },
+    "host-debs/libpsl5t64_0.21.2-1.1build1_amd64.deb": {
+      "bytes": 57072,
+      "sha256": "a6c85d1303ae90b6a3209d73c4f047f82c27cdc963c48adfd95dd7abca64f039"
+    },
+    "host-debs/libpython3-stdlib_3.12.3-0ubuntu2.1_amd64.deb": {
+      "bytes": 10080,
+      "sha256": "57ebb378c59d2f9ef479bee0abc933c560878cc10e2c3af8e05d6fdb2ed63da4"
+    },
+    "host-debs/libpython3.12-minimal_3.12.3-1ubuntu0.17_amd64.deb": {
+      "bytes": 838536,
+      "sha256": "d646ad7112b5adec21ba0e1af015f04ae8ca7f5efdc619622547dd6673c4c14b"
+    },
+    "host-debs/libpython3.12-stdlib_3.12.3-1ubuntu0.17_amd64.deb": {
+      "bytes": 2070530,
+      "sha256": "45d3f530ba1f9d6e879ad46b92046fabab13fe50a82450e4f65557a3bbad1489"
+    },
+    "host-debs/librdmacm1t64_50.0-2ubuntu0.2_amd64.deb": {
+      "bytes": 70698,
+      "sha256": "7b7cc2fa16564bf301751b43d05d16f0846288b080d9a25a92a691d0df33fc68"
+    },
+    "host-debs/libreadline8t64_8.2-4build1_amd64.deb": {
+      "bytes": 152856,
+      "sha256": "563977a16df03b611f5239cc1e9a0426e86479fcc616b5c9e200ea32063119e5"
+    },
+    "host-debs/libsasl2-2_2.1.28+dfsg1-5ubuntu3.1_amd64.deb": {
+      "bytes": 53194,
+      "sha256": "eda097f98dcb3a08b9ce157d6191d140e4885c1cba47b683c94b8ca45e88f458"
+    },
+    "host-debs/libsasl2-modules-db_2.1.28+dfsg1-5ubuntu3.1_amd64.deb": {
+      "bytes": 20354,
+      "sha256": "1f13548b1774cd9c70c50b8c3267204a101334a4d2f979338896ba5a4c6f81b8"
+    },
+    "host-debs/libseccomp2_2.5.5-1ubuntu3.1_amd64.deb": {
+      "bytes": 50424,
+      "sha256": "33fc96f1e008d27c042a3db9bcd16f7f4d49e866f7a3141b758a799328dbdc3f"
+    },
+    "host-debs/libselinux1_3.5-2ubuntu2.1_amd64.deb": {
+      "bytes": 79660,
+      "sha256": "6abaa6c26f46ef17764c4a753e0e84de1cdadde5634fd2987621fdc617988d19"
+    },
+    "host-debs/libsemanage-common_3.5-1build5_all.deb": {
+      "bytes": 10144,
+      "sha256": "e10cd93f0b6941566de04b860b723df57ca3fe4a9255a73b2be0d1dc7df2850e"
+    },
+    "host-debs/libsemanage2_3.5-1build5_amd64.deb": {
+      "bytes": 93178,
+      "sha256": "56102dcbd410416d03c5ffb80958f54ac63936f4d9eb3f6a98964e680a82ce37"
+    },
+    "host-debs/libsepol2_3.5-2build1_amd64.deb": {
+      "bytes": 302950,
+      "sha256": "47272bab0c2fcc350431f9a8ae63afc49ce6d7e71e63c914639fbda6b1ca9f6a"
+    },
+    "host-debs/libslirp0_4.7.0-1ubuntu3.1_amd64.deb": {
+      "bytes": 63830,
+      "sha256": "4efa2d1c509de4d10fe965e86a3d864bf542996caf476d9111fd882c73857164"
+    },
+    "host-debs/libsqlite3-0_3.45.1-1ubuntu2.8_amd64.deb": {
+      "bytes": 701602,
+      "sha256": "b1190bb72359f5fcc47406aa46065eaf4f1ca208085c51224a52b04bedc0b4bb"
+    },
+    "host-debs/libss2_1.47.0-2.4~exp1ubuntu4.1_amd64.deb": {
+      "bytes": 16976,
+      "sha256": "e3b6140b815970461c4312f1dc3d6b1f0d62d99f4ebe2ad087bffa630010035a"
+    },
+    "host-debs/libssl3t64_3.0.13-0ubuntu3.16_amd64.deb": {
+      "bytes": 1945300,
+      "sha256": "219f43b1cd836a4da550938db5fda93160d269d39a4edcf1f1ce698a470db797"
+    },
+    "host-debs/libsystemd0_255.4-1ubuntu8.18_amd64.deb": {
+      "bytes": 436342,
+      "sha256": "2da3fa28302cf007075e89cdc3aabe6973916afcd62c3884b86f67b77c73a5b4"
+    },
+    "host-debs/libtasn1-6_4.19.0-3ubuntu0.24.04.2_amd64.deb": {
+      "bytes": 44468,
+      "sha256": "f82c9ad142f952ea523bda5bfca7bb0802af3a50b8c0f0dd9ec18cdfa104bde7"
+    },
+    "host-debs/libtinfo6_6.4+20240113-1ubuntu2.2_amd64.deb": {
+      "bytes": 108086,
+      "sha256": "b67a6df2bdab61d273eabebd208bb6a3fb12618a390a067e1ee305a409ff03d9"
+    },
+    "host-debs/libudev1_255.4-1ubuntu8.18_amd64.deb": {
+      "bytes": 177836,
+      "sha256": "6de7321adcc37068f8702fe6826473662df73c36377e00f07f7acfeca2e40d4a"
+    },
+    "host-debs/libunistring5_1.1-2build1.1_amd64.deb": {
+      "bytes": 535554,
+      "sha256": "203d7657b5f54633fba1a9c9b784d556ef83c9f6787b3185ba55a88e07b865a3"
+    },
+    "host-debs/liburing2_2.5-1build1_amd64.deb": {
+      "bytes": 21092,
+      "sha256": "c2aef62accee92a06263c3ad4ef46132c13e409b54296c44792a20491830a7b0"
+    },
+    "host-debs/libusb-1.0-0_2%3a1.0.27-1_amd64.deb": {
+      "bytes": 54008,
+      "sha256": "d59e679a82ee2b724c556397e831e879936adbe8a007705872b65a5e1ec887b5"
+    },
+    "host-debs/libusbredirparser1t64_0.13.0-2.1build1_amd64.deb": {
+      "bytes": 16508,
+      "sha256": "78be9176f05512bcac369fcada499686b1dd34320965d27e3405c7aacbc4e461"
+    },
+    "host-debs/libuuid1_2.39.3-9ubuntu6.6_amd64.deb": {
+      "bytes": 36596,
+      "sha256": "7e2992d3a79fc05514dc5966558ee9c66a7214a47edf2a36017b9e2777528665"
+    },
+    "host-debs/libzstd1_1.5.5+dfsg2-2build1.1_amd64.deb": {
+      "bytes": 299472,
+      "sha256": "dfcf25061e07aad7efd3f4f880ba5ad4d4d09ebe7fc8cc77ab6b8a161d6d4727"
+    },
+    "host-debs/logsave_1.47.0-2.4~exp1ubuntu4.1_amd64.deb": {
+      "bytes": 22700,
+      "sha256": "dba74a557ae28b51b5a5190aefeef611cbf989211b1814282d58a1c536f43b5b"
+    },
+    "host-debs/media-types_10.1.0_all.deb": {
+      "bytes": 27474,
+      "sha256": "31bfb7eec55ab6d34a50ba995150e1498d4cb897714085d8025e330d3b529747"
+    },
+    "host-debs/netbase_6.4_all.deb": {
+      "bytes": 13112,
+      "sha256": "8cdbc9c3dca01e660759bf9d840f72e45ac72faf5d19ca1faecacaf6a60c1a87"
+    },
+    "host-debs/openssh-client_1%3a9.6p1-3ubuntu13.20_amd64.deb": {
+      "bytes": 908792,
+      "sha256": "5fb4429e9eff60a5b4ddb68ccf0c46ee67066b445794ede5fe181e64c4a8b795"
+    },
+    "host-debs/openssl_3.0.13-0ubuntu3.16_amd64.deb": {
+      "bytes": 1003702,
+      "sha256": "675b84971ffd4467707008c25ef7520f90ea7c23ef27b7a76b0dccf1d7c4dc3f"
+    },
+    "host-debs/passwd_1%3a4.13+dfsg1-4ubuntu3.2_amd64.deb": {
+      "bytes": 844580,
+      "sha256": "139b51228c8065eefa3051f649d8480eb986f1cf629448e49d2eaf9813318412"
+    },
+    "host-debs/python3-minimal_3.12.3-0ubuntu2.1_amd64.deb": {
+      "bytes": 27442,
+      "sha256": "9ba5dd55cdcf6121c147dc5cb87403169b5933e3a56da0de57774f2ce819cf06"
+    },
+    "host-debs/python3.12-minimal_3.12.3-1ubuntu0.17_amd64.deb": {
+      "bytes": 2334634,
+      "sha256": "d452689b9660845345a4c3e05e4ad82c082d5474e04031b7aa47f1a6d5610a6e"
+    },
+    "host-debs/python3.12_3.12.3-1ubuntu0.17_amd64.deb": {
+      "bytes": 650732,
+      "sha256": "6745c9463432e619d7402b117ad4ac86c31dcd3999ba20daa9e395f6f9909d86"
+    },
+    "host-debs/python3_3.12.3-0ubuntu2.1_amd64.deb": {
+      "bytes": 23004,
+      "sha256": "e691b9cc40841c41bbdc50bd794c876cb1b1801306ea27b06e9a1458180df1e9"
+    },
+    "host-debs/qemu-system-common_1%3a8.2.2+ds-0ubuntu1.18_amd64.deb": {
+      "bytes": 1255316,
+      "sha256": "0a0b744f31e87d72dd0465436b8dfbb1ef9f574ecd0d5a2e9dd8c5cb7d0fef1f"
+    },
+    "host-debs/qemu-system-data_1%3a8.2.2+ds-0ubuntu1.18_all.deb": {
+      "bytes": 1796342,
+      "sha256": "a14b88d864859bd61c8a3274971da4ecb7da6cec15be6c265d0d411f783d5f2e"
+    },
+    "host-debs/qemu-system-x86_1%3a8.2.2+ds-0ubuntu1.18_amd64.deb": {
+      "bytes": 11222476,
+      "sha256": "14602e262627adac030329d2cecfee5f6c0938b34566ff2ea2d4c9a9eb02430d"
+    },
+    "host-debs/qemu-utils_1%3a8.2.2+ds-0ubuntu1.18_amd64.deb": {
+      "bytes": 2220842,
+      "sha256": "10695e57937d8a1d0ec6d017a6770d02353ec0c9500e4a36928230b2d39026c5"
+    },
+    "host-debs/readline-common_8.2-4build1_all.deb": {
+      "bytes": 56484,
+      "sha256": "879bfd7f8a9bc4c0f7cdc777cdd8bc6de5f8c4a2ac80c060322a1b22f13504bb"
+    },
+    "host-debs/seabios_1.16.3-2_all.deb": {
+      "bytes": 174648,
+      "sha256": "cac4e59a66c834d19cae751c22ab3a0391c22f78010fd11aa2e3fe630e6bc0e0"
+    },
+    "host-debs/tar_1.35+dfsg-3ubuntu0.4_amd64.deb": {
+      "bytes": 256392,
+      "sha256": "fdf41a87936824e50c8ac11b0b22d1395aeb0754feef2dae5575b5d5a93793ec"
+    },
+    "host-debs/tzdata_2026e-0ubuntu0.24.04.1_all.deb": {
+      "bytes": 282136,
+      "sha256": "2f6794a7f31753fc947d9ac02ff03ea46510f34864f9d132a93d7b105e3c4447"
+    },
+    "host-debs/ubuntu-cloudimage-keyring_2023.11.28.1_all.deb": {
+      "bytes": 1524,
+      "sha256": "42cf4d3604b468daf87a98c0e4ffaa6f491fc239f11eebee6d40a3f21302726c"
+    },
+    "host-debs/ubuntu-keyring_2023.11.28.1_all.deb": {
+      "bytes": 11124,
+      "sha256": "36de43b15853ccae0028e9a767613770c704833f82586f28eb262f0311adb8a8"
+    },
+    "host-debs/wget_1.21.4-1ubuntu4.5_amd64.deb": {
+      "bytes": 334118,
+      "sha256": "2aa5a734b21b49ff6bd2239546b3f88275f8abb55dd8a984249e6cd0c1173a92"
+    },
+    "host-debs/zlib1g_1%3a1.3.dfsg-3.1ubuntu2.3_amd64.deb": {
+      "bytes": 63158,
+      "sha256": "376249c8de139568221dbb242318cc8cb8f02299e3a62b7432948e1754fbddf9"
+    },
+    "host-signed-metadata/packages-001": {
+      "bytes": 7165069,
+      "sha256": "8f6f71ae839c8cba390a7643fcbbdacddb0bc7d12c1583a2dd80a1f8443a30e5"
+    },
+    "host-signed-metadata/packages-002": {
+      "bytes": 669193,
+      "sha256": "f5620712a54076429190adbc8b3974250606ffb624c9b877bc240d8f2476118e"
+    },
+    "host-signed-metadata/packages-003": {
+      "bytes": 73379142,
+      "sha256": "687ffc969e7700137677b9cfe2f614ee2d638052a91a7c9bf31f3f6a3040a99a"
+    },
+    "host-signed-metadata/packages-004": {
+      "bytes": 1296005,
+      "sha256": "65765aa769593ed76ced26878dbdc5e4b8ae9c4046cd9d1af567bd231a72d98a"
+    },
+    "host-signed-metadata/packages-005": {
+      "bytes": 7617086,
+      "sha256": "a9e49228d93e7a8fa9244f9ff9df26891de3a3e67ebb67af3dcef53e8b65d9de"
+    },
+    "host-signed-metadata/packages-006": {
+      "bytes": 10749469,
+      "sha256": "58523f8729d92c9ca5f67fe2feb97c613384ca1f41e14ef824bf83a8b78654d1"
+    },
+    "host-signed-metadata/packages-007": {
+      "bytes": 10646537,
+      "sha256": "fc72c7f2b3d290d20317b6c2ba61dd425b7ae3b5e3a6c350432f2a78de0d6a2b"
+    },
+    "host-signed-metadata/packages-008": {
+      "bytes": 364594,
+      "sha256": "afc01812446b80676d82692225ba9f2595cb143c6e8e09f613516e252c6ac048"
+    },
+    "host-signed-metadata/packages-009": {
+      "bytes": 6241173,
+      "sha256": "dd8f0e30250c8a7df48247a76479d8b533acfcbd16e77181c2457ede52e6a618"
+    },
+    "host-signed-metadata/packages-010": {
+      "bytes": 10191421,
+      "sha256": "00d92b302818111b30b1fed0ccfce7b3acb5c837d8e83e4e28905326866160db"
+    },
+    "host-signed-metadata/packages-011": {
+      "bytes": 7675869,
+      "sha256": "9c5ba85b87832d284963422965704dde2c8ab861661f571aa1bf45e9180bf9bc"
+    },
+    "host-signed-metadata/packages-012": {
+      "bytes": 341833,
+      "sha256": "8617e75385f67eac40bcbb069ebd3ceaefdeb79ac91a513ec3d3f35c92f90ab7"
+    },
+    "host-signed-metadata/release-01.InRelease": {
+      "bytes": 126125,
+      "sha256": "86950a25d17620eb961ee8e232e778d26b50481db6aa35688669258da0323762"
+    },
+    "host-signed-metadata/release-01.Release": {
+      "bytes": 125243,
+      "sha256": "8d0a22ac46bee11c00e4a56fb6f73eacbc274b36d0fb865511cd9dc96d238f98"
+    },
+    "host-signed-metadata/release-02.InRelease": {
+      "bytes": 255850,
+      "sha256": "cdb2f31d809f589719a53c6ad15f255b27569c4059542ada282aaa21b8e164b0"
+    },
+    "host-signed-metadata/release-02.Release": {
+      "bytes": 254968,
+      "sha256": "26758a13cecfaff9ff274d31ea9a4633674a999bd130c09f6ecd66a4b8071184"
+    },
+    "host-signed-metadata/release-03.InRelease": {
+      "bytes": 126127,
+      "sha256": "b98a23bb0d3a8e45a891aef8b0120049329b135598eb6edc584049afc8407474"
+    },
+    "host-signed-metadata/release-03.Release": {
+      "bytes": 125245,
+      "sha256": "c860b895823a8ddb5e8950a695d1b7c3219421122d40641b2e963d1c5cbdaec8"
+    },
+    "host-signed-metadata/sources.list": {
+      "bytes": 591,
+      "sha256": "b47f3ecfcc3922ef137b7ad234b4793e3af060b55240ee463838df7eb374ea65"
+    },
+    "host-signed-metadata/ubuntu-archive-keyring.gpg": {
+      "bytes": 3607,
+      "sha256": "80a36b0a6de2f69f49d2df75ef473ccde121e9e190b9ea01d20a4f63778d5c31"
+    },
+    "host-tools-lock.json": {
+      "bytes": 160968,
+      "sha256": "23e9cdcb59d19b45de46bbfbe53630680aa3266dfd762cca97d1c2c40354d953"
+    },
+    "package/deb-inspection.json": {
+      "bytes": 13665,
+      "sha256": "ae53cfdce5edc705acd2e03ecca646be91c9654c5f3cef1d4a5e411c64ccf2e4"
+    },
+    "package/export.json": {
+      "bytes": 346795,
+      "sha256": "b258f6d01badb4f697d40a859b2ea692e443e4d9c2d33930cb31312d750562ba"
+    },
+    "package/native-inputs.json": {
+      "bytes": 339687,
+      "sha256": "8160c3724a89acc1f9f7133eb1453f5bb89632cd3c88165d271b803ffffafe41"
+    },
+    "package/original-source-after.json": {
+      "bytes": 505072,
+      "sha256": "0e59edf8ff6fccdc7c278c6eea57cff841f46e2a925807fb96ffbc73b22e2995"
+    },
+    "package/original-source-before.json": {
+      "bytes": 505072,
+      "sha256": "0e59edf8ff6fccdc7c278c6eea57cff841f46e2a925807fb96ffbc73b22e2995"
+    },
+    "package/package-closure.json": {
+      "bytes": 985,
+      "sha256": "21c02769c5d484406a34b6d03a86f363091fdbc734890969a5c42ddf0d0d862b"
+    },
+    "package/package.deb": {
+      "bytes": 85743242,
+      "sha256": "fa69fdb2a67b2eb3a1cb857b7b234a213f987dad7b02475a4866f27bf17a2c51"
+    },
+    "package/shipping-descriptors.json": {
+      "bytes": 367,
+      "sha256": "4e4b9a1a1ffbcc62f8198284dd043017ba65c9d9315e9374b6b9dc67f3ca5c5e"
+    },
+    "package/shipping-runtime-descriptor-0.rs": {
+      "bytes": 649,
+      "sha256": "172a0926a2f4c38756d3c5ca52adda8fc16760633f5017eb309d06f283aec21b"
+    },
+    "ubuntu-cloudimage-keyring.gpg": {
+      "bytes": 2444,
+      "sha256": "c2d40d925557dbe9a0745c12ca0dc98bed593ce9a6652f1b2faa1ff0858dbf2f"
+    }
+  }
+}

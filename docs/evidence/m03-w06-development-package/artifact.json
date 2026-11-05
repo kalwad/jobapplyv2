@@ -1,0 +1,16 @@
+{
+  "scope": "DERIVED adoption descriptor, not raw execution/Gate evidence verdict",
+  "archive": {
+    "bytes": 2688395,
+    "sha256": "675bb16cd1ba8c0c1d469e17a4dcf66253bcc433b80436a467b528a583a9fe90"
+  },
+  "members": 675,
+  "payload_bytes": 9272525,
+  "status": "W06_IN_PROGRESS",
+  "physical_images_in_archive": false,
+  "outside_durable_manifests": [
+    "/Users/tanishkalwad/jobapplyv2-evidence/m03-w06-development-package-20261019/manifest.json",
+    "/Users/tanishkalwad/jobapplyv2-evidence/m03-w06-focus-native-images-20261019/manifest.json"
+  ],
+  "whole_current20": "PENDING"
+}

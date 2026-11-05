@@ -1,0 +1,176 @@
+{
+  "actual_main_checkout": "fa044b9f37c59bbafece98c09e4bbad6d25337c3",
+  "attempt": 1,
+  "auxiliary_policy": "Four successful metadata policy runs record SKIP_NO_ROOT_REQUEST; source-check/download/VM actors skipped.",
+  "browser_each": [
+    278,
+    2,
+    62,
+    17
+  ],
+  "collector_closure": {
+    "artifact_ids_retained": [
+      12919469767,
+      12920254167,
+      12920287903,
+      12921540779,
+      12922628385,
+      12924412542,
+      12924631648,
+      12925210584
+    ],
+    "canonical_writes": 0,
+    "checkout_bindings": {
+      "bd4cffd7f61f99f77520e7dc522f852488cdd9d3": {
+        "is_distinct_from_api_head": false,
+        "observed_checkout_commit": "bd4cffd7f61f99f77520e7dc522f852488cdd9d3",
+        "observed_in_jobs": [
+          123635017022,
+          123635017362,
+          123635016865,
+          123635017115
+        ],
+        "parents": [
+          "f5a05bad78d8421a5c1e0094eb928fdbb464cdc7"
+        ],
+        "parents_match_start_PR_base_and_source": false,
+        "same_tree_as_run_head": true,
+        "source_join": {
+          "all_oid_mode_size_equal": true,
+          "blob_count": 2294,
+          "exact_paths": true,
+          "local_bodies_SHA1_framed_SHA256_and_Git_modes": true
+        },
+        "tree": "75d79ae7fc14e9a02c1f326e5376b16d74a7736e"
+      },
+      "fa044b9f37c59bbafece98c09e4bbad6d25337c3": {
+        "is_distinct_from_api_head": true,
+        "observed_checkout_commit": "fa044b9f37c59bbafece98c09e4bbad6d25337c3",
+        "observed_in_jobs": [
+          123635017859,
+          123635017964,
+          123635017411
+        ],
+        "parents": [
+          "4745149f4b5da7190b5b0c68753f8ec07bed572d",
+          "bd4cffd7f61f99f77520e7dc522f852488cdd9d3"
+        ],
+        "parents_match_start_PR_base_and_source": true,
+        "same_tree_as_run_head": true,
+        "source_join": {
+          "all_oid_mode_size_equal": true,
+          "blob_count": 2294,
+          "exact_paths": true,
+          "local_bodies_SHA1_framed_SHA256_and_Git_modes": true
+        },
+        "tree": "75d79ae7fc14e9a02c1f326e5376b16d74a7736e"
+      }
+    },
+    "closed_jobs": [
+      123635016865,
+      123635017022,
+      123635017115,
+      123635017362,
+      123635017411,
+      123635017859,
+      123635017964,
+      123635368194,
+      123635385208,
+      123635385756,
+      123635473447,
+      123635898223,
+      123667601519
+    ],
+    "end_utc": "2026-10-29T19:02:24.331101+00:00",
+    "failures": [
+      {
+        "conclusion": "failure",
+        "job": 123635017859,
+        "kind": "TERMINAL_JOB_FAILURE",
+        "name": "doctor + verify (ubuntu-24.04)",
+        "run": 40926988782
+      },
+      {
+        "conclusion": "failure",
+        "job": 123635017964,
+        "kind": "TERMINAL_JOB_FAILURE",
+        "name": "doctor + verify (windows-2025)",
+        "run": 40926988782
+      },
+      {
+        "conclusion": "failure",
+        "job": 123635017411,
+        "kind": "TERMINAL_JOB_FAILURE",
+        "name": "doctor + verify (macos-15)",
+        "run": 40926988782
+      }
+    ],
+    "no_subject_execution": true,
+    "terminal_runs": [
+      40926988770,
+      40926988781,
+      40926988782,
+      40926988866,
+      40926988881
+    ]
+  },
+  "dependent_package_job": {
+    "conclusion": "skipped",
+    "curated_exports": 0,
+    "id": 123667601519
+  },
+  "different_review": {
+    "joins": 9722,
+    "manifest_sha256": "b9a84661af3221ce09d13b8dbc0bdc4b1bc00eacb61365437723b8c87c169313",
+    "report_sha256": "570fe90c1a021cc2003c6218994d323ea29d2120ce355fa9cefd008cdc15d0d1",
+    "verdict": "CLEAR_AS_RECORDED_FAILURE"
+  },
+  "doctor_each": 28,
+  "exact_shared_tree": "75d79ae7fc14e9a02c1f326e5376b16d74a7736e",
+  "main_platforms": {
+    "macos-15": {
+      "ACTIVE_FAIL": [
+        "python"
+      ],
+      "ACTIVE_PASS": 19,
+      "native_same_ids_each_three_modes": 342,
+      "python_fail": 1,
+      "python_pass": 2623,
+      "python_seconds": 954.62
+    },
+    "ubuntu-24.04": {
+      "ACTIVE_FAIL": [
+        "python"
+      ],
+      "ACTIVE_PASS": 19,
+      "native_same_ids_each_three_modes": 338,
+      "python_fail": 1,
+      "python_pass": 2623,
+      "python_seconds": 665.12
+    },
+    "windows-2025": {
+      "ACTIVE_FAIL": [
+        "python"
+      ],
+      "ACTIVE_PASS": 19,
+      "native_same_ids_each_three_modes": 316,
+      "python_fail": 2,
+      "python_pass": 2620,
+      "python_seconds": 1114.85
+    }
+  },
+  "main_run": 40926988782,
+  "native_separate_each": [
+    1,
+    10
+  ],
+  "result": "FAILURE",
+  "scope": "Actual immutable hosted failure only. Later correction, native Windows11/defaultGNOME, package export, milestone or release credit is absent.",
+  "source": "bd4cffd7f61f99f77520e7dc522f852488cdd9d3",
+  "source_paths": 2294,
+  "typescript_each": {
+    "fresh_tasks": 15,
+    "passes": 4006
+  },
+  "utc": "2026-10-29T19:31:18.191434+00:00"
+}

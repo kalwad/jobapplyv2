@@ -1,0 +1,9 @@
+﻿{
+    "terminal":  "FAIL",
+    "phase":  "environment",
+    "nonce":  "bd6172644b26fafb0b0593f31a885989a662affbe7f7efcbf9b0c81bae66a612",
+    "package_sha256":  "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+    "elapsed_ms":  62781,
+    "error_type":  "System.Management.Automation.ItemNotFoundException",
+    "message":  "Cannot find path \u0027C:\\Users\\JAPPFI~1\\AppData\\Local\\Temp\\JappDx-bd6172644b26fafb0b0593f31a885989a662affbe7f7efcbf9b0c81bae66a612.xml\u0027 because it does not exist."
+}

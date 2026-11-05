@@ -1,0 +1,53 @@
+{
+  "scope": "Exact committed bytes; JSON/text copies of CI artifact files normalized to LF",
+  "files": {
+    "README.md": {
+      "bytes": 2777,
+      "sha256": "8436eea3a9e24152b8b8bdf0b0f48f2d0b71f525d9eef51e924702cd66e2b063"
+    },
+    "summary.json": {
+      "bytes": 1488,
+      "sha256": "feef2878827d54e4473629ad71061d3811924683fa2cff237792e50028c54e43"
+    },
+    "ubuntu-15-package-actor.stderr": {
+      "bytes": 593,
+      "sha256": "338f58926aed97aa20cb1fcbaacef0e6dd87df64d9af47438d3b6f1376b1b781"
+    },
+    "ubuntu-15-package-actor.stdout": {
+      "bytes": 202,
+      "sha256": "c89e425931da4aae5bcebb091637c4a068e0bed80f2c05cbf7b7fdd1d5a21a65"
+    },
+    "windows-10-tauri-package.result.json": {
+      "bytes": 5698,
+      "sha256": "bf85ea4c434bfcf54a8e86a71df3187df0d63949a43d564e597b15f3250b2947"
+    },
+    "windows-10-tauri-package.upfront.json": {
+      "bytes": 4868,
+      "sha256": "de7a1c679a2d24a3529c3bb49d41b1631119f8ae237e43d49c3773ba95a5d698"
+    },
+    "windows-11-package-stage.result.json": {
+      "bytes": 5918,
+      "sha256": "783de0ad2a39243867c46ff91b036c78d70ec1e7d02cae1d3120edc5bba24fc4"
+    },
+    "windows-12-package-inspect.result.json": {
+      "bytes": 5685,
+      "sha256": "97b5ed36e6f8f0aa815a7a112fe262661213f9ed55446007e5991e3872acae88"
+    },
+    "windows-12-pe-app.result.json": {
+      "bytes": 5555,
+      "sha256": "3550a35915078c36038b10ed598c5114b7e4024fad227d907ccee43b3d0c8d68"
+    },
+    "windows-12-pe-service.result.json": {
+      "bytes": 5594,
+      "sha256": "781ee0173e70e03d4421c243370ed6fd74f26b0a58af33e33dbe287bfa198c8e"
+    },
+    "windows-failure-traceback.txt": {
+      "bytes": 669,
+      "sha256": "2f9e91516e4dc5bcbc31d7bebd49713cd4d837e0daa9b932801ce29ab3ff7aa7"
+    },
+    "windows-shipping-status.txt": {
+      "bytes": 53,
+      "sha256": "8fcfb9cff2ade3ef84f6cf4185c9feff3bd2e2ac859c4f6c07279d1982935dea"
+    }
+  }
+}

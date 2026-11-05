@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "operation": "force_parent",
+  "result": {
+    "terminated_app": {
+      "signal": "SIGKILL",
+      "pidfd_exit_observed": true,
+      "identity": {
+        "pid": 30105,
+        "ppid": 1033,
+        "starttime_ticks": 33436,
+        "state": "S",
+        "uid": 1000,
+        "executable": "/home/japp-ci/Job Apply \u00fcnicode space/usr/bin/japp-desktop",
+        "device": 64769,
+        "inode": 530391
+      }
+    },
+    "closure": {
+      "app": {
+        "pid": 30105,
+        "ppid": 1033,
+        "starttime_ticks": 33436,
+        "state": "S",
+        "uid": 1000,
+        "executable": "/home/japp-ci/Job Apply \u00fcnicode space/usr/bin/japp-desktop",
+        "device": 64769,
+        "inode": 530391
+      },
+      "service": {
+        "pid": 30164,
+        "ppid": 30105,
+        "starttime_ticks": 33488,
+        "state": "S",
+        "uid": 1000,
+        "executable": "/home/japp-ci/Job Apply \u00fcnicode space/usr/lib/Desktop App/runtime/japp-orchestrator/japp-orchestrator",
+        "device": 64769,
+        "inode": 530450
+      },
+      "port": 43723,
+      "known_identities_absent": true,
+      "exclusive_bind_release": true,
+      "elapsed_seconds": 0.3025793229999749,
+      "universal_escaped_descendant_absence_claimed": false
+    }
+  },
+  "elapsed_seconds": 0.32144332400002895
+}

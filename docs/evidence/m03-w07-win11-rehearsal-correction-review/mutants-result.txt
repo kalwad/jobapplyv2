@@ -1,0 +1,21 @@
+keys-no-settle                 KILLED 1 failed, 105 passed in 23.06s
+shellkeys-no-settle            KILLED 1 failed, 105 passed in 23.05s
+no-handoff                     KILLED 1 failed, 105 passed in 26.08s
+quiet-zero                     KILLED 1 failed, 105 passed in 23.11s
+accept-any-window              KILLED 1 failed, 105 passed in 23.07s
+members-one-direction          KILLED 1 failed, 105 passed in 23.00s
+waitempty-throws               KILLED 1 failed, 105 passed in 23.00s
+waitempty-drops-counts         KILLED 1 failed, 105 passed in 23.10s
+focuspid-from-hwnd             KILLED 1 failed, 105 passed in 23.05s
+foreground-throws              KILLED 1 failed, 105 passed in 23.08s
+nonmember-transient            KILLED 2 failed, 104 passed in 23.05s
+handoff-unbounded              KILLED 1 failed, 105 passed in 23.07s
+handoff-after-deadline         KILLED 1 failed, 105 passed in 23.00s
+handoff-error-dropped          KILLED 1 failed, 105 passed in 23.05s
+foreground-owner-in-condition  KILLED 1 failed, 105 passed in 23.01s
+fixture-before-firstlogon      KILLED 1 failed, 105 passed in 23.05s
+attestor-no-user-wait          KILLED 1 failed, 105 passed in 23.05s
+attestor-waits-any-user        KILLED 1 failed, 105 passed in 23.04s
+attestor-unbounded-user-wait   KILLED 1 failed, 105 passed in 23.04s
+absent-default-true            KILLED 1 failed, 105 passed in 23.02s
+killed 20 of 20; sources restored: True

@@ -1,0 +1,23 @@
+{
+  "kind": "ACTUAL_ROOT_VISUAL_INSPECTION_OF_RETAINED_SYNTHETIC_CAPTURE",
+  "inspected_at": "2026-10-17T23:14:29.689349+00:00",
+  "candidate_commit": "6384d98156ae198cd93d7b35d1bb28b501ed475e",
+  "candidate_tree": "d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4",
+  "artifact": "frozen-full/w14/workday-en-us-contact.png",
+  "sha256": "23153f9458e6ada78419ed734abb00778b508d5bc1ea93f3792105cb889dd2ab",
+  "bytes": 108550,
+  "method": "tools.view_image invoked on exact local PNG; visible pixels inspected",
+  "observations": [
+    "PUBLIC SYNTHETIC / RESEARCH ONLY / NOT CERTIFIED banner and GUEST session visible.",
+    "Contact values Synthetic / Applicant / synthetic@example.invalid /2025550100 /example.invalid website are visible.",
+    "Country United States, Synthetic City,100 Synthetic Avenue,Michigan,48104 are visible.",
+    "Additional information, upload, phone-country-code, preferred contact method and available-start-date remain empty/unselected.",
+    "Disability status remains Choose an option and privacy-notice acknowledgement checkbox is unchecked.",
+    "Next control is visible; this static capture supplies no click/transition or submission evidence."
+  ],
+  "limitations": [
+    "One representative synthetic fixture capture; no public employer/support claim.",
+    "Persistence, native validation, required reporting and zero actions require raw test witnesses, not this image.",
+    "No human usability study, accessibility certification, owner visual approval or Gate A verdict."
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "source_commit": "aa7e4e3bb92faf21e23f6bfe01f05d4dbf8c5044",
+  "source_tree": "4770ca1bf59d043c0a0ca8084a73ab878a65163d",
+  "commands": [
+    {
+      "name": "doctor",
+      "argv": [
+        "pnpm",
+        "run",
+        "doctor"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "started_at": "2026-10-18T19:29:22.442841+00:00",
+      "ended_at": "2026-10-18T19:29:29.665460+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 7.222632457967848,
+      "log_bytes": 3222,
+      "log_sha256": "0b114d3112efd5f0bc52af6b57282085bda1a3c0272edf6774b3952cdbca8cc8"
+    },
+    {
+      "name": "verify",
+      "argv": [
+        "pnpm",
+        "verify"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "started_at": "2026-10-18T19:29:29.665650+00:00",
+      "ended_at": "2026-10-18T19:47:46.305164+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 1096.6305190840503,
+      "log_bytes": 622365,
+      "log_sha256": "68f34924d5368f104ec8a6ed0c21b8d9fd66b6478ac6cd9c35ff053d15431468"
+    }
+  ],
+  "closure": {
+    "ended_at": "2026-10-18T19:47:46.473909+00:00",
+    "source_unchanged": true,
+    "all_executed_commands_pass": true,
+    "both_commands_executed": true
+  },
+  "active_suites": [
+    "toolchain",
+    "format",
+    "lint",
+    "typecheck",
+    "unit-ts",
+    "contract-gen",
+    "fixture-corpus",
+    "evaluation-corpus",
+    "contract",
+    "build",
+    "e2e-browser",
+    "w14-public-controlled",
+    "w14-public-contact-controlled",
+    "visual",
+    "python",
+    "rust",
+    "portability",
+    "traceability",
+    "status",
+    "integrity"
+  ],
+  "independent_findings_sha256": "b8281070fd646743cf6fb82d738d479fb3c71fe5a86c9b188b90a6e1e7d7bdda",
+  "scope": "ordinary default W02 complete validation; no new Gate A target20 campaign, native client or platform package certification"
+}

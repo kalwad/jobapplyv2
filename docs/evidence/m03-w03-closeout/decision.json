@@ -1,0 +1,34 @@
+{
+  "work_package": "M03-W03",
+  "decision": "VERIFIED",
+  "decision_maker": "/root",
+  "authority": "OD-037 / ADR-0008",
+  "manual_owner_click": false,
+  "evaluated_commit": "6d3a6b8ccde5b75e12248ae7bbefc473b72922e4",
+  "evaluated_tree": "34fcf854cb4a1a452b267a02a05e0c34aeb6f89c",
+  "local_full": "V5 doctor28 and all20 ACTIVE PASS with independent result review",
+  "native_modes": {
+    "macos-15": [
+      77,
+      77,
+      77
+    ],
+    "ubuntu-24.04": [
+      76,
+      76,
+      76
+    ],
+    "windows-2025": [
+      70,
+      70,
+      70
+    ]
+  },
+  "hosted_run": 39188122249,
+  "hosted_outcome": "FAILURE: Ubuntu/macOS20PASS; Windows19PASS/browsercleanupFAIL; Windows standalone tracked-change stepSKIPPED",
+  "independent_ci_review_sha256": "06601fe88e7001cae570f92f41186b91beb96da6b7ff3dfba8ab33a882c809e5",
+  "remaining_issue": "KI-0108 OPEN: actual Windows browser cleanup and absent failure artifact",
+  "next_package": "M03-W04",
+  "milestone_accepted": false,
+  "release_ready": false
+}

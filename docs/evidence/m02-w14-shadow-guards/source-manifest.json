@@ -1,0 +1,117 @@
+[
+  {
+    "path": "apps/extension/README.md",
+    "base_sha256": "70586d292efa39376acfd8d177ab103c57992591fedd32a1c91dd59addc94cb5",
+    "new_sha256": "7c80b779982e1ce9186268636fc89799236e63bd1f4ec46636095d6120671720"
+  },
+  {
+    "path": "apps/extension/src/driver-engine.ts",
+    "base_sha256": "d279d4c5f2527a0a46c014e84e0e57035a0537826b20130efba1e84e9dd91796",
+    "new_sha256": "3a9ee1949b0d6a48f8720894df97411bf51d8dda712af42bd4b01ce0b5517396"
+  },
+  {
+    "path": "apps/extension/src/drivers/choice-drivers.ts",
+    "base_sha256": "6ea0571aba9c328587a1898b974af0eb7939207346b03efb01e3f303e9877c62",
+    "new_sha256": "323e3fff8212b2ec7237be2190cd4b8a08146728c3cb833ce76e2461944c2936"
+  },
+  {
+    "path": "apps/extension/src/drivers/driver-contract.ts",
+    "base_sha256": "7357310f8084ee683ced2912508be62d86455bcdb681fd5c47b3c91d5791b446",
+    "new_sha256": "59ac010116c836c09d821f1bf1cb609a6c0e6b7c836443f334e44e9d9ec654fb"
+  },
+  {
+    "path": "apps/extension/src/drivers/driver-dom.ts",
+    "base_sha256": "154ceb8ad9cea2cccc8d51624353ac1a1157ee85505e44389217ef88bad8d7d1",
+    "new_sha256": "3331fa3b3f200b556c2a1a1de250fb8388dbe6398d221607f16aee9a2fbd7efa"
+  },
+  {
+    "path": "apps/extension/src/drivers/file-upload-driver.ts",
+    "base_sha256": "c6da487bac5d33ac2efca9de0aa9e045bc076e1fbc7deaaa62622a8450832641",
+    "new_sha256": "8923a217399cbd6fecac1e8770e00d327f1fa56362e237d6a200b8a02c644a1a"
+  },
+  {
+    "path": "apps/extension/src/drivers/mutation-guard.ts",
+    "base_sha256": null,
+    "new_sha256": "394b83f15446b16613e1175871c04c9d0209341efa9b184362d4da46fc9d0085"
+  },
+  {
+    "path": "apps/extension/src/drivers/repeater-driver.ts",
+    "base_sha256": "3d1621613e8eda8897bd63ae504a16e42212337703f3701455524b65e9f59159",
+    "new_sha256": "535391867af4f3d026a6027fed9227c491ef07da4fa40b02ecefd844b5981c95"
+  },
+  {
+    "path": "apps/extension/src/drivers/text-like-drivers.ts",
+    "base_sha256": "c25309768be1431f23ccd3363740509833bbaea8f06be0ab8e2f16173fc2b67c",
+    "new_sha256": "d39682b692f372d91279a130b73b614afdde6bb1ef0da62f06fb6a7e63e5c316"
+  },
+  {
+    "path": "apps/extension/src/drivers/widget-drivers.ts",
+    "base_sha256": "1b0e9be2e5d09b34132f8fb4034a6f33257e819bbf93a52dff81adf23ccd1202",
+    "new_sha256": "932acd65ae2ce72e666afe02f4d68115001874ea5652f1eb752595121c5a125c"
+  },
+  {
+    "path": "apps/extension/src/dynamic-engine.ts",
+    "base_sha256": "898b195483fefe025508ccfbf486d248af95f80d3d4a3014d3c1c469335c6222",
+    "new_sha256": "5e942ba654d58ef909f68a0281f96dfe1a47c048dca1d3cfd922ed8ae1c92cd1"
+  },
+  {
+    "path": "apps/extension/src/field-scanner.ts",
+    "base_sha256": "8fbbaaa0193fc63c18b0ca611f963b24b4795df59357c7687a04a77eebadba2c",
+    "new_sha256": "348216e25db8a63165306d4a3493f2737d8a199c2e3a08fe0c8d7c12365ae452"
+  },
+  {
+    "path": "apps/extension/src/open-dom.ts",
+    "base_sha256": null,
+    "new_sha256": "871458a44bb04d1dab13b2c977d573a70495e1227c580581ebf01d1208c2c353"
+  },
+  {
+    "path": "apps/extension/src/scanner-protocol.ts",
+    "base_sha256": "bf6d944b34252d2effe165094ee61742d7df5a7e6f530a47e48b607338d41b49",
+    "new_sha256": "e028d92d28e9924007a4ae278a0a17ff42d76149334a01a05bcf45c56edfac8b"
+  },
+  {
+    "path": "e2e/extension/extension-drivers.spec.ts",
+    "base_sha256": "c6a71fe420b23fe239a8bb0b5beedccf9dade926532718767500e1734252b22b",
+    "new_sha256": "53463398a599e1aa0a411f46a1a17e6e82dfe57b01ee5588504fecbb81a6ed5d"
+  },
+  {
+    "path": "e2e/extension/extension-w14-option-preservation-peer.spec.ts",
+    "base_sha256": null,
+    "new_sha256": "c4579b1577b6a26c774c052327ad408ff1177ddfdb452d0315ce2f85508164a5"
+  },
+  {
+    "path": "e2e/extension/extension-w14-outside-owner-peer.spec.ts",
+    "base_sha256": null,
+    "new_sha256": "6847946921a3d1d14f465178123195f950c567c311a66ca49ff19ce0630eb7bb"
+  },
+  {
+    "path": "e2e/extension/extension-w14-post-input-ownership-peer.spec.ts",
+    "base_sha256": null,
+    "new_sha256": "d35bb587132250debd64b1542bb7216e9346b3dac3ef4f759bda171a2b02a95a"
+  },
+  {
+    "path": "e2e/extension/extension-w14-result-ownership-peer.spec.ts",
+    "base_sha256": null,
+    "new_sha256": "6b1cddd02d49faebff003a71b8aa63b087c922e450e7d8a9c752e4f18aaf57b1"
+  },
+  {
+    "path": "e2e/extension/extension-w14-semantic-lookup.spec.ts",
+    "base_sha256": null,
+    "new_sha256": "1ef6debd7f58e65dcd8ea9f7905c861fef97e5a5fa8b9408ce4e8af3b19be5fd"
+  },
+  {
+    "path": "e2e/extension/extension-w14-shadow-peer.spec.ts",
+    "base_sha256": null,
+    "new_sha256": "42954079c8f9210aaab2e2d5ad61c4cc277ce698abb7cc54803fcde0354a7128"
+  },
+  {
+    "path": "e2e/extension/extension-w14-shadow.spec.ts",
+    "base_sha256": null,
+    "new_sha256": "97066a0688a93e7fd597b0813d1b601ecba91d5e3e4c0c6671849434c234c6e6"
+  },
+  {
+    "path": "e2e/extension/extension-w14-topology-scaling.spec.ts",
+    "base_sha256": null,
+    "new_sha256": "9607673a93dd68a3063fecb70eea04c48cbca9ef495a8ee109faaf4b82b27c20"
+  }
+]

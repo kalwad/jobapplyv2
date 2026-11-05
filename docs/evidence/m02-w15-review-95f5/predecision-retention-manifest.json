@@ -1,0 +1,851 @@
+{
+  "archive_sha256": "5085d94111a2dab8aba4f879f9ffb197287bd436d8df5193aef8aaafc505f5aa",
+  "archive_bytes": 10325434,
+  "regular_members": 169,
+  "files": [
+    {
+      "path": "bookkeeping/index-preparation-v1.json",
+      "bytes": 90097,
+      "sha256": "25a9508387ae10f979f5d8e6c8a5cc3c056a148ec82b7bed6bb7ecffad2503ba"
+    },
+    {
+      "path": "bookkeeping/index-preparation-v2.json",
+      "bytes": 91640,
+      "sha256": "6fcb44e8cd248fc5b82fb957ac05de2ed0c4adb0d4ef8ef7c09ca003a0828ff2"
+    },
+    {
+      "path": "bookkeeping/pack-plan-v1.json",
+      "bytes": 7390,
+      "sha256": "3dcd9606add38101a2a6befce6a8d962b052d7a19319a1b98782c5beeb3757f3"
+    },
+    {
+      "path": "bookkeeping/pack-plan-v2.json",
+      "bytes": 43546,
+      "sha256": "dde4eee19ab0b8487e008c27ac75a93225cfa26b6c9c36d52456bee78c20295b"
+    },
+    {
+      "path": "components/canonical/proof.tar.gz",
+      "bytes": 353628,
+      "sha256": "aff619389ace186176b8de44fd713e2ac2e2d371f2dbe1ae1c27712261317d3e"
+    },
+    {
+      "path": "components/canonical/retention-manifest.json",
+      "bytes": 7817,
+      "sha256": "d28734a8b9e2f143a8f048ecbd67d599e444add51f081e670dd75158722589c6"
+    },
+    {
+      "path": "components/canonical/review-index.json",
+      "bytes": 8650,
+      "sha256": "1cb9e771102720d51849c613866dcd3005851cf1783a774191709662d8284c5b"
+    },
+    {
+      "path": "components/comparison/proof.tar.gz",
+      "bytes": 992681,
+      "sha256": "84d4587c86ae368d8939019ea346c457c353982c4728bd0999816cafd2040b0c"
+    },
+    {
+      "path": "components/comparison/retention-manifest.json",
+      "bytes": 15345,
+      "sha256": "781c9e24a859072d2652a2581a7ea4a9f549a199ac40ad88b88e4ce4328f6b65"
+    },
+    {
+      "path": "components/comparison/review-index.json",
+      "bytes": 16420,
+      "sha256": "40fea146a979c1d6aab5390c47f9dbd91e73b8db6281d7559cbbcb6075cb1aaa"
+    },
+    {
+      "path": "components/full/proof.tar.gz",
+      "bytes": 5381753,
+      "sha256": "28d79b906c4b136e140648ca6b109f3f768ed6d1caa5feaafbac18faaabd8261"
+    },
+    {
+      "path": "components/full/retention-manifest.json",
+      "bytes": 28004,
+      "sha256": "bae0fab3f213f74f32e606c62b5de8df7efb349378665b5d4e75a1e026480176"
+    },
+    {
+      "path": "components/full/review-index.json",
+      "bytes": 28993,
+      "sha256": "b7a48d84dfd5ac3f0e952caa7252359697110a93b552e5c619bec34e03578baf"
+    },
+    {
+      "path": "components/historical-native-3c79/manifest.json",
+      "bytes": 573,
+      "sha256": "02d14e44203f4801b43dc56df12369e8b8ba13cb61d62241ab7d7ae2eb0b31c4"
+    },
+    {
+      "path": "components/historical-native-3c79/proof.tar.gz",
+      "bytes": 820151,
+      "sha256": "4ef165b8832163f99ba9a8e97c75a5049f45bc28624a3fdc0e352d076c3b294e"
+    },
+    {
+      "path": "components/independent-local/archive-verification.json",
+      "bytes": 557,
+      "sha256": "a3deb29bb6f6c3f47ae6ec65b59e7e845fa2e77d7e88317b5d40093853a18946"
+    },
+    {
+      "path": "components/independent-local/proof.tar.gz",
+      "bytes": 1188368,
+      "sha256": "2442a5963b95ac9e8cc22d4d4b7d111fc5638a12e420dcb682a86a4885bf413b"
+    },
+    {
+      "path": "components/independent-local/retention-manifest.json",
+      "bytes": 64677,
+      "sha256": "d5e29f28daf8ff5fb30cfbb2a346a6da02cdcbfe9f572eec6a2331e88a32dd0a"
+    },
+    {
+      "path": "components/independent-local/separate-component-references.json",
+      "bytes": 2017,
+      "sha256": "6fcc9a465697c43458f548038b04514c9a356ca5b01d525a7568b21b7c26ca41"
+    },
+    {
+      "path": "components/native-ci/manifest.json",
+      "bytes": 572,
+      "sha256": "8b11a186ea25bdc41810f6fe5e6c5f249ffeb459e116dc24586ef2f510ec2706"
+    },
+    {
+      "path": "components/native-ci/proof.tar.gz",
+      "bytes": 1058017,
+      "sha256": "41b883103da724c9f87ca2a4e34ab41b30bcbf9f706b646e03b6c221c94bc9f0"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/catalog.manifest.json",
+      "bytes": 173,
+      "sha256": "b94bfdf67b140f350db0c5942d6524a654db0f47a52902cb08117f81a81d2db5"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/apply/receipt/index.html",
+      "bytes": 430,
+      "sha256": "9a6f45dd509b40b34039cf13bdd04ec8eb303c0a3581a26d18fc23bfc08ca8bc"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/apply/review/index.html",
+      "bytes": 428,
+      "sha256": "5e5a03954ccfe1fe3f4ae2ad80fbfcfd7218154257174e83e5c62e77f190c2bb"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/apply/step-1/index.html",
+      "bytes": 433,
+      "sha256": "f237a996a1101f08f3d275c4266a95902d3347cc81aa50249f8d7fd4b2061aec"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/apply/step-2/index.html",
+      "bytes": 433,
+      "sha256": "59797ef222396bb09fec7a0f697194ea3e9c3c4f478bfe488f44ff8fdb47cb0d"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/apply/step-3/index.html",
+      "bytes": 433,
+      "sha256": "8b3bc38a4eb3c66c0e13a0800f5c7473ad3a77d18f579e252c35108035e38e31"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/combobox/index.html",
+      "bytes": 435,
+      "sha256": "44062a5367ec9097ccb921d1411e5fcc0f1fa3abcc07b489be3efd92148db098"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/datephone/index.html",
+      "bytes": 433,
+      "sha256": "7a5a560150b8743cb942d196ce2644c1420e7d39f0000e69465e03c4c5f9757b"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/dynamic/index.html",
+      "bytes": 426,
+      "sha256": "bfea07f2cc4464a1e931e6bcdc793fa57406f275523062a09a5d687fc3668cf0"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/frames/index.html",
+      "bytes": 429,
+      "sha256": "b59f3745ada3f90d86391279b068042bc113099788fc66f70fc841480bf7a8ec"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/frames/inner/index.html",
+      "bytes": 442,
+      "sha256": "74e5d37d97ddf900c4fb30d86356f02f59720379e4641045010eb472a65a691d"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/index.html",
+      "bytes": 429,
+      "sha256": "1a95f4cc9c99a17ef607a967e067e57615d6e6197862c1d3b09a8b34d22473b1"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/native/index.html",
+      "bytes": 449,
+      "sha256": "f4cd735484350fe920692f72c781cc963aeb5466016306c4cd0e0a7c81f2d8d2"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/public/styles.css",
+      "bytes": 4207,
+      "sha256": "d207d148223170229aee37e9eb48df37c510318719fabad25100de907ee62405"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/react/index.html",
+      "bytes": 434,
+      "sha256": "b7dea6df16e3cfd8997148beaad6734ac9bc7cbd47f41873cac9e7ad194c2814"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/shadow/index.html",
+      "bytes": 426,
+      "sha256": "abaea86445cd1866b1587697093632f6e8c356bef3892fe8009177701bbde9a1"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/catalog/cases.ts",
+      "bytes": 7799,
+      "sha256": "500cf14d06136cf6a04e5443a4fe9597247cd258e056ac4fcdbd3e6a265b061b"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/lab/banner.ts",
+      "bytes": 470,
+      "sha256": "b6d54fdd4a92c2091d36cb94bd4f6499059e606c415ce012beea011f5987095a"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/lab/constants.ts",
+      "bytes": 2901,
+      "sha256": "a9e9188e4256d2a2baea0f98ac01e19dde12935989bbf19369a64ac91ebf06e0"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/lab/dom.ts",
+      "bytes": 2738,
+      "sha256": "3584b5ca9e144f86ffe893f859fd11605f784b958a77786047965fdcf5038d17"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/lab/flow-state.ts",
+      "bytes": 5070,
+      "sha256": "a6bd9f7061dd7122d29d3739d263ca7f32cdfded427b9f4ca82417ee1ebb72e1"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/lab/receipts.ts",
+      "bytes": 2031,
+      "sha256": "a0781eca28279e13a9b2786bf2e7957824e839b5703af488bf2150df5c92a825"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/lab/storage.ts",
+      "bytes": 1763,
+      "sha256": "5dc93b70fc770b007965f09a9d1ff05a73f3245e8049701c2b8faf44622a76fb"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/apply-receipt.ts",
+      "bytes": 1540,
+      "sha256": "b5076b2705e4d9314f028972bc2986fc1993b3735798baf5a938295c544d27ff"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/apply-review.ts",
+      "bytes": 4669,
+      "sha256": "619f50a871257be33125631123310b2bee259c62323ed2c84f337fbdad59e78a"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/apply-step-1.ts",
+      "bytes": 3404,
+      "sha256": "ab2146c1a6b881042263f880e7c42465b052754618c8737a964852b2760819c5"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/apply-step-2.ts",
+      "bytes": 3828,
+      "sha256": "7f18447df1a4136f198a180cd1f1083918fafd53c1a31ba8152f7b326ffeb65f"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/apply-step-3.ts",
+      "bytes": 5974,
+      "sha256": "6380b75121ebfb856943084ab0d6779a8ddfeb5d472924d418eba77dc6af2e1e"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/combobox.ts",
+      "bytes": 8145,
+      "sha256": "fc2d25867d6f9867db81e64aa3a73cd5659999eb65979382cc89ab23ad16bcae"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/datephone.ts",
+      "bytes": 6722,
+      "sha256": "cb25cd1b120617012cf3320238f91b60d93085d0b57fefb8eee1be2e2e6c3e6a"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/dynamic.ts",
+      "bytes": 6475,
+      "sha256": "a0f4fff5a317989b98c053494e2a5b9f1bf971b5f41774a03395745965e04f70"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/frames-inner.ts",
+      "bytes": 2066,
+      "sha256": "f857cde7940dfee2a5f27927c98b025933fe5ff92fce7cc2e5682af767154880"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/frames.ts",
+      "bytes": 768,
+      "sha256": "d4d7fa6133ed358525cd8ebb9a35bd4b48f9c0ab5d3abdc9cb4f17a64e869045"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/index.ts",
+      "bytes": 1157,
+      "sha256": "b277f356bf829c0dc78133f42a7e0473e2efb64cefd1517a0ba750e0114bae9f"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/native.ts",
+      "bytes": 9688,
+      "sha256": "9c53317269b30ecc82ad7f4c9131c510737ef10a392efd8de5233e4a3f35d576"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/react-page.ts",
+      "bytes": 5883,
+      "sha256": "f4e0380a8f96e6cf250d7e7db2a266c0050fd4b09dbf720c693842d5bab3c596"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/shadow.ts",
+      "bytes": 3131,
+      "sha256": "d360b265037f197350a3a17ecc7fbde595845576097903c466f2613ad09d9a0c"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/upload.ts",
+      "bytes": 3593,
+      "sha256": "a97ae516a1eb85ace1d9f01eab87d18f4309a97521a2db5f860ee1ad6663d302"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/validation.ts",
+      "bytes": 5588,
+      "sha256": "2c9b3a8926008d9f0ee616ca5bfd3a2983286d5a4cba34962bbad7049185ccfa"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/virtualized.ts",
+      "bytes": 5879,
+      "sha256": "52ebdc1ac799780a28f4d4c27cdc774e28b1029a152b2c7d385ac9e0d19c7192"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/src/pages/vue-page.ts",
+      "bytes": 4706,
+      "sha256": "9bfbce278e4bbe010efc8849ed45010493e0258d40c09c0509471d6e2e86a419"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/upload/index.html",
+      "bytes": 423,
+      "sha256": "e8501379c41a7979cab3ef2e5d649588149e536b652803375d6ac1604777f55b"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/validation/index.html",
+      "bytes": 432,
+      "sha256": "e629b643c82543d61612d34b0b22c60cfa54a658ff06654a3026763ce04c3bdd"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/virtualized/index.html",
+      "bytes": 436,
+      "sha256": "15260949a792877e85229417c63c32a12e1f054af5be564c34f2fb76c063e650"
+    },
+    {
+      "path": "frozen-corpus/assets/apps/mock-ats-lab/site/vue/index.html",
+      "bytes": 430,
+      "sha256": "8cd4b8b195e9f7a55be36255a462c68725d6d5a810b7aa7e621ea2a6bd065cf9"
+    },
+    {
+      "path": "frozen-corpus/assets/e2e/mock-ats-lab/support/expected-transitions.ts",
+      "bytes": 6244,
+      "sha256": "60da2b28e6b87d8b9c94332a1303ed9f4bc8665ae77381554cd9407472628de2"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/contracts/generator/semantic-rules.ts",
+      "bytes": 323307,
+      "sha256": "d69b85650c220435e06a69186f099e89aa857834354394e47f86966fa821bc02"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/contracts/schemas/benchmark/case.v1.schema.json",
+      "bytes": 5440,
+      "sha256": "83122bef37c57220caf3467e2ba915a436111ac478817ecc9ddf414503ee9d53"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/contracts/schemas/benchmark/holdout-manifest.v1.schema.json",
+      "bytes": 4661,
+      "sha256": "139441d5b1bbcd44b35dafe8103d671825b6e9cfb79008a3dfd94d9b4927c738"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/contracts/schemas/benchmark/result.v1.schema.json",
+      "bytes": 6557,
+      "sha256": "8ab75abe179c4fc29f8f057dc40023665edb7e79d6d6ab75134eaa56068e286f"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/contracts/schemas/common/confidence.v1.schema.json",
+      "bytes": 715,
+      "sha256": "bc9314800ff05d7ae0bd99149a998c3760063e084a5a1bd49b06c11422f6b2c7"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/contracts/schemas/common/contract-text.v1.schema.json",
+      "bytes": 2521,
+      "sha256": "94f461e99d94614fa7fa982bfab36f0d80198eb613b8ca266d98ee4f942a4638"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/contracts/schemas/common/enum-token.v1.schema.json",
+      "bytes": 829,
+      "sha256": "4a884f43f45bd583270098438d4ea49039ac617023e5498a5904f9f750f8ae6a"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/contracts/schemas/common/provenance.v1.schema.json",
+      "bytes": 2228,
+      "sha256": "98568be9ee00446795785588cf352e84fd39bb3dc13dd9e2d5772917b88d828a"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/contracts/schemas/common/stable-id.v1.schema.json",
+      "bytes": 1223,
+      "sha256": "7ee382607fd83579464bc3f913f7eeecfb435d8cc9f9a145c128781a2ecf7b29"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/contracts/schemas/common/timestamp-utc.v1.schema.json",
+      "bytes": 904,
+      "sha256": "a8a37fd4cb55ea0b48b73ed9dc031ed14955bb9345dbdefccc3b63ff46bd68ac"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/contracts/schemas/error/taxonomy.v1.schema.json",
+      "bytes": 8103,
+      "sha256": "815d0eeab696f73a30892053d121872b7dae6d394d6a72331cc62d3cddf8f137"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/baseline.manifest.json",
+      "bytes": 2809,
+      "sha256": "ce7dee195f5e78a93e2fe2fd816e18bb3cb09968e1cd577b0b43b55e7181cf1d"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/data/legacy-observations.v1.json",
+      "bytes": 4198,
+      "sha256": "2a979f5592cbbc5c84fefcc241c3d0c95fb346c77e7b0ac2d2dcd66d9de5bcfb"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/src/canonical-json.ts",
+      "bytes": 1823,
+      "sha256": "216f1dfd1c14830b38d2dfcf8f4def551601d39a5dba9293418a6548473e1a76"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/src/catalog.ts",
+      "bytes": 12942,
+      "sha256": "840281459e7ca0a375f0b852ba9d029b9706d3e7f2606215450288d865a6db19"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/src/cli.ts",
+      "bytes": 1725,
+      "sha256": "15a99d257b24e3ab37229f6551f1b469a57b3de0e57d0217401d73aeecf87d17"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/src/dev-cases.ts",
+      "bytes": 14454,
+      "sha256": "4be9f2c35711624f6f9a77f6baceb41955a0aeffa9b8bf5c8ff0bd5d914a53c6"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/src/index.ts",
+      "bytes": 2363,
+      "sha256": "aa5ebdd07951f084a5a9b2cd44b9c259c3e26074bd4bc38b833e03d628ff4a67"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/src/keyword-overlap.ts",
+      "bytes": 1734,
+      "sha256": "9694e30917c2761de7b413199b5efaa7ee74312b13c4edc9cc37a6f77a15b5f1"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/src/keyword-stuffing.ts",
+      "bytes": 2564,
+      "sha256": "1e1e286675fb89f318c075efe2401b4f20416a5a2fd3c2151c51aec9adacae26"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/src/legacy-observation.ts",
+      "bytes": 16223,
+      "sha256": "ea4ccf4d95187bba3dc31ace5e6c0bbed8bd2848f80461ce1c6debaebf0948dd"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/src/manifest.ts",
+      "bytes": 6065,
+      "sha256": "095631d0670604d6e2dc2800c418af5d367e70e19ecd79bf333df1c7b9c6f93f"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/src/model.ts",
+      "bytes": 13448,
+      "sha256": "4e8bb94cbeed2bfb718ccb8ddcccb734e265ef22b55d7093c6fef6a351c619f4"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/src/normalize.ts",
+      "bytes": 2414,
+      "sha256": "ebee61c0ff275aa37ecbf347b71c75ee41c58d1a898aaada341ba50a2cad93f9"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/src/one-shot.ts",
+      "bytes": 5503,
+      "sha256": "72e489720217232bfe0638726154cbf59298859ff6777854ed08014230c101ec"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/src/original-untailored.ts",
+      "bytes": 2095,
+      "sha256": "74c04d194b6c0a2869c6f47d12804c92f69e4f7825a45bce789df48e47d7d33f"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/src/prompts.ts",
+      "bytes": 3680,
+      "sha256": "53dd07bac4c5fd5117339f5975bce962ebfde51f1acf21b19c55c2e43789c973"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/evaluation-baselines/test/m02-w04/oracles/baseline-truth.v1.json",
+      "bytes": 11543,
+      "sha256": "2135f8521fd4f0389bbeb8442e11435bf3430afe255cd820e0c6d42408e2aaa6"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/data/development/answer-constraints.v2.json",
+      "bytes": 8500,
+      "sha256": "d86c7daedde38ddcb278137e7e1298a87649599b7a445fbe803b81015d0eb89c"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/data/development/answer-scenarios.v2.json",
+      "bytes": 89964,
+      "sha256": "9129840cefa8a81a9b01388a8a237f80c7a5bd942feee1598dc0dfaf08b1e2de"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/data/development/evidence-artifacts.v2.json",
+      "bytes": 127612,
+      "sha256": "38a85db4450b3c10d3ed70660dbed1e1b83bd45d3efacfe7920c55ed2b17ab9a"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/data/development/expected-requirements.v2.json",
+      "bytes": 86444,
+      "sha256": "d843a004f604c3062cad61d99f747f6e5271f2f592737f3ead70bd8f137a771e"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/data/development/expected-supported-claims.v2.json",
+      "bytes": 106393,
+      "sha256": "3758b6e2d694dcccef1f5998595da50e1f389c041fda2139eafcf670d83efa03"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/data/development/field-value-policies.v2.json",
+      "bytes": 73200,
+      "sha256": "9caf45941580b5fb56c48741fee1785adc3cbea300e98ecfb81008c7b02efb0a"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/data/development/jobs.v2.json",
+      "bytes": 61444,
+      "sha256": "30d0ce067564df4e41de20f01fa9403bd734ae217c671b3ad0d8b045e99484b0"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/data/development/manifest.v2.json",
+      "bytes": 5702,
+      "sha256": "b5f20716c78ab70c2bd32b063a220bf53e4bfa15f1698896974114e1bccb7640"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/data/development/profiles.v2.json",
+      "bytes": 19874,
+      "sha256": "148b204d10d67e54ccd15a77c52decb118319dcc41a51737ccd7d8913212a622"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/data/development/question-cases.v2.json",
+      "bytes": 127618,
+      "sha256": "4511568885b2d17f4b73df88feadaa8306cd51b5a1401745792c9a7ca94fec42"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/data/development/scenario-bundles.v2.json",
+      "bytes": 89956,
+      "sha256": "b9bada6e9b890dd4cdfd27e0042b31c51b78536abaf5417d27b5fd170c7c03e7"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/data/development/source-resumes.v2.json",
+      "bytes": 35191,
+      "sha256": "4c2ba387cb5eb08be82684e62284bee9a238a479b78b2280ae80b17a4134f099"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/data/development/unsupported-gaps.v2.json",
+      "bytes": 38849,
+      "sha256": "568ea6f007386f0d1836338fd1b2ed8cb91f635d64758f8a6102f775990a2771"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/schemas/test-fixture/answer-constraint.v2.schema.json",
+      "bytes": 1831,
+      "sha256": "1f8c71b5bb163ca70367cadc4424187200e905ad9512d99bbb4d695b2ee3d6eb"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/schemas/test-fixture/answer-scenario.v2.schema.json",
+      "bytes": 6041,
+      "sha256": "c7dfd27c4233e24162634084baf55e2b84f87be3fb87fa226551c19df0629ddb"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/schemas/test-fixture/common.v2.schema.json",
+      "bytes": 2642,
+      "sha256": "1bb91e9d04dccf254064b8268ea6116189cf5d0545df672c5f67135f57cbbbe6"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/schemas/test-fixture/evidence-artifact.v2.schema.json",
+      "bytes": 7138,
+      "sha256": "e837cfb8671eee1a30fb3cb31297f339af1b1b24697226ee7adb82007ebc2569"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/schemas/test-fixture/expected-requirement.v2.schema.json",
+      "bytes": 2487,
+      "sha256": "16da7a187a08c96dbeef7d181dfd12c46619045e5d28e8cecdd7767a55e78c4c"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/schemas/test-fixture/expected-supported-claim.v2.schema.json",
+      "bytes": 2746,
+      "sha256": "9e8bbb62a1ef90a2f93607cbe920ab6f6d2f8c61724985a1bf52eb7261ee570f"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/schemas/test-fixture/field-value-policy.v2.schema.json",
+      "bytes": 2346,
+      "sha256": "54745f625e7758444704116a63a8a73ec0a8d80b64f863f712574ea4e729708b"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/schemas/test-fixture/manifest.v2.schema.json",
+      "bytes": 5983,
+      "sha256": "9759f78eb51285668dc344327416e4933c7d7ac09ab6e5a53b8079b0335ba39f"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/schemas/test-fixture/question-case.v2.schema.json",
+      "bytes": 2535,
+      "sha256": "7156f811331be38b718d85b65b5fc4cce138d1ceb67a8f987d3d16adce2f3c51"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/schemas/test-fixture/scenario-bundle.v2.schema.json",
+      "bytes": 4335,
+      "sha256": "41e0946833cb1b7069eeb5e99bbead961db75bedd351cc39053fbd628d93e968"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/schemas/test-fixture/source-resume.v2.schema.json",
+      "bytes": 2815,
+      "sha256": "b603a79d7f63d17ab93cc04dfc3ab895cd113412362ccdc9c3864cbe199f84cd"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/schemas/test-fixture/synthetic-job.v2.schema.json",
+      "bytes": 3872,
+      "sha256": "fe0ec2a99005fb40843bf16d496d9babb4d068f29ce4319a1616943a49097afe"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/schemas/test-fixture/synthetic-profile.v2.schema.json",
+      "bytes": 5422,
+      "sha256": "7a8a1bb3945ec656c3260ac66fbcb9e5a77edfa67add4a58e6f91a3ba5fc4a5e"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/schemas/test-fixture/unsupported-gap.v2.schema.json",
+      "bytes": 2473,
+      "sha256": "6a5e3df96d17e37a4c51cfbed2137ae7a05808f31ac93237a6cc490d9343dd22"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/test/m02-w01/oracles/development-truth.v2.json",
+      "bytes": 16665,
+      "sha256": "2ccf654f34d4fd33c450e2c730aa3f5ddd6e83636e04cb8dfbdd81187d856db1"
+    },
+    {
+      "path": "frozen-corpus/assets/packages/test-fixtures/test/m02-w02/oracles/answer-truth.v2.json",
+      "bytes": 3937,
+      "sha256": "3782cad7a9779fb02862935fc21bef4f9bbc0a0a5746b9cc8d9c0aedb6576973"
+    },
+    {
+      "path": "frozen-corpus/original-frozen-artifact-integrity.json",
+      "bytes": 42691,
+      "sha256": "77f766dd46f6830d70b5cb4ad6c5799c43d4daa04cff3ed69344da2446c2b0a9"
+    },
+    {
+      "path": "governance-and-manifests/CLAUDE.md",
+      "bytes": 14474,
+      "sha256": "1cdc9ce76d61a4f7e6a1926f05fdee5fa30dc3383b018e749af73fd3d0853742"
+    },
+    {
+      "path": "governance-and-manifests/benchmarks/holdout-manifests/README.md",
+      "bytes": 3533,
+      "sha256": "5e143496ed26e218d4bd86b2439c479451d10d12523dce3df5fbaa85a211c13e"
+    },
+    {
+      "path": "governance-and-manifests/benchmarks/holdout-manifests/m02-autofill-v1.manifest.json",
+      "bytes": 2846,
+      "sha256": "80b8578a7c14e6a496e38fd0209ea09c68e256466ff7eb036b6a1cdf0ce079ef"
+    },
+    {
+      "path": "governance-and-manifests/benchmarks/holdout-manifests/status.v1.json",
+      "bytes": 663,
+      "sha256": "e8e743d53c0bd14361953c6d25575e9997fb1884dc060c8e18949266da74e40c"
+    },
+    {
+      "path": "governance-and-manifests/docs/DECISIONS.md",
+      "bytes": 45230,
+      "sha256": "805b5ea2f7fa17c6007b991cc0dca3a228c7d4baf7cc6a9b1953f5635ef88413"
+    },
+    {
+      "path": "governance-and-manifests/docs/MASTER_IMPLEMENTATION_SPEC.md",
+      "bytes": 367893,
+      "sha256": "3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943"
+    },
+    {
+      "path": "governance-and-manifests/packages/ats-adapters/research/matrix.ts",
+      "bytes": 18583,
+      "sha256": "7776b5d5477e47c67bb844c81de4740f42e6900b9340956f7eb766d78a6fb7f0"
+    },
+    {
+      "path": "governance-and-manifests/packages/evaluation-corpus/artifacts/development/M02_AUTOFILL_DEVELOPMENT_V1/1.0.0/corpus.manifest.json",
+      "bytes": 80296,
+      "sha256": "b162839ac5cc2654cc6c83c05c25ba91233722861dcf6c06749e6a0e036c6644"
+    },
+    {
+      "path": "governance-and-manifests/packages/evaluation-corpus/policies/holdout-boundary.v2.json",
+      "bytes": 970,
+      "sha256": "f892774daa9451ab83e16b22347d4c805d08b3d34c530acd28fb675cb70d2a3a"
+    },
+    {
+      "path": "history/old-native-timeout-source-review.md",
+      "bytes": 3003,
+      "sha256": "a97ee411421216165758bc1be0f4a1bb703d57749b6424ca7a22b0d7c9e33fd6"
+    },
+    {
+      "path": "indices/candidate-index.final-predecision.json",
+      "bytes": 95701,
+      "sha256": "2c2e3d3b191aeabc798be522934361bb4c28cad91216827a3606802ed760651d"
+    },
+    {
+      "path": "indices/original-current200-index.json",
+      "bytes": 86333,
+      "sha256": "383513310ddd88a9d7ac178900711362edba2dce20afa6d03c0494c9f17558d0"
+    },
+    {
+      "path": "packaging/builder.py",
+      "bytes": 4920,
+      "sha256": "ed481c35e77916d067a2abbb5f987f297fe0e8cd5d9568ade0c9b500334d1dc8"
+    },
+    {
+      "path": "packaging/inputs.json",
+      "bytes": 52618,
+      "sha256": "bda1b8f491f8f034c5994dad1d1449b783427642a481df3f503b3857940772b3"
+    },
+    {
+      "path": "packaging/review-index.json",
+      "bytes": 36098,
+      "sha256": "c42640e1b6d8354b16eb3824a9cd70e7c15e69ec48fb744ae40623223f0bdb46"
+    },
+    {
+      "path": "reviews/independent-local-review.md",
+      "bytes": 9417,
+      "sha256": "5b0fdb493f3062a6b5c835cff14f12374dd2ed1018f3db4883652c6d3a527a10"
+    },
+    {
+      "path": "reviews/native-collector/ci-review-report.json",
+      "bytes": 72758,
+      "sha256": "c200d7194625dcd3c00a17697d6b8c158752cef62763f15480a5d83402af42eb"
+    },
+    {
+      "path": "reviews/native-collector/review.md",
+      "bytes": 3827,
+      "sha256": "8272e681c523ab29eae0ac220d7d38acdaff5bd6d32818ff940c902154fb1265"
+    },
+    {
+      "path": "reviews/native-independent/audit-closed-native3-95f5.py",
+      "bytes": 10089,
+      "sha256": "3cac3a33b48cd2b193c588a051aba0e4a099a3fcf477635ca00c2928e4ede17a"
+    },
+    {
+      "path": "reviews/native-independent/current95f5-native3-closed-review-attempt2/auditor-source.py",
+      "bytes": 10089,
+      "sha256": "3cac3a33b48cd2b193c588a051aba0e4a099a3fcf477635ca00c2928e4ede17a"
+    },
+    {
+      "path": "reviews/native-independent/current95f5-native3-closed-review-attempt2/execution-record.json",
+      "bytes": 811,
+      "sha256": "8f33fa85b054925cd155dea0fcbf5868c33eceaf1923b0b28db5cabaed9fb36b"
+    },
+    {
+      "path": "reviews/native-independent/current95f5-native3-closed-review-attempt2/findings.json",
+      "bytes": 13205,
+      "sha256": "19d62ee457bf9ad508e941372d5078c326abcec8c0177387188974681edade17"
+    },
+    {
+      "path": "reviews/native-independent/current95f5-native3-closed-review-attempt2/retention-review.json",
+      "bytes": 684,
+      "sha256": "8e8d14c963b3d319cd7bb0a0d4a55dde56b63795d4b459180d8a97e71b88c388"
+    },
+    {
+      "path": "reviews/native-independent/current95f5-native3-closed-review-attempt2/review.md",
+      "bytes": 2324,
+      "sha256": "a191672981b49b7db60217f7c2db3783b87c281509646022528615870c655c2f"
+    },
+    {
+      "path": "reviews/native-independent/current95f5-native3-closed-review/findings.json",
+      "bytes": 13206,
+      "sha256": "e6c28157d800486e835261c2404cbfc0b4f1e02b45235e178bc647a6a4e4d623"
+    },
+    {
+      "path": "reviews/native-independent/frozen17-file-manifest.json",
+      "bytes": 4110,
+      "sha256": "1462ec99f98c66475d7f3f27fe80711719d8e8470aafe5f71219cc2aee70acbb"
+    },
+    {
+      "path": "reviews/native-independent/native3-auditor-preparation-history/attempt1-reader.py",
+      "bytes": 9879,
+      "sha256": "2afbc7e4f74212549c969f775308bdf52585fe4371c0510012f2b149050b2868"
+    },
+    {
+      "path": "reviews/native-independent/native3-auditor-preparation-history/attempt1.stderr.log",
+      "bytes": 3062,
+      "sha256": "22c680ff149174931849877d806c0c16a3e794f51f5cc294aec2dc1fcf78d00e"
+    },
+    {
+      "path": "reviews/native-independent/native3-auditor-preparation-history/attempt1.stdout.log",
+      "bytes": 3205,
+      "sha256": "efa628c85eaa1b5cb6baf90c475de4629b8a6cd0502203b6b439eb3c0da658f5"
+    },
+    {
+      "path": "reviews/native-independent/native3-auditor-preparation-history/attempt2-reader-adaptation.patch",
+      "bytes": 6264,
+      "sha256": "b66783ebf57cc9c50f02e239220a5e92963dd389efd02a552a59098b5cb49c01"
+    },
+    {
+      "path": "reviews/native-independent/native3-auditor-preparation-history/attempt2-reader-correction.json",
+      "bytes": 794,
+      "sha256": "adf2ce5e9ada99d0baf8445cb15bf2af6c045659f6497673b465e5d62a45851e"
+    },
+    {
+      "path": "reviews/native-independent/native3-auditor-preparation-history/attempt2.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "reviews/native-independent/native3-auditor-preparation-history/attempt2.stdout.log",
+      "bytes": 1507,
+      "sha256": "3a83c311543e5895c108c247e4030cb61daea9127a4ad410a44a800ff45993d5"
+    },
+    {
+      "path": "reviews/native-independent/native3-auditor-preparation-history/correction.json",
+      "bytes": 448,
+      "sha256": "d82548ed926c209beedbc206266d8160e79787091b68045aa59db1ee719bb00b"
+    },
+    {
+      "path": "reviews/native-independent/native3-auditor-preparation-history/syntax-error.json",
+      "bytes": 236,
+      "sha256": "54b5ff83b670366cd03384dc0d5e1295a416824070914d0a1115298ea313ba40"
+    },
+    {
+      "path": "reviews/native-independent/native3-auditor-preparation-history/uninvoked-syntax-preimage.py",
+      "bytes": 9903,
+      "sha256": "6c8d2765319a1016ecea7f8f17a40f86159a140296bc51ae5fd92cd3ac6a6365"
+    },
+    {
+      "path": "supplements/current-target-host.json",
+      "bytes": 2201,
+      "sha256": "f7598fa873a38144cb1c3af9a3913b91de7710cf6e50b889760534206b5a6255"
+    },
+    {
+      "path": "supplements/memory/findings.json",
+      "bytes": 2955,
+      "sha256": "1cd7986885338a97db5b41edb160003e149c584bbdb40a17bc96bd097ac80532"
+    },
+    {
+      "path": "supplements/memory/measurement-source.ts",
+      "bytes": 36147,
+      "sha256": "3c20e9bd3b7daeaf6ec9bc475a3d41443df37ac054be6d277a74b2c112146e73"
+    },
+    {
+      "path": "supplements/memory/raw-console-memory-record.json",
+      "bytes": 22470,
+      "sha256": "5665296b27f573811539ff47275b9c96d153fd4d26e68d2d7b2840ccb6a0416c"
+    },
+    {
+      "path": "supplements/ubuntu-independent/findings.json",
+      "bytes": 8326,
+      "sha256": "fe93fed09191419255551908d8b84826679a1a94c9fe1697cbc7ed888b2ee169"
+    },
+    {
+      "path": "supplements/ubuntu-independent/hashes.json",
+      "bytes": 251,
+      "sha256": "9714fd5807a7755de994b0d42b4bf595842017fd9a32efad7e17f9b5280b9bf9"
+    },
+    {
+      "path": "supplements/ubuntu-independent/review.md",
+      "bytes": 1831,
+      "sha256": "cd7d61dee0de4a1c21f5c239c93997efd00da800637172f0880f010554e05a94"
+    }
+  ],
+  "exhaustive_comparison": "PASS",
+  "authority": "NONE",
+  "owner_decision": "PENDING",
+  "gate_state": "IN_PROGRESS"
+}

@@ -1,0 +1,16 @@
+{
+  "source": "cf9b60d8acf925389630191c0a050e91dd9e804c",
+  "tree": "94fb9c916482306f5c81df8649925933fa4c6430",
+  "source_files": 2388,
+  "runtime_files": 40,
+  "doctor_pass": 28,
+  "doctor_seconds": 6.7355114159872755,
+  "verify_seconds": 1249.9320667500142,
+  "active_suite_pass": 20,
+  "python_pass": 2880,
+  "python_seconds": 440.14,
+  "different_joins": 4863,
+  "different_review_sha256": "a7a38348fbada1c7b40c8fec7cf0aca1f59d1cca5bec842c20e43a373b66290f",
+  "native_or_gate_acceptance": false,
+  "scope": "Historical cf9 local full only; automated visual, no fresh appearance claim."
+}

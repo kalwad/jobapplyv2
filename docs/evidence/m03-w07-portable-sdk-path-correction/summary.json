@@ -1,0 +1,37 @@
+{
+  "correction": {
+    "changed_product_files": 1,
+    "checkers_tests_inventory_changed": false,
+    "correct_cli_seconds": 0.7180827090051025,
+    "correct_offline_uv_cli_exit_code": 0,
+    "extra_wrong_interpreter_cli_exit_code": 2,
+    "focus_seconds": 0.73,
+    "focused_cases_passed": 13,
+    "fresh_full_or_foreign_validation": false,
+    "independent_joins": 65,
+    "independent_report_sha256": "3322e814901ffdd2e365d9b53bb69bed4b410d6b0ff48016b5430ac4aae53238",
+    "source_sha256": "a6c913cd5df90a4bfa4cced37b75a0a4ef1fe14c2624ea77e61d3310270d9dd3",
+    "strict_commands_passed": 3
+  },
+  "created_utc": "2026-10-29T02:23:18.751791+00:00",
+  "failed_full": {
+    "active_suite_failures": 2,
+    "active_suite_passes": 18,
+    "actual_python_failures": 1,
+    "actual_python_passes": 2140,
+    "clean_status_endpoints": true,
+    "doctor_exit_code": 0,
+    "doctor_seconds": 6.3361471249954775,
+    "head": "07eb77bd4dde2cd41e867cc7512bae28f1a721b8",
+    "head_tree_end_observation_equal": true,
+    "independent_joins": 2269,
+    "independent_report_sha256": "75fb7881f27fd43130fa2acf153e8bf415a80682db507c8b5184ba20561f0343",
+    "runtime_files": 40,
+    "source_files": 2182,
+    "source_runtime_bytes_modes_equal": true,
+    "tree": "eadbd0d66cacc8561c4a3925b8aed907f5f7f8fd",
+    "verify_exit_code": 1,
+    "verify_seconds": 1180.4195218330715
+  },
+  "milestone_or_release_credit": false
+}

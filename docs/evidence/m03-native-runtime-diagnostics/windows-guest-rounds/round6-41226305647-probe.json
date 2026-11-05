@@ -1,0 +1,98 @@
+﻿[
+    {
+        "t":  8.846,
+        "key":  "ascii-titles",
+        "value":  [
+                      {
+                          "title":  "Desktop App",
+                          "t":  3.2
+                      },
+                      {
+                          "title":  "Desktop App — Starting local service",
+                          "t":  5.6
+                      },
+                      {
+                          "title":  "Desktop App — Local service failed",
+                          "t":  5.83
+                      }
+                  ]
+    },
+    {
+        "t":  9.698,
+        "key":  "ascii-process-events",
+        "value":  [
+                      {
+                          "kind":  "start",
+                          "name":  "desktop.exe",
+                          "pid":  6848,
+                          "ppid":  1264,
+                          "at":  "2026-10-31T17:49:57.2957583+00:00"
+                      }
+                  ]
+    },
+    {
+        "t":  12.841,
+        "key":  "ascii-desktop-stderr",
+        "value":  ""
+    },
+    {
+        "t":  12.843,
+        "key":  "ascii-desktop-stdout",
+        "value":  ""
+    },
+    {
+        "t":  17.134,
+        "key":  "unicode-titles",
+        "value":  [
+                      {
+                          "title":  "Desktop App",
+                          "t":  13.59
+                      },
+                      {
+                          "title":  "Desktop App — Starting local service",
+                          "t":  14.02
+                      },
+                      {
+                          "title":  "Desktop App — Local service failed",
+                          "t":  14.13
+                      }
+                  ]
+    },
+    {
+        "t":  17.136,
+        "key":  "unicode-process-events",
+        "value":  [
+                      {
+                          "kind":  "start",
+                          "name":  "desktop.exe",
+                          "pid":  1420,
+                          "ppid":  1264,
+                          "at":  "2026-10-31T17:50:10.8971454+00:00"
+                      }
+                  ]
+    },
+    {
+        "t":  20.153,
+        "key":  "unicode-desktop-stderr",
+        "value":  ""
+    },
+    {
+        "t":  20.154,
+        "key":  "unicode-desktop-stdout",
+        "value":  ""
+    },
+    {
+        "t":  20.325,
+        "key":  "application-events",
+        "value":  [
+
+                  ]
+    },
+    {
+        "t":  20.334,
+        "key":  "end",
+        "value":  {
+
+                  }
+    }
+]

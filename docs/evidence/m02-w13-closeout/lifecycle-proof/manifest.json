@@ -1,0 +1,92 @@
+{
+  "format_version": "W13_LIFECYCLE_SIMULATION_1",
+  "authority": "SIMULATION_ONLY_NO_W14_EXECUTION",
+  "content_sha": "4745149f4b5da7190b5b0c68753f8ec07bed572d",
+  "content_tree": "a953274ef14a7534c39201a09738c26b8f085332",
+  "clone": "/var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-lifecycle-final-zhv1532x/candidate",
+  "created_after_hosted_green": true,
+  "started_at": "2026-09-30T19:45:30.219577+00:00",
+  "ended_at": "2026-09-30T19:56:37.569559+00:00",
+  "commands": [
+    {
+      "command": [
+        "python3",
+        "/tmp/jobapply-w13-lifecycle.py",
+        "/var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-lifecycle-final-zhv1532x/candidate",
+        "4745149f4b5da7190b5b0c68753f8ec07bed572d",
+        "a953274ef14a7534c39201a09738c26b8f085332"
+      ],
+      "exit_code": 0,
+      "seconds": 0.4270738750055898,
+      "log": "/tmp/jobapply-w13-lifecycle-proof/1.log",
+      "log_sha256": "4d3e1b8d5f90d484a0ed24058818f515e138bad45094231813e9173950d2927c"
+    },
+    {
+      "command": [
+        "pnpm",
+        "exec",
+        "prettier",
+        "--write",
+        "docs/PROJECT_STATUS.md",
+        "docs/traceability.json",
+        "docs/REQUIREMENTS_TRACEABILITY.md"
+      ],
+      "exit_code": 0,
+      "seconds": 0.43395095798769034,
+      "log": "/tmp/jobapply-w13-lifecycle-proof/2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/validate_status.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.09332916600396857,
+      "log": "/tmp/jobapply-w13-lifecycle-proof/3.log",
+      "log_sha256": "b672c1fc6058a1ed9400bf0029f45bba3e5a525bf2ca83eea6ecac5bdcacf637"
+    },
+    {
+      "command": [
+        "pnpm",
+        "traceability:check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.3415384170075413,
+      "log": "/tmp/jobapply-w13-lifecycle-proof/4.log",
+      "log_sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "command": [
+        "pnpm",
+        "verify"
+      ],
+      "exit_code": 0,
+      "seconds": 666.0276891249814,
+      "log": "/tmp/jobapply-w13-lifecycle-proof/5.log",
+      "log_sha256": "9b84b74e08cc3687699340e88dd9d90944b15e57488aecb8cedcf6ddfa49b99c"
+    }
+  ],
+  "source_files": 839,
+  "implementation_test_bytes_unchanged": true,
+  "requirements_unchanged": 193,
+  "critical_gates_unchanged": true,
+  "changed_files": [
+    "docs/PROJECT_STATUS.md",
+    "docs/REQUIREMENTS_TRACEABILITY.md",
+    "docs/traceability.json"
+  ],
+  "state": {
+    "M00": "ACCEPTED",
+    "M01": "ACCEPTED",
+    "M02": "IN_PROGRESS",
+    "W01-W13": "VERIFIED",
+    "W14": "SOLE_READY",
+    "W15": "NOT_STARTED",
+    "IN_PROGRESS_packages": 0,
+    "all_gates": "NOT_EVALUATED",
+    "release": "NOT_READY"
+  },
+  "verdict": "PASS",
+  "documented_raw_doc_fidelity_limitation": "Simulation serializer changes one existing W11 note from literal em dash to equivalent Unicode escape; all193 requirement objects remain identical. Main governance writer preserves the exact unrelated raw bytes."
+}

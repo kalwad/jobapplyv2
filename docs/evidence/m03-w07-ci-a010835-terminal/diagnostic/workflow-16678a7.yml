@@ -1,0 +1,57 @@
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 3: trace which MSVC tool
+# starts VCTIP.EXE in the desktop build, and test the documented SQM opt-out.
+name: ci
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hello:
+    name: hello (optout)
+    runs-on: windows-2025
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install pinned toolchain
+        shell: pwsh
+        run: |
+          rustup toolchain install 1.97.1 --profile minimal
+          rustup default 1.97.1
+      - name: Observe with Visual Studio SQM opt-out (ephemeral runner only)
+        shell: pwsh
+        run: |
+          foreach ($key in 'HKLM:\SOFTWARE\Microsoft\VSCommon\18.0\SQM','HKLM:\SOFTWARE\WOW6432Node\Microsoft\VSCommon\18.0\SQM','HKLM:\SOFTWARE\Microsoft\VSCommon\17.0\SQM','HKLM:\SOFTWARE\WOW6432Node\Microsoft\VSCommon\17.0\SQM','HKLM:\SOFTWARE\Policies\Microsoft\VisualStudio\SQM') {
+            New-Item -Path $key -Force | Out-Null
+            New-ItemProperty -Path $key -Name OptIn -PropertyType DWord -Value 0 -Force | Out-Null
+          }
+          cargo new --bin "$env:RUNNER_TEMP\hello" --vcs none
+          Set-Location "$env:RUNNER_TEMP\hello"
+          python "$env:GITHUB_WORKSPACE\scripts\diag\job_linger_diag.py" optout 90 no -- cargo build
+  desktop:
+    name: desktop (${{ matrix.variant }})
+    runs-on: windows-2025
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [lld-trace, link-trace]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+      - run: corepack enable pnpm
+      - name: Install pinned toolchain (rust-toolchain.toml)
+        shell: pwsh
+        run: rustup toolchain install 1.97.1 --profile minimal --component rustfmt --component clippy
+      - run: pnpm install --frozen-lockfile
+      - name: Build desktop inside a traced Job
+        shell: pwsh
+        run: |
+          pnpm --filter @japp/desktop build
+          if ('${{ matrix.variant }}' -eq 'lld-trace') { $env:CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_LINKER = 'rust-lld.exe' }
+          python scripts\diag\job_linger_diag.py ${{ matrix.variant }} 30 no -- cargo build --locked --manifest-path apps\desktop\src-tauri\Cargo.toml

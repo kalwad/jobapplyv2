@@ -1,0 +1,14 @@
+{
+  "archive": "proof.tar.gz",
+  "bytes": 32263,
+  "sha256": "1bdd80c1329888f2eade4ee8d0042bd857672951d91b755f0a81c7e538d1b2d1",
+  "regular_members": 19,
+  "input_manifest_sha256": "4381abcb952e51d7b6e9ce92b5f1fb33c2e131e1c051fd6780eca0760e5bb977",
+  "documentary_result": "PASS",
+  "documentary_checks": 74,
+  "actual_ci_run": 39194489970,
+  "actual_ci_conclusion": "failure",
+  "actual_all_three_hosts_pass": false,
+  "referenced_author_archive_sha256": "f4b880dd5306c3f1bb8f4a3616c170a6dfce10db37d93b96173ddf6c00fa9d8e",
+  "created_utc": "2026-10-19T04:27:46.260570+00:00"
+}

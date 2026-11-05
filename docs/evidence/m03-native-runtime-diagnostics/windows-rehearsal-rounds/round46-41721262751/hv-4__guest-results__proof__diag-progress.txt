@@ -1,0 +1,8 @@
+env-accepted at_ms=25192
+zip-verified at_ms=26310
+extracted at_ms=27356
+inventory-ok at_ms=29439
+launched at_ms=31875
+ready-ok at_ms=40251
+endpoint-ok at_ms=44299
+ready-captured at_ms=44774

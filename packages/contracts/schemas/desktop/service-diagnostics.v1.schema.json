@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-japp-schema-version": "1.0.0",
+  "$id": "urn:japp:schema:desktop:service-diagnostics:v1",
+  "title": "Point-in-time native local service diagnostics",
+  "description": "Closed secret-free native observation. READY requires authenticated health/readiness/version on one proven native stream. Other states reflect actual native lifecycle or cancellation; browser preview never synthesizes READY. Standard envelope metadata carries native correlation and creation time.",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["request_id", "state", "service_version", "api_version"],
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "pattern": "^req_[0-9A-HJKMNP-TV-Z]{26}$",
+          "minLength": 30,
+          "maxLength": 30
+        },
+        "state": {
+          "const": "READY"
+        },
+        "service_version": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/versionText"
+        },
+        "api_version": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/versionText"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["request_id", "state"],
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "pattern": "^req_[0-9A-HJKMNP-TV-Z]{26}$",
+          "minLength": 30,
+          "maxLength": 30
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "UNAVAILABLE",
+            "STARTING",
+            "STOPPING",
+            "STOPPED",
+            "FAILED",
+            "CLEANUP_FAILED",
+            "CANCELLED"
+          ]
+        }
+      }
+    }
+  ]
+}

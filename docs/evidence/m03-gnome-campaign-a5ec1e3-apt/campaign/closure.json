@@ -1,0 +1,9 @@
+{
+  "status": "FAILED",
+  "error_type": "RuntimeError",
+  "message": "Owned command failed; original raw output retained",
+  "closure": {
+    "vm_started": false,
+    "pending_commands": []
+  }
+}

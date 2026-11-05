@@ -43,6 +43,8 @@ export interface ReconcileFieldEvidence {
   readonly enabled: boolean;
   /** Current descriptor validation state is REJECTED. */
   readonly validationRejected: boolean;
+  /** Multiple current physical observations share this semantic field identity. */
+  readonly identityAmbiguous?: boolean;
   readonly transaction?: {
     /** Canonical driver outcome of the recorded transaction. */
     readonly outcome:
@@ -107,6 +109,16 @@ export function classifyField(
       changed_value: false,
       confirmation_state: "NOT_APPLICABLE",
       mandatory_uncertain: false,
+      pageChangedDetected: false,
+    };
+  }
+  if (evidence.identityAmbiguous) {
+    return {
+      category: requiredFallback(evidence.required, "NEEDS_REVIEW"),
+      document_state: "CURRENT",
+      changed_value: false,
+      confirmation_state: "NOT_APPLICABLE",
+      mandatory_uncertain: evidence.required,
       pageChangedDetected: false,
     };
   }
@@ -279,4 +291,21 @@ export function computeReadiness(
     counts.unconfirmed_consequential > 0 ||
     counts.mandatory_uncertain > 0;
   return !blocked && pageGeneration === proofGeneration ? "READY" : "NOT_READY";
+}
+
+/**
+ * Distinct report-item identity for repeated observations of the same field.
+ * The occurrence is local to one complete reconciliation snapshot; it never
+ * modifies a field ID/address and cannot authorize a target or transaction.
+ * The first/unique observation keeps the original item seed byte-for-byte.
+ */
+export function reconciliationItemIdentity(
+  baseSeed: string,
+  occurrence: number,
+): string {
+  if (!Number.isSafeInteger(occurrence) || occurrence < 0)
+    throw new Error("dynamic invariant: invalid observation occurrence");
+  return occurrence === 0
+    ? baseSeed
+    : `${baseSeed}\0observation-occurrence-v1\0${String(occurrence)}`;
 }

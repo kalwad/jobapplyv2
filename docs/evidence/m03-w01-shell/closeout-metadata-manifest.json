@@ -1,0 +1,326 @@
+{
+  "sha256": "7ece431bee31ff6eb2e6af82e11939950c16116b601d9d98d278dbbbc8096277",
+  "bytes": 1238476,
+  "inputs": [
+    {
+      "member": "japp-m03-w01-closeout-metadata/assertion-preservation.json",
+      "bytes": 204,
+      "sha256": "d041b8d4f84ab765797fe1f2377b9d7f0d8633143fe6fa8a9c40c3094ae3e99b"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/commands.json",
+      "bytes": 2964,
+      "sha256": "e0d3bc62721ef8abca0d7fddd1bb04319a8d5232650aac496786aa97813f2243"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/diff.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/fixture-premise-red.log",
+      "bytes": 1777,
+      "sha256": "b7ddbd82c16c7576cac54a4847e911ed767f6611da379cc7030b0ddd368d60a8"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/focused.log",
+      "bytes": 431,
+      "sha256": "2009073ad675694ee3fc47af395f320b457d4819b59d720a7c61711a8cdd54d4"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/initial/assertion-preservation.json",
+      "bytes": 204,
+      "sha256": "d041b8d4f84ab765797fe1f2377b9d7f0d8633143fe6fa8a9c40c3094ae3e99b"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/initial/commands.json",
+      "bytes": 1282,
+      "sha256": "584f9ad263d9a9828702fa8b2d1cb11ff7bcc59a1e2ba18e60d31880099412b1"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/initial/fixture-premise-red.log",
+      "bytes": 1777,
+      "sha256": "b7ddbd82c16c7576cac54a4847e911ed767f6611da379cc7030b0ddd368d60a8"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/initial/focused.log",
+      "bytes": 5717,
+      "sha256": "a35ac524217741f868957210a7e119a22202813158b94df3a4890b0b92ebe03d"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/initial/run.py",
+      "bytes": 2012,
+      "sha256": "dabe6679d5dd06b53c5bd2645676a6eac89e929f301c2528c18ddf6393de50dd"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/initial/test_validate_status.preimage.py",
+      "bytes": 125548,
+      "sha256": "5f6d4f67686e493e170367285fea286b86d83d9f02ab637ebfb4aa8b9a53c6c1"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/initial/trace-check.log",
+      "bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/initial/trace-generate.log",
+      "bytes": 117,
+      "sha256": "f2fb91e1cece58a086416a527ea2252db06de0bb414585272daa3b1189b2a20e"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/mypy.log",
+      "bytes": 42,
+      "sha256": "5d4b6d285b77932e3d08212c3b4974d0a803f98ec60408ac6ccf6a063fa6c19e"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/ruff-format.log",
+      "bytes": 25,
+      "sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/ruff.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/run.py",
+      "bytes": 2012,
+      "sha256": "dabe6679d5dd06b53c5bd2645676a6eac89e929f301c2528c18ddf6393de50dd"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/test_validate_status.first-helper.py",
+      "bytes": 125603,
+      "sha256": "614a01e51c4e507d8c4faa4482ff598f99823157793f76eb2b60100575fef615"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/test_validate_status.preimage.py",
+      "bytes": 125548,
+      "sha256": "5f6d4f67686e493e170367285fea286b86d83d9f02ab637ebfb4aa8b9a53c6c1"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/trace-check.log",
+      "bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/trace-generate.log",
+      "bytes": 117,
+      "sha256": "f2fb91e1cece58a086416a527ea2252db06de0bb414585272daa3b1189b2a20e"
+    },
+    {
+      "member": "japp-m03-w01-closeout-metadata/two-premises-green.log",
+      "bytes": 98,
+      "sha256": "f4d7c42785af7c76c82e2517f2f58aad719c833d3acb36dedfa45af1fc026483"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/REVIEW.md",
+      "bytes": 2252,
+      "sha256": "dcfa70ab8080bef39c937c42571a87c87312cb9bb38e03977599282b419f70c8"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/findings.json",
+      "bytes": 14433,
+      "sha256": "a858c5824f462813ad8461865907c4b3b2e9378de33d63718dde304f223f9355"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/assertion-preservation.json",
+      "bytes": 204,
+      "sha256": "d041b8d4f84ab765797fe1f2377b9d7f0d8633143fe6fa8a9c40c3094ae3e99b"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/commands.json",
+      "bytes": 2964,
+      "sha256": "e0d3bc62721ef8abca0d7fddd1bb04319a8d5232650aac496786aa97813f2243"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/diff.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/fixture-premise-red.log",
+      "bytes": 1777,
+      "sha256": "b7ddbd82c16c7576cac54a4847e911ed767f6611da379cc7030b0ddd368d60a8"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/focused.log",
+      "bytes": 431,
+      "sha256": "2009073ad675694ee3fc47af395f320b457d4819b59d720a7c61711a8cdd54d4"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/initial/assertion-preservation.json",
+      "bytes": 204,
+      "sha256": "d041b8d4f84ab765797fe1f2377b9d7f0d8633143fe6fa8a9c40c3094ae3e99b"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/initial/commands.json",
+      "bytes": 1282,
+      "sha256": "584f9ad263d9a9828702fa8b2d1cb11ff7bcc59a1e2ba18e60d31880099412b1"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/initial/fixture-premise-red.log",
+      "bytes": 1777,
+      "sha256": "b7ddbd82c16c7576cac54a4847e911ed767f6611da379cc7030b0ddd368d60a8"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/initial/focused.log",
+      "bytes": 5717,
+      "sha256": "a35ac524217741f868957210a7e119a22202813158b94df3a4890b0b92ebe03d"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/initial/run.py",
+      "bytes": 2012,
+      "sha256": "dabe6679d5dd06b53c5bd2645676a6eac89e929f301c2528c18ddf6393de50dd"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/initial/test_validate_status.preimage.py",
+      "bytes": 125548,
+      "sha256": "5f6d4f67686e493e170367285fea286b86d83d9f02ab637ebfb4aa8b9a53c6c1"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/initial/trace-check.log",
+      "bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/initial/trace-generate.log",
+      "bytes": 117,
+      "sha256": "f2fb91e1cece58a086416a527ea2252db06de0bb414585272daa3b1189b2a20e"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/mypy.log",
+      "bytes": 42,
+      "sha256": "5d4b6d285b77932e3d08212c3b4974d0a803f98ec60408ac6ccf6a063fa6c19e"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/ruff-format.log",
+      "bytes": 25,
+      "sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/ruff.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/run.py",
+      "bytes": 2012,
+      "sha256": "dabe6679d5dd06b53c5bd2645676a6eac89e929f301c2528c18ddf6393de50dd"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/test_validate_status.first-helper.py",
+      "bytes": 125603,
+      "sha256": "614a01e51c4e507d8c4faa4482ff598f99823157793f76eb2b60100575fef615"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/test_validate_status.preimage.py",
+      "bytes": 125548,
+      "sha256": "5f6d4f67686e493e170367285fea286b86d83d9f02ab637ebfb4aa8b9a53c6c1"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/trace-check.log",
+      "bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/trace-generate.log",
+      "bytes": 117,
+      "sha256": "f2fb91e1cece58a086416a527ea2252db06de0bb414585272daa3b1189b2a20e"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/result-inputs/two-premises-green.log",
+      "bytes": 98,
+      "sha256": "f4d7c42785af7c76c82e2517f2f58aad719c833d3acb36dedfa45af1fc026483"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/source-inputs/docs/COMPATIBILITY_MATRIX.md",
+      "bytes": 16392,
+      "sha256": "87f02d4e33981ccdd8d8d7ad2f01cc9e2396c659a40a89bf31eb36f94082ef7b"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/source-inputs/docs/KNOWN_ISSUES.md",
+      "bytes": 286153,
+      "sha256": "739d09cdb343a67a50bb18daef73bb012543ce29541cb7e4f9b49d934f9a02a0"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/source-inputs/docs/PROJECT_STATUS.md",
+      "bytes": 38209,
+      "sha256": "092a60f95ea4d3badcf05d5fe6025a8f8aa5787b5c8a21dc378c72c76f149cf3"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/source-inputs/docs/REQUIREMENTS_TRACEABILITY.md",
+      "bytes": 342379,
+      "sha256": "7a748ab22207d4993c2cb288efd307ba51284cb83de8ade86135c0a4d493e0b0"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/source-inputs/docs/TEST_EVIDENCE.md",
+      "bytes": 964712,
+      "sha256": "48030351bc140f2a308da0e25431c44010cb16652d8c4bbb3b73e964bbdb42b9"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/source-inputs/docs/evidence/m03-w01-shell/clean-verification-manifest.json",
+      "bytes": 16907,
+      "sha256": "854c35da64aef07bded64b9f637b3d89c4ab5c98551b079727b367a7f0566bab"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/source-inputs/docs/evidence/m03-w01-shell/clean-verification-summary.json",
+      "bytes": 1713,
+      "sha256": "de0cf39e258c4322516b1a2a1561f1d9220b556dad29752fdf54047874af4e76"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/source-inputs/docs/traceability.json",
+      "bytes": 712300,
+      "sha256": "f9310c765b486b41c2e51ed942e977c66568abbcd3076c14191bdf11185c1080"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/final/source-inputs/scripts/tests/test_validate_status.py",
+      "bytes": 125683,
+      "sha256": "99cf2eae9659450900c801b11371d5dda67947501a4c532ed4aabd8a2555b0ff"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/initial/findings.json",
+      "bytes": 6339,
+      "sha256": "f195a92bf83c17490588ffdcbef81239e10400b9fb2011750903f9506aeaeffd"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/initial/fixture-premise-red.log",
+      "bytes": 1777,
+      "sha256": "b7ddbd82c16c7576cac54a4847e911ed767f6611da379cc7030b0ddd368d60a8"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/initial/inputs/docs/COMPATIBILITY_MATRIX.md",
+      "bytes": 16392,
+      "sha256": "87f02d4e33981ccdd8d8d7ad2f01cc9e2396c659a40a89bf31eb36f94082ef7b"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/initial/inputs/docs/KNOWN_ISSUES.md",
+      "bytes": 286153,
+      "sha256": "739d09cdb343a67a50bb18daef73bb012543ce29541cb7e4f9b49d934f9a02a0"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/initial/inputs/docs/PROJECT_STATUS.md",
+      "bytes": 38209,
+      "sha256": "092a60f95ea4d3badcf05d5fe6025a8f8aa5787b5c8a21dc378c72c76f149cf3"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/initial/inputs/docs/REQUIREMENTS_TRACEABILITY.md",
+      "bytes": 342379,
+      "sha256": "7a748ab22207d4993c2cb288efd307ba51284cb83de8ade86135c0a4d493e0b0"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/initial/inputs/docs/TEST_EVIDENCE.md",
+      "bytes": 964712,
+      "sha256": "48030351bc140f2a308da0e25431c44010cb16652d8c4bbb3b73e964bbdb42b9"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/initial/inputs/docs/traceability.json",
+      "bytes": 712300,
+      "sha256": "f9310c765b486b41c2e51ed942e977c66568abbcd3076c14191bdf11185c1080"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/metadata-fixture-closure-review/initial/inputs/scripts/tests/test_validate_status.py",
+      "bytes": 125603,
+      "sha256": "614a01e51c4e507d8c4faa4482ff598f99823157793f76eb2b60100575fef615"
+    }
+  ]
+}

@@ -438,6 +438,10 @@ def test_generated_data_manifest_provenance_matches_all_committed_catalogs() -> 
             "urn:japp:schema:semantic:rule-catalog:v1",
             "catalog_version",
         ),
+        "packages/contracts/catalog/semantic-rules.v2.json": (
+            "urn:japp:schema:semantic:rule-catalog:v2",
+            "catalog_version",
+        ),
     }
     assert [entry["path"] for entry in data_inputs] == sorted(expected)
     for entry in data_inputs:

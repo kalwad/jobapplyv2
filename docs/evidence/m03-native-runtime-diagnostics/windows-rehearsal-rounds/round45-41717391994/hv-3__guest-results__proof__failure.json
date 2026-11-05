@@ -1,0 +1,9 @@
+﻿{
+    "terminal":  "FAIL",
+    "phase":  "keyboard",
+    "nonce":  "e966b78b0540228e485ade612e9ec6cb5eb4d7feba5923ed73b135443c1696ad",
+    "package_sha256":  "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+    "elapsed_ms":  82220,
+    "error_type":  "System.Management.Automation.RuntimeException",
+    "message":  "Actual bounded native shell focus or geometry did not settle"
+}

@@ -1,0 +1,41 @@
+{
+  "scope": "Exact committed bytes of copies of the two prepare runs' retained closure/media/binding records, GitHub API metadata, and a local line-size extract of the GNOME candidate's retained Packages indexes, and the independent review report",
+  "files": {
+    "README.md": {
+      "bytes": 2451,
+      "sha256": "f735bd3be49dcb7d40834b9b2d76f38f13e15007541d8d6a6b9922aee5293cba"
+    },
+    "gnome-closure.json": {
+      "bytes": 387,
+      "sha256": "601fd1d4197e3e01a05b8cb592b538e46a165d0d0ddf8617c11f00e6bc9622e3"
+    },
+    "gnome-index-line-observations.txt": {
+      "bytes": 1217,
+      "sha256": "a3a00114da333db66c74928ad0ca211842147f52e71bd367a98b1b146cbf3d76"
+    },
+    "gnome-source-build-binding.json": {
+      "bytes": 301,
+      "sha256": "5f596a9a13409d848e52a2b59885bde8cad4863e509fb0fceb9fdb0ab27cbbfd"
+    },
+    "review.md": {
+      "bytes": 7854,
+      "sha256": "d5a08f7220948560e24839e196ff56ff23ad7df069904430bc4cf870ff5f2d77"
+    },
+    "run-metadata.json": {
+      "bytes": 3031,
+      "sha256": "b9be9b3d86497c03ec8fa0fb1e3489eec465473a2e5b16420125231317326b3a"
+    },
+    "windows11-closure.json": {
+      "bytes": 3097,
+      "sha256": "6af87fb063adf0d638258cb00a34391ffc8bf2b49ea7ae90e139094e2d282e62"
+    },
+    "windows11-media-download.json": {
+      "bytes": 346,
+      "sha256": "1a9538b1f6a32c5ed9003f8dceb72328d9557a3c1642f84099ccbe3a1730e75e"
+    },
+    "windows11-media-lock.json": {
+      "bytes": 1165,
+      "sha256": "0e897b9391ef79386f588b340a0b3d2e81fe8afd1bfbd8d30dbc160e085e4f2c"
+    }
+  }
+}

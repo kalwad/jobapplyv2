@@ -1,0 +1,12 @@
+{
+  "format_version": "W14_NATIVE_WITNESS_PROOF_1",
+  "authority": "NONE",
+  "result": "PASS",
+  "tests": 4,
+  "duration_seconds": 7.4,
+  "command": "env PATH=/opt/homebrew/opt/node@24/bin:$PATH pnpm_config_verify_deps_before_run=false pnpm exec playwright test e2e/extension/extension-w14-native-witness.spec.ts --workers=1 --trace=on",
+  "working_directory": "/tmp/japp-w14-native-witness-proof/tree",
+  "copied_workspace_note": "Reuses existing pinned dependencies through node_modules links; automatic copied-workspace dependency reinstallation disabled. Canonical global setup and actual extension/lab builds remain enabled. Initial prebrowser launches refused Node26 and pnpm non-TTY automatic removal before corrected successful invocation.",
+  "source_inventory_sha256": "77b688501bf6b55e274163b05bf3b2c5b8ab9829c3801a949390cc97e16e222f",
+  "scope": "Actual MV3 synthetic loopback proofs against independent snapshot of current shadow draft plus additive W14 observer; no final Gate A authority or target-performance claim."
+}

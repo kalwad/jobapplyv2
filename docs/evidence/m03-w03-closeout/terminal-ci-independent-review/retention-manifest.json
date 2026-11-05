@@ -1,0 +1,20 @@
+{
+  "scope": "Independent read-only hosted CI data/source audit; actual run FAILURE retained",
+  "files": [
+    {
+      "path": "REVIEW.md",
+      "bytes": 7628,
+      "sha256": "06601fe88e7001cae570f92f41186b91beb96da6b7ff3dfba8ab33a882c809e5"
+    },
+    {
+      "path": "audit.py",
+      "bytes": 11734,
+      "sha256": "0c05fb9560e4fb54fb461f123f77bdd09b721f0bf4f41c778f454035a5a479c1"
+    },
+    {
+      "path": "findings.json",
+      "bytes": 9409,
+      "sha256": "03a4ffc3891a849e20e9377c46302c4c05780b68a96ed6c275cf46ed5478d7e5"
+    }
+  ]
+}

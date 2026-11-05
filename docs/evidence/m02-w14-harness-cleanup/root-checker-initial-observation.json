@@ -1,0 +1,6 @@
+{
+  "kind": "DERIVED_FROM_ROOT_TOOL_OUTPUT",
+  "result": "CHECKER_ERROR_NOT_PRODUCT_FAILURE",
+  "observed_error": "FileNotFoundError: [Errno 2] No such file or directory: 'generated:self-excluded-index'",
+  "cause": "Root checker treated the declared generated self-excluded index marker as an original filesystem source. Archive bytes unchanged; prior tool-call output is the original failure record."
+}

@@ -1,0 +1,10 @@
+{
+  "observed": {
+    "model name": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "vendor_id": "GenuineIntel",
+    "cpu family": "6",
+    "model": "106",
+    "stepping": "6"
+  },
+  "gate": "NOT_APPLIED_DIAGNOSTIC"
+}

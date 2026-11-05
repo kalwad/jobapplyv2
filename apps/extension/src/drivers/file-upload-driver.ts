@@ -16,6 +16,7 @@ import type {
   DriverContext,
   PreconditionOutcome,
 } from "./driver-contract.ts";
+import { mutateCurrent } from "./mutation-guard.ts";
 
 function fileHost(anchor: HTMLElement): HTMLInputElement | null {
   return anchor instanceof HTMLInputElement &&
@@ -194,18 +195,23 @@ export const fileUploadDriver: ControlDriver = {
     transfer.items.add(
       new File([bytes], intended.file_name, { type: intended.media_type }),
     );
-    setFiles(requireFileHost(context), transfer.files);
+    const host = requireFileHost(context);
+    await mutateCurrent(context, host, () => {
+      setFiles(host, transfer.files);
+    });
   },
   observe(context: DriverContext): Promise<SemanticObservation> {
     return observeFile(requireFileHost(context));
   },
-  applyUndo(context: DriverContext, payload: unknown): Promise<void> {
+  async applyUndo(context: DriverContext, payload: unknown): Promise<void> {
     if (payload !== null) {
       throw new Error("file driver invariant: undo payload malformed");
     }
     const transfer = new DataTransfer();
-    setFiles(requireFileHost(context), transfer.files);
-    return Promise.resolve();
+    const host = requireFileHost(context);
+    await mutateCurrent(context, host, () => {
+      setFiles(host, transfer.files);
+    });
   },
   acceptanceElements(context: DriverContext): readonly HTMLElement[] {
     const statuses = [

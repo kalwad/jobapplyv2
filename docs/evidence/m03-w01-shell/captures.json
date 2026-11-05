@@ -1,0 +1,114 @@
+{
+  "scope": "Actual shipping components in controlled browser renderer; synthetic version loader, not actual native IPC. Native CUA inspection is separately recorded.",
+  "browser": "bundled Playwright Chromium151.0.7922.34",
+  "capture_date": "2026-10-18",
+  "observer": "implementation agent /root",
+  "theme": "light",
+  "zoom": "100% except named200-text uses200%text resize, notfullbrowserzoom",
+  "token_version": "M03-W01-initial",
+  "ui_source_sha256": "e47ae5a0af9df8327fedadd483613d4c62fb97d476ae6731e70c828502d8b628",
+  "ui_source_files": [
+    {
+      "path": "apps/desktop/src/diagnostics.tsx",
+      "sha256": "dd4346ddab378c912845fbce891dd84427496352af74db0edecd93a9125b6b95"
+    },
+    {
+      "path": "apps/desktop/src/main.tsx",
+      "sha256": "dee9fd1cc75e43637a8368ef74682271b6c28541456a3266e26bfa0a6dfd92f1"
+    },
+    {
+      "path": "apps/desktop/src/native-metadata.ts",
+      "sha256": "61c2735301f89e1338abbea1b256692e38d4fbc59471fd644e8338df86a6b1c5"
+    },
+    {
+      "path": "apps/desktop/src/navigation.ts",
+      "sha256": "c4cf092fb5565b48e84c66622ede0d29630e5665449171d340f4b3d54a7f32b1"
+    },
+    {
+      "path": "apps/desktop/src/shell.css",
+      "sha256": "eb155d9dd1db14ffcd5612398f6bfbf6eeaa00c146f3cb83b47854da025e042e"
+    },
+    {
+      "path": "apps/desktop/src/shell.tsx",
+      "sha256": "e112c81d2c03fe9a050ab5d40f1ce706f3a9f71bb68e761b80790ade08513fdc"
+    },
+    {
+      "path": "apps/desktop/src/vite-env.d.ts",
+      "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+    },
+    {
+      "path": "packages/ui/src/error-boundary.tsx",
+      "sha256": "1653c9a765597f69a3a6ca41da557adcb4e165b0edefa8fd087805df291f551a"
+    },
+    {
+      "path": "packages/ui/src/index.ts",
+      "sha256": "816df391ef64125a68d6f71145efd2e64082c0130fd1ce6ddfb1ce863f3cce33"
+    },
+    {
+      "path": "packages/ui/src/navigation.tsx",
+      "sha256": "7ced7f603c295b76901400b16cf20d913a831277be73d39012aaa77584080ed2"
+    },
+    {
+      "path": "packages/ui/src/status.tsx",
+      "sha256": "a8087dd160d58e2f2e03936a46a2d296197186ff6633ae2b16bc82e515b1790e"
+    },
+    {
+      "path": "packages/ui/src/tokens.css",
+      "sha256": "e6b08b2ab55b93e81b7252bf8f2669bd708b034b56cd7fa79f95760240c8e588"
+    }
+  ],
+  "files": [
+    {
+      "source": "/tmp/japp-m03-w01-visual-green-results/visual-desktop-shell-deskt-67a1f-and-actual-capture-at-320px-chromium/desktop-diagnostics.png",
+      "repository_path": "docs/evidence/m03-w01-shell/desktop-diagnostics-320.png",
+      "bytes": 48933,
+      "sha256": "d39ff8f4edb30bb5b8240693eae1e73087d8ea7acb27b485224f757e7cfda991",
+      "png_pixels": [
+        320,
+        1106
+      ]
+    },
+    {
+      "source": "/tmp/japp-m03-w01-visual-green-results/visual-desktop-shell-deskt-67a1f-and-actual-capture-at-320px-chromium/desktop-home.png",
+      "repository_path": "docs/evidence/m03-w01-shell/desktop-home-320.png",
+      "bytes": 50561,
+      "sha256": "ec8b98af2201ecbdec16c019bed4b3d8e335c5049dfe78ddcb676b471346beb5",
+      "png_pixels": [
+        320,
+        1037
+      ]
+    },
+    {
+      "source": "/tmp/japp-m03-w01-visual-green-results/visual-desktop-shell-deskt-9e484-nd-actual-capture-at-1120px-chromium/desktop-diagnostics.png",
+      "repository_path": "docs/evidence/m03-w01-shell/desktop-diagnostics-1120.png",
+      "bytes": 52202,
+      "sha256": "784e350792dfac0f7324df0fe7c169bdddd70b4f1ef1a963888fde76f99efa41",
+      "png_pixels": [
+        1120,
+        760
+      ]
+    },
+    {
+      "source": "/tmp/japp-m03-w01-visual-green-results/visual-desktop-shell-deskt-9e484-nd-actual-capture-at-1120px-chromium/desktop-home.png",
+      "repository_path": "docs/evidence/m03-w01-shell/desktop-home-1120.png",
+      "bytes": 53066,
+      "sha256": "8beb5880b774cdfef9ab4a3765029b7cc1272d0e7b0ad288274850351ad662d1",
+      "png_pixels": [
+        1120,
+        760
+      ]
+    },
+    {
+      "source": "/tmp/japp-m03-w01-visual-green-results/visual-desktop-shell-shell-8cd33-t-resize-and-reduced-motion-chromium/desktop-text-resize-200.png",
+      "repository_path": "docs/evidence/m03-w01-shell/desktop-text-resize-200-200-text.png",
+      "bytes": 107845,
+      "sha256": "793e478868b812f0b26a9fc8c2be876e229166b9a2d848a1126d3cc95d2162d7",
+      "png_pixels": [
+        640,
+        2080
+      ]
+    }
+  ],
+  "owner_decision": "NOT_APPROVED",
+  "frozen_design_system": false
+}

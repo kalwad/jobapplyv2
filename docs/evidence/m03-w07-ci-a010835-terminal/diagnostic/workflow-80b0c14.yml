@@ -1,0 +1,33 @@
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 7: is dumpbin (link /DUMP)
+# a VCTIP starter when it is the first MSVC tool on a fresh runner?
+name: ci
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    name: inspect (${{ matrix.variant }})
+    runs-on: windows-2025
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [dumpbin, llvm-readobj]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Observe a single fresh inspection inside a Job
+        shell: pwsh
+        run: |
+          Get-Process vctip -ErrorAction SilentlyContinue | Format-Table Id,Path
+          $target = "$env:SystemRoot\System32\notepad.exe"
+          if ('${{ matrix.variant }}' -eq 'dumpbin') {
+            $vs = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+            $ver = (Get-Content "$vs\VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.txt").Trim()
+            python scripts\diag\job_linger_diag.py dumpbin-fresh 120 no -- "$vs\VC\Tools\MSVC\$ver\bin\Hostx64\x64\dumpbin.exe" /headers /dependents /imports $target
+          } else {
+            python scripts\diag\job_linger_diag.py readobj-fresh 60 no -- 'C:\Program Files\LLVM\bin\llvm-readobj.exe' --file-headers --coff-imports $target
+          }
+          Get-Process vctip -ErrorAction SilentlyContinue | Format-Table Id,Path

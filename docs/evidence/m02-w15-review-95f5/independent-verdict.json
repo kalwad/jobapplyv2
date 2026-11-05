@@ -1,0 +1,121 @@
+{
+  "format_version": "M02_W15_INDEPENDENT_GATE_A_VERDICT_1",
+  "recommendation": "PASS",
+  "reviewer": "/root/gate_a_final_audit",
+  "reviewer_independence": "Independent of root/product/test/baseline implementation authorship; authored only outside-tree read-only reviewers and ran exactly released original14 key regressions.",
+  "candidate_commit": "95f5b09f43d9bef06d6158ea0bb8b9e0e3aa9123",
+  "candidate_tree": "b85166b035fbf90a1b8c85d54f52461ccc422dd6",
+  "predecision_pack": {
+    "path": "/tmp/japp-m02-w15-predecision-95f5-retained-20261018/proof.tar.gz",
+    "bytes": 10325434,
+    "sha256": "sha256:5085d94111a2dab8aba4f879f9ffb197287bd436d8df5193aef8aaafc505f5aa"
+  },
+  "predecision_index": {
+    "path": "/tmp/japp-m02-w15-final-pack-proposal-20261018/candidate-index.final-predecision.json",
+    "sha256": "sha256:2c2e3d3b191aeabc798be522934361bb4c28cad91216827a3606802ed760651d"
+  },
+  "all_actual_acceptance_checks_passed_within_declared_scope": true,
+  "blocking_findings": [],
+  "actual_component_checks": {
+    "strict_full": 99,
+    "fresh_key_reproduction": 14,
+    "native_three_OS": 45,
+    "actual_predecision_pack": 30,
+    "contact_raw": 38,
+    "canonical_W05_replay": 10,
+    "mounted_raw": 334,
+    "mounted_global": 2,
+    "current_R10_closed_actors_separate_join": 204,
+    "R10_postflight_retention": 5,
+    "memory_raw": 11
+  },
+  "waiver_assessments": {
+    "holdout": {
+      "result": "WAIVED_BY_OWNER_ADR_0006",
+      "execution_performed": false,
+      "validity_established": false,
+      "execution_result_reference": null,
+      "authority": {
+        "adr_id": "ADR-0006",
+        "owner_decision_id": "OD-035",
+        "source_file": "docs/DECISIONS.md",
+        "source_record_digest": "sha256:a76132ab96294a6e1b69c985ffd7f420ff6df96e3a121a579a734814c276647a"
+      }
+    },
+    "direct_simplify_and_executed_public_forms": {
+      "result": "WAIVED_BY_OWNER_ADR_0007",
+      "execution_performed": false,
+      "actual_cases": 0,
+      "authority": {
+        "adr_id": "ADR-0007",
+        "owner_decision_id": "OD-036",
+        "source_file": "docs/DECISIONS.md",
+        "source_record_digest": "sha256:fc1529b286c358c36557e810e105d63a4cca6366b3fad913dee38dba4395df02"
+      }
+    }
+  },
+  "original_R10_pipeline": "FAIL_MISSING_WORKSHEET_PRESERVED",
+  "separate_R10_comparison_evidence": "CLEAR_CLOSED_ORIGINAL_ACTORS_AND_SEPARATE_PURE_JOIN_NO_REPLAY",
+  "native_CI_timing_scope": "One descriptive zero-settle sample/host, threshold not enforced; Mac2423.209749999998ms above logged1500 retained. Local targetMac strict20sample acceptance is separate.",
+  "owner_decision": "PENDING",
+  "authoritative_gate_state": "IN_PROGRESS",
+  "gate_pass_authorized": false,
+  "M03_readiness_authorized": false,
+  "required_next_action": "Actual source/pack/verdict-bound owner decision before authoritative Gate A PASS/M02 acceptance/M03 readiness. Preserve predecision archive and create a distinct hash-linked final decision chain.",
+  "report_sha256": "sha256:b61d99b5a2d80e26ea69b3c107a544982540eed5b600c9ead85e8d9007017bbd",
+  "input_commitments": [
+    {
+      "path": "/tmp/japp-m02-w15-independent-audit/actual-predecision95f5-pack-review-attempt2/findings.json",
+      "bytes": 5723,
+      "sha256": "sha256:ed89acfe99a3378a3472d2cf769cd3a42fef595889a6240e4f488473860ffc48"
+    },
+    {
+      "path": "/tmp/japp-m02-w15-independent-audit/full95f5-closed-review/independent-full-verdict.json",
+      "bytes": 3122,
+      "sha256": "sha256:a586ed6199fd39eeac5cb272866ed26305e931b36feec5a1c036b29a5b2518ab"
+    },
+    {
+      "path": "/tmp/japp-m02-w15-independent-audit/key14-95f5-closed-review/findings.json",
+      "bytes": 16754,
+      "sha256": "sha256:504a5dbb337e28a11066bffaa54fa2b2f2f00a03e0892605cd17eddd8a52631b"
+    },
+    {
+      "path": "/tmp/japp-m02-w15-independent-audit/current95f5-native3-closed-review-attempt2/findings.json",
+      "bytes": 13205,
+      "sha256": "sha256:19d62ee457bf9ad508e941372d5078c326abcec8c0177387188974681edade17"
+    },
+    {
+      "path": "/tmp/japp-m02-w15-independent-audit/r10-closed-actors-separate-join-audit/findings.json",
+      "bytes": 53957,
+      "sha256": "sha256:4625cbc48a69d534762aee5f785b5b039f4757f74a05f5f58c80b3a1d9a01301"
+    },
+    {
+      "path": "/tmp/japp-m02-w15-independent-audit/current95f5-memory-supplement/findings.json",
+      "bytes": 2955,
+      "sha256": "sha256:1cd7986885338a97db5b41edb160003e149c584bbdb40a17bc96bd097ac80532"
+    },
+    {
+      "path": "/tmp/japp-m02-w15-independent-audit/final-pack-governance-scope-review/findings-v2-reviewed.json",
+      "bytes": 7071,
+      "sha256": "sha256:93cb7555aef2f13e39607a82c334da7f67ae31065281f9545095d0b98645887c"
+    },
+    {
+      "path": "/tmp/japp-m02-w15-independent-audit/source95f5-coverage/findings.json",
+      "bytes": 153001,
+      "sha256": "sha256:8ac64d38689b40e6e34b7319639a857b07a5161f67beac5596e6cea2f36828b6"
+    },
+    {
+      "path": "/tmp/japp-m02-w15-independent-audit/actual-evidence95f5-closure/findings.json",
+      "bytes": 1883812,
+      "sha256": "sha256:74e95cdbd1f158f4eb63e9c145a4384ba33075595f9a71a93ae630dc84f67558"
+    },
+    {
+      "path": "/tmp/japp-m02-w15-independent-audit/local95f5-component-review.md",
+      "bytes": 9417,
+      "sha256": "sha256:5b0fdb493f3062a6b5c835cff14f12374dd2ed1018f3db4883652c6d3a527a10"
+    }
+  ],
+  "issued_at_utc": "2026-10-18T01:42:50.280016+00:00",
+  "authority": "INDEPENDENT_TECHNICAL_RECOMMENDATION_ONLY",
+  "typed_GateEvidenceBundleV2_publication_claimed": false
+}

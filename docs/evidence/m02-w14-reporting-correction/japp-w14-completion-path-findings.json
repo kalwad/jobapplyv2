@@ -1,0 +1,30 @@
+{
+  "scope": "Read-only contract/dependency completion-path interpretation; no package start, test or gate decision",
+  "formal_w15_start_before_w14_verified_allowed": false,
+  "package_blocked_enum_is_gate_decision_workaround": false,
+  "new_package_eligible_count": 0,
+  "current_package": "M02-W14",
+  "missing_observations": [
+    "eligible public scored evidence",
+    "actual normal-user same-input Simplify comparison",
+    "final independent W15 decision and owner gate decision"
+  ],
+  "adr0006_waivers": [
+    "owner-controlled hidden holdout",
+    "per-W stopping"
+  ],
+  "no_inferred_waivers": [
+    "numerical accuracy/performance/safety thresholds",
+    "public/Simplify comparisons",
+    "native platform proof",
+    "independent review",
+    "owner gate decision",
+    "dependency graph"
+  ],
+  "recommended_available_evidence_disposition": "EXTERNAL_SUPPLEMENTAL_BLOCKED_RECOMMENDATION_ONLY",
+  "redesign_required_current_fundamental_failure_demonstrated": false,
+  "paths": {
+    "note": "/tmp/japp-w14-completion-path-note.md",
+    "dependency_subreview": "/tmp/japp-w14-w15-dependency-subreview.md"
+  }
+}

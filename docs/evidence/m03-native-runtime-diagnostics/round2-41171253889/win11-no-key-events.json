@@ -1,0 +1,100 @@
+[
+ {
+  "t": 0.144,
+  "event": "qmp"
+ },
+ {
+  "t": 0.144,
+  "event": "serial-connected"
+ },
+ {
+  "t": 0.144,
+  "event": "frame-changed",
+  "file": "f0000.png"
+ },
+ {
+  "t": 1.177,
+  "event": "frame-changed",
+  "file": "f0001.png"
+ },
+ {
+  "t": 1.696,
+  "event": "frame-changed",
+  "file": "f0002.png"
+ },
+ {
+  "t": 2.698,
+  "event": "frame-changed",
+  "file": "f0003.png"
+ },
+ {
+  "t": 3.201,
+  "event": "frame-changed",
+  "file": "f0004.png"
+ },
+ {
+  "t": 3.704,
+  "event": "frame-changed",
+  "file": "f0005.png"
+ },
+ {
+  "t": 4.207,
+  "event": "frame-changed",
+  "file": "f0006.png"
+ },
+ {
+  "t": 4.709,
+  "event": "frame-changed",
+  "file": "f0007.png"
+ },
+ {
+  "t": 5.212,
+  "event": "frame-changed",
+  "file": "f0008.png"
+ },
+ {
+  "t": 5.713,
+  "event": "frame-changed",
+  "file": "f0009.png"
+ },
+ {
+  "t": 6.215,
+  "event": "frame-changed",
+  "file": "f0010.png"
+ },
+ {
+  "t": 6.719,
+  "event": "frame-changed",
+  "file": "f0011.png"
+ },
+ {
+  "t": 7.219,
+  "event": "frame-changed",
+  "file": "f0012.png"
+ },
+ {
+  "t": 7.739,
+  "event": "frame-changed",
+  "file": "f0013.png"
+ },
+ {
+  "t": 8.24,
+  "event": "frame-changed",
+  "file": "f0014.png"
+ },
+ {
+  "t": 8.76,
+  "event": "frame-changed",
+  "file": "f0015.png"
+ },
+ {
+  "t": 9.778,
+  "event": "frame-changed",
+  "file": "f0016.png"
+ },
+ {
+  "t": 75.001,
+  "event": "end",
+  "vm_exit": null
+ }
+]

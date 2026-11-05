@@ -1,0 +1,107 @@
+{
+  "scope": "Closed cf9 local full only; later source/CI/packages require separate evidence.",
+  "members": {
+    "actual/before.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-cf9b60d/before.json",
+      "bytes": 480024,
+      "sha256": "0047b77b0e49266a87e12fc2672213b7415a4cc3bf8ee2ca5d5d17451143f44a",
+      "full_mode": 33188
+    },
+    "actual/after.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-cf9b60d/after.json",
+      "bytes": 480024,
+      "sha256": "0047b77b0e49266a87e12fc2672213b7415a4cc3bf8ee2ca5d5d17451143f44a",
+      "full_mode": 33188
+    },
+    "actual/context.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-cf9b60d/context.json",
+      "bytes": 164,
+      "sha256": "7d17e3ecd12d258db4e1acafa7aed778abae13fdda87ea3e1b0c117064577799",
+      "full_mode": 33188
+    },
+    "actual/end-context.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-cf9b60d/end-context.json",
+      "bytes": 167,
+      "sha256": "71ca1c6b4c407e0a321f383ef3aff93e00a7864c7e1871f3f08f811da52db663",
+      "full_mode": 33188
+    },
+    "actual/closure.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-cf9b60d/closure.json",
+      "bytes": 319,
+      "sha256": "28fc73669be20ff67cb74e42597716d393d2604e726fc0f3355462afa3fe2d58",
+      "full_mode": 33188
+    },
+    "actual/results.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-cf9b60d/results.json",
+      "bytes": 526,
+      "sha256": "67c2600d3be145daa68d6241e54dfca1a380602db866f4b8ef4d09be7adc46ed",
+      "full_mode": 33188
+    },
+    "actual/doctor.log": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-cf9b60d/doctor.log",
+      "bytes": 3222,
+      "sha256": "0b114d3112efd5f0bc52af6b57282085bda1a3c0272edf6774b3952cdbca8cc8",
+      "full_mode": 33188
+    },
+    "actual/verify.log": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-cf9b60d/verify.log",
+      "bytes": 946608,
+      "sha256": "4885734a0e7a7f7fac506938fe614d92ae651e89e33d085d03f8fa3a25bc9e33",
+      "full_mode": 33188
+    },
+    "actual/wrapper-executed.py": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-cf9b60d/wrapper-executed.py",
+      "bytes": 4906,
+      "sha256": "a21d2aa560911228ef4d55731f0eaae3f2d988ab9c4782a8164ccfbd233c1223",
+      "full_mode": 33188
+    },
+    "different/REVIEW.md": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-cf9b60d-independent-review/v1/REVIEW.md",
+      "bytes": 3845,
+      "sha256": "a7a38348fbada1c7b40c8fec7cf0aca1f59d1cca5bec842c20e43a373b66290f",
+      "full_mode": 33188
+    },
+    "different/SEAL.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-cf9b60d-independent-review/v1/SEAL.json",
+      "bytes": 571,
+      "sha256": "4f1415fc8b7a165170925f48c4132e3eddf6e7863d889b8c6356f2e53f39585d",
+      "full_mode": 33188
+    },
+    "different/MANIFEST.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-cf9b60d-independent-review/v1/MANIFEST.json",
+      "bytes": 5710,
+      "sha256": "6cccce56bbe5b1f04a7e4309724ae411fe11992f1d92c4a450b5b80cb931e4c4",
+      "full_mode": 33188
+    },
+    "different/data-review.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-cf9b60d-independent-review/v1/data-review.json",
+      "bytes": 700700,
+      "sha256": "4b7b33b56c19badd2c6e9a08ebd784bc696448ef6e6cedcf1806ffcc11f94b43",
+      "full_mode": 33188
+    },
+    "different/immutable-source-joins.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-cf9b60d-independent-review/v1/immutable-source-joins.json",
+      "bytes": 819019,
+      "sha256": "629b81b8e06bdd2e9a11ad9ae8c29daf7f23e47251f301919af244c508f56cab",
+      "full_mode": 33188
+    },
+    "different/git-read-receipts.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-cf9b60d-independent-review/v1/git-read-receipts.json",
+      "bytes": 1030,
+      "sha256": "4fcf5552253e84c4e38bb054595f065375ab20c6f031de2b8cfd948c01487613",
+      "full_mode": 33188
+    },
+    "different/proof.tar.gz": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-cf9b60d-independent-review/v1/proof.tar.gz",
+      "bytes": 973248,
+      "sha256": "98594c68214b43a1e4a8ec743976ce01e9c75fc1a13cea54a859a8435c74aa18",
+      "full_mode": 33188
+    }
+  },
+  "safe_regular_members": 16,
+  "original_parent_absolute_paths": [
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/clean-full-cf9b60d-independent-review/v1",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/full-cf9b60d"
+  ],
+  "omissions": "Large original Git/toolchain/runtime/payload binaries, CI ZIPs, expanded tool images and temporary caches remain locally retained at source-pinned parent paths; this compact archive does not claim all-binary self-containment. Nested sealed parent proofs retain full own reader/error/control histories in their stated scopes."
+}

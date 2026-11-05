@@ -1,0 +1,22 @@
+{
+  "all_command_children_reaped_groups_absent": true,
+  "closed_zero_commands": 10,
+  "common_collection": 2702,
+  "different_actual_joins": 2573,
+  "focused_python_pass": 693,
+  "focused_python_seconds": 137.85,
+  "full_collection": 2704,
+  "logical_source": 2310,
+  "native_target_platform_acceptance": false,
+  "other_cache_pins_equal": 14,
+  "posix_only": 2,
+  "reference_commit": "a7caf7101a7445294c8776c6c09c6cbd0d107bc9",
+  "reference_tree": "9173225507ad3c4a43c1f4978cc5f005a30264f7",
+  "result": "PASS_SCOPED_CORRECTION_AND_CANONICAL_FOCUS",
+  "runtime": 40,
+  "selected_owned_stale_cache_replacements": 5,
+  "signals": [],
+  "source_runtime_modes_status_head_tree_endpoints_equal": true,
+  "timeouts": 0,
+  "whole_suite_execution": false
+}

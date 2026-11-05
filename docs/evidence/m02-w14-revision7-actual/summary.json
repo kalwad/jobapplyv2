@@ -1,0 +1,877 @@
+{
+  "format_version": "W14_REVISION7_ACTUAL_READONLY_AUDIT_1",
+  "authority": "NONE",
+  "formal_W15_review": false,
+  "gate_pass": false,
+  "audited_repository_commit": "0dd88ce23771f7da88d7ef103fea35e459b70392",
+  "campaign_lock_digest": "sha256:e5b9a8dd4163a6f3c9e61782ef808692ebf65da0997fdfdb486d77e671b50042",
+  "candidate_runtime_inventory_digest": "sha256:c3757409d0e43b12e517eae863e4985d8a509273dd45b86f59a5bfb8478cc89c",
+  "candidate_runtime_inventory_count": 355,
+  "candidate_default_build_inventory": [
+    {
+      "path": "background.js",
+      "digest": "sha256:c2743f77c37bbf90c5751a5893077492ca8b08663a5393284ebaef0ed3e801a9"
+    },
+    {
+      "path": "content-scripts/feasibility.js",
+      "digest": "sha256:1337982656b7bda693e48ac57859bbc14465cfb2a743d5c66d42fe97967bca2d"
+    },
+    {
+      "path": "manifest.json",
+      "digest": "sha256:674ac328b7f4554db378f62e5477ab33d778ad5ade142133ee747e36f79862b4"
+    }
+  ],
+  "candidate_default_build_inventory_digest": "sha256:79bbf698e2af0b3f270bbdec2814df450bcc2a8ff04809bf259b23242a9fc991",
+  "same_source_and_build_at_all_case_endpoints": true,
+  "same_inputs_oracles_projections_verified": true,
+  "candidate_result_stats": {
+    "startTime": "2026-10-16T20:59:58.414Z",
+    "duration": 11159.414999999999,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "candidate_test_names": [
+    "paired explicit approved options: W12-WORKDAY-GROUPED-en-US-MY_INFORMATION",
+    "paired explicit approved options: W12-GREENHOUSE-GROUPED-en-US-MY_INFORMATION",
+    "paired explicit approved options: W12-LEVER-GROUPED-en-US-MY_INFORMATION",
+    "paired explicit approved options: W12-ASHBY-GROUPED-en-US-MY_INFORMATION"
+  ],
+  "case_count": 4,
+  "totals": {
+    "ordinary": 40,
+    "candidate_exact": 40,
+    "legacy_exact": 28,
+    "candidate_digits_equivalent": 40,
+    "legacy_digits_equivalent": 32,
+    "candidate_event_witnesses": 40,
+    "legacy_event_witnesses": 32,
+    "candidate_rerenders": 40,
+    "legacy_rerenders": 32,
+    "candidate_native_mutations": 40,
+    "legacy_native_mutations": 36,
+    "candidate_native_interactions": 144,
+    "legacy_native_interactions": 216,
+    "candidate_unexpected_native_mutations": 0,
+    "legacy_unexpected_native_mutations": 4,
+    "candidate_unexpected_nonordinary_final_changes": 0,
+    "legacy_unexpected_nonordinary_final_changes": 0,
+    "candidate_navigation_events": 0,
+    "legacy_navigation_events": 0,
+    "candidate_submission_events": 0,
+    "legacy_submission_events": 0
+  },
+  "cases": [
+    {
+      "case_id": "benchmarkcase_17AXF7N6VDCJXSV8WAEDCHRW1G",
+      "fixture_id": "W12-WORKDAY-GROUPED-en-US-MY_INFORMATION",
+      "input_digest": "sha256:bb904ced47f62b40be48fd63d6b3cfd6ea798bf6082a0c6f50d35f933f2f072a",
+      "oracle_digest": "sha256:c43ff4a39372feea1849d9696f005b9bd4664d275f84aa4869d2677028d0b2eb",
+      "candidate_artifact_sha256": "sha256:1a86f33bc1b7d6aa8313708bbd1ceae52b77bec7b61a53f271a2fcde030d4be7",
+      "metrics": {
+        "ordinary": 10,
+        "candidate_exact": 10,
+        "legacy_exact": 7,
+        "candidate_digits_equivalent": 10,
+        "legacy_digits_equivalent": 8,
+        "candidate_event_witnesses": 10,
+        "legacy_event_witnesses": 8,
+        "candidate_rerenders": 10,
+        "legacy_rerenders": 8,
+        "candidate_native_mutations": 10,
+        "legacy_native_mutations": 9,
+        "candidate_native_interactions": 36,
+        "legacy_native_interactions": 54,
+        "candidate_unexpected_native_mutations": 0,
+        "legacy_unexpected_native_mutations": 1,
+        "candidate_unexpected_nonordinary_final_changes": 0,
+        "legacy_unexpected_nonordinary_final_changes": 0,
+        "candidate_navigation_events": 0,
+        "legacy_navigation_events": 0,
+        "candidate_submission_events": 0,
+        "legacy_submission_events": 0
+      },
+      "fields": [
+        {
+          "key": "first-name",
+          "concept": "FIRST_NAME",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "last-name",
+          "concept": "LAST_NAME",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "email",
+          "concept": "EMAIL_ADDRESS",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "phone",
+          "concept": "PHONE_NUMBER",
+          "candidate_exact": true,
+          "legacy_exact": false,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "website",
+          "concept": "WEBSITE_URL",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "street-address",
+          "concept": "ADDRESS_LINE_1",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "city",
+          "concept": "ADDRESS_CITY",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "state",
+          "concept": "ADDRESS_REGION",
+          "candidate_exact": true,
+          "legacy_exact": false,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": false
+        },
+        {
+          "key": "postal-code",
+          "concept": "ADDRESS_POSTAL_CODE",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "country",
+          "concept": "ADDRESS_COUNTRY",
+          "candidate_exact": true,
+          "legacy_exact": false,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": false
+        }
+      ],
+      "unexpected_candidate_native_mutations": [],
+      "unexpected_legacy_native_mutations": [
+        {
+          "sequence": 53,
+          "surface": "ACTIVATION",
+          "key": "country-code",
+          "tag": "INPUT",
+          "type": "text",
+          "succeeded": true,
+          "value_digest": null
+        }
+      ],
+      "country_code_initial": {
+        "key": "country-code",
+        "value": "",
+        "checked": false,
+        "valid": false,
+        "aria_invalid": "false"
+      },
+      "country_code_final": {
+        "key": "country-code",
+        "value": "",
+        "checked": false,
+        "valid": false,
+        "aria_invalid": "false"
+      }
+    },
+    {
+      "case_id": "benchmarkcase_4N6PQ8ZBMFFCM97D0HB0P49AJM",
+      "fixture_id": "W12-GREENHOUSE-GROUPED-en-US-MY_INFORMATION",
+      "input_digest": "sha256:9da16d922d2a40dc4931120cb981ec185a7d8bcc66983c4a3d5326b3717362ea",
+      "oracle_digest": "sha256:4826a2eab2a244d19b106fbb2a24026372e1abcf42b7bca73c8df2058575674f",
+      "candidate_artifact_sha256": "sha256:d9e9fabf3a7b7eb460db34fa46cd848a059cf288af1baac9e7cd3636bb34e0b6",
+      "metrics": {
+        "ordinary": 10,
+        "candidate_exact": 10,
+        "legacy_exact": 7,
+        "candidate_digits_equivalent": 10,
+        "legacy_digits_equivalent": 8,
+        "candidate_event_witnesses": 10,
+        "legacy_event_witnesses": 8,
+        "candidate_rerenders": 10,
+        "legacy_rerenders": 8,
+        "candidate_native_mutations": 10,
+        "legacy_native_mutations": 9,
+        "candidate_native_interactions": 36,
+        "legacy_native_interactions": 54,
+        "candidate_unexpected_native_mutations": 0,
+        "legacy_unexpected_native_mutations": 1,
+        "candidate_unexpected_nonordinary_final_changes": 0,
+        "legacy_unexpected_nonordinary_final_changes": 0,
+        "candidate_navigation_events": 0,
+        "legacy_navigation_events": 0,
+        "candidate_submission_events": 0,
+        "legacy_submission_events": 0
+      },
+      "fields": [
+        {
+          "key": "first-name",
+          "concept": "FIRST_NAME",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "last-name",
+          "concept": "LAST_NAME",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "email",
+          "concept": "EMAIL_ADDRESS",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "phone",
+          "concept": "PHONE_NUMBER",
+          "candidate_exact": true,
+          "legacy_exact": false,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "website",
+          "concept": "WEBSITE_URL",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "street-address",
+          "concept": "ADDRESS_LINE_1",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "city",
+          "concept": "ADDRESS_CITY",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "state",
+          "concept": "ADDRESS_REGION",
+          "candidate_exact": true,
+          "legacy_exact": false,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": false
+        },
+        {
+          "key": "postal-code",
+          "concept": "ADDRESS_POSTAL_CODE",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "country",
+          "concept": "ADDRESS_COUNTRY",
+          "candidate_exact": true,
+          "legacy_exact": false,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": false
+        }
+      ],
+      "unexpected_candidate_native_mutations": [],
+      "unexpected_legacy_native_mutations": [
+        {
+          "sequence": 53,
+          "surface": "ACTIVATION",
+          "key": "country-code",
+          "tag": "INPUT",
+          "type": "text",
+          "succeeded": true,
+          "value_digest": null
+        }
+      ],
+      "country_code_initial": {
+        "key": "country-code",
+        "value": "",
+        "checked": false,
+        "valid": false,
+        "aria_invalid": "false"
+      },
+      "country_code_final": {
+        "key": "country-code",
+        "value": "",
+        "checked": false,
+        "valid": false,
+        "aria_invalid": "false"
+      }
+    },
+    {
+      "case_id": "benchmarkcase_14W801B90ZX8QZMQKTE65FKZD6",
+      "fixture_id": "W12-LEVER-GROUPED-en-US-MY_INFORMATION",
+      "input_digest": "sha256:49e8db5721812285db5b7180ab472c3dbe0b7dc9fd2f6a5227d7641037b679fd",
+      "oracle_digest": "sha256:9123e5a4ece9724b81d34b8816dadd55e346f451d8b1aa4bc91fae5209d59fd8",
+      "candidate_artifact_sha256": "sha256:70e7f32317c02db9944451ba4672033cf10feb8dfe26bac104c20043560f5f3f",
+      "metrics": {
+        "ordinary": 10,
+        "candidate_exact": 10,
+        "legacy_exact": 7,
+        "candidate_digits_equivalent": 10,
+        "legacy_digits_equivalent": 8,
+        "candidate_event_witnesses": 10,
+        "legacy_event_witnesses": 8,
+        "candidate_rerenders": 10,
+        "legacy_rerenders": 8,
+        "candidate_native_mutations": 10,
+        "legacy_native_mutations": 9,
+        "candidate_native_interactions": 36,
+        "legacy_native_interactions": 54,
+        "candidate_unexpected_native_mutations": 0,
+        "legacy_unexpected_native_mutations": 1,
+        "candidate_unexpected_nonordinary_final_changes": 0,
+        "legacy_unexpected_nonordinary_final_changes": 0,
+        "candidate_navigation_events": 0,
+        "legacy_navigation_events": 0,
+        "candidate_submission_events": 0,
+        "legacy_submission_events": 0
+      },
+      "fields": [
+        {
+          "key": "first-name",
+          "concept": "FIRST_NAME",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "last-name",
+          "concept": "LAST_NAME",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "email",
+          "concept": "EMAIL_ADDRESS",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "phone",
+          "concept": "PHONE_NUMBER",
+          "candidate_exact": true,
+          "legacy_exact": false,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "website",
+          "concept": "WEBSITE_URL",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "street-address",
+          "concept": "ADDRESS_LINE_1",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "city",
+          "concept": "ADDRESS_CITY",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "state",
+          "concept": "ADDRESS_REGION",
+          "candidate_exact": true,
+          "legacy_exact": false,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": false
+        },
+        {
+          "key": "postal-code",
+          "concept": "ADDRESS_POSTAL_CODE",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "country",
+          "concept": "ADDRESS_COUNTRY",
+          "candidate_exact": true,
+          "legacy_exact": false,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": false
+        }
+      ],
+      "unexpected_candidate_native_mutations": [],
+      "unexpected_legacy_native_mutations": [
+        {
+          "sequence": 53,
+          "surface": "ACTIVATION",
+          "key": "country-code",
+          "tag": "INPUT",
+          "type": "text",
+          "succeeded": true,
+          "value_digest": null
+        }
+      ],
+      "country_code_initial": {
+        "key": "country-code",
+        "value": "",
+        "checked": false,
+        "valid": false,
+        "aria_invalid": "false"
+      },
+      "country_code_final": {
+        "key": "country-code",
+        "value": "",
+        "checked": false,
+        "valid": false,
+        "aria_invalid": "false"
+      }
+    },
+    {
+      "case_id": "benchmarkcase_5PEWA5521D0Q0JZ6PMKNW96NNJ",
+      "fixture_id": "W12-ASHBY-GROUPED-en-US-MY_INFORMATION",
+      "input_digest": "sha256:3132b64faba9b9b97db27748d45c8c762354183771606c3c4fbca875f103f827",
+      "oracle_digest": "sha256:02bddc176b6e3aad02e072c27341359208bcfe61d728efc104d7b554653c29e4",
+      "candidate_artifact_sha256": "sha256:9a3df979686b5c306bd8c94b0d85cff1ba2eaa2b4a572ec6748be51abb6fa5bb",
+      "metrics": {
+        "ordinary": 10,
+        "candidate_exact": 10,
+        "legacy_exact": 7,
+        "candidate_digits_equivalent": 10,
+        "legacy_digits_equivalent": 8,
+        "candidate_event_witnesses": 10,
+        "legacy_event_witnesses": 8,
+        "candidate_rerenders": 10,
+        "legacy_rerenders": 8,
+        "candidate_native_mutations": 10,
+        "legacy_native_mutations": 9,
+        "candidate_native_interactions": 36,
+        "legacy_native_interactions": 54,
+        "candidate_unexpected_native_mutations": 0,
+        "legacy_unexpected_native_mutations": 1,
+        "candidate_unexpected_nonordinary_final_changes": 0,
+        "legacy_unexpected_nonordinary_final_changes": 0,
+        "candidate_navigation_events": 0,
+        "legacy_navigation_events": 0,
+        "candidate_submission_events": 0,
+        "legacy_submission_events": 0
+      },
+      "fields": [
+        {
+          "key": "first-name",
+          "concept": "FIRST_NAME",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "last-name",
+          "concept": "LAST_NAME",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "email",
+          "concept": "EMAIL_ADDRESS",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "phone",
+          "concept": "PHONE_NUMBER",
+          "candidate_exact": true,
+          "legacy_exact": false,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "website",
+          "concept": "WEBSITE_URL",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "street-address",
+          "concept": "ADDRESS_LINE_1",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "city",
+          "concept": "ADDRESS_CITY",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "state",
+          "concept": "ADDRESS_REGION",
+          "candidate_exact": true,
+          "legacy_exact": false,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": false
+        },
+        {
+          "key": "postal-code",
+          "concept": "ADDRESS_POSTAL_CODE",
+          "candidate_exact": true,
+          "legacy_exact": true,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": true
+        },
+        {
+          "key": "country",
+          "concept": "ADDRESS_COUNTRY",
+          "candidate_exact": true,
+          "legacy_exact": false,
+          "candidate_digits_equivalent": true,
+          "legacy_digits_equivalent": false
+        }
+      ],
+      "unexpected_candidate_native_mutations": [],
+      "unexpected_legacy_native_mutations": [
+        {
+          "sequence": 53,
+          "surface": "ACTIVATION",
+          "key": "country-code",
+          "tag": "INPUT",
+          "type": "text",
+          "succeeded": true,
+          "value_digest": null
+        }
+      ],
+      "country_code_initial": {
+        "key": "country-code",
+        "value": "",
+        "checked": false,
+        "valid": false,
+        "aria_invalid": "false"
+      },
+      "country_code_final": {
+        "key": "country-code",
+        "value": "",
+        "checked": false,
+        "valid": false,
+        "aria_invalid": "false"
+      }
+    }
+  ],
+  "legacy_lifecycle": {
+    "complete": true,
+    "browser_exit_code": 0,
+    "context_cleanup": "VERIFIED_OWNED_CONTEXT_CLOSED",
+    "profile_cleanup": "VERIFIED_OWNED_PROFILE_REMOVED",
+    "owned_browser_cleanup": {
+      "scope": "OWNED_DIRECT_CHILD_HANDLE_ONLY",
+      "pid": 92577,
+      "state": "ALREADY_EXITED",
+      "verified": true,
+      "signals": [],
+      "errors": [],
+      "outcome": {
+        "kind": "EXITED",
+        "code": 0,
+        "signal": null
+      },
+      "handle_unreferenced": false
+    },
+    "owned_server_cleanup": {
+      "scope": "OWNED_DIRECT_CHILD_HANDLE_ONLY",
+      "pid": 92546,
+      "state": "STOPPED_AFTER_SIGTERM",
+      "verified": true,
+      "signals": [
+        {
+          "signal": "SIGTERM",
+          "sent": true
+        }
+      ],
+      "errors": [],
+      "outcome": {
+        "kind": "EXITED",
+        "code": null,
+        "signal": "SIGTERM"
+      },
+      "handle_unreferenced": false
+    },
+    "descendant_processes": "UNOBSERVED",
+    "errors": [],
+    "source_stability": true,
+    "normal_artifact_digest": "sha256:715ee5169f0651c28b2fb1782576cfe35950d2273f243e46bd84bb0a8b4ba550"
+  },
+  "candidate_cleanup_scope": "Four ordinary Playwright test results passed without fixture teardown errors; source awaits page/controller close, persistent context close and bounded profile removal. No per-artifact OS descendant audit is recorded.",
+  "public": {
+    "rows": 30,
+    "states": {
+      "NETWORK_OR_NAVIGATION_INTERFERENCE": 6,
+      "REFUSED": 7,
+      "REFUSED_NETWORK_CLOSURE": 17
+    },
+    "action_journal_bytes": 0,
+    "executions": 0,
+    "eligible_scored_source_pages": 0,
+    "natural_accuracy": null,
+    "natural_site_acceptance": null,
+    "git": {
+      "commit": "0dd88ce23771f7da88d7ef103fea35e459b70392",
+      "tree": "5502c462d6e61a90fe5b9deb72a31ebe0e9f16b9",
+      "dirty": false
+    },
+    "source_inventory_digest": "sha256:7e68c4c57815291d67b37414496a50d433b7fd5dcad900ef60ccf892eada5cc2",
+    "source_inventory_files": 940,
+    "build_inventory_digest": "sha256:b094bf77a9634c1ba2f02a1ebcfdf44fb7423e29689ca7a61e81b0fa80670648",
+    "oracle_map_digest": "sha256:2ba290bf505b8dc009ed2cb7e5d1724f33745ab374b10fe27d3c03a3d68ee91d",
+    "raw_gzip_sha256": "sha256:6d65587faffed60208cedb1e73c683528e4c44a8a98463755ada830b56aed6ea",
+    "raw_gzip_bytes": 129217,
+    "source_build_oracle_unchanged": true,
+    "finalization_errors": null,
+    "write_failures": [],
+    "observation_coverage": {
+      "complete_rows": 4,
+      "incomplete_rows": 26,
+      "snapshot_pairs_observed": 13,
+      "unmeasurable_topology_rows": 9,
+      "control_identity_scope": "UNIQUE_LITERAL_MATCH_SNAPSHOT_UNION",
+      "extension_write_causality": "UNOBSERVED_FROM_SNAPSHOT_DELTAS",
+      "safety_state": "INCOMPLETE_DOCUMENT_EVENT_SCOPE",
+      "event_counter_scope": "DOCUMENT_CAPTURE_ONLY",
+      "composed_tree_event_coverage": "UNOBSERVED_NONCOMPOSED_OPEN_ROOT_EVENTS",
+      "unrecorded_source_pages": 0,
+      "unknown_click_event_rows": 17,
+      "unknown_submit_event_rows": 17,
+      "unknown_navigation_event_rows": 17,
+      "known_document_click_events": 0,
+      "known_document_submit_events": 0,
+      "known_main_frame_navigation_events": 0,
+      "composed_tree_click_events": null,
+      "composed_tree_submit_events": null
+    }
+  },
+  "artifact_bindings": [
+    {
+      "path": "/tmp/japp-w14-r7-0dd88ce-20261016/paired-comparison.json",
+      "bytes": 623500,
+      "sha256": "sha256:9952855de008e9bf3c0bc99ac09b43a2d0ba637511e27c345b9259917936c0d0"
+    },
+    {
+      "path": "/tmp/japp-w14-r7-0dd88ce-20261016/legacy/paired-options-legacy.json",
+      "bytes": 133106,
+      "sha256": "sha256:715ee5169f0651c28b2fb1782576cfe35950d2273f243e46bd84bb0a8b4ba550"
+    },
+    {
+      "path": "/tmp/japp-w14-r7-0dd88ce-20261016/legacy.control.json",
+      "bytes": 1590,
+      "sha256": "sha256:6af44279ea3944fe3b3438ca9d8a3aac671273dbf11d46bcdcf88e65f7135a48"
+    },
+    {
+      "path": "/tmp/japp-w14-r7-0dd88ce-20261016/candidate-report.json",
+      "bytes": 7877,
+      "sha256": "sha256:fc2ce4f719cb3685595ee9060894462ea9d1a0d3d04c0e4ad32ccb864029dd2d"
+    },
+    {
+      "path": "/tmp/japp-w14-r7-0dd88ce-20261016/discovery.json",
+      "bytes": 4325,
+      "sha256": "sha256:d6622015dcf7237dc80b0b9518b7e08f7614eb1f2b51a48a6c3c19e96bd08a78"
+    },
+    {
+      "path": "/tmp/japp-w14-r7-0dd88ce-20261016/candidate/paired-options.proof.ts-pa-6a3a8-ROUPED-en-US-MY-INFORMATION/paired-options-candidate.json",
+      "bytes": 482488,
+      "sha256": "sha256:d9e9fabf3a7b7eb460db34fa46cd848a059cf288af1baac9e7cd3636bb34e0b6"
+    },
+    {
+      "path": "/tmp/japp-w14-r7-0dd88ce-20261016/candidate/paired-options.proof.ts-pa-98ac0-ROUPED-en-US-MY-INFORMATION/paired-options-candidate.json",
+      "bytes": 483656,
+      "sha256": "sha256:1a86f33bc1b7d6aa8313708bbd1ceae52b77bec7b61a53f271a2fcde030d4be7"
+    },
+    {
+      "path": "/tmp/japp-w14-r7-0dd88ce-20261016/candidate/paired-options.proof.ts-pa-daf5b-ROUPED-en-US-MY-INFORMATION/paired-options-candidate.json",
+      "bytes": 483609,
+      "sha256": "sha256:9a3df979686b5c306bd8c94b0d85cff1ba2eaa2b4a572ec6748be51abb6fa5bb"
+    },
+    {
+      "path": "/tmp/japp-w14-r7-0dd88ce-20261016/candidate/paired-options.proof.ts-pa-fecc6-ROUPED-en-US-MY-INFORMATION/paired-options-candidate.json",
+      "bytes": 483825,
+      "sha256": "sha256:70e7f32317c02db9944451ba4672033cf10feb8dfe26bac104c20043560f5f3f"
+    },
+    {
+      "path": "/tmp/japp-w14-public-0dd88ce-20261016/public-contact.json.gz",
+      "bytes": 129217,
+      "sha256": "sha256:6d65587faffed60208cedb1e73c683528e4c44a8a98463755ada830b56aed6ea"
+    },
+    {
+      "path": "/tmp/japp-w14-public-0dd88ce-20261016/assessment.json",
+      "bytes": 9458,
+      "sha256": "sha256:1cb5bd581aa14cf7ef15ba50088451a1e6e46fcf7d9858dddfadd54f00315ca8"
+    },
+    {
+      "path": "/tmp/japp-w14-public-0dd88ce-20261016/campaign-binding.json",
+      "bytes": 852,
+      "sha256": "sha256:6da8e4456dfbd53b0cce74dab7c877c89dca64c69c258c1fa56637fe715c7289"
+    },
+    {
+      "path": "/tmp/japp-w14-public-0dd88ce-20261016/end-binding.json",
+      "bytes": 547,
+      "sha256": "sha256:c20f27c6e0d4fd5e1d0be0184878f95ed164faf7d83969a9d6ec9b9f06375c02"
+    },
+    {
+      "path": "/tmp/japp-w14-public-0dd88ce-20261016/finalization.json",
+      "bytes": 664,
+      "sha256": "sha256:208c74086b73e12ba437b2552f856abc0f0a043335808d06af4a82572a01b520"
+    }
+  ],
+  "issues": [],
+  "checks_passed": true,
+  "findings": [
+    "Four succeeded legacy ACTIVATION witnesses on nonordinary country-code, one per case, must be disclosed; no zero-unexpected-native claim applies.",
+    "Unexpected activation does not prove a changed final value; all four country-code initial/final values remain blank.",
+    "Public campaign records 30 outcomes but zero scored/action rows; accuracy and site acceptance remain null.",
+    "Four related synthetic cases / one shared legacy component do not establish broad ATS, two-product, timing, statistical, site-acceptance or Gate A superiority.",
+    "Revision6 raw/worksheet already contained the same four country-code activations; earlier both-zero governance summaries were wrong. All four legacy native witness arrays are identical across revision6 and revision7."
+  ],
+  "historical_reporting_correction": {
+    "revision6_lock_digest": "sha256:47b6fe33c9e68d8aed9815f2cd35887e289a0e93fbf27045a059e467d35fe6fb",
+    "revision6_worksheet_path": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w14-comparisons-actual/paired-comparison.json",
+    "revision6_worksheet_sha256": "sha256:a1162c802c512ec741e7c500f68ed6bcfc8e971eef870afdaec6271cc1e424c8",
+    "revision6_archived_legacy_member": "legacy-r6/paired-options-legacy.json",
+    "revision6_archived_legacy_sha256": "sha256:1ac239a7b8c9c94344066b944d4e08b32d0120048eed9db440f29f19259d0e74",
+    "revision6_candidate_unexpected_native_mutations": 0,
+    "revision6_legacy_unexpected_native_mutations": 4,
+    "revision6_candidate_native_mutations": 40,
+    "revision6_candidate_native_interactions": 144,
+    "revision6_legacy_native_mutations": 36,
+    "revision6_legacy_native_interactions": 216,
+    "revision6_legacy_nonordinary_final_changes": 0,
+    "native_arrays_vs_revision7": [
+      {
+        "case_id": "benchmarkcase_17AXF7N6VDCJXSV8WAEDCHRW1G",
+        "native_witness_array_identical": true,
+        "unexpected_native_array_identical": true,
+        "old_unexpected_native_mutations": [
+          {
+            "sequence": 53,
+            "surface": "ACTIVATION",
+            "key": "country-code",
+            "tag": "INPUT",
+            "type": "text",
+            "succeeded": true,
+            "value_digest": null
+          }
+        ]
+      },
+      {
+        "case_id": "benchmarkcase_4N6PQ8ZBMFFCM97D0HB0P49AJM",
+        "native_witness_array_identical": true,
+        "unexpected_native_array_identical": true,
+        "old_unexpected_native_mutations": [
+          {
+            "sequence": 53,
+            "surface": "ACTIVATION",
+            "key": "country-code",
+            "tag": "INPUT",
+            "type": "text",
+            "succeeded": true,
+            "value_digest": null
+          }
+        ]
+      },
+      {
+        "case_id": "benchmarkcase_14W801B90ZX8QZMQKTE65FKZD6",
+        "native_witness_array_identical": true,
+        "unexpected_native_array_identical": true,
+        "old_unexpected_native_mutations": [
+          {
+            "sequence": 53,
+            "surface": "ACTIVATION",
+            "key": "country-code",
+            "tag": "INPUT",
+            "type": "text",
+            "succeeded": true,
+            "value_digest": null
+          }
+        ]
+      },
+      {
+        "case_id": "benchmarkcase_5PEWA5521D0Q0JZ6PMKNW96NNJ",
+        "native_witness_array_identical": true,
+        "unexpected_native_array_identical": true,
+        "old_unexpected_native_mutations": [
+          {
+            "sequence": 53,
+            "surface": "ACTIVATION",
+            "key": "country-code",
+            "tag": "INPUT",
+            "type": "text",
+            "succeeded": true,
+            "value_digest": null
+          }
+        ]
+      }
+    ],
+    "classification": "HISTORICAL_GOVERNANCE_REPORTING_ERROR_NOT_NEW_NATIVE_BEHAVIOR",
+    "incorrect_prose_locations": [
+      "docs/TEST_EVIDENCE.md:292",
+      "docs/gates/AUTOFILL_FEASIBILITY_GATE.md:87"
+    ],
+    "correction": "Revision6 candidate unexpected native=0; legacy unexpected native=4 succeeded ACTIVATION calls on country-code, one per case. Final nonordinary changes and navigation/submission event witnesses remain0. Preserve old raw bytes and append explicit prose correction."
+  }
+}

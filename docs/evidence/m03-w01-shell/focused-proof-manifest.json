@@ -1,0 +1,888 @@
+{
+  "bytes": 1064062,
+  "sha256": "0a8cba01e8f4671d621bcd397a3c992d70eb04d64a09cca12194bb1af9adf831",
+  "inputs": [
+    {
+      "original": "/tmp/japp-m03-w01-ui-proposal/REPORT.md",
+      "member": "japp-m03-w01-ui-proposal/REPORT.md",
+      "bytes": 2342,
+      "sha256": "ea85ede86ef6352a61e051e9ebd8a467ccf53be612d219f37857220847cc26d4"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-ui-proposal/evidence/01-red.log",
+      "member": "japp-m03-w01-ui-proposal/evidence/01-red.log",
+      "bytes": 8797,
+      "sha256": "19f7a9685d97c638d85773578ee528fed267c7f4a860038eda34e81b1e250a4e"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-ui-proposal/evidence/02-meaningful-red.log",
+      "member": "japp-m03-w01-ui-proposal/evidence/02-meaningful-red.log",
+      "bytes": 4715,
+      "sha256": "0ac053b5a17681aa930943702a35d06c6d85a78be2245d3c678444dbe31272f6"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-ui-proposal/evidence/07-formatted-pure-green.log",
+      "member": "japp-m03-w01-ui-proposal/evidence/07-formatted-pure-green.log",
+      "bytes": 220,
+      "sha256": "88d1898956adfb689c63e622abde0962f774947117e78c366dffb3373853e326"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-ui-proposal/proposal-manifest.json",
+      "member": "japp-m03-w01-ui-proposal/proposal-manifest.json",
+      "bytes": 3331,
+      "sha256": "3b273fb3fe5a8709efe01936149105df2483fecb5dee158d2d553ff581844f1c"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-browser-red.log",
+      "member": "japp-m03-w01-browser-red.log",
+      "bytes": 442339,
+      "sha256": "b891f9ee22b6252b7dfe204b3d0da151f07994e8035e77f5597ce6f4507a99b8"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-browser-green.log",
+      "member": "japp-m03-w01-browser-green.log",
+      "bytes": 3799,
+      "sha256": "6654e4921eb3b9e1e1eaa083575473737f4cf12c4cef7b44e659549884acee0d"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-browser-green.json",
+      "member": "japp-m03-w01-browser-green.json",
+      "bytes": 287071,
+      "sha256": "0ec970666eb9047d5e983ec420e6ac40a2e4908144c88c56eeb66e30f0f63491"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-visual-green.log",
+      "member": "japp-m03-w01-visual-green.log",
+      "bytes": 2850,
+      "sha256": "94b81f4992d5bfa1f2c24da61f87fec44e2abc437edc57845a96983a522a30f5"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-visual-green.json",
+      "member": "japp-m03-w01-visual-green.json",
+      "bytes": 7131,
+      "sha256": "985897d254d89c2870b391ef32cc3eea91a38f62d3203fd47b77eb5a4ca27f22"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-native-root-url-red.log",
+      "member": "japp-m03-w01-native-root-url-red.log",
+      "bytes": 1422,
+      "sha256": "6ce1f151f5741aa283027af4558c2889586703439726b628196add1355375e1a"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-native-root-url-green.log",
+      "member": "japp-m03-w01-native-root-url-green.log",
+      "bytes": 1142,
+      "sha256": "e2a8b3bbef18a2f8343c014407ce9b9e3a90449b7a4773073a6356c124acb9df"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-native-packaged-mode-red.log",
+      "member": "japp-m03-w01-native-packaged-mode-red.log",
+      "bytes": 1496,
+      "sha256": "e00c2b64af3eb4a63319583e7f5942afe2b4b71e191ba5ff2a8bb2514e171577"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-native-packaged-mode-green.log",
+      "member": "japp-m03-w01-native-packaged-mode-green.log",
+      "bytes": 1214,
+      "sha256": "844d2bf9b397fac8bff3bf3d2bf4e47eb388f98943a76aa66e7d16f05c3038c5"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-native-development-mode-green.log",
+      "member": "japp-m03-w01-native-development-mode-green.log",
+      "bytes": 1241,
+      "sha256": "251acf1531fbbd6f6c64ba5e6f53b7e0a24464e96f905ded335cb0c82a8ed36e"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-native-app-build3.log",
+      "member": "japp-m03-w01-native-app-build3.log",
+      "bytes": 1717,
+      "sha256": "31347da479f8b5e11175169ef5e78d24fe4d88b050377627e6544e0539dd24e9"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-governance-current.log",
+      "member": "japp-m03-w01-governance-current.log",
+      "bytes": 46719,
+      "sha256": "156ca47d42d53c568102a6fc5439795967c6a9a964a54278efd652971aadca75"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-historical-fixture-proposal/REPORT.md",
+      "member": "japp-m03-w01-historical-fixture-proposal/REPORT.md",
+      "bytes": 2208,
+      "sha256": "f361f8516d4bfd9d723016d2eddc80464507ddf72618bdfaa5016e06f4123025"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-historical-fixture-proposal/historical-fixture-coherence.patch",
+      "member": "japp-m03-w01-historical-fixture-proposal/historical-fixture-coherence.patch",
+      "bytes": 5025,
+      "sha256": "7a614d604e3ace86142778d8f92d7fb4e563f9128114024c79612384bf975168"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-historical-fixture-proposal/all-governance-tests.log",
+      "member": "japp-m03-w01-historical-fixture-proposal/all-governance-tests.log",
+      "bytes": 896,
+      "sha256": "396e45016a22b7685a9d87a74bc97423d94bd73c45812b8add8fadb13cde3422"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-verification-proposal/verification-wiring.patch",
+      "member": "japp-m03-w01-verification-proposal/verification-wiring.patch",
+      "bytes": 22818,
+      "sha256": "d35f18f5ac985acce7570153ff1060da77c86f35cd24c42d5af28a9ee8126197"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-verification-proposal/REPORT.md",
+      "member": "japp-m03-w01-verification-proposal/REPORT.md",
+      "bytes": 3376,
+      "sha256": "bb0cdb890c96a137458c203c77098a01021cdc7bd31b058758518ed7bdb7e8c9"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-verification-proposal/tests-red.log",
+      "member": "japp-m03-w01-verification-proposal/tests-red.log",
+      "bytes": 12788,
+      "sha256": "abb7f4b18dc1bd45111ede668c2fbf2393e45be79db0fe869d351beb12f33f75"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-verification-proposal/tests-broad-attempt2.log",
+      "member": "japp-m03-w01-verification-proposal/tests-broad-attempt2.log",
+      "bytes": 434,
+      "sha256": "0231eb4210f5dbd18589734d7d13fd874034cdd1f2389ccfc672708a535b305c"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-ui-governance-proposal/ui-governance-progress.patch",
+      "member": "japp-m03-w01-ui-governance-proposal/ui-governance-progress.patch",
+      "bytes": 30771,
+      "sha256": "9cd18b1c7c9a7982a527e05987a4943542bfb7d6fcb8f56700083ece7c57093f"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-ui-governance-proposal/REPORT.md",
+      "member": "japp-m03-w01-ui-governance-proposal/REPORT.md",
+      "bytes": 4041,
+      "sha256": "90504a646fef123c93238a0e56fc9e622c656b2e7a3770ab672ee7a0c225ed57"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-ui-governance-proposal/tests-red.log",
+      "member": "japp-m03-w01-ui-governance-proposal/tests-red.log",
+      "bytes": 7975,
+      "sha256": "cc0555aadcc51acb578b5b5c3ef98e37ff59862328dd549ba95d4e2cea16c78d"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-ui-governance-proposal/tests-migration-boundary-red.log",
+      "member": "japp-m03-w01-ui-governance-proposal/tests-migration-boundary-red.log",
+      "bytes": 1499,
+      "sha256": "5daf9f6063ac19b7bd637be09f29c7a1582acdb9d94f5f753e755c12e8b6cd5e"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-ui-governance-proposal/tests-fake-exception-red.log",
+      "member": "japp-m03-w01-ui-governance-proposal/tests-fake-exception-red.log",
+      "bytes": 1594,
+      "sha256": "d65d3c445b15f42829c92db7b9a614098621134935a85de8a3502becdc3a87c1"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/audit.py",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/audit.py",
+      "bytes": 11283,
+      "sha256": "0fd600c43ca306ebaaf40f6ce86f971169c22a0567db177c120c43f43c87d18e"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/audit.stdout",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/audit.stdout",
+      "bytes": 645,
+      "sha256": "b4d027b807f7803c70c29566f6dd6f5aaa18b34ca0552e639e8e2157232b236c"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/findings.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/findings.json",
+      "bytes": 26210,
+      "sha256": "1face7dd7b567bf531ef0d101a99309f63cc6e5b4e1fc029b4d5a18d012eba47"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/importers-delta.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/importers-delta.json",
+      "bytes": 140,
+      "sha256": "f9172da96fb878c3f29342f1e5e350df729fa8374cab1ab11d3ae6d31134102a"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/inputs/current/apps/desktop/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/inputs/current/apps/desktop/package.json",
+      "bytes": 980,
+      "sha256": "ed8dfc7b102ed62230b920e9a9d22b4a5de77c6beb75b6c04750c380c49e62f6"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/inputs/current/apps/mock-ats-lab/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/inputs/current/apps/mock-ats-lab/package.json",
+      "bytes": 1070,
+      "sha256": "397fcd44bbde04406b1397c3a150d882336262b2e4c042666dc3aae6fe6132f8"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/inputs/current/eslint.config.mjs",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/inputs/current/eslint.config.mjs",
+      "bytes": 2092,
+      "sha256": "b36d065c20a82e38734f8fcb1c743caa0409ec0e803c55f05e9e3a9c40da292f"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/inputs/current/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/inputs/current/package.json",
+      "bytes": 2465,
+      "sha256": "d0f2d76900c9360e233c2e3f194c37cb7c9782c0238ca3373cec1639696249a3"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/inputs/current/packages/ui/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/inputs/current/packages/ui/package.json",
+      "bytes": 560,
+      "sha256": "efb40586c1f7d31cc08b9d6b2ba12490d597a99da088b5ff6261b4fcba3deaee"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/inputs/current/pnpm-lock.yaml",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/inputs/current/pnpm-lock.yaml",
+      "bytes": 187705,
+      "sha256": "9f9f4ec15c2fc55ffe4e32f8ab52f8193aa9e5bd1624a2e9bcf4c1db35e1e019"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/inputs/current/pnpm-workspace.yaml",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/inputs/current/pnpm-workspace.yaml",
+      "bytes": 1921,
+      "sha256": "b8317d0e335f25a2bfc90c3f40cf8faf78115f8eef99282413eea5cea9743c9c"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/inputs/lock95.yaml",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/inputs/lock95.yaml",
+      "bytes": 173570,
+      "sha256": "c9d9f2fea650873b806a28058a9f1a8ca88d38fe439ceb3ba9fd7c83d778b565"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/inputs/previous/apps/desktop/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/inputs/previous/apps/desktop/package.json",
+      "bytes": 295,
+      "sha256": "f4e0ce9b8d0284694942404648ebc998915d78b2905a5d0e975483bd65e62f1a"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/inputs/previous/apps/mock-ats-lab/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/inputs/previous/apps/mock-ats-lab/package.json",
+      "bytes": 1070,
+      "sha256": "397fcd44bbde04406b1397c3a150d882336262b2e4c042666dc3aae6fe6132f8"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/inputs/previous/eslint.config.mjs",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/inputs/previous/eslint.config.mjs",
+      "bytes": 1682,
+      "sha256": "a96d2a3d3aae67f002be3fdb4e56302afdb52f1adb69c6fdfa3f3834d69053ab"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/inputs/previous/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/inputs/previous/package.json",
+      "bytes": 2423,
+      "sha256": "188ca7e0032b22e329cfcd2cb6c3fd91657b02b110f0c95d9c48ccd150295b84"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/inputs/previous/packages/ui/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/inputs/previous/packages/ui/package.json",
+      "bytes": 453,
+      "sha256": "93d9341210644f3205a1c65e491b3d93ae1afb53d2602f0875462df800ea8068"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/inputs/previous/pnpm-lock.yaml",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/inputs/previous/pnpm-lock.yaml",
+      "bytes": 173570,
+      "sha256": "c9d9f2fea650873b806a28058a9f1a8ca88d38fe439ceb3ba9fd7c83d778b565"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/inputs/previous/pnpm-workspace.yaml",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/inputs/previous/pnpm-workspace.yaml",
+      "bytes": 1921,
+      "sha256": "b8317d0e335f25a2bfc90c3f40cf8faf78115f8eef99282413eea5cea9743c9c"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/compat-data/7.29.7/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/compat-data/7.29.7/package.json",
+      "bytes": 1192,
+      "sha256": "a871a1f7397a91d00f877751ab2da88904ff1dd30c5bb4ab2e5badd9f3adf6d4"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/core/7.29.7/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/core/7.29.7/package.json",
+      "bytes": 2744,
+      "sha256": "6c2893db41b54a1c03ba68e676aa3ea987db9a5c9b9a3a3aa2e8d0d9a63066c4"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/generator/7.29.8/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/generator/7.29.8/package.json",
+      "bytes": 1083,
+      "sha256": "9abb52650988f263a4e319eba536f7cdd681ad71b1e1383acb7e04f7825bc409"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/helper-compilation-targets/7.29.7/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/helper-compilation-targets/7.29.7/package.json",
+      "bytes": 1040,
+      "sha256": "6ac5b42b124c964fb3c0feed98cd2c13aaf5c5827021374db6884bab91f206d2"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/helper-globals/7.29.7/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/helper-globals/7.29.7/package.json",
+      "bytes": 814,
+      "sha256": "c06a17222ad81933dbae3768fe59cd6737ebdcfa88b84097f3a8e659e28d2c9f"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/helper-module-imports/7.29.7/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/helper-module-imports/7.29.7/package.json",
+      "bytes": 722,
+      "sha256": "fa2e7c54b6b86e250770f9b2703571bcff0c8166995e01c756539745859fedb7"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/helper-module-transforms/7.29.7/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/helper-module-transforms/7.29.7/package.json",
+      "bytes": 874,
+      "sha256": "4f5010bdec7a80d93d84a1ecff8fbdd0a9a865f1bd22ceb5b0215a07255de3b3"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/helper-validator-option/7.29.7/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/helper-validator-option/7.29.7/package.json",
+      "bytes": 631,
+      "sha256": "b2d7eca451e536f18f4757a54be48df604385ad978508e32ce8f2edb4973f257"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/helpers/7.29.10/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/helpers/7.29.10/package.json",
+      "bytes": 814,
+      "sha256": "ccd314c91c9bcd25324efe0d0f4da114a6b49554b96bf31ab5c65fcc083c4f03"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/parser/7.29.9/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/parser/7.29.9/package.json",
+      "bytes": 1382,
+      "sha256": "fa70cca00587bdb335e8249fa40e9356ed7b7c9a4fc92b1e74245ab1b852cda1"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/template/7.29.7/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/template/7.29.7/package.json",
+      "bytes": 771,
+      "sha256": "82b96cbb7f576768c6298b816600c0cfb2d8487c963050406d2bd895e3724145"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/traverse/7.29.10/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/@babel/traverse/7.29.10/package.json",
+      "bytes": 1093,
+      "sha256": "a1cc0751121cf332f73a42a394518f0e4090e9c45febc8887d047fbb72ca7d7b"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/@tauri-apps/api/2.12.4/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/@tauri-apps/api/2.12.4/package.json",
+      "bytes": 1784,
+      "sha256": "3e8dd9fbaa647151ea6179115c9e83918f46e951fcbb7fb9e998346337a05b48"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/@tauri-apps/cli/2.12.3/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/@tauri-apps/cli/2.12.3/package.json",
+      "bytes": 2454,
+      "sha256": "5f3db68ca84b72716fa2b123453763c3f82f848550f109d0a98c769a761b91d2"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/@tauri-apps/cli-darwin-arm64/2.12.3/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/@tauri-apps/cli-darwin-arm64/2.12.3/package.json",
+      "bytes": 704,
+      "sha256": "83458e47f25b5f9a94fdfd25aacade16b4f704cde52985f1c754827c64775f60"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/baseline-browser-mapping/2.11.29/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/baseline-browser-mapping/2.11.29/package.json",
+      "bytes": 2843,
+      "sha256": "5aa0f5010239dd299632eaa426e040b418834bdc412f33376c2ef95958769d36"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/browserslist/4.29.3/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/browserslist/4.29.3/package.json",
+      "bytes": 1112,
+      "sha256": "837c596bf1bbcabec84142e5d746e7dcd1dc39e7d23bbc9655cc85af1add21d1"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/caniuse-lite/1.0.30001816/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/caniuse-lite/1.0.30001816/package.json",
+      "bytes": 742,
+      "sha256": "c40fe84462acdbd5f9541f5d9dad68f401692d9e24393c89fa0a567cedcfa78e"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/electron-to-chromium/1.5.459/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/electron-to-chromium/1.5.459/package.json",
+      "bytes": 1021,
+      "sha256": "47b07a98ea2bf8a050de8f89e435ea2932af0047a2f6e1c0c28190e8a60462df"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/eslint-plugin-react-hooks/7.1.1/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/eslint-plugin-react-hooks/7.1.1/package.json",
+      "bytes": 1981,
+      "sha256": "c745f6ec0ce838f395eb5da17e3f907094fcd14c87c30b94810f217fe5e7b476"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/gensync/1.0.0-beta.2/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/gensync/1.0.0-beta.2/package.json",
+      "bytes": 906,
+      "sha256": "80cddca71baa1ba0cf44f65585e1c1ed7576abdb759ed391007925c961ca6334"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/hermes-estree/0.25.1/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/hermes-estree/0.25.1/package.json",
+      "bytes": 337,
+      "sha256": "bc6e559f8a1f89a531c9ed45f3aacdb1a45d17302aa7e730edfc53170b9d9f2c"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/hermes-parser/0.25.1/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/hermes-parser/0.25.1/package.json",
+      "bytes": 517,
+      "sha256": "768cc73e0cefe52baf831359bee1b37622dd917ca19bc08fb268493cd8144208"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/jsesc/3.1.0/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/jsesc/3.1.0/package.json",
+      "bytes": 1359,
+      "sha256": "6127ab2ccfbf576671dcfedcf2a8d97c9bbb3e5e4cff1274b3210b86a97a287c"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/lru-cache/5.1.1/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/lru-cache/5.1.1/package.json",
+      "bytes": 776,
+      "sha256": "f5a3379f52a453412f5d8551bf11fa0bef4316cc88645c9d190a017e1c58a4c2"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/node-releases/2.0.59/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/node-releases/2.0.59/package.json",
+      "bytes": 513,
+      "sha256": "5e02800f3f3dfee2e6f794dc2a6a1fca4e0fed80e4c689bb312a7140b2c93896"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/semver/6.3.1/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/semver/6.3.1/package.json",
+      "bytes": 981,
+      "sha256": "aa906c5bf8a2fa68683cae07d18553ae2538ed0d5a567911980b2ef25ee8b9ba"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/update-browserslist-db/1.3.4/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/update-browserslist-db/1.3.4/package.json",
+      "bytes": 916,
+      "sha256": "dc6e9b00df55afed365bfd907d840f25d0e91fc00abd53c097a3b56b0066f0b5"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/yallist/3.1.1/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/yallist/3.1.1/package.json",
+      "bytes": 652,
+      "sha256": "27699a6415a43f128c0e8ddcd5bf6e265f6cf3a581a9d959c11b977244fadc34"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata/zod-validation-error/4.0.2/package.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata/zod-validation-error/4.0.2/package.json",
+      "bytes": 2706,
+      "sha256": "14bd31fdb08c61e75573c0b8360d5ca15d80fc7b2b59be02f5768a14195c7da9"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/package-metadata-index.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/package-metadata-index.json",
+      "bytes": 15023,
+      "sha256": "5f9dd952fdfac1599878e82b083fe1f77f9b2d0c8c08acb1a36660287b20f2d8"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/packages-delta.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/packages-delta.json",
+      "bytes": 1523,
+      "sha256": "3cebe887f2481a42dbaa398642e31f30f829fbb685a3c51ba55e301b0103503d"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/retention-manifest.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/retention-manifest.json",
+      "bytes": 9495,
+      "sha256": "6446fda269314508f5e552e125e8c8b61a2d269a3c5a821fd24305104c9c91e2"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/review.md",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/review.md",
+      "bytes": 3557,
+      "sha256": "03fcf1235bde94c4995d5f475cae7a4f60addab235c1b282dee944321f048d69"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-dependency-review-20261018/snapshots-delta.json",
+      "member": "japp-m03-w01-independent-dependency-review-20261018/snapshots-delta.json",
+      "bytes": 1602,
+      "sha256": "b50f6a6928769d1a942aa6c1dc7c44caeb02c9d085baa3a8fbade9e80c8699d4"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/closure-inputs/0-lib.rs",
+      "member": "japp-m03-w01-independent-shell-review-20261018/closure-inputs/0-lib.rs",
+      "bytes": 6932,
+      "sha256": "be139144477cc7db83246a9b718a8cb9c3f11e38ca35a1fe5cfa067251853133"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/closure-inputs/1-verification-suites.json",
+      "member": "japp-m03-w01-independent-shell-review-20261018/closure-inputs/1-verification-suites.json",
+      "bytes": 30475,
+      "sha256": "1e1f7857ed37adbdf66c6f05462a030229784a6a291d62874f6d767fbbf45e0d"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/closure-inputs/2-test_proofs_and_real_repo.py",
+      "member": "japp-m03-w01-independent-shell-review-20261018/closure-inputs/2-test_proofs_and_real_repo.py",
+      "bytes": 7618,
+      "sha256": "1641ba8e481bb6b7e54554917d813cc7f3e5eb8dcf17f041e54d7d01213cc5f6"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/closure-inputs/3-native-observations.json",
+      "member": "japp-m03-w01-independent-shell-review-20261018/closure-inputs/3-native-observations.json",
+      "bytes": 2417,
+      "sha256": "4f40bf88e15818369b6886699522eaa349cdb27a5e593429dcc7bf6873312ca0"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/closure-inputs/4-japp-m03-w01-native-packaged-mode-red.log",
+      "member": "japp-m03-w01-independent-shell-review-20261018/closure-inputs/4-japp-m03-w01-native-packaged-mode-red.log",
+      "bytes": 1496,
+      "sha256": "e00c2b64af3eb4a63319583e7f5942afe2b4b71e191ba5ff2a8bb2514e171577"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/closure-inputs/5-japp-m03-w01-native-packaged-mode-green.log",
+      "member": "japp-m03-w01-independent-shell-review-20261018/closure-inputs/5-japp-m03-w01-native-packaged-mode-green.log",
+      "bytes": 1214,
+      "sha256": "844d2bf9b397fac8bff3bf3d2bf4e47eb388f98943a76aa66e7d16f05c3038c5"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/closure-inputs/6-japp-m03-w01-native-development-mode-green.log",
+      "member": "japp-m03-w01-independent-shell-review-20261018/closure-inputs/6-japp-m03-w01-native-development-mode-green.log",
+      "bytes": 1241,
+      "sha256": "251acf1531fbbd6f6c64ba5e6f53b7e0a24464e96f905ded335cb0c82a8ed36e"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/closure-inputs/7-test-lib-japp_desktop.json",
+      "member": "japp-m03-w01-independent-shell-review-20261018/closure-inputs/7-test-lib-japp_desktop.json",
+      "bytes": 613,
+      "sha256": "12d4698a3e91e0710af3d92489e90ecba344c98de9d7f9b221b822141cfbea00"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/closure-inputs/8-test-lib-japp_desktop.json",
+      "member": "japp-m03-w01-independent-shell-review-20261018/closure-inputs/8-test-lib-japp_desktop.json",
+      "bytes": 594,
+      "sha256": "8455255398e24a431c4591cecd0d5be4ef9f2dff3f7fccf33413e406f285962c"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-browser-green.json",
+      "member": "japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-browser-green.json",
+      "bytes": 287071,
+      "sha256": "0ec970666eb9047d5e983ec420e6ac40a2e4908144c88c56eeb66e30f0f63491"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-browser-green.log",
+      "member": "japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-browser-green.log",
+      "bytes": 3799,
+      "sha256": "6654e4921eb3b9e1e1eaa083575473737f4cf12c4cef7b44e659549884acee0d"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-native-app-build2.log",
+      "member": "japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-native-app-build2.log",
+      "bytes": 1718,
+      "sha256": "c16968510bdc5bb9240ab066a5e9f3c196db81ffcd14461f304a6ae3d606c1d8"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-native-root-url-green.log",
+      "member": "japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-native-root-url-green.log",
+      "bytes": 1142,
+      "sha256": "e2a8b3bbef18a2f8343c014407ce9b9e3a90449b7a4773073a6356c124acb9df"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-native-root-url-red.log",
+      "member": "japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-native-root-url-red.log",
+      "bytes": 1422,
+      "sha256": "6ce1f151f5741aa283027af4558c2889586703439726b628196add1355375e1a"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-root-native-green2.log",
+      "member": "japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-root-native-green2.log",
+      "bytes": 1142,
+      "sha256": "dc4c2e1dd865d90e45903339cd4bf3852ed7b1d91b8f09c4aaf040655aaeb6b1"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-visual-green.json",
+      "member": "japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-visual-green.json",
+      "bytes": 7131,
+      "sha256": "985897d254d89c2870b391ef32cc3eea91a38f62d3203fd47b77eb5a4ca27f22"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-visual-green.log",
+      "member": "japp-m03-w01-independent-shell-review-20261018/evidence-inputs/japp-m03-w01-visual-green.log",
+      "bytes": 2850,
+      "sha256": "94b81f4992d5bfa1f2c24da61f87fec44e2abc437edc57845a96983a522a30f5"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/findings.closure.json",
+      "member": "japp-m03-w01-independent-shell-review-20261018/findings.closure.json",
+      "bytes": 5836,
+      "sha256": "b15445132e788582b8063efdfacc3486b0ed90979cd5bd0c45f3c96af35b4dbe"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/findings.initial.json",
+      "member": "japp-m03-w01-independent-shell-review-20261018/findings.initial.json",
+      "bytes": 10300,
+      "sha256": "2df1a2b2363773f8aa6aed4fa2a4a02c80ea2dbff21f7bcb525e883f56a983e7"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/CLAUDE.md",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/CLAUDE.md",
+      "bytes": 14981,
+      "sha256": "64655f7e161d969bf07a9310763d196c8f8e4a61d5eb16bd4d16b8e7a295aa1f"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/README.md",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/README.md",
+      "bytes": 1202,
+      "sha256": "76b7d89487b7c22362f2ca911e1aebb67d179d04fdac4186de8158df51c452ac"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/index.html",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/index.html",
+      "bytes": 298,
+      "sha256": "4fbc2d705a5f19078824b44051f2bd749b77890b5bf063026f1caa842995a70a"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/package.json",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/package.json",
+      "bytes": 980,
+      "sha256": "ed8dfc7b102ed62230b920e9a9d22b4a5de77c6beb75b6c04750c380c49e62f6"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src/diagnostics.tsx",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src/diagnostics.tsx",
+      "bytes": 3693,
+      "sha256": "dd4346ddab378c912845fbce891dd84427496352af74db0edecd93a9125b6b95"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src/main.tsx",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src/main.tsx",
+      "bytes": 392,
+      "sha256": "dee9fd1cc75e43637a8368ef74682271b6c28541456a3266e26bfa0a6dfd92f1"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src/native-metadata.ts",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src/native-metadata.ts",
+      "bytes": 2140,
+      "sha256": "61c2735301f89e1338abbea1b256692e38d4fbc59471fd644e8338df86a6b1c5"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src/navigation.ts",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src/navigation.ts",
+      "bytes": 1846,
+      "sha256": "c4cf092fb5565b48e84c66622ede0d29630e5665449171d340f4b3d54a7f32b1"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src/shell.css",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src/shell.css",
+      "bytes": 4523,
+      "sha256": "eb155d9dd1db14ffcd5612398f6bfbf6eeaa00c146f3cb83b47854da025e042e"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src/shell.tsx",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src/shell.tsx",
+      "bytes": 5943,
+      "sha256": "e112c81d2c03fe9a050ab5d40f1ce706f3a9f71bb68e761b80790ade08513fdc"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src-tauri/Cargo.toml",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src-tauri/Cargo.toml",
+      "bytes": 447,
+      "sha256": "c6b020bae02337c97de796bb694d464928130230997812552e507f7db1c1b4dc"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src-tauri/capabilities/main-shell.json",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src-tauri/capabilities/main-shell.json",
+      "bytes": 277,
+      "sha256": "b89e1dcbfa7b4381fa9d47a091f95f493a97fc28d97d6fd50ead2f7132aaea8e"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src-tauri/src/lib.rs",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src-tauri/src/lib.rs",
+      "bytes": 6261,
+      "sha256": "444be0a62a186f60fc49a0f44d248483b58af2450616bc89b8468551f467167a"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src-tauri/src/main.rs",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src-tauri/src/main.rs",
+      "bytes": 107,
+      "sha256": "b6bfdd49ec8ed627630008ede4d79fbb30dfa5ff9e91dda2656ce17cddb88e4c"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src-tauri/tauri.conf.json",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/src-tauri/tauri.conf.json",
+      "bytes": 1318,
+      "sha256": "121a25c11158ce6ba3f2e433e1609c1098e69049f7976afe0164ebd4c7705fb8"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/test/native-metadata.test.ts",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/test/native-metadata.test.ts",
+      "bytes": 2765,
+      "sha256": "a28cb5ab44c71cad453e9d91ab2594238a9dd434731e4fffaef2ddf5a96d54ee"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/test/navigation.test.ts",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/test/navigation.test.ts",
+      "bytes": 1361,
+      "sha256": "309ef4fb2eb5aa86ce9a6ebe5ea115b329ce960de3b70e6089e2977ef8fbf6d4"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/test/renderer/index.html",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/test/renderer/index.html",
+      "bytes": 307,
+      "sha256": "05cecf4400f551521a2536c6853241f39dde74d193c142f4d3796b333c7686f9"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/test/renderer/main.tsx",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/test/renderer/main.tsx",
+      "bytes": 2002,
+      "sha256": "ad294a6dce627f42e81bd6e50bd35d711a5013b1e2a946b8862c980dc478cded"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/vite.desktop.config.ts",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/vite.desktop.config.ts",
+      "bytes": 268,
+      "sha256": "19b83a40b65d6e6642646930b86c2fa9d0077c89a40f54c8e0e1000f66b9f980"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/vite.renderer.config.ts",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/apps/desktop/vite.renderer.config.ts",
+      "bytes": 278,
+      "sha256": "0cf63eecc63394675fa64127146239f105df2dd9502a2e8dd288d7f8a2f2f0bd"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/docs/UI_FAMILIARITY.md",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/docs/UI_FAMILIARITY.md",
+      "bytes": 5244,
+      "sha256": "951f8c8557daf87906a363bb6a93d2a79631418607cacba2f381394a297ff3c9"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/docs/ui/ANTI_BLOAT_CHECKLIST.md",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/docs/ui/ANTI_BLOAT_CHECKLIST.md",
+      "bytes": 3280,
+      "sha256": "59f8b87ba87fc06d2e3ac37fcb604d7c5a1e3c14f32c8f54fa805ed7cb7331e5"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md",
+      "bytes": 4019,
+      "sha256": "2bc9e82f385bc4f54bb3d1d779ca9210d32a28030556237ba4914ff7c70e4547"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/docs/ui/SIMPLIFY_FAMILIARITY_MATRIX.md",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/docs/ui/SIMPLIFY_FAMILIARITY_MATRIX.md",
+      "bytes": 2070,
+      "sha256": "ae2b7b255964610e068a4d95c445bf4fb2eeeeacd2ff3a550055662a2c4a20b5"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/e2e/desktop/shell.spec.ts",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/e2e/desktop/shell.spec.ts",
+      "bytes": 6617,
+      "sha256": "03e04b8f15a7cb562e19d1f585adb04fc9b69bdbbbd7d9fa4000d78d85263b5a"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/e2e/visual/desktop-shell.spec.ts",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/e2e/visual/desktop-shell.spec.ts",
+      "bytes": 2954,
+      "sha256": "836cbead7077d67afb7f087bb2a9620412527cb6ee7e38f3074c8f5bfdd6cea9"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/packages/ui/src/error-boundary.tsx",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/packages/ui/src/error-boundary.tsx",
+      "bytes": 1604,
+      "sha256": "1653c9a765597f69a3a6ca41da557adcb4e165b0edefa8fd087805df291f551a"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/packages/ui/src/index.ts",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/packages/ui/src/index.ts",
+      "bytes": 507,
+      "sha256": "816df391ef64125a68d6f71145efd2e64082c0130fd1ce6ddfb1ce863f3cce33"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/packages/ui/src/navigation.tsx",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/packages/ui/src/navigation.tsx",
+      "bytes": 1748,
+      "sha256": "7ced7f603c295b76901400b16cf20d913a831277be73d39012aaa77584080ed2"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/packages/ui/src/status.tsx",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/packages/ui/src/status.tsx",
+      "bytes": 1357,
+      "sha256": "a8087dd160d58e2f2e03936a46a2d296197186ff6633ae2b16bc82e515b1790e"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/packages/ui/src/tokens.css",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/packages/ui/src/tokens.css",
+      "bytes": 4170,
+      "sha256": "e6b08b2ab55b93e81b7252bf8f2669bd708b034b56cd7fa79f95760240c8e588"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/packages/ui/test/foundation.test.ts",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/packages/ui/test/foundation.test.ts",
+      "bytes": 1661,
+      "sha256": "ba2594bab9f7b84b7ab54162c47248e1a1771026bf7bd2d811b9d1dec12beeb8"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/inputs/playwright.config.ts",
+      "member": "japp-m03-w01-independent-shell-review-20261018/inputs/playwright.config.ts",
+      "bytes": 2085,
+      "sha256": "8904b27f5a2c6a03f13819fd8d0ed42200949f8c8be70731c0fdd4da8e5054a9"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/native-mode-inputs/0-lib.rs",
+      "member": "japp-m03-w01-independent-shell-review-20261018/native-mode-inputs/0-lib.rs",
+      "bytes": 44438,
+      "sha256": "fda874d750f7ce7959b5914707257ebd49b4a619d2e1c23c74b52821371c2bd0"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/native-mode-inputs/1-lib-japp_desktop.json",
+      "member": "japp-m03-w01-independent-shell-review-20261018/native-mode-inputs/1-lib-japp_desktop.json",
+      "bytes": 545,
+      "sha256": "08f216a31fbad352969d92ec88f8a2be42db2370e39d825c4ba65cf678c5b635"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/native-mode-inputs/2-bin-japp-desktop.json",
+      "member": "japp-m03-w01-independent-shell-review-20261018/native-mode-inputs/2-bin-japp-desktop.json",
+      "bytes": 611,
+      "sha256": "362fbd716216242effe6cf485901bd967cee4d8e5e47e3d6a4abd94bf73437e5"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/native-mode-inputs.json",
+      "member": "japp-m03-w01-independent-shell-review-20261018/native-mode-inputs.json",
+      "bytes": 1068,
+      "sha256": "bd9aef483c30f52d21c37d6ced21069823076eae2ea7e8a348e6ca8f025534c4"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/review.closure.md",
+      "member": "japp-m03-w01-independent-shell-review-20261018/review.closure.md",
+      "bytes": 1877,
+      "sha256": "9fa4b3f92f59d772c4072c042b5ea11efb45b657d83da3da3ad4140adaebd500"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-independent-shell-review-20261018/review.initial.md",
+      "member": "japp-m03-w01-independent-shell-review-20261018/review.initial.md",
+      "bytes": 4828,
+      "sha256": "d618619d73db16d7915bd9e17efa926375294b1d06e75a3bf6762038854dcbfa"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-browser-red-results/.last-run.json",
+      "member": "japp-m03-w01-browser-red-results/.last-run.json",
+      "bytes": 96,
+      "sha256": "faf94354201589cf44f2d03454ce591ad57616474bc70521dc263637d9cf9ba2"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-browser-red-results/desktop-shell-render-bound-f9672--content-and-keyboard-focus-chromium/error-context.md",
+      "member": "japp-m03-w01-browser-red-results/desktop-shell-render-bound-f9672--content-and-keyboard-focus-chromium/error-context.md",
+      "bytes": 5031,
+      "sha256": "56e623a2bd9b1001c9f5bec0d6668a17ab24ced7a404240eb1ac6d425be68622"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-browser-red-results/desktop-shell-render-bound-f9672--content-and-keyboard-focus-chromium/test-failed-1.png",
+      "member": "japp-m03-w01-browser-red-results/desktop-shell-render-bound-f9672--content-and-keyboard-focus-chromium/test-failed-1.png",
+      "bytes": 8676,
+      "sha256": "2b4da03c633030538d2a208af7a0a1a6eec6d43e76192f956fc54a762e41e59d"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-browser-red-results/desktop-shell-render-bound-f9672--content-and-keyboard-focus-chromium/trace.zip",
+      "member": "japp-m03-w01-browser-red-results/desktop-shell-render-bound-f9672--content-and-keyboard-focus-chromium/trace.zip",
+      "bytes": 38488,
+      "sha256": "aa52e9dd2341964f465d4e906208ef8d8d1ab72cee3f8f06e6e90562b3c78825"
+    },
+    {
+      "original": "/tmp/japp-m03-w01-browser-red-results/desktop-shell-render-bound-f9672--content-and-keyboard-focus-chromium/video.webm",
+      "member": "japp-m03-w01-browser-red-results/desktop-shell-render-bound-f9672--content-and-keyboard-focus-chromium/video.webm",
+      "bytes": 27476,
+      "sha256": "a6562957ab7be08a626e6e81edee2474d4d5b92f6346989c327f92be79a75437"
+    }
+  ]
+}

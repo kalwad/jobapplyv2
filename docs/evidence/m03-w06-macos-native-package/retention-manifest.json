@@ -1,0 +1,185 @@
+{
+  "schema": "FINITE_REGULAR_ARCHIVE_V1",
+  "files": [
+    {
+      "path": "actual/after-close-error.txt",
+      "bytes": 49,
+      "sha256": "64acca1b0fd045061d7a1445eeebe3274188f87a070a6907e76b2bb6e9c59186"
+    },
+    {
+      "path": "actual/after-close-processes.json",
+      "bytes": 458,
+      "sha256": "fb300b3c469d04aeeb28ec79ec24900046359cab7a4d5863c8eaf90cea8f8b95"
+    },
+    {
+      "path": "actual/after-quit-error.txt",
+      "bytes": 557,
+      "sha256": "0d22f7ba469f5627f25106a6928a1483bf72a1b3fa130a788654f3f6b0bdae2b"
+    },
+    {
+      "path": "actual/after-quit-processes.json",
+      "bytes": 298,
+      "sha256": "a5ab1769a0721b233136cd778034d4a54ab8801803e69618d54430a8dfbd0a04"
+    },
+    {
+      "path": "actual/after-service-crash.ax.txt",
+      "bytes": 426,
+      "sha256": "eb2b9627fecec070d9a6b5d5070fd33cf9fa0002bc710ea003a3032706e5cc4f"
+    },
+    {
+      "path": "actual/before-forced-app-exit.ax.txt",
+      "bytes": 1538,
+      "sha256": "b1c338f492d7e9746340637e84ac5e05355aa783faa943bc4c9c48cf2cf7da56"
+    },
+    {
+      "path": "actual/build-result.json",
+      "bytes": 222,
+      "sha256": "b6bf52336730a82ef434bbf6529f388a539d346623d72c7a86a59768e769caf3"
+    },
+    {
+      "path": "actual/build.log",
+      "bytes": 2483,
+      "sha256": "28fe3cba06634dd1515ef5a6b103ab6376ac9466f886fb582b37eed1a5d1ff8a"
+    },
+    {
+      "path": "actual/force-app-exit.py",
+      "bytes": 2697,
+      "sha256": "f3d8f10070656d62ca839961ff986836cd12cea1ca545a6995e82149f9b0cb6c"
+    },
+    {
+      "path": "actual/forced-app-before.json",
+      "bytes": 903,
+      "sha256": "875ed2f1dacaa2e7870a39491e41308eb7ef2a081894c2a97910732161833f56"
+    },
+    {
+      "path": "actual/forced-app-result.json",
+      "bytes": 1051,
+      "sha256": "bbec1ff4a95e5f702c92e7b5a48f1aaff289aa491e3b056807828ec92994a7e2"
+    },
+    {
+      "path": "actual/forced-service-crash.json",
+      "bytes": 450,
+      "sha256": "a86cddff2f2f0a6b5bbdc33f146285b817d597374215c17b728739eb9241bd72"
+    },
+    {
+      "path": "actual/home.ax.txt",
+      "bytes": 1565,
+      "sha256": "4cdb05aa2ca2592ca342e9d89031d59db6b90ee1fa4c20325487207a2faa7ce3"
+    },
+    {
+      "path": "actual/keyboard-focus.ax.txt",
+      "bytes": 125,
+      "sha256": "987daf7486de5b3a9b7b282d745238bd61522022930e7f932c2903246971a908"
+    },
+    {
+      "path": "actual/keyboard-refresh.ax.txt",
+      "bytes": 602,
+      "sha256": "b222ce828d4f078eaa042b84d9f0bb2989b316cb28d28a514af09a3151cfacfd"
+    },
+    {
+      "path": "actual/lifecycle-closure.json",
+      "bytes": 7118,
+      "sha256": "bdd32c023867a101c3c869c1f2994bf029cce446aa883777abb2f22d4e3a98c6"
+    },
+    {
+      "path": "actual/package-context.json",
+      "bytes": 823,
+      "sha256": "e18df23e815be8e9fa497e891df96df43447c2499c4469d827f08077b45fcf06"
+    },
+    {
+      "path": "actual/ready-processes.json",
+      "bytes": 949,
+      "sha256": "26b0cd2af7cc58922505f75fb2b1058381a8587a7ffca1d979a6dd125c39522b"
+    },
+    {
+      "path": "actual/ready.ax.txt",
+      "bytes": 1420,
+      "sha256": "80b922d1cb0938570e125ecff8fb88d31d63fac0aac003fc58d46832add8697c"
+    },
+    {
+      "path": "actual/ready.png",
+      "bytes": 221360,
+      "sha256": "5ad35c3a0e3d0aaed66031d351cb478d1571df387bff22e505a7d83cde4e5935"
+    },
+    {
+      "path": "actual/recovered-ready.ax.txt",
+      "bytes": 382,
+      "sha256": "19c9643836e3791af036a6130ebf36fc234674137a155aa3a709bf5028872f47"
+    },
+    {
+      "path": "actual/relaunch-processes-auth.json",
+      "bytes": 1658,
+      "sha256": "24890f38befc533d039092122e0e2c62105fdb1df9172e1ab06c9e1263f2cb8b"
+    },
+    {
+      "path": "actual/relaunch-ready.ax.txt",
+      "bytes": 1538,
+      "sha256": "54560981887987642463fbc13fb9be203a5cd80ab498222e65518a01789c8a8a"
+    },
+    {
+      "path": "actual/restarted-processes.json",
+      "bytes": 992,
+      "sha256": "0c9de36b6dba4813f288db692df41e8ebe39be6a20fc3163e1e7d0d44c117da5"
+    },
+    {
+      "path": "actual/source-after.json",
+      "bytes": 260281,
+      "sha256": "0a8b70264dfe2e224b003152a416dc39578ca27fbcc66d4266a5cc20420358ec"
+    },
+    {
+      "path": "actual/source-before.json",
+      "bytes": 260281,
+      "sha256": "0a8b70264dfe2e224b003152a416dc39578ca27fbcc66d4266a5cc20420358ec"
+    },
+    {
+      "path": "actual/static-inspection/codesign.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/static-inspection/codesign.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/static-inspection/inspection.json",
+      "bytes": 43777,
+      "sha256": "b9b31bbb7e055bc5a11cc729f731323218613abfde6423f57c40a72daa1dc438"
+    },
+    {
+      "path": "actual/static-inspection/inspector-executed.py",
+      "bytes": 14061,
+      "sha256": "89a1013eef9fad43766d39ec12ed1a157eed9bf10461ab24a6b9952c688b7720"
+    },
+    {
+      "path": "bindings/omitted-physical-app-files.json",
+      "bytes": 10497,
+      "sha256": "189c6d5b5086dc87b74d866c000e9006b75fd9fdfea9fc866a9554fe2c106797"
+    },
+    {
+      "path": "bindings/runtime-manifest.json",
+      "bytes": 8274,
+      "sha256": "c9049a3f63572c0de9b114700e9326bebc0518166840133cce9548565c58de1d"
+    },
+    {
+      "path": "bindings/test-afterimages/apps/desktop/src-tauri/src/api_client/tests/python_runtime.rs",
+      "bytes": 15661,
+      "sha256": "aab65aab2b022cce409df44f017b4bb774f0f314ccf9abd577de8688216c2020"
+    },
+    {
+      "path": "bindings/test-afterimages/scripts/tests/test_windows_builder.py",
+      "bytes": 6400,
+      "sha256": "636bf6300697dfbfd07a5902f0b2108d358618d778038dc21a654af60f635806"
+    },
+    {
+      "path": "review/CHECKS.json",
+      "bytes": 25471,
+      "sha256": "054595c1050b58ebf5e06de7cafa7f8a114c5a083e4cc8581bc983bab766d8ba"
+    },
+    {
+      "path": "review/REVIEW.md",
+      "bytes": 3103,
+      "sha256": "cab6b55580de33d7b556c8652d08f14266a11d2d05113f4b7a5e6f79e5a6ae8d"
+    }
+  ]
+}

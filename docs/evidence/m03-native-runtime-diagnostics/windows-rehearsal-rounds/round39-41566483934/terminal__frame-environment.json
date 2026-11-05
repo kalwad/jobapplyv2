@@ -1,0 +1,8 @@
+{
+  "file": "win11-environment.ppm",
+  "width": 1280,
+  "height": 800,
+  "sha256": "baa6da7b275a08ddda86d6c0af868127a672b9139f11d848ee49621094456741",
+  "nonblank": true,
+  "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+}

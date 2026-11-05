@@ -1,0 +1,20 @@
+{
+  "archive_sha256": "f9a2837336150dcb4d5b8d1781c05e3e4d108ea951c9af178f0f5176a548045f",
+  "archive_bytes": 5653702,
+  "regular_members": 33,
+  "payload_bytes": 8880372,
+  "mounted_run_head": "1d490d1230b443c31fd4a9d8732064552affe149",
+  "mounted_catalog_cases": 32,
+  "contact_scored_cases": 18,
+  "unsupported_only_cases": 14,
+  "observed_controls": 144,
+  "correct_contact_controls": 43,
+  "required_controls_reported": 58,
+  "all_measured_safety_counters": 0,
+  "raw_audit_checks": 173,
+  "canonical_case_results_preserved": 200,
+  "frozen_artifacts_verified": 103,
+  "fixture_clauses_crosswalked": 67,
+  "gate_authority": "NONE",
+  "archive_peer_review": "PENDING"
+}

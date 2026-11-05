@@ -1,0 +1,14 @@
+{
+  "archive": "proof.tar.gz",
+  "bytes": 7960344,
+  "sha256": "f4b880dd5306c3f1bb8f4a3616c170a6dfce10db37d93b96173ddf6c00fa9d8e",
+  "regular_members": 471,
+  "input_manifest_sha256": "30a1607b85e46a40f47b2c7f2c6b95ecad287dd056b963106ee4a66e4d2375fb",
+  "run_id": 39194489970,
+  "head_sha": "2a327c6210bfb7236f3d8a572a3a62e9b7e13d63",
+  "expected_tree": "4ce9cf0c1f5515252a029584f820ea674a66e05e",
+  "actual_run_conclusion": "failure",
+  "actual_all3_host_pass": false,
+  "created_utc": "2026-10-19T04:23:23.934677+00:00",
+  "scope": "Exact finite immutable2a327 hosted CI source/metadata/raw command outputs/official complete logs/artifacts/source joins/observed results. Canonical root neither read nor frozen; earlier failures stay separate. No GUI, packaging, local-result, canonical20sample performance or acceptance credit."
+}

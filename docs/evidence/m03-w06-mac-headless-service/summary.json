@@ -1,0 +1,60 @@
+{
+  "actual": {
+    "authenticated_routes": [
+      "health",
+      "ready",
+      "version"
+    ],
+    "catalog": 233,
+    "compile_seconds": 53.49,
+    "filtered_not_invoked": 232,
+    "intentional_owned_worker_group_TERM": true,
+    "outer_TERM_KILL": false,
+    "outer_exit": 0,
+    "outer_seconds": 60.759399,
+    "policy_wait_ms": 6000,
+    "private_session": "same-owner EngineREADY then exact post-shutdownUNAVAILABLE; authoritywithdrawal/listenerreuse",
+    "registered_service_pid_group_listener_absent": true,
+    "same_owner_cleanup_ms": 205,
+    "selected_pass": 1,
+    "selected_seconds": 3.40133,
+    "service_emergency_signals": false,
+    "unregistered_descendants": "UNOBSERVED"
+  },
+  "canonical_boundary": {
+    "head_prefix": "5b6def96",
+    "source_and_runtime40_unchanged": true,
+    "tracked_files": 1956,
+    "tree_prefix": "6c6f1437"
+  },
+  "independent_review": {
+    "checks": 47,
+    "decision": "CLEAR_DATA",
+    "sha256": "0c80cd2c649a39a43905496625b564f78c693bc870221010c09729ed2c46c5d9"
+  },
+  "not_claimed": [
+    "new current660fwhole-tree nativeexecution",
+    "233executions",
+    "GUI",
+    "LaunchServices",
+    "Wry",
+    "OSstore",
+    "installer/platformcertification",
+    "milestoneacceptance"
+  ],
+  "omissions": "419215360B sourcearchive bound by independently rehashed SHA, completecaches/toolchains/images omitted; exact helperCOWretained outsidearchive",
+  "physical_helper": {
+    "bytes": 47750384,
+    "in_archive": false,
+    "retained_path": "/tmp/japp-m03-w06-mac-headless-native-image-retained-20261019/helper/japp_desktop-31d92378a0fb68ed",
+    "sha256": "a4842a237eb89eef3043620d2a0c21f2a0d691b2b6b1749d65081054a417a986"
+  },
+  "scope": "ONE_ACTUAL_SELECTED_MAC_HEADLESS_PACKAGED_SERVICE_CASE; no GUI/LaunchServices/platform/M03 acceptance",
+  "source": {
+    "base_files": 1951,
+    "changes": "cfg(test)-only service module append plus one actor; four generated schemas recorded separately",
+    "derivative_files": 1952,
+    "head": "e0a501b4979d5e76bf68859fe8c514a17c3c5b7e",
+    "tree": "bbf94e791c7d5ad038dded4b0683f4cc57f57b83"
+  }
+}

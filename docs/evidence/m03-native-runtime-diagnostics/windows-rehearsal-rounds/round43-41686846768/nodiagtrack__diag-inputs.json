@@ -1,0 +1,14 @@
+{
+  "variant": "nodiagtrack",
+  "dropped_markers": [
+    "# DIAG-SVCFIRST",
+    "# DIAG-NODPS"
+  ],
+  "guest_driver": {
+    "windows11_bootstrap.ps1": "5b4b95d7b02bed654b8506d836f030a523145c22f9895d744d2daca919e20bac",
+    "windows11_guest.ps1": "61daa739f81eb3a51cdeb4ad86bcf40cf4a28e824253764d8e057f6987b66459",
+    "windows11_owned.cs": "a561f440559af9ca012bdd15b933aada192c73ce0cd44a27390e04153165fc3c"
+  },
+  "package_manifest_sha256": "0396ddf437aa100e9e75ffec032ee432165bb8a01958e652690965b62d4299d4",
+  "iso_sha256_checked_by_workflow": "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38"
+}

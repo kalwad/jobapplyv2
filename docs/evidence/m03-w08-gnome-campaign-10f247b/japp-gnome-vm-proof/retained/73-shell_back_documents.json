@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "operation": "shell_back_documents",
+  "result": {
+    "back_returned": true
+  },
+  "elapsed_seconds": 0.33850075200001584
+}

@@ -1,0 +1,4 @@
+Reporting-only KI-0092 proposal. Corrects two historical revision6 sentences; adds HIGH/FIXED issue with exact old raw hashes and revision7 audit proof; adds KI-0092 to the existing tuple and two synthetic issue lists only. All original raw archives/worksheets and every existing test/assertion remain unchanged. Root must compare all preimage hashes before applying after its frozen verification finishes. No test, build, browser, actor or root mutation was performed.
+
+
+Retention note: the exact reporting-correction.patch and complete source snapshots are preserved in proof.tar.gz under proposal/. The direct patch copy was removed after staged whitespace checks recognized its required context-line spaces. Patch bytes/hash and every assertion remain unchanged; original staged-check output is retained in packaging/staged-diff-check.log. See retention-manifest.json.

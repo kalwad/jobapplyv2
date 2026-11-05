@@ -1,0 +1,7 @@
+{
+  "bytes": 7633552,
+  "path": "proof.tar.gz",
+  "retention_manifest_sha256": "6f86a71d98494fef7e6474be221e0ec7166e0cccce3afb2bb717c5a4206947c4",
+  "scope": "Exact immutable priorCI failure plus reviewed source correction and actuallocalRust commandPASS/observerfooterFAIL;noWindows/full20 acceptance",
+  "sha256": "2b40475f23b4b43134099a4d51972eef345fafd371f5e2564927752b01faad30"
+}

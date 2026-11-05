@@ -1,0 +1,26 @@
+{
+  "scope": "ACTUAL_DEVELOPMENT_CONTEXT_SDK_PATH_ROUNDTRIP_AFTER_EXPLICIT_ENVIRONMENT_REPAIR_NOT_GUI_MILESTONE_ACCEPTANCE",
+  "archive": {
+    "bytes": 1856812,
+    "sha256": "043278c028809f5cedcfa88264a7a1d0161ef9f08a685f383b14e0b2cb7f79f7",
+    "source_mode": 420
+  },
+  "safe_regular_members": 391,
+  "binary_retained_external": {
+    "path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/w09-sdk-proof-preparation/owned-target-v3/debug/sdk_paths_probe",
+    "bytes": 33137024,
+    "mode": 493,
+    "sha256": "7ca2f08f95f8aca8beea2afd1edb831b5b1f9be7230b6e1de70fb0de4d71d296"
+  },
+  "review": {
+    "verdict": "CLEAR_FOR_SCOPED_ACTUAL_SDK_EVIDENCE_INTEGRATION",
+    "read_only_inspection_checks": 1143,
+    "product_tests_added": 0,
+    "review_sha256": "e89cd33166e1c4514b11ce8d9592f05e556f713488355d14bdd0243dd636109e",
+    "audit_sha256": "4f774689866145fee9b14cf7bfbf689ab73fa196cd2608885406e56f91f4e7ca",
+    "manifest_sha256": "2d218f2213dc26aebe5e0f8fa663e10641dcc93009522a274c3f56c020cbc104",
+    "evaluated_initial_archive_sha256": "a3f5fb1020682349c94f7349e60f21f40c2b6610e8357753af33cf178a844ed5",
+    "evaluated_initial_PLAN_sha256": "e57373fe5ed192366785b965ba9b3ba28abb214e680e64d67fad31e680a6e68b",
+    "scope": "Actual data/archive/source projection review; no actors or canonical writes. Native peer API/source review distinct."
+  }
+}

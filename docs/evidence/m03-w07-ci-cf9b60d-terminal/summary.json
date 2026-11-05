@@ -1,0 +1,47 @@
+{
+  "source": "cf9b60d8acf925389630191c0a050e91dd9e804c",
+  "tree": "94fb9c916482306f5c81df8649925933fa4c6430",
+  "main_run": 40981941122,
+  "main_outcome": "FAILURE",
+  "verification": "3x20ACTIVEPASS",
+  "python": {
+    "windows": {
+      "pass": 2878,
+      "seconds": 1100.64
+    },
+    "macos": {
+      "pass": 2880,
+      "seconds": 887.0
+    },
+    "ubuntu": {
+      "pass": 2880,
+      "seconds": 712.62
+    }
+  },
+  "package_failures": [
+    123840589484,
+    123840589553
+  ],
+  "cause": "Sole stale orchestrator/generation/client.py wheel6613 versus source977e; strict validator correctly refuses",
+  "eligible_curated_exports": 0,
+  "auxiliary_disabled_runs": 4,
+  "GET_owners_closed": 160,
+  "package_preflight_owners_closed": 35,
+  "different_joins": 16874,
+  "different_review_sha256": "f71b7cef081e5be49c9a4d93825217cbae15cedefc591cde4747766f7b572b06",
+  "KI0139": "FIXED_SOURCE_INVARIANT_ONLY_HISTORICAL_CAUSE_UNKNOWN",
+  "KI0140": "IN_PROGRESS_FRESH_CORRECTED_PACKAGES_REQUIRED",
+  "native_acceptance": false,
+  "reviewed_wheel_source": {
+    "SOURCE_sha256": "76103d8f810b94d576d1559bdaaeff2d596fbd2ebda000249ef1f85de1629f04",
+    "peer_REVIEW_sha256": "34e9b0f4551e0509d8bcd1bebdc0c664bc775ecef6dcc8af741ab0a0e5c03ccf",
+    "wheel_sha256": "21fdd2c137f4575fadf5d7d0f8ad1389650e75a4a185fdf07255693fc06540f7",
+    "fresh_pure": 25,
+    "old_test_bodies_exact": 23,
+    "additive_IDs": 2,
+    "derived_common": 2880,
+    "derived_POSIX": 2882,
+    "full_collection_actual": false,
+    "native_CI_actual": false
+  }
+}

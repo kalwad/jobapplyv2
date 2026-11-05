@@ -1,0 +1,53 @@
+{
+  "archive_sha256": "c8580dbf16d1565ff60082b26b525bbb93638892a603b2f01f7bc7e0a95647f4",
+  "archive_bytes": 6356,
+  "regular_members": 10,
+  "scope": "Outside-workspace repair proof; root integrated-source aggregate pending.",
+  "files": [
+    {
+      "path": "format.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "lint-first-draft.log",
+      "bytes": 241,
+      "sha256": "cf4d321beeb6c18f2a4af9aa01a89a71d0c9c83193aed66ab3955c993c63df81"
+    },
+    {
+      "path": "lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proof-map.json",
+      "bytes": 1181,
+      "sha256": "71f0ed7a4b59bb87219833fad70feed698f48870ba5e3ee2ad6cf4a421727254"
+    },
+    {
+      "path": "sha-helper.patch",
+      "bytes": 13545,
+      "sha256": "37c591ec8a68129ed4df2e764f4ba608cd207de9bdb3cd917bd7424ddebef9eb"
+    },
+    {
+      "path": "source-manifest.json",
+      "bytes": 957,
+      "sha256": "01240c8b5505a36c328b0ba6936f1ca92eb0f495a9244005db756ca870088fd9"
+    },
+    {
+      "path": "types-first-draft.log",
+      "bytes": 455,
+      "sha256": "5859ed6400c4054f91da43167a91b1c1099096dabb26a0513454c38a267e0b50"
+    },
+    {
+      "path": "types.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "units.log",
+      "bytes": 242,
+      "sha256": "25e78e88ce0206bf161760fc0b10e5ecf2e40c67b34b1981f640fc1624e1075b"
+    }
+  ]
+}

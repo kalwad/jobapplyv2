@@ -1,0 +1,576 @@
+{
+  "files": [
+    {
+      "path": "FINAL-DELTA-proof-map.json",
+      "bytes": 4527,
+      "sha256": "0acddc9ffeda0f65d173a629faa0145b9eaa47639870330bce0e1bdffc7e738d"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/apps/extension/README.md",
+      "bytes": 10593,
+      "sha256": "661fd926ae36fde3136f2ea528c3726d9ea086895df966ceb2fb93a1ec298cc8"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/apps/extension/src/driver-engine.ts",
+      "bytes": 57896,
+      "sha256": "1556e24e4bede3f0f19d630b9b3300e5b476f800d2f407f8d331eaff8bdaa053"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/apps/extension/src/drivers/choice-drivers.ts",
+      "bytes": 16699,
+      "sha256": "4175a42c0adaa8a9c4b5dfe4a5aaf38f03a53f74e7c8cb10e2997c4456e33f1a"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/apps/extension/src/drivers/driver-contract.ts",
+      "bytes": 3531,
+      "sha256": "606b155d231b78d1d21273af52056c1f0df213d4d807b880a76244b229e69c66"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/apps/extension/src/drivers/driver-dom.ts",
+      "bytes": 12276,
+      "sha256": "1c3b436c0be62413ee190bf658c9d5240a2daea242a75802fdfb53269fab8d4b"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/apps/extension/src/drivers/repeater-driver.ts",
+      "bytes": 11831,
+      "sha256": "22ccf3caa0c26205815b957f69e38ef25f617594f1ee4a040a30e605cfc78dc5"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/apps/extension/src/drivers/widget-drivers.ts",
+      "bytes": 24288,
+      "sha256": "e63caeeab17a1c6d49b8dc39d6a5d8dd836cbd39857762ad459a2410b679c0ac"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/apps/extension/src/dynamic-engine.ts",
+      "bytes": 49485,
+      "sha256": "57c88b3ea41235b66c6c1908bf9663a6300a94a0d84f028d88ae8de71e81c059"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/apps/extension/src/field-scanner.ts",
+      "bytes": 59550,
+      "sha256": "15d1dd3bc927de976539440511341fd6877e7c113fbbc093e54de21b9b6b6a5a"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/apps/extension/src/option-meaning.ts",
+      "bytes": 3194,
+      "sha256": "ce29e5737c802efecf15491db75cd5023a4e6aeb5d1c291e38209ebf855b733f"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/apps/extension/test/m02-w14/option-meaning.test.ts",
+      "bytes": 3252,
+      "sha256": "c9c85ebe556529444c68cd16bc0682647133bb43011b2abf0ed671658f1d62e3"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/e2e/extension/extension-w14-independent-aria.spec.ts",
+      "bytes": 5134,
+      "sha256": "40eecb185d5b0fd3d45e2e95be0752c73ff558d297d0a83871cc099b115ff464"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/e2e/extension/extension-w14-independent-extra.spec.ts",
+      "bytes": 11571,
+      "sha256": "5e8acd720bbe357d67af5c8ce7cdf000c307ed4f69d06c846cc798649e3bcf58"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/e2e/extension/extension-w14-independent-native.spec.ts",
+      "bytes": 11524,
+      "sha256": "92d3b4bda06900f1095c1fef68f65bfc122f23bd360e3ee66fee9a9a5a160d35"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/e2e/extension/extension-w14-independent-undo-hash.spec.ts",
+      "bytes": 5403,
+      "sha256": "04bae117324cfbc32c2fcd1621ecb7e589d5ed2ba9e20c6759f5115ffe8c302b"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/e2e/extension/extension-w14-inventory-property.spec.ts",
+      "bytes": 5658,
+      "sha256": "a56b634048dd980391d0743b6149e7cd569f681ae16f516c47bd2c815a6ba96f"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/e2e/extension/extension-w14-selected-duplicate.spec.ts",
+      "bytes": 3831,
+      "sha256": "dfe656140f387e0487635406f04ba9b564eb3f3e7e3d6fef62d898cfdaf2275f"
+    },
+    {
+      "path": "FINAL-DELTA-proposed/e2e/extension/support/independent-w14-evidence.ts",
+      "bytes": 2513,
+      "sha256": "9cae43d7278e4d9ea7f70599ac5807b7ccfbbc95838aca1dc546380a83133fe8"
+    },
+    {
+      "path": "FINAL-DELTA-source-manifest.json",
+      "bytes": 5135,
+      "sha256": "4290937bab75ce3f0eef89b3cee7933f9a66dec4eda6815715acedbe582b72fb"
+    },
+    {
+      "path": "FINAL-DELTA.patch",
+      "bytes": 95742,
+      "sha256": "8a889e0916bda5cc4ee55bdbf0ed97af5653b4104e8f7e732d258143d9bbd0df"
+    },
+    {
+      "path": "README.txt",
+      "bytes": 1333,
+      "sha256": "7927ec1eeb712da5ec6a1f51e127ce757201748f9edb2fec6a93faf2b55c5632"
+    },
+    {
+      "path": "after-final72/extension-extension-driver-b7b3c-l-widget-failure-rolls-back-chromium/trace.zip",
+      "bytes": 460705,
+      "sha256": "cb3c1f6699e3265927056e4d3f3866e326f1c4c968d46943b60190a8d6713c6e"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-22338--hash-eventless-value-drift-chromium/native-eventless-value-UNDO.json",
+      "bytes": 19813,
+      "sha256": "14b8e9cb6b5301d642f366b945b2c79e2095b29ea1d39f9bf178b83e898ba7bd"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-22338--hash-eventless-value-drift-chromium/trace.zip",
+      "bytes": 179046,
+      "sha256": "36a2f82cf1db01332ebf26bbe61a2501f3425c9a0151b43846c58be8b31094d3"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-4710a--before-write-opaque-canada-chromium/native-before-write-opaque-canada.json",
+      "bytes": 41026,
+      "sha256": "6add260e16ebd67df5a8851d73ec71f79bdb15355bd60a98f3a574da75b932a4"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-4710a--before-write-opaque-canada-chromium/trace.zip",
+      "bytes": 176448,
+      "sha256": "554ac26175df9c58a59f6dd4bee40e3c40d6175e5b38734d90e47dc86d3c23cf"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-5d922-ter-verified-us-placeholder-chromium/native-after-verified-us-placeholder.json",
+      "bytes": 42459,
+      "sha256": "d6de07c00e8d40d9fba5d10d6020d11d2a3781013bc380d3f71fd9dbf3d452e8"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-5d922-ter-verified-us-placeholder-chromium/trace.zip",
+      "bytes": 168034,
+      "sha256": "bcf5dcd7a0125d3922e6e9787dc2826ecf021f93d47aacd6e17c5d536bd93d42"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-619f2-before-write-us-placeholder-chromium/native-before-write-us-placeholder.json",
+      "bytes": 41053,
+      "sha256": "3e33e394b86c9f613ae362c6f9be65e9ce112e1985794b1d2a573558ac61d1fc"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-619f2-before-write-us-placeholder-chromium/trace.zip",
+      "bytes": 176588,
+      "sha256": "f4d9eea75e69616fc088f131f395dfdba1d518f0844387bc75fde0b68098e442"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-64009-io-label-drift-before-write-chromium/native-radio-before-write.json",
+      "bytes": 41733,
+      "sha256": "e58e459a4a8a879727f05b155907dffccde09438d762949eec74dfde5ec05a4f"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-64009-io-label-drift-before-write-chromium/trace.zip",
+      "bytes": 177881,
+      "sha256": "c8124bb4fa234741140695815f9ea409985532f511c01c81e4730a9e984f2e98"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-7a3db--label-drift-after-verified-chromium/native-radio-after-verified.json",
+      "bytes": 42266,
+      "sha256": "59016f9e12d58cdef1d0f3d05f586967da68db4b17638fccacbebf5c329742aa"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-7a3db--label-drift-after-verified-chromium/trace.zip",
+      "bytes": 181188,
+      "sha256": "64cda76c3b223f51b315171e24ef0066f3410e40a30f0e3ead48f1c0b42a59ca"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-9157e-ventless-native-value-drift-chromium/native-inventory-eventless-value.json",
+      "bytes": 29292,
+      "sha256": "4b7c5bd085bce4dbee3e4c49eb4ae6d110ed3be34a2ef442834aab552e77d4bd"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-9157e-ventless-native-value-drift-chromium/trace.zip",
+      "bytes": 164811,
+      "sha256": "a50c26c720344b08a9788ef1ee87b85847518a1a3a451a5922faa37e5a7f027e"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-9f41b-fter-verified-opaque-canada-chromium/native-after-verified-opaque-canada.json",
+      "bytes": 42412,
+      "sha256": "ef4d5c900d9d31187349434a78b9218f5c905498692e9672bafd0af214ef0616"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-9f41b-fter-verified-opaque-canada-chromium/trace.zip",
+      "bytes": 179152,
+      "sha256": "6c6216eb2a501ab2d63b4639a939801ef38b58a58b4544d361f1d23c758e639f"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-a69a1-l-refuses-relabelled-option-chromium/native-aria-before-write.json",
+      "bytes": 39453,
+      "sha256": "a4df814dd0d9975da259e24261a9e4855a9864195cb077160e455475219ecbe6"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-a69a1-l-refuses-relabelled-option-chromium/trace.zip",
+      "bytes": 172789,
+      "sha256": "76294c4d1244ee44c75c8a50f7bd2d3a56c06713c09691a43c3c1f8c9624cf3a"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-b7c16-ed-by-its-own-input-handler-chromium/native-undo-ownership.json",
+      "bytes": 25435,
+      "sha256": "eb756ba0919177cb09a87fa4b26f7ad7c6489aeab07731a0340d13e1f6e2cd34"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-b7c16-ed-by-its-own-input-handler-chromium/trace.zip",
+      "bytes": 177462,
+      "sha256": "f439937d096d153720c217307e9d3ef7e901412cacf4c78fc0a9960f3eab5eba"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-ce029--hash-eventless-value-drift-chromium/native-eventless-value-EXECUTE.json",
+      "bytes": 14890,
+      "sha256": "707deba389e8f3214dfc15e16e06e7341f6d7f020be83a7fbc178e6d30165be6"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-ce029--hash-eventless-value-drift-chromium/trace.zip",
+      "bytes": 175188,
+      "sha256": "19f4945d91326ff4d1d32142b56ac34ab79969fadb2ebd51d8d9dc449040ba63"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-d5958-e-option-preserves-evidence-chromium/native-append-positive.json",
+      "bytes": 14881,
+      "sha256": "89533edbb7d9fd0a62f16ef94b64b33de00bd6bb24ffe64b043e76ec3eb8329c"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-d5958-e-option-preserves-evidence-chromium/trace.zip",
+      "bytes": 176012,
+      "sha256": "3d40db8a92f550f40cc1831afac992d312ae27afa4301b2778a4440e687f13ab"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-fd5cc--later-validation-rejection-chromium/native-undo-last-hash.json",
+      "bytes": 19909,
+      "sha256": "c8407e276185b2324518ed4a82bb838cf84d24826f689559a8dd7d58f6e46f02"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-in-fd5cc--later-validation-rejection-chromium/trace.zip",
+      "bytes": 176625,
+      "sha256": "378c28d3b30e5cab11bab30a7951434fff43d0bb6abadf83e5c353d57e77afc9"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-se-c79c2-ain-verified-option-meaning-chromium/native-selected-duplicate.json",
+      "bytes": 31287,
+      "sha256": "4d6a595d339e5ec2f976640059f51da394a9b8de6703f99cfcd675d6a2eeee20"
+    },
+    {
+      "path": "after-final72/extension-extension-w14-se-c79c2-ain-verified-option-meaning-chromium/trace.zip",
+      "bytes": 177655,
+      "sha256": "5dd48d10617b537b9016db324dae6d863a212b3f0dd5cc4694588f357812bb06"
+    },
+    {
+      "path": "base/apps/extension/README.md",
+      "bytes": 9174,
+      "sha256": "7c80b779982e1ce9186268636fc89799236e63bd1f4ec46636095d6120671720"
+    },
+    {
+      "path": "base/apps/extension/src/driver-engine.ts",
+      "bytes": 50429,
+      "sha256": "3a9ee1949b0d6a48f8720894df97411bf51d8dda712af42bd4b01ce0b5517396"
+    },
+    {
+      "path": "base/apps/extension/src/drivers/choice-drivers.ts",
+      "bytes": 13347,
+      "sha256": "323e3fff8212b2ec7237be2190cd4b8a08146728c3cb833ce76e2461944c2936"
+    },
+    {
+      "path": "base/apps/extension/src/drivers/driver-contract.ts",
+      "bytes": 3051,
+      "sha256": "59ac010116c836c09d821f1bf1cb609a6c0e6b7c836443f334e44e9d9ec654fb"
+    },
+    {
+      "path": "base/apps/extension/src/drivers/driver-dom.ts",
+      "bytes": 10430,
+      "sha256": "3331fa3b3f200b556c2a1a1de250fb8388dbe6398d221607f16aee9a2fbd7efa"
+    },
+    {
+      "path": "base/apps/extension/src/drivers/repeater-driver.ts",
+      "bytes": 11607,
+      "sha256": "535391867af4f3d026a6027fed9227c491ef07da4fa40b02ecefd844b5981c95"
+    },
+    {
+      "path": "base/apps/extension/src/drivers/widget-drivers.ts",
+      "bytes": 21781,
+      "sha256": "932acd65ae2ce72e666afe02f4d68115001874ea5652f1eb752595121c5a125c"
+    },
+    {
+      "path": "base/apps/extension/src/dynamic-engine.ts",
+      "bytes": 47925,
+      "sha256": "5e942ba654d58ef909f68a0281f96dfe1a47c048dca1d3cfd922ed8ae1c92cd1"
+    },
+    {
+      "path": "base/apps/extension/src/field-scanner.ts",
+      "bytes": 59420,
+      "sha256": "348216e25db8a63165306d4a3493f2737d8a199c2e3a08fe0c8d7c12365ae452"
+    },
+    {
+      "path": "before-cache-tx7/extension-extension-driver-b7b3c-l-widget-failure-rolls-back-chromium/error-context.md",
+      "bytes": 9370,
+      "sha256": "25c29ceb8ef33e9c8bcb87f01967b680bd7bd21dd044bb72b71b1fccfef93c05"
+    },
+    {
+      "path": "before-cache-tx7/extension-extension-driver-b7b3c-l-widget-failure-rolls-back-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "before-cache-tx7/extension-extension-driver-b7b3c-l-widget-failure-rolls-back-chromium/test-failed-2.png",
+      "bytes": 64935,
+      "sha256": "1c1a5da5a06d993f64abc34be7cd72d079d24356fa40ac8d3fc9fa9d86aabd74"
+    },
+    {
+      "path": "before-cache-tx7/extension-extension-driver-b7b3c-l-widget-failure-rolls-back-chromium/test-failed-3.png",
+      "bytes": 27162,
+      "sha256": "ab5fb88ab019f1b7cdea3dd9b947f868ab1eb474fb3741a94ee145914996ce0c"
+    },
+    {
+      "path": "before-cache-tx7/extension-extension-driver-b7b3c-l-widget-failure-rolls-back-chromium/trace.zip",
+      "bytes": 383299,
+      "sha256": "e73f9501dca25da9347b3a0b9b384d14cf37fe38e64999e12156ff5de8b5aa5d"
+    },
+    {
+      "path": "before-selected-duplicate/.last-run.json",
+      "bytes": 96,
+      "sha256": "9a96fc03610fda794dfbc90ba0b21e8c9af71c01c8e33cea26c98622f73106fe"
+    },
+    {
+      "path": "before-selected-duplicate/extension-extension-w14-se-c79c2-ain-verified-option-meaning-chromium/error-context.md",
+      "bytes": 5088,
+      "sha256": "551215086b32979cdfb08a01ee4c32c2510351d1a50ed75dd3b6a7dcab5041ec"
+    },
+    {
+      "path": "before-selected-duplicate/extension-extension-w14-se-c79c2-ain-verified-option-meaning-chromium/native-selected-duplicate.json",
+      "bytes": 31281,
+      "sha256": "ed05228c0e31f77573d9d4c5506f411c201b775bfa6f59828a37b80fedf9f0ed"
+    },
+    {
+      "path": "before-selected-duplicate/extension-extension-w14-se-c79c2-ain-verified-option-meaning-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "before-selected-duplicate/extension-extension-w14-se-c79c2-ain-verified-option-meaning-chromium/trace.zip",
+      "bytes": 169094,
+      "sha256": "8f4f572072f61b189e482cc3ece209322b7e5ead5b4b3b2ba5301b96d019e3bd"
+    },
+    {
+      "path": "before-w11-property/.last-run.json",
+      "bytes": 96,
+      "sha256": "9b7de37858856e0b49708674bf48ab17ee6940dd57382f703a6b5a5f1b9fd259"
+    },
+    {
+      "path": "before-w11-property/extension-extension-w14-in-9157e-ventless-native-value-drift-chromium/error-context.md",
+      "bytes": 5342,
+      "sha256": "ea1ecc7c93d9d098ab01941fb2f0c33a0261202715a592ec883b253aa55fd7d3"
+    },
+    {
+      "path": "before-w11-property/extension-extension-w14-in-9157e-ventless-native-value-drift-chromium/native-inventory-eventless-value.json",
+      "bytes": 30646,
+      "sha256": "d4d6a540bab4c0b2bd5eaf699eaa0d8e67bb153c19059d96817792edc28ff14a"
+    },
+    {
+      "path": "before-w11-property/extension-extension-w14-in-9157e-ventless-native-value-drift-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "before-w11-property/extension-extension-w14-in-9157e-ventless-native-value-drift-chromium/trace.zip",
+      "bytes": 180705,
+      "sha256": "3c7ebe2cf5c45b67cc4dc86c38bc8dcde96e0ea7d762c646cbdfc5be1f1109de"
+    },
+    {
+      "path": "cached71-runtime-manifest.json",
+      "bytes": 2390,
+      "sha256": "c34d590eb141a130fb1bfc98a492008fb7e492c9bc50629a655d351e968a63b0"
+    },
+    {
+      "path": "candidate-source-manifest.json",
+      "bytes": 4776,
+      "sha256": "08e150f555a7cc0f8ff95293f466415f82960a6dd89a328ddc8910123437934f"
+    },
+    {
+      "path": "final-e2e-types.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final-extension-types.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final-format.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "final-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final-regressions-cached.log",
+      "bytes": 13350,
+      "sha256": "f88c2fca07c2a07df4383ed12a8241297e61443821d07dd09f6f29346d4ad4a2"
+    },
+    {
+      "path": "final-regressions.log",
+      "bytes": 17212,
+      "sha256": "2cabd82065e6b2de20840ddf20ea124b38b8ca12e6fdf657f0e8c62c32356452"
+    },
+    {
+      "path": "final-units-missing-fixture.log",
+      "bytes": 1449,
+      "sha256": "f4b858954f43787980952eceb7069fb166e6fdad3820c6965802ef768fde0dda"
+    },
+    {
+      "path": "final-units.log",
+      "bytes": 295,
+      "sha256": "6921c70e76eaaf99aa3f15976d937e692f7bf133615babdc740402117aa7e18e"
+    },
+    {
+      "path": "final72-runtime-and-build-manifest.json",
+      "bytes": 3405,
+      "sha256": "e266a2844bf9d4719ba9e8a1357e30a6d80db9a6b316a2885d8723282025934b"
+    },
+    {
+      "path": "final72.log",
+      "bytes": 13522,
+      "sha256": "5ad4ece20641a1566d72998f793e407877df956ca2d444fea0ae61705e953b9e"
+    },
+    {
+      "path": "focused-runtime-manifest.json",
+      "bytes": 1997,
+      "sha256": "647c3425798ba7bd950ec5be929d3520b90685b344a68a9ee2717c00158b01c6"
+    },
+    {
+      "path": "independent-before-rows/aria-before.log",
+      "bytes": 5737,
+      "sha256": "dd64ab3f30a3189d0da92efbe6bfd39c8a1620fa81ee081376ce0454336a082b"
+    },
+    {
+      "path": "independent-before-rows/before.log",
+      "bytes": 22027,
+      "sha256": "c6f4b579d8b000301fc553549a9aab319338999fd26e3fb80ce3bcbfb0ce4c5d"
+    },
+    {
+      "path": "independent-before-rows/extra-before.log",
+      "bytes": 19651,
+      "sha256": "d676b0c3c7c70c5edebe38ee590e88207c14541cabfcc40be1795fc1774a4131"
+    },
+    {
+      "path": "independent-before-rows/native-after-verified-opaque-canada.json",
+      "bytes": 42422,
+      "sha256": "6ab6c915f6d243a91165292a1b07164792a42e85bd9865d60a2132d103909602"
+    },
+    {
+      "path": "independent-before-rows/native-after-verified-us-placeholder.json",
+      "bytes": 42453,
+      "sha256": "985e626aa702bc1fd641da2f0b6c9939cfbd3ad087c11f92f45f46f4f1a150bd"
+    },
+    {
+      "path": "independent-before-rows/native-after.log",
+      "bytes": 2835,
+      "sha256": "fcd62eeb711d6fd1f33fd145ad47681c6ceb2517cbb713d65319f3c152fda064"
+    },
+    {
+      "path": "independent-before-rows/native-append-positive.json",
+      "bytes": 14885,
+      "sha256": "4b595fd02aa005b065f18712e096247f4bd1a232d82b384f81991c14eb57d1c0"
+    },
+    {
+      "path": "independent-before-rows/native-aria-before-write.json",
+      "bytes": 39953,
+      "sha256": "8426794ca82fa65f441520d0dcb08723b63b646203bba8197f146da3eac1e3c4"
+    },
+    {
+      "path": "independent-before-rows/native-before-write-opaque-canada.json",
+      "bytes": 41029,
+      "sha256": "d2b8b5f9c3a23344f7b22283ab2b891b3e7a36c9fcf1f69ce7d607828eaea90d"
+    },
+    {
+      "path": "independent-before-rows/native-before-write-us-placeholder.json",
+      "bytes": 41050,
+      "sha256": "d269dca9bd144b7daaa8b5de3b3c440703333aa7958a00a9606fe330b537311f"
+    },
+    {
+      "path": "independent-before-rows/native-before.log",
+      "bytes": 22506,
+      "sha256": "14c26cbc2b508fec71e70c63c2a7c41106dae930ec953d527ed99b281e31bd91"
+    },
+    {
+      "path": "independent-before-rows/native-eventless-value-EXECUTE.json",
+      "bytes": 14855,
+      "sha256": "c607191de18adc83a39f3ea6ebe9fed6c54f55eeea75f85925a5830bfb01aad6"
+    },
+    {
+      "path": "independent-before-rows/native-eventless-value-UNDO.json",
+      "bytes": 19777,
+      "sha256": "b80d1f77752795bf851e4e50344cb394e2d27e412ea4beee65115881e517f8cc"
+    },
+    {
+      "path": "independent-before-rows/native-radio-after-verified.json",
+      "bytes": 42254,
+      "sha256": "11d82ef1a00c0866610ab80ad312503def65e295a1e70b5db4673b2871f29318"
+    },
+    {
+      "path": "independent-before-rows/native-radio-before-write.json",
+      "bytes": 42047,
+      "sha256": "4e7ef441111363fa1ea08514f5adef84c2b0d0d2ae0dbcf83eeb6e44b1e0a91d"
+    },
+    {
+      "path": "independent-before-rows/native-results.json",
+      "bytes": 286769,
+      "sha256": "ee5f65cf53b7f7902447ad3ecb228f34db2d75f6816438fccc388d35d407308f"
+    },
+    {
+      "path": "independent-before-rows/native-undo-last-hash.json",
+      "bytes": 19913,
+      "sha256": "1b2fa8f0622f0c678a4214a3e6d379d97a32ddfe403e15bc56e80254de93f7c8"
+    },
+    {
+      "path": "independent-before-rows/native-undo-ownership.json",
+      "bytes": 25431,
+      "sha256": "7f577f99f170a8f1a1bf6a4ce2613507854198a7e8c4c07e095bd95f029c1a08"
+    },
+    {
+      "path": "independent-before-rows/undo-hash-after.log",
+      "bytes": 1948,
+      "sha256": "d32d98b7c4df73faeeaf2437fe8f30e82207b48445519e5d4fdc650d78deaa75"
+    },
+    {
+      "path": "independent-before-rows/undo-hash-before.log",
+      "bytes": 5542,
+      "sha256": "ab6b5ce1be566f5bd94df802dc232413983839e36374c1ef97af535cb2805240"
+    },
+    {
+      "path": "option-meaning-final-units.log",
+      "bytes": 235,
+      "sha256": "ea78587d20889133768deb4620ed9ae2ec2538f1f8ca9d6fa68abc2845ba7f1a"
+    },
+    {
+      "path": "option-meaning-units.log",
+      "bytes": 235,
+      "sha256": "8bbef4f0a553d01de977fd126a9e2e7ac57d4ada1f7515aacd15d934f157c06c"
+    },
+    {
+      "path": "selected-duplicate-before.log",
+      "bytes": 4330,
+      "sha256": "76311ffac6375128e3c582fa3017cb328b9523ebdbc33dd40f8fc83207eba695"
+    },
+    {
+      "path": "typed12-after.log",
+      "bytes": 3585,
+      "sha256": "d420b5c1b5f9699ba5c8cfc211766fd09507c495ce8cbd48944caa8c74dedc31"
+    },
+    {
+      "path": "w11-before-runtime-manifest.json",
+      "bytes": 2280,
+      "sha256": "5baaf553bc4a303cffd96701cf0fd435f331ad318ad2537d80b68769af959666"
+    },
+    {
+      "path": "w11-property-before.log",
+      "bytes": 4349,
+      "sha256": "6e9b40312c695eb6ce548db5ce2ea768ffe987dc207ce7030b12599198acae3b"
+    }
+  ],
+  "file_count": 114,
+  "uncompressed_bytes": 5744059
+}

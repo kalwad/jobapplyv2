@@ -1,0 +1,297 @@
+{
+  "scope": "Fresh packaging-only recheck by archive producer; separate independent source review retained, no new gate-source or execution approval",
+  "archive": {
+    "path": "/tmp/japp-owner-evidence-waiver-machine-retained/proof.tar.gz",
+    "bytes": 121885,
+    "sha256": "561357d7523c80603a66d132983653a31b5a7966154bf50d8fb11590ce855c7c"
+  },
+  "outer_manifest_sha256": "f5f06ca2b17811c8e80d80aeead610e508fe45ea4ea6024ebf28608c973c3f8a",
+  "status": "CLEAR",
+  "checks_passed": 29,
+  "checks_total": 29,
+  "checks": [
+    {
+      "name": "archive exact frozen SHA256 and length",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "outer manifest exact archive binding",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "gzip integrity and exactly one member",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "28 safe unique regular members",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "no case-fold or normalized path collisions",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "no executable/special metadata or extension headers",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "tar tail contains only terminator/padding zeros",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "outer manifest exhaustively covers every regular member",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "all outer member sizes and SHA256 match",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "exact regular and payload totals",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "embedded index explicitly excludes only itself",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "embedded index exhaustively covers other 27 members",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "inner and outer indices agree byte for byte on all 27 records",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "outer metadata separately binds embedded self-excluded index",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "no checkout/dependency/build/cache paths",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "all 27 retained payloads exactly match their original outside sources",
+      "passed": true,
+      "details": [
+        {
+          "member": "README.md",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/README.md",
+          "exact": true
+        },
+        {
+          "member": "after-focused-final.log",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/after-focused-final.log",
+          "exact": true
+        },
+        {
+          "member": "afterimages/scripts/python-test-inventory.v1.json",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/tree/scripts/python-test-inventory.v1.json",
+          "exact": true
+        },
+        {
+          "member": "afterimages/scripts/tests/test_validate_status.py",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/tree/scripts/tests/test_validate_status.py",
+          "exact": true
+        },
+        {
+          "member": "afterimages/scripts/validate_status.py",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/tree/scripts/validate_status.py",
+          "exact": true
+        },
+        {
+          "member": "authority/accepted-adr-0007.md",
+          "source": "/tmp/japp-owner-external-waiver/accepted-adr-0007.md",
+          "exact": true
+        },
+        {
+          "member": "authority/accepted-owner-record.preimage.bin",
+          "source": "/tmp/japp-owner-external-waiver/accepted-owner-record.preimage.bin",
+          "exact": true
+        },
+        {
+          "member": "authority/owner-authority-lines.json",
+          "source": "/tmp/japp-owner-external-waiver/owner-authority-lines.json",
+          "exact": true
+        },
+        {
+          "member": "authority/owner-authority-record.json",
+          "source": "/tmp/japp-owner-external-waiver/owner-authority-record.json",
+          "exact": true
+        },
+        {
+          "member": "before-focused-final.log",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/before-focused-final.log",
+          "exact": true
+        },
+        {
+          "member": "collection.log",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/collection.log",
+          "exact": true
+        },
+        {
+          "member": "final-proof.json",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/final-proof.json",
+          "exact": true
+        },
+        {
+          "member": "format.log",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/format.log",
+          "exact": true
+        },
+        {
+          "member": "full-status-final.log",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/full-status-final.log",
+          "exact": true
+        },
+        {
+          "member": "independent-review/attempt1-record.json",
+          "source": "/tmp/japp-owner-evidence-waiver-independent-machine-review/attempt1-record.json",
+          "exact": true
+        },
+        {
+          "member": "independent-review/check-source.attempt1.py",
+          "source": "/tmp/japp-owner-evidence-waiver-independent-machine-review/check-source.attempt1.py",
+          "exact": true
+        },
+        {
+          "member": "independent-review/check-source.py",
+          "source": "/tmp/japp-owner-evidence-waiver-independent-machine-review/check-source.py",
+          "exact": true
+        },
+        {
+          "member": "independent-review/machine-checks.json",
+          "source": "/tmp/japp-owner-evidence-waiver-independent-machine-review/machine-checks.json",
+          "exact": true
+        },
+        {
+          "member": "independent-review/report.md",
+          "source": "/tmp/japp-owner-evidence-waiver-independent-machine-review/report.md",
+          "exact": true
+        },
+        {
+          "member": "inventory-delta.json",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/inventory-delta.json",
+          "exact": true
+        },
+        {
+          "member": "mypy.log",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/mypy.log",
+          "exact": true
+        },
+        {
+          "member": "owner-evidence-waiver-machine.patch",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/owner-evidence-waiver-machine.patch",
+          "exact": true
+        },
+        {
+          "member": "preimages.json",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/preimages.json",
+          "exact": true
+        },
+        {
+          "member": "proposal-manifest.json",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/proposal-manifest.json",
+          "exact": true
+        },
+        {
+          "member": "ruff.log",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/ruff.log",
+          "exact": true
+        },
+        {
+          "member": "status.log",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/status.log",
+          "exact": true
+        },
+        {
+          "member": "traceability.log",
+          "source": "/tmp/japp-owner-evidence-waiver-machine/traceability.log",
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "all five retained peer files including checker history present",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "peer tooling attempt failure is preserved and scoped",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "peer checker compatibility repair has preserved predecessor",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "independent source review remains exact clear43/43",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "patch exactly matches frozen source-review identity",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "three archived afterimages match source proposal hashes",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "all nine raw outcome logs match final proof hashes",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "meaningful retained before/after and complete239 summaries",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "retained static/status/trace results are passing scope",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "actual1492 collection exactly matches archived capability inventory",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "38-node additive delta and exact two POSIX cases retained",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "accepted owner preimage and frozen digest close exactly",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "peer report identity retained",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "findings": [],
+  "no_root_writes_code_changes_or_test_reruns": true
+}

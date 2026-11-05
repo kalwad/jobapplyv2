@@ -1,0 +1,283 @@
+{
+  "all_original_archive_bytes_fullmodes_join": true,
+  "members": [
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-two-file-focus/01.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-desktop-entry-canonical-focus-v1/01.stderr"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-two-file-focus/01.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-desktop-entry-canonical-focus-v1/01.stdout"
+    },
+    {
+      "bytes": 161,
+      "mode": 420,
+      "path": "canonical-two-file-focus/02.stderr",
+      "sha256": "4c8b274f8b1b13a504d12eeaea457cf225475c35525e04785ff702f8d403e41e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-desktop-entry-canonical-focus-v1/02.stderr"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-two-file-focus/02.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-desktop-entry-canonical-focus-v1/02.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-two-file-focus/03.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-desktop-entry-canonical-focus-v1/03.stderr"
+    },
+    {
+      "bytes": 116223,
+      "mode": 420,
+      "path": "canonical-two-file-focus/03.stdout",
+      "sha256": "4fe13b31ffa60de93308e24bafcb974740f6c21d3587a007d22c5f67c6027060",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-desktop-entry-canonical-focus-v1/03.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-two-file-focus/04.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-desktop-entry-canonical-focus-v1/04.stderr"
+    },
+    {
+      "bytes": 35,
+      "mode": 420,
+      "path": "canonical-two-file-focus/04.stdout",
+      "sha256": "b2369f3d044bc4c808b5aa346434aa52316f5d38268cf433815a465cbafca415",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-desktop-entry-canonical-focus-v1/04.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-two-file-focus/05.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-desktop-entry-canonical-focus-v1/05.stderr"
+    },
+    {
+      "bytes": 132480,
+      "mode": 420,
+      "path": "canonical-two-file-focus/05.stdout",
+      "sha256": "091e24e9c13601b138760f2d25c27110b7d798c54665c27efa39bee6d7b93627",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-desktop-entry-canonical-focus-v1/05.stdout"
+    },
+    {
+      "bytes": 454374,
+      "mode": 420,
+      "path": "canonical-two-file-focus/after.json",
+      "sha256": "a0bf5f213550bf36b900ea1c5b69f8785d12f41926b33c052d38df0df94c78ad",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-desktop-entry-canonical-focus-v1/after.json"
+    },
+    {
+      "bytes": 454374,
+      "mode": 420,
+      "path": "canonical-two-file-focus/before.json",
+      "sha256": "a0bf5f213550bf36b900ea1c5b69f8785d12f41926b33c052d38df0df94c78ad",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-desktop-entry-canonical-focus-v1/before.json"
+    },
+    {
+      "bytes": 207,
+      "mode": 420,
+      "path": "canonical-two-file-focus/closure.json",
+      "sha256": "6084c73b460cdbdc850fc08118389ec598cffd702693fe0f861b4530e8d3c247",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-desktop-entry-canonical-focus-v1/closure.json"
+    },
+    {
+      "bytes": 3657,
+      "mode": 420,
+      "path": "canonical-two-file-focus/executed-wrapper.py",
+      "sha256": "8c9314c5130f163afd55b4db73837bdb78fb3b6acea0593377169926930b857b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-desktop-entry-canonical-focus-v1/executed-wrapper.py"
+    },
+    {
+      "bytes": 1582,
+      "mode": 420,
+      "path": "canonical-two-file-focus/results.json",
+      "sha256": "ad74c665e040af71446324959273b2f9d1ad8f8192a047e25f1619deb4c89c78",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-desktop-entry-canonical-focus-v1/results.json"
+    },
+    {
+      "bytes": 6271,
+      "mode": 420,
+      "path": "observer/package-executed.py",
+      "sha256": "d11ec3b66df4af511ac83f2720f5d7097e0662f1cc2725ad874e3e83128b89d3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-native-desktop-entry-v1.py"
+    },
+    {
+      "bytes": 2161,
+      "mode": 420,
+      "path": "prior-reviewed-quit-menu/README.md",
+      "sha256": "41406003661d21af99500279d038c6b31d17c8cd3f702c2e5a460ea07eda5e38",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-native-quit-menu-evidence-v1/README.md"
+    },
+    {
+      "bytes": 128,
+      "mode": 420,
+      "path": "prior-reviewed-quit-menu/artifact.json",
+      "sha256": "c7cc9a31c7bffeb2c4d0a9f5279f39c6efb8ae633737a75a1d037b239bc338e0",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-native-quit-menu-evidence-v1/artifact.json"
+    },
+    {
+      "bytes": 590090,
+      "mode": 420,
+      "path": "prior-reviewed-quit-menu/proof.tar.gz",
+      "sha256": "506bffadb26ec8976d77537dc9a8698bb60a79725af824b19cff8da9f0b0ba4d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-native-quit-menu-evidence-v1/proof.tar.gz"
+    },
+    {
+      "bytes": 13714,
+      "mode": 420,
+      "path": "prior-reviewed-quit-menu/retention-manifest.json",
+      "sha256": "9813139764973750e98d1a4c79cb74ef3958f760a27edf1d5733a7e7d75f5235",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-native-quit-menu-evidence-v1/retention-manifest.json"
+    },
+    {
+      "bytes": 3147,
+      "mode": 420,
+      "path": "prior-reviewed-quit-menu/summary.json",
+      "sha256": "5e5df484a8b6d3c882006f1859827124f03cec694c0c933a1ab7fc079f52259a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-native-quit-menu-evidence-v1/summary.json"
+    },
+    {
+      "bytes": 552,
+      "mode": 420,
+      "path": "windows-gui-adoption/APPLIED.json",
+      "sha256": "31fbfe4bcfed530d36de8a6d13067d581d004bf8c8e55aab84b1b39380cdefa1",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-canonical-adoption-v1/APPLIED.json"
+    },
+    {
+      "bytes": 454375,
+      "mode": 420,
+      "path": "windows-gui-adoption/after.json",
+      "sha256": "106c58a9805e57d876e986eda83f2c3b5600115cd9a98765e0095f168699d791",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-canonical-adoption-v1/after.json"
+    },
+    {
+      "bytes": 454336,
+      "mode": 420,
+      "path": "windows-gui-adoption/before.json",
+      "sha256": "b4e6cc99d45a44b18551255eafd35e08f0394933f51f2f402d9e3ca5183d9577",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-canonical-adoption-v1/before.json"
+    },
+    {
+      "bytes": 4022,
+      "mode": 420,
+      "path": "windows-gui-adoption/executed-observer.py",
+      "sha256": "3318d66cf04c0f83c9379f9badac3c27b78239c4e7bc3020ba39c45f1ff84c8d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-canonical-adoption-v1/executed-observer.py"
+    },
+    {
+      "bytes": 107,
+      "mode": 420,
+      "path": "windows-gui-adoption/preimage.rs",
+      "sha256": "b6bfdd49ec8ed627630008ede4d79fbb30dfa5ff9e91dda2656ce17cddb88e4c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-canonical-adoption-v1/preimage.rs"
+    },
+    {
+      "bytes": 3271,
+      "mode": 420,
+      "path": "windows-gui-independent/REVIEW.md",
+      "sha256": "aa3f14b3fb02879d44b1494c84e3ee85cab6ad849e50d9737c341989178ade72",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-independent-review/v1/REVIEW.md"
+    },
+    {
+      "bytes": 3022,
+      "mode": 420,
+      "path": "windows-gui-independent/data-review.json",
+      "sha256": "4d1a96a96f1e949c8924807943f16cf85ef93637c41ddc30f03db0b76fdad399",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-independent-review/v1/data-review.json"
+    },
+    {
+      "bytes": 288,
+      "mode": 420,
+      "path": "windows-gui-independent/manifest.json",
+      "sha256": "d0ded0b520693d1eec8298a2d10b58ebe0520a9def5cd30047dc8ab5139b7741",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-independent-review/v1/manifest.json"
+    },
+    {
+      "bytes": 1812,
+      "mode": 420,
+      "path": "windows-gui-source/SOURCE.json",
+      "sha256": "7d03ceea68ba681982f97e73364d5a27fc1de0b0e2b0662b5cbe9a20a36dda68",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-preparation/v1/SOURCE.json"
+    },
+    {
+      "bytes": 123,
+      "mode": 420,
+      "path": "windows-gui-source/after-main.rs",
+      "sha256": "85d95119a4ebcfeb4122020a8d33a0e62eb9e850721a53c64b0fd07e5807bce3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-preparation/v1/after-main.rs"
+    },
+    {
+      "bytes": 107,
+      "mode": 420,
+      "path": "windows-gui-source/before-main.rs",
+      "sha256": "b6bfdd49ec8ed627630008ede4d79fbb30dfa5ff9e91dda2656ce17cddb88e4c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-preparation/v1/before-main.rs"
+    },
+    {
+      "bytes": 2046,
+      "mode": 420,
+      "path": "windows-gui-source/prepare-executed.py",
+      "sha256": "440349fc3e15aed47152541d66bc32fb88ee13fe8a3753852b06c66d26069ada",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-preparation/v1/prepare-executed.py"
+    },
+    {
+      "bytes": 2307,
+      "mode": 420,
+      "path": "windows-gui-source/reference/apps/desktop/src-tauri/Cargo.toml",
+      "sha256": "230df99445e2aef8581b362574b1871163527d778c5fb3f077c0852282c3e1b8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-preparation/v1/reference/apps/desktop/src-tauri/Cargo.toml"
+    },
+    {
+      "bytes": 2356,
+      "mode": 420,
+      "path": "windows-gui-source/reference/apps/desktop/src-tauri/build.rs",
+      "sha256": "48b13d593001ac39af9393160910d2675be869a6d28ec219b84b7a16c21a123c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-preparation/v1/reference/apps/desktop/src-tauri/build.rs"
+    },
+    {
+      "bytes": 107,
+      "mode": 420,
+      "path": "windows-gui-source/reference/apps/desktop/src-tauri/src/main.rs",
+      "sha256": "b6bfdd49ec8ed627630008ede4d79fbb30dfa5ff9e91dda2656ce17cddb88e4c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-preparation/v1/reference/apps/desktop/src-tauri/src/main.rs"
+    },
+    {
+      "bytes": 35443,
+      "mode": 420,
+      "path": "windows-gui-source/reference/scripts/native_package_pipeline.py",
+      "sha256": "b2a96bdbfaad7755baa5ff598bd0cac90ee9f1c23239bb0c7d6cdee5dafadb4a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-preparation/v1/reference/scripts/native_package_pipeline.py"
+    },
+    {
+      "bytes": 4817,
+      "mode": 420,
+      "path": "windows-gui-source/reference/scripts/tests/test_windows_package.py",
+      "sha256": "46dd8a3b50e9fc157387f9ef10b8e8dc4d96e8400bd82b4bbc0e203e6232c692",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-preparation/v1/reference/scripts/tests/test_windows_package.py"
+    },
+    {
+      "bytes": 12001,
+      "mode": 420,
+      "path": "windows-gui-source/reference/scripts/windows_package.py",
+      "sha256": "b32650242ef56009b67a2cc7825f9204f8f8be1a30796a70130cedd8d48938e0",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-gui-subsystem-preparation/v1/reference/scripts/windows_package.py"
+    }
+  ],
+  "omissions": [
+    "Whole2255 canonical/runtime40 bodies and compiled outputs. Exact finite source/pinned primary references, raw focused commands and full endpoint commitments retained.",
+    "Nested original Quit packet declares its earlier direct-formatter receipt and full-body omissions."
+  ],
+  "regular_members": 39
+}

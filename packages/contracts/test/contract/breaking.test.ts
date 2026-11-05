@@ -213,6 +213,7 @@ function copyCompatibilityInputs(root: string): void {
     "packages/contracts/schemas",
     "packages/contracts/catalog",
     "packages/contracts/test/contract/corpus",
+    "packages/contracts/test/contract/gate-waiver-corpus",
     "packages/contracts/test/contract/semantic-witnesses",
   ]) {
     const source = join(REPOSITORY_ROOT, relative);
@@ -342,11 +343,45 @@ describe("M01-W05 compatibility baseline", () => {
     const beforeMtime = statSync(BASELINE_PATH).mtimeMs;
     const first = buildCompatibilitySignature();
     const second = buildCompatibilitySignature();
-    expect(first).toEqual(loadBaseline().signature);
+    const baseline = loadBaseline().signature;
+    // Additive later majors coexist with the immutable M01 baseline. Preserve
+    // every historical schema, rule, wire case and executable witness exactly.
+    const retainedById = <T extends { readonly id: string }>(
+      current: readonly T[],
+      previous: readonly T[],
+    ): readonly T[] => {
+      const ids = new Set(previous.map((entry) => entry.id));
+      return current.filter((entry) => ids.has(entry.id));
+    };
+    const ruleIds = new Set(
+      baseline.semantic_rules.map((entry) => entry.rule_id),
+    );
+    const retained = {
+      ...first,
+      documents: retainedById(first.documents, baseline.documents),
+      semantic_rules: first.semantic_rules.filter((entry) =>
+        ruleIds.has(entry.rule_id),
+      ),
+      semantic_rule_catalog: baseline.semantic_rule_catalog,
+      semantic_witnesses: retainedById(
+        first.semantic_witnesses,
+        baseline.semantic_witnesses,
+      ),
+      supported_valid_cases: retainedById(
+        first.supported_valid_cases,
+        baseline.supported_valid_cases,
+      ),
+    };
+    Reflect.deleteProperty(retained, "semantic_rule_catalog_v2");
+    expect(retained).toEqual(baseline);
     expect(second).toEqual(first);
-    expect(
-      compareCompatibilitySignatures(loadBaseline().signature, first),
-    ).toEqual({ compatible: true, findings: [], additive_changes: [] });
+    const report = compareCompatibilitySignatures(baseline, first);
+    expect(report.compatible).toBe(true);
+    expect(report.findings).toEqual([]);
+    expect(report.additive_changes).toContainEqual({
+      code: "SCHEMA_ADDED",
+      subject: "urn:japp:schema:gate:decision:v2",
+    });
     expect(readFileSync(BASELINE_PATH)).toEqual(before);
     expect(statSync(BASELINE_PATH).mtimeMs).toBe(beforeMtime);
   }, 30_000);
@@ -750,7 +785,30 @@ describe("M01-W06 semantic compatibility signature", () => {
       catalog_version: catalog.catalog_version,
       canonical_sha256: currentCanonicalInputHashes().semantic_rule_catalog,
     });
-    expect(signature.semantic_rules).toEqual(catalog.entries);
+    const addedIds = new Set(
+      signature.semantic_rule_catalog_v2?.additive_rule_ids ?? [],
+    );
+    expect(
+      signature.semantic_rules.filter((entry) => !addedIds.has(entry.rule_id)),
+    ).toEqual(catalog.entries);
+    const v2 = JSON.parse(
+      readFileSync(
+        join(
+          REPOSITORY_ROOT,
+          "packages/contracts/catalog/semantic-rules.v2.json",
+        ),
+        "utf8",
+      ),
+    ) as { catalog_version: string; entries: SemanticRuleSignature[] };
+    expect(signature.semantic_rules).toEqual(v2.entries);
+    expect(signature.semantic_rule_catalog_v2).toEqual({
+      repository_path: "packages/contracts/catalog/semantic-rules.v2.json",
+      catalog_version: v2.catalog_version,
+      canonical_sha256: currentCanonicalInputHashes().semantic_rule_catalog_v2,
+      inherited_catalog_sha256:
+        currentCanonicalInputHashes().semantic_rule_catalog,
+      additive_rule_ids: [...addedIds],
+    });
     expect(signature.semantic_rules.map((rule) => rule.rule_id)).toEqual(
       [...signature.semantic_rules].map((rule) => rule.rule_id).sort(),
     );
@@ -805,7 +863,15 @@ describe("M01-W06 semantic compatibility signature", () => {
       const serialized = serializeBaseline(built);
       writeFileSync(path, serialized, "utf8");
       expect(loadBaseline(path)).toEqual(built);
-      expect(readFileSync(BASELINE_PATH, "utf8")).toBe(serialized);
+      expect(
+        compareCompatibilitySignatures(
+          loadBaseline().signature,
+          built.signature,
+        ).compatible,
+      ).toBe(true);
+      expect(readFileSync(BASELINE_PATH, "utf8")).toBe(
+        serializeBaseline(loadBaseline()),
+      );
       expect(readFileSync(BASELINE_PATH)).toEqual(before);
     } finally {
       rmSync(root, { recursive: true, force: true });
@@ -943,7 +1009,11 @@ describe("M01-W07 executable semantic compatibility witnesses", () => {
         witness.id.startsWith("x-w07.historical-positive."),
       ),
     ).toHaveLength(229);
-    expect(signature.semantic_witnesses).toHaveLength(572);
+    expect(
+      signature.semantic_witnesses.filter(
+        (entry) => !entry.id.startsWith("gate-v2."),
+      ),
+    ).toHaveLength(572);
   });
 
   test("locks the last-published recovered-rollback v1 canary", () => {
@@ -1162,19 +1232,20 @@ describe("M01-W07 executable semantic compatibility witnesses", () => {
   });
 
   test("new-major witnesses and a monotonic catalog minor are additive", () => {
-    const candidate = cloneCurrentSignature();
+    // Preserve this historical V1-only evolution scenario independently of
+    // the current V2 declaration, which freezes its inherited V1 provenance.
+    const baseline = cloneCurrentSignature();
+    Reflect.deleteProperty(baseline, "semantic_rule_catalog_v2");
+    const candidate = structuredClone(baseline);
     const future = structuredClone(semanticWitness(candidate, macosCudaV2));
     future.id = `${macosCudaV2}.future`;
     candidate.semantic_witnesses.push(future);
     candidate.semantic_witnesses.sort((left, right) =>
       left.id.localeCompare(right.id),
     );
-    candidate.semantic_rule_catalog.catalog_version = "1.2.0";
+    candidate.semantic_rule_catalog.catalog_version = "1.3.0";
     candidate.semantic_rule_catalog.canonical_sha256 = "f".repeat(64);
-    const report = compareCompatibilitySignatures(
-      currentSignature(),
-      candidate,
-    );
+    const report = compareCompatibilitySignatures(baseline, candidate);
     expect(report.compatible).toBe(true);
     expect(report.findings).toEqual([]);
     expect(report.additive_changes).toEqual(
@@ -2284,6 +2355,57 @@ describe("M01-W07 platform mutation coverage", () => {
       });
     } finally {
       rmSync(root, { recursive: true, force: true });
+    }
+  });
+});
+
+describe("additive versioned semantic catalog provenance", () => {
+  test("V2 removal and provenance drift remain breaking after adoption", () => {
+    const accepted = currentSignature();
+    for (const mutation of [
+      "remove",
+      "hash",
+      "inheritance",
+      "binding",
+    ] as const) {
+      const candidate = structuredClone(accepted);
+      if (mutation === "remove")
+        Reflect.deleteProperty(candidate, "semantic_rule_catalog_v2");
+      else {
+        const layer = candidate.semantic_rule_catalog_v2;
+        if (layer === undefined) throw new Error("current V2 catalog missing");
+        if (mutation === "hash") layer.canonical_sha256 = "0".repeat(64);
+        if (mutation === "inheritance")
+          layer.inherited_catalog_sha256 = "0".repeat(64);
+        if (mutation === "binding") layer.additive_rule_ids.pop();
+      }
+      expect(
+        compareCompatibilitySignatures(accepted, candidate).compatible,
+        mutation,
+      ).toBe(false);
+    }
+  });
+  test("a fabricated V2 inheritance cannot authorize additions to the frozen baseline", () => {
+    for (const mutation of [
+      "inheritance",
+      "coordinated-hash",
+      "version",
+      "version-and-hash",
+    ] as const) {
+      const candidate = cloneCurrentSignature();
+      const layer = candidate.semantic_rule_catalog_v2;
+      if (layer === undefined) throw new Error("current V2 catalog missing");
+      if (mutation !== "version")
+        layer.inherited_catalog_sha256 = "0".repeat(64);
+      if (mutation === "coordinated-hash" || mutation === "version-and-hash")
+        candidate.semantic_rule_catalog.canonical_sha256 = "0".repeat(64);
+      if (mutation === "version" || mutation === "version-and-hash")
+        candidate.semantic_rule_catalog.catalog_version = "1.2.0";
+      expect(
+        compareCompatibilitySignatures(loadBaseline().signature, candidate)
+          .compatible,
+        mutation,
+      ).toBe(false);
     }
   });
 });

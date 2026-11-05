@@ -1,0 +1,218 @@
+{
+  "retrieved_with": "gh api (2026-11-02UTC); selected fields only",
+  "scratch_branch": "none (all runs are on the PR branch codex/autofill-evaluation-hardening)",
+  "runs": [
+    {
+      "id": 41356786386,
+      "name": "ci",
+      "event": "pull_request",
+      "head_branch": "codex/autofill-evaluation-hardening",
+      "head_sha": "10f247bc441036233963004d1d663cd80e3a0212",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 2,
+      "conclusion": "success",
+      "created_at": "2026-11-01T22:22:11Z",
+      "updated_at": "2026-11-02T00:26:52Z",
+      "jobs": [
+        {
+          "id": 125013533923,
+          "name": "doctor + verify (windows-2025)",
+          "conclusion": "success",
+          "started_at": "2026-11-01T23:22:35Z",
+          "completed_at": "2026-11-02T00:21:23Z",
+          "runner_name": "GitHub Actions 1000001002"
+        },
+        {
+          "id": 125013534696,
+          "name": "doctor + verify (ubuntu-24.04)",
+          "conclusion": "success",
+          "started_at": "2026-11-01T22:22:15Z",
+          "completed_at": "2026-11-01T23:02:31Z",
+          "runner_name": "GitHub Actions 1000000997"
+        },
+        {
+          "id": 125013535406,
+          "name": "doctor + verify (macos-15)",
+          "conclusion": "success",
+          "started_at": "2026-11-01T22:22:16Z",
+          "completed_at": "2026-11-01T23:14:57Z",
+          "runner_name": "GitHub Actions 1000001001"
+        },
+        {
+          "id": 125028259313,
+          "name": "native development package (ubuntu-24.04)",
+          "conclusion": "success",
+          "started_at": "2026-11-02T00:21:26Z",
+          "completed_at": "2026-11-02T00:25:43Z",
+          "runner_name": "GitHub Actions 1000001003"
+        },
+        {
+          "id": 125028259337,
+          "name": "native development package (windows-2025)",
+          "conclusion": "success",
+          "started_at": "2026-11-02T00:21:26Z",
+          "completed_at": "2026-11-02T00:26:51Z",
+          "runner_name": "GitHub Actions 1000001004"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13107587484,
+          "name": "native-development-ubuntu-24.04-c25742ef0af8421bc4bfc7a3a6533506dbf8be10",
+          "size_in_bytes": 258901813,
+          "digest": "sha256:876ec1aef5548dd3c6d5d75576e45abe9e30d6b59ea0e8bb681af9a66a540a6d"
+        },
+        {
+          "id": 13107582320,
+          "name": "gnome-package-input-c25742ef0af8421bc4bfc7a3a6533506dbf8be10",
+          "size_in_bytes": 85540195,
+          "digest": "sha256:f85b648b786b0ef0652cfbb22c1a0be89b22983b20dd60fa6cf436cf0f58d71b"
+        },
+        {
+          "id": 13107428378,
+          "name": "native-development-windows-2025-c25742ef0af8421bc4bfc7a3a6533506dbf8be10",
+          "size_in_bytes": 191028809,
+          "digest": "sha256:31d0d26b10a54edd7a502ed61d3c51620fcf8442a92803f36a2eb80643b717bb"
+        },
+        {
+          "id": 13105027299,
+          "name": "windows-native-loader-c25742ef0af8421bc4bfc7a3a6533506dbf8be10",
+          "size_in_bytes": 31726045,
+          "digest": "sha256:117facc5d46198d72c505fd93154c13d6fa701ee7ef86928e80b4135bf9e7c95"
+        },
+        {
+          "id": 13104952880,
+          "name": "playwright-failure-windows-2025",
+          "size_in_bytes": 1307700,
+          "digest": "sha256:1afe64061478e76fa88a2b19433ce6dbe9d25bfddac4eb11e03776b57efd5d77"
+        }
+      ]
+    },
+    {
+      "id": 41367416097,
+      "name": "prepare unreviewed GNOME dependency candidate",
+      "event": "pull_request",
+      "head_branch": "codex/autofill-evaluation-hardening",
+      "head_sha": "4938c1137e9f2a402bfd75c77a429f4db1754928",
+      "path": ".github/workflows/ubuntu-gnome-prepare.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T00:29:24Z",
+      "updated_at": "2026-11-02T00:34:39Z",
+      "jobs": [
+        {
+          "id": 125030424967,
+          "name": "authorize",
+          "conclusion": "success",
+          "started_at": "2026-11-02T00:29:28Z",
+          "completed_at": "2026-11-02T00:30:03Z",
+          "runner_name": "GitHub Actions 1000001010"
+        },
+        {
+          "id": 125030593755,
+          "name": "download-only",
+          "conclusion": "success",
+          "started_at": "2026-11-02T00:30:05Z",
+          "completed_at": "2026-11-02T00:34:38Z",
+          "runner_name": "GitHub Actions 1000001012"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13107258511,
+          "name": "gnome-download-only-request-41367416097",
+          "size_in_bytes": 21432,
+          "digest": "sha256:4edb7ed29f2b2034056910d066d77c05f3fa4eb0512a91b21f8170e25f42be62"
+        },
+        {
+          "id": 13106829926,
+          "name": "unreviewed-gnome-inputs-10f247bc441036233963004d1d663cd80e3a0212-41367416097",
+          "size_in_bytes": 679345824,
+          "digest": "sha256:ac3e3f9118bb0170dcc019fefb42bae3f569d86f7c802a97bbf83b97b31a7ff3"
+        }
+      ]
+    },
+    {
+      "id": 41367514098,
+      "name": "prepare unreviewed Windows11 media and host-tool candidate",
+      "event": "pull_request",
+      "head_branch": "codex/autofill-evaluation-hardening",
+      "head_sha": "060882cdb0af7711962240b1e895ef94c8288dc3",
+      "path": ".github/workflows/windows11-native-prepare.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T00:30:26Z",
+      "updated_at": "2026-11-02T00:52:32Z",
+      "jobs": [
+        {
+          "id": 125030713759,
+          "name": "authorize",
+          "conclusion": "success",
+          "started_at": "2026-11-02T00:30:29Z",
+          "completed_at": "2026-11-02T00:31:02Z",
+          "runner_name": "GitHub Actions 1000001014"
+        },
+        {
+          "id": 125030880598,
+          "name": "guest-source-checks",
+          "conclusion": "success",
+          "started_at": "2026-11-02T00:31:05Z",
+          "completed_at": "2026-11-02T00:31:41Z",
+          "runner_name": "GitHub Actions 1000001019"
+        },
+        {
+          "id": 125031052345,
+          "name": "download-only",
+          "conclusion": "success",
+          "started_at": "2026-11-02T00:31:44Z",
+          "completed_at": "2026-11-02T00:52:31Z",
+          "runner_name": "GitHub Actions 1000001020"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13109055698,
+          "name": "unreviewed-windows11-inputs-10f247bc441036233963004d1d663cd80e3a0212-41367514098",
+          "size_in_bytes": 278608454,
+          "digest": "sha256:71bae73b85dd137903053d59086ed872a985ed52992594adb3189d43cd89545c"
+        },
+        {
+          "id": 13108100233,
+          "name": "win11-download-only-request-41367514098",
+          "size_in_bytes": 125219,
+          "digest": "sha256:07f3e99cf5ea3fb8a6364b8d2292d7c42568e723a2b1b55d2525bacba911ac15"
+        },
+        {
+          "id": 13107339798,
+          "name": "win11-source-check-10f247bc441036233963004d1d663cd80e3a0212-41367514098",
+          "size_in_bytes": 660,
+          "digest": "sha256:cd58635a252086993576a0b841756a95a87af7dea4e160788ae16639c71d1b18"
+        }
+      ]
+    },
+    {
+      "id": 41370879234,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-guest-lifecycle",
+      "head_sha": "08209252804b02712466db5c5ccb2c7126967be2",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T01:08:35Z",
+      "updated_at": "2026-11-02T01:09:07Z",
+      "jobs": [
+        {
+          "id": 125040893450,
+          "name": "parse windows11 attestor (PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-02T01:08:40Z",
+          "completed_at": "2026-11-02T01:09:07Z",
+          "runner_name": "GitHub Actions 1000001022"
+        }
+      ],
+      "artifacts": []
+    }
+  ],
+  "notes": "Run 41356786386 attempt 1 failed only the Windows e2e-browser suite (KI-0170); the package artifacts come from attempt 2."
+}

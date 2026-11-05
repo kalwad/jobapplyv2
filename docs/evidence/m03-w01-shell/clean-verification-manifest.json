@@ -1,0 +1,361 @@
+{
+  "sha256": "24f5df79b3f1adbf61fbdbed1bcb626cc852f9f3dbd6ccd12cde9950aaa1143a",
+  "bytes": 1967460,
+  "inputs": [
+    {
+      "member": "japp-m03-w01-clean-verification-retry-20261018/after.json",
+      "bytes": 376679,
+      "sha256": "6d03ea3f26874e29565105495e84964a74bda78b97c9aff5439b103265f3f5c2"
+    },
+    {
+      "member": "japp-m03-w01-clean-verification-retry-20261018/before.json",
+      "bytes": 376679,
+      "sha256": "6d03ea3f26874e29565105495e84964a74bda78b97c9aff5439b103265f3f5c2"
+    },
+    {
+      "member": "japp-m03-w01-clean-verification-retry-20261018/closure.json",
+      "bytes": 153,
+      "sha256": "1919fec4f2c174dde1e09a10072613e8befaf5f9cd648759527c9aa48d0520dc"
+    },
+    {
+      "member": "japp-m03-w01-clean-verification-retry-20261018/commands.json",
+      "bytes": 821,
+      "sha256": "158d3bdc58aadf28482490e84abb06d8db7dd9647fb0e52bb861bb87aebd4e3e"
+    },
+    {
+      "member": "japp-m03-w01-clean-verification-retry-20261018/doctor.log",
+      "bytes": 3222,
+      "sha256": "0b114d3112efd5f0bc52af6b57282085bda1a3c0272edf6774b3952cdbca8cc8"
+    },
+    {
+      "member": "japp-m03-w01-clean-verification-retry-20261018/environment.json",
+      "bytes": 1433,
+      "sha256": "5c75c09036e9771499bd2e8734bca1ccc99250e4070f60ef737558591454420c"
+    },
+    {
+      "member": "japp-m03-w01-clean-verification-retry-20261018/executed-wrapper.py",
+      "bytes": 3357,
+      "sha256": "0a676d650da9d7e54d66d8049009ca3a27d9dc2656823d972a8b708e5a587d06"
+    },
+    {
+      "member": "japp-m03-w01-clean-verification-retry-20261018/verify.log",
+      "bytes": 607544,
+      "sha256": "a155270bf2f44aa5d2289b7922be530b962aa7501ff83fcd02303ecd59f2eb22"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/before/scripts/python-test-inventory.v1.json",
+      "bytes": 196294,
+      "sha256": "2558ef92a7b7ce88bf855acca51fd5cb5c0e5ec397a0fd849973e801778205ae"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/before/scripts/tests/test_validate_status.py",
+      "bytes": 121925,
+      "sha256": "63ca3aa9178f225ee95144c667a5c4983e04c6e32ca035a87249744f0169d05c"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/before/scripts/verification-suites.json",
+      "bytes": 28723,
+      "sha256": "71ba3063faeb1592acbbae250af980d243611868be58813dc3179b7131daf9e8"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/findings.json",
+      "bytes": 6810,
+      "sha256": "c2d387302eea00501bfe472426a1085f463f3297dce456349b9b105c81cf5ffc"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/review.md",
+      "bytes": 4023,
+      "sha256": "627874327de5bc9522c2c7225807cd489f49be875162d014cc5b2b1c876f4312"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/.github/workflows/ci.yml",
+      "bytes": 13163,
+      "sha256": "38746a6fc9b721eb0febcd123aba45d533f00db7ddccd7b0c3d0b3274f2bbbe1"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/apps/desktop/src-tauri/src/lib.rs",
+      "bytes": 6932,
+      "sha256": "be139144477cc7db83246a9b718a8cb9c3f11e38ca35a1fe5cfa067251853133"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/docs/PROJECT_STATUS.md",
+      "bytes": 38413,
+      "sha256": "e42291819f40c1cd96fe53cb265188e4b3ed7a1d757f2013c4d4b0f45f582f3b"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/docs/TEST_EVIDENCE.md",
+      "bytes": 959035,
+      "sha256": "a8d49a038f3c84b248615c50040f07ace84287b1ca5126c350c04dac819744d4"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/docs/UI_FAMILIARITY.md",
+      "bytes": 5244,
+      "sha256": "951f8c8557daf87906a363bb6a93d2a79631418607cacba2f381394a297ff3c9"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/docs/evidence/m03-w01-shell/captures.json",
+      "bytes": 4399,
+      "sha256": "66b2abb6cb35f107c5f9103a3ee3462b74eef763418b3c9837c66508c9158cec"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/docs/evidence/m03-w01-shell/focused-proof-manifest.json",
+      "bytes": 48303,
+      "sha256": "22a9552e7a843c65b655877ea6921c44aa114bbbff9f4c3942d0e2d015b1e919"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/docs/evidence/m03-w01-shell/foundation-review.md",
+      "bytes": 3239,
+      "sha256": "8f17e1187f2c8f897a6939120c8f7932297f440bd577f515f7abb350e6eba081"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/docs/evidence/m03-w01-shell/native-observations.json",
+      "bytes": 3228,
+      "sha256": "43582a37162e163a2912f2cb02d45cfb071356a577d73d4e9b6fed759f2a1c3b"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/docs/ui/ANTI_BLOAT_CHECKLIST.md",
+      "bytes": 3280,
+      "sha256": "59f8b87ba87fc06d2e3ac37fcb604d7c5a1e3c14f32c8f54fa805ed7cb7331e5"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md",
+      "bytes": 4019,
+      "sha256": "2bc9e82f385bc4f54bb3d1d779ca9210d32a28030556237ba4914ff7c70e4547"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/docs/ui/SIMPLIFY_FAMILIARITY_MATRIX.md",
+      "bytes": 2070,
+      "sha256": "ae2b7b255964610e068a4d95c445bf4fb2eeeeacd2ff3a550055662a2c4a20b5"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/scripts/python-test-inventory.v1.json",
+      "bytes": 201039,
+      "sha256": "04bdad4d52beb73df77dcd9875eb0b1a99f86782c7396e7eb002bc1ba1fd8abd"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/scripts/tests/test_proofs_and_real_repo.py",
+      "bytes": 7618,
+      "sha256": "1641ba8e481bb6b7e54554917d813cc7f3e5eb8dcf17f041e54d7d01213cc5f6"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/scripts/tests/test_suite_states.py",
+      "bytes": 111749,
+      "sha256": "1e9089a51df5dd8b88524625d9ccb56cbcc1c5965c66b10e2861b32d23b0c839"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/scripts/tests/test_ui_governance_progress.py",
+      "bytes": 9478,
+      "sha256": "3a173674c4a0c6e2e15652e21cd9d5b8d6b7bc04532e39d97ec451f6238ad948"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/scripts/tests/test_v14_migration.py",
+      "bytes": 28368,
+      "sha256": "f2fcd657c36d5be647007880f8c67106d9369b8957eb935376061ab56e988c1e"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/scripts/tests/test_validate_status.py",
+      "bytes": 125548,
+      "sha256": "5f6d4f67686e493e170367285fea286b86d83d9f02ab637ebfb4aa8b9a53c6c1"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/scripts/validate_status.py",
+      "bytes": 127352,
+      "sha256": "9907f5fd9a59809feb7bb90266315685edcafd6f0c4546b725b3dc4d44620fb3"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/scripts/verification-suites.json",
+      "bytes": 30475,
+      "sha256": "1e1f7857ed37adbdf66c6f05462a030229784a6a291d62874f6d767fbbf45e0d"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/governance-6a08f61/sources/scripts/verify.py",
+      "bytes": 145793,
+      "sha256": "eca614e1cd32ffa63f7f02f93e992b718c61ed757bec8c702bde315b2a66aae0"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/ux-projection-review/current-traceability.json",
+      "bytes": 710305,
+      "sha256": "4ad9482256d8a71d1501020424a4db31969ed571c3ae5b035cbbba0d9e8543fd"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/ux-projection-review/current-traceability.py",
+      "bytes": 81635,
+      "sha256": "0d27cb4858ed44cc270b2dbcae97e0739ad9126225748632259efbfbd04e499b"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/ux-projection-review/findings.json",
+      "bytes": 7880,
+      "sha256": "f195b64bbb559ac82ec9558a6198565caf50d685c3fb324bfbfd7c1fb03df46d"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/ux-projection-review/proposal.json",
+      "bytes": 387,
+      "sha256": "d35a7377c93c64074ae14c41e1b5127bd47a0cb00690bd0fa992f63e02784fde"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/ux-projection-review/proposed-traceability.json",
+      "bytes": 712159,
+      "sha256": "91467c339392ee8c158029d2355ab1794933a3ceef4ad79ac016ea6ddc36bd5b"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/ux-projection-review/proposed-traceability.py",
+      "bytes": 81927,
+      "sha256": "69012469f0beadbeedf8131e6cb633eb3aaef7d001744d9b934c58df195bed88"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/ux-projection-review/review.md",
+      "bytes": 2385,
+      "sha256": "1c4001a3c88044b40bb074652c4cec687679757416043e0dca96522701190ebe"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/fixture-and-projection-retry-review/closed-review/findings.json",
+      "bytes": 3892,
+      "sha256": "01fd3fe875983c62ac177727c113e3f6654399012e024bbe20df1634bf298634"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/fixture-and-projection-retry-review/closed-review/inputs/docs/REQUIREMENTS_TRACEABILITY.md",
+      "bytes": 342350,
+      "sha256": "54c22160cc8204dfb8689b70ef119f2429499399fb2091925b6942ec34153391"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/fixture-and-projection-retry-review/closed-review/inputs/docs/TEST_EVIDENCE.md",
+      "bytes": 961201,
+      "sha256": "c02d7094dd917e2b0b85ba2809f9d97071d66bceeb606c27386c40fc5f46de0a"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/fixture-and-projection-retry-review/closed-review/inputs/docs/evidence/m03-w01-shell/failed-verification-6a08-manifest.json",
+      "bytes": 1322,
+      "sha256": "ad02732a0d55fc00f72011f4f78b2defe9ad906d1ccb3d35f928e19d6c2f65a2"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/fixture-and-projection-retry-review/closed-review/inputs/docs/traceability.json",
+      "bytes": 712159,
+      "sha256": "91467c339392ee8c158029d2355ab1794933a3ceef4ad79ac016ea6ddc36bd5b"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/fixture-and-projection-retry-review/closed-review/inputs/scripts/tests/test_doctor.py",
+      "bytes": 26816,
+      "sha256": "cfb17aaada4501a7a65b137edb4aa79f5086c9669a89706fcf1883163db9afd1"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/fixture-and-projection-retry-review/closed-review/inputs/scripts/tests/test_traceability.py",
+      "bytes": 51079,
+      "sha256": "db8017f460f21aecff064ca18ad8330d7e1ec652c587f269b93c409fd1fd6e24"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/fixture-and-projection-retry-review/closed-review/inputs/scripts/traceability.py",
+      "bytes": 81929,
+      "sha256": "aec5a81d0cf3077571f014a56cf6794f1866620add644ac836bcca2020ac59dc"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/fixture-and-projection-retry-review/closed-review/review.md",
+      "bytes": 2056,
+      "sha256": "2dba9ce99a2435a97fa05c817b0d1b6e670ed3eddb35196a1b3f18f1dfe98391"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/REVIEW.md",
+      "bytes": 1975,
+      "sha256": "df2fef15eda57d08db1022f9dd178bed4d25b4e7ee0ab3472f800e1b5574c64f"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/findings.json",
+      "bytes": 7495,
+      "sha256": "9396c0bd5b027a99db54948ccec1ae6c8df6eeab1228a94fb759d4ebd8d6de3b"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/prepared-closeout-v2.py",
+      "bytes": 10270,
+      "sha256": "1dbf9c2637f012d1f8f7352b9c8b5b938edc8b25686a1d001055e6c911c8a80d"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/prepared-review.json",
+      "bytes": 1919,
+      "sha256": "10454952fe2335544957c649f549cf44201b8746ab68cbc2e931b8c349928019"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/result-inputs/after.json",
+      "bytes": 376679,
+      "sha256": "6d03ea3f26874e29565105495e84964a74bda78b97c9aff5439b103265f3f5c2"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/result-inputs/before.json",
+      "bytes": 376679,
+      "sha256": "6d03ea3f26874e29565105495e84964a74bda78b97c9aff5439b103265f3f5c2"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/result-inputs/closure.json",
+      "bytes": 153,
+      "sha256": "1919fec4f2c174dde1e09a10072613e8befaf5f9cd648759527c9aa48d0520dc"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/result-inputs/commands.json",
+      "bytes": 821,
+      "sha256": "158d3bdc58aadf28482490e84abb06d8db7dd9647fb0e52bb861bb87aebd4e3e"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/result-inputs/doctor.log",
+      "bytes": 3222,
+      "sha256": "0b114d3112efd5f0bc52af6b57282085bda1a3c0272edf6774b3952cdbca8cc8"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/result-inputs/environment.json",
+      "bytes": 1433,
+      "sha256": "5c75c09036e9771499bd2e8734bca1ccc99250e4070f60ef737558591454420c"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/result-inputs/executed-wrapper.py",
+      "bytes": 3357,
+      "sha256": "0a676d650da9d7e54d66d8049009ca3a27d9dc2656823d972a8b708e5a587d06"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/result-inputs/verify.log",
+      "bytes": 607544,
+      "sha256": "a155270bf2f44aa5d2289b7922be530b962aa7501ff83fcd02303ecd59f2eb22"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/source-inputs/docs/MASTER_IMPLEMENTATION_SPEC.md",
+      "bytes": 367893,
+      "sha256": "3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/source-inputs/docs/PROJECT_STATUS.md",
+      "bytes": 38413,
+      "sha256": "e42291819f40c1cd96fe53cb265188e4b3ed7a1d757f2013c4d4b0f45f582f3b"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/source-inputs/docs/traceability.json",
+      "bytes": 712159,
+      "sha256": "91467c339392ee8c158029d2355ab1794933a3ceef4ad79ac016ea6ddc36bd5b"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/source-inputs/scripts/doctor.py",
+      "bytes": 29216,
+      "sha256": "ce50f8a3906b17847f225ed74c785478e20d9ab8fb988ed37eaf82cd4888a94e"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/source-inputs/scripts/python-test-inventory.v1.json",
+      "bytes": 201039,
+      "sha256": "04bdad4d52beb73df77dcd9875eb0b1a99f86782c7396e7eb002bc1ba1fd8abd"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/source-inputs/scripts/traceability.py",
+      "bytes": 81929,
+      "sha256": "aec5a81d0cf3077571f014a56cf6794f1866620add644ac836bcca2020ac59dc"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/source-inputs/scripts/validate_status.py",
+      "bytes": 127352,
+      "sha256": "9907f5fd9a59809feb7bb90266315685edcafd6f0c4546b725b3dc4d44620fb3"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/source-inputs/scripts/verification-suites.json",
+      "bytes": 30475,
+      "sha256": "1e1f7857ed37adbdf66c6f05462a030229784a6a291d62874f6d767fbbf45e0d"
+    },
+    {
+      "member": "japp-m03-w01-independent-shell-review-20261018/full-data-review/source-inputs/scripts/verify.py",
+      "bytes": 145793,
+      "sha256": "eca614e1cd32ffa63f7f02f93e992b718c61ed757bec8c702bde315b2a66aae0"
+    }
+  ]
+}

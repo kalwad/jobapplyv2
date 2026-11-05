@@ -1,0 +1,34 @@
+{
+  "format": "W14_SELECTED_MEANING_RETENTION_1",
+  "archive_regular_files": 115,
+  "manifest_listed_content_files": 114,
+  "safe_relative_regular_or_directory_members_only": true,
+  "files": [
+    {
+      "path": "source-and-browser-evidence.tar.gz",
+      "sha256": "37bfabf48f0c519699193561298d0494d595078c5e79747f82fb2ffcb1c54126",
+      "bytes": 4033522
+    },
+    {
+      "path": "candidate.patch",
+      "sha256": "8a889e0916bda5cc4ee55bdbf0ed97af5653b4104e8f7e732d258143d9bbd0df",
+      "bytes": 95742
+    },
+    {
+      "path": "source-manifest.json",
+      "sha256": "4290937bab75ce3f0eef89b3cee7933f9a66dec4eda6815715acedbe582b72fb",
+      "bytes": 5135
+    },
+    {
+      "path": "proof-map.json",
+      "sha256": "0acddc9ffeda0f65d173a629faa0145b9eaa47639870330bce0e1bdffc7e738d",
+      "bytes": 4527
+    },
+    {
+      "path": "archive-manifest.json",
+      "sha256": "b5ff20bebec043e7af770a835dc0bef1a229e67ab105c0a69fe4eb50ac06fb72",
+      "bytes": 23184
+    }
+  ],
+  "scope": "FOCUSED_SOURCE_AND_BROWSER_PROOF_NOT_FINAL_GATE_APPROVAL"
+}

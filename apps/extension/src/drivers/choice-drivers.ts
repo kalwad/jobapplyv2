@@ -9,6 +9,7 @@
 import type { FormFieldDescriptorV1 } from "@japp/contracts/generated";
 
 import type { DriverIntendedValue } from "../driver-protocol.ts";
+import { normalizeText } from "../field-scanner.ts";
 import {
   checkedObservation,
   optionObservation,
@@ -25,7 +26,9 @@ import type {
   ControlDriver,
   DriverContext,
   PreconditionOutcome,
+  OptionMeaningApproval,
 } from "./driver-contract.ts";
+import { mutateCurrent } from "./mutation-guard.ts";
 
 function intendedOptionDigest(intended: DriverIntendedValue): string {
   if (intended.kind !== "OPTION") {
@@ -50,8 +53,44 @@ function requireSelectHost(context: DriverContext): HTMLSelectElement {
   return host;
 }
 
+/** Kernel-private meaning of a W09-approved static native choice. A raw
+ * value alone is insufficient when an ATS uses opaque option values. */
+
+export function optionMeaningApproval(
+  descriptor: FormFieldDescriptorV1,
+  intended: DriverIntendedValue,
+): OptionMeaningApproval | undefined {
+  if (intended.kind !== "OPTION") return undefined;
+  const matches = descriptor.options.filter(
+    (option) => option.value_digest === intended.value_digest,
+  );
+  const option = matches.length === 1 ? matches[0] : undefined;
+  return option === undefined
+    ? undefined
+    : {
+        valueDigest: option.value_digest,
+        labelDigest: option.label.text_digest,
+        disabled: option.disabled,
+      };
+}
+
+export function optionMeaningApprovalMatches(
+  approval: OptionMeaningApproval,
+  descriptor: FormFieldDescriptorV1,
+): boolean {
+  const current = optionMeaningApproval(descriptor, {
+    kind: "OPTION",
+    value_digest: approval.valueDigest,
+  });
+  return (
+    current?.labelDigest === approval.labelDigest &&
+    current.disabled === approval.disabled
+  );
+}
+
 interface SelectMatch {
   readonly value: string;
+  readonly label: string;
   readonly enabled: boolean;
 }
 
@@ -62,13 +101,17 @@ async function matchSelectOption(
   const matches: SelectMatch[] = [];
   const seenValues = new Set<string>();
   for (const option of host.options) {
-    if (seenValues.has(option.value)) {
+    const value = option.value;
+    if (seenValues.has(value)) {
+      // A repeated raw value cannot identify one physical option safely.
+      if (matches.some((match) => match.value === value)) return null;
       continue;
     }
-    seenValues.add(option.value);
-    if ((await optionValueDigest(option.value)) === digest) {
+    seenValues.add(value);
+    if ((await optionValueDigest(value)) === digest && option.value === value) {
       matches.push({
-        value: option.value,
+        value,
+        label: normalizeText(option.textContent),
         enabled: !(
           option.disabled || option.closest("optgroup:disabled") !== null
         ),
@@ -113,13 +156,28 @@ export const nativeSelectDriver: ControlDriver = {
   },
   async captureUndo(context: DriverContext): Promise<CapturedUndo> {
     const host = requireSelectHost(context);
-    const priorValue = host.selectedIndex >= 0 ? host.value : null;
+    const prior = host.selectedIndex >= 0 ? host.selectedOptions[0] : undefined;
+    const snapshot =
+      prior === undefined
+        ? null
+        : {
+            value: prior.value,
+            label: normalizeText(prior.textContent),
+            disabled:
+              prior.disabled || prior.closest("optgroup:disabled") !== null,
+          };
+    const priorObservation = optionObservation(
+      snapshot === null ? null : await optionValueDigest(snapshot.value),
+    );
     return {
-      restorable: true,
-      priorObservation: optionObservation(
-        priorValue === null ? null : await optionValueDigest(priorValue),
-      ),
-      payload: priorValue,
+      restorable:
+        snapshot === null ||
+        (prior?.value === snapshot.value &&
+          normalizeText(prior.textContent) === snapshot.label &&
+          (prior.disabled || prior.closest("optgroup:disabled") !== null) ===
+            snapshot.disabled),
+      priorObservation,
+      payload: snapshot,
     };
   },
   async execute(context: DriverContext): Promise<void> {
@@ -131,7 +189,31 @@ export const nativeSelectDriver: ControlDriver = {
     if (!match?.enabled) {
       throw new Error("select driver invariant: intended option vanished");
     }
-    setNativeValue(host, match.value);
+    await mutateCurrent(context, host, () => {
+      const options = [...host.options].filter(
+        (item) => item.value === match.value,
+      );
+      const option = options.length === 1 ? options[0] : undefined;
+      if (
+        option === undefined ||
+        normalizeText(option.textContent) !== match.label ||
+        option.disabled ||
+        option.closest("optgroup:disabled") !== null
+      )
+        throw new Error("select driver invariant: intended option changed");
+      setNativeValue(host, match.value);
+    });
+  },
+  captureObservationWitness(context: DriverContext): () => boolean {
+    const host = requireSelectHost(context);
+    return () => {
+      const selected = host.selectedOptions[0];
+      return (
+        selected === undefined ||
+        [...host.options].filter((option) => option.value === selected.value)
+          .length === 1
+      );
+    };
   },
   async observe(context: DriverContext): Promise<SemanticObservation> {
     const host = requireSelectHost(context);
@@ -139,18 +221,44 @@ export const nativeSelectDriver: ControlDriver = {
       host.selectedIndex >= 0 ? await optionValueDigest(host.value) : null,
     );
   },
-  applyUndo(context: DriverContext, payload: unknown): Promise<void> {
+  async applyUndo(context: DriverContext, payload: unknown): Promise<void> {
     const host = requireSelectHost(context);
     if (payload === null) {
-      setNativeValue(host, "");
-      host.selectedIndex = -1;
-      return Promise.resolve();
+      await mutateCurrent(context, host, () => {
+        setNativeValue(host, "");
+      });
+      await mutateCurrent(context, host, () => {
+        host.selectedIndex = -1;
+      });
+      return;
     }
-    if (typeof payload !== "string") {
+    if (
+      typeof payload !== "object" ||
+      !("value" in payload) ||
+      typeof payload.value !== "string" ||
+      !("label" in payload) ||
+      typeof payload.label !== "string" ||
+      !("disabled" in payload) ||
+      typeof payload.disabled !== "boolean"
+    ) {
       throw new Error("select driver invariant: undo payload malformed");
     }
-    setNativeValue(host, payload);
-    return Promise.resolve();
+    const priorValue = payload.value;
+    await mutateCurrent(context, host, () => {
+      const options = [...host.options].filter(
+        (item) => item.value === priorValue,
+      );
+      const option = options.length === 1 ? options[0] : undefined;
+      if (
+        option === undefined ||
+        normalizeText(option.textContent) !== payload.label ||
+        option.disabled ||
+        option.closest("optgroup:disabled") !== null ||
+        payload.disabled
+      )
+        throw new Error("select driver invariant: prior option changed");
+      setNativeValue(host, priorValue);
+    });
   },
 };
 
@@ -240,9 +348,36 @@ export const radioGroupDriver: ControlDriver = {
     if (member === undefined || member.disabled) {
       throw new Error("radio driver invariant: intended member vanished");
     }
-    if (!member.checked) {
-      activateElement(member);
-    }
+    const value = member.value;
+    if (
+      (await optionValueDigest(value)) !==
+      intendedOptionDigest(context.intended)
+    )
+      throw new Error("radio driver invariant: intended member changed");
+    await mutateCurrent(context, member, (current) => {
+      const currentMembers = radioMembers({ ...context, target: current });
+      if (
+        currentMembers === null ||
+        !currentMembers.includes(member) ||
+        member.value !== value ||
+        currentMembers.filter((item) => item.value === value).length !== 1
+      )
+        throw new Error("radio driver invariant: intended member changed");
+      if (!member.checked) activateElement(member);
+    });
+  },
+  captureObservationWitness(context: DriverContext): () => boolean {
+    return () => {
+      const members = radioMembers(context) ?? [];
+      const checked = members.filter((member) => member.checked);
+      const selected = checked.length === 1 ? checked[0] : undefined;
+      return (
+        checked.length <= 1 &&
+        (selected === undefined ||
+          members.filter((member) => member.value === selected.value).length ===
+            1)
+      );
+    };
   },
   async observe(context: DriverContext): Promise<SemanticObservation> {
     const members = radioMembers(context) ?? [];
@@ -251,16 +386,28 @@ export const radioGroupDriver: ControlDriver = {
       checked === undefined ? null : await optionValueDigest(checked.value),
     );
   },
-  applyUndo(context: DriverContext, payload: unknown): Promise<void> {
+  async applyUndo(context: DriverContext, payload: unknown): Promise<void> {
     const members = radioMembers(context) ?? [];
     if (payload === null) {
       for (const member of members) {
         if (member.checked) {
-          member.checked = false;
-          dispatchChange(member);
+          await mutateCurrent(context, member, (current) => {
+            const currentMembers = radioMembers({
+              ...context,
+              target: current,
+            });
+            if (!currentMembers?.includes(member))
+              throw new Error(
+                "radio driver invariant: prior member left group",
+              );
+            if (member.checked) {
+              member.checked = false;
+              dispatchChange(member);
+            }
+          });
         }
       }
-      return Promise.resolve();
+      return;
     }
     if (typeof payload !== "string") {
       throw new Error("radio driver invariant: undo payload malformed");
@@ -270,9 +417,18 @@ export const radioGroupDriver: ControlDriver = {
       throw new Error("radio driver invariant: prior member vanished");
     }
     if (!prior.checked) {
-      activateElement(prior);
+      await mutateCurrent(context, prior, (current) => {
+        const currentMembers = radioMembers({ ...context, target: current });
+        if (
+          currentMembers === null ||
+          !currentMembers.includes(prior) ||
+          prior.value !== payload ||
+          currentMembers.filter((item) => item.value === payload).length !== 1
+        )
+          throw new Error("radio driver invariant: prior member changed");
+        if (!prior.checked) activateElement(prior);
+      });
     }
-    return Promise.resolve();
   },
 };
 
@@ -328,26 +484,28 @@ export const checkboxDriver: ControlDriver = {
       payload: prior,
     });
   },
-  execute(context: DriverContext): Promise<void> {
+  async execute(context: DriverContext): Promise<void> {
     const host = requireCheckboxHost(context);
     if (host.checked !== intendedChecked(context)) {
-      activateElement(host);
+      await mutateCurrent(context, host, () => {
+        if (host.checked !== intendedChecked(context)) activateElement(host);
+      });
     }
-    return Promise.resolve();
   },
   observe(context: DriverContext): Promise<SemanticObservation> {
     return Promise.resolve(
       checkedObservation(requireCheckboxHost(context).checked),
     );
   },
-  applyUndo(context: DriverContext, payload: unknown): Promise<void> {
+  async applyUndo(context: DriverContext, payload: unknown): Promise<void> {
     if (typeof payload !== "boolean") {
       throw new Error("checkbox driver invariant: undo payload malformed");
     }
     const host = requireCheckboxHost(context);
     if (host.checked !== payload) {
-      activateElement(host);
+      await mutateCurrent(context, host, () => {
+        if (host.checked !== payload) activateElement(host);
+      });
     }
-    return Promise.resolve();
   },
 };

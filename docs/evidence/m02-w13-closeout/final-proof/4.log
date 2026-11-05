@@ -1,0 +1,10 @@
+$ vitest run --no-file-parallelism --maxWorkers=1
+
+ RUN  v4.1.10 /private/var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-internal-verifier-pqakfmi2/candidate/apps/extension
+
+
+ Test Files  10 passed (10)
+      Tests  171 passed (171)
+   Start at  15:37:18
+   Duration  2.30s (transform 160ms, setup 0ms, import 292ms, tests 1.15s, environment 0ms)
+

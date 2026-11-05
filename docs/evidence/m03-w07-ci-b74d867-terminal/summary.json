@@ -1,0 +1,74 @@
+{
+  "source": "b74d867e544741d5de9736f72e79981a253c9ea2",
+  "tree": "fa1cbf24587a37cb800ccf58797c0912b8446a81",
+  "merge": "af74040c1371eab07d9671f2464d909a60ad626d",
+  "run": 41124431600,
+  "attempt": 1,
+  "outcome": "FAILURE",
+  "verification": {
+    "macos-15": {
+      "suites_active_pass": 20,
+      "python_passed": 2899,
+      "seconds": 1089.83
+    },
+    "ubuntu-24.04": {
+      "suites_active_pass": 20,
+      "python_passed": 2899,
+      "seconds": 721.16
+    },
+    "windows-2025": {
+      "suites_active_pass": 20,
+      "python_passed": 2897,
+      "seconds": 946.44
+    }
+  },
+  "packages": {
+    "ubuntu-24.04": "PASS",
+    "windows-2025": "FAIL_PACKAGE_ACTOR_SERVICE_CHILD_EXITED_EMPTY_ENVIRONMENT"
+  },
+  "windows_steps_strict_success": [
+    "10-tauri-package",
+    "11-package-stage",
+    "12-package-inspect",
+    "12-pe-app",
+    "12-pe-service",
+    "13-package-actor-compile",
+    "14-package-actor-catalog"
+  ],
+  "windows_package_actor": {
+    "exit_code": 101,
+    "panic": "Actual packaged service must acknowledge and prove health: ChildExited",
+    "owned_cleanup_success": true,
+    "terminated_job": false,
+    "job_active_processes": 0
+  },
+  "KI0137": "FIXED_ON_HOSTED_BUILD_HOST",
+  "KI0141": "FIXED_ON_HOSTED_BUILD_HOST",
+  "KI0142": "ROOT_CAUSE_CONFIRMED_CORRECTION_IN_NEXT_COMMIT",
+  "diagnostic": {
+    "run": 41133099895,
+    "branch": "diag/windows-service-env",
+    "commit": "2aecfeaae1a1fe139bedebbd080ce88c96e2d6e8",
+    "runtime_entrypoint_sha256": "ca4d41983ae0a62ec878a471d6f1d93ab70b0ab28f60b828ebf128165f0dcac1",
+    "service_empty_environment": "EXIT_1_WINERROR_10106_AT_IMPORT_ASYNCIO",
+    "service_systemroot_only": "READY_ACK_0.88S_EXIT_0_ON_LEASE_EOF"
+  },
+  "artifacts": {
+    "windows": {
+      "id": 13014200693,
+      "sha256": "9c8f67a7f7a152bcafd45adc8fc5b45660ea8a0faf8fca8336fa072807740af3"
+    },
+    "ubuntu": {
+      "id": 13014140795,
+      "sha256": "eda7cff61e6c0452ae784f933cce06e98281cf480c2427a5ed48a0755ea8c34b"
+    },
+    "gnome_input": {
+      "id": 13012999851,
+      "sha256": "fad8b4ddf41690304400b8d1322991b74a39eea15a6e24bb2178aa54b6e5f199"
+    },
+    "expires": "2026-11-06"
+  },
+  "windows_service_actor_ran": true,
+  "windows_service_actor_passed": false,
+  "windows11_evidence": false
+}

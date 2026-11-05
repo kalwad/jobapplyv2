@@ -797,6 +797,47 @@ def test_unapproved_artifact_path_fails(policy_repo: Path) -> None:
     assert "PORT-CI-017" in rules_of(policy_repo)
 
 
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("unchanged", ""),
+        ("if", "always()"),
+        ("if", "${{ failure() && runner.os == 'Windows' }}"),
+        ("path", "${{ runner.temp }}/"),
+        ("name", "unbounded-native-output"),
+        ("retention-days", 8),
+        ("if-no-files-found", "ignore"),
+        ("uses", "actions/upload-artifact@0000000000000000000000000000000000000000"),
+        ("command", "pnpm verify || true"),
+    ],
+)
+def test_native_loader_artifact_exception_refuses_scope_drift(
+    field: str, value: str | int
+) -> None:
+    data = load_workflow(REPO_ROOT)
+    steps = [
+        (f"step-{index}", step) for index, step in enumerate(verify_job(data)["steps"])
+    ]
+    native = next(
+        step
+        for _where, step in steps
+        if step.get("name") == "Retain Windows native loader failure evidence"
+    )
+    if field == "command":
+        canonical = next(
+            step for _where, step in steps if step.get("id") == "canonical_verify"
+        )
+        canonical["run"] = value
+    elif field in {"if", "uses"}:
+        native[field] = value
+    elif field != "unchanged":
+        native["with"][field] = value
+    violations: list[check_portability.Violation] = []
+    check_portability._check_artifacts(steps, violations)
+    assert bool(violations) == (field != "unchanged")
+    assert all(violation.rule == "PORT-CI-017" for violation in violations)
+
+
 def test_live_site_reference_in_run_step_fails(policy_repo: Path) -> None:
     data = load_workflow(policy_repo)
     step_by_run(data, "pnpm verify")["run"] = "pnpm verify https://example.invalid/jobs"

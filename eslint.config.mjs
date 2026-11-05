@@ -7,6 +7,7 @@
 // canonical docs are Markdown and outside ESLint's scope by construction.
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
+import reactHooks from "eslint-plugin-react-hooks";
 
 export default tseslint.config(
   {
@@ -21,6 +22,9 @@ export default tseslint.config(
       "**/coverage/**",
       ".venv/**",
       "services/native-host/target/**",
+      "apps/desktop/src-tauri/target/**",
+      "apps/desktop/src-tauri/gen/**",
+      "apps/desktop/dist-renderer/**",
       "test-results/**",
       "playwright-report/**",
       "blob-report/**",
@@ -37,7 +41,7 @@ export default tseslint.config(
   },
   js.configs.recommended,
   {
-    files: ["**/*.ts"],
+    files: ["**/*.ts", "**/*.tsx"],
     extends: [
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
@@ -47,6 +51,14 @@ export default tseslint.config(
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
+    },
+  },
+  {
+    files: ["apps/desktop/**/*.tsx", "packages/ui/**/*.tsx"],
+    plugins: { "react-hooks": reactHooks },
+    rules: {
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "error",
     },
   },
 );

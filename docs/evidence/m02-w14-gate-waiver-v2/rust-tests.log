@@ -1,0 +1,18 @@
+   Compiling japp-contract-compat-harness v0.1.0 (/private/tmp/japp-gate-v2-draft/tree/packages/contracts/test/contract/rust-harness)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.54s
+     Running unittests src/main.rs (packages/contracts/test/contract/rust-harness/target/debug/deps/japp_contract_compat_harness-cfacbffa58b7722c)
+
+running 10 tests
+test tests::raw_policy_rejects_duplicate_keys_and_unsafe_numbers ... ok
+test tests::test_only_enum_vocabulary_matches_canonical_schemas ... ok
+test tests::typed_representative_records_reject_unknown_fields ... ok
+test tests::w07_platform_trust_boundaries_fail_closed ... ok
+test tests::w06_cross_field_safety_edges_fail_closed ... ok
+test tests::canonical_security_data_loads_and_is_nonempty ... ok
+test tests::local_draft_2020_12_catalog_validates_without_remote_resolution ... ok
+test tests::canonical_semantic_rules_are_structural_finite_and_complete ... ok
+test tests::w07_platform_representatives_round_trip_and_validate ... ok
+test tests::w06_representative_values_use_structural_semantic_and_serde_round_trips ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s
+

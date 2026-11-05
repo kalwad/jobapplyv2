@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "operation": "auth",
+  "result": {
+    "responses": [
+      {
+        "route": "health",
+        "wrong_token": false,
+        "status": 401,
+        "body_bytes": 429
+      },
+      {
+        "route": "health",
+        "wrong_token": true,
+        "status": 401,
+        "body_bytes": 429
+      },
+      {
+        "route": "ready",
+        "wrong_token": false,
+        "status": 401,
+        "body_bytes": 429
+      },
+      {
+        "route": "ready",
+        "wrong_token": true,
+        "status": 401,
+        "body_bytes": 429
+      },
+      {
+        "route": "version",
+        "wrong_token": false,
+        "status": 401,
+        "body_bytes": 429
+      },
+      {
+        "route": "version",
+        "wrong_token": true,
+        "status": 401,
+        "body_bytes": 429
+      }
+    ],
+    "active_port_exclusion": true,
+    "forced_startup_collision_recovery_claimed": false
+  },
+  "elapsed_seconds": 0.015673687000003156
+}

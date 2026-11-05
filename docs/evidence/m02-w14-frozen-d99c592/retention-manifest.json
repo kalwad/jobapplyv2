@@ -1,0 +1,97 @@
+{
+  "archive_sha256": "8289cac18f81478022e6b5f4fc8afbacd952fdb9bde2ce792dcbb7fb4f05f832",
+  "archive_bytes": 4777616,
+  "regular_members": 19,
+  "files": [
+    {
+      "path": "aggregate.log",
+      "bytes": 593267,
+      "sha256": "3f2d8b0b9d5be103a72f6c89da4086194896e3a473e767347092e27639590995"
+    },
+    {
+      "path": "clause-reconciliation.json",
+      "bytes": 209785,
+      "sha256": "36ddb6d48903b71ed49020f41d744cf7ac33447fc4ee758330d7765d899db8ac"
+    },
+    {
+      "path": "end-commit.txt",
+      "bytes": 41,
+      "sha256": "adb611672dde396efcceb319e73f954fcc2b344e4809975ffe3b02e345853baf"
+    },
+    {
+      "path": "end-status.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "fresh-evidence-audit.md",
+      "bytes": 13257,
+      "sha256": "c051c3246175e130bdff650548f866ede4812b4e516cb5aa3cec758977910daa"
+    },
+    {
+      "path": "start-commit.txt",
+      "bytes": 41,
+      "sha256": "adb611672dde396efcceb319e73f954fcc2b344e4809975ffe3b02e345853baf"
+    },
+    {
+      "path": "start-status.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 2119,
+      "sha256": "51b9f17e8dab30c2f514843682c04db44aca5737fad67e694ce608f672e9e6e0"
+    },
+    {
+      "path": "supplemental-review.md",
+      "bytes": 8960,
+      "sha256": "53d8eb4bf05e47280d5f4b8a8fd74727f74045f74cc720dc27bb8df12afb23b6"
+    },
+    {
+      "path": "w14/assessment.json",
+      "bytes": 54498,
+      "sha256": "7b6cd72c6e39db002ae2fe7a17c63715e02042b57f70f4d97a46e8b71ba2ba24"
+    },
+    {
+      "path": "w14/canonical-autofill-run-manifest.json",
+      "bytes": 2528,
+      "sha256": "c27cec08232731145ae780250f260837b6e74235d0d601cd8ee675b2730c12d7"
+    },
+    {
+      "path": "w14/canonical-execution.json",
+      "bytes": 2900884,
+      "sha256": "9814ce166351bc56c5637cadf78ef5a1c2fccd5828f49cfd6fba676f608144b9"
+    },
+    {
+      "path": "w14/canonical-report-manifest.json",
+      "bytes": 624,
+      "sha256": "5f2f981f0be23a8d8f749957c560990811bcc1ec280c68f9a1c8dadd76ec60a0"
+    },
+    {
+      "path": "w14/canonical-report.html",
+      "bytes": 297600,
+      "sha256": "8ffac4746d30d0d22b2a5018df06c6a1fb87c75c797139884181718051c672d1"
+    },
+    {
+      "path": "w14/canonical-report.json",
+      "bytes": 1997587,
+      "sha256": "ed69ee2e68360bdadf43faa434d8b9b3dd5a8960f60c34c44e446397a2d1e790"
+    },
+    {
+      "path": "w14/canonical-report.md",
+      "bytes": 181702,
+      "sha256": "6289727994cebeb09f6bdb275b417e679ed1d2e93831f6f89a79bd04cf8c85c8"
+    },
+    {
+      "path": "w14/development-run.json.gz",
+      "bytes": 4177557,
+      "sha256": "38b30aeaa87d36cb16faff34e7864ff7b11860c09c16f7385d54285204b3abff"
+    },
+    {
+      "path": "w14/workday-en-us-contact.png",
+      "bytes": 108547,
+      "sha256": "8cbae9fe1ecf8469db1f01ec2a94992f0dd116b0dbd3b1ae841e34c2ea0c730b"
+    }
+  ]
+}

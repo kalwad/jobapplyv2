@@ -1,0 +1,13 @@
+{
+  "variant": "startonly",
+  "dropped_markers": [
+    "# DIAG-LOCK"
+  ],
+  "guest_driver": {
+    "windows11_bootstrap.ps1": "7e642dc75aa6eab9ad98fe4cc2fd6de618a5fbfa7265850c64abbc38593ff8d4",
+    "windows11_guest.ps1": "a44d92679d288c392614fb5360e29f3beef69fe210af932e2681c919663eaff6",
+    "windows11_owned.cs": "b41dd58e8887e4318d22db53df27d6daffe56eb60c49cab97331001c86559741"
+  },
+  "package_manifest_sha256": "0396ddf437aa100e9e75ffec032ee432165bb8a01958e652690965b62d4299d4",
+  "iso_sha256_checked_by_workflow": "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38"
+}

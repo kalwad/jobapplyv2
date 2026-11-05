@@ -1,0 +1,114 @@
+{
+  "created_utc": "2026-10-29T21:58:14.829510+00:00",
+  "actual_result": "PASS_LOCAL_FULL_FIXED_SOURCE",
+  "context": {
+    "commit": "f3a1c6f7ad62161c682d92f842003fd018c5eec1",
+    "tree": "298ac93fe910d8917d3863d48e5f6c2621bf3f17",
+    "start_utc": "2026-10-29T21:18:47.639663+00:00"
+  },
+  "source_files": 2348,
+  "runtime_files": 40,
+  "commands": [
+    {
+      "name": "doctor",
+      "argv": [
+        "pnpm",
+        "run",
+        "doctor"
+      ],
+      "pid": 60322,
+      "pgid": 60322,
+      "start_utc": "2026-10-29T21:18:47.640038+00:00",
+      "end_utc": "2026-10-29T21:18:55.427229+00:00",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 7.787180250044912,
+      "direct_child_reaped": true,
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": []
+    },
+    {
+      "name": "verify",
+      "argv": [
+        "pnpm",
+        "verify"
+      ],
+      "pid": 60466,
+      "pgid": 60466,
+      "start_utc": "2026-10-29T21:18:55.427578+00:00",
+      "end_utc": "2026-10-29T21:40:54.282729+00:00",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 1318.849237959017,
+      "direct_child_reaped": true,
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": []
+    }
+  ],
+  "closure": {
+    "end_utc": "2026-10-29T21:40:54.610219+00:00",
+    "source_count": 2348,
+    "runtime_count": 40,
+    "source_bytes_modes_unchanged": true,
+    "runtime_bytes_modes_unchanged": true,
+    "git_status_before": "",
+    "git_status_after": "",
+    "commit_and_tree_equal_at_end_observation": true,
+    "all_commands_exit_zero": true
+  },
+  "suite_results": {
+    "toolchain": "PASS",
+    "format": "PASS",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit-ts": "PASS",
+    "contract-gen": "PASS",
+    "fixture-corpus": "PASS",
+    "evaluation-corpus": "PASS",
+    "contract": "PASS",
+    "build": "PASS",
+    "e2e-browser": "PASS",
+    "w14-public-controlled": "PASS",
+    "w14-public-contact-controlled": "PASS",
+    "visual": "PASS",
+    "python": "PASS",
+    "rust": "PASS",
+    "portability": "PASS",
+    "traceability": "PASS",
+    "status": "PASS",
+    "integrity": "PASS"
+  },
+  "python": {
+    "passed": 2788,
+    "failed": 0,
+    "seconds": 448.19,
+    "aggregate_is_individual_passing_ID_proof": false
+  },
+  "visual": {
+    "original_files": 67,
+    "primary_PNG_paths": 19,
+    "distinct_PNG_bodies_freshly_viewed": 15,
+    "primary_metadata": 14,
+    "exact_attachment_aliases": 33,
+    "source_metadata_joins": 419,
+    "retention_utc": "2026-10-29T21:32:47.763072+00:00",
+    "retained_while_full_open": true,
+    "all19PNG_equal_prior": true,
+    "approval": "NOT_APPROVED",
+    "actual_native_ipc": false,
+    "native_service_proven": false,
+    "all67_bodies_in_original_nested_review_proof": true
+  },
+  "different_review": {
+    "report_sha256": "39c0b7ea10f32391c787afa31bbed1e1ce389899731c7a4e4d1355262535c7ec",
+    "manifest_sha256": "ec06f1fc9be90c4708133add2d3effeac7d9d8be9121f4999354f2e21744b3db",
+    "data_joins": 4833,
+    "verdict": "CLEAR_FINITE_ACTUAL_LOCAL_FULL_PASS"
+  },
+  "later_client_correction_or_hosted_result_transferred": false,
+  "formal_progress": "39/300; active M03-W07; unchanged",
+  "formal_progress_change": false,
+  "milestone_or_gate_or_release_credit": false,
+  "native_or_model_qualification": false,
+  "new_f3_CI_included": false
+}

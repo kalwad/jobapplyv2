@@ -1,0 +1,3114 @@
+[
+ {
+  "time": "2026-11-03 15:15:08.326458+00:00",
+  "provider": "EventLog",
+  "id": "6011",
+  "data": [
+   [
+    "",
+    "&lt;string&gt;WIN-HAS7VASQFPI&lt;/string&gt;\n&lt;string&gt;&lt;/string&gt;\n"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:15:08.326685+00:00",
+  "provider": "EventLog",
+  "id": "6009",
+  "data": [
+   [
+    "",
+    "&lt;string&gt;10.00.&lt;/string&gt;\n&lt;string&gt;26300&lt;/string&gt;\n&lt;string&gt;&lt;/string&gt;\n&lt;string&gt;Multiprocessor Free&lt;/string&gt;\n&lt;string&gt;0&lt;/string&gt;\n"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:15:08.326815+00:00",
+  "provider": "EventLog",
+  "id": "6005",
+  "data": [
+   [
+    "",
+    ""
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:13:50.554930+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "12",
+  "data": [
+   [
+    "MajorVersion",
+    "10"
+   ],
+   [
+    "MinorVersion",
+    "0"
+   ],
+   [
+    "BuildVersion",
+    "26100"
+   ],
+   [
+    "QfeVersion",
+    "9457"
+   ],
+   [
+    "ServiceVersion",
+    "0"
+   ],
+   [
+    "BootMode",
+    "0"
+   ],
+   [
+    "StartTime",
+    "2026-11-03 15:13:50.500000+00:00"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:13:50.554960+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "25",
+  "data": [
+   [
+    "SystemTime",
+    "2026-11-03 15:13:50.500000+00:00"
+   ],
+   [
+    "LoaderTime",
+    "2026-11-03 15:13:49+00:00"
+   ],
+   [
+    "InternalBootFlags",
+    "2"
+   ],
+   [
+    "HalRtcErrorCode",
+    "0"
+   ],
+   [
+    "RealTimeIsUniversal",
+    "False"
+   ],
+   [
+    "IsSoftBoot",
+    "False"
+   ],
+   [
+    "Success",
+    "True"
+   ],
+   [
+    "Phase",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:13:50.561871+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "20",
+  "data": [
+   [
+    "UpdateReason",
+    "0"
+   ],
+   [
+    "EnabledNew",
+    "True"
+   ],
+   [
+    "CountNew",
+    "0"
+   ],
+   [
+    "CountOld",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:13:51.870516+00:00",
+  "provider": "Microsoft-Windows-Kernel-Power",
+  "id": "172",
+  "data": [
+   [
+    "State",
+    "2"
+   ],
+   [
+    "Reason",
+    "6"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:13:51.941984+00:00",
+  "provider": "Microsoft-Windows-Kernel-Processor-Power",
+  "id": "55",
+  "data": [
+   [
+    "Group",
+    "0"
+   ],
+   [
+    "Number",
+    "0"
+   ],
+   [
+    "IdleStateCount",
+    "1"
+   ],
+   [
+    "IdleImplementation",
+    "1"
+   ],
+   [
+    "NominalFrequency",
+    "2300"
+   ],
+   [
+    "MaximumPerformancePercent",
+    "100"
+   ],
+   [
+    "MinimumPerformancePercent",
+    "100"
+   ],
+   [
+    "MinimumThrottlePercent",
+    "100"
+   ],
+   [
+    "PerformanceImplementation",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:13:51.945076+00:00",
+  "provider": "Microsoft-Windows-Kernel-Processor-Power",
+  "id": "55",
+  "data": [
+   [
+    "Group",
+    "0"
+   ],
+   [
+    "Number",
+    "1"
+   ],
+   [
+    "IdleStateCount",
+    "1"
+   ],
+   [
+    "IdleImplementation",
+    "1"
+   ],
+   [
+    "NominalFrequency",
+    "2300"
+   ],
+   [
+    "MaximumPerformancePercent",
+    "100"
+   ],
+   [
+    "MinimumPerformancePercent",
+    "100"
+   ],
+   [
+    "MinimumThrottlePercent",
+    "100"
+   ],
+   [
+    "PerformanceImplementation",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:13:53.152090+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "24",
+  "data": [
+   [
+    "ExitReason",
+    "0"
+   ],
+   [
+    "CurrentBias",
+    "480"
+   ],
+   [
+    "CurrentTimeZoneID",
+    "1"
+   ],
+   [
+    "TimeZoneInfoCacheUpdated",
+    "0"
+   ],
+   [
+    "FirstRefresh",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:13:57.933315+00:00",
+  "provider": "Microsoft-Windows-Wininit",
+  "id": "19",
+  "data": [
+   [
+    "HRESULT",
+    "0"
+   ],
+   [
+    "NewLatchTimerNeeded",
+    "False"
+   ],
+   [
+    "NewLatchTimerWaitingSystemUpdateCompletion",
+    "False"
+   ],
+   [
+    "PreviousLatchTimerExistsButDisabled",
+    "False"
+   ],
+   [
+    "PolicyFileExists",
+    "False"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:13:57.933382+00:00",
+  "provider": "Microsoft-Windows-Wininit",
+  "id": "25",
+  "data": [
+   [
+    "HRESULT",
+    "0"
+   ],
+   [
+    "PreviousTimerExists",
+    "False"
+   ],
+   [
+    "PreviousTimerStartTime",
+    "0001-01-01 00:00:00"
+   ],
+   [
+    "GracePeriod",
+    "0"
+   ],
+   [
+    "AttemptedRecoveryEnforcementSucceeded",
+    "False"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:13:57.936066+00:00",
+  "provider": "Microsoft-Windows-Wininit",
+  "id": "23",
+  "data": [
+   [
+    "HRESULT",
+    "0"
+   ],
+   [
+    "NewTimerNeeded",
+    "False"
+   ],
+   [
+    "NewTimerWaitingUpdateCompletion",
+    "False"
+   ],
+   [
+    "PreviousTimerExistsButDisabled",
+    "False"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:13:58.216681+00:00",
+  "provider": "Microsoft-Windows-Wininit",
+  "id": "14",
+  "data": [
+   [
+    "Config",
+    "0"
+   ],
+   [
+    "IsTestConfig",
+    "0"
+   ],
+   [
+    "IsAutoEnabled",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:13:58.276068+00:00",
+  "provider": "Microsoft-Windows-Wininit",
+  "id": "12",
+  "data": [
+   [
+    "Level",
+    "4"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:35.513748+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "162"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\1527c705-839a-4832-9118-54d4Bd6a0c89_10.0.19640.1000_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:35.896189+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "159"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\c5e2524a-ea46-4f67-841f-6a9465d9d515_10.0.26100.1_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:36.282755+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "162"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\E2A4F912-2574-4A75-9BB0-0D023378592B_10.0.19640.1000_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:36.637959+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "159"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE_10.0.26100.1_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:37.010735+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "154"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.AAD.BrokerPlugin_1000.19580.1000.2_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:37.448170+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "141"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.AccountsControl_10.0.26100.1_neutral__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:37.803097+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "137"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.AIFabric.CBS.1.6_1.6.951.100_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:38.168093+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "142"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.AsyncTextService_10.0.26100.1_neutral__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:38.537529+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "142"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.BioEnrollment_10.0.19587.1000_neutral__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:38.970482+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "143"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.CredDialogHost_10.0.19595.1001_neutral__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:39.348104+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "134"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.ECApp_10.0.26100.9278_neutral__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:39.771427+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "136"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.LockApp_10.0.26100.9278_neutral__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:40.498507+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "135"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.UI.Xaml.CBS_9.2603.18001.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:40.919405+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "149"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Win32WebViewHost_10.0.26100.1_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:41.282600+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "159"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.Apprep.ChxApp_1000.25128.1000.0_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:41.652304+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "167"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.AssignedAccessLockApp_1000.25128.1000.0_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:41.987644+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "142"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.AugLoop.CBS_1.1126.2131.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:42.321215+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "150"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.CapturePicker_10.0.19580.1000_neutral__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:42.718466+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "160"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.CloudExperienceHost_10.0.26100.1_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:43.154049+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "163"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.ContentDeliveryManager_10.0.26100.1_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:43.518757+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "159"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.NarratorQuickStart_10.0.26100.1_neutral_neutral_8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:43.914738+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "161"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.OOBENetworkCaptivePortal_10.0.26569.1000_neutral__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:44.327053+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "162"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.OOBENetworkConnectionFlow_10.0.26569.1000_neutral__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:44.688540+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "162"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.ParentalControls_1000.25128.1000.0_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:45.078260+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "161"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.PeopleExperienceHost_10.0.26100.1_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:45.438885+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "164"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.PinningConfirmationDialog_1000.25140.1001.0_neutral__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:45.834143+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "158"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.PrintQueueActionCenter_1.0.2.0_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:46.253443+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "164"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.SecureAssessmentBrowser_10.0.26100.1_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:46.700575+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "163"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.ShellExperienceHost_10.0.26100.8115_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:47.158638+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "167"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.StartMenuExperienceHost_10.0.26100.4768_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:47.520134+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "156"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.XGpuEjectDialog_10.0.26100.1_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:48.206245+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "151"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.WindowsAppRuntime.CBS.1.6_6000.900.156.100_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:49.013161+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "142"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.WindowsAppRuntime.CBS.2_2.2.0.100_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:49.472286+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "156"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.XboxGameCallableUI_1000.25128.1000.0_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:49.934038+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "149"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\MicrosoftWindows.61869720.Voiess_1000.26100.9278.0_x64__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:50.399866+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "149"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\MicrosoftWindows.61869721.Livtop_1000.26100.9278.0_x64__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:50.822657+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "149"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\MicrosoftWindows.61869722.Speion_1000.26100.9278.0_x64__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:51.324944+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "149"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\MicrosoftWindows.61869836.InpApp_1000.26100.9278.0_x64__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:52.814075+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "143"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\MicrosoftWindows.Client.CBS_1000.26100.360.0_x64__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:53.559967+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "147"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\MicrosoftWindows.Client.CoreAI_1000.26100.9457.0_x64__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:54.517506+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "144"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\MicrosoftWindows.Client.Core_1000.26100.133.0_x64__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:55.152788+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "146"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\MicrosoftWindows.Client.FileExp_1000.26100.10.0_x64__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:55.696611+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "143"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\MicrosoftWindows.Client.OOBE_1000.26100.55.0_x64__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:56.191141+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "145"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\MicrosoftWindows.Client.Photon_1000.26100.10.0_x64__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:56.952120+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "144"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Windows.CBSPreview_10.0.19580.1000_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:57.377604+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "151"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\windows.immersivecontrolpanel_10.0.8.1000_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:14:57.778973+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "137"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Windows.PrintDialog_6.2.3.0_neutral_neutral_cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:15:07.192636+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "31"
+   ],
+   [
+    "HiveName",
+    "\\SystemRoot\\System32\\Config\\BBI"
+   ],
+   [
+    "KeysUpdated",
+    "1"
+   ],
+   [
+    "DirtyPages",
+    "1"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:15:34.836271+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "146"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.WindowsAppRuntime.1.3_3000.934.1904.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:15:37.337679+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "135"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.UI.Xaml.2.8_8.2310.30001.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:15:39.440481+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "134"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Clipchamp.Clipchamp_3.0.10220.0_neutral__yxz26nhyzhsrt\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:15:43.329990+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "125"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.BingNews_1.0.2.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:15:44.390568+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "128"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.BingSearch_1.0.79.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:15:45.920282+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "128"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.BingWeather_3.2.9.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:15:47.279819+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "141"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.DesktopAppInstaller_1.21.10120.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:15:48.825909+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "132"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.GamingApp_2402.900.28.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:15:51.588547+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "132"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.GetHelp_10.2302.10601.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:15:55.296951+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "149"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.MicrosoftSolitaireCollection_4.19.3190.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:15:56.647655+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "140"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.MicrosoftStickyNotes_4.0.4602.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:15:59.985863+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "127"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Paint_11.2302.20.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:03.806765+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "134"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.ScreenSketch_11.2307.52.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:05.111084+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "135"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.SecHealthUI_1000.26100.1.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:07.327902+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "140"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.StorePurchaseApp_22312.1400.6.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:08.564936+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "128"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Todos_0.104.62421.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:10.162527+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "139"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.WebMediaExtensions_1.0.62931.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:13.490339+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "140"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Windows.Photos_24.24010.29003.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:14.932343+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "132"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.WindowsAlarms_1.0.188.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:16.490927+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "138"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.WindowsCalculator_11.2311.0.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:18.160339+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "136"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.WindowsCamera_2023.2312.3.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:20.004732+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "142"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.WindowsFeedbackHub_1.2401.20253.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:21.678812+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "136"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.WindowsNotepad_11.2312.18.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:23.203636+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "138"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.WindowsSoundRecorder_1.0.76.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:25.419725+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "136"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.WindowsStore_22401.1400.6.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:27.068531+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "137"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.WindowsTerminal_1.18.10301.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:27.993700+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "131"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.Xbox.TCUI_1.23.28005.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:29.179821+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "139"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.XboxGamingOverlay_2.624.1111.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:30.344355+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "144"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.XboxIdentityProvider_12.110.15002.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:31.490068+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "145"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.XboxSpeechToTextOverlay_1.97.17002.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:32.954939+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "132"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.YourPhone_0.24012.105.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:35.096977+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "130"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.ZuneMusic_11.2312.8.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:51.981951+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "151"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\MicrosoftWindows.Client.WebExperience_424.1301.270.9_x64__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:53.594297+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "140"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\MicrosoftWindows.CrossDevice_0.23101.22.0_x64__cw5n1h2txyewy\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:16:57.395182+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "85"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Provisioning\\Microsoft-Desktop-Provisioning-Sequence.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:17:13.239817+00:00",
+  "provider": "Microsoft-Windows-UserModePowerService",
+  "id": "22",
+  "data": [
+   [
+    "Turn",
+    "1"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:17:22.735485+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "15",
+  "data": [
+   [
+    "HiveNameLength",
+    "52"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\WINDOWS\\System32\\SMI\\Store\\Machine\\SCHEMA.DAT"
+   ],
+   [
+    "OriginalSize",
+    "12283904"
+   ],
+   [
+    "NewSize",
+    "10915840"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:17:45.299667+00:00",
+  "provider": "Microsoft-Windows-UserModePowerService",
+  "id": "12",
+  "data": [
+   [
+    "ProcessPath",
+    "C:\\Windows\\System32\\powercfg.exe"
+   ],
+   [
+    "ProcessPid",
+    "3168"
+   ],
+   [
+    "OldSchemeGuid",
+    "{381b4222-f694-41f0-9685-ff5bb260df2e}"
+   ],
+   [
+    "NewSchemeGuid",
+    "{381b4222-f694-41f0-9685-ff5bb260df2e}"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:17:48.180725+00:00",
+  "provider": "EventLog",
+  "id": "6006",
+  "data": [
+   [
+    "",
+    ""
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:17:47.549131+00:00",
+  "provider": "User32",
+  "id": "1074",
+  "data": [
+   [
+    "param1",
+    "C:\\WINDOWS\\system32\\winlogon.exe (MINWINPC)"
+   ],
+   [
+    "param2",
+    "WIN-HAS7VASQFPI"
+   ],
+   [
+    "param3",
+    "Operating System: Upgrade (Planned)"
+   ],
+   [
+    "param4",
+    "0x80020003"
+   ],
+   [
+    "param5",
+    "restart"
+   ],
+   [
+    "param6",
+    ""
+   ],
+   [
+    "param7",
+    "NT AUTHORITY\\SYSTEM"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:18:16.663479+00:00",
+  "provider": "EventLog",
+  "id": "6011",
+  "data": [
+   [
+    "",
+    "&lt;string&gt;WIN-HAS7VASQFPI&lt;/string&gt;\n&lt;string&gt;DESKTOP-6RJR6V2&lt;/string&gt;\n"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:18:16.664612+00:00",
+  "provider": "EventLog",
+  "id": "6009",
+  "data": [
+   [
+    "",
+    "&lt;string&gt;10.00.&lt;/string&gt;\n&lt;string&gt;26300&lt;/string&gt;\n&lt;string&gt;&lt;/string&gt;\n&lt;string&gt;Multiprocessor Free&lt;/string&gt;\n&lt;string&gt;0&lt;/string&gt;\n"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:18:16.664713+00:00",
+  "provider": "EventLog",
+  "id": "6005",
+  "data": [
+   [
+    "",
+    ""
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:18:16.665100+00:00",
+  "provider": "EventLog",
+  "id": "6013",
+  "data": [
+   [
+    "",
+    "&lt;string&gt;18&lt;/string&gt;\n&lt;string&gt;&lt;/string&gt;\n&lt;string&gt;18&lt;/string&gt;\n&lt;string&gt;60&lt;/string&gt;\n&lt;string&gt;480 Pacific Standard Time&lt;/string&gt;\n"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:17:52.488539+00:00",
+  "provider": "Microsoft-Windows-Kernel-Power",
+  "id": "109",
+  "data": [
+   [
+    "ShutdownActionType",
+    "5"
+   ],
+   [
+    "ShutdownEventCode",
+    "0"
+   ],
+   [
+    "ShutdownReason",
+    "5"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:17:53.855335+00:00",
+  "provider": "Microsoft-Windows-Kernel-Power",
+  "id": "577",
+  "data": [
+   [
+    "AdaptiveTargetState",
+    "0"
+   ],
+   [
+    "IsUnattended",
+    "False"
+   ],
+   [
+    "Status",
+    "279"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:17:54.166327+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "13",
+  "data": [
+   [
+    "StopTime",
+    "2026-11-03 15:17:54.166313+00:00"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:17:58.770090+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "12",
+  "data": [
+   [
+    "MajorVersion",
+    "10"
+   ],
+   [
+    "MinorVersion",
+    "0"
+   ],
+   [
+    "BuildVersion",
+    "26100"
+   ],
+   [
+    "QfeVersion",
+    "9457"
+   ],
+   [
+    "ServiceVersion",
+    "0"
+   ],
+   [
+    "BootMode",
+    "0"
+   ],
+   [
+    "StartTime",
+    "2026-11-03 15:17:58.500000+00:00"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:17:58.770105+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "25",
+  "data": [
+   [
+    "SystemTime",
+    "2026-11-03 15:17:58.500000+00:00"
+   ],
+   [
+    "LoaderTime",
+    "2026-11-03 15:17:57+00:00"
+   ],
+   [
+    "InternalBootFlags",
+    "2"
+   ],
+   [
+    "HalRtcErrorCode",
+    "0"
+   ],
+   [
+    "RealTimeIsUniversal",
+    "False"
+   ],
+   [
+    "IsSoftBoot",
+    "False"
+   ],
+   [
+    "Success",
+    "True"
+   ],
+   [
+    "Phase",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:17:58.775343+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "20",
+  "data": [
+   [
+    "UpdateReason",
+    "0"
+   ],
+   [
+    "EnabledNew",
+    "True"
+   ],
+   [
+    "CountNew",
+    "0"
+   ],
+   [
+    "CountOld",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:17:59.686405+00:00",
+  "provider": "Microsoft-Windows-Kernel-Power",
+  "id": "172",
+  "data": [
+   [
+    "State",
+    "2"
+   ],
+   [
+    "Reason",
+    "6"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:17:59.888660+00:00",
+  "provider": "Microsoft-Windows-Kernel-Processor-Power",
+  "id": "55",
+  "data": [
+   [
+    "Group",
+    "0"
+   ],
+   [
+    "Number",
+    "0"
+   ],
+   [
+    "IdleStateCount",
+    "1"
+   ],
+   [
+    "IdleImplementation",
+    "1"
+   ],
+   [
+    "NominalFrequency",
+    "2300"
+   ],
+   [
+    "MaximumPerformancePercent",
+    "100"
+   ],
+   [
+    "MinimumPerformancePercent",
+    "100"
+   ],
+   [
+    "MinimumThrottlePercent",
+    "100"
+   ],
+   [
+    "PerformanceImplementation",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:17:59.897570+00:00",
+  "provider": "Microsoft-Windows-Kernel-Processor-Power",
+  "id": "55",
+  "data": [
+   [
+    "Group",
+    "0"
+   ],
+   [
+    "Number",
+    "1"
+   ],
+   [
+    "IdleStateCount",
+    "1"
+   ],
+   [
+    "IdleImplementation",
+    "1"
+   ],
+   [
+    "NominalFrequency",
+    "2300"
+   ],
+   [
+    "MaximumPerformancePercent",
+    "100"
+   ],
+   [
+    "MinimumPerformancePercent",
+    "100"
+   ],
+   [
+    "MinimumThrottlePercent",
+    "100"
+   ],
+   [
+    "PerformanceImplementation",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:18:00.589613+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "24",
+  "data": [
+   [
+    "ExitReason",
+    "0"
+   ],
+   [
+    "CurrentBias",
+    "480"
+   ],
+   [
+    "CurrentTimeZoneID",
+    "1"
+   ],
+   [
+    "TimeZoneInfoCacheUpdated",
+    "0"
+   ],
+   [
+    "FirstRefresh",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:18:01.243437+00:00",
+  "provider": "Microsoft-Windows-Wininit",
+  "id": "19",
+  "data": [
+   [
+    "HRESULT",
+    "0"
+   ],
+   [
+    "NewLatchTimerNeeded",
+    "False"
+   ],
+   [
+    "NewLatchTimerWaitingSystemUpdateCompletion",
+    "False"
+   ],
+   [
+    "PreviousLatchTimerExistsButDisabled",
+    "False"
+   ],
+   [
+    "PolicyFileExists",
+    "False"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:18:01.243471+00:00",
+  "provider": "Microsoft-Windows-Wininit",
+  "id": "25",
+  "data": [
+   [
+    "HRESULT",
+    "0"
+   ],
+   [
+    "PreviousTimerExists",
+    "False"
+   ],
+   [
+    "PreviousTimerStartTime",
+    "0001-01-01 00:00:00"
+   ],
+   [
+    "GracePeriod",
+    "0"
+   ],
+   [
+    "AttemptedRecoveryEnforcementSucceeded",
+    "False"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:18:01.244511+00:00",
+  "provider": "Microsoft-Windows-Wininit",
+  "id": "23",
+  "data": [
+   [
+    "HRESULT",
+    "0"
+   ],
+   [
+    "NewTimerNeeded",
+    "False"
+   ],
+   [
+    "NewTimerWaitingUpdateCompletion",
+    "False"
+   ],
+   [
+    "PreviousTimerExistsButDisabled",
+    "False"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:18:01.487833+00:00",
+  "provider": "Microsoft-Windows-Wininit",
+  "id": "14",
+  "data": [
+   [
+    "Config",
+    "2"
+   ],
+   [
+    "IsTestConfig",
+    "0"
+   ],
+   [
+    "IsAutoEnabled",
+    "1"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:18:01.487879+00:00",
+  "provider": "Microsoft-Windows-Wininit",
+  "id": "15",
+  "data": []
+ },
+ {
+  "time": "2026-11-03 15:18:01.494707+00:00",
+  "provider": "Microsoft-Windows-Wininit",
+  "id": "12",
+  "data": [
+   [
+    "Level",
+    "4"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:18:22.156824+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "24",
+  "data": [
+   [
+    "ExitReason",
+    "0"
+   ],
+   [
+    "CurrentBias",
+    "480"
+   ],
+   [
+    "CurrentTimeZoneID",
+    "1"
+   ],
+   [
+    "TimeZoneInfoCacheUpdated",
+    "0"
+   ],
+   [
+    "FirstRefresh",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:18:22.157251+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "1",
+  "data": [
+   [
+    "NewTime",
+    "2026-11-03 15:18:22.155415+00:00"
+   ],
+   [
+    "OldTime",
+    "2026-11-03 15:18:22.155415+00:00"
+   ],
+   [
+    "TimeDeltaInMs",
+    "0"
+   ],
+   [
+    "Reason",
+    "3"
+   ],
+   [
+    "ProcessName",
+    "\\Device\\HarddiskVolume3\\Windows\\System32\\oobe\\msoobe.exe"
+   ],
+   [
+    "ProcessID",
+    "1612"
+   ],
+   [
+    "CmosTime",
+    "2026-11-03 07:18:22.155415+00:00"
+   ],
+   [
+    "TimeZoneBias",
+    "480"
+   ],
+   [
+    "RealTimeIsUniversal",
+    "False"
+   ],
+   [
+    "SystemInCmosMode",
+    "False"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:18:49.774231+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "122"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\Users\\defaultuser0\\AppData\\Local\\Packages\\Microsoft.Windows.CloudExperienceHost_cw5n1h2txyewy\\Settings\\settings.dat"
+   ],
+   [
+    "KeysUpdated",
+    "3"
+   ],
+   [
+    "DirtyPages",
+    "1"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:18:59.265036+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "111"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\Users\\defaultuser0\\AppData\\Local\\Packages\\Microsoft.AAD.BrokerPlugin_cw5n1h2txyewy\\Settings\\settings.dat"
+   ],
+   [
+    "KeysUpdated",
+    "3"
+   ],
+   [
+    "DirtyPages",
+    "1"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:19:28.679285+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "111"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\Users\\JappFixture\\AppData\\Local\\Packages\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\Settings\\settings.dat"
+   ],
+   [
+    "KeysUpdated",
+    "3"
+   ],
+   [
+    "DirtyPages",
+    "1"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:19:29.879305+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "125"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\Users\\JappFixture\\AppData\\Local\\Packages\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\Settings\\settings.dat"
+   ],
+   [
+    "KeysUpdated",
+    "3"
+   ],
+   [
+    "DirtyPages",
+    "1"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:19:36.898304+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "110"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\Users\\JappFixture\\AppData\\Local\\Packages\\Microsoft.AAD.BrokerPlugin_cw5n1h2txyewy\\Settings\\settings.dat"
+   ],
+   [
+    "KeysUpdated",
+    "3"
+   ],
+   [
+    "DirtyPages",
+    "1"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:19:43.678102+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "128"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\ProgramData\\Microsoft\\Windows\\AppRepository\\Packages\\Microsoft.BingSearch_1.1.43.0_x64__8wekyb3d8bbwe\\ActivationStore.dat"
+   ],
+   [
+    "KeysUpdated",
+    "0"
+   ],
+   [
+    "DirtyPages",
+    "0"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:20:57.246984+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "124"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\Users\\JappFixture\\AppData\\Local\\Packages\\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\\Settings\\settings.dat"
+   ],
+   [
+    "KeysUpdated",
+    "3"
+   ],
+   [
+    "DirtyPages",
+    "1"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:21:25.797846+00:00",
+  "provider": "Microsoft-Windows-Kernel-General",
+  "id": "16",
+  "data": [
+   [
+    "HiveNameLength",
+    "106"
+   ],
+   [
+    "HiveName",
+    "\\??\\C:\\Users\\JappFixture\\AppData\\Local\\Packages\\Microsoft.WindowsStore_8wekyb3d8bbwe\\Settings\\settings.dat"
+   ],
+   [
+    "KeysUpdated",
+    "3"
+   ],
+   [
+    "DirtyPages",
+    "1"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:26:30.075914+00:00",
+  "provider": "User32",
+  "id": "1074",
+  "data": [
+   [
+    "param1",
+    "C:\\WINDOWS\\system32\\winlogon.exe (WIN-HAS7VASQFPI)"
+   ],
+   [
+    "param2",
+    "DESKTOP-6RJR6V2"
+   ],
+   [
+    "param3",
+    "No title for this reason could be found"
+   ],
+   [
+    "param4",
+    "0x500ff"
+   ],
+   [
+    "param5",
+    "power off"
+   ],
+   [
+    "param6",
+    ""
+   ],
+   [
+    "param7",
+    "NT AUTHORITY\\SYSTEM"
+   ]
+  ]
+ },
+ {
+  "time": "2026-11-03 15:26:43.279808+00:00",
+  "provider": "EventLog",
+  "id": "6006",
+  "data": [
+   [
+    "",
+    ""
+   ]
+  ]
+ }
+]

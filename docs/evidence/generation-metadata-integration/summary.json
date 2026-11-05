@@ -1,0 +1,43 @@
+{
+  "scope": "HISTORICAL_DIRTY_SOURCE_BOUND_PYTHON_FOCUS_COLLECTION_PURE_WHEELS_NOT_WHOLECURRENT_ACCEPTANCE",
+  "check_count": 219,
+  "passed": 219,
+  "canonical_writes": 0,
+  "reruns_imports_native_or_model_actors": 0,
+  "focus_v1": {
+    "actual_import_collection_errors": 5,
+    "pytest_exit": 2,
+    "source_files": 2026
+  },
+  "focus_v2": {
+    "ordinary_passes": 202,
+    "full_collected": 2062,
+    "common_inventory": 2060,
+    "source_files": 2026
+  },
+  "focus_v3": {
+    "ordinary_passes": 224,
+    "full_collected": 2084,
+    "common_inventory": 2082,
+    "source_files": 2031
+  },
+  "original_common_ids_retained": 1858,
+  "posix_only_unchanged": 2,
+  "observed_direct_children": 14,
+  "direct_children_reaped_and_groups_absent": 14,
+  "outer_cleanup_signals": 0,
+  "final_wheel_sha256": "cdc50bdbc6e7edd3be54e4dfe0dd82f1fc3546399858f2c36a878d9ce17a108a",
+  "contracts_wheel_sha256": "d1ac6f4725a98bb35dca624192bc80b89d4634a3558467b80b6b2f190b2c6d7c",
+  "first_wheel_serializer_error": "REPORTED_OBSERVER_BOOKKEEPING_FAILURE_ONLY_RAW_NOT_RETAINED",
+  "tool_output_only_24_pass_checks": "OMITTED_FROM_DURABLE_PROOF",
+  "current_whole_tree_transfer": false,
+  "states": {
+    "M03-W06": "IN_PROGRESS",
+    "M03": "IN_PROGRESS",
+    "verified": 38,
+    "M05": "NOT_STARTED",
+    "release": "NOT_READY"
+  },
+  "permission_modes": "FULL_SOURCE_PERMISSION_MODES_RECORDED_EQUAL_WITHIN_EACH_PHASE",
+  "model_qualification_or_inference_or_activation_claims": false
+}

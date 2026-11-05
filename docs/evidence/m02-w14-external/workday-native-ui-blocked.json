@@ -1,0 +1,256 @@
+{
+  "format_version": "W14_WORKDAY_MANUAL_BOUNDARY_CONTINUATION_1",
+  "authority": "NONE",
+  "created_at": "2026-10-16T16:25:13.163798+00:00",
+  "mode": "PUBLIC_NO_SUBMIT_NORMAL_NAVIGATION_PLANNED_NOT_EXECUTED",
+  "source_matrix": {
+    "path": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w14-external/public-current-matrix.json",
+    "sha256": "9a9c933add2266977b9fe4f59996531719f27fbdefc44f423c09a410c6dec214",
+    "frozen_source_unchanged": true
+  },
+  "permitted_action": "Only exact unique visible actionable Apply Manually choice on the10recorded publicURLs; noforceclick, noinputs/uploads/account/login/challenge/consent/submit; stop at protected boundary.",
+  "browser_inventory_observed": {
+    "available_browsers": [
+      {
+        "id": "1",
+        "name": "Chrome",
+        "type": "extension"
+      }
+    ],
+    "advertised_capabilities": [
+      "viewport"
+    ],
+    "anonymous_context_api_advertised": false
+  },
+  "private_window_setup": {
+    "tool": "cua.getApp",
+    "argument": "Google Chrome",
+    "outcome": "NATIVE_MAC_LOCKED_AUTOMATIC_UNLOCK_FAILED",
+    "observed_tool_message": "The Mac is locked and automatic unlock could not unlock it. Ask the user to unlock the Mac manually before continuing.",
+    "new_private_window_created": false,
+    "alternate_ui_technology_used": false,
+    "existing_authenticated_profile_used": false
+  },
+  "rows": [
+    {
+      "source_evidence_row_id": "PUBLIC-SUPPLEMENT-08",
+      "employer": "Salesforce",
+      "source_url": "https://salesforce.wd12.myworkdayjobs.com/en-US/external_career_site/job/Illinois---Chicago/Keynote-Production-Associate-Manager_JR363084/apply",
+      "source_url_digest": "sha256:d8288d7387244a54f2ef8f3117e0655c6a08952ca1352e1f67cdbe61feceb13d",
+      "before": {
+        "provenance": "HISTORICAL_IMMUTABLE_MATRIX_NOT_FRESH_REOBSERVATION",
+        "observed_at": "2026-10-16T15:32:55.288Z",
+        "title": "Keynote Production Associate Manager",
+        "structural_state": "APPLICATION_METHOD_CHOICE_NOT_ACTIVATED",
+        "visible_application_method_buttons": [
+          "Autofill with Resume",
+          "Apply Manually",
+          "Use My Last Application"
+        ],
+        "visible_ordinary_controls": 0
+      },
+      "choice_activation": "NOT_ATTEMPTED_NATIVE_PRIVATE_CONTEXT_UNAVAILABLE",
+      "after": null
+    },
+    {
+      "source_evidence_row_id": "PUBLIC-SUPPLEMENT-09",
+      "employer": "Intel",
+      "source_url": "https://intel.wd1.myworkdayjobs.com/en-US/External/job/US-Oregon-Hillsboro/Yield-Product-Development-Engineer_JR0288027/apply",
+      "source_url_digest": "sha256:e73157e28ef7938d3f6ea64a23e756bb6224736e6dfae930d6deffa159271c1f",
+      "before": {
+        "provenance": "HISTORICAL_IMMUTABLE_MATRIX_NOT_FRESH_REOBSERVATION",
+        "observed_at": "2026-10-16T15:32:59.714Z",
+        "title": "Yield Product Development Engineer",
+        "structural_state": "APPLICATION_METHOD_CHOICE_NOT_ACTIVATED",
+        "visible_application_method_buttons": [
+          "Autofill with Resume",
+          "Apply Manually",
+          "Use My Last Application"
+        ],
+        "visible_ordinary_controls": 0
+      },
+      "choice_activation": "NOT_ATTEMPTED_NATIVE_PRIVATE_CONTEXT_UNAVAILABLE",
+      "after": null
+    },
+    {
+      "source_evidence_row_id": "PUBLIC-SUPPLEMENT-10",
+      "employer": "Broadridge",
+      "source_url": "https://broadridge.wd5.myworkdayjobs.com/en-US/Careers/job/Newark-NJ/C--Net-Developer-with-Automation-Skills--CONTRACT--REMOTE_JR1085850/apply",
+      "source_url_digest": "sha256:064aab246cf1116106820caff9f07541576296e6a6db64409bf95629f88ba062",
+      "before": {
+        "provenance": "HISTORICAL_IMMUTABLE_MATRIX_NOT_FRESH_REOBSERVATION",
+        "observed_at": "2026-10-16T15:33:04.255Z",
+        "title": "C#/.Net Developer with Automation Skills (CONTRACT) ON-SITE",
+        "structural_state": "APPLICATION_METHOD_CHOICE_NOT_ACTIVATED",
+        "visible_application_method_buttons": [
+          "Autofill with Resume",
+          "Apply Manually",
+          "Use My Last Application"
+        ],
+        "visible_ordinary_controls": 0
+      },
+      "choice_activation": "NOT_ATTEMPTED_NATIVE_PRIVATE_CONTEXT_UNAVAILABLE",
+      "after": null
+    },
+    {
+      "source_evidence_row_id": "PUBLIC-SUPPLEMENT-11",
+      "employer": "FactSet",
+      "source_url": "https://factset.wd108.myworkdayjobs.com/en-US/FactSetCareers/job/London-GBR/Legal-Counsel--Data-Privacy---Technology_R33395-1/apply",
+      "source_url_digest": "sha256:6d39fa0a77c4b9b6a9198c401fd02d254c258cb14456470272c95fb4579bd2e9",
+      "before": {
+        "provenance": "HISTORICAL_IMMUTABLE_MATRIX_NOT_FRESH_REOBSERVATION",
+        "observed_at": "2026-10-16T15:33:09.057Z",
+        "title": "Legal Counsel- Data Privacy & Technology",
+        "structural_state": "APPLICATION_METHOD_CHOICE_NOT_ACTIVATED",
+        "visible_application_method_buttons": [
+          "Autofill with Resume",
+          "Apply Manually",
+          "Use My Last Application"
+        ],
+        "visible_ordinary_controls": 0
+      },
+      "choice_activation": "NOT_ATTEMPTED_NATIVE_PRIVATE_CONTEXT_UNAVAILABLE",
+      "after": null
+    },
+    {
+      "source_evidence_row_id": "PUBLIC-SUPPLEMENT-12",
+      "employer": "Allegion",
+      "source_url": "https://allegion.wd5.myworkdayjobs.com/en-US/careers/job/Carmel-IN/DevOps-Engineer_JR37668/apply",
+      "source_url_digest": "sha256:b318970bd71d39c101f8e731c06ddf5e4dfbcf7391808e6a17788ad0e2bdb973",
+      "before": {
+        "provenance": "HISTORICAL_IMMUTABLE_MATRIX_NOT_FRESH_REOBSERVATION",
+        "observed_at": "2026-10-16T15:33:13.544Z",
+        "title": "DevOps Engineer",
+        "structural_state": "APPLICATION_METHOD_CHOICE_NOT_ACTIVATED",
+        "visible_application_method_buttons": [
+          "Autofill with Resume",
+          "Apply Manually",
+          "Use My Last Application"
+        ],
+        "visible_ordinary_controls": 0
+      },
+      "choice_activation": "NOT_ATTEMPTED_NATIVE_PRIVATE_CONTEXT_UNAVAILABLE",
+      "after": null
+    },
+    {
+      "source_evidence_row_id": "PUBLIC-SUPPLEMENT-13",
+      "employer": "Duke Energy",
+      "source_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/St-Petersburg-FL/Associate-Stakeholder-Engagement-Manager---Stakeholder-Engagement-Manager_R42040/apply",
+      "source_url_digest": "sha256:b4fd0aca6f0fc61bd7c105df5ae6f119f4e0a5f99e5c44eedeb0b48cb7d62451",
+      "before": {
+        "provenance": "HISTORICAL_IMMUTABLE_MATRIX_NOT_FRESH_REOBSERVATION",
+        "observed_at": "2026-10-16T15:33:18.154Z",
+        "title": "Associate Stakeholder Engagement Manager / Stakeholder Engagement Manager",
+        "structural_state": "APPLICATION_METHOD_CHOICE_NOT_ACTIVATED",
+        "visible_application_method_buttons": [
+          "Autofill with Resume",
+          "Apply Manually",
+          "Use My Last Application"
+        ],
+        "visible_ordinary_controls": 0
+      },
+      "choice_activation": "NOT_ATTEMPTED_NATIVE_PRIVATE_CONTEXT_UNAVAILABLE",
+      "after": null
+    },
+    {
+      "source_evidence_row_id": "PUBLIC-SUPPLEMENT-14",
+      "employer": "CoStar",
+      "source_url": "https://costar.wd1.myworkdayjobs.com/en-US/Costar_Campus/job/US-VA-Richmond---CoStar-Tower/Product-Intern---Richmond--VA--Summer-2027-_R39900/apply",
+      "source_url_digest": "sha256:4ee1ef922d4cadd7c57ec5fa47ec35796f2f1f598f981edcf14e7108177b8b56",
+      "before": {
+        "provenance": "HISTORICAL_IMMUTABLE_MATRIX_NOT_FRESH_REOBSERVATION",
+        "observed_at": "2026-10-16T15:33:22.797Z",
+        "title": "Product Intern - Richmond, VA (Summer 2027)",
+        "structural_state": "APPLICATION_METHOD_CHOICE_NOT_ACTIVATED",
+        "visible_application_method_buttons": [
+          "Autofill with Resume",
+          "Apply Manually",
+          "Use My Last Application"
+        ],
+        "visible_ordinary_controls": 0
+      },
+      "choice_activation": "NOT_ATTEMPTED_NATIVE_PRIVATE_CONTEXT_UNAVAILABLE",
+      "after": null
+    },
+    {
+      "source_evidence_row_id": "PUBLIC-FINAL-01",
+      "employer": "Medtronic",
+      "source_url": "https://medtronic.wd1.myworkdayjobs.com/en-US/MedtronicCareers/job/Taguig-City-National-Capital-Region-Philippines/Credit-Services-Representative--Collections-Mid-shift-_R76693-1/apply",
+      "source_url_digest": "sha256:d78df4fc26396ae5cd23102387e44e12136ed7978f84c2f1f52a2b0308142b6a",
+      "before": {
+        "provenance": "HISTORICAL_IMMUTABLE_MATRIX_NOT_FRESH_REOBSERVATION",
+        "observed_at": "2026-10-16T15:34:26.823Z",
+        "title": "Credit Services Representative (Collections/Mid-shift)",
+        "structural_state": "APPLICATION_METHOD_CHOICE_NOT_ACTIVATED",
+        "visible_application_method_buttons": [
+          "Autofill with Resume",
+          "Apply Manually",
+          "Use My Last Application"
+        ],
+        "visible_ordinary_controls": 0
+      },
+      "choice_activation": "NOT_ATTEMPTED_NATIVE_PRIVATE_CONTEXT_UNAVAILABLE",
+      "after": null
+    },
+    {
+      "source_evidence_row_id": "PUBLIC-FINAL-02",
+      "employer": "Workday",
+      "source_url": "https://workday.wd5.myworkdayjobs.com/en-US/Workday/job/USA-IL-Chicago/Principal--Partner-Sales-Executive---GSI_JR-0110686/apply",
+      "source_url_digest": "sha256:06ff575e21260ed13f61fb25d06620f0721957acd950303aabc16b2bd5a9ead4",
+      "before": {
+        "provenance": "HISTORICAL_IMMUTABLE_MATRIX_NOT_FRESH_REOBSERVATION",
+        "observed_at": "2026-10-16T15:34:31.566Z",
+        "title": "Principal, Partner Sales Executive - Accenture",
+        "structural_state": "APPLICATION_METHOD_CHOICE_NOT_ACTIVATED",
+        "visible_application_method_buttons": [
+          "Autofill with Resume",
+          "Apply Manually",
+          "Use My Last Application"
+        ],
+        "visible_ordinary_controls": 0
+      },
+      "choice_activation": "NOT_ATTEMPTED_NATIVE_PRIVATE_CONTEXT_UNAVAILABLE",
+      "after": null
+    },
+    {
+      "source_evidence_row_id": "PUBLIC-FINAL-03",
+      "employer": "Boeing",
+      "source_url": "https://boeing.wd1.myworkdayjobs.com/en-US/external_subsidiary/job/USA---El-Segundo-CA/IT-Systems-Administrator---Millennium-Space-Systems_JR2026525275/apply",
+      "source_url_digest": "sha256:29a4e6d011d223ba6f6dac74a7956439c23ddeba46972c5d833a521acf5f49aa",
+      "before": {
+        "provenance": "HISTORICAL_IMMUTABLE_MATRIX_NOT_FRESH_REOBSERVATION",
+        "observed_at": "2026-10-16T15:34:36.276Z",
+        "title": "IT Systems Administrator \u2013 Millennium Space Systems",
+        "structural_state": "APPLICATION_METHOD_CHOICE_NOT_ACTIVATED",
+        "visible_application_method_buttons": [
+          "Autofill with Resume",
+          "Apply Manually",
+          "Use My Last Application"
+        ],
+        "visible_ordinary_controls": 0
+      },
+      "choice_activation": "NOT_ATTEMPTED_NATIVE_PRIVATE_CONTEXT_UNAVAILABLE",
+      "after": null
+    }
+  ],
+  "counts": {
+    "source_rows": 10,
+    "fresh_anonymous_page_observations": 0,
+    "apply_manually_activations": 0,
+    "resulting_guest_forms_observed": 0,
+    "protected_post_choice_boundaries_observed": 0,
+    "inputs": 0,
+    "uploads": 0,
+    "login_actions": 0,
+    "consent_actions": 0,
+    "submissions": 0,
+    "extension_write_mode": 0
+  },
+  "next_required_input": "Native desktop unlock for normal private-window creation, or a specifically supported anonymous CUA browser surface. No credentials/account/session is requested by this record.",
+  "limitations": [
+    "The historical method-choice observations remain historical, not refreshed current availability.",
+    "No resultingURL or guestformavailability is invented; each afterstate isnull because no sourcepage was freshlyopened.",
+    "The locked desktop is a setup prerequisite, not evidence that any Workday source requires login or denies guest applications.",
+    "New guestformURLs, if laterobserved, require a separately frozen oracle and explicit grants review; no scope silentlyexpanded."
+  ]
+}

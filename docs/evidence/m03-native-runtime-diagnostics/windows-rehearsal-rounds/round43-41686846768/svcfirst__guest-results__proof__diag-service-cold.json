@@ -1,0 +1,1 @@
+﻿{"spawn_ms":1276,"first_bytes_ms":7603,"bytes":187,"frame":"{\"protocol\":\"JAPP_SERVICE_STATUS_V1\",\"schema_version\":\"1.0.0\",\"status\":\"READY\",\"bind_host\":\"127.0.0.1\",\"bind_port\":49673,\"instance_id\":\"svc_T842T81FXTQZWB80G75X6PDZDP\",\"generation\":1}","exited":false}

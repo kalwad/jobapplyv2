@@ -1,0 +1,128 @@
+{
+  "format_version": "W14_NATIVE_WITNESS_1",
+  "source": "CDP_EXTENSION_ISOLATED_REALM_NATIVE_1",
+  "realm": "ACTUAL_EXTENSION_CONTENT_SCRIPT",
+  "coverage": "COMPLETE_INSTALLED_NATIVE_SURFACES",
+  "surfaces": [
+    "INPUT_VALUE",
+    "TEXTAREA_VALUE",
+    "SELECT_VALUE",
+    "INPUT_CHECKED",
+    "INPUT_FILES",
+    "SELECT_INDEX",
+    "SCROLL_TOP",
+    "ACTIVATION",
+    "FOCUS",
+    "BLUR",
+    "EVENT_DISPATCH"
+  ],
+  "native_mutation_count": 7,
+  "interaction_count": 4,
+  "witnesses": [
+    {
+      "sequence": 1,
+      "surface": "INPUT_VALUE",
+      "key": "text",
+      "tag": "INPUT",
+      "type": "text",
+      "succeeded": true,
+      "value_digest": "sha256:f5defb7d8a17154e98e771f5f7645b0bf67d1400bafa961dcf38ed3a92beecc8"
+    },
+    {
+      "sequence": 2,
+      "surface": "TEXTAREA_VALUE",
+      "key": "area",
+      "tag": "TEXTAREA",
+      "type": "",
+      "succeeded": true,
+      "value_digest": "sha256:f5defb7d8a17154e98e771f5f7645b0bf67d1400bafa961dcf38ed3a92beecc8"
+    },
+    {
+      "sequence": 3,
+      "surface": "SELECT_VALUE",
+      "key": "select",
+      "tag": "SELECT",
+      "type": "",
+      "succeeded": true,
+      "value_digest": "sha256:b5e86cefc9cfb8c972b2ede02131e8a270e7fbc4216e7be80bf800aea5de029b"
+    },
+    {
+      "sequence": 4,
+      "surface": "INPUT_CHECKED",
+      "key": "check",
+      "tag": "INPUT",
+      "type": "checkbox",
+      "succeeded": true,
+      "value_digest": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+    },
+    {
+      "sequence": 5,
+      "surface": "INPUT_FILES",
+      "key": "file",
+      "tag": "INPUT",
+      "type": "file",
+      "succeeded": true,
+      "value_digest": null
+    },
+    {
+      "sequence": 6,
+      "surface": "SELECT_INDEX",
+      "key": "select",
+      "tag": "SELECT",
+      "type": "",
+      "succeeded": true,
+      "value_digest": "sha256:1bad6b8cf97131fceab8543e81f7757195fbb1d36b376ee994ad1cf17699c464"
+    },
+    {
+      "sequence": 7,
+      "surface": "ACTIVATION",
+      "key": "button",
+      "tag": "BUTTON",
+      "type": "",
+      "succeeded": true,
+      "value_digest": null
+    },
+    {
+      "sequence": 8,
+      "surface": "SCROLL_TOP",
+      "key": "scroll",
+      "tag": "DIV",
+      "type": "",
+      "succeeded": true,
+      "value_digest": "sha256:f5ca38f748a1d6eaf726b8a42fb575c3c71f1864a8143301782de13da2d9202b"
+    },
+    {
+      "sequence": 9,
+      "surface": "FOCUS",
+      "key": "text",
+      "tag": "INPUT",
+      "type": "text",
+      "succeeded": true,
+      "value_digest": null
+    },
+    {
+      "sequence": 10,
+      "surface": "BLUR",
+      "key": "text",
+      "tag": "INPUT",
+      "type": "text",
+      "succeeded": true,
+      "value_digest": null
+    },
+    {
+      "sequence": 11,
+      "surface": "EVENT_DISPATCH",
+      "key": "text",
+      "tag": "INPUT",
+      "type": "text",
+      "succeeded": true,
+      "value_digest": null
+    }
+  ],
+  "witnesses_digest": "sha256:b50216af4fce1ccda0638de469748e0645cc705859ed9335be03e58c621b5626",
+  "limitations": [
+    "Test-only prototype wrappers in the single actual extension realm; main-world page mutations are separate site behavior.",
+    "Counts attempted calls to installed native surfaces; browser-internal effects of an activation are represented by that activation.",
+    "No claim covers retained pre-install native references, other realms, uninstalled mutation APIs, closed shadow roots, or live employer forms."
+  ]
+}

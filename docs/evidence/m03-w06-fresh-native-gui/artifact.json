@@ -1,0 +1,12 @@
+{
+  "scope": "INDEPENDENT_FRESH_LOCAL_MACOS_NATIVE_GUI_LIFECYCLE_EVIDENCE_NO_MILESTONE_PROMOTION",
+  "archive": {
+    "sha256": "c0577d20bc0811292490494d725b083915b90d49a7fb1b53525ca809cc20504d",
+    "bytes": 753184,
+    "safe_regular_members": 46
+  },
+  "review_sha256": "8b00aef7b685f14709fe9fb5422869eb156a5003bf7704d94aa020da3d0b657c",
+  "audit_sha256": "9e5a00b9232e7f63c0d6385dad82fc221e345f2b6352750154ef66ce76c1cf4f",
+  "review_manifest_sha256": "7f7476b1624c8607ef62a3fdb63e337937fc57e0c92d98e81e4228d4f9632b0e",
+  "source_packet_sha256": "80f4bd8ec99aa7687e59f2a0a83cf259f74edcb0f098dca85f71153ab09c62c7"
+}

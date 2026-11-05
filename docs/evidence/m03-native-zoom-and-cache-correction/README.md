@@ -1,0 +1,9 @@
+# Native page zoom and cached-fixture correction
+
+Five reviewed source afterimages are guarded-adopted on bd4: native zoom flag/caller capability/resolved-ACL tests, plus a fixture-only cache omission and three additive Python inventory identities. All unselected2294source bytes/full modes, runtime40, index and HEAD/tree remain unchanged by adoption. The prior bd4 aggregate remains19PASS/PythonFAIL and is retained separately.
+
+Actual twelve canonical checks close0:216focused Python3.21s, complete2627collection0.34s, strictLinux15files/selectedWin32sixfixtures, Prettier8inputs, portability/integrity, Rust format/strictClippy and registeredRust31.191269s. Native342same cases each3modes plus separate1/10 include the actual resolved zoom permission and remote/othercaller denials. Source/runtime/full-mode/status/HEAD-tree endpoints are neutral; all children reaped/groupsABSENT/no signals/timeouts. Different retained-data review joins the finite adoption/focus evidence.
+
+The unchanged production bytecode validator still accepts only exact destination-compiled cache and refuses relocated, payload-modified and flags-modified cache. Every original test/oracle and all2624old identities remain; only generated caches are omitted from the inert source fixture copy. Original RED and observer errors are retained.
+
+Zoom enables pinned framework native hotkeys and adds one built-in permission to the local main caller. The optional target label has no independent argument scope; current product creates only main and denies new windows. Mock set_zoom does not render. Fresh native build, actual200percent/reset/readability/keyboard on all seven routes, screen-reader evidence, corrected full aggregate and Windows11/defaultGNOME campaigns remain separate. No formal W11, visual baseline, milestone or release acceptance follows.

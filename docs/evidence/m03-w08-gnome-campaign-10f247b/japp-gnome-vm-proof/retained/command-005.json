@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "/usr/bin/qemu-img",
+    "create",
+    "-f",
+    "qcow2",
+    "-F",
+    "qcow2",
+    "-b",
+    "/home/runner/work/_temp/japp-gnome-owned-c8y57szz/ubuntu-cloud.img",
+    "/home/runner/work/_temp/japp-gnome-owned-c8y57szz/guest.qcow2",
+    "24G"
+  ],
+  "exit_code": 0,
+  "signals": [],
+  "elapsed_seconds": 0.020762185999998906,
+  "direct_child_reaped": true,
+  "group_authority_verified": true,
+  "group_after_reap": "ABSENT",
+  "raw_bytes": 294,
+  "output_cap_bytes": 262144,
+  "output_cap_exceeded": false,
+  "primary_error_type": null,
+  "cleanup_error_type": null,
+  "retained_unreaped_custody": false,
+  "scope": "EXACT_OWN_CHILD_NO_SIGNAL_AFTER_REAP"
+}

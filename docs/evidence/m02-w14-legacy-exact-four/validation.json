@@ -1,0 +1,134 @@
+{
+  "format_version": "W14_FROZEN_LEGACY_CANDIDATE_VALIDATION_1",
+  "patch_sha256": "7f909d6665a5c53b046b9efaacf0a3cb35ec21e06b8f9adbb5caf90fe586aba6",
+  "source_bindings_sha256": "663685f32767af360848bdcbf17dee5a6c6acbaa3e3e6d5a27409d8ea2a880e2",
+  "active_tree_edits": false,
+  "public_pages_accessed": 0,
+  "native_user_chrome_access": false,
+  "actual_candidate_cases": 4,
+  "checks": {
+    "pinned_preimages_input_oracle_case": "PASS",
+    "strict_typescript": "PASS",
+    "strict_eslint": "PASS",
+    "fresh_outside_default_wxt_build": "PASS",
+    "actual_four": "4 passed9.6s; zero skips/flaky/expected failures; candidate native witness enabled"
+  },
+  "build_command": {
+    "argv": [
+      "./node_modules/.bin/wxt",
+      "build",
+      "-b",
+      "chrome"
+    ],
+    "cwd": "/tmp/japp-w14-legacy-candidate-draft/tree/apps/extension",
+    "node": "24.18.0",
+    "wxt": "0.20.27"
+  },
+  "raw_bundle_sha256": "6898aac89ce4649a54b0aa5211fe2cedf41207c23520a295404ba7de951abfcb",
+  "raw_bundle_bytes": 251710,
+  "actual_test_report_sha256": "9b117d90e29dd54b23370cf2a3c8103555093b2cf7633fd66d743f91a7012ef1",
+  "files": [
+    {
+      "path": "e2e/extension/legacy-candidate/README.md",
+      "sha256": "0e1f53f8e33412577aa02cc6ca98bc4a7eaa274baef97705df76a39d2ed7355d",
+      "bytes": 9166
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/candidate-kernel.ts",
+      "sha256": "88f3e0a90cdf71d3c25d04df520c351edd6879dcaa40b9dcd7c94b853d16d27c",
+      "bytes": 2769
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/frozen-legacy-candidate.proof.ts",
+      "sha256": "fb5bf5a2561ba46d561472a778c58a3c9a289a8f82c2cad512df070026220021",
+      "bytes": 23905
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/playwright.config.ts",
+      "sha256": "730f8b45fc762f096060b52cd3aab890d7515344d55045b022c9acbd7787eb68",
+      "bytes": 813
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/preimages/LICENSE",
+      "sha256": "fed2427e2fbff544d7bceda916d48039fa1a823308fa56921b0d6aacc5769cd6",
+      "bytes": 1126
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/preimages/capture-rerender.json",
+      "sha256": "6ea6ec758d1a0976d9841bafdbf3943bc3a24ab20850262e59d995d936069385",
+      "bytes": 49928
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/preimages/capture-summary.json",
+      "sha256": "02fd904f1c4af21dac949c259a9b544f5e2253a9ff94e2cfba85fc52db271691",
+      "bytes": 10098
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/preimages/evaluation-browser.mjs.txt",
+      "sha256": "ec39443ac8742faf650ab6aa92d7c791a37061f9cbb400a157cfa7547eb51572",
+      "bytes": 8927
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/preimages/evaluation-browser.pre-rerender.mjs.txt",
+      "sha256": "4ba0053ef41ad6b5a2830630410be173a78f3995dda32d6e566dedfa5eef2e38",
+      "bytes": 8080
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/preimages/evaluation-inputs.json",
+      "sha256": "aadd86c855f39a55302345bae1d5397343be08157edf82a46ee7f95b16bce2cf",
+      "bytes": 25760
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/preimages/evaluation-profile.json",
+      "sha256": "be75e89455f72d9e688e865199f039d76350c25846703b4f4567a2a9d1366b45",
+      "bytes": 339
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/preimages/evaluation-runtime.freeze.txt",
+      "sha256": "f3d6d82db6f5d94efa3f28cba4b15229b719947a7981c426b9571c6d308060d8",
+      "bytes": 235
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/preimages/evaluation-server.py.txt",
+      "sha256": "19351b8961f9b41e04eb8a16a45161ead70faf35f26cce6a6d3010a1eaa77f81",
+      "bytes": 1533
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/preimages/legacy-meter-function.txt",
+      "sha256": "fbb9567d2f62c9e9cfdd1c1d7eee8142d2b2391902e3d92d7626823b5753b239",
+      "bytes": 1644
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/preimages/upstream-components.json",
+      "sha256": "0ca000a5e381c344e640d221c5877302d87a906c219a033783ea49016ef942b5",
+      "bytes": 311
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/preimages/upstream-identity.json",
+      "sha256": "9c72560b40fe1fdd233cb67950db1f3f427c37bf12dfd40476518e67e15c5d35",
+      "bytes": 201
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/preimages/upstream-tag.json",
+      "sha256": "d78c8cc4c6db267597961086f21cd9717dc33a81a2fc858dff01d724acda946b",
+      "bytes": 232
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/preimages/w13-declarations.json",
+      "sha256": "f6906cbfb65853f6a12ee16d2a31981d1f3b36a5aa5e4653c6551cba460f32f1",
+      "bytes": 50311
+    },
+    {
+      "path": "e2e/extension/legacy-candidate/source-bindings.json",
+      "sha256": "663685f32767af360848bdcbf17dee5a6c6acbaa3e3e6d5a27409d8ea2a880e2",
+      "bytes": 30202
+    }
+  ],
+  "tracked_edits": [
+    {
+      "path": ".prettierignore",
+      "baseline_sha256": "cf5823e16129c8b6dfbeb2669bda0f98c9a8b598178e4d1c996053cd471786c3",
+      "final_sha256": "c0626f26191c3f05a551c24458335c7cf4f0daba48067ef9000dc43b462581e5"
+    }
+  ]
+}

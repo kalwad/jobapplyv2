@@ -1,0 +1,31 @@
+
+ RUN  v4.1.10 /Users/tanishkalwad/jobapplyv2/packages/form-engine
+
+ ❯ test/m02-w14-locales.test.ts (16 tests | 2 failed) 172ms
+     × does not fill the applicant address in other-party section EMPLOYEUR 3ms
+     × does not fill the applicant address in other-party section ARBEITGEBER 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/m02-w14-locales.test.ts > W14 independently authored W12 address labels > does not fill the applicant address in other-party section EMPLOYEUR
+ FAIL  test/m02-w14-locales.test.ts > W14 independently authored W12 address labels > does not fill the applicant address in other-party section ARBEITGEBER
+AssertionError: expected 'FILL' not to be 'FILL' // Object.is equality
+ ❯ test/m02-w14-locales.test.ts:71:97
+     69|       });
+     70|       expect(outcome.status).toBe("RESOLVED");
+     71|       if (outcome.status === "RESOLVED") expect(outcome.resolution.dec…
+       |                                                                                                 ^
+     72|     });
+     73|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 14 passed (16)
+   Start at  11:42:08
+   Duration  423ms (transform 112ms, setup 0ms, import 155ms, tests 172ms, environment 0ms)
+
+undefined
+/Users/tanishkalwad/jobapplyv2/packages/form-engine:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/m02-w14-locales.test.ts

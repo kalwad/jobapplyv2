@@ -1,0 +1,319 @@
+{
+  "schema": "M03_W11_CONTROLLED_SHELL_CATALOG_REVIEW_READY_V1",
+  "scope": "REVIEW_READY_CONTROLLED_RENDERER_EVIDENCE_NOT_ACCEPTANCE",
+  "reference_revision": "35b46287dc754a5987d653490ab49f978647ca26",
+  "reference_tree": "f0789de7f5c82f6931eebe489110fcb771130724",
+  "selected_sources_match_revision": false,
+  "selected_source_status": "M apps/desktop/test/renderer/main.tsx\n M apps/desktop/vite.renderer.config.ts\n?? apps/desktop/test/renderer/catalog-main.tsx\n?? apps/desktop/test/renderer/catalog.html\n?? apps/desktop/test/renderer/catalog.ts\n?? e2e/visual/desktop-catalog.spec.ts\n?? e2e/visual/support/desktop-capture.ts",
+  "selected_source_sha256": "6acfc8d44737af6bdf2e3ce79157507de720ca517ff42d277b96fbd49d61478a",
+  "selected_source_files": 20,
+  "shipping_selected_sources_equal_reference": 12,
+  "host": {
+    "platform": "darwin",
+    "architecture": "arm64"
+  },
+  "browser": {
+    "type": "chromium",
+    "version": "151.0.7922.34"
+  },
+  "catalog_version": "M03-W11-SHELL-CATALOG-V1",
+  "token_version": "M03-W01-initial",
+  "theme": "light",
+  "zoom_percent": 100,
+  "reduced_motion": true,
+  "full_page": true,
+  "capture_count": 14,
+  "captures": [
+    {
+      "fixture": "shell-settings",
+      "viewport": {
+        "width": 1120,
+        "height": 760
+      },
+      "png_path": "browser-v1/artifacts/visual-desktop-catalog-cat-2db12-ure-shell-settings-1120x760-chromium/shell-settings-1120.png",
+      "metadata_path": "browser-v1/artifacts/visual-desktop-catalog-cat-2db12-ure-shell-settings-1120x760-chromium/shell-settings-1120.json",
+      "png_bytes": 43081,
+      "sha256": "3bb920866e9852a0a0d457810e60fc7e9fada1309af84d329c0a2bbc68571808",
+      "dimensions": [
+        1120,
+        760
+      ],
+      "view_image_inspected_by_reviewer": true
+    },
+    {
+      "fixture": "shell-diagnostics",
+      "viewport": {
+        "width": 1120,
+        "height": 760
+      },
+      "png_path": "browser-v1/artifacts/visual-desktop-catalog-cat-2e2aa--shell-diagnostics-1120x760-chromium/shell-diagnostics-1120.png",
+      "metadata_path": "browser-v1/artifacts/visual-desktop-catalog-cat-2e2aa--shell-diagnostics-1120x760-chromium/shell-diagnostics-1120.json",
+      "png_bytes": 61218,
+      "sha256": "78e2a257bf8fcbcf0fb4479c74c0579f1420ba485c8793bff8294bfd2227dda2",
+      "dimensions": [
+        1120,
+        760
+      ],
+      "view_image_inspected_by_reviewer": true
+    },
+    {
+      "fixture": "shell-diagnostics",
+      "viewport": {
+        "width": 320,
+        "height": 760
+      },
+      "png_path": "browser-v1/artifacts/visual-desktop-catalog-cat-4daab-e-shell-diagnostics-320x760-chromium/shell-diagnostics-320.png",
+      "metadata_path": "browser-v1/artifacts/visual-desktop-catalog-cat-4daab-e-shell-diagnostics-320x760-chromium/shell-diagnostics-320.json",
+      "png_bytes": 58409,
+      "sha256": "ac925f361fd442e5108cdd7fce664da720a46899ce4a85e85df45cf1a09956d1",
+      "dimensions": [
+        320,
+        1257
+      ],
+      "view_image_inspected_by_reviewer": true
+    },
+    {
+      "fixture": "shell-settings",
+      "viewport": {
+        "width": 320,
+        "height": 760
+      },
+      "png_path": "browser-v1/artifacts/visual-desktop-catalog-cat-6cd1d-ture-shell-settings-320x760-chromium/shell-settings-320.png",
+      "metadata_path": "browser-v1/artifacts/visual-desktop-catalog-cat-6cd1d-ture-shell-settings-320x760-chromium/shell-settings-320.json",
+      "png_bytes": 39660,
+      "sha256": "8bbc91ac5d859848da399b99d2b13f883fa88c7e7fb2f889bfa61accbb93617f",
+      "dimensions": [
+        320,
+        787
+      ],
+      "view_image_inspected_by_reviewer": true
+    },
+    {
+      "fixture": "shell-documents",
+      "viewport": {
+        "width": 1120,
+        "height": 760
+      },
+      "png_path": "browser-v1/artifacts/visual-desktop-catalog-cat-76a79-re-shell-documents-1120x760-chromium/shell-documents-1120.png",
+      "metadata_path": "browser-v1/artifacts/visual-desktop-catalog-cat-76a79-re-shell-documents-1120x760-chromium/shell-documents-1120.json",
+      "png_bytes": 45588,
+      "sha256": "c5abede73eb2163ffb83f28420a3c686efdef4fc59025675e2bc402780746ee4",
+      "dimensions": [
+        1120,
+        760
+      ],
+      "view_image_inspected_by_reviewer": true
+    },
+    {
+      "fixture": "shell-tracker",
+      "viewport": {
+        "width": 1120,
+        "height": 760
+      },
+      "png_path": "browser-v1/artifacts/visual-desktop-catalog-cat-7da52-ture-shell-tracker-1120x760-chromium/shell-tracker-1120.png",
+      "metadata_path": "browser-v1/artifacts/visual-desktop-catalog-cat-7da52-ture-shell-tracker-1120x760-chromium/shell-tracker-1120.json",
+      "png_bytes": 42617,
+      "sha256": "e8c22b5f11a8f51b059130aaca166a6390ffe821d7956b2c9e6b97845a59d38f",
+      "dimensions": [
+        1120,
+        760
+      ],
+      "view_image_inspected_by_reviewer": true
+    },
+    {
+      "fixture": "shell-profile",
+      "viewport": {
+        "width": 1120,
+        "height": 760
+      },
+      "png_path": "browser-v1/artifacts/visual-desktop-catalog-cat-9d824-ture-shell-profile-1120x760-chromium/shell-profile-1120.png",
+      "metadata_path": "browser-v1/artifacts/visual-desktop-catalog-cat-9d824-ture-shell-profile-1120x760-chromium/shell-profile-1120.json",
+      "png_bytes": 41990,
+      "sha256": "30e809acbb1e6953c50f14ea0d388bd4bfee1b72a603a35a3051c0d3a9dd1982",
+      "dimensions": [
+        1120,
+        760
+      ],
+      "view_image_inspected_by_reviewer": true
+    },
+    {
+      "fixture": "shell-documents",
+      "viewport": {
+        "width": 320,
+        "height": 760
+      },
+      "png_path": "browser-v1/artifacts/visual-desktop-catalog-cat-9e6e7-ure-shell-documents-320x760-chromium/shell-documents-320.png",
+      "metadata_path": "browser-v1/artifacts/visual-desktop-catalog-cat-9e6e7-ure-shell-documents-320x760-chromium/shell-documents-320.json",
+      "png_bytes": 42460,
+      "sha256": "4bde482d21691c7c7bf5194fd81fcdb2c8036f8f3c9baa84589b5b263f1c51b3",
+      "dimensions": [
+        320,
+        834
+      ],
+      "view_image_inspected_by_reviewer": true
+    },
+    {
+      "fixture": "shell-home",
+      "viewport": {
+        "width": 1120,
+        "height": 760
+      },
+      "png_path": "browser-v1/artifacts/visual-desktop-catalog-catalog-capture-shell-home-1120x760-chromium/shell-home-1120.png",
+      "metadata_path": "browser-v1/artifacts/visual-desktop-catalog-catalog-capture-shell-home-1120x760-chromium/shell-home-1120.json",
+      "png_bytes": 53218,
+      "sha256": "1602e6f4945489a435f56af6b8f699340362d2705c3786eccaf7fe83f8e2ffc3",
+      "dimensions": [
+        1120,
+        760
+      ],
+      "view_image_inspected_by_reviewer": true
+    },
+    {
+      "fixture": "shell-home",
+      "viewport": {
+        "width": 320,
+        "height": 760
+      },
+      "png_path": "browser-v1/artifacts/visual-desktop-catalog-catalog-capture-shell-home-320x760-chromium/shell-home-320.png",
+      "metadata_path": "browser-v1/artifacts/visual-desktop-catalog-catalog-capture-shell-home-320x760-chromium/shell-home-320.json",
+      "png_bytes": 50626,
+      "sha256": "d6ffdbe22ddbfeb0f5ede7845e3cb19c4003b49cb0ee030fac86aea953655f1e",
+      "dimensions": [
+        320,
+        1037
+      ],
+      "view_image_inspected_by_reviewer": true
+    },
+    {
+      "fixture": "shell-jobs",
+      "viewport": {
+        "width": 1120,
+        "height": 760
+      },
+      "png_path": "browser-v1/artifacts/visual-desktop-catalog-catalog-capture-shell-jobs-1120x760-chromium/shell-jobs-1120.png",
+      "metadata_path": "browser-v1/artifacts/visual-desktop-catalog-catalog-capture-shell-jobs-1120x760-chromium/shell-jobs-1120.json",
+      "png_bytes": 42127,
+      "sha256": "6e23357e947cd4991ed56ddcf6bde3ba81db04898ff386e62ec2ad1a25341bc1",
+      "dimensions": [
+        1120,
+        760
+      ],
+      "view_image_inspected_by_reviewer": true
+    },
+    {
+      "fixture": "shell-jobs",
+      "viewport": {
+        "width": 320,
+        "height": 760
+      },
+      "png_path": "browser-v1/artifacts/visual-desktop-catalog-catalog-capture-shell-jobs-320x760-chromium/shell-jobs-320.png",
+      "metadata_path": "browser-v1/artifacts/visual-desktop-catalog-catalog-capture-shell-jobs-320x760-chromium/shell-jobs-320.json",
+      "png_bytes": 38631,
+      "sha256": "91a5f4792c5b53ee2f24cb853fd971b8b5d7483cd543cae3aff27b4dd28a6219",
+      "dimensions": [
+        320,
+        787
+      ],
+      "view_image_inspected_by_reviewer": true
+    },
+    {
+      "fixture": "shell-profile",
+      "viewport": {
+        "width": 320,
+        "height": 760
+      },
+      "png_path": "browser-v1/artifacts/visual-desktop-catalog-catalog-capture-shell-profile-320x760-chromium/shell-profile-320.png",
+      "metadata_path": "browser-v1/artifacts/visual-desktop-catalog-catalog-capture-shell-profile-320x760-chromium/shell-profile-320.json",
+      "png_bytes": 38342,
+      "sha256": "708d99c05cb4ee4a35a2f0510c82d565420dff223dd08fe542d0e71ae037f1c0",
+      "dimensions": [
+        320,
+        787
+      ],
+      "view_image_inspected_by_reviewer": true
+    },
+    {
+      "fixture": "shell-tracker",
+      "viewport": {
+        "width": 320,
+        "height": 760
+      },
+      "png_path": "browser-v1/artifacts/visual-desktop-catalog-catalog-capture-shell-tracker-320x760-chromium/shell-tracker-320.png",
+      "metadata_path": "browser-v1/artifacts/visual-desktop-catalog-catalog-capture-shell-tracker-320x760-chromium/shell-tracker-320.json",
+      "png_bytes": 39245,
+      "sha256": "dacbca0b21a170548f7d8174004b18803fa38d2ad04c4c758bc024264e1cd09c",
+      "dimensions": [
+        320,
+        787
+      ],
+      "view_image_inspected_by_reviewer": true
+    }
+  ],
+  "actual_browser": {
+    "passed": 32,
+    "skipped": 0,
+    "flaky": 0,
+    "unexpected": 0,
+    "seconds": 11.614108792040497
+  },
+  "quality_v2": {
+    "commands": 6,
+    "all_exit0": true,
+    "earlier_root_tsc_exit": 2,
+    "earlier_error": "TS2353 invalid top-level reducedMotion option; fixed contextOptions shape and rerun separately"
+  },
+  "source_files": 2004,
+  "runtime_files": 40,
+  "equal_source_runtime_mode_status_endpoints": true,
+  "shipping_assets": 4,
+  "renderer_assets": 10,
+  "shipping_assets_preserved_observer_result": true,
+  "renderer_assets_equal_endpoints": true,
+  "independent_checks_passed": 74,
+  "ab_rules": {
+    "AB-01": "PASS",
+    "AB-02": "PASS",
+    "AB-03": "PASS",
+    "AB-04": "PASS",
+    "AB-05": "PASS",
+    "AB-06": "PASS",
+    "AB-07": "PASS",
+    "AB-08": "PASS",
+    "AB-09": "PASS",
+    "AB-10": "PASS",
+    "AB-11": "NOT_EVALUATED",
+    "AB-12": "NOT_EVALUATED"
+  },
+  "checklist_overall": "NOT_EVALUATED",
+  "owner_decision": "NOT_APPROVED",
+  "delegated_acceptance": "NOT_RECORDED",
+  "frozen_design_system": false,
+  "actual_native_ipc": false,
+  "native_service_proven": false,
+  "states": {
+    "M03-W06": "IN_PROGRESS",
+    "M03-W11": "NOT_STARTED",
+    "M03": "IN_PROGRESS",
+    "verified": 38,
+    "release": "NOT_READY"
+  },
+  "limits": [
+    "Raw snapshots prove equal endpoints, not an exhaustive history of intermediate writes.",
+    "Outer observer reports direct child reaped and observed process group absent; no escaped-descendant proof.",
+    "Reference35b/treef078 is dirty for selected capture sources; frozen20-file source hash is authoritative for actual captured UI, not a clean35b product claim.",
+    "All observed captures are Chromium on macOS with synthetic version loader; Windows-like user-agent is a browser default, not native Windows evidence.",
+    "No owner/delegated visual approval, frozen tokens, final AB-11/AB-12 checklist PASS, comprehensive accessibility, task study, native IPC, live service or platform certification."
+  ],
+  "outside_packet_state": "REVIEW_READY",
+  "canonical_governance_rows_changed": false,
+  "canonical_baseline_states": {
+    "DESKTOP_SHELL": "CAPTURED",
+    "HOME_DASHBOARD": "NOT_YET_APPLICABLE",
+    "JOBS": "NOT_YET_APPLICABLE",
+    "TRACKER": "NOT_YET_APPLICABLE",
+    "DOCUMENTS_RESUMES": "NOT_YET_APPLICABLE",
+    "PROFILE": "NOT_YET_APPLICABLE",
+    "SETTINGS": "NOT_YET_APPLICABLE"
+  },
+  "v1_outside_proposal": "Preserved unadopted: future owner packages NOT_STARTED and archive pointers cannot satisfy existing canonical baseline-row validator. No validator weakening or fake package start."
+}

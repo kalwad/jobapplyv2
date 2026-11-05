@@ -1,0 +1,17 @@
+2026-11-03T18:11:06Z start
+NAME     FSTYPE  SIZE LABEL
+nbd0              80G 
+├─nbd0p1 vfat    260M SYSTEM
+├─nbd0p2          16M 
+├─nbd0p3 ntfs   78.9G Windows
+└─nbd0p4 ntfs    892M 
+2026-11-03T18:11:11Z windows partition: /dev/nbd0p3
+ls: cannot access '/mnt/win/Windows/Minidump': No such file or directory
+/mnt/win/Windows/LiveKernelReports:
+total 16
+drwxr-xr-x 1 root root     0 2024-04-01 07:26:07.004648000 +0000 .
+drwxr-xr-x 1 root root 16384 2026-11-04 02:04:46.823446400 +0000 ..
+ls: cannot access '/mnt/win/Windows/MEMORY.DMP': No such file or directory
+cp: cannot stat '/mnt/win/Windows/Minidump/*.dmp': No such file or directory
+/dev/nbd0 disconnected
+2026-11-03T18:11:11Z done

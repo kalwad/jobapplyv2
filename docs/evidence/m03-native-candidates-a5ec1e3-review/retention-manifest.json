@@ -1,0 +1,53 @@
+{
+  "scope": "Exact committed bytes: the files each release receipt pins (bound/), the review decision record, the full review workflow output, and GitHub API metadata",
+  "files": {
+    "README.md": {
+      "bytes": 3751,
+      "sha256": "90b873b978d142b56c627fc1345b65f4d48e49c07b6592ff733f46400ca1cc3c"
+    },
+    "bound/gnome/guest-closure-lock.json": {
+      "bytes": 933442,
+      "sha256": "4754901a2b97c43e36075f86c45637ee947fc28aa47e3ac2d6f0015f56e0bd6f"
+    },
+    "bound/gnome/host-tools-lock.json": {
+      "bytes": 160968,
+      "sha256": "23e9cdcb59d19b45de46bbfbe53630680aa3266dfd762cca97d1c2c40354d953"
+    },
+    "bound/gnome/reviewed-inputs.json": {
+      "bytes": 177665,
+      "sha256": "415a2f7df65c6d6fdd6fba8a3ddd59cb1250eecba7c02404cc2bfe6a44f481e9"
+    },
+    "bound/gnome/ubuntu-cloudimage-keyring.gpg": {
+      "bytes": 2444,
+      "sha256": "c2d40d925557dbe9a0745c12ca0dc98bed593ce9a6652f1b2faa1ff0858dbf2f"
+    },
+    "bound/windows11/guest-driver.json": {
+      "bytes": 487,
+      "sha256": "98bf8603b3fce04fa4747e4d077bf50241482158b61efa198ada3ba91de41f97"
+    },
+    "bound/windows11/host-tools-lock.json": {
+      "bytes": 145798,
+      "sha256": "38ed61fbb4994bb5fb6cf25d8417eb1c61e2819a2f328634e8fffe7c3a20e62a"
+    },
+    "bound/windows11/media-lock.json": {
+      "bytes": 1165,
+      "sha256": "b52a5b82f89c9d2fe08e0c02bba123510f885c955945e3488c0b3c01ec088114"
+    },
+    "bound/windows11/reviewed-inputs.json": {
+      "bytes": 75185,
+      "sha256": "3971a0688335618d9dbfea97aea20b0ff1e9655129deeda5adaa5c1a7035d462"
+    },
+    "review-decision.json": {
+      "bytes": 4411,
+      "sha256": "5ebcab726d2dc7e356cb142e17996aed0dcab1a9e1b7ec6c5edd70dfed17f300"
+    },
+    "review-workflow-result.json": {
+      "bytes": 248141,
+      "sha256": "7f00ff6630701f1325220fe28e6fc24a85a9fe2758c6ba22f3f2b2d45313f152"
+    },
+    "run-metadata.json": {
+      "bytes": 5025,
+      "sha256": "caabfa3153762464c3f90ea8b3abb6394d7d2314f649c92a1f2c755693753f14"
+    }
+  }
+}

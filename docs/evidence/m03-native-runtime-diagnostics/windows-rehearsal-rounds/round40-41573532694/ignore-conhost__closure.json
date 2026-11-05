@@ -1,0 +1,57 @@
+{
+  "scope": "DIAGNOSTIC_REHEARSAL_ONLY_NOT_ACCEPTANCE",
+  "variant": "ignore-conhost",
+  "status": "FAILED",
+  "error_type": "TimeoutError",
+  "message": "Actual Windows setup/guest deadline expired; no login automation fallback",
+  "failure_frame": {
+    "file": "win11-failure.ppm",
+    "bytes": 3072016,
+    "width": 1280,
+    "height": 800,
+    "sha256": "3b3a5c017dec7badcded51b5d73ca03f58578df03512644172256f6269b465be",
+    "scope": "DIAGNOSTIC_FRAME_ONLY_NOT_PHASE_OR_ACCEPTANCE_EVIDENCE"
+  },
+  "vm_closure": {
+    "vm_started": true,
+    "direct_child_reaped": true,
+    "exit_code": 0,
+    "signals": [],
+    "group_authority_verified": false,
+    "group_after_reap": "ABSENT",
+    "qmp_quit_error_type": null,
+    "pending_commands": [],
+    "universal_escaped_descendant_absence_claimed": false
+  },
+  "forensics": {
+    "returncode": 0,
+    "seconds": 5.2,
+    "stderr": ""
+  },
+  "host_marks": [
+    {
+      "t": 0.7,
+      "mark": "seed"
+    },
+    {
+      "t": 0.7,
+      "mark": "qemu-started"
+    },
+    {
+      "t": 886.9,
+      "mark": "monitor-environment-boots-2"
+    },
+    {
+      "t": 908.9,
+      "mark": "guest-reboot-after-environment-boots-3"
+    },
+    {
+      "t": 1148.9,
+      "mark": "monitor-ends-observation"
+    },
+    {
+      "t": 1149.8,
+      "mark": "error"
+    }
+  ]
+}

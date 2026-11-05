@@ -1,0 +1,16 @@
+{
+  "variant": "hv-b",
+  "dropped_markers": [
+    "# DIAG-SVCFIRST",
+    "# DIAG-NODPS",
+    "# DIAG-NODIAGTRACK",
+    "# DIAG-NOWHESVC"
+  ],
+  "guest_driver": {
+    "windows11_bootstrap.ps1": "6e2c5a54ed68e559d3d24b1ac1216568624b8da6639d4bd06b391616a65b3957",
+    "windows11_guest.ps1": "cce3f97816cce2b70782310f8600ec8d8d8889fa19d2008459d694a68e7f17c3",
+    "windows11_owned.cs": "a561f440559af9ca012bdd15b933aada192c73ce0cd44a27390e04153165fc3c"
+  },
+  "package_manifest_sha256": "0396ddf437aa100e9e75ffec032ee432165bb8a01958e652690965b62d4299d4",
+  "iso_sha256_checked_by_workflow": "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38"
+}

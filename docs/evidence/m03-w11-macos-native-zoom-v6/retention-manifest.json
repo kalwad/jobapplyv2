@@ -1,0 +1,1710 @@
+{
+  "all_selected_bytes_full_modes_verified": true,
+  "created_utc": "2026-10-29T20:20:01.141961+00:00",
+  "file_count": 211,
+  "files": [
+    {
+      "bytes": 2788,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/MEASUREMENT-POLICY.json",
+      "sha256": "afeff31b6eb943361a20e77700bdb6594b3c74a5d29543a33d0ddb45a31826c3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/MEASUREMENT-POLICY.json"
+    },
+    {
+      "bytes": 10438,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/PLAN.md",
+      "sha256": "25d0313bcb7a411b648c053ca921f2d3fa97d7023ad686add7fd82d2dd030372",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/PLAN.md"
+    },
+    {
+      "bytes": 1804,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/PRE-CAPTURE-SOURCE.json",
+      "sha256": "ec1d09b705fe30814a7168ed715bee0f1ff73d854ac3dd6d94b03db0004feff4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/PRE-CAPTURE-SOURCE.json"
+    },
+    {
+      "bytes": 928,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/ROOT-REVIEW.md",
+      "sha256": "f836ecfd7870d1c713b25108c731543f3c0fd98c4fac40540ceea902da8fc104",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/ROOT-REVIEW.md"
+    },
+    {
+      "bytes": 22303,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/SOURCE-PREIMAGES.json",
+      "sha256": "fffee63c3bdd3465d53d3ba19055a4247bc0a11bd14f6f22419271c9f7fec54b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/SOURCE-PREIMAGES.json"
+    },
+    {
+      "bytes": 2421,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/V6-EXTENSION.md",
+      "sha256": "eaf39e1b253efa2d6e4b58aa697ecb284001fbf6a9f84aced5fe6e2979bf21ed",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/V6-EXTENSION.md"
+    },
+    {
+      "bytes": 22860,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/after.json",
+      "sha256": "625636eb375c507db54ccd3fd03540ac529f625c7848006fadaf4b08c80d2731",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/after.json"
+    },
+    {
+      "bytes": 22860,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/before.json",
+      "sha256": "bd0913792ad206b86a5275327f97e33b324b73c19d7141a9d120ad4080282acd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/before.json"
+    },
+    {
+      "bytes": 239,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/campaign-budget-close.json",
+      "sha256": "cb5389cbf0fb5f8a2e775212b674edc721308212d3642758d9007a3dbf34c717",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/campaign-budget-close.json"
+    },
+    {
+      "bytes": 2161,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/capture-factory-executed.js",
+      "sha256": "cf6ac299ab7964f235aa84a5498f5677ee51e9c733924fc2738d8d2bd08bfde6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/capture-factory-executed.js"
+    },
+    {
+      "bytes": 2496,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/capture-helper-parent-v5.js",
+      "sha256": "a2ab9ef68d6a27df1be41fbdf3145949ee25f75bc4b80fd5f6bc060c5fb5684e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/capture-helper-parent-v5.js"
+    },
+    {
+      "bytes": 2496,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/capture-helper.js",
+      "sha256": "4cfe4c26c931d1a336010d1cb1f2f25b391fecf15f85d4e9002f284baf159561",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/capture-helper.js"
+    },
+    {
+      "bytes": 1673,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/001-baseline-home.ax.txt",
+      "sha256": "5ec739fab8e5c898e568710f24fb2f353166eb66e8f14e9b2a88da6be56827cd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/001-baseline-home.ax.txt"
+    },
+    {
+      "bytes": 179,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/001-baseline-home.event.json",
+      "sha256": "7c244982c77d8efa531fffc49144a0cb9a467b669c71662b34f4bfd3b34fc29e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/001-baseline-home.event.json"
+    },
+    {
+      "bytes": 184691,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/001-baseline-home.jpg",
+      "sha256": "2fe5fda388a6cf449e5913617638a0bfb9c78583743deecffcf5f8543814dc88",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/001-baseline-home.jpg"
+    },
+    {
+      "bytes": 1357,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/002-baseline-jobs.ax.txt",
+      "sha256": "2c4198a7fcd62700a572aa22edca6094dcdf8fde2d9947e5cc65e59cc9aeecf2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/002-baseline-jobs.ax.txt"
+    },
+    {
+      "bytes": 179,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/002-baseline-jobs.event.json",
+      "sha256": "946c4fa33da7916c29ce402d3c1a31c64f0c6ff6a916679ccd6e4481e4ff3fe8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/002-baseline-jobs.event.json"
+    },
+    {
+      "bytes": 153079,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/002-baseline-jobs.jpg",
+      "sha256": "fc32f15b04699b7d8109953a9690acff53bd9a721753c6b15c6196aede407a3c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/002-baseline-jobs.jpg"
+    },
+    {
+      "bytes": 1382,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/003-baseline-tracker.ax.txt",
+      "sha256": "3493d879d728e5b26f93545568c14215bc65a683207d907a7231030ca59cf02b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/003-baseline-tracker.ax.txt"
+    },
+    {
+      "bytes": 185,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/003-baseline-tracker.event.json",
+      "sha256": "52b13c9bb5753ed5e27e55341dccec49bddfa77d8324102e29e7d58e3902b863",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/003-baseline-tracker.event.json"
+    },
+    {
+      "bytes": 156093,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/003-baseline-tracker.jpg",
+      "sha256": "263d49a6fbcb2fc3af07b6223f4485f8c074688b02ed57cf1f658eebc81ce74f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/003-baseline-tracker.jpg"
+    },
+    {
+      "bytes": 1450,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/004-baseline-documents.ax.txt",
+      "sha256": "a6143b48d564fdaca5a56877fd88bc2958653e955ae4c9b23c9a890d48e954f8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/004-baseline-documents.ax.txt"
+    },
+    {
+      "bytes": 199,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/004-baseline-documents.event.json",
+      "sha256": "e2087e9dc29b3149363b0568ffbe302d6a3168d8fc6dd8fd264ed7334bab3e5e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/004-baseline-documents.event.json"
+    },
+    {
+      "bytes": 166008,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/004-baseline-documents.jpg",
+      "sha256": "f1ad3f842b3a72396d21168121659002f64a859ec5ea2bb283211e6255de378d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/004-baseline-documents.jpg"
+    },
+    {
+      "bytes": 1377,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/005-baseline-profile.ax.txt",
+      "sha256": "299ecf27435f906c463aaaa7c9355a3f341b10a82907a777acbf00c3340152e7",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/005-baseline-profile.ax.txt"
+    },
+    {
+      "bytes": 185,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/005-baseline-profile.event.json",
+      "sha256": "ef98aefd9c09f4db6a119b89e5b1fcc14ce488c6ad4e7315b5bf4fa5b8eed08e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/005-baseline-profile.event.json"
+    },
+    {
+      "bytes": 153845,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/005-baseline-profile.jpg",
+      "sha256": "6aaea40575e441cf7275214d30f33d28a5abedea8b9b75bea49c0de8c8420e82",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/005-baseline-profile.jpg"
+    },
+    {
+      "bytes": 1381,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/006-baseline-settings.ax.txt",
+      "sha256": "e0651404906b49c14985a9b6bca2fc40c06a21a9e7d09ae8c3d1fc775467c9ec",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/006-baseline-settings.ax.txt"
+    },
+    {
+      "bytes": 187,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/006-baseline-settings.event.json",
+      "sha256": "37fabc316b0cb88f9aac38d26e70f14310b9158ed6e22c4441c349e2ad4e20f2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/006-baseline-settings.event.json"
+    },
+    {
+      "bytes": 155760,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/006-baseline-settings.jpg",
+      "sha256": "232513aa7bd9dd845dd36c6e633751fcb8d15139ba703b0aac1d40e80d51bddb",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/006-baseline-settings.jpg"
+    },
+    {
+      "bytes": 2093,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/007-baseline-diagnostics.ax.txt",
+      "sha256": "243e1219aa6606c18d3a15b743ad732bd1c14c912751bfd0a892c0cc96a2d65d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/007-baseline-diagnostics.ax.txt"
+    },
+    {
+      "bytes": 193,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/007-baseline-diagnostics.event.json",
+      "sha256": "a1396280018a092855b16276630f1a64d38268e61c79cda015fca4de8ae3badb",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/007-baseline-diagnostics.event.json"
+    },
+    {
+      "bytes": 223267,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/007-baseline-diagnostics.jpg",
+      "sha256": "1769235f3bf111cd8aed2d6d74e51011cfe7234e1abc5fe9aab110fb35912abd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/007-baseline-diagnostics.jpg"
+    },
+    {
+      "bytes": 2082,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/008-baseline-check-focus.ax.txt",
+      "sha256": "606de13671588e6b10c41e8754959a8accdd23d6e6c718089f4b794e7b4f06c6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/008-baseline-check-focus.ax.txt"
+    },
+    {
+      "bytes": 174,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/008-baseline-check-focus.event.json",
+      "sha256": "b496899bd7a12d2ae518cfc9db35cf9a0ee3cce74a9ca6f5d06cd2583414d750",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/008-baseline-check-focus.event.json"
+    },
+    {
+      "bytes": 224097,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/008-baseline-check-focus.jpg",
+      "sha256": "c77e16593fc7c8d942b4049b24891802ae5de4f1df5e21e47689cecab9a44578",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/008-baseline-check-focus.jpg"
+    },
+    {
+      "bytes": 2095,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/009-baseline-check-result.ax.txt",
+      "sha256": "8defbac9b9fa3572618b7dc7e2bb1cb0c27115639a8fdf9dd65760c9f0aca63d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/009-baseline-check-result.ax.txt"
+    },
+    {
+      "bytes": 165,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/009-baseline-check-result.event.json",
+      "sha256": "cb96e1a237543ed51e5704aa39951392dcfc88dfa77e84cc5f312b6674712c9c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/009-baseline-check-result.event.json"
+    },
+    {
+      "bytes": 223445,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/009-baseline-check-result.jpg",
+      "sha256": "b5ffc6d64d45097d1f26d1beded001e2cf09a9e5e00f675a9a7f389c8ef6a1ff",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/009-baseline-check-result.jpg"
+    },
+    {
+      "bytes": 2127,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/010-baseline-skip-focus.ax.txt",
+      "sha256": "ee0628c819c1e89a7f2ad5953488acb2bcdce7ad07efc6686f061a74e0f30113",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/010-baseline-skip-focus.ax.txt"
+    },
+    {
+      "bytes": 171,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/010-baseline-skip-focus.event.json",
+      "sha256": "ca06d538758e14bbd1aa60a31b1f1382f61b9623ea132e32f9e49cc01b3a96c1",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/010-baseline-skip-focus.event.json"
+    },
+    {
+      "bytes": 226842,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/010-baseline-skip-focus.jpg",
+      "sha256": "e2f1fef6f4221b8a279e64530fa2216ce38c1ce7663c46a748a7ffb55e73c0a4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/010-baseline-skip-focus.jpg"
+    },
+    {
+      "bytes": 2121,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/011-baseline-skip-result.ax.txt",
+      "sha256": "1f5120c25a70578416f0b2738fdf0349a797ff538e7b27ef26fcadab179976af",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/011-baseline-skip-result.ax.txt"
+    },
+    {
+      "bytes": 173,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/011-baseline-skip-result.event.json",
+      "sha256": "461a697c6ca4c1f1f0876a1ebad1394e07186f012a4638c78cefee60f3688428",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/011-baseline-skip-result.event.json"
+    },
+    {
+      "bytes": 245388,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/011-baseline-skip-result.jpg",
+      "sha256": "f5daa0c954d9318c08cea38a32458928a816897811fe80059a71ab8b5e3d11a0",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/011-baseline-skip-result.jpg"
+    },
+    {
+      "bytes": 2121,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/012-baseline-diagnostics-footer.ax.txt",
+      "sha256": "ff8cb203402a6f86e172666b45389ed4e94ecd93f1f91c58d9dc9b91f71c287e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/012-baseline-diagnostics-footer.ax.txt"
+    },
+    {
+      "bytes": 195,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/012-baseline-diagnostics-footer.event.json",
+      "sha256": "b460263fddb66f58f13acf1d449ff206d80124b6b0143772684f90fa215dd49a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/012-baseline-diagnostics-footer.event.json"
+    },
+    {
+      "bytes": 252719,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/012-baseline-diagnostics-footer.jpg",
+      "sha256": "2f4d3b0cbc0781a84f1894c6929b886ccaf414ad1a11a4cd7e32144a54e39ddb",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/012-baseline-diagnostics-footer.jpg"
+    },
+    {
+      "bytes": 2121,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/013-geometry-baseline.ax.txt",
+      "sha256": "1f5120c25a70578416f0b2738fdf0349a797ff538e7b27ef26fcadab179976af",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/013-geometry-baseline.ax.txt"
+    },
+    {
+      "bytes": 174,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/013-geometry-baseline.event.json",
+      "sha256": "2769fd37c91a65ef97f998a42b3f2572a87fdb61e6c2a1975d9ab9c3c948e504",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/013-geometry-baseline.event.json"
+    },
+    {
+      "bytes": 245393,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/013-geometry-baseline.jpg",
+      "sha256": "269037fe7cd2b9e9ca819cf4c37d590d1410f50c14be25f4430e72294ed7de4a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/013-geometry-baseline.jpg"
+    },
+    {
+      "bytes": 2121,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/014-geometry-enlarged-navigation.ax.txt",
+      "sha256": "1f5120c25a70578416f0b2738fdf0349a797ff538e7b27ef26fcadab179976af",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/014-geometry-enlarged-navigation.ax.txt"
+    },
+    {
+      "bytes": 157,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/014-geometry-enlarged-navigation.event.json",
+      "sha256": "a7b329cd27db34f486e6045f61d52e0b8896bae79db4b43645f81df0ee46d7f6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/014-geometry-enlarged-navigation.event.json"
+    },
+    {
+      "bytes": 187236,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/014-geometry-enlarged-navigation.jpg",
+      "sha256": "c51155fb02b89b26a59d5afddc7a2b63cde29578611d388abaf064e4d281343b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/014-geometry-enlarged-navigation.jpg"
+    },
+    {
+      "bytes": 2129,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/015-geometry-enlarged-values.ax.txt",
+      "sha256": "cc2bda3194da4e1e9c07ef4532c6b695b524f7ca1cc93add5178662ef856fd1f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/015-geometry-enlarged-values.ax.txt"
+    },
+    {
+      "bytes": 149,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/015-geometry-enlarged-values.event.json",
+      "sha256": "7e7b9ad9532d06f6c5617fe0115e4451e6580f7a8d1016b7c0589b9bbde73c06",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/015-geometry-enlarged-values.event.json"
+    },
+    {
+      "bytes": 212793,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/015-geometry-enlarged-values.jpg",
+      "sha256": "00e9e0fec442b190cd1ffda678c049d7b1cff85a7abc9aaff8af7f754ff5d819",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/015-geometry-enlarged-values.jpg"
+    },
+    {
+      "bytes": 1667,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/016-enlarged-home.ax.txt",
+      "sha256": "68379cb8a69e7b2ee1ac28605367884f1151aa053641e6067deaf8f204559706",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/016-enlarged-home.ax.txt"
+    },
+    {
+      "bytes": 179,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/016-enlarged-home.event.json",
+      "sha256": "c007c12c15b27fb6ad061a367362170a8a4addff0050c49f7179889287daceec",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/016-enlarged-home.event.json"
+    },
+    {
+      "bytes": 188210,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/016-enlarged-home.jpg",
+      "sha256": "112f460dab25dc73c098a7ee24cb65bd93cb7f5ec04988d6aa37cc40586434ce",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/016-enlarged-home.jpg"
+    },
+    {
+      "bytes": 1666,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/017-enlarged-home-content.ax.txt",
+      "sha256": "53b3edadf4d0ddfa8fa344c9a01a57be5d2ae3553f3c655a2c30e20a59c6391f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/017-enlarged-home-content.ax.txt"
+    },
+    {
+      "bytes": 160,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/017-enlarged-home-content.event.json",
+      "sha256": "7227b4dcb3c607ef99606e8f7bb16f2ffd101b7ce1dd207f52524c25f945c534",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/017-enlarged-home-content.event.json"
+    },
+    {
+      "bytes": 241448,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/017-enlarged-home-content.jpg",
+      "sha256": "079c95944fd30b7910ffa2ab70a8f66f363bd679f0c4314b64a77296e41f8186",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/017-enlarged-home-content.jpg"
+    },
+    {
+      "bytes": 1402,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/018-enlarged-jobs.ax.txt",
+      "sha256": "70b5b4448fb3a05ed77f8fd6f3c37c658ede02d5bf7d4ec233b85a719828ad9a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/018-enlarged-jobs.ax.txt"
+    },
+    {
+      "bytes": 179,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/018-enlarged-jobs.event.json",
+      "sha256": "e74c8b15c78959b5b862c0b44137cde090aff06497e7dec3bd0a1cd5d178a273",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/018-enlarged-jobs.event.json"
+    },
+    {
+      "bytes": 188456,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/018-enlarged-jobs.jpg",
+      "sha256": "c335fe1822cc28139009f19c4968be28e736685b8b13d4c5ec91ad3464e07dcc",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/018-enlarged-jobs.jpg"
+    },
+    {
+      "bytes": 1393,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/019-enlarged-jobs-content.ax.txt",
+      "sha256": "89631a079b72ee82ddf6a8fb1884f3f5ef38866b1c064e4aef5c6fdd9b73217b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/019-enlarged-jobs-content.ax.txt"
+    },
+    {
+      "bytes": 160,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/019-enlarged-jobs-content.event.json",
+      "sha256": "5cfcb035ef5e7ad45c96b5e89d322f872c5f0983c43a216ba2f03ee15426d669",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/019-enlarged-jobs-content.event.json"
+    },
+    {
+      "bytes": 217771,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/019-enlarged-jobs-content.jpg",
+      "sha256": "f4ee5b54f8267e8ee7bc375c5fc7517a98f20ba56b06e16f885f67a96ff8f68d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/019-enlarged-jobs-content.jpg"
+    },
+    {
+      "bytes": 1427,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/020-enlarged-tracker.ax.txt",
+      "sha256": "a276e80dae2ec3a7a9c8d0ae1562f8e624929c2625c6e805367fe725fe56f3b8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/020-enlarged-tracker.ax.txt"
+    },
+    {
+      "bytes": 185,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/020-enlarged-tracker.event.json",
+      "sha256": "6c55d838ba00c627f53aeef021a23f2f87ce7cc5b4e53418e4dc67f68234fbf8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/020-enlarged-tracker.event.json"
+    },
+    {
+      "bytes": 191583,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/020-enlarged-tracker.jpg",
+      "sha256": "a4073a693ae1443ec736cbd8104a02843cef8937be7f030687cd2c74cb1ba28d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/020-enlarged-tracker.jpg"
+    },
+    {
+      "bytes": 1418,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/021-enlarged-tracker-content.ax.txt",
+      "sha256": "33b514632737e63021517f0a3011d4be6fb228e0e336206c10a600e18c534d54",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/021-enlarged-tracker-content.ax.txt"
+    },
+    {
+      "bytes": 163,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/021-enlarged-tracker-content.event.json",
+      "sha256": "9ab5a49e2017f2136d280ca579f92679fd27ba46553885f96e193a5930859afa",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/021-enlarged-tracker-content.event.json"
+    },
+    {
+      "bytes": 225347,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/021-enlarged-tracker-content.jpg",
+      "sha256": "87214f6929064d6c7147dac5075832da057b74361ade83db944d2768a90d729e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/021-enlarged-tracker-content.jpg"
+    },
+    {
+      "bytes": 1495,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/022-enlarged-documents.ax.txt",
+      "sha256": "56f933419e8606a495cd6c6c2a71b3dd17f6beb0bc9472e98df1fcfcf719f76d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/022-enlarged-documents.ax.txt"
+    },
+    {
+      "bytes": 199,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/022-enlarged-documents.event.json",
+      "sha256": "682507a916b412116aeef0706e7a5ad289a4f9d361c86c8fbe79552589021a7e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/022-enlarged-documents.event.json"
+    },
+    {
+      "bytes": 210027,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/022-enlarged-documents.jpg",
+      "sha256": "04646d343c3bdfa5e21bc1ace57df26b77fa69b861ef3bed45326d27e3c8e13d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/022-enlarged-documents.jpg"
+    },
+    {
+      "bytes": 1486,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/023-enlarged-documents-content.ax.txt",
+      "sha256": "ff6c8fa45c473120c6e8605cb8b69f22dc77b6cd6dcfd21538aefe9810099de8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/023-enlarged-documents-content.ax.txt"
+    },
+    {
+      "bytes": 165,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/023-enlarged-documents-content.event.json",
+      "sha256": "f6b80559cff6ccba8c08a7fe5e019af33e40ba6e6134c3f1c34f2c12c47d335c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/023-enlarged-documents-content.event.json"
+    },
+    {
+      "bytes": 251648,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/023-enlarged-documents-content.jpg",
+      "sha256": "b5ddeed92e96d4e4a6e6d01c1a4560d0d5b501b33c73cc4d0123bc2d52075a92",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/023-enlarged-documents-content.jpg"
+    },
+    {
+      "bytes": 1422,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/024-enlarged-profile.ax.txt",
+      "sha256": "741bc3227d6a7e60a4cfbc6095d76872d9149c0b54bb714a8232a6675739939c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/024-enlarged-profile.ax.txt"
+    },
+    {
+      "bytes": 185,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/024-enlarged-profile.event.json",
+      "sha256": "18ddcb25cfec3eeff48085e3d3f03e7cd44b6a131a78ef3cb752780cadbdf35b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/024-enlarged-profile.event.json"
+    },
+    {
+      "bytes": 185076,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/024-enlarged-profile.jpg",
+      "sha256": "599a197813a873613eb62b08255f50a4ffba96f7fe455ee792c80df97d14c5ad",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/024-enlarged-profile.jpg"
+    },
+    {
+      "bytes": 1413,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/025-enlarged-profile-content.ax.txt",
+      "sha256": "568a089385f0cb7b6e115d4e28b1a5f258926cefdbb68441f96761a7b23043fd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/025-enlarged-profile-content.ax.txt"
+    },
+    {
+      "bytes": 163,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/025-enlarged-profile-content.event.json",
+      "sha256": "67495b519324a97efaee092a77cbb1a26d36b64deddc77cf9260b93006e78627",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/025-enlarged-profile-content.event.json"
+    },
+    {
+      "bytes": 219934,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/025-enlarged-profile-content.jpg",
+      "sha256": "01666fe4323d30a989c5d3c1ad5c17c42557472407e20dfa96907b15f1fb65a0",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/025-enlarged-profile-content.jpg"
+    },
+    {
+      "bytes": 1426,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/026-enlarged-settings.ax.txt",
+      "sha256": "297575038513a8c74b156b294902aa56663f408feabef591bd075c88aeb05f43",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/026-enlarged-settings.ax.txt"
+    },
+    {
+      "bytes": 187,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/026-enlarged-settings.event.json",
+      "sha256": "6674dc3deed439e2808331cf257accea4d69a56dea90c25c15985cc269d71c32",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/026-enlarged-settings.event.json"
+    },
+    {
+      "bytes": 190088,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/026-enlarged-settings.jpg",
+      "sha256": "315cbe1bc82f4052c78c30ea01ae1b4b3dd3f26995daa4524155c698495595fd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/026-enlarged-settings.jpg"
+    },
+    {
+      "bytes": 1417,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/027-enlarged-settings-content.ax.txt",
+      "sha256": "b2dfc173d1b1315581311de51ad13418e8e204775c0e99cf16a3e9bc3252d895",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/027-enlarged-settings-content.ax.txt"
+    },
+    {
+      "bytes": 164,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/027-enlarged-settings-content.event.json",
+      "sha256": "d7a0f855785f573e98e554be30d2b798be1b370e7d7e66e84729dc56cba7883f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/027-enlarged-settings-content.event.json"
+    },
+    {
+      "bytes": 224975,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/027-enlarged-settings-content.jpg",
+      "sha256": "7bfe21b9a610835fd4b44503645e84aa6d25fcea7b7530648349478154bd2f3f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/027-enlarged-settings-content.jpg"
+    },
+    {
+      "bytes": 2101,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/028-enlarged-diagnostics.ax.txt",
+      "sha256": "405ccafd6d0a4358937c390221f7596fc2994454ce30c758157b6970551131b3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/028-enlarged-diagnostics.ax.txt"
+    },
+    {
+      "bytes": 193,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/028-enlarged-diagnostics.event.json",
+      "sha256": "0d2a867b697a2f2fbccef96be4420277df16185a003d33da3a835f55306b7760",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/028-enlarged-diagnostics.event.json"
+    },
+    {
+      "bytes": 181155,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/028-enlarged-diagnostics.jpg",
+      "sha256": "35942802f7cbcab2e14712df996c8bacf0373ae88b4106031f418e1fd258d9bd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/028-enlarged-diagnostics.jpg"
+    },
+    {
+      "bytes": 2101,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/029-enlarged-diagnostics-middle.ax.txt",
+      "sha256": "7d10cb3bb0c5dcb163fbbb37c61cee2c1d5a3bd2985e44f5eb2d748728aa0951",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/029-enlarged-diagnostics-middle.ax.txt"
+    },
+    {
+      "bytes": 166,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/029-enlarged-diagnostics-middle.event.json",
+      "sha256": "eba0858e8d584eebb351ba38dbf2df7e83cb18e2572218da81dab3163a42c145",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/029-enlarged-diagnostics-middle.event.json"
+    },
+    {
+      "bytes": 206623,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/029-enlarged-diagnostics-middle.jpg",
+      "sha256": "0edeb1a65a246645a1f934efb85df47f78ef28f4bfaf843d2e068bd50f883d27",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/029-enlarged-diagnostics-middle.jpg"
+    },
+    {
+      "bytes": 2093,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/030-enlarged-diagnostics-footer.ax.txt",
+      "sha256": "9f173a4b8555060676c2edf9e2c06e066e097ad322d910d43bfda96c1c1098eb",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/030-enlarged-diagnostics-footer.ax.txt"
+    },
+    {
+      "bytes": 182,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/030-enlarged-diagnostics-footer.event.json",
+      "sha256": "a8657c5b44cef4847d1a4e06961f1268d573a670769c3f3251b7f9d52efeec1d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/030-enlarged-diagnostics-footer.event.json"
+    },
+    {
+      "bytes": 228387,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/030-enlarged-diagnostics-footer.jpg",
+      "sha256": "644c9cd314bb082f89604e26a05cde9c43ab125b2913b0c8d776234e7eb44393",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/030-enlarged-diagnostics-footer.jpg"
+    },
+    {
+      "bytes": 2082,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/031-enlarged-check-focus.ax.txt",
+      "sha256": "839f67f9d569d1621de0500230ab21f198ca43f63afd462b2b769165a82deda4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/031-enlarged-check-focus.ax.txt"
+    },
+    {
+      "bytes": 174,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/031-enlarged-check-focus.event.json",
+      "sha256": "adf2084e85d076388c125c44c101deae6f9311ea91d10b152273f1b064e78626",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/031-enlarged-check-focus.event.json"
+    },
+    {
+      "bytes": 238003,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/031-enlarged-check-focus.jpg",
+      "sha256": "61d033be391d04e5b501668ccab54409beba3f0652d4199e27655c2632e17e75",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/031-enlarged-check-focus.jpg"
+    },
+    {
+      "bytes": 2103,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/032-enlarged-check-result.ax.txt",
+      "sha256": "3ceeff11cc2ee01281464edce6975258e5e34a3a788ead07fa08b2406d4ea6a5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/032-enlarged-check-result.ax.txt"
+    },
+    {
+      "bytes": 165,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/032-enlarged-check-result.event.json",
+      "sha256": "f3467d2b35babc84e91e4d9c6a652f60fbb376bf5ad0d989d5d2a9d7225b77af",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/032-enlarged-check-result.event.json"
+    },
+    {
+      "bytes": 202971,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/032-enlarged-check-result.jpg",
+      "sha256": "d10946ca09c82f716a93241472ac26731e72adf48659a48407a0f2eebe1664b3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/032-enlarged-check-result.jpg"
+    },
+    {
+      "bytes": 2136,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/033-enlarged-skip-focus.ax.txt",
+      "sha256": "bdfdeec3759de44a3c3ad688222fbaa4865d4f9602e06dee67c53a8939c309bc",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/033-enlarged-skip-focus.ax.txt"
+    },
+    {
+      "bytes": 171,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/033-enlarged-skip-focus.event.json",
+      "sha256": "72403a0a13916f9fc18c24fb0ada1cf5d3f82ee023de4e61d9e00696984a0c63",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/033-enlarged-skip-focus.event.json"
+    },
+    {
+      "bytes": 182828,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/033-enlarged-skip-focus.jpg",
+      "sha256": "79bbf2860cc16f4ac81f37e67d813d8a18f38bba9af1a9d86d9a187ba3cc75a1",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/033-enlarged-skip-focus.jpg"
+    },
+    {
+      "bytes": 2129,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/034-enlarged-skip-result.ax.txt",
+      "sha256": "30d79454e9055b9bcc471749a9dbc86c2c744fe30c72e970b045c2ca6f35d7a7",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/034-enlarged-skip-result.ax.txt"
+    },
+    {
+      "bytes": 173,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/034-enlarged-skip-result.event.json",
+      "sha256": "2fddb427f97d477ea53537c62edac57c788dfd856f027159f7fd49f52d93a7ba",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/034-enlarged-skip-result.event.json"
+    },
+    {
+      "bytes": 212004,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/034-enlarged-skip-result.jpg",
+      "sha256": "6a95ba406de36302293d9151a56704501c8d069c2e2d845c179766c4a0d4bb5e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/034-enlarged-skip-result.jpg"
+    },
+    {
+      "bytes": 1667,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/035-enlarged-footer-check-home.ax.txt",
+      "sha256": "68379cb8a69e7b2ee1ac28605367884f1151aa053641e6067deaf8f204559706",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/035-enlarged-footer-check-home.ax.txt"
+    },
+    {
+      "bytes": 205,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/035-enlarged-footer-check-home.event.json",
+      "sha256": "eda25d8852c75e3cdefdec31b7aa783b02ae84262db3d2eaef91fa622e07c409",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/035-enlarged-footer-check-home.event.json"
+    },
+    {
+      "bytes": 188210,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/035-enlarged-footer-check-home.jpg",
+      "sha256": "112f460dab25dc73c098a7ee24cb65bd93cb7f5ec04988d6aa37cc40586434ce",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/035-enlarged-footer-check-home.jpg"
+    },
+    {
+      "bytes": 1658,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/036-enlarged-home-footer.ax.txt",
+      "sha256": "eb51964d4334dd4deaa9145d394bc7494450004097c6a8396a5bebe34d7597fc",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/036-enlarged-home-footer.ax.txt"
+    },
+    {
+      "bytes": 165,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/036-enlarged-home-footer.event.json",
+      "sha256": "9d467e5d94ce3c1b8545e2d86bf31195990f05f9b6532d27dac88ccd47b20b10",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/036-enlarged-home-footer.event.json"
+    },
+    {
+      "bytes": 245688,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/036-enlarged-home-footer.jpg",
+      "sha256": "fcac9a7733d9267a772089d1eb6e4934ecb068821476c6d66ad40b8a224008a1",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/036-enlarged-home-footer.jpg"
+    },
+    {
+      "bytes": 2101,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/037-enlarged-return-diagnostics.ax.txt",
+      "sha256": "cc9d3d010f5b8d9f2d1b813a6b8c4be680882bb8fece47505d4811f123ee70ee",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/037-enlarged-return-diagnostics.ax.txt"
+    },
+    {
+      "bytes": 207,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/037-enlarged-return-diagnostics.event.json",
+      "sha256": "4fa647365cfde28eaa275491690d7f7d56dbe7baf29f5c7e3132d19bb38650fa",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/037-enlarged-return-diagnostics.event.json"
+    },
+    {
+      "bytes": 167487,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/037-enlarged-return-diagnostics.jpg",
+      "sha256": "74b00b3ad10103bae9ce110a80a02ef20690cb3474ef4a89df9667ede2dc9387",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/037-enlarged-return-diagnostics.jpg"
+    },
+    {
+      "bytes": 2092,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/038-geometry-reset.ax.txt",
+      "sha256": "f68d260b7e2ce36c71a4a719243df80fcdea64c1bb783bef5e1c473bdfdfacfd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/038-geometry-reset.ax.txt"
+    },
+    {
+      "bytes": 152,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/038-geometry-reset.event.json",
+      "sha256": "011fa9d458fe7c6e682e25b731a52169023f4348b708a6f8a27370ac208bcfce",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/038-geometry-reset.event.json"
+    },
+    {
+      "bytes": 223926,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/038-geometry-reset.jpg",
+      "sha256": "e7ec21a07567c2ebb8952dfbf79c81eca688fa349c35d58a15f6a31df5ba7448",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/038-geometry-reset.jpg"
+    },
+    {
+      "bytes": 1622,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/039-reset-home.ax.txt",
+      "sha256": "811f01e41d3c01757c73bdb7820909e051f4cf3479bef8bf85fb4678fc970bc4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/039-reset-home.ax.txt"
+    },
+    {
+      "bytes": 173,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/039-reset-home.event.json",
+      "sha256": "f188d539047f78d05e088f229c6371108d10841c99ddd4142f4210f45db69992",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/039-reset-home.event.json"
+    },
+    {
+      "bytes": 186305,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/039-reset-home.jpg",
+      "sha256": "b86ce2c71cf9f8725eb98b761e3fed42fe99c1abb9eb074723fa67b95f626e4d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/039-reset-home.jpg"
+    },
+    {
+      "bytes": 1357,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/040-reset-jobs.ax.txt",
+      "sha256": "2c4198a7fcd62700a572aa22edca6094dcdf8fde2d9947e5cc65e59cc9aeecf2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/040-reset-jobs.ax.txt"
+    },
+    {
+      "bytes": 173,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/040-reset-jobs.event.json",
+      "sha256": "c6e0eee3570ae7080419457a6cf7c4a939407765ce74a32013bf702cdc243895",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/040-reset-jobs.event.json"
+    },
+    {
+      "bytes": 153080,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/040-reset-jobs.jpg",
+      "sha256": "90e74e6130d3eeb41b5eb731b0136f8b3d912df6bf9e2557d8db6cc7c97c9b0b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/040-reset-jobs.jpg"
+    },
+    {
+      "bytes": 1382,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/041-reset-tracker.ax.txt",
+      "sha256": "3493d879d728e5b26f93545568c14215bc65a683207d907a7231030ca59cf02b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/041-reset-tracker.ax.txt"
+    },
+    {
+      "bytes": 179,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/041-reset-tracker.event.json",
+      "sha256": "2dd3af8559d813deb5248225e8fe653b941a2ceb63a0cd63ee4024cbc85ba4cd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/041-reset-tracker.event.json"
+    },
+    {
+      "bytes": 156142,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/041-reset-tracker.jpg",
+      "sha256": "98edd61354bf9862ea7953dd150ac83ad9f1e238ee57d923329011f3e8193df7",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/041-reset-tracker.jpg"
+    },
+    {
+      "bytes": 1450,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/042-reset-documents.ax.txt",
+      "sha256": "a6143b48d564fdaca5a56877fd88bc2958653e955ae4c9b23c9a890d48e954f8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/042-reset-documents.ax.txt"
+    },
+    {
+      "bytes": 193,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/042-reset-documents.event.json",
+      "sha256": "1f817c4b59eb37a1eb72a78a7cf6f76ffcefe1f646711fc12de62db9dc2876c8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/042-reset-documents.event.json"
+    },
+    {
+      "bytes": 166008,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/042-reset-documents.jpg",
+      "sha256": "f1ad3f842b3a72396d21168121659002f64a859ec5ea2bb283211e6255de378d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/042-reset-documents.jpg"
+    },
+    {
+      "bytes": 1377,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/043-reset-profile.ax.txt",
+      "sha256": "299ecf27435f906c463aaaa7c9355a3f341b10a82907a777acbf00c3340152e7",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/043-reset-profile.ax.txt"
+    },
+    {
+      "bytes": 179,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/043-reset-profile.event.json",
+      "sha256": "42aae8c8a7946ddf397cb5106343b104c4a00d69f6097e221f1ba9e0c6336964",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/043-reset-profile.event.json"
+    },
+    {
+      "bytes": 153853,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/043-reset-profile.jpg",
+      "sha256": "9e7564811381fbc315e75877c052f0a73f9d7e09530d0835d6f136bbf8e86608",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/043-reset-profile.jpg"
+    },
+    {
+      "bytes": 1381,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/044-reset-settings.ax.txt",
+      "sha256": "e0651404906b49c14985a9b6bca2fc40c06a21a9e7d09ae8c3d1fc775467c9ec",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/044-reset-settings.ax.txt"
+    },
+    {
+      "bytes": 181,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/044-reset-settings.event.json",
+      "sha256": "018fe65124e8f6d897ee524a51a789644dd44c56d966696c52e4d54709214628",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/044-reset-settings.event.json"
+    },
+    {
+      "bytes": 155762,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/044-reset-settings.jpg",
+      "sha256": "3a29bcde9573f8c179ffec0af39da2ebef7b242836154e150d0045e514554e30",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/044-reset-settings.jpg"
+    },
+    {
+      "bytes": 2093,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/045-reset-diagnostics.ax.txt",
+      "sha256": "03d9df237102e8197f46e227734c47d830f7c659c56a996d824fbd2619447f86",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/045-reset-diagnostics.ax.txt"
+    },
+    {
+      "bytes": 187,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/045-reset-diagnostics.event.json",
+      "sha256": "ec7b2a1aa0d66151d352800a10c6ea245b14c4111311cd48f90db9d04e654efd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/045-reset-diagnostics.event.json"
+    },
+    {
+      "bytes": 223576,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/045-reset-diagnostics.jpg",
+      "sha256": "3c967cf60a949535fefa9975d1af8aee835f149490cc4610803e14bab7d709cc",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/045-reset-diagnostics.jpg"
+    },
+    {
+      "bytes": 2082,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/046-reset-check-focus.ax.txt",
+      "sha256": "787fa00ba4ef29efc83b713fdc40eb88b078a7e0696c21e330ac96275ac2a4ca",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/046-reset-check-focus.ax.txt"
+    },
+    {
+      "bytes": 168,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/046-reset-check-focus.event.json",
+      "sha256": "feab1d53c710e925ae7da85707f1cd7144436e4b99cf76c612f1c53b91936ef3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/046-reset-check-focus.event.json"
+    },
+    {
+      "bytes": 224402,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/046-reset-check-focus.jpg",
+      "sha256": "7c1ad2cb906e050674c67c8929b9c8989442339869faa0d45ce73c6a5bd7fbcf",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/046-reset-check-focus.jpg"
+    },
+    {
+      "bytes": 2094,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/047-reset-check-result.ax.txt",
+      "sha256": "56191c61b659412f835d90ed03d0e79d6a7c7ecaa7fafcccfc9c6c9bd93f2f08",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/047-reset-check-result.ax.txt"
+    },
+    {
+      "bytes": 159,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/047-reset-check-result.event.json",
+      "sha256": "e38d837a901128189f276415d3c6ffbbbaa7d58844d7716c3c1680b8484b2a2d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/047-reset-check-result.event.json"
+    },
+    {
+      "bytes": 223267,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/047-reset-check-result.jpg",
+      "sha256": "3afc987c8b4eb1fcd2ab1c07e7a845dd04b0fefec1a41d5991b8360ce5b22c38",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/047-reset-check-result.jpg"
+    },
+    {
+      "bytes": 2126,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/048-reset-skip-focus.ax.txt",
+      "sha256": "a7621335959062b974c7fcc443fd4f1d1a68467a3c85a8ec5e195b78d46f232b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/048-reset-skip-focus.ax.txt"
+    },
+    {
+      "bytes": 165,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/048-reset-skip-focus.event.json",
+      "sha256": "749b9835f0dccaa5f93b3e882eef4616d202c6fad0ca94039786382d05bbb656",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/048-reset-skip-focus.event.json"
+    },
+    {
+      "bytes": 226659,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/048-reset-skip-focus.jpg",
+      "sha256": "82489d417a422acc2169b6e7061d579e538dc7bea568183f07a026a9e196478b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/048-reset-skip-focus.jpg"
+    },
+    {
+      "bytes": 2120,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/049-reset-skip-result.ax.txt",
+      "sha256": "363809246b60ebe01e080062f0577beef2ba933e5ad8f0e016e7384d2b6b9f74",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/049-reset-skip-result.ax.txt"
+    },
+    {
+      "bytes": 167,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/049-reset-skip-result.event.json",
+      "sha256": "03dda575a889a4be637c0fd24b134f4f87a3c9d1465bc4b3abbc69056c693b49",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/049-reset-skip-result.event.json"
+    },
+    {
+      "bytes": 245202,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/049-reset-skip-result.jpg",
+      "sha256": "e90c03d21addb6dbc1e7b3ee80a1a637ee6622e36373367caa6acdbd901f684c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/049-reset-skip-result.jpg"
+    },
+    {
+      "bytes": 2120,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/050-reset-diagnostics-footer.ax.txt",
+      "sha256": "c7939f7ac651c687a24ece4f45cd3bdc14dbf2496d718b50233c2bcff9a7817f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/050-reset-diagnostics-footer.ax.txt"
+    },
+    {
+      "bytes": 165,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/050-reset-diagnostics-footer.event.json",
+      "sha256": "a2cf28a32f923d52b8930fe5fb6c438522a31cc935a467d65c164ab8141ee9c0",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/050-reset-diagnostics-footer.event.json"
+    },
+    {
+      "bytes": 252529,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/captures/050-reset-diagnostics-footer.jpg",
+      "sha256": "99faa4543e06b0ffc15c26d341e93680e560e54ad176b3e036e63329b5d1b971",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/captures/050-reset-diagnostics-footer.jpg"
+    },
+    {
+      "bytes": 2082,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/baseline-button-Check-again-01.ax.txt",
+      "sha256": "606de13671588e6b10c41e8754959a8accdd23d6e6c718089f4b794e7b4f06c6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/baseline-button-Check-again-01.ax.txt"
+    },
+    {
+      "bytes": 2118,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/baseline-link-Skip-to-main-content-01.ax.txt",
+      "sha256": "711dd69940243494d7c0721d54212e3bff3cea79ec11866c9cb5c532c774bece",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/baseline-link-Skip-to-main-content-01.ax.txt"
+    },
+    {
+      "bytes": 2112,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/baseline-link-Skip-to-main-content-02.ax.txt",
+      "sha256": "9041e70d37dd2632676fa9d7bb78e80f1cf1196550eebb46c6c48914d21ec4df",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/baseline-link-Skip-to-main-content-02.ax.txt"
+    },
+    {
+      "bytes": 2110,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/baseline-link-Skip-to-main-content-03.ax.txt",
+      "sha256": "c2cdc231f254a7679c5963b9b783aa101ab83254de36e61b95accb458747adea",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/baseline-link-Skip-to-main-content-03.ax.txt"
+    },
+    {
+      "bytes": 2124,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/baseline-link-Skip-to-main-content-04.ax.txt",
+      "sha256": "748174da1b6915441a7e6e8cf2758c06baea8d1839c6e291d209b6a7a491bea1",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/baseline-link-Skip-to-main-content-04.ax.txt"
+    },
+    {
+      "bytes": 2110,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/baseline-link-Skip-to-main-content-05.ax.txt",
+      "sha256": "d6810a50ec5f84a4c0852d3e1bdc4d50410f642e19874372e32fcb4661b94bd9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/baseline-link-Skip-to-main-content-05.ax.txt"
+    },
+    {
+      "bytes": 2103,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/baseline-link-Skip-to-main-content-06.ax.txt",
+      "sha256": "cc7677b81f9d1c4d96dab6f5c4f434fc50ead2deb0088b7be99c4da52b104808",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/baseline-link-Skip-to-main-content-06.ax.txt"
+    },
+    {
+      "bytes": 2103,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/baseline-link-Skip-to-main-content-07.ax.txt",
+      "sha256": "d743eb0368110eb12486d05760c08876369ab192667f173731496c3f15720483",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/baseline-link-Skip-to-main-content-07.ax.txt"
+    },
+    {
+      "bytes": 2127,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/baseline-link-Skip-to-main-content-08.ax.txt",
+      "sha256": "ee0628c819c1e89a7f2ad5953488acb2bcdce7ad07efc6686f061a74e0f30113",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/baseline-link-Skip-to-main-content-08.ax.txt"
+    },
+    {
+      "bytes": 236,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/baseline-refresh-result.json",
+      "sha256": "523ed4d61a6f52dcb2badd340651ead7784eb6af4846bbd680395ffa245902cd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/baseline-refresh-result.json"
+    },
+    {
+      "bytes": 2082,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/enlarged-button-Check-again-01.ax.txt",
+      "sha256": "839f67f9d569d1621de0500230ab21f198ca43f63afd462b2b769165a82deda4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/enlarged-button-Check-again-01.ax.txt"
+    },
+    {
+      "bytes": 2127,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/enlarged-link-Skip-to-main-content-01.ax.txt",
+      "sha256": "80883641ce36ab169816e6f4469ed623464e2a6b778a9ee115a6eabaf5f83d12",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/enlarged-link-Skip-to-main-content-01.ax.txt"
+    },
+    {
+      "bytes": 2121,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/enlarged-link-Skip-to-main-content-02.ax.txt",
+      "sha256": "635b7589966a0e14fc71805d031245ea0e1f0dc258f017844b7b18cffe37af7c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/enlarged-link-Skip-to-main-content-02.ax.txt"
+    },
+    {
+      "bytes": 2119,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/enlarged-link-Skip-to-main-content-03.ax.txt",
+      "sha256": "2dd80622113423e796ae21dea8d032f5f933099468bd0f27887652d03794cba4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/enlarged-link-Skip-to-main-content-03.ax.txt"
+    },
+    {
+      "bytes": 2133,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/enlarged-link-Skip-to-main-content-04.ax.txt",
+      "sha256": "d476320c7414c06f205a678e505bb6c701e9a265769e4cf135b84a6acb55f9a6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/enlarged-link-Skip-to-main-content-04.ax.txt"
+    },
+    {
+      "bytes": 2119,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/enlarged-link-Skip-to-main-content-05.ax.txt",
+      "sha256": "f90d26cffc48c5d497fa279d87f39372ccdf34c558e421a18066a384c7ab2dcc",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/enlarged-link-Skip-to-main-content-05.ax.txt"
+    },
+    {
+      "bytes": 2112,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/enlarged-link-Skip-to-main-content-06.ax.txt",
+      "sha256": "8a4244af5930f055720575bfcf49e7122623c78d685f601d342d6558110edb69",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/enlarged-link-Skip-to-main-content-06.ax.txt"
+    },
+    {
+      "bytes": 2112,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/enlarged-link-Skip-to-main-content-07.ax.txt",
+      "sha256": "ecec4f6abf8abe7f16cbc9c62305dbc58a6047b8dded4c012d2c9add501ef704",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/enlarged-link-Skip-to-main-content-07.ax.txt"
+    },
+    {
+      "bytes": 2136,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/enlarged-link-Skip-to-main-content-08.ax.txt",
+      "sha256": "bdfdeec3759de44a3c3ad688222fbaa4865d4f9602e06dee67c53a8939c309bc",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/enlarged-link-Skip-to-main-content-08.ax.txt"
+    },
+    {
+      "bytes": 236,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/enlarged-refresh-result.json",
+      "sha256": "4a9def8b4042124d2e88cb6019f36c77ff5805830675a09d81c0a26e88a3a3d7",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/enlarged-refresh-result.json"
+    },
+    {
+      "bytes": 2082,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/reset-button-Check-again-01.ax.txt",
+      "sha256": "787fa00ba4ef29efc83b713fdc40eb88b078a7e0696c21e330ac96275ac2a4ca",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/reset-button-Check-again-01.ax.txt"
+    },
+    {
+      "bytes": 2117,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/reset-link-Skip-to-main-content-01.ax.txt",
+      "sha256": "b4849deb206a92a44dee1a1941b95628fed9ebc7d13da6c999711800886714e5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/reset-link-Skip-to-main-content-01.ax.txt"
+    },
+    {
+      "bytes": 2111,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/reset-link-Skip-to-main-content-02.ax.txt",
+      "sha256": "7671fc99853e1a7c10b34993c6acb70b3c86c1435afd36ee1f70a8acb46eeabf",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/reset-link-Skip-to-main-content-02.ax.txt"
+    },
+    {
+      "bytes": 2109,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/reset-link-Skip-to-main-content-03.ax.txt",
+      "sha256": "bd41d40c16c6373ec05e616bfddfa3e48dcc0048e96e8e50188fdb92fbc2fd29",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/reset-link-Skip-to-main-content-03.ax.txt"
+    },
+    {
+      "bytes": 2123,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/reset-link-Skip-to-main-content-04.ax.txt",
+      "sha256": "1017a7a5662db9a2c7083e942d8977ef64717ca2f5a95f568880a4a920da2297",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/reset-link-Skip-to-main-content-04.ax.txt"
+    },
+    {
+      "bytes": 2109,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/reset-link-Skip-to-main-content-05.ax.txt",
+      "sha256": "fb0a3c9691e2d1e74d75a65db5f08679834a8d455f765af8ae9e70e77363044b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/reset-link-Skip-to-main-content-05.ax.txt"
+    },
+    {
+      "bytes": 2102,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/reset-link-Skip-to-main-content-06.ax.txt",
+      "sha256": "8c99c23e1e03c49a37c7a5e08757665620acba4f465b712dcdfd712291fe1ae4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/reset-link-Skip-to-main-content-06.ax.txt"
+    },
+    {
+      "bytes": 2102,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/reset-link-Skip-to-main-content-07.ax.txt",
+      "sha256": "488fd8658ad2bfccc28deaaf61df3d0f69b613f654d24162b9f9bda47c0de30a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/reset-link-Skip-to-main-content-07.ax.txt"
+    },
+    {
+      "bytes": 2126,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/reset-link-Skip-to-main-content-08.ax.txt",
+      "sha256": "a7621335959062b974c7fcc443fd4f1d1a68467a3c85a8ec5e195b78d46f232b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/reset-link-Skip-to-main-content-08.ax.txt"
+    },
+    {
+      "bytes": 235,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/keyboard/reset-refresh-result.json",
+      "sha256": "dd7e8a4bb1ed4e135fd6052245b87cce62a50f2000faea5e16e2a673fcdbb367",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/keyboard/reset-refresh-result.json"
+    },
+    {
+      "bytes": 5742,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/measure-planned.cjs",
+      "sha256": "445dd56c01a285fc354fecb70a35214aa1a741a4dbb78cda03d81b31829e8ab6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/measure-planned.cjs"
+    },
+    {
+      "bytes": 33093,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/measured-scale.json",
+      "sha256": "1a43aa4680879cb9fa784126b789b55cc9bd83b8cf4608bcd1b115223ffb012c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/measured-scale.json"
+    },
+    {
+      "bytes": 3908,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/observer-executed.py",
+      "sha256": "49ee205c4f38f473f7a1b62cf8f68165671004a95c5bfd5374d95a066c0128a9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/observer-executed.py"
+    },
+    {
+      "bytes": 237,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/session-start.json",
+      "sha256": "a5dcf963cc3c35865fceaa2d7fb78e79dd445b3da1bc2211c2ad265384aba9db",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/session-start.json"
+    },
+    {
+      "bytes": 242,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/ui-completion.json",
+      "sha256": "e95eba246085cebcc53959b40680f6acfbf5e9b7275a1d1d7f9db41f9e2c4935",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/ui-completion.json"
+    },
+    {
+      "bytes": 17965,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/ui-ledger.json",
+      "sha256": "9405eae34b0f12664c4d2ad633462d7d85004fd268798320d14d6e7b91de3f13",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/ui-ledger.json"
+    },
+    {
+      "bytes": 1565,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/warmup/01-stream-start.ax.txt",
+      "sha256": "4cdb05aa2ca2592ca342e9d89031d59db6b90ee1fa4c20325487207a2faa7ce3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/warmup/01-stream-start.ax.txt"
+    },
+    {
+      "bytes": 182875,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/warmup/01-stream-start.jpg",
+      "sha256": "4dff1cd4ae9e6aab09c5640025abdec6de9eae9e0514ed6c25e9b2b4ce93c904",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/warmup/01-stream-start.jpg"
+    },
+    {
+      "bytes": 1565,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual-v6/warmup/02-post-stream-eligibility.ax.txt",
+      "sha256": "4cdb05aa2ca2592ca342e9d89031d59db6b90ee1fa4c20325487207a2faa7ce3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/warmup/02-post-stream-eligibility.ax.txt"
+    },
+    {
+      "bytes": 1097,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "different-review/HANDOFF.json",
+      "sha256": "8bbb9f62103e3523a3242170af3e7c16c1b4c68fbdff6a221e2596f38099cd5e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom-independent-review/v6/HANDOFF.json"
+    },
+    {
+      "bytes": 55320,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "different-review/MANIFEST.json",
+      "sha256": "a1a14889d67564a25882f683f0c0bbbd0ae082bd072e440fdc6c14c6097247a4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom-independent-review/v6/MANIFEST.json"
+    },
+    {
+      "bytes": 10223,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "different-review/REVIEW.md",
+      "sha256": "a9e4cee49ffc5b8d5d2d3a53302e8fe9e4bdabbcf0798f008b724b1ef98b61fa",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom-independent-review/v6/REVIEW.md"
+    },
+    {
+      "bytes": 38445,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "different-review/SOURCE.json",
+      "sha256": "ecb61a6746a5ef647febc35566d4c822daa3b2f5597848e3705a1fad9a4b043f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom-independent-review/v6/SOURCE.json"
+    },
+    {
+      "bytes": 6429809,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "different-review/proof.tar.gz",
+      "sha256": "2f2ae66657a21327690056eb7985e46d24751322acd618fcf382760aa936cf27",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom-independent-review/v6/proof.tar.gz"
+    },
+    {
+      "bytes": 3435,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "packet-builder-executed.py",
+      "sha256": "dd51d381100c6874fc7aed94bfa9bc5fa085c44b58f970405d6072e0c325f32e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/pack-reviewed-records-v1.py"
+    },
+    {
+      "bytes": 53109,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "packet-config.json",
+      "sha256": "04bd3c0c52ba85ce79c6c37e7230845d6621d4caf047d4fca92c9ae5a10e1df1",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/packet-macos-native-zoom-v6.json"
+    },
+    {
+      "bytes": 3131,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "prospective-different-review/MANIFEST.json",
+      "sha256": "121f849190cc00ea97fc16e3161e98eed961ec0be78f253c76d2fd33eaeb204f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom-v6-plan-independent-review/v1/MANIFEST.json"
+    },
+    {
+      "bytes": 4034,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "prospective-different-review/REVIEW.md",
+      "sha256": "88e72042cf2d1ebd28b53c3d35e177bda861efa4aa50e0901017ceae46c1cecc",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom-v6-plan-independent-review/v1/REVIEW.md"
+    },
+    {
+      "bytes": 14478,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "prospective-different-review/proof.tar.gz",
+      "sha256": "3a6e469e06c4db6d6aba35da8b586dcd7e9c8722643a8d85d5ee2bf3aa32fb50",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom-v6-plan-independent-review/v1/proof.tar.gz"
+    }
+  ],
+  "pins": [
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom/v6/PRE-CAPTURE-SOURCE.json",
+      "sha256": "ec1d09b705fe30814a7168ed715bee0f1ff73d854ac3dd6d94b03db0004feff4"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom-independent-review/v6/REVIEW.md",
+      "sha256": "a9e4cee49ffc5b8d5d2d3a53302e8fe9e4bdabbcf0798f008b724b1ef98b61fa"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-native-zoom-independent-review/v6/proof.tar.gz",
+      "sha256": "2f2ae66657a21327690056eb7985e46d24751322acd618fcf382760aa936cf27"
+    }
+  ],
+  "scope": "Complete finite201-file actual subject plus selected complete sealed reviewer archives. Previouslybuilt app bundle bodies are not copied here; exact selected app/runtime maps and historical source bindings are retained."
+}

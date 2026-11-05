@@ -1,0 +1,22 @@
+{
+  "format_version": "W14_PAIRED_PREEXECUTION_SOURCE_REBIND_PROPOSAL_1",
+  "authority": "NONE",
+  "status": "PROPOSED_BEFORE_EITHER_NEW_SYSTEM_RUN_NOT_EXECUTED",
+  "gate_pass": false,
+  "source_root": "/tmp/japp-w14-paired-rebind-draft/tree",
+  "legacy_root": "/tmp/japp-legacy-cleanroom.ByLBQU",
+  "previous_lock_digest": "sha256:561bc786d35c51e9705b0c0659bec6b180e0bbd7c59bc9ea28752e9e690a759d",
+  "proposed_lock_digest": "sha256:1a0b76cef2a7f5b7218aa031c836ea71550b53391b621327f6701164a4ac2d7b",
+  "proposed_patch_digest": "sha256:0df34970af05d47b68b9d500799ee1b3eac6d877420cd1d4deaa7b7a728afcc2",
+  "frozen_data_unchanged": {
+    "paired-inputs.json": "sha256:2d1ce7ba5acf2414f5936b47055e9afd412ffbee0f8a247cd2c6f583548c3812",
+    "paired-oracles.json": "sha256:96a9fa8780c4b0c5bee78edf9f0b721ea171c598ef3e9cd89cd33ddf8ccb3626",
+    "legacy-projections.json": "sha256:7c7cd5d546aee296ddaa50455b95b4baf7c32e2984ba1df53ddacf5c445531ed"
+  },
+  "candidate_runtime_inventory_count": 352,
+  "candidate_runtime_inventory_digest": "sha256:1ac47982914c5e7786e5aa395f3b5d296930fa238018974719c916e49adbffe2",
+  "runtime_review_record": "Parent reviewed final expanded driver delta sha256:8a889e0916bda5cc4ee55bdbf0ed97af5653b4104e8f7e732d258143d9bbd0df and final72 source manifest sha256:4290937bab75ce3f0eef89b3cee7933f9a66dec4eda6815715acedbe582b72fb before either new paired system execution; outside candidate runtime is byte-exact to current root.",
+  "candidate_runs_performed_by_rebind_tool": 0,
+  "legacy_runs_performed_by_rebind_tool": 0,
+  "note": "Parent must review/apply this proposal and externally commit the exact new lock before a fresh default build and either actual run. Output creation is not execution or a gate pass."
+}

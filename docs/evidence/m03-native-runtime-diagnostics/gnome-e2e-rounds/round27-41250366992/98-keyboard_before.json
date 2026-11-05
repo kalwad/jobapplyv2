@@ -1,0 +1,7 @@
+{
+  "status": "FAIL",
+  "operation": "keyboard_before",
+  "error_type": "ValueError",
+  "message": "Actual keyboard origin is not Home link",
+  "elapsed_seconds": 0.39364161899999317
+}

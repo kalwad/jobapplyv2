@@ -1,0 +1,22 @@
+{
+  "schema": "japp-windows11-vm-release-v1",
+  "decision": "RELEASE_ONE_BOUND_CAMPAIGN",
+  "request_id": "ff56ce4e0b4b3b37fc5a29abcdf96495",
+  "request_parent_sha": "2cf9fa67c5ecd342d23eb5d687bb2d8c1035da9b",
+  "expected_source_sha": "a03aadf22ab83c9b39bc03f5387eaa0a702ebf27",
+  "package_build_sha": "d9412fd07ce7088ea2a5df5515230bd778567cd7",
+  "source_tree_sha": "7a96092b2b7738d3dce8f27b5ddb004b1a2ff81a",
+  "artifact": {
+    "run_id": "41395340494",
+    "run_attempt": "1",
+    "run_head_sha": "e5aa210c345c0d3956f17cfffe11495778e3ef4e",
+    "artifact_id": "13119257518",
+    "digest_sha256": "1940176ffa079820a8422bcac0d9e2aa223d8033584dd8005b0b9c9bb84b56d4",
+    "package_manifest_sha256": "b7697ee47f0e0df7e38d9185929da943f23362c7c61b632f774bec3e91f1298b"
+  },
+  "review_evidence_sha256": "3cbd8f3790cf2d04253ae6602a9450a73d022a20de6b999d7ec33f5e281d79e6",
+  "bundle_sha256": "ce73edddbfdb0f8fb46e9adedf25aa5c31f1b450a6757ac14928bfe07e2b2a2e",
+  "media_lock_sha256": "d1aa8e327b90e292cb309ba1dc7ba448ba7981f2b4fdbd2829c6c083ad804533",
+  "host_tools_sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06",
+  "guest_driver_sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+}

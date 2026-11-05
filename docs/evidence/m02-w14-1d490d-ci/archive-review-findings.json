@@ -1,0 +1,155 @@
+{
+  "format": "SECONDARY_FINAL1D_CI_ARCHIVE_CLOSURE_REVIEW_1",
+  "authority": "NONE",
+  "archive": "/tmp/japp-w14-1d490d-ci-retained/1d490d-ci-evidence.tar.gz",
+  "archive_sha256": "6a95092246555fe34d41e106fe7ce46c4166820948f17cdeb2ad94270c875dff",
+  "archive_bytes": 878591,
+  "regular_members": 94,
+  "payload_bytes": 5118706,
+  "checks": [
+    {
+      "name": "exact_archive_sha_bytes",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "outer94_unique_member_rows",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "all_safe_regular_no_links_duplicates_or_traversal",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "exhaustive_outer_actual94_closure",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "every_member_sha_bytes_exact",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "exact_payload_bytes",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "embedded_index93_unique_exact_except_self",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "embedded_index_external_copy_exact",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "all93_original_paths_exact",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "all93_original_bytes_exact_no_symlinks",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "external_report_summary_exact_original_archive",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "pinned_final1d_run_merge_tree",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "final_three_native_success_default_scope",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_log_hash_rows_match_archive_originals",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "declared_python_cohort_scope",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "seven_selected_source_rows_not_complete_checkout",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "selected_source_scripts/tests/test_validate_status.py",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "selected_source_scripts/tests/test_w14_contact_controlled_proof.py",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "selected_source_scripts/verify.py",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "selected_source_packages/contracts/test/contract/infrastructure.test.ts",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "selected_source_.github/workflows/ci.yml",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "selected_source_e2e/extension/extension-benchmark.spec.ts",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "selected_source_scripts/python-test-inventory.v1.json",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "one_sample_ci_not20target_acceptance",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "exact_target_assertion_scope_in_snapshot",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "no_prior_contact_failure_cause_inferred",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "archive_and_originals_unchanged_after_peer",
+      "passed": true,
+      "observed": null
+    }
+  ],
+  "all_checks_pass": true,
+  "material_findings": [],
+  "scope_limitations": [
+    "Secondary archive/original-byte/selected-source/report-scope review only; primary Windows23/all-platform review remains separately supplied.",
+    "No API/CI/fetch/product command, archived-code execution, root integration/write, test/build/browser/actor or cancellation/rerun.",
+    "Seven retained source blobs and root Git metadata do not constitute an independently reconstructed full native checkout.",
+    "Native default CI samples1 do not replace local20 target evidence or establish public/Simplify/formalW15/Gate A approval.",
+    "No independent pre-Windows historic preimage of the two-platform packet was re-audited here; every current93original byte matches archive."
+  ]
+}

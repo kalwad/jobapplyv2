@@ -1,0 +1,9 @@
+{
+  "format_version": "W14_PUBLIC_CONTACT_INDEPENDENT_ORACLE_ARCHIVE_1",
+  "archive_file": "independent-oracle.json.gz",
+  "archive_sha256": "sha256:095521f709d9aab13fbe7aa013e565bde20865d7f8227984e4875b0dc575a1a9",
+  "uncompressed_sha256": "sha256:e2383c2aa795f2f876063dc7c7b72d7fd2ea969004db05deca6ba08a86b8ce82",
+  "uncompressed_bytes": 726847,
+  "independence": "Separately authored from saved inventory and canonical text before candidate outcomes; immutable original preimage, absolute historical source paths preserved as provenance.",
+  "gate_authority": "NONE"
+}

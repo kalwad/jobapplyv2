@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "reason": "INVENTORY_VERIFIED",
+  "source_sha256": "67d667d6d98b598c1301d1b4e7453c53fb94659f4922286b1883326a2b237922",
+  "started_utc": "2026-11-02T19:02:17.257468+00:00",
+  "native_lifecycle_or_signature_proof": false,
+  "finished_utc": "2026-11-02T19:02:17.432618+00:00",
+  "elapsed_seconds": 0.1751668450000352
+}

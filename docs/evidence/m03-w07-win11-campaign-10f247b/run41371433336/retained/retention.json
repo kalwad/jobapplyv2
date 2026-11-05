@@ -1,0 +1,14 @@
+{
+  "schema": "japp-win11-retention-v1",
+  "files": {
+    "closure.json": {
+      "bytes": 324,
+      "sha256": "8c15976661d2b878108f883f22f5578e6dc908e4674e3c71ae74c100f8090148"
+    },
+    "host-cpu.json": {
+      "bytes": 352,
+      "sha256": "2ae2e3cd7c76326ef062adafd311f042dc31d9cf058a56c63d214317a2be54a7"
+    }
+  },
+  "private_ISO_disks_passwords_excluded": true
+}

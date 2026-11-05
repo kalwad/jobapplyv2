@@ -1,0 +1,7 @@
+# Historical terminal CI — 204bc06 failure
+
+[Run40790930093](https://github.com/kalwad/jobapplyv2/actions/runs/40790930093) completed FAILURE. Mac and Ubuntu each pass18suites and fail Python/integrity at the metadata fixture preflight; no Python collection/execution occurred. Windows passes17suites and also fails native default tests300PASS/16FAIL; later modes were unexecuted. The dependent native development package job is SKIPPED. No native package or full-CI acceptance is claimed.
+
+All three exact checkout logs bind tested merge e4687f0d608af7deb1e80b5879a7102c8f1edf8a to head204bc06a374631f4b40d4fc382f573a77ef9242a and the same2070-blob tree5b5bfeda09b60654adce335e0e21cd9ad056e120. The615-join independent review verifies terminal verdicts, checkout/tree joins, complete official job logs and all575 regular members of four API-digest-matched artifact ZIPs. Those ZIPs are retained whole; their expanded duplicate copies are omitted. The Windows native-loader diagnostic is separate from the skipped package job. The repo-scoped runner inventory returned HTTP200/zero self-hosted runners.
+
+The corrected9872acaf6191ce77fd1c077ef27ea972b71b8315 run40795147477 was pending separately when this packet was prepared. Neither later fixes nor later validation replace this historical failure. No milestone or release state changes. See summary, raw logs/source records and independent review inside the archive; artifact.json and retention-manifest.json bind every safe regular archive member. No downloaded subject executable was run.

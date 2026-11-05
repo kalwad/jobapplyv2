@@ -1,0 +1,105 @@
+{
+  "all_selected_bytes_full_modes_verified": true,
+  "created_utc": "2026-10-29T20:23:56.286960+00:00",
+  "file_count": 12,
+  "files": [
+    {
+      "bytes": 637,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual/after-result.json",
+      "sha256": "d449880c52acef2c0b48ed7ba762949dd5c49075b0d388aaa999a4b9a09a881e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/known-issue-ledger-layout-correction/v1/after-result.json"
+    },
+    {
+      "bytes": 340708,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual/after.md",
+      "sha256": "878af42c8eaaf36a5b564bc331f477ae975168885b1ab0a7d23f9bbbc248c86e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/known-issue-ledger-layout-correction/v1/after.md"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual/after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/known-issue-ledger-layout-correction/v1/after.stderr"
+    },
+    {
+      "bytes": 3583,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual/after.stdout",
+      "sha256": "e87bd7abf40d7a5723306c8911bd6891b148ee482832e81b73e89bce03413dd5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/known-issue-ledger-layout-correction/v1/after.stdout"
+    },
+    {
+      "bytes": 539,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual/before-result.json",
+      "sha256": "ed9511b4d904e2c66a00993205d2514b87cf6cefcd2c53cf4245ce5355997bb0",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/known-issue-ledger-layout-correction/v1/before-result.json"
+    },
+    {
+      "bytes": 336073,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual/before.md",
+      "sha256": "fda7ddca665b9a2dceb51136c3485d1e87186b54161ea0be55f711b74395da06",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/known-issue-ledger-layout-correction/v1/before.md"
+    },
+    {
+      "bytes": 0,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual/before.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/known-issue-ledger-layout-correction/v1/before.stderr"
+    },
+    {
+      "bytes": 3728,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual/before.stdout",
+      "sha256": "7522a398fd8ded9c7aedefa3be07c398feb98a7265c4c2d2f804ba2744ad8c6f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/known-issue-ledger-layout-correction/v1/before.stdout"
+    },
+    {
+      "bytes": 9670,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual/correction.patch",
+      "sha256": "c8312a3073562fef104ce90030bf4ef796223c15a2d0559008c9510220f97889",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/known-issue-ledger-layout-correction/v1/correction.patch"
+    },
+    {
+      "bytes": 57308,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "actual/status-at-failure.md",
+      "sha256": "b67b2cf1ebf823c42c6a2776c77fa4f0288cf7687e3da220b0b74adb26bd0b07",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/known-issue-ledger-layout-correction/v1/status-at-failure.md"
+    },
+    {
+      "bytes": 3435,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "packet-builder-executed.py",
+      "sha256": "dd51d381100c6874fc7aed94bfa9bc5fa085c44b58f970405d6072e0c325f32e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/pack-reviewed-records-v1.py"
+    },
+    {
+      "bytes": 3321,
+      "full_mode": 33188,
+      "mode": 420,
+      "path": "packet-config.json",
+      "sha256": "2c413674f7e2073f78e099f3d2afdac59eb3929118cf28c078f0cf6dc500f691",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/packet-known-issue-ledger-layout.json"
+    }
+  ],
+  "pins": [],
+  "scope": "Exact before/after ledger and actual original failed/current passed validator stdout/stderr/child closures; no source/test mutation."
+}

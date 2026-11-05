@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-japp-schema-version": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "$id": "urn:japp:schema:service:ready:v1",
+  "title": "Service ready payload",
+  "description": "Authenticated local service skeleton state. This reports only service lifecycle and does not certify database, AI, platform or product readiness.",
+  "required": ["status", "scope", "instance_id", "generation"],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["READY"]
+    },
+    "scope": {
+      "type": "string",
+      "enum": ["SERVICE_SKELETON"]
+    },
+    "instance_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "generation": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    }
+  }
+}

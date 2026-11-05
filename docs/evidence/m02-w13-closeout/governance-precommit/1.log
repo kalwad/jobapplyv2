@@ -1,0 +1,46 @@
+  ok: CLAUDE.md: present with required structure
+  ok: docs/MASTER_IMPLEMENTATION_SPEC.md: present with required structure
+  ok: docs/PROJECT_STATUS.md: present with required structure
+  ok: docs/DECISIONS.md: present with required structure
+  ok: docs/TEST_EVIDENCE.md: present with required structure
+  ok: docs/KNOWN_ISSUES.md: present with required structure
+  ok: docs/COMPATIBILITY_MATRIX.md: present with required structure
+  ok: docs/UI_FAMILIARITY.md: present with required structure
+  ok: docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md: present with required structure
+  ok: docs/ui/ANTI_BLOAT_CHECKLIST.md: present with required structure
+  ok: docs/EXPERIMENTAL_AI_PROVIDERS.md: present with required structure
+  ok: docs/PLATFORM_SUPPORT.md: present with required structure
+  ok: docs/REQUIREMENTS_TRACEABILITY.md: present with required structure
+  ok: docs/traceability.json: present with required structure
+  ok: docs/CRITICAL_GATES.md: present with required structure
+  ok: docs/gates/AUTOFILL_FEASIBILITY_GATE.md: present with required structure
+  ok: docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md: present with required structure
+  ok: docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md: present with required structure
+  ok: docs/gates/CROSS_PLATFORM_CORE_GATE.md: present with required structure
+  ok: docs/gates/HOLDOUT_EXECUTION_LOG.md: present with required structure
+  ok: docs/platform/CERTIFIED_MATRIX.md: present with required structure
+  ok: docs/platform/MODEL_RUNTIME_PROFILES.md: present with required structure
+  ok: docs/platform/NATIVE_MESSAGING_MATRIX.md: present with required structure
+  ok: docs/platform/PACKAGING_UPDATE_MATRIX.md: present with required structure
+  ok: spec parsed: 39 milestones, 300 work packages, 193 requirements; §12 gate rules derivable
+  ok: canonical v1.4 hash, M00-W01…W11 table, owner-controlled agent policy, provider boundary, and explicit M27 terminal order verified
+  ok: v1.4 UI/provider governance ledgers have exact owners and honest NOT_YET_APPLICABLE/NOT_EVALUATED states
+  ok: PROJECT_STATUS header fields and sections present; release gate is NOT_READY
+  ok: critical-gates table valid (4 gates, valid states, reports present, ledger complete and agreeing)
+  ok: future Gate D guidance resolves exactly to nondeprecated evidence-record:v2 and certification-input:v2
+  ok: milestone table complete (39 rows, valid enums)
+  ok: work-package table complete (300 rows, exactly one state each)
+  ok: IN_PROGRESS count ok (0)
+  ok: READY count/coexistence ok (1)
+  ok: 'Current work package' is NONE with no IN_PROGRESS package
+  ok: next READY package M02-W14 is READY in the table
+  ok: Current milestone matches M02
+  ok: KNOWN_ISSUES and PROJECT_STATUS live blockers agree with milestone acceptance and readiness
+  ok: dependency order respected (milestone deps, ACCEPTED prerequisites, critical gates, and reviewed explicit package graph)
+  ok: v1.4 readiness contract valid (M00-W11 is the only migration work, M01-W07 waits for exact verification plus M00 acceptance, pre-closeout gates remain unevaluated, and M06 remains independent of Gate D)
+  ok: M28/Gate-D final-revision binding is not yet applicable
+  ok: milestone states consistent with package states
+  ok: verified/accepted packages carry tree revisions and linked TEST_EVIDENCE entries
+  ok: M00-W01…W10 and M01-W01…W06 states, trees, content commits, and evidence anchors are preserved
+  ok: exactly one regular canonical specification exists under docs/ (case/Unicode/content variants checked)
+PASS: all checks passed (45 check groups)

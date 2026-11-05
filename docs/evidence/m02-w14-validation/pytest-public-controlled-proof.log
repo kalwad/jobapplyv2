@@ -1,0 +1,9 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/tanishkalwad/jobapplyv2
+configfile: pyproject.toml
+collected 8 items
+
+scripts/tests/test_w14_public_controlled_proof.py ........               [100%]
+
+============================== 8 passed in 5.35s ===============================

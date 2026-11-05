@@ -1,0 +1,8 @@
+{
+  "terminal": "FAIL",
+  "phase": "ready",
+  "nonce": "171da10feeb43c0fe16185ebc277a97bf5d39a7df8d1a786e67af2805a99c052",
+  "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+  "error_type": "System.Management.Automation.MethodInvocationException",
+  "message": "Exception calling \"Capture\" with \"1\" argument(s): \"Actual owned foreground window required for capture\""
+}

@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "operation": "shell_tab_settings",
+  "result": {
+    "tab_moved": true
+  },
+  "elapsed_seconds": 0.25336090700000113
+}

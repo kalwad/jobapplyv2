@@ -1,0 +1,35 @@
+# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Resolve the Windows 11 host-tool closure on a
+# real hosted ubuntu-24.04 runner with empty-status and runner-status (ADR-0009) resolution,
+# then simulate the install. Nothing is installed; no VM starts. No acceptance can come from it.
+name: ci
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  host-closure:
+    name: windows11 host closure resolution
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Runner
+        shell: bash
+        run: |
+          echo "ImageVersion=$ImageVersion"
+          dpkg --print-architecture; dpkg --print-foreign-architectures
+          grep -c '^Package: ' /var/lib/dpkg/status
+          dpkg-query -W -f='${db:Status-Abbrev}\n' | sort | uniq -c
+          dpkg-query -W libpcre2-8-0 libsqlite3-0 python3 acl
+      - name: Resolve both ways
+        shell: bash
+        run: python3 -I -B diag/host_closure.py "$GITHUB_WORKSPACE/scripts" "$RUNNER_TEMP/out"
+      - name: Retain
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: host-closure
+          path: ${{ runner.temp }}/out
+          retention-days: 7

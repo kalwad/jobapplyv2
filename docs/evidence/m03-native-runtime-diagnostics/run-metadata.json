@@ -1,0 +1,2933 @@
+{
+  "retrieved_with": "gh api (2026-10-31UTC to 2026-11-04UTC); selected fields only",
+  "scratch_branch": "diag/windows-service-env; rounds 51-54 diag/win11-host-closure (never merged)",
+  "runs": [
+    {
+      "id": 41165269919,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "f68f6d8f7835c9418028214b867c5ce241293b40",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "cancelled",
+      "created_at": "2026-10-31T03:38:50Z",
+      "updated_at": "2026-10-31T05:00:11Z",
+      "jobs": [
+        {
+          "id": 124431367932,
+          "name": "win11 firmware and boot key",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-31T03:38:54Z",
+          "completed_at": "2026-10-31T04:24:15Z",
+          "runner_name": "GitHub Actions 1000000948"
+        },
+        {
+          "id": 124431368075,
+          "name": "gnome session (tcg)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T03:38:54Z",
+          "completed_at": "2026-10-31T05:00:02Z",
+          "runner_name": "GitHub Actions 1000000949"
+        },
+        {
+          "id": 124431368124,
+          "name": "gnome session (kvm)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T03:38:55Z",
+          "completed_at": "2026-10-31T05:00:10Z",
+          "runner_name": "GitHub Actions 1000000950"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13030772745,
+          "name": "diag-gnome-kvm",
+          "size_in_bytes": 11701188,
+          "digest": "sha256:940824b20d9c95251c690ba2a742c3e747ea91009162994ab078abc4115c1e26"
+        },
+        {
+          "id": 13030251638,
+          "name": "diag-win11-boot",
+          "size_in_bytes": 333,
+          "digest": "sha256:a54cafc682d86a1ea89c9329da492404708adc32ce2617a4f9ba092f77c5523e"
+        },
+        {
+          "id": 13030144135,
+          "name": "diag-gnome-tcg",
+          "size_in_bytes": 63285,
+          "digest": "sha256:2a76a8947c642ff1a4770ad4d69ee43ab8ae179d2e76a7958643a0ed2965c284"
+        }
+      ]
+    },
+    {
+      "id": 41171253889,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "e506513d0f9ed56ba95d6a9a0c366945e3b6d14e",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "failure",
+      "created_at": "2026-10-31T05:06:36Z",
+      "updated_at": "2026-10-31T05:33:03Z",
+      "jobs": [
+        {
+          "id": 124449488347,
+          "name": "gnome session (nrsuspend)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T05:06:40Z",
+          "completed_at": "2026-10-31T05:10:29Z",
+          "runner_name": "GitHub Actions 1000000951"
+        },
+        {
+          "id": 124449488450,
+          "name": "gnome session (nmmask)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T05:06:40Z",
+          "completed_at": "2026-10-31T05:33:03Z",
+          "runner_name": "GitHub Actions 1000000952"
+        },
+        {
+          "id": 124449488477,
+          "name": "gnome session (base)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T05:06:40Z",
+          "completed_at": "2026-10-31T05:32:47Z",
+          "runner_name": "GitHub Actions 1000000953"
+        },
+        {
+          "id": 124449488527,
+          "name": "win11 firmware and boot key",
+          "conclusion": "failure",
+          "started_at": "2026-10-31T05:06:40Z",
+          "completed_at": "2026-10-31T05:09:57Z",
+          "runner_name": "GitHub Actions 1000000954"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13032465249,
+          "name": "diag2-gnome-nmmask",
+          "size_in_bytes": 6550496,
+          "digest": "sha256:248a23d8d52042718a741dbc34d4364bf36e8abb9e161e8019bd155fe0851d35"
+        },
+        {
+          "id": 13032106336,
+          "name": "diag2-gnome-base",
+          "size_in_bytes": 6348256,
+          "digest": "sha256:18defb114081a2c5e2c0c758cdffdc3e3954708431433b51f58c5c0efc5787eb"
+        },
+        {
+          "id": 13031292218,
+          "name": "diag2-gnome-nrsuspend",
+          "size_in_bytes": 530142,
+          "digest": "sha256:d03b023cf633e9e9739527d14ed13104e66ec8ad0aed1e9c94d9c7127d8a638b"
+        },
+        {
+          "id": 13030369574,
+          "name": "diag2-win11-boot",
+          "size_in_bytes": 18141,
+          "digest": "sha256:1806327b40911e40d63de1257e6512f9e66969a394fcdc7d6a33d3991cd93120"
+        }
+      ]
+    },
+    {
+      "id": 41172293108,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "7a4d6c8e03a7cd8cd0e0d854746a0de898612bfd",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T05:21:47Z",
+      "updated_at": "2026-10-31T05:34:46Z",
+      "jobs": [
+        {
+          "id": 124452632783,
+          "name": "gnome session (fixed)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T05:21:52Z",
+          "completed_at": "2026-10-31T05:27:10Z",
+          "runner_name": "GitHub Actions 1000000956"
+        },
+        {
+          "id": 124452632893,
+          "name": "win11 firmware and boot key",
+          "conclusion": "success",
+          "started_at": "2026-10-31T05:21:51Z",
+          "completed_at": "2026-10-31T05:34:46Z",
+          "runner_name": "GitHub Actions 1000000955"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13031956104,
+          "name": "diag3-gnome-fixed",
+          "size_in_bytes": 1553996,
+          "digest": "sha256:e2c45956b4a44f99c7f759f409fd67caf93229059b8d003ec6ff8e89389214c3"
+        },
+        {
+          "id": 13031681892,
+          "name": "diag3-win11-boot",
+          "size_in_bytes": 29580,
+          "digest": "sha256:9ffbb03c1fe5ed687d36940e8a59b1b71b16058d8dd23719ebe20d2e4476e6e7"
+        }
+      ]
+    },
+    {
+      "id": 41225412050,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "0a04205ef0f5551f03725d9e8f77fc7cb3d1522d",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T17:37:13Z",
+      "updated_at": "2026-10-31T17:43:00Z",
+      "jobs": [
+        {
+          "id": 124608420660,
+          "name": "windows guest driver probe",
+          "conclusion": "success",
+          "started_at": "2026-10-31T17:37:17Z",
+          "completed_at": "2026-10-31T17:42:59Z",
+          "runner_name": "GitHub Actions 1000000957"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13051048228,
+          "name": "diag4-win-guest",
+          "size_in_bytes": 133467,
+          "digest": "sha256:1efce6ba7eb4707aa493e0ccc642cc5a28157f91f60dccd2316f158f020061d3"
+        }
+      ]
+    },
+    {
+      "id": 41226037122,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "57248e839ae36c6175b362678e5d2b1c1ef0f5a1",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T17:45:09Z",
+      "updated_at": "2026-10-31T17:47:00Z",
+      "jobs": [
+        {
+          "id": 124610274887,
+          "name": "windows guest driver probe",
+          "conclusion": "success",
+          "started_at": "2026-10-31T17:45:15Z",
+          "completed_at": "2026-10-31T17:46:59Z",
+          "runner_name": "GitHub Actions 1000000958"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13051962870,
+          "name": "diag5-win-guest",
+          "size_in_bytes": 207042,
+          "digest": "sha256:126856ec84b4dfa6917822a38d48c8b44a54a51f9192f44c5d3f473597b66d96"
+        }
+      ]
+    },
+    {
+      "id": 41226305647,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "b874f2aa94b8a196d16c64487f2acd2ecb972c84",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T17:48:29Z",
+      "updated_at": "2026-10-31T17:50:20Z",
+      "jobs": [
+        {
+          "id": 124611060587,
+          "name": "windows guest driver probe",
+          "conclusion": "success",
+          "started_at": "2026-10-31T17:48:33Z",
+          "completed_at": "2026-10-31T17:50:20Z",
+          "runner_name": "GitHub Actions 1000000959"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13052008121,
+          "name": "diag6-win-guest",
+          "size_in_bytes": 2018,
+          "digest": "sha256:f278d4d4f6af257077c1ac64493a4887f942619ec7d2c1cab03693aa10452c20"
+        }
+      ]
+    },
+    {
+      "id": 41228660641,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "42c495955403e3408197b1f7496470db912cdc77",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T18:17:17Z",
+      "updated_at": "2026-10-31T18:18:56Z",
+      "jobs": [
+        {
+          "id": 124618044858,
+          "name": "windows guest driver probe",
+          "conclusion": "success",
+          "started_at": "2026-10-31T18:17:22Z",
+          "completed_at": "2026-10-31T18:18:56Z",
+          "runner_name": "GitHub Actions 1000000962"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13052593022,
+          "name": "diag7-win-guest",
+          "size_in_bytes": 42785,
+          "digest": "sha256:a5f7ea1c8ff85d61ab363038479c9dc396ee71a1736669db58fb00f8bae03afd"
+        }
+      ]
+    },
+    {
+      "id": 41228853420,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "5684fe33a47de814c2afa53f8fcacb3583ed9c78",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T18:19:37Z",
+      "updated_at": "2026-10-31T18:21:14Z",
+      "jobs": [
+        {
+          "id": 124618614234,
+          "name": "windows guest driver probe",
+          "conclusion": "success",
+          "started_at": "2026-10-31T18:19:41Z",
+          "completed_at": "2026-10-31T18:21:13Z",
+          "runner_name": "GitHub Actions 1000000963"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13053246286,
+          "name": "diag7-win-guest",
+          "size_in_bytes": 42254,
+          "digest": "sha256:0b65522661c2dde7542cf89e2c605e6f18f5c7067bc1b79d783e9fa62930b658"
+        }
+      ]
+    },
+    {
+      "id": 41229140888,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "3b884f4355c53f05863241d07663a1a8ba9c9873",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T18:22:59Z",
+      "updated_at": "2026-10-31T18:26:42Z",
+      "jobs": [
+        {
+          "id": 124619450660,
+          "name": "windows guest driver probe",
+          "conclusion": "success",
+          "started_at": "2026-10-31T18:23:03Z",
+          "completed_at": "2026-10-31T18:26:42Z",
+          "runner_name": "GitHub Actions 1000000964"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13053326460,
+          "name": "diag8-win-guest",
+          "size_in_bytes": 2290,
+          "digest": "sha256:8c8934bbfa644aecb0f9c406d8efc154a5159e8fc75c165d68e438922e786922"
+        }
+      ]
+    },
+    {
+      "id": 41229650132,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "d69aad1473a099bfebdcb35ab6a87053db600ef5",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T18:29:21Z",
+      "updated_at": "2026-10-31T18:30:30Z",
+      "jobs": [
+        {
+          "id": 124621022335,
+          "name": "windows guest driver probe",
+          "conclusion": "success",
+          "started_at": "2026-10-31T18:29:25Z",
+          "completed_at": "2026-10-31T18:30:30Z",
+          "runner_name": "GitHub Actions 1000000966"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13053366070,
+          "name": "diag9-win-menu",
+          "size_in_bytes": 911,
+          "digest": "sha256:3300ddf86e6cbc85dfc5535313c88aa723020d36783bd276f55b8c62114ef917"
+        }
+      ]
+    },
+    {
+      "id": 41229781565,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "70afd9941654c85ca330cc57a3cf2c80eba17879",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T18:30:55Z",
+      "updated_at": "2026-10-31T18:31:59Z",
+      "jobs": [
+        {
+          "id": 124621414624,
+          "name": "windows guest driver probe",
+          "conclusion": "success",
+          "started_at": "2026-10-31T18:30:59Z",
+          "completed_at": "2026-10-31T18:31:58Z",
+          "runner_name": "GitHub Actions 1000000967"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13052729672,
+          "name": "diag10-win-menu",
+          "size_in_bytes": 1043,
+          "digest": "sha256:feab5f060b19a9f6b395d96ab16e81c495362c8066b7c9676bcc0e761bf339a5"
+        }
+      ]
+    },
+    {
+      "id": 41229932862,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "43482277e9e72124e5393a03d36e82452b496c41",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T18:32:43Z",
+      "updated_at": "2026-10-31T18:33:52Z",
+      "jobs": [
+        {
+          "id": 124621850970,
+          "name": "windows guest driver probe",
+          "conclusion": "success",
+          "started_at": "2026-10-31T18:32:47Z",
+          "completed_at": "2026-10-31T18:33:51Z",
+          "runner_name": "GitHub Actions 1000000968"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13052833197,
+          "name": "diag11-win-menu",
+          "size_in_bytes": 954,
+          "digest": "sha256:f8d613bb0ad83fa6e6fba4eab9f24c459acce0043cbf391e203066b5b8ef358a"
+        }
+      ]
+    },
+    {
+      "id": 41226818696,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-gui-service",
+      "head_sha": "2d11cfae94b7ce14483a852291eeda4604268aad",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T17:54:54Z",
+      "updated_at": "2026-10-31T18:01:37Z",
+      "jobs": [
+        {
+          "id": 124612589653,
+          "name": "native development package (windows-2025)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T17:54:57Z",
+          "completed_at": "2026-10-31T18:01:37Z",
+          "runner_name": "GitHub Actions 1000000960"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13052014656,
+          "name": "diag-gui-service",
+          "size_in_bytes": 1726,
+          "digest": "sha256:88556b81c1c804758545ac25000545bc65e62321fa4c1f1c3ffd2e890dd2e643"
+        }
+      ]
+    },
+    {
+      "id": 41227766396,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-gui-service",
+      "head_sha": "7f1534f92787344bfefa7991d1bd9e8299b26c12",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T18:06:34Z",
+      "updated_at": "2026-10-31T18:16:04Z",
+      "jobs": [
+        {
+          "id": 124615402799,
+          "name": "native development package (windows-2025)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T18:06:38Z",
+          "completed_at": "2026-10-31T18:16:03Z",
+          "runner_name": "GitHub Actions 1000000961"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13052626698,
+          "name": "diag-fixed-portable",
+          "size_in_bytes": 22774236,
+          "digest": "sha256:da278db12b46e32914b27f014008a6139b2def56845eabb537aeff8d5f20bdc8"
+        },
+        {
+          "id": 13052118898,
+          "name": "diag-gui-service",
+          "size_in_bytes": 1628,
+          "digest": "sha256:7c7a99e4b839007fd47e1975d3c613437dde842c722d470549aa91de574b3449"
+        }
+      ]
+    },
+    {
+      "id": 41229600953,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-gui-service",
+      "head_sha": "56553afaaf02186f7ae66304e02715d80889365a",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T18:28:41Z",
+      "updated_at": "2026-10-31T18:36:21Z",
+      "jobs": [
+        {
+          "id": 124620856110,
+          "name": "native development package (windows-2025)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T18:28:45Z",
+          "completed_at": "2026-10-31T18:36:21Z",
+          "runner_name": "GitHub Actions 1000000965"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13053199294,
+          "name": "diag-fixed-portable",
+          "size_in_bytes": 22775266,
+          "digest": "sha256:f4581a7e322f929622aacacbbb27a239607caf522a4ac48563027f43775fa8fa"
+        },
+        {
+          "id": 13053019862,
+          "name": "diag-gui-service",
+          "size_in_bytes": 2574,
+          "digest": "sha256:d6944908d33a8641fae6b9e2a18c7d2c6e5ea75d11bed529bdba763b99ed2368"
+        }
+      ]
+    },
+    {
+      "id": 41233236511,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "e9959dc8dfb17b7f0c7627793cb0686a6b0a1702",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T19:14:04Z",
+      "updated_at": "2026-10-31T19:18:41Z",
+      "jobs": [
+        {
+          "id": 124631593463,
+          "name": "gnome harness end to end (kvm)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T19:14:08Z",
+          "completed_at": "2026-10-31T19:18:40Z",
+          "runner_name": "GitHub Actions 1000000972"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13055115622,
+          "name": "diag12-gnome-e2e",
+          "size_in_bytes": 1918779,
+          "digest": "sha256:b9ef649875abe2a493328047ae561e67b385d329d937b299c8f90d1224740070"
+        }
+      ]
+    },
+    {
+      "id": 41232857330,
+      "name": "win-diag",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-guest-lifecycle",
+      "head_sha": "50af51d2d6303d33201debb91e3c65a38798a1b2",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T19:09:20Z",
+      "updated_at": "2026-10-31T19:10:40Z",
+      "jobs": [
+        {
+          "id": 124630474597,
+          "name": "windows guest lifecycle",
+          "conclusion": "success",
+          "started_at": "2026-10-31T19:09:23Z",
+          "completed_at": "2026-10-31T19:10:39Z",
+          "runner_name": "GitHub Actions 1000000970"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13054391493,
+          "name": "diag13-win-lifecycle",
+          "size_in_bytes": 433790,
+          "digest": "sha256:55362c93e62bdc42674d77bc3756a4cb0686d1187f9263ff72fa5c6b019c5d04"
+        }
+      ]
+    },
+    {
+      "id": 41233069849,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-guest-lifecycle",
+      "head_sha": "8e803fc3cd908cba1f283bd651c0d8b3293b2668",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T19:11:55Z",
+      "updated_at": "2026-10-31T19:13:10Z",
+      "jobs": [
+        {
+          "id": 124631095688,
+          "name": "windows guest lifecycle",
+          "conclusion": "success",
+          "started_at": "2026-10-31T19:11:59Z",
+          "completed_at": "2026-10-31T19:13:09Z",
+          "runner_name": "GitHub Actions 1000000971"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13054895967,
+          "name": "diag14-win-text",
+          "size_in_bytes": 1175,
+          "digest": "sha256:92d85c6ccd0275aa03b5ad4947eef4d111f8b93ef5160a7c29a2bda1678d6bba"
+        }
+      ]
+    },
+    {
+      "id": 41248050820,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-guest-lifecycle",
+      "head_sha": "c21cb2641ef56722e3c8842d26711e2b2878b09c",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T22:24:33Z",
+      "updated_at": "2026-10-31T22:25:45Z",
+      "jobs": [
+        {
+          "id": 124675515234,
+          "name": "windows guest lifecycle",
+          "conclusion": "success",
+          "started_at": "2026-10-31T22:24:37Z",
+          "completed_at": "2026-10-31T22:25:44Z",
+          "runner_name": "GitHub Actions 1000000973"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13060625929,
+          "name": "diag15-win-lifecycle",
+          "size_in_bytes": 434439,
+          "digest": "sha256:67ca828f7f61feedea40781f04dfa2a3d1ea7fa14058997fd464356ce0ad0b1b"
+        }
+      ]
+    },
+    {
+      "id": 41248054236,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "626c088a22a39494675cda3e21d932bd8cb6c7c9",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T22:24:36Z",
+      "updated_at": "2026-10-31T22:29:14Z",
+      "jobs": [
+        {
+          "id": 124675525285,
+          "name": "gnome harness end to end (kvm)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T22:24:40Z",
+          "completed_at": "2026-10-31T22:29:14Z",
+          "runner_name": "GitHub Actions 1000000974"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13060391000,
+          "name": "diag16-gnome-e2e",
+          "size_in_bytes": 2096387,
+          "digest": "sha256:1fba6909cd746631f7e08dbb1d183d3ab5978ff32798e9082127d64e58464a4b"
+        }
+      ]
+    },
+    {
+      "id": 41248210751,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-guest-lifecycle",
+      "head_sha": "6bdafca341946cc5854acb5debadcad34db5d5f3",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T22:26:44Z",
+      "updated_at": "2026-10-31T22:28:04Z",
+      "jobs": [
+        {
+          "id": 124676007279,
+          "name": "windows guest lifecycle",
+          "conclusion": "success",
+          "started_at": "2026-10-31T22:26:48Z",
+          "completed_at": "2026-10-31T22:28:04Z",
+          "runner_name": "GitHub Actions 1000000975"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13060805766,
+          "name": "diag17-win-lifecycle",
+          "size_in_bytes": 435856,
+          "digest": "sha256:2c280529a87eff706f04cd8f9763ee6d9f2ebe802c9c42506b6dd8e59100c997"
+        }
+      ]
+    },
+    {
+      "id": 41248352997,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-guest-lifecycle",
+      "head_sha": "9123119197a32934626e616b7cc129b735257f4b",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T22:28:45Z",
+      "updated_at": "2026-10-31T22:29:44Z",
+      "jobs": [
+        {
+          "id": 124676445482,
+          "name": "windows guest lifecycle",
+          "conclusion": "success",
+          "started_at": "2026-10-31T22:28:49Z",
+          "completed_at": "2026-10-31T22:29:43Z",
+          "runner_name": "GitHub Actions 1000000976"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13060770537,
+          "name": "diag18-win-text",
+          "size_in_bytes": 1687,
+          "digest": "sha256:92c7d8e872f962e1378a91964c5711c3f7827b7188c5a6666f81c8ea171709fc"
+        }
+      ]
+    },
+    {
+      "id": 41248474580,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-guest-lifecycle",
+      "head_sha": "0fc4ea41752a9ec612a1b5dde25280306d5c8ef1",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T22:30:23Z",
+      "updated_at": "2026-10-31T22:31:40Z",
+      "jobs": [
+        {
+          "id": 124676805222,
+          "name": "windows guest lifecycle",
+          "conclusion": "success",
+          "started_at": "2026-10-31T22:30:27Z",
+          "completed_at": "2026-10-31T22:31:39Z",
+          "runner_name": "GitHub Actions 1000000977"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13060252617,
+          "name": "diag19-win-lifecycle",
+          "size_in_bytes": 435999,
+          "digest": "sha256:dc16879ea83482f10b0910bfa13901778ebca45790a23f78b44a8a94fc452d86"
+        }
+      ]
+    },
+    {
+      "id": 41248672768,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-guest-lifecycle",
+      "head_sha": "70a2494d29297ee5189f076d728c8121da0d719b",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T22:32:54Z",
+      "updated_at": "2026-10-31T22:34:16Z",
+      "jobs": [
+        {
+          "id": 124677378426,
+          "name": "windows guest lifecycle",
+          "conclusion": "success",
+          "started_at": "2026-10-31T22:33:04Z",
+          "completed_at": "2026-10-31T22:34:15Z",
+          "runner_name": "GitHub Actions 1000000978"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13059823836,
+          "name": "diag20-win-scroll",
+          "size_in_bytes": 927,
+          "digest": "sha256:096b7cec03204bce3f10dbb57a75ede6f7790b2ba596c295aab8652ca6fd1fea"
+        }
+      ]
+    },
+    {
+      "id": 41248844718,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-guest-lifecycle",
+      "head_sha": "052ef4eb683c500016f98e225218b0de4536e5d2",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T22:35:05Z",
+      "updated_at": "2026-10-31T22:36:54Z",
+      "jobs": [
+        {
+          "id": 124677884237,
+          "name": "windows guest lifecycle",
+          "conclusion": "success",
+          "started_at": "2026-10-31T22:35:09Z",
+          "completed_at": "2026-10-31T22:36:54Z",
+          "runner_name": "GitHub Actions 1000000979"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13059983755,
+          "name": "diag21-win-lifecycle",
+          "size_in_bytes": 897830,
+          "digest": "sha256:c37206f82ff559faca92daec6299a7ab9580f3e8fc687256a81bbade566b6540"
+        }
+      ]
+    },
+    {
+      "id": 41248905032,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "291e6ed03a22cce27f7d99ea5f99ec79ba9d55a2",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T22:35:49Z",
+      "updated_at": "2026-10-31T22:39:59Z",
+      "jobs": [
+        {
+          "id": 124678062525,
+          "name": "gnome harness end to end (kvm)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T22:35:55Z",
+          "completed_at": "2026-10-31T22:39:59Z",
+          "runner_name": "GitHub Actions 1000000980"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13060522996,
+          "name": "diag22-gnome-e2e",
+          "size_in_bytes": 2095365,
+          "digest": "sha256:fd28ff663b79494acd172c9c1d41640724d8ec796150b59116e049dda428dc75"
+        }
+      ]
+    },
+    {
+      "id": 41249084652,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-guest-lifecycle",
+      "head_sha": "183e04eb5bfe0159eede9b26af02407d89e9ee7b",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T22:38:21Z",
+      "updated_at": "2026-10-31T22:40:05Z",
+      "jobs": [
+        {
+          "id": 124678617715,
+          "name": "windows guest lifecycle",
+          "conclusion": "success",
+          "started_at": "2026-10-31T22:38:24Z",
+          "completed_at": "2026-10-31T22:40:04Z",
+          "runner_name": "GitHub Actions 1000000981"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13060910022,
+          "name": "diag23-win-lifecycle",
+          "size_in_bytes": 897864,
+          "digest": "sha256:9ee2160ca441d29bfab4bc88357f55c863e3c304b6be542a39326ef6991a66ff"
+        }
+      ]
+    },
+    {
+      "id": 41249463049,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "1d179ecda86cba0ed4030a9ab22375aa136259b4",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T22:43:38Z",
+      "updated_at": "2026-10-31T22:47:56Z",
+      "jobs": [
+        {
+          "id": 124679744174,
+          "name": "gnome harness end to end (kvm)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T22:43:42Z",
+          "completed_at": "2026-10-31T22:47:55Z",
+          "runner_name": "GitHub Actions 1000000982"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13060763411,
+          "name": "diag24-gnome-e2e",
+          "size_in_bytes": 3268003,
+          "digest": "sha256:10a3ab00dacec3e992a66dc732cc14802b89e79631aa9173b0177dcfa007f1c9"
+        }
+      ]
+    },
+    {
+      "id": 41249725017,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-product-final",
+      "head_sha": "121938d84a96f267d2abc39a4f28ed85a0e12063",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T22:47:16Z",
+      "updated_at": "2026-10-31T22:54:47Z",
+      "jobs": [
+        {
+          "id": 124680519126,
+          "name": "native development package (windows-2025)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T22:47:19Z",
+          "completed_at": "2026-10-31T22:54:47Z",
+          "runner_name": "GitHub Actions 1000000983"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13060318487,
+          "name": "diag-fixed-portable",
+          "size_in_bytes": 22764740,
+          "digest": "sha256:95c8f6a60dd836e000a91e3b1d25bf8417d75564dd82acbc114f9fe6199ae2b1"
+        },
+        {
+          "id": 13059724650,
+          "name": "diag-gui-service",
+          "size_in_bytes": 1375,
+          "digest": "sha256:3db7241bd7ca94242d1f2a5af1a6ed50be8e146cb4c1ae9db22655eb4400f847"
+        }
+      ]
+    },
+    {
+      "id": 41249857437,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "18b907dbeb2d950cea78317bc8376aed03708710",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T22:49:07Z",
+      "updated_at": "2026-10-31T22:54:07Z",
+      "jobs": [
+        {
+          "id": 124680912901,
+          "name": "gnome harness end to end (kvm)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T22:49:11Z",
+          "completed_at": "2026-10-31T22:54:06Z",
+          "runner_name": "GitHub Actions 1000000984"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13061066182,
+          "name": "diag25-gnome-e2e",
+          "size_in_bytes": 3273925,
+          "digest": "sha256:e1e61fa12122b27f7a019e8671d49d1bfcef9424a534e26ad5c442518bcd1dcc"
+        }
+      ]
+    },
+    {
+      "id": 41250313459,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-guest-lifecycle",
+      "head_sha": "81af346ebd579610e6d2ccee32802477f78dbff0",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T22:55:31Z",
+      "updated_at": "2026-10-31T22:57:16Z",
+      "jobs": [
+        {
+          "id": 124682271506,
+          "name": "windows guest lifecycle",
+          "conclusion": "success",
+          "started_at": "2026-10-31T22:55:35Z",
+          "completed_at": "2026-10-31T22:57:15Z",
+          "runner_name": "GitHub Actions 1000000985"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13061286024,
+          "name": "diag26-win-lifecycle",
+          "size_in_bytes": 897446,
+          "digest": "sha256:d87d2e8365f835ecbcbf332f582d5d062166ab2a5fa60b96c9ebc136081ec327"
+        }
+      ]
+    },
+    {
+      "id": 41250366992,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "b3dadbe7bf41302fcaf1b964142b2c6bba724985",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T22:56:19Z",
+      "updated_at": "2026-10-31T23:02:16Z",
+      "jobs": [
+        {
+          "id": 124682436043,
+          "name": "gnome harness end to end (kvm)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T22:56:26Z",
+          "completed_at": "2026-10-31T23:02:15Z",
+          "runner_name": "GitHub Actions 1000000986"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13060927703,
+          "name": "diag27-gnome-e2e",
+          "size_in_bytes": 4486503,
+          "digest": "sha256:98fb69edad608d7e86553cf8d1269233bceab97072d382f94a665f1c0d94f7bf"
+        }
+      ]
+    },
+    {
+      "id": 41250875399,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "517e1e8f4fd362da6ffa3fe359f67c452d1a5e8b",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-10-31T23:03:22Z",
+      "updated_at": "2026-10-31T23:09:46Z",
+      "jobs": [
+        {
+          "id": 124683934357,
+          "name": "gnome harness end to end (kvm)",
+          "conclusion": "success",
+          "started_at": "2026-10-31T23:03:26Z",
+          "completed_at": "2026-10-31T23:09:45Z",
+          "runner_name": "GitHub Actions 1000000987"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13061745020,
+          "name": "diag28-gnome-e2e",
+          "size_in_bytes": 5106260,
+          "digest": "sha256:af23c6b1cbe41a3a773b5f3d6b8c56254f300c46f22a968eb4844546e6a753f2"
+        }
+      ]
+    },
+    {
+      "id": 41370879234,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win-guest-lifecycle",
+      "head_sha": "08209252804b02712466db5c5ccb2c7126967be2",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T01:08:35Z",
+      "updated_at": "2026-11-02T01:09:07Z",
+      "jobs": [
+        {
+          "id": 125040893450,
+          "name": "parse windows11 attestor (PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-02T01:08:40Z",
+          "completed_at": "2026-11-02T01:09:07Z",
+          "runner_name": "GitHub Actions 1000001022"
+        }
+      ],
+      "artifacts": []
+    },
+    {
+      "id": 41376693013,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "5cbfe21ac34e7b684c4a25e891a685924f33490f",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "failure",
+      "created_at": "2026-11-02T02:15:02Z",
+      "updated_at": "2026-11-02T02:18:51Z",
+      "jobs": [
+        {
+          "id": 125058386961,
+          "name": "windows11 iso image metadata",
+          "conclusion": "failure",
+          "started_at": "2026-11-02T02:15:06Z",
+          "completed_at": "2026-11-02T02:18:51Z",
+          "runner_name": "GitHub Actions 1000001055"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13111477136,
+          "name": "diag29-win11-wim",
+          "size_in_bytes": 1299,
+          "digest": "sha256:2f37248649c88810ed32a7272089a89cd49b4880b0eeba6b4fb8e92beea7999b"
+        }
+      ]
+    },
+    {
+      "id": 41377083648,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "22f80cc0a78f63af8d07a0b082eb1a54dc72019b",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T02:19:15Z",
+      "updated_at": "2026-11-02T02:21:19Z",
+      "jobs": [
+        {
+          "id": 125059567155,
+          "name": "windows11 iso image metadata",
+          "conclusion": "success",
+          "started_at": "2026-11-02T02:19:19Z",
+          "completed_at": "2026-11-02T02:21:18Z",
+          "runner_name": "GitHub Actions 1000001056"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13111372741,
+          "name": "diag30-win11-wim",
+          "size_in_bytes": 3542,
+          "digest": "sha256:c24c23d6c3cee0b04f15febc241a52f320ab2370b6ecc01d44dbaad37dc92410"
+        }
+      ]
+    },
+    {
+      "id": 41377438498,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "9d77c9553d77480d9c858139644c451b48c592b4",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T02:23:09Z",
+      "updated_at": "2026-11-02T03:01:55Z",
+      "jobs": [
+        {
+          "id": 125060657535,
+          "name": "windows11 setup baseline",
+          "conclusion": "success",
+          "started_at": "2026-11-02T02:23:14Z",
+          "completed_at": "2026-11-02T03:01:54Z",
+          "runner_name": "GitHub Actions 1000001058"
+        },
+        {
+          "id": 125060657608,
+          "name": "windows11 setup noletter",
+          "conclusion": "success",
+          "started_at": "2026-11-02T02:23:13Z",
+          "completed_at": "2026-11-02T02:57:51Z",
+          "runner_name": "GitHub Actions 1000001057"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13113357252,
+          "name": "diag31-win11-setup-baseline",
+          "size_in_bytes": 611888,
+          "digest": "sha256:7985c8dcb294078961f8e22abb95666ea0af164e2ac8550ceb54458571f92605"
+        },
+        {
+          "id": 13112612273,
+          "name": "diag31-win11-setup-noletter",
+          "size_in_bytes": 611891,
+          "digest": "sha256:627c1c35a8b64de1f258713395d6a85b5b43c4723e16b4ce766d45a5a0b24c22"
+        }
+      ]
+    },
+    {
+      "id": 41380947763,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "3643b9dc9dfe9bb540581991a2bf36b364b5a84d",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T03:03:20Z",
+      "updated_at": "2026-11-02T03:24:18Z",
+      "jobs": [
+        {
+          "id": 125071426661,
+          "name": "windows11 setup nomodify",
+          "conclusion": "success",
+          "started_at": "2026-11-02T03:03:24Z",
+          "completed_at": "2026-11-02T03:24:10Z",
+          "runner_name": "GitHub Actions 1000001059"
+        },
+        {
+          "id": 125071426895,
+          "name": "windows11 setup orderseq",
+          "conclusion": "success",
+          "started_at": "2026-11-02T03:03:24Z",
+          "completed_at": "2026-11-02T03:24:12Z",
+          "runner_name": "GitHub Actions 1000001060"
+        },
+        {
+          "id": 125071427056,
+          "name": "windows11 setup orderseq-noletter",
+          "conclusion": "success",
+          "started_at": "2026-11-02T03:03:24Z",
+          "completed_at": "2026-11-02T03:24:17Z",
+          "runner_name": "GitHub Actions 1000001061"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13114680022,
+          "name": "diag32-win11-setup-nomodify",
+          "size_in_bytes": 230968,
+          "digest": "sha256:a7f6b58a6f0d7f6b753a028fb3e9f47f3dbc32daa4b10c48d0bbbd65c51b0279"
+        },
+        {
+          "id": 13114630136,
+          "name": "diag32-win11-setup-orderseq-noletter",
+          "size_in_bytes": 5288958,
+          "digest": "sha256:72fb87ee8c1bfb76412e17b1d3765754c163a2bb8c567bc2e0e06945dc63a281"
+        },
+        {
+          "id": 13113962264,
+          "name": "diag32-win11-setup-orderseq",
+          "size_in_bytes": 2946848,
+          "digest": "sha256:77192be883bd99417ec143c388c6d289d532bb875016649db52c887374875bc7"
+        }
+      ]
+    },
+    {
+      "id": 41509581288,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "426d3ac19f1320e01d0ee527aef95a4fb15230eb",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T19:24:05Z",
+      "updated_at": "2026-11-02T19:53:47Z",
+      "jobs": [
+        {
+          "id": 125497640953,
+          "name": "windows11 setup attestor",
+          "conclusion": "success",
+          "started_at": "2026-11-02T19:24:19Z",
+          "completed_at": "2026-11-02T19:53:47Z",
+          "runner_name": "GitHub Actions 1000001105"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13173398982,
+          "name": "diag33-win11-setup-attestor",
+          "size_in_bytes": 18145802,
+          "digest": "sha256:9c3f901c05fa7cd8b9413e757179db42d1d383965632831051562c3c23e3f91b"
+        }
+      ]
+    },
+    {
+      "id": 41514384986,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "d4c1fe875d6c24d16455ae1ac3a34c8d37181ba8",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T19:55:15Z",
+      "updated_at": "2026-11-02T20:32:57Z",
+      "jobs": [
+        {
+          "id": 125514066262,
+          "name": "windows11 setup attestor",
+          "conclusion": "success",
+          "started_at": "2026-11-02T19:55:19Z",
+          "completed_at": "2026-11-02T20:32:56Z",
+          "runner_name": "GitHub Actions 1000001106"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13175844943,
+          "name": "diag34-win11-setup-attestor",
+          "size_in_bytes": 20605050,
+          "digest": "sha256:f776431f40816b95b513f45cc1ff03996c60cc8c7963f827b87f71a8b5729993"
+        }
+      ]
+    },
+    {
+      "id": 41520516660,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "77d22ffb9a268c3b7c325a7da088649ea6084721",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T20:34:56Z",
+      "updated_at": "2026-11-02T21:13:53Z",
+      "jobs": [
+        {
+          "id": 125535045560,
+          "name": "windows11 setup attestor",
+          "conclusion": "success",
+          "started_at": "2026-11-02T20:35:00Z",
+          "completed_at": "2026-11-02T21:13:52Z",
+          "runner_name": "GitHub Actions 1000001107"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13179747452,
+          "name": "diag35-win11-setup-attestor",
+          "size_in_bytes": 19078276,
+          "digest": "sha256:8caaf38d7bab3599daf9bd13d7ce82bb9044c8321dd68ac1b0f4972c55435a12"
+        }
+      ]
+    },
+    {
+      "id": 41532813750,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "91f70e90e8ac0b64658c8f4b9fccd4781e15bb16",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T21:56:05Z",
+      "updated_at": "2026-11-02T21:56:57Z",
+      "jobs": [
+        {
+          "id": 125577081669,
+          "name": "attestor primitives",
+          "conclusion": "success",
+          "started_at": "2026-11-02T21:56:10Z",
+          "completed_at": "2026-11-02T21:56:57Z",
+          "runner_name": "GitHub Actions 1000001108"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13182398720,
+          "name": "diag36-attestor-primitives",
+          "size_in_bytes": 3174,
+          "digest": "sha256:a536ffd0b6e405915a8bb5c6fca6da98065958fd5aaa2d94e4b0ed3c66a59700"
+        }
+      ]
+    },
+    {
+      "id": 41534670479,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "229e047ef6159019e89120431fce0b3d5318bb00",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T22:08:38Z",
+      "updated_at": "2026-11-02T22:09:44Z",
+      "jobs": [
+        {
+          "id": 125583362873,
+          "name": "attestor primitives",
+          "conclusion": "success",
+          "started_at": "2026-11-02T22:09:08Z",
+          "completed_at": "2026-11-02T22:09:43Z",
+          "runner_name": "GitHub Actions 1000001109"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13183935967,
+          "name": "diag37-attestor-primitives",
+          "size_in_bytes": 4451,
+          "digest": "sha256:ae13392a47a0c45cc24b5ce88d870a7c2d1133a8ce91422d2a7da6218e7390e1"
+        }
+      ]
+    },
+    {
+      "id": 41562893419,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "1f8b8228307a098d530461eb75941b05504c7780",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-03T01:55:50Z",
+      "updated_at": "2026-11-03T02:26:19Z",
+      "jobs": [
+        {
+          "id": 125677402453,
+          "name": "guest source parse and compile (Windows PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-03T01:55:53Z",
+          "completed_at": "2026-11-03T01:56:20Z",
+          "runner_name": "GitHub Actions 1000001137"
+        },
+        {
+          "id": 125677562454,
+          "name": "windows11 rehearsal startonly",
+          "conclusion": "success",
+          "started_at": "2026-11-03T01:56:23Z",
+          "completed_at": "2026-11-03T02:26:19Z",
+          "runner_name": "GitHub Actions 1000001138"
+        },
+        {
+          "id": 125677562510,
+          "name": "windows11 rehearsal both",
+          "conclusion": "success",
+          "started_at": "2026-11-03T01:56:23Z",
+          "completed_at": "2026-11-03T02:25:40Z",
+          "runner_name": "GitHub Actions 1000001139"
+        },
+        {
+          "id": 125677562754,
+          "name": "windows11 rehearsal lockonly",
+          "conclusion": "success",
+          "started_at": "2026-11-03T01:56:23Z",
+          "completed_at": "2026-11-03T02:24:23Z",
+          "runner_name": "GitHub Actions 1000001140"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13199735914,
+          "name": "diag38-win11-rehearsal-both",
+          "size_in_bytes": 632397,
+          "digest": "sha256:f7ca5916085940721e25375d374adce7be21e952d7ca0991d7d341d29a3c6752"
+        },
+        {
+          "id": 13199501155,
+          "name": "diag38-win11-rehearsal-lockonly",
+          "size_in_bytes": 546099,
+          "digest": "sha256:1d7076cef779bdedd32dde38bc6aa561dff5c4637e288c7b4f5aa47c526cbf18"
+        },
+        {
+          "id": 13198926864,
+          "name": "diag38-win11-rehearsal-startonly",
+          "size_in_bytes": 902886,
+          "digest": "sha256:12ec777e74c63524f2f14a42dc4d33c22241f35a4deea88567dd8ec093049625"
+        }
+      ]
+    },
+    {
+      "id": 41566483934,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "83a362e8473a86c5b4c53eb6efac3567423af54f",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-03T02:29:59Z",
+      "updated_at": "2026-11-03T03:30:56Z",
+      "jobs": [
+        {
+          "id": 125689187075,
+          "name": "guest source parse and compile (Windows PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-03T02:30:13Z",
+          "completed_at": "2026-11-03T02:30:40Z",
+          "runner_name": "GitHub Actions 1000001141"
+        },
+        {
+          "id": 125689411013,
+          "name": "windows11 rehearsal terminal",
+          "conclusion": "success",
+          "started_at": "2026-11-03T02:30:52Z",
+          "completed_at": "2026-11-03T03:28:38Z",
+          "runner_name": "GitHub Actions 1000001143"
+        },
+        {
+          "id": 125689411039,
+          "name": "windows11 rehearsal conhost",
+          "conclusion": "success",
+          "started_at": "2026-11-03T02:30:42Z",
+          "completed_at": "2026-11-03T03:30:55Z",
+          "runner_name": "GitHub Actions 1000001142"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13202276620,
+          "name": "diag39-win11-rehearsal-conhost",
+          "size_in_bytes": 4907969,
+          "digest": "sha256:b6a83e4100cac93c1eb7e145b7a29aca56ee7f78b4c84cb85301feacd8e7a5fd"
+        },
+        {
+          "id": 13201184296,
+          "name": "diag39-win11-rehearsal-terminal",
+          "size_in_bytes": 1552644,
+          "digest": "sha256:55abf506d279d9de8818ab9f1970cba3817c9bb19ab53e382b277d946135ccc0"
+        }
+      ]
+    },
+    {
+      "id": 41573532694,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "efd4038d6214665de70924f88725eb399173c94c",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-03T03:39:47Z",
+      "updated_at": "2026-11-03T04:16:23Z",
+      "jobs": [
+        {
+          "id": 125711714944,
+          "name": "guest source parse and compile (Windows PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-03T03:39:55Z",
+          "completed_at": "2026-11-03T03:40:45Z",
+          "runner_name": "GitHub Actions 1000001146"
+        },
+        {
+          "id": 125712009402,
+          "name": "windows11 rehearsal ignore-terminal",
+          "conclusion": "success",
+          "started_at": "2026-11-03T03:40:48Z",
+          "completed_at": "2026-11-03T04:16:22Z",
+          "runner_name": "GitHub Actions 1000001147"
+        },
+        {
+          "id": 125712009457,
+          "name": "windows11 rehearsal ignore-conhost",
+          "conclusion": "success",
+          "started_at": "2026-11-03T03:40:48Z",
+          "completed_at": "2026-11-03T04:04:59Z",
+          "runner_name": "GitHub Actions 1000001148"
+        },
+        {
+          "id": 125712009480,
+          "name": "windows11 rehearsal baseline-conhost",
+          "conclusion": "success",
+          "started_at": "2026-11-03T03:40:48Z",
+          "completed_at": "2026-11-03T04:04:53Z",
+          "runner_name": "GitHub Actions 1000001149"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13202908872,
+          "name": "diag40-win11-rehearsal-baseline-conhost",
+          "size_in_bytes": 2075069,
+          "digest": "sha256:741eae8161e172bbbb944487c63ed2fd485b37281a321aa468cda87b34389ee8"
+        },
+        {
+          "id": 13202624168,
+          "name": "diag40-win11-rehearsal-ignore-conhost",
+          "size_in_bytes": 1455025,
+          "digest": "sha256:d8f6601a4e852b1a856531ce4a1e9cbdb904403e2dd2235be21f8eeb3c452baf"
+        },
+        {
+          "id": 13204590515,
+          "name": "diag40-win11-rehearsal-ignore-terminal",
+          "size_in_bytes": 2584599,
+          "digest": "sha256:6174fcc938278c9bb3e69f5ee8ed8e39d47d450ea221417efc245cb8047e4c7c"
+        }
+      ]
+    },
+    {
+      "id": 41573731214,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-dxdiag-args",
+      "head_sha": "4690ac51925708d6231ae6b8e2e359120251c3c1",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-03T03:41:49Z",
+      "updated_at": "2026-11-03T03:50:50Z",
+      "jobs": [
+        {
+          "id": 125712344850,
+          "name": "dxdiag argument quoting (Windows PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-03T03:41:53Z",
+          "completed_at": "2026-11-03T03:50:49Z",
+          "runner_name": "GitHub Actions 1000001150"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13203086227,
+          "name": "diag41-dxdiag-args",
+          "size_in_bytes": 715,
+          "digest": "sha256:172bb070113e2dd37c087dbf49677008aa11b3df9c64be2c342627492662c667"
+        }
+      ]
+    },
+    {
+      "id": 41593519821,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "b6a33c0b399259fc0893bad035b67e8d241df3b8",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-03T07:01:03Z",
+      "updated_at": "2026-11-03T07:59:40Z",
+      "jobs": [
+        {
+          "id": 125775468252,
+          "name": "guest source parse and compile (Windows PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-03T07:01:07Z",
+          "completed_at": "2026-11-03T07:01:38Z",
+          "runner_name": "GitHub Actions 1000001151"
+        },
+        {
+          "id": 125775662313,
+          "name": "windows11 rehearsal host-conhost",
+          "conclusion": "success",
+          "started_at": "2026-11-03T07:01:40Z",
+          "completed_at": "2026-11-03T07:59:39Z",
+          "runner_name": "GitHub Actions 1000001152"
+        },
+        {
+          "id": 125775662362,
+          "name": "windows11 rehearsal pmuoff-conhost",
+          "conclusion": "success",
+          "started_at": "2026-11-03T07:01:40Z",
+          "completed_at": "2026-11-03T07:22:22Z",
+          "runner_name": "GitHub Actions 1000001153"
+        },
+        {
+          "id": 125775662385,
+          "name": "windows11 rehearsal host-terminal",
+          "conclusion": "success",
+          "started_at": "2026-11-03T07:01:40Z",
+          "completed_at": "2026-11-03T07:27:13Z",
+          "runner_name": "GitHub Actions 1000001154"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13213548664,
+          "name": "diag42-raw-dumps-and-logs-host-conhost",
+          "size_in_bytes": 60926,
+          "digest": "sha256:51da3439c355a734a0547c3f30c3b51cb3caa0bb19cfbc884d10d84241917921"
+        },
+        {
+          "id": 13212302387,
+          "name": "diag42-raw-dumps-and-logs-host-terminal",
+          "size_in_bytes": 105990,
+          "digest": "sha256:235fdc7d01de81e00f004f65dbf289d91b3de87742740016efb46e06a56b82e4"
+        },
+        {
+          "id": 13212022434,
+          "name": "diag42-raw-dumps-and-logs-pmuoff-conhost",
+          "size_in_bytes": 305274,
+          "digest": "sha256:df5c6fdf9a9c2f960e2befcdd27027f4c7e38a0e8f7a76c4a7fb008238caa2e0"
+        },
+        {
+          "id": 13213573675,
+          "name": "diag42-win11-rehearsal-host-conhost",
+          "size_in_bytes": 1131477,
+          "digest": "sha256:29319e0ba6a4710015f93d6d1e20c8469773b0749a9348997ef2fe414f8faa0e"
+        },
+        {
+          "id": 13212811479,
+          "name": "diag42-win11-rehearsal-host-terminal",
+          "size_in_bytes": 1271883,
+          "digest": "sha256:ac077a4af9eb6a309176801cd7ab6fd6e5b322ab7e39a68bb9c9994aa4142fd4"
+        },
+        {
+          "id": 13211772682,
+          "name": "diag42-win11-rehearsal-pmuoff-conhost",
+          "size_in_bytes": 2793572,
+          "digest": "sha256:f028e1aaac5fb5411c809a8913e4bdbbd329cfef2cb9c483b0abb93e5e686b07"
+        }
+      ]
+    },
+    {
+      "id": 41686846768,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "ce09e21786daa49904e4b00098e1e77eed949591",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-03T17:42:35Z",
+      "updated_at": "2026-11-03T18:49:19Z",
+      "jobs": [
+        {
+          "id": 126094745731,
+          "name": "guest source parse and compile (Windows PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-03T17:42:40Z",
+          "completed_at": "2026-11-03T17:43:14Z",
+          "runner_name": "GitHub Actions 1000001155"
+        },
+        {
+          "id": 126095094798,
+          "name": "windows11 rehearsal svcfirst",
+          "conclusion": "success",
+          "started_at": "2026-11-03T17:43:18Z",
+          "completed_at": "2026-11-03T18:11:24Z",
+          "runner_name": "GitHub Actions 1000001157"
+        },
+        {
+          "id": 126095094800,
+          "name": "windows11 rehearsal hv",
+          "conclusion": "success",
+          "started_at": "2026-11-03T17:43:17Z",
+          "completed_at": "2026-11-03T17:58:10Z",
+          "runner_name": "GitHub Actions 1000001158"
+        },
+        {
+          "id": 126095094856,
+          "name": "windows11 rehearsal nodiagtrack",
+          "conclusion": "success",
+          "started_at": "2026-11-03T17:43:17Z",
+          "completed_at": "2026-11-03T18:49:18Z",
+          "runner_name": "GitHub Actions 1000001156"
+        },
+        {
+          "id": 126095095059,
+          "name": "windows11 rehearsal nodps",
+          "conclusion": "success",
+          "started_at": "2026-11-03T17:43:18Z",
+          "completed_at": "2026-11-03T18:12:00Z",
+          "runner_name": "GitHub Actions 1000001159"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13255842647,
+          "name": "diag43-raw-dumps-and-logs-hv",
+          "size_in_bytes": 87631,
+          "digest": "sha256:6be66c1b789af49a5498f9f83d7048d24387290179e9e0e0d6f9493d250d3f8e"
+        },
+        {
+          "id": 13257383406,
+          "name": "diag43-raw-dumps-and-logs-nodps",
+          "size_in_bytes": 256588,
+          "digest": "sha256:a48fa6a35a83b5fa6c3c0141f56175546bbc89080f8769cc12097e325b3aa5b5"
+        },
+        {
+          "id": 13256719369,
+          "name": "diag43-raw-dumps-and-logs-svcfirst",
+          "size_in_bytes": 68298,
+          "digest": "sha256:d0e92a12010743918434384e3597c0e017586198a7210ccf36a754d6afa6bb80"
+        },
+        {
+          "id": 13256062710,
+          "name": "diag43-win11-rehearsal-hv",
+          "size_in_bytes": 3235174,
+          "digest": "sha256:5f3ad6919d1137ec6ada29f8106fabb848dae129d6ab1771f12525bcc9376be5"
+        },
+        {
+          "id": 13260982029,
+          "name": "diag43-win11-rehearsal-nodiagtrack",
+          "size_in_bytes": 87096,
+          "digest": "sha256:8dd254ede4a69e75f2494d6541659b3a802afdf4d5df72a1cfece58ed44ab0d3"
+        },
+        {
+          "id": 13256884162,
+          "name": "diag43-win11-rehearsal-nodps",
+          "size_in_bytes": 1999788,
+          "digest": "sha256:61fc49a298944527534fe506cecb83457c74dae9436072d2cdb51075502ad9fd"
+        },
+        {
+          "id": 13256213446,
+          "name": "diag43-win11-rehearsal-svcfirst",
+          "size_in_bytes": 2875085,
+          "digest": "sha256:7ab41bad1d04891276c412aef9de892e6ba21ccc321d2360a675c0058dc091d1"
+        }
+      ]
+    },
+    {
+      "id": 41707301526,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "6ac2298d6509266e383328b994665059485b4aed",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-03T19:52:23Z",
+      "updated_at": "2026-11-03T20:58:23Z",
+      "jobs": [
+        {
+          "id": 126165902222,
+          "name": "guest source parse and compile (Windows PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-03T19:52:28Z",
+          "completed_at": "2026-11-03T19:56:25Z",
+          "runner_name": "GitHub Actions 1000001160"
+        },
+        {
+          "id": 126168055458,
+          "name": "windows11 rehearsal hv-a",
+          "conclusion": "success",
+          "started_at": "2026-11-03T19:56:28Z",
+          "completed_at": "2026-11-03T20:58:23Z",
+          "runner_name": "GitHub Actions 1000001161"
+        },
+        {
+          "id": 126168055467,
+          "name": "windows11 rehearsal hv-b",
+          "conclusion": "success",
+          "started_at": "2026-11-03T19:56:28Z",
+          "completed_at": "2026-11-03T20:14:23Z",
+          "runner_name": "GitHub Actions 1000001162"
+        },
+        {
+          "id": 126168055517,
+          "name": "windows11 rehearsal hv-nowhesvc",
+          "conclusion": "success",
+          "started_at": "2026-11-03T19:56:28Z",
+          "completed_at": "2026-11-03T20:17:06Z",
+          "runner_name": "GitHub Actions 1000001163"
+        },
+        {
+          "id": 126168055660,
+          "name": "windows11 rehearsal host-nowhesvc",
+          "conclusion": "success",
+          "started_at": "2026-11-03T19:56:28Z",
+          "completed_at": "2026-11-03T20:24:05Z",
+          "runner_name": "GitHub Actions 1000001164"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13267194182,
+          "name": "diag44-raw-dumps-and-logs-host-nowhesvc",
+          "size_in_bytes": 84488,
+          "digest": "sha256:5bc4fbd83d574af6dcd4efd9fb9cee1e6f9b59754db989d876531ed531520e69"
+        },
+        {
+          "id": 13266783019,
+          "name": "diag44-raw-dumps-and-logs-hv-b",
+          "size_in_bytes": 87853,
+          "digest": "sha256:d024ac5ff590c3e9b06597c715ad83a0b3b797cf769da7edd7280e34fdcf05ba"
+        },
+        {
+          "id": 13267543102,
+          "name": "diag44-raw-dumps-and-logs-hv-nowhesvc",
+          "size_in_bytes": 87809,
+          "digest": "sha256:86efa18688c7666c4f61dfcba20a350380fdba4c77a8c6e9d0be4c867749b257"
+        },
+        {
+          "id": 13266839401,
+          "name": "diag44-win11-rehearsal-host-nowhesvc",
+          "size_in_bytes": 2221915,
+          "digest": "sha256:0c233c87d4eb8eee059c5c49fc1540692d51eb829a319577cece048f96d9f0ef"
+        },
+        {
+          "id": 13271011349,
+          "name": "diag44-win11-rehearsal-hv-a",
+          "size_in_bytes": 87252,
+          "digest": "sha256:e7bea4c4994e7fdea93405ce127eb14fb2f94bb5a8c66f9cb7b88f22bb0a2f6f"
+        },
+        {
+          "id": 13267302971,
+          "name": "diag44-win11-rehearsal-hv-b",
+          "size_in_bytes": 6047007,
+          "digest": "sha256:442d46e3c646abc0d1429ee9208306d478a83684c6ebedc9adfd0c9a03cca159"
+        },
+        {
+          "id": 13266833404,
+          "name": "diag44-win11-rehearsal-hv-nowhesvc",
+          "size_in_bytes": 2170324,
+          "digest": "sha256:20a2a535e8c9990a89ff507d4bb32448c0a5e8948d4fb6f135573b040d952faa"
+        }
+      ]
+    },
+    {
+      "id": 41717391994,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "acb16f7397ee7a354579758a00fafa3f453ed7d1",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-03T20:57:58Z",
+      "updated_at": "2026-11-03T21:19:41Z",
+      "jobs": [
+        {
+          "id": 126200893313,
+          "name": "guest source parse and compile (Windows PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-03T20:58:02Z",
+          "completed_at": "2026-11-03T21:01:05Z",
+          "runner_name": "GitHub Actions 1000001165"
+        },
+        {
+          "id": 126202571900,
+          "name": "windows11 rehearsal hv-3",
+          "conclusion": "success",
+          "started_at": "2026-11-03T21:01:08Z",
+          "completed_at": "2026-11-03T21:16:57Z",
+          "runner_name": "GitHub Actions 1000001166"
+        },
+        {
+          "id": 126202571938,
+          "name": "windows11 rehearsal hv-2",
+          "conclusion": "success",
+          "started_at": "2026-11-03T21:01:08Z",
+          "completed_at": "2026-11-03T21:17:01Z",
+          "runner_name": "GitHub Actions 1000001167"
+        },
+        {
+          "id": 126202572019,
+          "name": "windows11 rehearsal hv-1",
+          "conclusion": "success",
+          "started_at": "2026-11-03T21:01:08Z",
+          "completed_at": "2026-11-03T21:19:40Z",
+          "runner_name": "GitHub Actions 1000001168"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13272181400,
+          "name": "diag45-raw-dumps-and-logs-hv-1",
+          "size_in_bytes": 87793,
+          "digest": "sha256:d907fbf9125e3d38a255ee3434af54996f10b759ae770500f153a721d6c1ad9b"
+        },
+        {
+          "id": 13271921229,
+          "name": "diag45-raw-dumps-and-logs-hv-2",
+          "size_in_bytes": 83509,
+          "digest": "sha256:605e447665ac649eeea19f1d88127f7c671f623c4a6473d68b70dd52243d7d12"
+        },
+        {
+          "id": 13272041143,
+          "name": "diag45-raw-dumps-and-logs-hv-3",
+          "size_in_bytes": 68371,
+          "digest": "sha256:95cdab396ec05850c034d2358971729ab6d1991ae816eb63a041559583548486"
+        },
+        {
+          "id": 13271521776,
+          "name": "diag45-win11-rehearsal-hv-1",
+          "size_in_bytes": 4105894,
+          "digest": "sha256:2d577740a11b4874e7f925113b5a99c27f96c406377e8dc1cb5b425c137675e6"
+        },
+        {
+          "id": 13271836240,
+          "name": "diag45-win11-rehearsal-hv-2",
+          "size_in_bytes": 4731513,
+          "digest": "sha256:ea8841d60faae9c2e031714860612abdf522d4c926da403c9203e6e1f597dc92"
+        },
+        {
+          "id": 13271476451,
+          "name": "diag45-win11-rehearsal-hv-3",
+          "size_in_bytes": 2876528,
+          "digest": "sha256:61476fcd3d674f56fea738b9b65ea2ac2a6545e82fd8c462550659c73c23f40d"
+        }
+      ]
+    },
+    {
+      "id": 41721262751,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "e44a32d64b8ef4b6608d6a99878b3cb9b0b6d385",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-03T21:22:47Z",
+      "updated_at": "2026-11-03T22:37:05Z",
+      "jobs": [
+        {
+          "id": 126214343776,
+          "name": "guest source parse and compile (Windows PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-03T21:22:54Z",
+          "completed_at": "2026-11-03T21:23:49Z",
+          "runner_name": "GitHub Actions 1000001169"
+        },
+        {
+          "id": 126214864736,
+          "name": "windows11 rehearsal hv-3",
+          "conclusion": "success",
+          "started_at": "2026-11-03T21:23:52Z",
+          "completed_at": "2026-11-03T22:37:04Z",
+          "runner_name": "GitHub Actions 1000001170"
+        },
+        {
+          "id": 126214864783,
+          "name": "windows11 rehearsal hv-2",
+          "conclusion": "success",
+          "started_at": "2026-11-03T21:23:52Z",
+          "completed_at": "2026-11-03T21:54:46Z",
+          "runner_name": "GitHub Actions 1000001172"
+        },
+        {
+          "id": 126214864864,
+          "name": "windows11 rehearsal hv-4",
+          "conclusion": "success",
+          "started_at": "2026-11-03T21:23:53Z",
+          "completed_at": "2026-11-03T21:54:13Z",
+          "runner_name": "GitHub Actions 1000001173"
+        },
+        {
+          "id": 126214864884,
+          "name": "windows11 rehearsal hv-1",
+          "conclusion": "success",
+          "started_at": "2026-11-03T21:23:53Z",
+          "completed_at": "2026-11-03T21:45:33Z",
+          "runner_name": "GitHub Actions 1000001171"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13271824869,
+          "name": "diag46-raw-dumps-and-logs-hv-1",
+          "size_in_bytes": 87734,
+          "digest": "sha256:b03d36252cd364f74fe6465ff24e5eb57545bed52dd2718680db52eeb0676f0d"
+        },
+        {
+          "id": 13274657427,
+          "name": "diag46-raw-dumps-and-logs-hv-2",
+          "size_in_bytes": 87459,
+          "digest": "sha256:3d76cc72b297cc88b0280e36fff22deba0fd18ce27caa5bdfd90f7e6b372558a"
+        },
+        {
+          "id": 13275395557,
+          "name": "diag46-raw-dumps-and-logs-hv-4",
+          "size_in_bytes": 63841,
+          "digest": "sha256:8ec0c91d6bc564608b68bae5fce3c228dedb778b708a8691c10ef55f4952a3c2"
+        },
+        {
+          "id": 13271864801,
+          "name": "diag46-win11-rehearsal-hv-1",
+          "size_in_bytes": 3283306,
+          "digest": "sha256:7f3064b2c3ab0a21b14757d155cf60689ce3a597e924cb63a5b0c37c18cc6d6f"
+        },
+        {
+          "id": 13274482393,
+          "name": "diag46-win11-rehearsal-hv-2",
+          "size_in_bytes": 6759561,
+          "digest": "sha256:4e1031a0b6179c879d0c957736859f537edafe4377196ef4b03ef9aea7c3e317"
+        },
+        {
+          "id": 13276433245,
+          "name": "diag46-win11-rehearsal-hv-3",
+          "size_in_bytes": 87572,
+          "digest": "sha256:4510650da9f9cb4a6ecb9dfb56c0eac9a2d6749e9646aceee02fe121b146c916"
+        },
+        {
+          "id": 13274755846,
+          "name": "diag46-win11-rehearsal-hv-4",
+          "size_in_bytes": 5973902,
+          "digest": "sha256:6af6849c914390878559d4971ce14dddde0fc88217394e300e1aee7029596a81"
+        }
+      ]
+    },
+    {
+      "id": 41733587131,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "873b20a5e662d5cc10a9898b6ccaa0a91b1ad41c",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-03T22:45:44Z",
+      "updated_at": "2026-11-03T23:16:22Z",
+      "jobs": [
+        {
+          "id": 126256910231,
+          "name": "guest source parse and compile (Windows PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-03T22:45:48Z",
+          "completed_at": "2026-11-03T22:50:25Z",
+          "runner_name": "GitHub Actions 1000001174"
+        },
+        {
+          "id": 126259158115,
+          "name": "windows11 rehearsal hv-5",
+          "conclusion": "success",
+          "started_at": "2026-11-03T22:50:29Z",
+          "completed_at": "2026-11-03T23:09:35Z",
+          "runner_name": "GitHub Actions 1000001176"
+        },
+        {
+          "id": 126259158158,
+          "name": "windows11 rehearsal hv-2",
+          "conclusion": "success",
+          "started_at": "2026-11-03T22:50:28Z",
+          "completed_at": "2026-11-03T23:08:46Z",
+          "runner_name": "GitHub Actions 1000001175"
+        },
+        {
+          "id": 126259158166,
+          "name": "windows11 rehearsal hv-6",
+          "conclusion": "success",
+          "started_at": "2026-11-03T22:50:28Z",
+          "completed_at": "2026-11-03T23:07:46Z",
+          "runner_name": "GitHub Actions 1000001177"
+        },
+        {
+          "id": 126259158272,
+          "name": "windows11 rehearsal hv-3",
+          "conclusion": "success",
+          "started_at": "2026-11-03T22:50:29Z",
+          "completed_at": "2026-11-03T23:11:28Z",
+          "runner_name": "GitHub Actions 1000001179"
+        },
+        {
+          "id": 126259158299,
+          "name": "windows11 rehearsal hv-4",
+          "conclusion": "success",
+          "started_at": "2026-11-03T22:50:28Z",
+          "completed_at": "2026-11-03T23:16:22Z",
+          "runner_name": "GitHub Actions 1000001178"
+        },
+        {
+          "id": 126259158332,
+          "name": "windows11 rehearsal hv-1",
+          "conclusion": "success",
+          "started_at": "2026-11-03T22:50:29Z",
+          "completed_at": "2026-11-03T23:13:02Z",
+          "runner_name": "GitHub Actions 1000001180"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13279336528,
+          "name": "diag47-raw-dumps-and-logs-hv-1",
+          "size_in_bytes": 68257,
+          "digest": "sha256:d79a15181b3feb0b5b896d9feb0b476d6aa0bcf270ea1e0ad41133b83c3dd042"
+        },
+        {
+          "id": 13279132781,
+          "name": "diag47-raw-dumps-and-logs-hv-2",
+          "size_in_bytes": 68216,
+          "digest": "sha256:5db0b197cc037c433b3d2f007e9a1f41ff6c92fc05d150e06f7d981d415ca326"
+        },
+        {
+          "id": 13280340364,
+          "name": "diag47-raw-dumps-and-logs-hv-3",
+          "size_in_bytes": 68323,
+          "digest": "sha256:7f06ad39b0fd6909b6a7d95af4f6875d61d0a8c922cc020562299ebd51c1d5e6"
+        },
+        {
+          "id": 13280106342,
+          "name": "diag47-raw-dumps-and-logs-hv-4",
+          "size_in_bytes": 68157,
+          "digest": "sha256:82880b90eb426ba20e21c4e602ce783fb5fd677907af84754889afd685d8dc3d"
+        },
+        {
+          "id": 13280455048,
+          "name": "diag47-raw-dumps-and-logs-hv-5",
+          "size_in_bytes": 87645,
+          "digest": "sha256:0c385c356959ef2078affe3f827e3addd4036375503932f84729057dbd3876a7"
+        },
+        {
+          "id": 13278458789,
+          "name": "diag47-raw-dumps-and-logs-hv-6",
+          "size_in_bytes": 63923,
+          "digest": "sha256:eff9a1401146d42ba0295a40d852d38e3a4fba6fbcdf7850f84d12f05bf57913"
+        },
+        {
+          "id": 13279935923,
+          "name": "diag47-win11-rehearsal-hv-1",
+          "size_in_bytes": 4257999,
+          "digest": "sha256:c97f203ea4307aaba80f9493c425c2e66274da273f2d6ff66054ba51b016fb5f"
+        },
+        {
+          "id": 13280020487,
+          "name": "diag47-win11-rehearsal-hv-2",
+          "size_in_bytes": 2737233,
+          "digest": "sha256:3bc4c6f828cf66f5d27d97ebe1ef9b100f4d9f7ef62b60a6d32edc20abc8eb6e"
+        },
+        {
+          "id": 13280450324,
+          "name": "diag47-win11-rehearsal-hv-3",
+          "size_in_bytes": 4644838,
+          "digest": "sha256:e1fa5d1556e2c4be308f714dc8495c67f9200a0aaf17916d2cd051fcfaa53305"
+        },
+        {
+          "id": 13278779999,
+          "name": "diag47-win11-rehearsal-hv-4",
+          "size_in_bytes": 5400481,
+          "digest": "sha256:4d9898767c195f8012b433539b7afdf32317ec9a1ece4324fec2deca3b43cb11"
+        },
+        {
+          "id": 13279048164,
+          "name": "diag47-win11-rehearsal-hv-5",
+          "size_in_bytes": 8107495,
+          "digest": "sha256:cf50a5883b6528f2f97c5125394cdbfc45c72c49352874180aa33c8aeb237911"
+        },
+        {
+          "id": 13279261562,
+          "name": "diag47-win11-rehearsal-hv-6",
+          "size_in_bytes": 6582285,
+          "digest": "sha256:22ee1600316b520c9205dfdfc698fecee0bb4ebcc71dd74c0dc8e9e5d79ce0cf"
+        }
+      ]
+    },
+    {
+      "id": 41739147286,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "d4d07a7de6c32fda09fb24018760c0e351446779",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-03T23:26:22Z",
+      "updated_at": "2026-11-04T00:25:29Z",
+      "jobs": [
+        {
+          "id": 126275958610,
+          "name": "guest source parse and compile (Windows PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-03T23:26:28Z",
+          "completed_at": "2026-11-03T23:26:57Z",
+          "runner_name": "GitHub Actions 1000001181"
+        },
+        {
+          "id": 126276207772,
+          "name": "windows11 rehearsal exact-6",
+          "conclusion": "success",
+          "started_at": "2026-11-03T23:27:00Z",
+          "completed_at": "2026-11-03T23:45:22Z",
+          "runner_name": "GitHub Actions 1000001186"
+        },
+        {
+          "id": 126276207794,
+          "name": "windows11 rehearsal exact-3",
+          "conclusion": "success",
+          "started_at": "2026-11-03T23:27:00Z",
+          "completed_at": "2026-11-03T23:41:43Z",
+          "runner_name": "GitHub Actions 1000001187"
+        },
+        {
+          "id": 126276207800,
+          "name": "windows11 rehearsal exact-1",
+          "conclusion": "success",
+          "started_at": "2026-11-03T23:27:01Z",
+          "completed_at": "2026-11-04T00:25:28Z",
+          "runner_name": "GitHub Actions 1000001182"
+        },
+        {
+          "id": 126276207826,
+          "name": "windows11 rehearsal exact-5",
+          "conclusion": "success",
+          "started_at": "2026-11-03T23:27:00Z",
+          "completed_at": "2026-11-03T23:46:17Z",
+          "runner_name": "GitHub Actions 1000001184"
+        },
+        {
+          "id": 126276207894,
+          "name": "windows11 rehearsal exact-4",
+          "conclusion": "success",
+          "started_at": "2026-11-03T23:27:00Z",
+          "completed_at": "2026-11-03T23:43:09Z",
+          "runner_name": "GitHub Actions 1000001185"
+        },
+        {
+          "id": 126276207907,
+          "name": "windows11 rehearsal exact-2",
+          "conclusion": "success",
+          "started_at": "2026-11-03T23:27:00Z",
+          "completed_at": "2026-11-03T23:43:15Z",
+          "runner_name": "GitHub Actions 1000001183"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13284066916,
+          "name": "diag48-win11-rehearsal-exact-1",
+          "size_in_bytes": 32999,
+          "digest": "sha256:1949c764c8e1cad85bc7aaf7f8a84469cc73240162d6bd1fdc836b89bcad0a3f"
+        },
+        {
+          "id": 13281421008,
+          "name": "diag48-win11-rehearsal-exact-2",
+          "size_in_bytes": 7285581,
+          "digest": "sha256:684f2bd49b4cc72b4245700a7a785ac47f2d8ca84c5dbafd77938d88adec1d6b"
+        },
+        {
+          "id": 13280768657,
+          "name": "diag48-win11-rehearsal-exact-3",
+          "size_in_bytes": 7674367,
+          "digest": "sha256:a5776aff5f5a2ba858a5d97bb57d1122c9b2da747fdb03192c4000acdf324bfa"
+        },
+        {
+          "id": 13281112653,
+          "name": "diag48-win11-rehearsal-exact-4",
+          "size_in_bytes": 5840406,
+          "digest": "sha256:8950baa1c270fb0869db7a355ac8fa9fa4935fe0dda5e2c983385cc70dd3b2bf"
+        },
+        {
+          "id": 13282315125,
+          "name": "diag48-win11-rehearsal-exact-5",
+          "size_in_bytes": 4542963,
+          "digest": "sha256:a3234f810b7253ddaa48e3ad429637cfa74bc2eaaca165df9c417253b4abdc21"
+        },
+        {
+          "id": 13280299910,
+          "name": "diag48-win11-rehearsal-exact-6",
+          "size_in_bytes": 6912602,
+          "digest": "sha256:ad7448b760889cddad07eee4f88e12cc53399aa6d1148e02d470c57082e2a4b8"
+        }
+      ]
+    },
+    {
+      "id": 41747013174,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "d82942f9270699dc3bd2133aa97243a6370ef029",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-04T00:27:58Z",
+      "updated_at": "2026-11-04T00:51:25Z",
+      "jobs": [
+        {
+          "id": 126302485587,
+          "name": "guest source parse and compile (Windows PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:28:05Z",
+          "completed_at": "2026-11-04T00:28:42Z",
+          "runner_name": "GitHub Actions 1000001188"
+        },
+        {
+          "id": 126302761287,
+          "name": "windows11 rehearsal exact-5",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:28:44Z",
+          "completed_at": "2026-11-04T00:44:35Z",
+          "runner_name": "GitHub Actions 1000001189"
+        },
+        {
+          "id": 126302761390,
+          "name": "windows11 rehearsal exact-4",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:28:45Z",
+          "completed_at": "2026-11-04T00:42:20Z",
+          "runner_name": "GitHub Actions 1000001192"
+        },
+        {
+          "id": 126302761423,
+          "name": "windows11 rehearsal exact-3",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:28:45Z",
+          "completed_at": "2026-11-04T00:46:04Z",
+          "runner_name": "GitHub Actions 1000001193"
+        },
+        {
+          "id": 126302761425,
+          "name": "windows11 rehearsal exact-1",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:28:45Z",
+          "completed_at": "2026-11-04T00:51:24Z",
+          "runner_name": "GitHub Actions 1000001190"
+        },
+        {
+          "id": 126302761431,
+          "name": "windows11 rehearsal exact-2",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:28:45Z",
+          "completed_at": "2026-11-04T00:47:34Z",
+          "runner_name": "GitHub Actions 1000001191"
+        },
+        {
+          "id": 126302761452,
+          "name": "windows11 rehearsal exact-6",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:28:45Z",
+          "completed_at": "2026-11-04T00:45:11Z",
+          "runner_name": "GitHub Actions 1000001194"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13284348836,
+          "name": "diag49-win11-rehearsal-exact-1",
+          "size_in_bytes": 7690247,
+          "digest": "sha256:1fd0c8029b3282eed19e75a402f24f00c02fe31f57fe7db329061a6e57ac188b"
+        },
+        {
+          "id": 13285676440,
+          "name": "diag49-win11-rehearsal-exact-2",
+          "size_in_bytes": 1273175,
+          "digest": "sha256:a97fb1dacc28e33ca2ed92aed94ebf6c661df291db269addf8b905b871103b87"
+        },
+        {
+          "id": 13284967412,
+          "name": "diag49-win11-rehearsal-exact-3",
+          "size_in_bytes": 4630244,
+          "digest": "sha256:b699e091044451db75cf1c79f15b907d422c9c41c7069900a371d3fc34b20004"
+        },
+        {
+          "id": 13285835205,
+          "name": "diag49-win11-rehearsal-exact-4",
+          "size_in_bytes": 4538915,
+          "digest": "sha256:adb6d9e0e79d1ae370824e1858f4383e6b5f09f4357802c8f80f0eea65af74bf"
+        },
+        {
+          "id": 13284243159,
+          "name": "diag49-win11-rehearsal-exact-5",
+          "size_in_bytes": 2260954,
+          "digest": "sha256:383fa843939f64f728e7252fe42fcb6a9f509b2ab7585f3563b859ba8cdff0d8"
+        },
+        {
+          "id": 13285920576,
+          "name": "diag49-win11-rehearsal-exact-6",
+          "size_in_bytes": 6953884,
+          "digest": "sha256:935be807d41f3bf2938ac73d7510c4de74384aeb1fd0bb267f9b3038228d737b"
+        }
+      ]
+    },
+    {
+      "id": 41750667920,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/windows-service-env",
+      "head_sha": "2d5af89e8694792e929462f454827b7f2c91ac45",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-04T00:57:47Z",
+      "updated_at": "2026-11-04T01:59:16Z",
+      "jobs": [
+        {
+          "id": 126314682227,
+          "name": "guest source parse and compile (Windows PowerShell 5.1)",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:57:51Z",
+          "completed_at": "2026-11-04T00:58:18Z",
+          "runner_name": "GitHub Actions 1000001195"
+        },
+        {
+          "id": 126314862590,
+          "name": "windows11 rehearsal exact-6",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:58:20Z",
+          "completed_at": "2026-11-04T01:16:27Z",
+          "runner_name": "GitHub Actions 1000001196"
+        },
+        {
+          "id": 126314862627,
+          "name": "windows11 rehearsal exact-5",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:58:20Z",
+          "completed_at": "2026-11-04T01:20:03Z",
+          "runner_name": "GitHub Actions 1000001197"
+        },
+        {
+          "id": 126314862628,
+          "name": "windows11 rehearsal exact-1",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:58:20Z",
+          "completed_at": "2026-11-04T01:18:06Z",
+          "runner_name": "GitHub Actions 1000001198"
+        },
+        {
+          "id": 126314862662,
+          "name": "windows11 rehearsal exact-3",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:58:21Z",
+          "completed_at": "2026-11-04T01:25:10Z",
+          "runner_name": "GitHub Actions 1000001200"
+        },
+        {
+          "id": 126314862674,
+          "name": "windows11 rehearsal exact-8",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:58:20Z",
+          "completed_at": "2026-11-04T01:14:55Z",
+          "runner_name": "GitHub Actions 1000001202"
+        },
+        {
+          "id": 126314862707,
+          "name": "windows11 rehearsal exact-4",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:58:21Z",
+          "completed_at": "2026-11-04T01:59:16Z",
+          "runner_name": "GitHub Actions 1000001203"
+        },
+        {
+          "id": 126314862710,
+          "name": "windows11 rehearsal exact-2",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:58:21Z",
+          "completed_at": "2026-11-04T01:18:10Z",
+          "runner_name": "GitHub Actions 1000001201"
+        },
+        {
+          "id": 126314862727,
+          "name": "windows11 rehearsal exact-7",
+          "conclusion": "success",
+          "started_at": "2026-11-04T00:58:21Z",
+          "completed_at": "2026-11-04T01:20:09Z",
+          "runner_name": "GitHub Actions 1000001199"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13287077273,
+          "name": "diag50-win11-rehearsal-exact-1",
+          "size_in_bytes": 4483899,
+          "digest": "sha256:7e25e72132889bceecde0430cb9554e73b03fe5f283ee5daea0e8c245db9c280"
+        },
+        {
+          "id": 13286282552,
+          "name": "diag50-win11-rehearsal-exact-2",
+          "size_in_bytes": 3190766,
+          "digest": "sha256:d886d3f0e82680e6da8654a169bf22b7a8c610b8c787f4fe45480e875b87a2b8"
+        },
+        {
+          "id": 13286068981,
+          "name": "diag50-win11-rehearsal-exact-3",
+          "size_in_bytes": 6645034,
+          "digest": "sha256:1c65e3132316259a7d81afa1ae808c54d51a7aff416a182efb71bea013a0fe75"
+        },
+        {
+          "id": 13289290557,
+          "name": "diag50-win11-rehearsal-exact-4",
+          "size_in_bytes": 23898,
+          "digest": "sha256:994e75603dcb687894584ef48906d936bb0789a0f059bfd7f9e971c02839c944"
+        },
+        {
+          "id": 13286993080,
+          "name": "diag50-win11-rehearsal-exact-5",
+          "size_in_bytes": 7280495,
+          "digest": "sha256:2c118b187850686350978a0bf4a7d4105d222dd0095927ab33c3304119f0c70e"
+        },
+        {
+          "id": 13286367272,
+          "name": "diag50-win11-rehearsal-exact-6",
+          "size_in_bytes": 3122046,
+          "digest": "sha256:b2e7a8655b566486a7dd49f9f6c3d7b1ea76f85bdad967e7fc1ae8807c34c24b"
+        },
+        {
+          "id": 13287142762,
+          "name": "diag50-win11-rehearsal-exact-7",
+          "size_in_bytes": 7916647,
+          "digest": "sha256:0fbcffe3b1c3476ba952d60a2fb10dbe601518e92241e8b96f0d61435d310f03"
+        },
+        {
+          "id": 13286052466,
+          "name": "diag50-win11-rehearsal-exact-8",
+          "size_in_bytes": 7280014,
+          "digest": "sha256:ae7e01dee01e0b055a8a2349dd1fe9c42864b26bf91f730acaf88541ccee99a5"
+        }
+      ]
+    },
+    {
+      "id": 41912040314,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win11-host-closure",
+      "head_sha": "338742595bc90ad2538fd0cf18f0b4eceae6f674",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-04T21:01:00Z",
+      "updated_at": "2026-11-04T21:02:17Z",
+      "jobs": [
+        {
+          "id": 126861862443,
+          "name": "windows11 host closure resolution",
+          "conclusion": "success",
+          "started_at": "2026-11-04T21:01:04Z",
+          "completed_at": "2026-11-04T21:02:16Z",
+          "runner_name": "GitHub Actions 1000001242"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13363620703,
+          "name": "host-closure",
+          "size_in_bytes": 760962,
+          "digest": "sha256:f2b4e65f9680b12439d31767d21a215f8174626bbca96bc176f3c05568317cab"
+        }
+      ]
+    },
+    {
+      "id": 41918821956,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win11-host-closure",
+      "head_sha": "4d218445149e0163add20a6cf290e64a459762d4",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-04T21:44:02Z",
+      "updated_at": "2026-11-04T21:45:03Z",
+      "jobs": [
+        {
+          "id": 126885577264,
+          "name": "windows11 host closure resolution",
+          "conclusion": "success",
+          "started_at": "2026-11-04T21:44:06Z",
+          "completed_at": "2026-11-04T21:45:02Z",
+          "runner_name": "GitHub Actions 1000001243"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13366990205,
+          "name": "host-closure",
+          "size_in_bytes": 761081,
+          "digest": "sha256:9ab1d23d4776d68b71eec66635a2b7d9bb117bc643e6295d104d437764429415"
+        }
+      ]
+    },
+    {
+      "id": 41929794476,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win11-host-closure",
+      "head_sha": "022cbe859cab934770024e971a60554706e56795",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-04T22:58:00Z",
+      "updated_at": "2026-11-04T22:59:06Z",
+      "jobs": [
+        {
+          "id": 126923497380,
+          "name": "windows11 host closure resolution",
+          "conclusion": "success",
+          "started_at": "2026-11-04T22:58:04Z",
+          "completed_at": "2026-11-04T22:59:06Z",
+          "runner_name": "GitHub Actions 1000001244"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13370243522,
+          "name": "host-closure",
+          "size_in_bytes": 760996,
+          "digest": "sha256:1866f817cd7a9045830c8695a255235920a8f63102c7aa68c34713aa7ca9575d"
+        }
+      ]
+    },
+    {
+      "id": 41943736342,
+      "name": "ci",
+      "event": "workflow_dispatch",
+      "head_branch": "diag/win11-host-closure",
+      "head_sha": "ede3fdd29f495564a39a92a968db6601da1ae22f",
+      "path": ".github/workflows/ci.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-05T00:45:51Z",
+      "updated_at": "2026-11-05T00:46:55Z",
+      "jobs": [
+        {
+          "id": 126970656730,
+          "name": "windows11 host closure resolution",
+          "conclusion": "success",
+          "started_at": "2026-11-05T00:45:56Z",
+          "completed_at": "2026-11-05T00:46:54Z",
+          "runner_name": "GitHub Actions 1000001245"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13377257451,
+          "name": "host-closure",
+          "size_in_bytes": 760962,
+          "digest": "sha256:10bcc48fbf485286d48424c29ceea5d0239e8a80d09507e676fed7ea93537552"
+        }
+      ]
+    }
+  ],
+  "downloaded_artifact_files_before_LF_normalization": {
+    "round1 diag-gnome-kvm/guest-serial.log": {
+      "bytes": 77654,
+      "sha256": "855b22c15798fff007db7cf0a15b821bd856d25020b22844ab3906bd39ae6ee1"
+    },
+    "round1 diag-gnome-tcg/guest-serial.log": {
+      "bytes": 80205,
+      "sha256": "19df8cde9dde7e1ce3bd9bbbb0e27fc703b2dac1ceb57f1fcbbe966fe34c0675"
+    },
+    "round1 diag-gnome-kvm/host-timeline.json": {
+      "bytes": 56542,
+      "sha256": "e717f759f34d60587016822fd396c18394bfc2cd1d5045f547351feddca6fd57"
+    },
+    "round1 diag-gnome-tcg/host-timeline.json": {
+      "bytes": 55081,
+      "sha256": "0f44b2f2b74faf57307839fd4d2170663972bd3190e2e6e1c45abd39f4397c25"
+    },
+    "round2 diag2-win11-boot/none/serial.raw": {
+      "bytes": 923,
+      "sha256": "2d897d56c049da2f269fc167c5375466f2902b2c3f19fc8c3b3f7f2f64107ee7"
+    },
+    "round2 diag2-gnome-base/guest-com2.log": {
+      "bytes": 550360,
+      "sha256": "557061f52558bbbd49971a14bd88853c6829d0612951e068383bb671560c88cd"
+    },
+    "round2 diag2-gnome-nmmask/guest-com2.log": {
+      "bytes": 536322,
+      "sha256": "3d134fc80a052dd58db596a14fbc52d831762d6fa1b1446389128a20e5fd024b"
+    },
+    "round2 diag2-gnome-nrsuspend/guest-com2.log": {
+      "bytes": 54088,
+      "sha256": "21f884d752a7246f33ab0e8759a806bf324d98942b8beaa65331ec79867710c8"
+    },
+    "round2 diag2-gnome-nrsuspend/probe.tar": {
+      "bytes": 501760,
+      "sha256": "74ba82e2259efd256995a21ea25c293776c34d798f485f44bbfeeb22290c47ca"
+    },
+    "round2 diag2-gnome-nrsuspend locked-install.log": {
+      "bytes": 242847,
+      "sha256": "d4e21694851a8fcd07a5649d2c168fc231afadfdc0bfadf5104b241c8851a6f6"
+    },
+    "round3 diag3-win11-boot/boot3/com1-console.raw": {
+      "bytes": 440,
+      "sha256": "a103346150f6f45eb737ef622373a607eb4990a69e2757a118295588c3279fab"
+    },
+    "round3 diag3-win11-boot/boot3/com2-protocol.raw": {
+      "bytes": 440,
+      "sha256": "a103346150f6f45eb737ef622373a607eb4990a69e2757a118295588c3279fab"
+    },
+    "round3 diag3-win11-boot/boot3/chunks.json": {
+      "bytes": 44165,
+      "sha256": "caaf8fcd77877330d8f8bbb26a92bc4e25138f993d5ea0c46e8ef25c89070974"
+    },
+    "round3 diag3-gnome-fixed/probe.tar": {
+      "bytes": 583680,
+      "sha256": "52379922ad07768106d3ada0e647e78a25c1fa5b481a85fc04ff35edb35f0465"
+    },
+    "round3 diag3-gnome-fixed/guest-com2.log": {
+      "bytes": 127753,
+      "sha256": "13d0a0bbe8aff40703e7c5e21b02981d90dfb3b40ff59e2919d9bb7f6ca474c1"
+    },
+    "windows-guest-rounds/round11-41229932862-probe.json": {
+      "bytes": 11337,
+      "sha256": "ba2d00cf35add0f1f2963fdabca2048672f706c3cbf6961478b5882fa3bb6b15"
+    },
+    "windows-guest-rounds/round4-41225412050-probe.json": {
+      "bytes": 159576,
+      "sha256": "e36adc1f046b8f6fbda2af268c062220fbd0e422db15e1df1bdef71824bac840"
+    },
+    "windows-guest-rounds/round5-41226037122-probe.json": {
+      "bytes": 19028,
+      "sha256": "95c1f9025e7f4786b7430fe3e5f40b3018d304fc2e9c8cb8dde7cfba4b812590"
+    },
+    "windows-guest-rounds/round6-41226305647-probe.json": {
+      "bytes": 2660,
+      "sha256": "543de55982231cec349ebc5dfd51676049346c3e0da276ddf4a8b7ca9489a333"
+    },
+    "windows-guest-rounds/round6-service-alone.txt": {
+      "bytes": 2702,
+      "sha256": "a086c42047f19e6e785bbc66627b44b3fc21d892bafb56a49982b428c8fa5c38"
+    },
+    "windows-guest-rounds/round7-41228853420-probe.json": {
+      "bytes": 1477,
+      "sha256": "3c9b1360c96e1152db00f1bdd9edc6cea40055ca3a714b671d13ae83c488382c"
+    },
+    "windows-guest-rounds/round8-41229140888-probe.json": {
+      "bytes": 14883,
+      "sha256": "a9dab4f237934ad8b9f0806a631fd27d13b070b88f60a54977671f8e2f55788b"
+    },
+    "windows-product-builds/run41229600953-JobApply_O_space_diag.stderr": {
+      "bytes": 989,
+      "sha256": "600393265901b9e5b9d35ec856fccd99654d60ce7a49812bdcfc1100f9ab978f"
+    },
+    "windows-product-builds/run41229600953-japp-gui-diag.stderr": {
+      "bytes": 899,
+      "sha256": "9a2e9afe944f672c595b8ca72feca39c2a37ec6ac33c265d6c335c5b100dd94c"
+    }
+  },
+  "round3_harness_copy_at_7a4d6c8": {
+    "note": "working-tree harness sources copied into the scratch branch for round 3; later corrections (COM2 firmware mirror, graphical-session.target wait) postdate it",
+    "files": {
+      "scripts/linux_gnome/ubuntu_gnome_atspi.py": {
+        "bytes": 4213,
+        "sha256": "38f3e8615065c039113fd8a5a111d89195f8014f5f3aca81338c46a80028b621"
+      },
+      "scripts/linux_gnome/ubuntu_gnome_guest.py": {
+        "bytes": 44629,
+        "sha256": "fbe8ba2b6001fc8e83f57a7b4aeffe2b3d5518da1cc145f0e6faffecba738faa"
+      },
+      "scripts/linux_gnome/ubuntu_gnome_host.py": {
+        "bytes": 7419,
+        "sha256": "2a9e308cdd9e7932e1b9db285d3bf2ba9378986028b87d5086db592d7214c01f"
+      },
+      "scripts/linux_gnome/ubuntu_gnome_package_export.py": {
+        "bytes": 9620,
+        "sha256": "a71592958c901aa93745b18063a6d0274c3bc5a56bf3d5cccbb4b0dae45769a3"
+      },
+      "scripts/linux_gnome/ubuntu_gnome_platform.py": {
+        "bytes": 420,
+        "sha256": "8ea71349dce148662d6a8cb2629760a36ec657f6acc9a7285fd2f7703c0052b8"
+      },
+      "scripts/linux_gnome/ubuntu_gnome_prepare.py": {
+        "bytes": 13812,
+        "sha256": "774b98512cf5b79e518c5a01f35dce7dbc55c157ca941f4f8346f2066aa3ea36"
+      },
+      "scripts/linux_gnome/ubuntu_gnome_process.py": {
+        "bytes": 2467,
+        "sha256": "a6b7a2522943872292809735cf534acadf4c5040b0635b65607efff0d59b17c5"
+      },
+      "scripts/linux_gnome/ubuntu_gnome_provision.py": {
+        "bytes": 12018,
+        "sha256": "ee3a44c0e8c2026368b2110c9bcca545e04f16b3b791faafcf98a684efe6e13e"
+      },
+      "scripts/linux_gnome/ubuntu_gnome_request.py": {
+        "bytes": 25979,
+        "sha256": "29e9500b2757176c1704d15ff1bd103c6f28462533ecfa39813ae41dcdd2ec74"
+      },
+      "scripts/linux_gnome/ubuntu_gnome_retention.py": {
+        "bytes": 3423,
+        "sha256": "80f659caf9e9b50cfed06b3e8b8d56888b953e16e4312fd912d512d3d3c544c8"
+      },
+      "scripts/linux_gnome/ubuntu_gnome_session_receipt.py": {
+        "bytes": 19845,
+        "sha256": "f3259b1d0ea6b9ffb99a1d8237d4749711134daf119c29a0445e7bba6027f65d"
+      },
+      "scripts/linux_gnome/ubuntu_gnome_shell.py": {
+        "bytes": 16354,
+        "sha256": "c07ca3ecab5d9f7e65960077115d8131d0f017fb94f50353c9ed1b1fc06fdda3"
+      },
+      "scripts/linux_gnome/ubuntu_gnome_signed_indexes.py": {
+        "bytes": 12056,
+        "sha256": "c1eb1b2d6ae0c1b8eb511ba2aff3021a01f3d669d6f17d3feffb1c1f90870494"
+      },
+      "scripts/linux_gnome/ubuntu_gnome_vm.py": {
+        "bytes": 51439,
+        "sha256": "9181322c920cd7423a026ee30c5797bba419226182233b61c0b8654d7ac2587c"
+      },
+      "scripts/windows11/windows11_bootstrap.ps1": {
+        "bytes": 5828,
+        "sha256": "723c3afd0d40219353e8f64483ac145ccdc8398dcb96bca37e7091b2e5721e01"
+      },
+      "scripts/windows11/windows11_candidate.py": {
+        "bytes": 14840,
+        "sha256": "7e815cf857d01bab4ad238353d23f04877f158a0ee6213072a79747666460c54"
+      },
+      "scripts/windows11/windows11_deployment.py": {
+        "bytes": 5678,
+        "sha256": "aec9381e07dc267c4ee848d216e8a247e72466587fbba6fa20adf3771ec02f74"
+      },
+      "scripts/windows11/windows11_guest.ps1": {
+        "bytes": 25790,
+        "sha256": "d1f0feb92d64e974f89baacef2802788163add8568a779269632425a54df90f6"
+      },
+      "scripts/windows11/windows11_inputs.py": {
+        "bytes": 18427,
+        "sha256": "061e060300efa2889b0ffcebf5f3a1a217ac71858818dfaef9255458cff70293"
+      },
+      "scripts/windows11/windows11_owned.cs": {
+        "bytes": 43680,
+        "sha256": "5337bf5e16c0755d8269cf22d94b86eb39ac0397b71abccc07e27746b4d52b8e"
+      },
+      "scripts/windows11/windows11_platform.py": {
+        "bytes": 457,
+        "sha256": "fc8949ba1d89314d90b21a027e697e339f77da341a31d9a88a393fd8536d2460"
+      },
+      "scripts/windows11/windows11_process.py": {
+        "bytes": 1549,
+        "sha256": "1bed1775fe376d05f32e125c310e538b4693cb475dfd075edb47ff70579ead7a"
+      },
+      "scripts/windows11/windows11_request.py": {
+        "bytes": 26878,
+        "sha256": "f41224c17c0c62fc1df2bdafa1ab609a62bd091ed674bfdcc2828cf886f9cf27"
+      },
+      "scripts/windows11/windows11_resources.py": {
+        "bytes": 5356,
+        "sha256": "eb061cb5f1ac08f6f390586298514b3ccd3322c802ccf6cc6d8a18ac3e14c51a"
+      },
+      "scripts/windows11/windows11_source_check.ps1": {
+        "bytes": 2487,
+        "sha256": "8fe860dee981b6392ee291fd63c4d057b4174b3673926e5e385a4f55bed7e822"
+      },
+      "scripts/windows11/windows11_vm.py": {
+        "bytes": 33451,
+        "sha256": "456721f20d4f9059d7a4ca406b1259d23f33cbb7bd818cb51146d396e7118a67"
+      }
+    }
+  },
+  "notes": "Runs on diag/windows-service-env, diag/windows-dxdiag-args, diag/win-guest-lifecycle, diag/win-gui-service, diag/win-product-final and diag/win11-host-closure are scratch diagnostics (never merged). Run 41228660641 ran round 7 before the hidden runtime/.gitignore restore and is superseded by run41228853420. Rounds 12+ keep their per-round sources.json (every diag/ file's hash at the branch commit, and each retained file's artifact bytes and hash before LF normalization or PNG conversion)."
+}

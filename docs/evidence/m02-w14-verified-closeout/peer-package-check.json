@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "archive_sha256": "8cef3ebebf57365ff576a1c5e715b6f0bc90b5d99911d43055ffa446096044f1",
+  "archive_bytes": 5296414,
+  "regular_unique_safe_members": 236,
+  "exact_indexed_source_members": 235,
+  "generated_index_members": 1,
+  "source_recapture_unchanged": true,
+  "archive_all_member_bytes_and_sha256_rechecked": true,
+  "root_writes_product_tests_builds_browsers": 0
+}

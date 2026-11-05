@@ -1,0 +1,6 @@
+{
+  "source_inventory_digest": "sha256:6f98ddd6ea6fb40ccf769b6c977bc8d28830eeea5623dbde74451f22b1075350",
+  "reconstructed_matched_inventory": true,
+  "unmatched_paths": [],
+  "note": "All exact candidate source bytes match the retained run source inventory."
+}

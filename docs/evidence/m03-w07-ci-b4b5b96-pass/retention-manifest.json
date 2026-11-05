@@ -1,0 +1,77 @@
+{
+  "scope": "Exact committed (LF-normalized) bytes of copies of CI artifact files (JSON copies had CRLF in the Windows artifact and are otherwise identical), GitHub API metadata and raw-log extracts for run 41139850970",
+  "files": {
+    "README.md": {
+      "bytes": 2614,
+      "sha256": "c6ee82c2e52bbb27903698873bc7831c996e2cf80e0af1e3e82110adabd65b1c"
+    },
+    "run-metadata.json": {
+      "bytes": 2231,
+      "sha256": "f7f6bfa8761154c7afdd67feb245fcf3f255a7a48561ad57b3b77154e35ba877"
+    },
+    "summary.json": {
+      "bytes": 1823,
+      "sha256": "98c67a1bf7e5209a1312dbcdb2f407130ae7d0c8469e2a9c01a662f9276b2f5b"
+    },
+    "ubuntu-15-package-actor.stderr": {
+      "bytes": 593,
+      "sha256": "8efb57f65d338d0878f671c595e70337b0a02a9b35429f6b0733c9424f647cdb"
+    },
+    "ubuntu-15-package-actor.stdout": {
+      "bytes": 202,
+      "sha256": "b6fc5b84dc8d85b4317745d189f30a8edf3a410e7cea00eba269d4870ce44f87"
+    },
+    "verify-log-extracts.txt": {
+      "bytes": 5269,
+      "sha256": "73f99c9171be32b2104cadb75e207d7e18e2826d6214b1257ec380bb16a1dbd6"
+    },
+    "windows-10-tauri-package.result.json": {
+      "bytes": 5691,
+      "sha256": "706b93fc02fc6ededbd67643ff18855e8b39c0499a1ff947d5a2e52978bb7e4b"
+    },
+    "windows-11-package-stage.result.json": {
+      "bytes": 5918,
+      "sha256": "76b06205b5fbed8c49aa3c5aadaaf49acc1977fb34e5d3928a7f19e31d418b1a"
+    },
+    "windows-12-package-inspect.result.json": {
+      "bytes": 5672,
+      "sha256": "27c20999d478d64e17a51eaf4d6ab6173bdacce5edd1e1a8226e4f3a1897213b"
+    },
+    "windows-12-pe-app.result.json": {
+      "bytes": 5559,
+      "sha256": "13d54eec8abb3fcfd46897a516ae2d359874dfb00807d6e8b615b4bd31ae02ab"
+    },
+    "windows-12-pe-service.result.json": {
+      "bytes": 5597,
+      "sha256": "b3a5cf70bfdf80adefbab2b87a2920ac62d7c07c6196561e0935ab6dce5d8772"
+    },
+    "windows-13-package-actor-compile.result.json": {
+      "bytes": 5707,
+      "sha256": "308fd36e6556eba802709db3967ecd761b0aaaad4adb4aeb223555f81697f550"
+    },
+    "windows-14-package-actor-catalog.result.json": {
+      "bytes": 5427,
+      "sha256": "22c808ee696666d0c3983a0ba0dfb75d07e2b97a2e3be608e6f0ba45ebc580ce"
+    },
+    "windows-15-package-actor.result.json": {
+      "bytes": 5666,
+      "sha256": "b6b0264266840f52bfbdb51dbf682af40c030d6963e0a62dbda1c555d6914038"
+    },
+    "windows-15-package-actor.stderr": {
+      "bytes": 218,
+      "sha256": "e6854d993a6b5468116347762c56ee50aaaa22848d529a4344cb41624ec76bc0"
+    },
+    "windows-15-package-actor.stdout": {
+      "bytes": 202,
+      "sha256": "1a4fb48870888ca0a07f090684b37be14b3fca245c7137b4761992684d4569a8"
+    },
+    "windows-artifact-manifest.json": {
+      "bytes": 77689,
+      "sha256": "c06d91b0a2ae110976da674dbdd23446808c7343a4a27a1910fbdcc5e2c61314"
+    },
+    "windows-package-probe-input.json": {
+      "bytes": 316,
+      "sha256": "c5384ed371548ce1fb2a0bdd26ff691c7e946bff832bcc42b1c099be36fdb413"
+    }
+  }
+}

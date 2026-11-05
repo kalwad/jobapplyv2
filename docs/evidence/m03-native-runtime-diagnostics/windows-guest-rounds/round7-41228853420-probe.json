@@ -1,0 +1,40 @@
+﻿[
+    {
+        "at":  "2026-10-31T18:20:29.7256069+00:00",
+        "key":  "parse",
+        "value":  {
+                      "errors":  [
+
+                                 ]
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:20:32.4988084+00:00",
+        "key":  "package",
+        "value":  {
+                      "files":  64,
+                      "root":  "C:\\Users\\runneradmin\\AppData\\Local\\JobApply Ω space aaaaaaaaaaaa"
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:20:32.6214548+00:00",
+        "key":  "phase-body",
+        "value":  {
+                      "bytes":  3727,
+                      "sha256":  "FE805E1D84CC02738A940F2D2D7974197FE7063EFCE6AFA733DE0D89407C7F02"
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:21:08.4290128+00:00",
+        "key":  "terminal",
+        "value":  {
+                      "position":  "At line:17 char:5\r\n+     throw \u0027Actual owned Diagnostics Ready/version UI not observed\u0027\r\n+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+                      "message":  "Actual owned Diagnostics Ready/version UI not observed",
+                      "inner":  null,
+                      "error_type":  "System.Management.Automation.RuntimeException",
+                      "elapsed_s":  36.23,
+                      "phase":  "ready",
+                      "terminal":  "FAIL"
+                  }
+    }
+]

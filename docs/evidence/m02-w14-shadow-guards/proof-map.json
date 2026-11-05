@@ -1,0 +1,194 @@
+{
+  "format_version": "W14_SHADOW_SUPPORT_FINAL_HANDOFF_1",
+  "outside_tree_only": true,
+  "active_root_preimages_match": true,
+  "runtime": {
+    "node": "24.18.0",
+    "pnpm": "11.17.0"
+  },
+  "patch": {
+    "path": "/tmp/japp-w14-shadow-draft/shadow-support-FINAL.patch",
+    "sha256": "8579a82be6239376803395d517b2292b4692404947886e70b9a898282ce0600c",
+    "files": 23,
+    "manifest": "/tmp/japp-w14-shadow-draft/FINAL-source-manifest.json",
+    "manifest_sha256": "86ae035ae1afde5ca4a7b1e3f06636b36018a5afd214c15ff75c1b1228a20603",
+    "apply_check": {
+      "command": "git apply --check /tmp/japp-w14-shadow-draft/shadow-support-FINAL.patch",
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "exit_code": 0,
+      "root_read_only": true
+    }
+  },
+  "scope": {
+    "open_shadow_only": true,
+    "shadow_write_support": "native TEXT_INPUT_V1 only; other shadow control families inventoried without driver authority",
+    "topology_limits": {
+      "elements": 16384,
+      "open_roots": 64,
+      "shadow_depth": 8
+    },
+    "owner_context_limits": {
+      "composed_ancestors": 256,
+      "unique_section_tokens": 16
+    },
+    "closed_schema_grammar_and_thresholds_unchanged": true,
+    "zero_settle_semantics_unchanged": true,
+    "no_root_writes": true
+  },
+  "final_validation": [
+    {
+      "kind": "actual MV3 retained full regression",
+      "result": "PASS",
+      "tests": 96,
+      "log": "/tmp/japp-w14-shadow-final96.log",
+      "artifacts": "/tmp/japp-w14-shadow-draft/final96-before-outer-owner",
+      "scope_note": "Final reason fix; predates only bounded external owner-context extension and optional-chain formatting."
+    },
+    {
+      "kind": "actual MV3 final focused owner/index/race regression",
+      "result": "PASS",
+      "tests": 29,
+      "log": "/tmp/japp-w14-outer-owner-after.log",
+      "artifacts": "/tmp/japp-w14-shadow-draft/outer-owner-final-proof",
+      "scope_note": "Includes final outside-root12, prior/current identity and all last-hash/async ownership probes; optional-chain formatting cleanup afterward is semantically identical."
+    },
+    {
+      "kind": "extension unit",
+      "result": "PASS",
+      "tests": 176,
+      "log": "/tmp/japp-w14-final-units.log",
+      "scope_note": "Exact final production including radio optional-chain cleanup."
+    },
+    {
+      "kind": "strict extension/e2e types",
+      "result": "PASS",
+      "logs": [
+        "/tmp/japp-w14-final-extension-types.log",
+        "/tmp/japp-w14-final-e2e-types.log"
+      ],
+      "scope_note": "Exact final production including radio optional-chain cleanup."
+    },
+    {
+      "kind": "typed ESLint",
+      "result": "PASS",
+      "log": "/tmp/japp-w14-final-lint.log"
+    },
+    {
+      "kind": "Prettier",
+      "result": "PASS",
+      "logs": [
+        "/tmp/japp-w14-final-format.log",
+        "/tmp/japp-w14-final-choice-format.log"
+      ]
+    }
+  ],
+  "performance": {
+    "final_source_target_status": "PENDING_ROOT_AGGREGATE",
+    "passing_predecessor": {
+      "samples": 20,
+      "p95_ms": 1473.7456670000001,
+      "threshold_ms": 1500,
+      "all_actions": 128,
+      "all_fresh_resolutions": 512,
+      "all_descriptors": 768,
+      "all_index_rebuilds": 1,
+      "proof": "/tmp/japp-w14-shadow-draft/publication-target20-proof",
+      "runtime_manifest": "/tmp/japp-w14-shadow-draft/passing20-predecessor-runtime-manifest.json",
+      "note": "Predates reason-only SITE_REJECTED retention, bounded external-owner-context extension and radio optional-chain cleanup; do not restamp as final-source performance."
+    },
+    "exact_pre_shadow_baseline": {
+      "samples": 20,
+      "p95_ms": 1388.643750000003,
+      "proof": "/tmp/japp-w14-shadow-draft/pre-shadow-baseline20",
+      "note": "Original reporting order; root reporting-only change happens after all timing samples and leaves core, foreground controller setup and assertions unchanged."
+    },
+    "historical_failures": [
+      {
+        "p95_ms": 1568.673208,
+        "log": "/tmp/japp-w14-shadow-target128.log"
+      },
+      {
+        "p95_ms": 1619.180917,
+        "log": "/tmp/japp-w14-shadow-target128-final.log"
+      },
+      {
+        "p95_ms": 1537.2135830000007,
+        "log": "/tmp/japp-w14-shadow-guards-target20.log"
+      },
+      {
+        "p95_ms": 1534.6425830000007,
+        "log": "/tmp/japp-w14-shadow-final-target20.log"
+      },
+      {
+        "p95_ms": 1501.919833,
+        "log": "/tmp/japp-w14-shadow-marker-target20.log"
+      },
+      {
+        "p95_ms": 1545.129334000001,
+        "log": "/tmp/japp-w14-shadow-publication-target20.log"
+      }
+    ],
+    "source_claim": "DEVELOPMENT/HARNESS_VALIDATION, not final Gate A evidence",
+    "unrelated_dom_scaling": {
+      "log": "/tmp/japp-w14-shadow-unrelated-scaling.log",
+      "note": "Earlier cached-registry source; 128 writes/512 fresh resolutions/one index and zero full-capture delta for warm resolution at0/1024/4096 unrelated hosts; final aggregate reruns current source."
+    }
+  },
+  "before_failures": [
+    {
+      "case": "original mounted gap and silent late attachment",
+      "result": "FAIL2/2",
+      "path": "/tmp/japp-w14-shadow-draft/before-retained",
+      "note": "Exact-original-source later baseline rerun traces; initial10/10 first failure retained stdout only /tmp/japp-w14-shadow-before.log."
+    },
+    {
+      "case": "old approved description changes to Employer",
+      "result": "FAIL2/2",
+      "path": "/tmp/japp-w14-shadow-draft/description-before"
+    },
+    {
+      "case": "post-await prompt ownership",
+      "result": "FAIL1/1",
+      "path": "/tmp/japp-w14-shadow-draft/prompt-before"
+    },
+    {
+      "case": "post-input ownership direct verification",
+      "result": "FAIL2/2",
+      "path": "/tmp/japp-w14-shadow-draft/post-input-before"
+    },
+    {
+      "case": "final metadata hash ownership publication",
+      "result": "FAIL1/1",
+      "path": "/tmp/japp-w14-shadow-draft/result-ownership-before"
+    },
+    {
+      "case": "final metadata hash aria-invalid publication",
+      "result": "FAIL1/1",
+      "path": "/tmp/japp-w14-shadow-draft/result-validation-before"
+    },
+    {
+      "case": "external composed owner context",
+      "result": "FAIL6/6",
+      "path": "/tmp/japp-w14-shadow-draft/outside-owner-before"
+    },
+    {
+      "case": "external composed owner depth bound",
+      "result": "FAIL2/2",
+      "path": "/tmp/japp-w14-shadow-draft/owner-depth-before"
+    },
+    {
+      "case": "retained guard repair diagnostics",
+      "result": "FAIL3/91 then fixed focused3 PASS",
+      "path": "/tmp/japp-w14-shadow-draft/guards-retained-before-repair"
+    },
+    {
+      "case": "retained SITE_REJECTED diagnostic regression",
+      "result": "FAIL1/96 then final96 PASS",
+      "path": "/tmp/japp-w14-shadow-draft/publication-regression-before-reason"
+    }
+  ],
+  "intentional_security_behavior": {
+    "TX7": "After a query clear triggers semantic replacement, one authorized clear remains empty; zero stale restoration/option commits and no undo/VERIFIED. The independent unchanged-identity rollback subcase resets its fixture then retains restored:true/priorDisplay assertions."
+  },
+  "remaining_root_work": "Apply checked preimages; register new tests/evidence; integrate parent classifier/public-contact/native witness/gate patches; run one coherent full aggregate incl original native20+canonical200 full75ms performance and native action observer. No final milestone/Gate A claim made by this subagent."
+}

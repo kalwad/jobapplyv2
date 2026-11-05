@@ -1,0 +1,341 @@
+{
+  "format_version": "W14_DEVELOPMENT_ASSESSMENT_1",
+  "authority": "NONE",
+  "gate_decision": "NOT_DECIDED",
+  "complete_gate_evidence": false,
+  "source_inventory_digest": "sha256:968c8d4bd5fd6c56ef5fefb3351f1727f26f1f1e328289b46103418900af98bb",
+  "matrix_digest": "sha256:c160e7e006a3801443db43a0aa7926540d1949229cf5ffe11ae4649f6d01a878",
+  "expected_cases": 200,
+  "recorded_cases": 200,
+  "authored_logical_controls": 4020,
+  "observed_native_controls": 4060,
+  "metrics": {
+    "executed_cases": 200,
+    "scored_cases": 200,
+    "refused_cases": 0,
+    "measurement_error_cases": 0,
+    "scored_logical_controls": 4020,
+    "preservation": {
+      "expected": 90,
+      "correct": 90,
+      "violations": 0,
+      "empty_abstention_violations": 0
+    },
+    "ordinary_attempted_precision": {
+      "numerator": 1485,
+      "denominator": 1485,
+      "rate": 1
+    },
+    "required_ordinary_recall": {
+      "numerator": 1275,
+      "denominator": 1275,
+      "rate": 1
+    },
+    "required_reporting": {
+      "numerator": 770,
+      "denominator": 770,
+      "rate": 1
+    },
+    "observed_persistence": {
+      "numerator": 1485,
+      "denominator": 1485,
+      "rate": 1
+    },
+    "counts": {
+      "required_silent": 0,
+      "sensitive_fills": 0,
+      "honeypot_fills": 0,
+      "catastrophic_option_errors": 0,
+      "duplicate_actions": 0
+    },
+    "full_settle_scan_fill_timing": {
+      "sample_count": 200,
+      "p95_ms": 1799.8664160000044,
+      "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+      "includes_fixture_setup": false,
+      "includes_browser_setup": false,
+      "includes_reporting": false
+    }
+  },
+  "family_metrics": {
+    "WORKDAY": {
+      "executed_cases": 80,
+      "scored_cases": 80,
+      "refused_cases": 0,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 1620,
+      "preservation": {
+        "expected": 36,
+        "correct": 36,
+        "violations": 0,
+        "empty_abstention_violations": 0
+      },
+      "ordinary_attempted_precision": {
+        "numerator": 585,
+        "denominator": 585,
+        "rate": 1
+      },
+      "required_ordinary_recall": {
+        "numerator": 510,
+        "denominator": 510,
+        "rate": 1
+      },
+      "required_reporting": {
+        "numerator": 317,
+        "denominator": 317,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 585,
+        "denominator": 585,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 80,
+        "p95_ms": 1423.0382910000008,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    },
+    "GREENHOUSE": {
+      "executed_cases": 40,
+      "scored_cases": 40,
+      "refused_cases": 0,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 800,
+      "preservation": {
+        "expected": 18,
+        "correct": 18,
+        "violations": 0,
+        "empty_abstention_violations": 0
+      },
+      "ordinary_attempted_precision": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "required_ordinary_recall": {
+        "numerator": 255,
+        "denominator": 255,
+        "rate": 1
+      },
+      "required_reporting": {
+        "numerator": 151,
+        "denominator": 151,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 40,
+        "p95_ms": 2089.056540999998,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    },
+    "LEVER": {
+      "executed_cases": 40,
+      "scored_cases": 40,
+      "refused_cases": 0,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 800,
+      "preservation": {
+        "expected": 18,
+        "correct": 18,
+        "violations": 0,
+        "empty_abstention_violations": 0
+      },
+      "ordinary_attempted_precision": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "required_ordinary_recall": {
+        "numerator": 255,
+        "denominator": 255,
+        "rate": 1
+      },
+      "required_reporting": {
+        "numerator": 151,
+        "denominator": 151,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 40,
+        "p95_ms": 1904.8650419999904,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    },
+    "ASHBY": {
+      "executed_cases": 40,
+      "scored_cases": 40,
+      "refused_cases": 0,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 800,
+      "preservation": {
+        "expected": 18,
+        "correct": 18,
+        "violations": 0,
+        "empty_abstention_violations": 0
+      },
+      "ordinary_attempted_precision": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "required_ordinary_recall": {
+        "numerator": 255,
+        "denominator": 255,
+        "rate": 1
+      },
+      "required_reporting": {
+        "numerator": 151,
+        "denominator": 151,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 40,
+        "p95_ms": 1450.2686669999966,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    }
+  },
+  "physical_safety_all_executed_cases": {
+    "sensitive_fills": 0,
+    "honeypot_fills": 0,
+    "catastrophic_option_errors": 0,
+    "duplicate_actions": 0,
+    "navigation_activations": 0,
+    "submission_activations": 0,
+    "paused_boundary_actions": 0
+  },
+  "physical_safety_coverage": {
+    "expected_cases": 200,
+    "observed_cases": 200,
+    "state": "OBSERVED"
+  },
+  "measurement_refusals": [],
+  "unsupported_scored_feature_coverage": [
+    {
+      "feature": "FILE_UPLOAD",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "REPEATER_OPERATION",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "DATE_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "CHECKBOX_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "RADIO_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "CUSTOM_COMBOBOX_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "IFRAME",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "SHADOW_DOM",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "PAGE_TRANSITION",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "PARSER_EFFECT",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "LONG_SESSION_SOAK",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    }
+  ],
+  "actual_external_execution": {
+    "holdout": "HOLDOUT_WAIVED_OWNER_ADR0006",
+    "public_no_submit": "NOT_EXECUTED",
+    "simplify": "NOT_EXECUTED",
+    "legacy": [
+      {
+        "system": "CAREERPULSE",
+        "status": "UNAVAILABLE",
+        "source_revision": null
+      },
+      {
+        "system": "LEGACY_JOBAPPLY",
+        "status": "NOT_ATTEMPTED",
+        "source_revision": "c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd"
+      }
+    ]
+  },
+  "limitations": [
+    "Visible synthetic W12 expansion only; W06 parent corpus is separately committed and is not wholly executed by this campaign.",
+    "Supported ordinary cohort is the predeclared contact profile; other features retain separate W10/W12 tests and have no scored support claim here.",
+    "W13 canonical abstention counts remain unchanged. A separately committed W14 initial-state model measures preservation with live initial/final snapshots and zero-write proof.",
+    "Timing uses full settlement across different pages; this is not a repeated 128-control target-Mac performance proof.",
+    "No comparison or independent critical-gate approval is inferred from development metrics."
+  ],
+  "compressed_bundle_digest": "sha256:7796a5d32c14ac690c1b1bbf39923aea66ca00a9f85f63a834d9eba3129f175c",
+  "compressed_bundle_bytes": 3482910
+}

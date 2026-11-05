@@ -1,0 +1,25 @@
+{
+  "scope": "Exact pre-retention documentary delta and copied source identity review; 40/40. These reviewer artifacts and the subsequent evidence note are documentary retention only. Frozen seven source copies stay unchanged.",
+  "owner_decision": "PENDING",
+  "authoritative_gate_state": "IN_PROGRESS",
+  "files": [
+    {
+      "source": "/tmp/japp-m02-w15-independent-audit/review-ready-metadata95f5/findings.json",
+      "repository_path": "docs/evidence/m02-w15-review-95f5/metadata-review/findings.json",
+      "bytes": 13076,
+      "sha256": "0215e55aaeb588eb5d6fee6853ab602ad1ee519e1256343fb7b0ff83d0c6b391"
+    },
+    {
+      "source": "/tmp/japp-m02-w15-independent-audit/review-ready-metadata95f5/audit-metadata.py",
+      "repository_path": "docs/evidence/m02-w15-review-95f5/metadata-review/audit-metadata.py",
+      "bytes": 11475,
+      "sha256": "e9116eb42f79a93e1e6f0e92f9ba3067e6c4bfc7c56c5d95c87edb2a27f423f9"
+    },
+    {
+      "source": "/tmp/japp-m02-w15-independent-audit/review-ready-metadata95f5/reviewed-identities.json",
+      "repository_path": "docs/evidence/m02-w15-review-95f5/metadata-review/reviewed-identities.json",
+      "bytes": 3045,
+      "sha256": "f8df483451dec47161c83fd58ffa7659b472d15e1296dd10cbb69f55a38c30f4"
+    }
+  ]
+}

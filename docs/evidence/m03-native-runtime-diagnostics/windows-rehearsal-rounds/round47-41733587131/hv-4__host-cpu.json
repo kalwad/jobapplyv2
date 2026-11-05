@@ -1,0 +1,10 @@
+{
+  "observed": {
+    "model name": "AMD EPYC 9V74 80-Core Processor",
+    "vendor_id": "AuthenticAMD",
+    "cpu family": "25",
+    "model": "17",
+    "stepping": "1"
+  },
+  "gate": "NOT_APPLIED_DIAGNOSTIC"
+}

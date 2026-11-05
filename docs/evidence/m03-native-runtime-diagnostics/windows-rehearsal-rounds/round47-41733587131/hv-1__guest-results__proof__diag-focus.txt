@@ -1,0 +1,4 @@
+FAIL at_ms=75041 ShellWait -not $Owner.ShellRouteLinkFocused($label) | uia=ControlType.Hyperlink:Jobs:pid=9092:hwnd=0 fg=Tauri Window:pid=1344 focus=Chrome_RenderWidgetHostHWND:66254 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms
+webview2-runtimes 152.0.4191.66@2026-09-04T20:43:23.9391380Z,PlatformExperiencesHelper@2026-09-04T20:43:23.9407939Z webview2-processes 2976@07:10:07,4632@07:10:58,5028@07:10:58,5720@07:10:58,6796@07:09:29,6920@07:09:29,8356@07:09:35,8364@07:09:35,8480@07:09:35,9092@07:10:57,9680@07:10:57,10132@07:10:58
+REMEDY uia at_ms=75198 uia-refocus route Jobs
+REMEDY-OK uia key=tab ms=31 | uia=ControlType.Hyperlink:Tracker:pid=9092:hwnd=0 fg=Tauri Window:pid=1344 focus=Chrome_WidgetWin_1:66252 active=Tauri Window flags=0 k9=0 kd=0 k10=0 k11=0 k12=0 hung=0 wm_null=ok:0ms

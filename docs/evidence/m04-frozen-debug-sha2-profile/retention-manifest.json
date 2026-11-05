@@ -1,0 +1,469 @@
+{
+  "scope": "Bounded source+headless actual experiment; large native bodies external; original v3/v4 failure histories retained.",
+  "members": {
+    "proposal/SOURCE.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/SOURCE.json",
+      "bytes": 143116,
+      "sha256": "f0a0ea81ddb872a198cf4f7950b3833d7a52e6db85c70c7e312b9fabbd15754e",
+      "full_mode": 33188
+    },
+    "proposal/HANDOFF.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/HANDOFF.json",
+      "bytes": 1937,
+      "sha256": "8bd5e67217f2b4cb67d82461a53f1355425eaf3e01141973767213283cc9f19e",
+      "full_mode": 33188
+    },
+    "proposal/MANIFEST.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/MANIFEST.json",
+      "bytes": 330,
+      "sha256": "eb41275e1b90f6c4cd18eb827ab4b6212d4eb75c434699a2cf83e75826ac6db7",
+      "full_mode": 33188
+    },
+    "proposal/PROSPECTIVE-CANONICAL.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/PROSPECTIVE-CANONICAL.json",
+      "bytes": 450,
+      "sha256": "5bd62058d93291e62ad485e5ea5f588477140a4746f5539932c8b1b8d48c707b",
+      "full_mode": 33188
+    },
+    "proposal/STATIC-SHA2-CHECK.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/STATIC-SHA2-CHECK.json",
+      "bytes": 72140,
+      "sha256": "9499fbd60cccd90054a3c6b85444e672f901e354ed31cb7f182733d0a4bcb1be",
+      "full_mode": 33188
+    },
+    "proposal/sha2-debug-profile.toml": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/sha2-debug-profile.toml",
+      "bytes": 186,
+      "sha256": "c0b65c49225496c8b485f51f29f6efb0448109809f902e3924ccd6e86da5b2da",
+      "full_mode": 33188
+    },
+    "proposal/proof.tar.gz": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/proof.tar.gz",
+      "bytes": 2542450,
+      "sha256": "37870c118cd6592dfed3e3ee9e769a9b6e3504d7c48180d5d31754a8b6dc1bdf",
+      "full_mode": 33188
+    },
+    "source-peer/REVIEW.md": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v6-root-source/REVIEW.md",
+      "bytes": 2352,
+      "sha256": "7fab814cc704759f4085369ea174e5ad005e5d5edc6c9a70579f2cbb4df717f7",
+      "full_mode": 33188
+    },
+    "source-peer/MANIFEST.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v6-root-source/MANIFEST.json",
+      "bytes": 2487,
+      "sha256": "e92e6e35d029042dc287c612e856f27da820c32b7db823e32ed5dd894123023f",
+      "full_mode": 33188
+    },
+    "source-peer/RESULT.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v6-root-source/RESULT.json",
+      "bytes": 800,
+      "sha256": "38f8c9680ba977926f921c45d8f8bc2e1796c4719b7e80d5ba0a85b7166ab356",
+      "full_mode": 33188
+    },
+    "source-peer/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v6-root-source/receipt.json",
+      "bytes": 858,
+      "sha256": "78c74a84b97ff8178474c92e243f088fe9e87936fa15fd3a58e009e4687b2181",
+      "full_mode": 33188
+    },
+    "source-peer/proof.tar.gz": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v6-root-source/proof.tar.gz",
+      "bytes": 101725,
+      "sha256": "7167ebf27105576a6e48c28090fe5335f742114ddbf3dab6deecbc1e3b716636",
+      "full_mode": 33188
+    },
+    "actual-peer/REVIEW.md": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v6-campaign-v1/REVIEW.md",
+      "bytes": 4950,
+      "sha256": "6a4e5c5a246a0487a466026b38ecc8ff6a0b9e9b457655f5b538b84364e5aa89",
+      "full_mode": 33188
+    },
+    "actual-peer/MANIFEST.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v6-campaign-v1/MANIFEST.json",
+      "bytes": 19838,
+      "sha256": "9ed0e4373d563dd44fe22f1dad552e9a121f050bd61e2a7cff73295be8dfb39b",
+      "full_mode": 33188
+    },
+    "actual-peer/DATA.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v6-campaign-v1/DATA.json",
+      "bytes": 688533,
+      "sha256": "75bf8f23f4d469a970f674487a0c7f67f7f411db35419749ad16e21f313ae113",
+      "full_mode": 33188
+    },
+    "actual-peer/SEAL.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v6-campaign-v1/SEAL.json",
+      "bytes": 372,
+      "sha256": "b94b582d0514f9d3f1dc2839dec102651ffab05d468691ffbba3744c142a724d",
+      "full_mode": 33188
+    },
+    "actual-peer/proof.tar.gz": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v6-campaign-v1/proof.tar.gz",
+      "bytes": 130925,
+      "sha256": "78a9dab48bd7f9a5b57b84be0d5bb0c2b963d77ef1e28105c4f50d2ac1f8a8b6",
+      "full_mode": 33188
+    },
+    "actual/root-summary.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-next-stage-v6-root-actual-summary.json",
+      "bytes": 14557,
+      "sha256": "51a744595b343f406f8c5444919455fdf722f129001ca282e3282411d96a19c3",
+      "full_mode": 33188
+    },
+    "actual/root-technical-release.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-next-stage-v6-root-technical-release.json",
+      "bytes": 721,
+      "sha256": "a549bb98950083cf7c328be19902dba11070cf35157c4b0bf203935b5bfe053f",
+      "full_mode": 33188
+    },
+    "actual/commands/00-owned-waitid-control/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00-owned-waitid-control/receipt.json",
+      "bytes": 1609,
+      "sha256": "8f43a440ffd85f5c845496bec950887ecb9aba95366708d36f96a9de780af985",
+      "full_mode": 33188
+    },
+    "actual/commands/00-owned-waitid-control/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00-owned-waitid-control/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "full_mode": 33188
+    },
+    "actual/commands/00-owned-waitid-control/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00-owned-waitid-control/stdout",
+      "bytes": 21,
+      "sha256": "77ee11e739545c939cf489741aa607fc8df1559b9f88036b6dc71fb3e71d68a1",
+      "full_mode": 33188
+    },
+    "actual/commands/00b-compile-only-abi/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00b-compile-only-abi/receipt.json",
+      "bytes": 1978,
+      "sha256": "152a3bc2ca4742dd72df50b014f1bbb890ca6062858e6fc0d10134d4baed7d0e",
+      "full_mode": 33188
+    },
+    "actual/commands/00b-compile-only-abi/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00b-compile-only-abi/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "full_mode": 33188
+    },
+    "actual/commands/00b-compile-only-abi/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00b-compile-only-abi/stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "full_mode": 33188
+    },
+    "actual/commands/00c-pure-source-controls/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00c-pure-source-controls/receipt.json",
+      "bytes": 2793,
+      "sha256": "2db30b035479ce770361d5eb52ed4dff10a84716457dbd71ec3c85ae2db86aff",
+      "full_mode": 33188
+    },
+    "actual/commands/00c-pure-source-controls/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00c-pure-source-controls/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "full_mode": 33188
+    },
+    "actual/commands/00c-pure-source-controls/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00c-pure-source-controls/stdout",
+      "bytes": 180,
+      "sha256": "fddb22f5add65370a7693346539586b7ea5b56d24a5f10a077097dc3fe96b17f",
+      "full_mode": 33188
+    },
+    "actual/commands/00d-selected-source-ruff/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00d-selected-source-ruff/receipt.json",
+      "bytes": 1900,
+      "sha256": "89516ec810dd65d881f620197c57f116c49c02facad37ad45bd436224790f609",
+      "full_mode": 33188
+    },
+    "actual/commands/00d-selected-source-ruff/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00d-selected-source-ruff/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "full_mode": 33188
+    },
+    "actual/commands/00d-selected-source-ruff/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00d-selected-source-ruff/stdout",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "full_mode": 33188
+    },
+    "actual/commands/00e-selected-source-mypy/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00e-selected-source-mypy/receipt.json",
+      "bytes": 2065,
+      "sha256": "0eb1e3a83fafcab1351fd61bfa71aa586e2e3eae7146da987f94335214602eb2",
+      "full_mode": 33188
+    },
+    "actual/commands/00e-selected-source-mypy/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00e-selected-source-mypy/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "full_mode": 33188
+    },
+    "actual/commands/00e-selected-source-mypy/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00e-selected-source-mypy/stdout",
+      "bytes": 43,
+      "sha256": "157a09cfcdfdfb5977479c5a1c08345149263a3e990a2ec976ef28aaeec9cae6",
+      "full_mode": 33188
+    },
+    "actual/commands/01-private-frozen-build/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/01-private-frozen-build/receipt.json",
+      "bytes": 3062,
+      "sha256": "7842f3c2c0dafe97d836ebd81b221ae9df7e270f1ca14a08fb31f6c7572411a2",
+      "full_mode": 33188
+    },
+    "actual/commands/01-private-frozen-build/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/01-private-frozen-build/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "full_mode": 33188
+    },
+    "actual/commands/01-private-frozen-build/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/01-private-frozen-build/stdout",
+      "bytes": 314,
+      "sha256": "b872f43dc1b2b5d2ac8a52815bf8d2e82a2cc4273a4fc5c90e15d378d8218c12",
+      "full_mode": 33188
+    },
+    "actual/commands/02-compile-real-profile-controls/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/02-compile-real-profile-controls/receipt.json",
+      "bytes": 1837,
+      "sha256": "ea687857157757403322b111dc604e1fc0f72348c676b611424bac36a5d84717",
+      "full_mode": 33188
+    },
+    "actual/commands/02-compile-real-profile-controls/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/02-compile-real-profile-controls/stderr",
+      "bytes": 5672,
+      "sha256": "34774a82516c96c2330385e1cf9e87a21a9b662d5c7d9a93977f2ecf15245d99",
+      "full_mode": 33188
+    },
+    "actual/commands/02-compile-real-profile-controls/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/02-compile-real-profile-controls/stdout",
+      "bytes": 205440,
+      "sha256": "ede0da69aa7392381c1723680757116260a2d3f613c488eb35a39b908c216925",
+      "full_mode": 33188
+    },
+    "actual/commands/03-actual-catalog/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/03-actual-catalog/receipt.json",
+      "bytes": 1694,
+      "sha256": "2589c9d8e073f39fc8b9081a4e7cf5f1b03510e0c4369441fac41fed9009bd15",
+      "full_mode": 33188
+    },
+    "actual/commands/03-actual-catalog/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/03-actual-catalog/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "full_mode": 33188
+    },
+    "actual/commands/03-actual-catalog/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/03-actual-catalog/stdout",
+      "bytes": 16446,
+      "sha256": "71fdae97336bf8a4f657231cec9876329c49b7d9cdbb714b9b7c707fe66c6bce",
+      "full_mode": 33188
+    },
+    "actual/commands/04-real-build-descriptor-controls/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/04-real-build-descriptor-controls/receipt.json",
+      "bytes": 1745,
+      "sha256": "85ff7d715a24ca935ccdc1a4c18a5ecb44bd4615ec5b81942d034023a7e550fc",
+      "full_mode": 33188
+    },
+    "actual/commands/04-real-build-descriptor-controls/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/04-real-build-descriptor-controls/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "full_mode": 33188
+    },
+    "actual/commands/04-real-build-descriptor-controls/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/04-real-build-descriptor-controls/stdout",
+      "bytes": 1271,
+      "sha256": "027905f9a7f4914c48a92d52126f430b488410c1c0390606b60a778dc0135671",
+      "full_mode": 33188
+    },
+    "actual/commands/05-real-runtime-integrity-controls/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/05-real-runtime-integrity-controls/receipt.json",
+      "bytes": 1747,
+      "sha256": "f753e7ce55ea06f7b64354225a60ea96ea4cd150fd928ee1cb6d57c1b319a16a",
+      "full_mode": 33188
+    },
+    "actual/commands/05-real-runtime-integrity-controls/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/05-real-runtime-integrity-controls/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "full_mode": 33188
+    },
+    "actual/commands/05-real-runtime-integrity-controls/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/05-real-runtime-integrity-controls/stdout",
+      "bytes": 2179,
+      "sha256": "37accbc8d085a770634152c7d210b47279118012271acbbd9fbc8e427f44c784",
+      "full_mode": 33188
+    },
+    "actual/commands/05b-closed-trace-pure-controls/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/05b-closed-trace-pure-controls/receipt.json",
+      "bytes": 1754,
+      "sha256": "2af1557fe4d2c66a66666683a4e667052436206f63fe58523a94be3e70b52d7c",
+      "full_mode": 33188
+    },
+    "actual/commands/05b-closed-trace-pure-controls/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/05b-closed-trace-pure-controls/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "full_mode": 33188
+    },
+    "actual/commands/05b-closed-trace-pure-controls/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/05b-closed-trace-pure-controls/stdout",
+      "bytes": 454,
+      "sha256": "087cf8a5f25fa0ee5c28ca91c552110047a71c6a8062f053f24251b8019c84aa",
+      "full_mode": 33188
+    },
+    "actual/commands/06-frozen-create/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/06-frozen-create/receipt.json",
+      "bytes": 1836,
+      "sha256": "81b920a89d2ffd902e52da6d6d5d9068fb346261f9951415edb8be4b273f18c2",
+      "full_mode": 33188
+    },
+    "actual/commands/06-frozen-create/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/06-frozen-create/stderr",
+      "bytes": 2781,
+      "sha256": "624f0cb9af672373972669efcf596a94205b9853cd0c4a3e28b96f1f765a2646",
+      "full_mode": 33188
+    },
+    "actual/commands/06-frozen-create/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/06-frozen-create/stdout",
+      "bytes": 290,
+      "sha256": "8d4c687ff06062849cbf0b758252e930c98647aec6c16e6cb7e6cd47c8ebd628",
+      "full_mode": 33188
+    },
+    "actual/commands/07-typed-synthetic-seed/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/07-typed-synthetic-seed/receipt.json",
+      "bytes": 1768,
+      "sha256": "77a46c2bd51c12453adcde94d9e4724bfeb75b0839f7f4c01f7f127a109de103",
+      "full_mode": 33188
+    },
+    "actual/commands/07-typed-synthetic-seed/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/07-typed-synthetic-seed/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "full_mode": 33188
+    },
+    "actual/commands/07-typed-synthetic-seed/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/07-typed-synthetic-seed/stdout",
+      "bytes": 151,
+      "sha256": "49b80a4403608c80824bc877093e07979fffd78a1cc474f2cce25c303eaedadb",
+      "full_mode": 33188
+    },
+    "actual/commands/08-frozen-open/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/08-frozen-open/receipt.json",
+      "bytes": 1833,
+      "sha256": "2d206c8dd8a5ed44bd8c198be30b9a3fa4075d511c1416be00a6e8f0ae0afc52",
+      "full_mode": 33188
+    },
+    "actual/commands/08-frozen-open/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/08-frozen-open/stderr",
+      "bytes": 2781,
+      "sha256": "2bce36ee8d34ab5aa2790ffcb1768abcfa1d5c69141543e4ae1056d75d281680",
+      "full_mode": 33188
+    },
+    "actual/commands/08-frozen-open/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/08-frozen-open/stdout",
+      "bytes": 287,
+      "sha256": "dad6b30aa664b1b9986f152b42036c43c34d7966bf3bd65c1349de6ee8cc2fb5",
+      "full_mode": 33188
+    },
+    "actual/commands/09-typed-synthetic-read/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/09-typed-synthetic-read/receipt.json",
+      "bytes": 1769,
+      "sha256": "ab233859861ffd65e7b3c40ea5351c55234b63345a35291d0534ed9524298284",
+      "full_mode": 33188
+    },
+    "actual/commands/09-typed-synthetic-read/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/09-typed-synthetic-read/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "full_mode": 33188
+    },
+    "actual/commands/09-typed-synthetic-read/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/09-typed-synthetic-read/stdout",
+      "bytes": 162,
+      "sha256": "fda9ad32e5fb45c9747d0ad9b6cd9eb359c9b728a13ecf91c449a2e2e41e7113",
+      "full_mode": 33188
+    },
+    "actual/commands/10-frozen-key-refusals/receipt.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/10-frozen-key-refusals/receipt.json",
+      "bytes": 1829,
+      "sha256": "6960bb0a79943d81314b7cb77c09bdabe06342a2d77981774ee620bcf2dc942c",
+      "full_mode": 33188
+    },
+    "actual/commands/10-frozen-key-refusals/stderr": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/10-frozen-key-refusals/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "full_mode": 33188
+    },
+    "actual/commands/10-frozen-key-refusals/stdout": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/10-frozen-key-refusals/stdout",
+      "bytes": 290,
+      "sha256": "c0dff3bbfc7ee0fed1bc3215cea1ec119847d859fabd24eeee0d47ed1d3f3ea9",
+      "full_mode": 33188
+    },
+    "history/v3-campaign-v1/REVIEW.md": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v3-campaign-v1/REVIEW.md",
+      "bytes": 4197,
+      "sha256": "f2e1cb6ef5fda4537e9a8df5f727ac80c3c853fe0567fa1d3bec54f001aa57c2",
+      "full_mode": 33188
+    },
+    "history/v3-campaign-v1/MANIFEST.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v3-campaign-v1/MANIFEST.json",
+      "bytes": 12531,
+      "sha256": "e4677551e7b15ef5ce44ee12bf12f309e9b68b77bfb8e4ddc5a9312a5ffd340b",
+      "full_mode": 33188
+    },
+    "history/v3-campaign-v1/proof.tar.gz": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v3-campaign-v1/proof.tar.gz",
+      "bytes": 88699,
+      "sha256": "a8f4b681367c33812af3e042c7ff269a11e491e6c02396d8f0252c305aff3f39",
+      "full_mode": 33188
+    },
+    "history/v4-diagnostic-source/REVIEW.md": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v4-diagnostic-source/REVIEW.md",
+      "bytes": 3582,
+      "sha256": "f4409c2ded91dc82c6f6a11d76ffb93ce07e26900aec53766f1436dfc00e7f2f",
+      "full_mode": 33188
+    },
+    "history/v4-diagnostic-source/MANIFEST.json": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v4-diagnostic-source/MANIFEST.json",
+      "bytes": 110201,
+      "sha256": "4a88db7bbd53308afba75940482925ba47c15b0eabe0516fbad93926c9ed23bd",
+      "full_mode": 33188
+    },
+    "history/v4-diagnostic-source/proof.tar.gz": {
+      "origin": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v4-diagnostic-source/proof.tar.gz",
+      "bytes": 1206342,
+      "sha256": "71f8e468f394234ab9eedcf5dbebffadc84ccfa45ff37581b2b244d473664216",
+      "full_mode": 33188
+    }
+  },
+  "safe_regular_members": 73,
+  "original_parent_absolute_paths": [
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v3-campaign-v1",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v4-diagnostic-source",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v6-campaign-v1",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-independent-review/v6-root-source",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00-owned-waitid-control",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00b-compile-only-abi",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00c-pure-source-controls",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00d-selected-source-ruff",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/00e-selected-source-mypy",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/01-private-frozen-build",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/02-compile-real-profile-controls",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/03-actual-catalog",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/04-real-build-descriptor-controls",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/05-real-runtime-integrity-controls",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/05b-closed-trace-pure-controls",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/06-frozen-create",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/07-typed-synthetic-seed",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/08-frozen-open",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/09-typed-synthetic-read",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-service-runtime-integration-preparation/v3/next-stage-preparation-v6/campaign-v1/commands/10-frozen-key-refusals"
+  ],
+  "omissions": "Large original Git/toolchain/runtime/payload binaries, CI ZIPs, expanded tool images and temporary caches remain locally retained at source-pinned parent paths; this compact archive does not claim all-binary self-containment. Nested sealed parent proofs retain full own reader/error/control histories in their stated scopes."
+}

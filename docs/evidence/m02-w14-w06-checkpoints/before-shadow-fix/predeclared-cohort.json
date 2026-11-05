@@ -1,0 +1,652 @@
+{
+  "format_version": "W14_W06_PREDECLARED_COHORT_1",
+  "authority": "NONE",
+  "catalog": [
+    {
+      "id": "MAL-CBX-001",
+      "title": "ARIA combobox with filtering and empty state",
+      "route": "/combobox/",
+      "surfaces": [
+        "aria-combobox",
+        "custom-validation"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-CBX-002",
+      "title": "ARIA listbox with keyboard selection",
+      "route": "/combobox/",
+      "surfaces": [
+        "aria-listbox"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-DTP-001",
+      "title": "Composite date widget with normalization",
+      "route": "/datephone/",
+      "surfaces": [
+        "date-widget",
+        "custom-validation"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-DTP-002",
+      "title": "Composite phone widget with normalization",
+      "route": "/datephone/",
+      "surfaces": [
+        "phone-widget",
+        "custom-validation"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-DYN-001",
+      "title": "Conditional insertion, removal, dependent required",
+      "route": "/dynamic/",
+      "surfaces": [
+        "dynamic-insertion",
+        "dynamic-removal",
+        "dependent-required"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-DYN-002",
+      "title": "Delayed deterministic insertion",
+      "route": "/dynamic/",
+      "surfaces": [
+        "delayed-insertion"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-DYN-003",
+      "title": "Node replacement beside a stable control",
+      "route": "/dynamic/",
+      "surfaces": [
+        "node-replacement",
+        "stable-identity"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-FLW-001",
+      "title": "Three-step application flow with persistence",
+      "route": "/apply/step-1/",
+      "surfaces": [
+        "multipage-flow",
+        "required-optional"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-FLW-002",
+      "title": "Validation-blocked step navigation",
+      "route": "/apply/step-1/",
+      "surfaces": [
+        "validation-blocked-navigation",
+        "native-validation"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-FLW-003",
+      "title": "CAPTCHA placeholder pause before review",
+      "route": "/apply/step-3/",
+      "surfaces": [
+        "captcha-pause"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-FLW-004",
+      "title": "Confirmation review of persisted answers",
+      "route": "/apply/review/",
+      "surfaces": [
+        "confirmation-review",
+        "multipage-flow"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-FLW-005",
+      "title": "Deterministic delayed local receipt",
+      "route": "/apply/review/",
+      "surfaces": [
+        "delayed-receipt"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-FLW-006",
+      "title": "Duplicate application warning",
+      "route": "/apply/review/",
+      "surfaces": [
+        "duplicate-warning"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-FLW-007",
+      "title": "Deterministic lab state reset",
+      "route": "/apply/receipt/",
+      "surfaces": [
+        "reset"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-FLW-008",
+      "title": "Inert prompt-injection job description",
+      "route": "/apply/step-1/",
+      "surfaces": [
+        "prompt-injection"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-FRM-001",
+      "title": "Same-origin iframe application section",
+      "route": "/frames/",
+      "surfaces": [
+        "iframe",
+        "native-validation"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-IDX-001",
+      "title": "Catalog index of every fixture case",
+      "route": "/",
+      "surfaces": [
+        "catalog-index"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-NAT-001",
+      "title": "Native control matrix",
+      "route": "/native/",
+      "surfaces": [
+        "native-controls",
+        "required-optional"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-NAT-002",
+      "title": "Native validation behavior",
+      "route": "/native/",
+      "surfaces": [
+        "native-validation"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-NAT-003",
+      "title": "Sensitive and consequential native fields",
+      "route": "/native/",
+      "surfaces": [
+        "sensitive-fields"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-NAT-004",
+      "title": "Hidden honeypot that rejects when populated",
+      "route": "/native/",
+      "surfaces": [
+        "honeypot"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-NAT-005",
+      "title": "Inert prompt-injection help text",
+      "route": "/native/",
+      "surfaces": [
+        "prompt-injection"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-REA-001",
+      "title": "React-controlled group surviving rerender",
+      "route": "/react/",
+      "surfaces": [
+        "react-controlled",
+        "rerender-persistence"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-REA-002",
+      "title": "React rejects stale direct DOM mutation",
+      "route": "/react/",
+      "surfaces": [
+        "react-controlled",
+        "stale-dom-rejection"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-REA-003",
+      "title": "React site-side rewrite and delayed rerender",
+      "route": "/react/",
+      "surfaces": [
+        "react-controlled",
+        "site-rewrite",
+        "delayed-rerender"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-SHD-001",
+      "title": "Open shadow-root contact control",
+      "route": "/shadow/",
+      "surfaces": [
+        "shadow-dom",
+        "custom-validation"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-UPL-001",
+      "title": "Local file upload accept and reject",
+      "route": "/upload/",
+      "surfaces": [
+        "file-upload"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-VAL-001",
+      "title": "Custom, cross-field, and delayed validation",
+      "route": "/validation/",
+      "surfaces": [
+        "custom-validation",
+        "cross-field-validation",
+        "delayed-validation"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-VIR-001",
+      "title": "Virtualized listbox with bounded DOM window",
+      "route": "/virtualized/",
+      "surfaces": [
+        "virtualized-listbox",
+        "rerender-persistence"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-VUE-001",
+      "title": "Vue-controlled group surviving rerender",
+      "route": "/vue/",
+      "surfaces": [
+        "vue-controlled",
+        "rerender-persistence"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-VUE-002",
+      "title": "Vue rejects stale direct DOM mutation",
+      "route": "/vue/",
+      "surfaces": [
+        "vue-controlled",
+        "stale-dom-rejection"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    },
+    {
+      "id": "MAL-VUE-003",
+      "title": "Vue site-side rewrite normalization",
+      "route": "/vue/",
+      "surfaces": [
+        "vue-controlled",
+        "site-rewrite"
+      ],
+      "provenance": {
+        "author": "M02-W03 implementation agent (Claude Fable 5 Max)",
+        "reviewer": "M02-W03 finite package review"
+      },
+      "syntheticData": true
+    }
+  ],
+  "contact": {
+    "/native/": {
+      "nat-first-name": "Synthetic",
+      "nat-last-name": "Applicant",
+      "nat-email": "synthetic@example.invalid",
+      "nat-phone": "2025550100"
+    },
+    "/react/": {
+      "react-full-name": "Synthetic Applicant",
+      "react-email": "synthetic@example.invalid"
+    },
+    "/vue/": {
+      "vue-full-name": "Synthetic Applicant"
+    },
+    "/apply/step-1/": {
+      "flow-full-name": "Synthetic Applicant",
+      "flow-email": "synthetic@example.invalid",
+      "flow-phone": "2025550100"
+    },
+    "/validation/": {
+      "val-email": "synthetic@example.invalid",
+      "val-email-confirm": "synthetic@example.invalid"
+    },
+    "/dynamic/": {
+      "dyn-region": "Michigan"
+    }
+  },
+  "facts": [
+    {
+      "concept": "FIRST_NAME",
+      "value": "Synthetic"
+    },
+    {
+      "concept": "LAST_NAME",
+      "value": "Applicant"
+    },
+    {
+      "concept": "FULL_NAME",
+      "value": "Synthetic Applicant"
+    },
+    {
+      "concept": "EMAIL_ADDRESS",
+      "value": "synthetic@example.invalid"
+    },
+    {
+      "concept": "PHONE_NUMBER",
+      "value": "2025550100"
+    },
+    {
+      "concept": "WEBSITE_URL",
+      "value": "https://example.invalid/profile"
+    },
+    {
+      "concept": "ADDRESS_LINE_1",
+      "value": "100 Synthetic Avenue"
+    },
+    {
+      "concept": "ADDRESS_CITY",
+      "value": "Synthetic City"
+    },
+    {
+      "concept": "ADDRESS_REGION",
+      "value": "Michigan",
+      "valueToken": "Michigan"
+    },
+    {
+      "concept": "ADDRESS_POSTAL_CODE",
+      "value": "48104"
+    },
+    {
+      "concept": "ADDRESS_COUNTRY",
+      "value": "United States",
+      "valueToken": "United States"
+    }
+  ],
+  "scenario_transitions": {
+    "MAL-CBX-001": [
+      "CLOSED → FILTERED_OPEN (typing filters options)",
+      "FILTERED_OPEN → COMMITTED (keyboard or click selection)",
+      "FILTERED_OPEN → EMPTY_STATE (no match message, no options)",
+      "UNCOMMITTED → REQUIRED_ERROR (check without selection)"
+    ],
+    "MAL-CBX-002": [
+      "IDLE → ACTIVE_OPTION (arrow-key navigation)",
+      "ACTIVE_OPTION → SELECTED (Enter/Space or click commits aria-selected)"
+    ],
+    "MAL-DTP-001": [
+      "RAW_PARTS → NORMALIZED (single digits gain leading zeros on blur)",
+      "NORMALIZED → COMMITTED_ISO (valid calendar day commits YYYY-MM-DD)",
+      "RAW_PARTS → INVALID_DATE (impossible calendar day rejected)"
+    ],
+    "MAL-DTP-002": [
+      "RAW_NUMBER → NORMALIZED (separators stripped on blur)",
+      "NORMALIZED → COMMITTED_E164 (exact national length commits +CC…)",
+      "RAW_NUMBER → INVALID_PHONE_LENGTH (wrong length rejected)"
+    ],
+    "MAL-DYN-001": [
+      "ABSENT → REFERRAL_FIELD_INSERTED (checkbox inserts required field)",
+      "REFERRAL_FIELD_INSERTED → REFERRAL_FIELD_REMOVED (uncheck removes it)",
+      "REGION_OPTIONAL → REGION_NOW_REQUIRED (country drives required state)"
+    ],
+    "MAL-DYN-002": [
+      "IDLE → ADDITIONAL_QUESTIONS_LOADING (load action)",
+      "ADDITIONAL_QUESTIONS_LOADING → ADDITIONAL_QUESTIONS_LOADED (fixed 400 ms delay)"
+    ],
+    "MAL-DYN-003": [
+      "GENERATION_1 → NODE_REPLACED_GENERATION_2 (new node, value not carried)",
+      "STABLE_CONTROL_UNCHANGED (same node identity and value throughout)"
+    ],
+    "MAL-FLW-001": [
+      "STEP_1 → STEP_2 → STEP_3 (valid Next transitions)",
+      "STEP_N → STEP_N-1 (Back preserves edits)",
+      "FIELDS_PERSISTED (values survive page navigation)"
+    ],
+    "MAL-FLW-002": [
+      "STEP_1 → NAVIGATION_BLOCKED_BY_VALIDATION (empty required fields)",
+      "ERRORS_VISIBLE → STEP_2 (corrected fields unblock Next)"
+    ],
+    "MAL-FLW-003": [
+      "STEP_3_VALID → PAUSED_FOR_CAPTCHA (progression blocked with reason)",
+      "PAUSED_FOR_CAPTCHA → REVIEW (test-only manual resolution action)"
+    ],
+    "MAL-FLW-004": [
+      "REVIEW_RENDERS_ALL_PERSISTED_ANSWERS (read-only confirmation)"
+    ],
+    "MAL-FLW-005": [
+      "REVIEW → PROCESSING_LOCAL_SUBMISSION (mock submit)",
+      "PROCESSING_LOCAL_SUBMISSION → RCPT-MOCK-0001 (fixed 600 ms delay)"
+    ],
+    "MAL-FLW-006": [
+      "SECOND_SUBMIT_SAME_KEY → DUPLICATE_APPLICATION warning (no new receipt)"
+    ],
+    "MAL-FLW-007": [
+      "ANY_STATE → INITIAL (reset clears flow and receipts deterministically)"
+    ],
+    "MAL-FLW-008": [
+      "INJECTION_TEXT_RENDERED_INERT (visible as text, no execution, no markup)"
+    ],
+    "MAL-FRM-001": [
+      "FRAME_EMPTY_REQUIRED → FRAME_VALIDATION_FAILED (frame-local error)",
+      "FRAME_FILLED → FRAME_SECTION_SAVED (frame-local acceptance)"
+    ],
+    "MAL-IDX-001": [
+      "INDEX_LISTS_EVERY_CATALOG_CASE (one entry per case ID)"
+    ],
+    "MAL-NAT-001": [
+      "EMPTY_REQUIRED → VALIDATION_FAILED (native validity surfaced)",
+      "COMPLETE_VALID → SAVED_LOCALLY (accepted by the fixture)"
+    ],
+    "MAL-NAT-002": [
+      "TYPE_MISMATCH → FIELD_ERROR (native email/number semantics)",
+      "CORRECTED → ERROR_CLEARED"
+    ],
+    "MAL-NAT-003": [
+      "SENSITIVE_FIELDS_RENDERED_REALISTICALLY (no fixture metadata leaked)"
+    ],
+    "MAL-NAT-004": [
+      "HONEYPOT_HIDDEN_AND_BLANK (ordinary completion leaves it empty)",
+      "HONEYPOT_POPULATED → REJECTED_HONEYPOT (local submission rejected)"
+    ],
+    "MAL-NAT-005": [
+      "INJECTION_HELP_TEXT_RENDERED_INERT (text only, sentinel untouched)"
+    ],
+    "MAL-REA-001": [
+      "TYPED_VALUE → STATE_COMMITTED (React synthetic events)",
+      "FORCE_RERENDER → VALUE_PERSISTS (state-driven DOM)"
+    ],
+    "MAL-REA-002": [
+      "DIRECT_DOM_WRITE → STATE_UNCHANGED (mirror keeps committed value)",
+      "RERENDER → STALE_WRITE_DISCARDED (DOM reverts to state)"
+    ],
+    "MAL-REA-003": [
+      "BLUR → SITE_REWRITE_OBSERVED (email lowercased by the page)",
+      "DELAYED_RERENDER → RERENDER_PENDING → IDLE (fixed 500 ms delay)"
+    ],
+    "MAL-SHD-001": [
+      "SHADOW_EMPTY_REQUIRED → SHADOW_VALIDATION_FAILED",
+      "SHADOW_FILLED → SHADOW_SAVED:<value> (open shadow root state)"
+    ],
+    "MAL-UPL-001": [
+      "NO_FILE → ACCEPTED_LOCALLY (allowed type/size shows exact metadata)",
+      "WRONG_TYPE → REJECTED_TYPE (selection cleared)",
+      "CLEARED → NO_FILE (empty selection state)"
+    ],
+    "MAL-VAL-001": [
+      "INVALID_FIELD → FIELD_ERROR → ERROR_CLEARED (custom rule)",
+      "MISMATCHED_EMAILS → CROSS_FIELD_ERROR → CLEARED_ON_MATCH",
+      "INVITE → CHECKING → INVITE_ACCEPTED|INVITE_REJECTED (fixed 500 ms delay)",
+      "ANY_ERROR → CONTINUE_BLOCKED; ALL_VALID → CONTINUE_ALLOWED"
+    ],
+    "MAL-VIR-001": [
+      "WINDOW_MOUNTED_SUBSET (mounted nodes ≪ total options)",
+      "SCROLL → WINDOW_REWINDOWED (different subset mounted)",
+      "OFFSCREEN_OPTION → SELECTED (ordinary scroll/keyboard interaction)",
+      "RERENDER → SELECTION_PERSISTS"
+    ],
+    "MAL-VUE-001": [
+      "TYPED_VALUE → STATE_COMMITTED (Vue reactivity)",
+      "FORCE_RERENDER → VALUE_PERSISTS (state-driven patch)"
+    ],
+    "MAL-VUE-002": [
+      "DIRECT_DOM_WRITE → STATE_UNCHANGED (mirror keeps committed value)",
+      "RERENDER → STALE_WRITE_DISCARDED (patch restores state value)"
+    ],
+    "MAL-VUE-003": [
+      "INPUT → SITE_REWRITE_OBSERVED (employee ID uppercased by the page)"
+    ]
+  }
+}

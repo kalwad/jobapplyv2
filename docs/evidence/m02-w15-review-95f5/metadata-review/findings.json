@@ -1,0 +1,381 @@
+{
+  "scope": "METADATA_ONLY_REVIEW_READY_PACKET_95F5",
+  "reviewer": "/root/gate_a_final_audit",
+  "observed_at_utc": "2026-10-18T01:50:05.246442+00:00",
+  "candidate_commit": "95f5b09f43d9bef06d6158ea0bb8b9e0e3aa9123",
+  "candidate_tree": "b85166b035fbf90a1b8c85d54f52461ccc422dd6",
+  "checks": [
+    {
+      "name": "HEAD remains evaluated commit",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "HEAD tree remains evaluated tree",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "tracked delta is exactly six documentary files",
+      "pass": true,
+      "observed": [
+        "docs/COMPATIBILITY_MATRIX.md",
+        "docs/CRITICAL_GATES.md",
+        "docs/KNOWN_ISSUES.md",
+        "docs/PROJECT_STATUS.md",
+        "docs/TEST_EVIDENCE.md",
+        "docs/gates/AUTOFILL_FEASIBILITY_GATE.md"
+      ]
+    },
+    {
+      "name": "no staged delta",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "untracked paths are exactly nine evidence files",
+      "pass": true,
+      "observed": [
+        "docs/evidence/m02-w15-review-95f5/candidate-index.json",
+        "docs/evidence/m02-w15-review-95f5/independent-archive-verification.json",
+        "docs/evidence/m02-w15-review-95f5/independent-proof.tar.gz",
+        "docs/evidence/m02-w15-review-95f5/independent-review.md",
+        "docs/evidence/m02-w15-review-95f5/independent-verdict.json",
+        "docs/evidence/m02-w15-review-95f5/predecision-proof.tar.gz",
+        "docs/evidence/m02-w15-review-95f5/predecision-retention-manifest.json",
+        "docs/evidence/m02-w15-review-95f5/review-ready.md",
+        "docs/evidence/m02-w15-review-95f5/source-retention-manifest.json"
+      ]
+    },
+    {
+      "name": "new evidence paths are safe regular non-symlink files",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "copy manifest has exact source and no owner authority",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "exact sealed source copy: predecision-proof.tar.gz",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "exact sealed source copy: predecision-retention-manifest.json",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "exact sealed source copy: candidate-index.json",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "exact sealed source copy: independent-verdict.json",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "exact sealed source copy: independent-review.md",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "exact sealed source copy: independent-proof.tar.gz",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "exact sealed source copy: independent-archive-verification.json",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "exactly seven sealed source copies",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "copied original actual independent verdict is PASS for exact candidate",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "verdict binds actual copied pack and index digests",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "independent PASS grants no owner/Gate/M03 authority",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "original predecision index still has no authority",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "lossless original 200 pointers preserved",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "waivers remain exact nonexecution rather than PASS",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "exact 300 packages with 32 VERIFIED and W15 sole IN_PROGRESS",
+      "pass": true,
+      "observed": {
+        "total": 300,
+        "verified": 32,
+        "in_progress": [
+          "M02-W15"
+        ]
+      }
+    },
+    {
+      "name": "M02 unaccepted and M03 NOT_STARTED",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "project Gate A table remains IN_PROGRESS",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "authoritative Gate and critical state agree at IN_PROGRESS",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "authoritative actual owner decision still pending",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Next READY is NONE",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "KI0096 through KI0099 are scoped FIXED with current pending-owner resolution",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "KI0100 is MEDIUM OPEN future coordinator reuse only",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "KI0100 preserves actual failed pipeline and separate pure comparison",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "original failed native128 and missing original artifacts remain disclosed",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "rejected date/textarea proposals and original discovery failure remain historical",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "current native macOS one-sample threshold exceedance stays explicit",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "all principal current summaries preserve technical recommendation and pending owner",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "review-ready corrected source anchor resolves to canonical specification",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "line3043 is actual owner approval requirement",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "review-ready preserves future UI obligations and no whole-product certification",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "review-ready keeps current R10 pipeline failure and no actor replay",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "review-ready retains exact original incorrect abstentions without recall credit",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "all six reviewed documentation bytes stable during bounded audit",
+      "pass": true,
+      "observed": null
+    }
+  ],
+  "pass_count": 40,
+  "check_count": 40,
+  "blocking_findings": [],
+  "sealed_copy_identity": [
+    {
+      "source": "/tmp/japp-m02-w15-predecision-95f5-retained-20261018/proof.tar.gz",
+      "copy": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/predecision-proof.tar.gz",
+      "bytes": 10325434,
+      "sha256": "5085d94111a2dab8aba4f879f9ffb197287bd436d8df5193aef8aaafc505f5aa",
+      "exact": true
+    },
+    {
+      "source": "/tmp/japp-m02-w15-predecision-95f5-retained-20261018/retention-manifest.json",
+      "copy": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/predecision-retention-manifest.json",
+      "bytes": 34194,
+      "sha256": "268c806298e3fc6460beb0a91d99217b036f4a8ad93642174af92826f7da84bf",
+      "exact": true
+    },
+    {
+      "source": "/tmp/japp-m02-w15-final-pack-proposal-20261018/candidate-index.final-predecision.json",
+      "copy": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/candidate-index.json",
+      "bytes": 95701,
+      "sha256": "2c2e3d3b191aeabc798be522934361bb4c28cad91216827a3606802ed760651d",
+      "exact": true
+    },
+    {
+      "source": "/tmp/japp-m02-w15-independent-audit/final-gate-a-verdict95f5/verdict.json",
+      "copy": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/independent-verdict.json",
+      "bytes": 5520,
+      "sha256": "b86bca4619fe541e6a82b0ef01175c35de3ebcbd344798efc33f340929b729cf",
+      "exact": true
+    },
+    {
+      "source": "/tmp/japp-m02-w15-independent-audit/final-gate-a-verdict95f5/review.md",
+      "copy": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/independent-review.md",
+      "bytes": 9419,
+      "sha256": "b61d99b5a2d80e26ea69b3c107a544982540eed5b600c9ead85e8d9007017bbd",
+      "exact": true
+    },
+    {
+      "source": "/tmp/japp-m02-w15-independent-final-gate95f5-retained/proof.tar.gz",
+      "copy": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/independent-proof.tar.gz",
+      "bytes": 55310,
+      "sha256": "7c18b1123063908036094b7986628d21ddc0fdd3e0d7b520a76747747ab7a218",
+      "exact": true
+    },
+    {
+      "source": "/tmp/japp-m02-w15-independent-final-gate95f5-retained/archive-verification.json",
+      "copy": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/independent-archive-verification.json",
+      "bytes": 616,
+      "sha256": "eeddd0b9201a51432de5ec5404d69eaa5d69379afe4730ee431e08d648cff501",
+      "exact": true
+    }
+  ],
+  "reviewed_file_identity": [
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/COMPATIBILITY_MATRIX.md",
+      "bytes": 15154,
+      "sha256": "a369eaf55b3f78a13792d2e774f98bfe988f79ff6c77ea5677ff1b7c3d16bf1b"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/CRITICAL_GATES.md",
+      "bytes": 17004,
+      "sha256": "948709edcb7d5be54879bb2c56f159d641a712c5b2988796bd4ae85fb33cf673"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/KNOWN_ISSUES.md",
+      "bytes": 284975,
+      "sha256": "11a77459c524f21a512266180c8ffb040ce2cc207fd5dd0952c7e0d7a66bd9d0"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/PROJECT_STATUS.md",
+      "bytes": 41000,
+      "sha256": "df11de91e0af4469e3dad3e3a0112b34a80159fb40cf58107f99e05c8dcaf3f5"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/TEST_EVIDENCE.md",
+      "bytes": 950245,
+      "sha256": "a3aef24b689d5f7bf631ea52b5d9c3f74c91f75c3439b0b06980f694f098ccfa"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "bytes": 46940,
+      "sha256": "53d20bf3c905af5711b94bcd0c985964a94810d9bad3dbfcf0b5727a8de63d75"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/candidate-index.json",
+      "bytes": 95701,
+      "sha256": "2c2e3d3b191aeabc798be522934361bb4c28cad91216827a3606802ed760651d"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/independent-archive-verification.json",
+      "bytes": 616,
+      "sha256": "eeddd0b9201a51432de5ec5404d69eaa5d69379afe4730ee431e08d648cff501"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/independent-proof.tar.gz",
+      "bytes": 55310,
+      "sha256": "7c18b1123063908036094b7986628d21ddc0fdd3e0d7b520a76747747ab7a218"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/independent-review.md",
+      "bytes": 9419,
+      "sha256": "b61d99b5a2d80e26ea69b3c107a544982540eed5b600c9ead85e8d9007017bbd"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/independent-verdict.json",
+      "bytes": 5520,
+      "sha256": "b86bca4619fe541e6a82b0ef01175c35de3ebcbd344798efc33f340929b729cf"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/predecision-proof.tar.gz",
+      "bytes": 10325434,
+      "sha256": "5085d94111a2dab8aba4f879f9ffb197287bd436d8df5193aef8aaafc505f5aa"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/predecision-retention-manifest.json",
+      "bytes": 34194,
+      "sha256": "268c806298e3fc6460beb0a91d99217b036f4a8ad93642174af92826f7da84bf"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/review-ready.md",
+      "bytes": 4908,
+      "sha256": "d8cb1019bbb6d9103b5431cdc66072efd0b5634983d15e3f2dd7cdae04a55aca"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/evidence/m02-w15-review-95f5/source-retention-manifest.json",
+      "bytes": 2354,
+      "sha256": "cc19cadaf7f5c85d908ad865432c305cbb71ae2258612c615f77a36ccf39734a"
+    }
+  ],
+  "execution": {
+    "product_or_test_source_authored": false,
+    "root_edited": false,
+    "tests_or_validators_run": false,
+    "browser_or_performance_actors_run": false,
+    "archived_code_imported": false,
+    "network_run": false
+  },
+  "authority": "BOUNDED_INDEPENDENT_METADATA_REVIEW_ONLY",
+  "owner_decision": "PENDING",
+  "authoritative_gate_state": "IN_PROGRESS",
+  "gate_pass_authorized": false,
+  "M03_readiness_authorized": false,
+  "reader_history": [
+    "Initial read referenced nonexistent docs/MASTER_SPEC.md; actual canonical docs/MASTER_IMPLEMENTATION_SPEC.md was then read and line3043 verified.",
+    "Initial selected KNOWN_ISSUES line range was unrelated; precise KI0099/KI0100 headings were located and read. Neither read changed root or executed source."
+  ],
+  "root_documentary_checks": "Root reports status45/trace193-300/format/diff green; this metadata review does not replay or independently certify those command executions."
+}

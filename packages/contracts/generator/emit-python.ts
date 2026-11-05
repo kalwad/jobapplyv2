@@ -340,6 +340,10 @@ function typeExpr(emission: PyEmission, type: IrType): string {
       return referenceExpr(emission, type);
     case "nullable":
       return `${typeExpr(emission, type.inner)} | None`;
+    case "discriminatedUnion":
+      throw new Error(
+        "discriminated object unions require a named declaration",
+      );
     case "object":
       if (type.extensionPoint) {
         return extensionExpr(emission, type);
@@ -494,7 +498,28 @@ function emitDocumentModule(
     targets.push({ name: typeName(document, null), type: document.root });
   }
   for (const target of targets) {
-    if (target.type.kind === "object" && !target.type.extensionPoint) {
+    if (target.type.kind === "discriminatedUnion") {
+      // Private names cannot collide with generated public schema/$defs names.
+      const variants = target.type.branches.map((branch, index) => {
+        const name = `_${target.name}Variant${String(index + 1)}`;
+        declarations.push(
+          renderModel(
+            emission,
+            name,
+            branch,
+            documentDocText(document, branch.metadata),
+          ),
+        );
+        return name;
+      });
+      emission.imports.typing.add("Annotated");
+      emission.imports.pydantic.add("Field");
+      declarations.push(
+        `${target.name} = Annotated[${variants.join(" | ")}, Field(discriminator=${pythonStringLiteral(target.type.discriminator)})]`,
+      );
+      const doc = fieldDescription(target.type.metadata);
+      if (doc !== null) declarations.push(pythonStringLiteral(doc));
+    } else if (target.type.kind === "object" && !target.type.extensionPoint) {
       declarations.push(
         renderModel(
           emission,

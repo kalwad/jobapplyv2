@@ -1,0 +1,57 @@
+{
+  "canonical_change": "Only existing FW3 rollback fixture: schedule one20ms rerender from firstactual input/change event afterwrite; addedrenderCount2/emptyReactstate assertions. Originaloutcome/DOM/site/dateoracles and125mssettlebudget preserved.",
+  "canonical_focus": {
+    "browser_cases_pass": 13,
+    "browser_seconds": 33.03872945799958,
+    "commands_closed_zero": 4,
+    "endpoint_bytes_full_modes_status_head_tree_equal": true,
+    "runtime_files": 40,
+    "scope": "QA predates subsequent fourdocumentation/evidence additions; reviewer retains initial overbroad live-equality predicatefailure as documentarydrift, no wholelater-tree equalityclaim.",
+    "strict_checks": [
+      "Prettier",
+      "ESLint maxwarnings0",
+      "root tsc noEmit"
+    ],
+    "tracked_source_files": 2187
+  },
+  "controlled_v3": {
+    "baseline": {
+      "dom_value": "Transient only",
+      "event_order": "click, input, change",
+      "exit_code": 1,
+      "outcome": "VERIFIED",
+      "react_state": "",
+      "seconds": 7.664048249949701
+    },
+    "both_preparation_latency_ms": 100,
+    "canonical_source_runtime40_fullmode_status_head_tree_endpoints_equal": true,
+    "fixed": {
+      "dom_value": "",
+      "event_order": "input, change, click",
+      "exit_code": 0,
+      "outcome": "FAILED",
+      "react_state": "",
+      "render_count": 2,
+      "seconds": 6.340334124979563
+    },
+    "real_owned_bundled_chromium": true,
+    "settle_budget_ms": 125
+  },
+  "created_utc": "2026-10-29T15:24:58.420998+00:00",
+  "different_review": {
+    "decision": "CLEAR_SCOPED_SOURCE_AND_DATA",
+    "joins": 35,
+    "manifest_sha256": "9d581e8bb124169776b664b618dea24726bec0588336b4388487447911f327b6",
+    "report_sha256": "39fffffb6713b82710c39b022c2d6c6eacd4d3ba052a274d158ebbb5c9d8057b"
+  },
+  "fresh_full_or_hosted_fixed_validation": false,
+  "initial_v1_v2": "Harness module relocation failures before any browser test; retained separately, no product RED credit.",
+  "milestone_certification_release_credit": false,
+  "old_hosted_run": {
+    "attachment_disappearance_or_nonpersistence_cause": "UNOBSERVED",
+    "event_order": "UNKNOWN",
+    "retention_source_data_review_joins": 27,
+    "review_report_sha256": "15c4938aee0b1a42e7c3aa74296f8ff88c9248bb09020abca1c95797064ab34f",
+    "run": 40803470877
+  }
+}

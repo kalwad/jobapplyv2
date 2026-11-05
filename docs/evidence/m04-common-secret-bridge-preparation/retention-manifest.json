@@ -1,0 +1,122 @@
+{
+  "all_selected_original_archive_bytes_full_modes_verified": true,
+  "members": [
+    {
+      "bytes": 5935,
+      "mode": 420,
+      "path": "independent-review/REVIEW.md",
+      "sha256": "b1b9554f453e26d545d1955c8f04bbcbd9d45123e769134271de83d917d76743",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-independent-review/v1/REVIEW.md"
+    },
+    {
+      "bytes": 13541,
+      "mode": 420,
+      "path": "independent-review/audit.py",
+      "sha256": "8fcf76ff588a6b0dd53b853490f823d54dbea9b4621960f2ae25bdbac88bc9a2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-independent-review/v1/audit.py"
+    },
+    {
+      "bytes": 4937,
+      "mode": 420,
+      "path": "independent-review/data-review.json",
+      "sha256": "1b9a1624a94fa676d767ac1b4f3a9b5942265615d020d890028ec29089ef031e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-independent-review/v1/data-review.json"
+    },
+    {
+      "bytes": 13541,
+      "mode": 420,
+      "path": "independent-review/initial-audit.py",
+      "sha256": "7fd9d44f48b1ef9ad22d049df631c9656f15c5f2f9f915fe9ae92a1cff49513f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-independent-review/v1/initial-audit.py"
+    },
+    {
+      "bytes": 4927,
+      "mode": 420,
+      "path": "independent-review/initial-checks.json",
+      "sha256": "d5178f691b466d895f65bdfa157aa6d03af416c2e719966b4e85ae5eb316f066",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-independent-review/v1/initial-checks.json"
+    },
+    {
+      "bytes": 1133,
+      "mode": 420,
+      "path": "independent-review/manifest.json",
+      "sha256": "1055f5b3e101f74a422f7e77dc9070588eb05bdf931fa676d5fc7efef20234e5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-independent-review/v1/manifest.json"
+    },
+    {
+      "bytes": 2658,
+      "mode": 420,
+      "path": "independent-review/source-review.json",
+      "sha256": "02e01988d34d3a6ddf3e057ba6095bbb35ddccfbd48f19cf00b7b7b76c8d018f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-independent-review/v1/source-review.json"
+    },
+    {
+      "bytes": 43172,
+      "mode": 420,
+      "path": "sealed-preparation/ARCHIVE.json",
+      "sha256": "0c284941cbbe60331b13add5059ecb1ce6bf757cc7a5db2dc6cb2c2d886c3ecd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-preparation/v1/ARCHIVE.json"
+    },
+    {
+      "bytes": 9498,
+      "mode": 420,
+      "path": "sealed-preparation/CHECKS.json",
+      "sha256": "132ce631aa90ad1218779828fcfffa703e29df0916e23348d23f1a9a85263a8a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-preparation/v1/CHECKS.json"
+    },
+    {
+      "bytes": 1712,
+      "mode": 420,
+      "path": "sealed-preparation/DEPENDENCY-JOIN.json",
+      "sha256": "75466a458bfa79c7d185b415af4fff13e420df7c831f2b941008c08c9ba091cc",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-preparation/v1/DEPENDENCY-JOIN.json"
+    },
+    {
+      "bytes": 1308,
+      "mode": 420,
+      "path": "sealed-preparation/HANDOFF.json",
+      "sha256": "aad9f432d14f0789ad335bdde90a4f00d8a9e14fda82966db9dfad09c908c55b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-preparation/v1/HANDOFF.json"
+    },
+    {
+      "bytes": 1793,
+      "mode": 420,
+      "path": "sealed-preparation/PARENT-INPUTS.json",
+      "sha256": "f2e876b768cf89f19c9bb0f62cbca0e7c4484a4edc48b2f1ed3ee792ba201a26",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-preparation/v1/PARENT-INPUTS.json"
+    },
+    {
+      "bytes": 7220,
+      "mode": 420,
+      "path": "sealed-preparation/README.md",
+      "sha256": "3c33ac92739d4938080316b6b32940ced7cefcb2a6b528183371c72d421fabb6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-preparation/v1/README.md"
+    },
+    {
+      "bytes": 40230,
+      "mode": 420,
+      "path": "sealed-preparation/SOURCE.json",
+      "sha256": "1d316ebb9d81ebd8c2c2cb7dd118987b255161decae367cc7a779321e741d740",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-preparation/v1/SOURCE.json"
+    },
+    {
+      "bytes": 256,
+      "mode": 420,
+      "path": "sealed-preparation/TEST-FIRST.json",
+      "sha256": "e51e2781d743c038b22a84f319d1dae886011d7822c174adc0a6b45d10e964fb",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-preparation/v1/TEST-FIRST.json"
+    },
+    {
+      "bytes": 406639,
+      "mode": 420,
+      "path": "sealed-preparation/proof.tar.gz",
+      "sha256": "23fbb2132589a82804d4b0e9d692e77d2df5380a45250df84afa0981c3d325ad",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-common-secret-bridge-preparation/v1/proof.tar.gz"
+    }
+  ],
+  "omissions": [
+    "Compiledtestcaches/binaries not in parentproof; declared hashes/linkage retained.",
+    "No actual native credential, SQLCipher/privateAppData or product startup actor."
+  ],
+  "regular_members": 16
+}

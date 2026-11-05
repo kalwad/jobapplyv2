@@ -1,0 +1,81 @@
+[
+    {
+        "at":  "2026-10-31T19:10:06.8618137+00:00",
+        "key":  "parse",
+        "value":  {
+                      "errors":  [
+
+                                 ]
+                  }
+    },
+    {
+        "at":  "2026-10-31T19:10:09.1315454+00:00",
+        "key":  "package",
+        "value":  {
+                      "files":  64,
+                      "root":  "C:\\Users\\runneradmin\\AppData\\Local\\JobApply Ω space aaaaaaaaaaaa"
+                  }
+    },
+    {
+        "at":  "2026-10-31T19:10:09.1644491+00:00",
+        "key":  "phase-body",
+        "value":  {
+                      "bytes":  3727,
+                      "sha256":  "FE805E1D84CC02738A940F2D2D7974197FE7063EFCE6AFA733DE0D89407C7F02"
+                  }
+    },
+    {
+        "at":  "2026-10-31T19:10:21.4724549+00:00",
+        "key":  "receipt-ready",
+        "value":  {
+                      "elapsed_s":  12.85,
+                      "details":  {
+                                      "api_version":  "1.0.0",
+                                      "pid":  7372,
+                                      "unicode_spaces_path":  true,
+                                      "service":  {
+                                                      "port":  61028,
+                                                      "pid":  2036,
+                                                      "creation_time":  134379474169381611
+                                                  },
+                                      "version":  "0.0.1"
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T19:10:21.6295306+00:00",
+        "key":  "receipt-unauthorized12",
+        "value":  {
+                      "elapsed_s":  13.01,
+                      "details":  {
+                                      "statuses":  [
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401
+                                                   ]
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T19:10:34.6519904+00:00",
+        "key":  "terminal",
+        "value":  {
+                      "position":  "At line:17 char:5\r\n+     throw (\u0027Actual visible complete glyph measurement unavailable or  ...\r\n+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+                      "message":  "Actual visible complete glyph measurement unavailable or unchanged after chord; last: System.InvalidOperationException: Exact unique whole glyph label required",
+                      "inner":  null,
+                      "error_type":  "System.Management.Automation.RuntimeException",
+                      "elapsed_s":  26.02,
+                      "phase":  "keyboard",
+                      "terminal":  "FAIL"
+                  }
+    }
+]

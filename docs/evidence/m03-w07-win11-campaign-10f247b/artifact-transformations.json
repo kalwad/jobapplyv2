@@ -1,0 +1,48 @@
+{
+ "ppm_frames_converted_to_png": {
+  "run41371604274/retained/win11-failure.png": {
+   "artifact_member": "retained/win11-failure.ppm",
+   "bytes": 3072016,
+   "sha256": "2f039a6e0a06dc57e8167cbfde8dec1f48585950e899194bd9a3099e8f0be0de"
+  },
+  "run41371604274/retained/win11-progress-1.png": {
+   "artifact_member": "retained/win11-progress-1.ppm",
+   "bytes": 3072016,
+   "sha256": "2f039a6e0a06dc57e8167cbfde8dec1f48585950e899194bd9a3099e8f0be0de"
+  },
+  "run41371604274/retained/win11-progress-2.png": {
+   "artifact_member": "retained/win11-progress-2.ppm",
+   "bytes": 3072016,
+   "sha256": "2f039a6e0a06dc57e8167cbfde8dec1f48585950e899194bd9a3099e8f0be0de"
+  },
+  "run41371604274/retained/win11-progress-3.png": {
+   "artifact_member": "retained/win11-progress-3.ppm",
+   "bytes": 3072016,
+   "sha256": "2f039a6e0a06dc57e8167cbfde8dec1f48585950e899194bd9a3099e8f0be0de"
+  },
+  "run41371604274/retained/win11-progress-4.png": {
+   "artifact_member": "retained/win11-progress-4.ppm",
+   "bytes": 3072016,
+   "sha256": "2f039a6e0a06dc57e8167cbfde8dec1f48585950e899194bd9a3099e8f0be0de"
+  },
+  "run41371604274/retained/win11-progress-5.png": {
+   "artifact_member": "retained/win11-progress-5.ppm",
+   "bytes": 3072016,
+   "sha256": "2f039a6e0a06dc57e8167cbfde8dec1f48585950e899194bd9a3099e8f0be0de"
+  }
+ },
+ "text_files_crlf_reduced_to_lf_repeatedly": {
+  "run41371604274/retained/command-005.stdout": {
+   "bytes": 21885,
+   "sha256": "287dff37f3fd4ec3a46d74bf9e822dcff949439045c2b391ad1c9d28501d9270"
+  },
+  "run41371604274/retained/firmware-console.raw": {
+   "bytes": 440,
+   "sha256": "a103346150f6f45eb737ef622373a607eb4990a69e2757a118295588c3279fab"
+  },
+  "run41371604274/retained/guest-serial.raw": {
+   "bytes": 440,
+   "sha256": "a103346150f6f45eb737ef622373a607eb4990a69e2757a118295588c3279fab"
+  }
+ }
+}

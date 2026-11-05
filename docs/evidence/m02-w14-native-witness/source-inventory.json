@@ -1,0 +1,94 @@
+[
+  {
+    "path": "apps/extension/src/driver-engine.ts",
+    "sha256": "e6945f062327bc756b61e39c11150d555d90c7b32d30b31c0d2f934f1796bede"
+  },
+  {
+    "path": "apps/extension/src/driver-evidence.ts",
+    "sha256": "749fbb0c62a194453575d08be552c7d6e8c886d31d7f0da0423926aa0a0c1e9a"
+  },
+  {
+    "path": "apps/extension/src/driver-protocol.ts",
+    "sha256": "0ca64afebfd600ee2ac814cc649ba56521440d9aa5faf58e344000d698b09965"
+  },
+  {
+    "path": "apps/extension/src/drivers/choice-drivers.ts",
+    "sha256": "cbb42997075fbf190d08711b1cfdc293405d97d3f1903ec887872d4ca269618e"
+  },
+  {
+    "path": "apps/extension/src/drivers/driver-contract.ts",
+    "sha256": "59ac010116c836c09d821f1bf1cb609a6c0e6b7c836443f334e44e9d9ec654fb"
+  },
+  {
+    "path": "apps/extension/src/drivers/driver-dom.ts",
+    "sha256": "3331fa3b3f200b556c2a1a1de250fb8388dbe6398d221607f16aee9a2fbd7efa"
+  },
+  {
+    "path": "apps/extension/src/drivers/file-upload-driver.ts",
+    "sha256": "8923a217399cbd6fecac1e8770e00d327f1fa56362e237d6a200b8a02c644a1a"
+  },
+  {
+    "path": "apps/extension/src/drivers/mutation-guard.ts",
+    "sha256": "394b83f15446b16613e1175871c04c9d0209341efa9b184362d4da46fc9d0085"
+  },
+  {
+    "path": "apps/extension/src/drivers/repeater-driver.ts",
+    "sha256": "535391867af4f3d026a6027fed9227c491ef07da4fa40b02ecefd844b5981c95"
+  },
+  {
+    "path": "apps/extension/src/drivers/text-like-drivers.ts",
+    "sha256": "d39682b692f372d91279a130b73b614afdde6bb1ef0da62f06fb6a7e63e5c316"
+  },
+  {
+    "path": "apps/extension/src/drivers/widget-drivers.ts",
+    "sha256": "932acd65ae2ce72e666afe02f4d68115001874ea5652f1eb752595121c5a125c"
+  },
+  {
+    "path": "apps/extension/src/dynamic-batch.ts",
+    "sha256": "2fceaf0db7a61904beb2521dce33290cfff04fdc499d68d5652e27e8257fcaf1"
+  },
+  {
+    "path": "apps/extension/src/dynamic-engine.ts",
+    "sha256": "5e942ba654d58ef909f68a0281f96dfe1a47c048dca1d3cfd922ed8ae1c92cd1"
+  },
+  {
+    "path": "apps/extension/src/dynamic-protocol.ts",
+    "sha256": "f9cdce4c170e96f0431bef221c8c97c14cc223edcf174eae5373304ce8465fc1"
+  },
+  {
+    "path": "apps/extension/src/dynamic-reconcile.ts",
+    "sha256": "82b70e018d11f9d05cd09c1528ffa991cd744dc5798aabd34f96122200cf2117"
+  },
+  {
+    "path": "apps/extension/src/feasibility-protocol.ts",
+    "sha256": "f342045206d7e114d22182032219c5180235ac7499b699b2f8d17b208a0473bc"
+  },
+  {
+    "path": "apps/extension/src/field-scanner.ts",
+    "sha256": "c130de74ddbd985a44a27fd43b52c9ac9ef80730735d0074713d3cb6fc7f7a35"
+  },
+  {
+    "path": "apps/extension/src/open-dom.ts",
+    "sha256": "871458a44bb04d1dab13b2c977d573a70495e1227c580581ebf01d1208c2c353"
+  },
+  {
+    "path": "apps/extension/src/scanner-protocol.ts",
+    "sha256": "e028d92d28e9924007a4ae278a0a17ff42d76149334a01a05bcf45c56edfac8b"
+  },
+  {
+    "path": "apps/extension/src/semantic-identity.ts",
+    "sha256": "ee1316130f99645183788d2020675ff4ce2c961c08188322e36a44fa1d4328ae"
+  },
+  {
+    "path": "e2e/extension/support/autofill-w14-native-witness.ts",
+    "sha256": "9000acd4227e906f9f7b0063dab5a39e7aa2187a226bdb82df530e6e2a329a49"
+  },
+  {
+    "path": "e2e/extension/support/autofill-w14.ts",
+    "sha256": "42b4082b17f6cb6f4ee9ea2212151a20dd17dda30cb51db0a6d30575d08012c9"
+  },
+  {
+    "path": "e2e/extension/extension-w14-native-witness.spec.ts",
+    "sha256": "cb597a13dfe3aff1c962a1ca4a3ccc4fe586430ce13da0515b674881d1435c9b"
+  }
+]

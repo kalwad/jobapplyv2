@@ -8,13 +8,15 @@
 // live in fresh system temp directories and are removed with bounded
 // Windows-safe retries (KI-0028 pattern).
 import {
+  type Browser,
   type BrowserContext,
   chromium,
   expect,
   test as base,
   type Worker,
 } from "@playwright/test";
-import { existsSync, mkdtempSync, rmSync } from "node:fs";
+import { existsSync, mkdtempSync } from "node:fs";
+import { rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -101,15 +103,62 @@ async function provideExtensionContext(
     );
   }
   const userDataDir = mkdtempSync(join(tmpdir(), profilePrefix));
-  const removeProfile = (): void => {
-    rmSync(userDataDir, {
+  const removeProfile = async (): Promise<void> => {
+    await rm(userDataDir, {
       recursive: true,
       force: true,
       maxRetries: 10,
       retryDelay: 100,
     });
   };
-  let context: BrowserContext;
+  let context: BrowserContext | undefined;
+  let ownedBrowser: Browser | null | undefined;
+  let disconnected = false;
+  let resolveDisconnected!: () => void;
+  const browserDisconnected = new Promise<void>((resolve) => {
+    resolveDisconnected = resolve;
+  });
+  const onDisconnected = (): void => {
+    disconnected = true;
+    resolveDisconnected();
+  };
+  const cleanup = async (): Promise<void> => {
+    const errors: unknown[] = [];
+    if (ownedBrowser === null)
+      errors.push(new Error("EXTENSION_OWNED_BROWSER_MISSING"));
+    if (ownedBrowser && (disconnected || !ownedBrowser.isConnected()))
+      errors.push(new Error("EXTENSION_BROWSER_DISCONNECTED_BEFORE_CLEANUP"));
+    try {
+      // Keep the context's trace/snapshot/HAR hooks. Every rejection remains
+      // explicit: a TargetClosed message does not prove those hooks finished.
+      try {
+        await context?.close();
+      } catch (error) {
+        errors.push(error);
+      }
+      try {
+        // A persistent context owns this exact Browser. Finish its retirement
+        // even when Context.close rejected before awaiting the process exit.
+        await ownedBrowser?.close();
+        if (ownedBrowser?.isConnected() && !disconnected)
+          await browserDisconnected;
+      } catch (error) {
+        // Do not start another unbounded wait after a rejected close. Profile
+        // removal is still attempted and both failures stay visible.
+        errors.push(error);
+      }
+    } finally {
+      try {
+        await removeProfile();
+      } catch (error) {
+        errors.push(error);
+      } finally {
+        ownedBrowser?.off("disconnected", onDisconnected);
+      }
+    }
+    if (errors.length > 0)
+      throw new AggregateError(errors, "EXTENSION_CONTEXT_CLEANUP_FAILED");
+  };
   try {
     context = await chromium.launchPersistentContext(userDataDir, {
       channel: "chromium",
@@ -118,26 +167,36 @@ async function provideExtensionContext(
         `--load-extension=${extensionDist}`,
       ],
     });
-  } catch (error) {
-    removeProfile();
-    throw error;
-  }
-  const offenders: string[] = [];
-  context.on("request", (request) => {
-    if (!isLocalRequest(request.url())) {
-      offenders.push(`${request.method()} ${request.url()}`);
-    }
-  });
-  try {
+    // Capture only the freshly launched owner before handing it to the test.
+    ownedBrowser = context.browser();
+    ownedBrowser?.on("disconnected", onDisconnected);
+    const offenders: string[] = [];
+    context.on("request", (request) => {
+      if (!isLocalRequest(request.url())) {
+        offenders.push(`${request.method()} ${request.url()}`);
+      }
+    });
     await use(context);
     expect(
       offenders,
       "the extension context must never issue an observed non-loopback request",
     ).toEqual([]);
-  } finally {
-    await context.close();
-    removeProfile();
+  } catch (error) {
+    let cleanupFailure: { error: unknown } | undefined;
+    try {
+      await cleanup();
+    } catch (cleanupError) {
+      cleanupFailure = { error: cleanupError };
+    }
+    if (cleanupFailure !== undefined)
+      throw new AggregateError(
+        [error, cleanupFailure.error],
+        "EXTENSION_CONTEXT_USE_AND_CLEANUP_FAILED",
+        { cause: error },
+      );
+    throw error;
   }
+  await cleanup();
 }
 
 export const test = base.extend<ExtensionFixtures>({

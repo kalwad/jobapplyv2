@@ -1,0 +1,12 @@
+--- a/e2e/extension/legacy-paired-options/paired-options.proof.ts
++++ b/e2e/extension/legacy-paired-options/paired-options.proof.ts
+@@ -147,8 +147,7 @@
+           ? "Michigan"
+           : undefined;
+     if (
+-      prior === undefined ||
+-      prior.concept !== fact.concept ||
++      prior?.concept !== fact.concept ||
+       prior.value !== fact.value ||
+       fact.valueToken !== token ||
+       Object.keys(fact).sort().join() !==

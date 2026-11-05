@@ -6,7 +6,7 @@ import {
   type FeasibilityConcept,
 } from "../../../packages/form-engine/src/index.ts";
 import { normalizeText } from "../../../apps/extension/src/field-scanner.ts";
-import { semanticDigest } from "../../../apps/extension/src/semantic-identity.ts";
+import type { DriverTransactionRequest } from "../../../apps/extension/src/driver-protocol.ts";
 import type {
   FormDriverResultV1,
   FormFieldDecisionV1,
@@ -30,13 +30,21 @@ import {
 } from "./research-harness.ts";
 export interface SanitizedAutofillInput {
   html: string;
-  profile: readonly { concept: FeasibilityConcept; value: string }[];
+  execution_mode?: "SEQUENTIAL_BATCH_V1";
+  profile: readonly {
+    concept: FeasibilityConcept;
+    value: string;
+    /** Explicit approved option semantics; omitted by the frozen W13 recipe. */
+    valueToken?: string;
+  }[];
 }
 export async function executeMv3Autofill(
   harness: Harness,
   input: SanitizedAutofillInput,
+  observeInitial?: () => Promise<void>,
 ) {
   await setFixture(harness, input.html);
+  await observeInitial?.();
   await harness.page.evaluate(() => {
     const page = globalThis as unknown as {
       w13Meter: {
@@ -103,7 +111,9 @@ export async function executeMv3Autofill(
       true,
     );
   });
+  const scanFillStarted = performance.now();
   const top = foundTopFrame(await scanFrames(harness));
+  const scanEnded = performance.now();
   const records = buildApprovedRecordSet(
     await Promise.all(
       input.profile.map(async (fact) => ({
@@ -112,6 +122,9 @@ export async function executeMv3Autofill(
           `w13-profile\0${fact.concept}\0${fact.value}`,
         ),
         concept: fact.concept,
+        ...(fact.valueToken === undefined
+          ? {}
+          : { valueToken: fact.valueToken }),
         policy: "FILL_FROM_EXPLICIT_RECORD" as const,
         confirmation: { state: "MISSING" as const },
         valueConfidence: 1,
@@ -120,6 +133,8 @@ export async function executeMv3Autofill(
   );
   const results = new Map<string, FormDriverResultV1>();
   const decisions: FormFieldDecisionV1[] = [];
+  const pending: { fieldId: string; transaction: DriverTransactionRequest }[] =
+    [];
   for (const descriptor of top.descriptors) {
     const resolved = await resolveFieldDecision({
       descriptor,
@@ -135,13 +150,14 @@ export async function executeMv3Autofill(
       (f) => f.concept === decision.field_concept,
     );
     if (fact === undefined) throw new Error("W13_CANDIDATE_RECORD_MISSING");
+    const option = resolved.resolution.optionResolution;
+    if (descriptor.control_kind === "SELECT" && option?.status !== "RESOLVED")
+      throw new Error("W13_CANDIDATE_OPTION_UNRESOLVED");
     const intended =
-      descriptor.control_kind === "SELECT"
+      descriptor.control_kind === "SELECT" && option?.status === "RESOLVED"
         ? {
             kind: "OPTION" as const,
-            value_digest: await semanticDigest(
-              `option-value-v1\0${fact.value}`,
-            ),
+            value_digest: option.valueDigest,
           }
         : { kind: "TEXT" as const, text: fact.value };
     const transaction = await buildTransaction(
@@ -150,14 +166,36 @@ export async function executeMv3Autofill(
       decision,
       nextId("w13-fill"),
     );
+    if (input.execution_mode === "SEQUENTIAL_BATCH_V1") {
+      pending.push({ fieldId: descriptor.field_id, transaction });
+      continue;
+    }
     const outcome = await dynExecute(harness, [transaction]);
     const item = outcome.items[0];
     if (item?.status === "EXECUTED")
       results.set(descriptor.field_id, item.result);
   }
+  const planningEnded = performance.now();
+  if (pending.length > 0) {
+    // The W11 kernel still executes each transaction sequentially with every
+    // fresh W10 precondition and full settle window. Only IPC is batched.
+    const batch = await dynExecute(
+      harness,
+      pending.map((item) => item.transaction),
+    );
+    if (batch.items.length !== pending.length)
+      throw new Error("W14_BATCH_RESULT_INVENTORY");
+    for (const [index, item] of batch.items.entries()) {
+      const planned = pending[index];
+      if (planned !== undefined && item.status === "EXECUTED")
+        results.set(planned.fieldId, item.result);
+    }
+  }
+  const executionEnded = performance.now();
   const reconciliation = reconciled(
     await dynReconcile(harness, top.frame_context.frame_id),
   );
+  const scanFillDurationMs = performance.now() - scanFillStarted;
   const observed = await harness.page.evaluate(() => {
     const page = globalThis as unknown as {
       w13Meter: {
@@ -253,9 +291,18 @@ export async function executeMv3Autofill(
     };
   });
   return {
+    scan_fill_duration_ms: scanFillDurationMs,
+    phase_timings_ms: {
+      initial_scan: scanEnded - scanFillStarted,
+      planning_and_unbatched_execution: planningEnded - scanEnded,
+      batched_execution: executionEnded - planningEnded,
+      final_reconciliation:
+        scanFillDurationMs - (executionEnded - scanFillStarted),
+    },
     fields,
     scanner_fields: top.descriptors.map((d) => ({
       field_id: d.field_id,
+      attribute_fingerprint: d.address.attribute_fingerprint,
       label: d.label.normalized_text,
       required: d.required,
       visible: d.visible,

@@ -1,0 +1,7 @@
+{
+  "path": "proof.tar.gz",
+  "bytes": 1019583,
+  "sha256": "b8d16252cd6e735b58900f86795f12fd0754ecbe23fb09e236756fdf80e536aa",
+  "members": 72,
+  "scope": "Fixture-only sources/raw actual producer evidence/root separate review; no native binary or current wholeaggregate PASS"
+}

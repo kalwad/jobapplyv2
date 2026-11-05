@@ -1,0 +1,101 @@
+# DIAGNOSTIC SCRATCH BRANCH ONLY - never merge. Round 44 (Hyper-V enlightenments replicated, WHESvc off,
+# measured UI wait durations with extended bounds): rehearse the Windows 11
+# campaign with the harness's own seed/QEMU/COM2 protocol, the real CI package and
+# the KI-0177/0178/0179 guest correction, across first-logon Default-profile variants.
+# No acceptance can come from it.
+name: ci
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  source-check:
+    name: guest source parse and compile (Windows PowerShell 5.1)
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Parse target PowerShell and compile declarations
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy RemoteSigned -File diag/repo-root/scripts/windows11/windows11_source_check.ps1 -Proof "$env:RUNNER_TEMP\sc\source-check.json"
+          Get-Content "$env:RUNNER_TEMP\sc\source-check.json"
+  rehearsal:
+    name: windows11 rehearsal ${{ matrix.variant }}
+    needs: source-check
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [hv-a, hv-b, hv-nowhesvc, host-nowhesvc]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Host tools and KVM
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get install -y --no-install-recommends qemu-system-x86 qemu-utils ovmf swtpm swtpm-tools xorriso mtools ntfs-3g > /dev/null
+          sudo setfacl -m "u:$(id -u):rw" /dev/kvm
+          grep -m1 "model name" /proc/cpuinfo
+          echo "ImageVersion=$ImageVersion"
+          uname -r
+          python3 -m venv "$HOME/evtx-venv"
+          "$HOME/evtx-venv/bin/pip" install -q python-evtx==0.8.1
+      - name: KVM RDPMC exits and injected #GP/#UD trace
+        shell: bash
+        run: |
+          set -euo pipefail
+          lsmod | grep -E '^kvm' || true
+          grep -H . /sys/module/kvm/parameters/ignore_msrs /sys/module/kvm/parameters/enable_pmu /sys/module/kvm_amd/parameters/* 2>/dev/null | head -40 || true
+          sudo sh -c 'T=/sys/kernel/tracing; E=$T/events/kvm; echo 0 > $T/tracing_on; echo > $T/trace; echo 8192 > $T/buffer_size_kb; if echo "exit_reason == 111" > $E/kvm_exit/filter; then echo 1 > $E/kvm_exit/enable; else echo NO_EXIT_FILTER; fi; if echo "exception == 13 || exception == 6" > $E/kvm_inj_exception/filter; then echo 1 > $E/kvm_inj_exception/enable; else echo NO_EXCEPTION_FILTER; fi; if echo "exception != 0" > $E/kvm_msr/filter; then echo 1 > $E/kvm_msr/enable; fi; echo 1 > $T/tracing_on; cat $E/kvm_exit/filter $E/kvm_inj_exception/filter; cat $E/kvm_exit/format $E/kvm_inj_exception/format'
+      - name: CI package from hosted run 41538198385 (2100780)
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          name: native-development-windows-2025-fdba3c3d3c52d130681e047359f7103b7225a504
+          run-id: 41538198385
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/package
+      - name: Package manifest pin
+        shell: bash
+        run: echo "0396ddf437aa100e9e75ffec032ee432165bb8a01958e652690965b62d4299d4  $RUNNER_TEMP/package/manifest.json" | sha256sum -c -
+      - name: Pinned ISO
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 3 -o "$RUNNER_TEMP/win11.iso" 'https://software-static.download.prss.microsoft.com/dbazure/26300.9457.260913-1737.26h2_ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso'
+          echo "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38  $RUNNER_TEMP/win11.iso" | sha256sum -c -
+      - name: Rehearsal
+        shell: bash
+        run: python3 -I -B diag/win11_rehearsal.py "$GITHUB_WORKSPACE/diag/repo-root/scripts" "$RUNNER_TEMP/package" "$RUNNER_TEMP/win11.iso" "$RUNNER_TEMP/out" "${{ matrix.variant }}"
+      - name: KVM trace and kernel log
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          sudo cat /sys/kernel/tracing/trace | head -c 30000000 > "$RUNNER_TEMP/out/kvm-trace.txt" || true
+          sudo dmesg | grep -iE 'kvm|msr|nbd|ntfs' | tail -n 5000 > "$RUNNER_TEMP/out/dmesg-kvm.txt" || true
+          wc -l "$RUNNER_TEMP/out/kvm-trace.txt" "$RUNNER_TEMP/out/dmesg-kvm.txt" || true
+      - if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: diag44-win11-rehearsal-${{ matrix.variant }}
+          path: |
+            ${{ runner.temp }}/out
+            !${{ runner.temp }}/out/private-work
+            !${{ runner.temp }}/out/forensics/raw
+          retention-days: 7
+      - if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: diag44-raw-dumps-and-logs-${{ matrix.variant }}
+          path: ${{ runner.temp }}/out/forensics/raw
+          if-no-files-found: ignore
+          retention-days: 3

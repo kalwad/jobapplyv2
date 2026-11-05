@@ -8,6 +8,7 @@ real repository; nothing here mutates tracked files of the real repo.
 from __future__ import annotations
 
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -20,6 +21,27 @@ REPO_ROOT = SCRIPTS_DIR.parent
 sys.path.insert(0, str(SCRIPTS_DIR))
 
 import verify  # noqa: E402  (path bootstrap must precede the import)
+
+# Fixture repositories copy the project memory the validators read. No validator
+# input cites the M03 native runtime diagnostics tree (about 1,400 retained
+# scratch-branch files); only the whole-docs canonical-specification scan reads it,
+# and validator runs against the real repository still scan the full tree. Leaving
+# it out of each fixture copy saves hosted CI time near the 60-minute job limit
+# (KI-0172).
+UNREAD_DOCS_EVIDENCE = frozenset({"m03-native-runtime-diagnostics"})
+
+
+def copy_docs(destination: Path) -> None:
+    """Copy the repository's docs/ to destination, leaving out unread evidence."""
+    evidence = REPO_ROOT / "docs" / "evidence"
+
+    def skip(directory: str, names: list[str]) -> list[str]:
+        if Path(directory) != evidence:
+            return []
+        return [name for name in names if name in UNREAD_DOCS_EVIDENCE]
+
+    shutil.copytree(REPO_ROOT / "docs", destination, ignore=skip)
+
 
 PASSING_CMD = [sys.executable, "-c", "print('child ok')"]
 FAILING_CMD = [sys.executable, "-c", "raise SystemExit(3)"]

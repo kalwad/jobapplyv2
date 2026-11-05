@@ -1,0 +1,82 @@
+{
+  "retrieved_with": "gh api (2026-10-31UTC); selected fields only",
+  "runs": [
+    {
+      "id": 41157416726,
+      "name": "reviewed Ubuntu GNOME package lifecycle",
+      "run_attempt": 1,
+      "event": "pull_request",
+      "head_sha": "c00c7ebb4d12da4c4fdab848e11b5ad8e0bd76d7",
+      "head_branch": "codex/autofill-evaluation-hardening",
+      "conclusion": "failure",
+      "path": ".github/workflows/ubuntu-gnome-lifecycle.yml",
+      "jobs": [
+        {
+          "id": 124407158418,
+          "name": "authorize",
+          "conclusion": "success"
+        },
+        {
+          "id": 124407328590,
+          "name": "gnome",
+          "conclusion": "failure"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13026030870,
+          "name": "gnome-vm-request-41157416726",
+          "size_in_bytes": 22884,
+          "digest": "sha256:600d576a3e86e989cd2578289ae9244df440e4140c632f02e348914296845966"
+        },
+        {
+          "id": 13025971013,
+          "name": "gnome-lifecycle-a5ec1e3a894fc6f11354f5adce1631b1cc262470-41157416726",
+          "size_in_bytes": 5164,
+          "digest": "sha256:82472d133853e40f87a5e3f16ada9747490bbb8670f9fb0131cb9635f10784e3"
+        }
+      ]
+    },
+    {
+      "id": 41157694334,
+      "name": "ci",
+      "run_attempt": 1,
+      "event": "workflow_dispatch",
+      "head_sha": "afb40d4327b3217fb170ecccbf6a3fe2bd34266e",
+      "head_branch": "diag/windows-service-env",
+      "conclusion": "success",
+      "path": ".github/workflows/ci.yml",
+      "jobs": [
+        {
+          "id": 124408028269,
+          "name": "host apt plan probe",
+          "conclusion": "success"
+        }
+      ],
+      "artifacts": []
+    },
+    {
+      "id": 41157825709,
+      "name": "ci",
+      "run_attempt": 1,
+      "event": "workflow_dispatch",
+      "head_sha": "49249471ccdceb06388c32ffc5aeabcfd65a703a",
+      "head_branch": "diag/windows-service-env",
+      "conclusion": "success",
+      "path": ".github/workflows/ci.yml",
+      "jobs": [
+        {
+          "id": 124408440586,
+          "name": "local-only apt (windows11-host)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124408440834,
+          "name": "local-only apt (gnome-host)",
+          "conclusion": "success"
+        }
+      ],
+      "artifacts": []
+    }
+  ]
+}

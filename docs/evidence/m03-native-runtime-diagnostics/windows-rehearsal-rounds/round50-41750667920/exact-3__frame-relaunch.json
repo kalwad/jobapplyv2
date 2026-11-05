@@ -1,0 +1,8 @@
+{
+  "file": "win11-relaunch.ppm",
+  "width": 1280,
+  "height": 800,
+  "sha256": "2809e8fe89fdc364c0dfca1b9f874b803efe78700566b38b00ecea247f2311de",
+  "nonblank": true,
+  "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+}

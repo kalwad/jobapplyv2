@@ -1,0 +1,648 @@
+{
+  "all_selected_original_archive_bytes_full_modes_verified": true,
+  "members": [
+    {
+      "bytes": 1162,
+      "mode": 420,
+      "path": "independent-review-v3/MANIFEST.json",
+      "sha256": "e5ccc5e8636f0554f44e5e718f5df01104489bd6fc85cd17e5014f83cc430209",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v3/MANIFEST.json"
+    },
+    {
+      "bytes": 12547,
+      "mode": 420,
+      "path": "independent-review-v3/REVIEW.md",
+      "sha256": "e26fbf55fc89f8b3abed825f66f9af6de367f03bf5e797a10f187f203673dee3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v3/REVIEW.md"
+    },
+    {
+      "bytes": 7089,
+      "mode": 420,
+      "path": "independent-review-v3/audit.py",
+      "sha256": "1a9b2a1115941ba0c7723a7b971dc4961df750fb5f0b1e179257b4b65203f098",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v3/audit.py"
+    },
+    {
+      "bytes": 119619,
+      "mode": 420,
+      "path": "independent-review-v3/data-joins.json",
+      "sha256": "5db39df39b7e262ef1151aad8a746932d46cb198f9239c84ac910b391f08b4bc",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v3/data-joins.json"
+    },
+    {
+      "bytes": 132546,
+      "mode": 420,
+      "path": "independent-review-v3/parsed-source-map.json",
+      "sha256": "860a8a871cf0cb0aa65c1b636c71c437b54186ee6106e5fab4c15213090baeaf",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v3/parsed-source-map.json"
+    },
+    {
+      "bytes": 11143,
+      "mode": 420,
+      "path": "independent-review-v3/portability-prediction.json",
+      "sha256": "090f7327e2aefb59c975a63a3ecc8a6884d0fd130042cc3a2a70c7c3293bd8e3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v3/portability-prediction.json"
+    },
+    {
+      "bytes": 1843,
+      "mode": 420,
+      "path": "independent-review-v3/portability-prediction.py",
+      "sha256": "ffe4c089dc588e20235b0e55cce248f2fbb83fa3364b32e55734b7d97f301246",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v3/portability-prediction.py"
+    },
+    {
+      "bytes": 1877,
+      "mode": 420,
+      "path": "independent-review-v4/MANIFEST.json",
+      "sha256": "5ed89660e6f02748376dee4d3aed83b2f731964e857dc33f7b54cc45084b067d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v4/MANIFEST.json"
+    },
+    {
+      "bytes": 11788,
+      "mode": 420,
+      "path": "independent-review-v4/REVIEW.md",
+      "sha256": "89512bdcb15f7273926ee94584c8d49bd26ee13ffb28d06c32d7a01052ed10db",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v4/REVIEW.md"
+    },
+    {
+      "bytes": 387,
+      "mode": 420,
+      "path": "independent-review-v4/audit-first-diagnostic.json",
+      "sha256": "34bfc68ef369dfbbc5bd45f18ac7d6ba8cd4f0ddcd23f06b066e7e6b837d8a0b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v4/audit-first-diagnostic.json"
+    },
+    {
+      "bytes": 7631,
+      "mode": 420,
+      "path": "independent-review-v4/audit-first.py",
+      "sha256": "fa36a200f8751559b9fcb4b070dc89261802aff8bb00b7f7bd36c75100a70cce",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v4/audit-first.py"
+    },
+    {
+      "bytes": 7525,
+      "mode": 420,
+      "path": "independent-review-v4/audit-second.py",
+      "sha256": "5085c8534c93172e14732367c3fc3be2633343948abdc1ac389d33fc1ec61226",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v4/audit-second.py"
+    },
+    {
+      "bytes": 7745,
+      "mode": 420,
+      "path": "independent-review-v4/audit.py",
+      "sha256": "2fa72a8a674a40b2de53f767c0342007f3efb5ab5d20276e50353ab8067d05d2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v4/audit.py"
+    },
+    {
+      "bytes": 573344,
+      "mode": 420,
+      "path": "independent-review-v4/data-joins-second.json",
+      "sha256": "5405e4c03c92493c2c9c1bd45a9fee1d3ce89cb57f5e2adb16441ccb214fc207",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v4/data-joins-second.json"
+    },
+    {
+      "bytes": 573361,
+      "mode": 420,
+      "path": "independent-review-v4/data-joins.json",
+      "sha256": "4c12032642ba8a8f51e6fb795a76c297971300b90cb713cc7d64f3b02fcae2be",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v4/data-joins.json"
+    },
+    {
+      "bytes": 2957,
+      "mode": 420,
+      "path": "independent-review-v4/git-base-audit.py",
+      "sha256": "f4e97d43ab1091712f9bd4808b65b41644bbc1243e779a48b61bb9d8be450adb",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v4/git-base-audit.py"
+    },
+    {
+      "bytes": 239249,
+      "mode": 420,
+      "path": "independent-review-v4/git-base-joins.json",
+      "sha256": "e2222b238cb870c76890d9599fc93c29a3afb7efb58c399ed10d4de9da999e34",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v4/git-base-joins.json"
+    },
+    {
+      "bytes": 454,
+      "mode": 420,
+      "path": "independent-review-v4/windows-lexical-observation.json",
+      "sha256": "9ba96a874e52e6ab209232fb71839ee8dfe75e1bdef35d7b222ee85ab008ae2e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v4/windows-lexical-observation.json"
+    },
+    {
+      "bytes": 631,
+      "mode": 420,
+      "path": "independent-review-v5/MANIFEST.json",
+      "sha256": "728c21af3b2bfdd0047d45bc018ee7a65963fa24ec096ae8e9774fdf0c015f9e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v5/MANIFEST.json"
+    },
+    {
+      "bytes": 7087,
+      "mode": 420,
+      "path": "independent-review-v5/REVIEW.md",
+      "sha256": "181da1d7dbb84c5c44362b67607e714244a70db528962fe8e269f21d1c766095",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v5/REVIEW.md"
+    },
+    {
+      "bytes": 8929,
+      "mode": 420,
+      "path": "independent-review-v5/audit.py",
+      "sha256": "648f1c90494713ccb1667f542e1581c0bc171783cbd949d0ef74e8ac4ef7dd92",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v5/audit.py"
+    },
+    {
+      "bytes": 1070074,
+      "mode": 420,
+      "path": "independent-review-v5/data-joins.json",
+      "sha256": "524b2b80e1647143a3096eab16566756895491c30aea0f2f5421c8b05da8658b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-infrastructure-independent-review/v5/data-joins.json"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/01.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/01.stderr"
+    },
+    {
+      "bytes": 19,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/01.stdout",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/01.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/02.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/02.stderr"
+    },
+    {
+      "bytes": 27,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/02.stdout",
+      "sha256": "d6618aac860f8215745a8e56a5cc32d7f88af148570217bf95dcb18d3ed520d1",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/02.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/03.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/03.stderr"
+    },
+    {
+      "bytes": 44,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/03.stdout",
+      "sha256": "8e71d79dbad0b69ea084d2b82ffa1e884da682da321d892911c2549f0a4a4d72",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/03.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/04.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/04.stderr"
+    },
+    {
+      "bytes": 66,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/04.stdout",
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/04.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/05.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/05.stderr"
+    },
+    {
+      "bytes": 500,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/05.stdout",
+      "sha256": "27825b035ac8210578fb27898622b34a9c888a318cc9b2c12b34dc07d45b1871",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/05.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/06.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/06.stderr"
+    },
+    {
+      "bytes": 35,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/06.stdout",
+      "sha256": "b2369f3d044bc4c808b5aa346434aa52316f5d38268cf433815a465cbafca415",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/06.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/07.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/07.stderr"
+    },
+    {
+      "bytes": 130666,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/07.stdout",
+      "sha256": "1022eab80ef7a72fb95f1734d2a9e1d6d6af774a8531550ce3f1e5761faf1183",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/07.stdout"
+    },
+    {
+      "bytes": 441621,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/after.json",
+      "sha256": "f87817429c7f54dacf751c05c37c3b099bddca7fa295beaca1d916779e03f1ff",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/after.json"
+    },
+    {
+      "bytes": 441621,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/before.json",
+      "sha256": "f87817429c7f54dacf751c05c37c3b099bddca7fa295beaca1d916779e03f1ff",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/before.json"
+    },
+    {
+      "bytes": 185,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/closure.json",
+      "sha256": "493f4943581152b1b11dfe5c8ec06b0c897c63573eab28d6cca03b7f0a8ed929",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/closure.json"
+    },
+    {
+      "bytes": 4468,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/executed-wrapper.py",
+      "sha256": "0fca66c5fa8f326b7210a22b00ba7512f68813147534dcedc4a82415a74a1332",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/executed-wrapper.py"
+    },
+    {
+      "bytes": 3434,
+      "mode": 420,
+      "path": "root-canonical-focus/quality/results.json",
+      "sha256": "47bbed925f269c6550c0a5f156ffb570700a9e6fa595dd1fbc4eb4064e8104d2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/quality/results.json"
+    },
+    {
+      "bytes": 4468,
+      "mode": 420,
+      "path": "root-canonical-focus/run-quality.py",
+      "sha256": "0fca66c5fa8f326b7210a22b00ba7512f68813147534dcedc4a82415a74a1332",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/run-quality.py"
+    },
+    {
+      "bytes": 454,
+      "mode": 420,
+      "path": "root-canonical-focus/selected-tests.json",
+      "sha256": "52f4f2605297e8d2353d624bd2264b3b52e12d2091fce776e408c048c2453456",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-focus-v1/selected-tests.json"
+    },
+    {
+      "bytes": 9507,
+      "mode": 420,
+      "path": "root-check-only-before-adoption/check-only.json",
+      "sha256": "654e522df1081451395d4f4fa6d10aad44056c1960d197c3616f8bcb4fe75bb2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-root-adoption-precheck/check-only.json"
+    },
+    {
+      "bytes": 17316,
+      "mode": 420,
+      "path": "root-source-adoption/ADOPTION.json",
+      "sha256": "e87114e435dc511b8c5f7942b1d49300446fd0f3578a6163010162c67ba8b572",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-adoption-v1/ADOPTION.json"
+    },
+    {
+      "bytes": 9180,
+      "mode": 420,
+      "path": "root-source-adoption/APPLIED.json",
+      "sha256": "554059bb0f2df40e293dd717cd016dc335a18f785190e2171318a681fa21755a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-adoption-v1/APPLIED.json"
+    },
+    {
+      "bytes": 1088,
+      "mode": 420,
+      "path": "root-source-adoption/SEAL.json",
+      "sha256": "2902d5a8059f9a704785672af72395bc6089c17549d0b5159d1778a1d290569a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-adoption-v1/SEAL.json"
+    },
+    {
+      "bytes": 7681,
+      "mode": 420,
+      "path": "root-source-adoption/SOURCE.json",
+      "sha256": "d42eac5761a4d6295b5fca401021329504f5927912b5a5fd93d782bb066d8ba9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-adoption-v1/SOURCE.json"
+    },
+    {
+      "bytes": 23605,
+      "mode": 420,
+      "path": "root-source-adoption/before/.github/workflows/ci.yml",
+      "sha256": "9335588766256e2882f10fcbc04344a65710176d7b8c7429f7cfb337a5ee4585",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-adoption-v1/before/.github/workflows/ci.yml"
+    },
+    {
+      "bytes": 2465,
+      "mode": 420,
+      "path": "root-source-adoption/before/package.json",
+      "sha256": "d0f2d76900c9360e233c2e3f194c37cb7c9782c0238ca3373cec1639696249a3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-adoption-v1/before/package.json"
+    },
+    {
+      "bytes": 6744,
+      "mode": 420,
+      "path": "root-source-adoption/before/pyproject.toml",
+      "sha256": "9a2d34139c38ddf2270f0aabc6e616ac9cf1f8518692b374faae36663686e635",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-adoption-v1/before/pyproject.toml"
+    },
+    {
+      "bytes": 65942,
+      "mode": 420,
+      "path": "root-source-adoption/before/scripts/check_portability.py",
+      "sha256": "260c570b147ce01bc120e47a59533e8394550ac2869eff5ecd97646e66d50a58",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-adoption-v1/before/scripts/check_portability.py"
+    },
+    {
+      "bytes": 291937,
+      "mode": 420,
+      "path": "root-source-adoption/before/scripts/python-test-inventory.v1.json",
+      "sha256": "33a521c34da1fad94e02e28ff4cb9aa79f7ea7d3610ab1af22ea536139e64d9d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-adoption-v1/before/scripts/python-test-inventory.v1.json"
+    },
+    {
+      "bytes": 8262,
+      "mode": 420,
+      "path": "root-source-adoption/before/scripts/tests/test_ci_native_package.py",
+      "sha256": "ec28195802fd36f2a67d35e6e1913ed4199e7a8da7353be723f0514498c53712",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-adoption-v1/before/scripts/tests/test_ci_native_package.py"
+    },
+    {
+      "bytes": 34460,
+      "mode": 420,
+      "path": "root-source-adoption/before/scripts/tests/test_ci_workflow.py",
+      "sha256": "df1222b1014bf60bda98ce7ac4e7efa90d8acabde8fb07c5e068281709e157c4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-adoption-v1/before/scripts/tests/test_ci_workflow.py"
+    },
+    {
+      "bytes": 32392,
+      "mode": 420,
+      "path": "root-source-adoption/before/scripts/verification-suites.json",
+      "sha256": "ca0d178d095e42363b81b76e3e6291a0ce8b9cc719069214a17bb238cebfd4db",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-adoption-v1/before/scripts/verification-suites.json"
+    },
+    {
+      "bytes": 4276,
+      "mode": 420,
+      "path": "root-source-adoption/executed-adopter.py",
+      "sha256": "074ab5ef7129d4aeb5640c28f5abf97ed151d22885d5746ccac583787ec8a2ee",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-adoption-v1/executed-adopter.py"
+    },
+    {
+      "bytes": 7269,
+      "mode": 420,
+      "path": "root-source-adoption/progress.json",
+      "sha256": "555a1908c623c9541a519840aa20f44873300b3e53533ec814d479858ded7719",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/gnome-v5-canonical-adoption-v1/progress.json"
+    },
+    {
+      "bytes": 11310,
+      "mode": 420,
+      "path": "v3-held-history-pins/ADOPTION.json",
+      "sha256": "f2676b7918352651ce252f09b6c237773ddeadf7571174014beaa37d7bce59e8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v3/ADOPTION.json"
+    },
+    {
+      "bytes": 11038,
+      "mode": 420,
+      "path": "v3-held-history-pins/HANDOFF.md",
+      "sha256": "d4c4ff6de60e0545e5bd9ce55043a14840ef81c5139e8865408e3ce40f0c0eca",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v3/HANDOFF.md"
+    },
+    {
+      "bytes": 50096,
+      "mode": 420,
+      "path": "v3-held-history-pins/MANIFEST.json",
+      "sha256": "8c7ace7b3ebd7ff4240ede8c3206e5f62bbf79ae25e3768fbb9fc99d021ddd51",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v3/MANIFEST.json"
+    },
+    {
+      "bytes": 1724,
+      "mode": 420,
+      "path": "v3-held-history-pins/PRESERVATION.json",
+      "sha256": "045a9758ae511d68d606297ba1d1191f8dda91313a1805f547d30e138daef2e7",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v3/PRESERVATION.json"
+    },
+    {
+      "bytes": 697,
+      "mode": 420,
+      "path": "v3-held-history-pins/SEAL.json",
+      "sha256": "7120418c62aee23a91f823690ddba06d182a314d7b66a3918bf7517ddf2b987e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v3/SEAL.json"
+    },
+    {
+      "bytes": 5655,
+      "mode": 420,
+      "path": "v3-held-history-pins/SOURCE.json",
+      "sha256": "73d439780520d31203c79a51cf0f8336ae7baeefa790caa8a17500463438fc51",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v3/SOURCE.json"
+    },
+    {
+      "bytes": 761,
+      "mode": 420,
+      "path": "v3-held-history-pins/SUMMARY.json",
+      "sha256": "a6fee4f1b1a448959d7f6bfa29f78cb0310d46367317ca87cfed46ac95673c0a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v3/SUMMARY.json"
+    },
+    {
+      "bytes": 22930,
+      "mode": 420,
+      "path": "v4-held-history/ADOPTION.json",
+      "sha256": "b116b78ce9d5ad875323947935459d7e3a210b3dcc0248630cef3d050553268f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v4/ADOPTION.json"
+    },
+    {
+      "bytes": 15594,
+      "mode": 420,
+      "path": "v4-held-history/DELTA-FROM-V3.json",
+      "sha256": "f3e29e1abb6f8985bd17614dfc183df7098286ceb266c1b2455dc44514bc963c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v4/DELTA-FROM-V3.json"
+    },
+    {
+      "bytes": 10645,
+      "mode": 420,
+      "path": "v4-held-history/HANDOFF.md",
+      "sha256": "8302781d565532a16f9f6b4935815fa1089fc587cd6c284f3124e4cf219b875f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v4/HANDOFF.md"
+    },
+    {
+      "bytes": 65592,
+      "mode": 420,
+      "path": "v4-held-history/MANIFEST.json",
+      "sha256": "2ec601aa613e44cb242630bc591f048f30481f2f2084810f441a0283017b6dd1",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v4/MANIFEST.json"
+    },
+    {
+      "bytes": 1039,
+      "mode": 420,
+      "path": "v4-held-history/SEAL.json",
+      "sha256": "95eafe445e3df1ccfed706d7f4c01a0950d6afdf1e12935838921b635f9b8c19",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v4/SEAL.json"
+    },
+    {
+      "bytes": 7847,
+      "mode": 420,
+      "path": "v4-held-history/SOURCE.json",
+      "sha256": "3e8e6dc3d025898c34f99576aa8a2a563c6f5bd0024245f5bad839139d82dc33",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v4/SOURCE.json"
+    },
+    {
+      "bytes": 1056,
+      "mode": 420,
+      "path": "v4-held-history/SUMMARY.json",
+      "sha256": "1a17cd6f897313b0301ccd4d4d9cc8521a4e1c391a9e3af8b8d9efe99ea0b4dd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v4/SUMMARY.json"
+    },
+    {
+      "bytes": 307,
+      "mode": 420,
+      "path": "v4-held-history/V3-ANCHOR.json",
+      "sha256": "3fca0ae237507fd540fd159cf5790f844c71f8296bbcd7b09dd5372502f72c81",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v4/V3-ANCHOR.json"
+    },
+    {
+      "bytes": 1233609,
+      "mode": 420,
+      "path": "v4-held-history/proof-source-and-data.tar.gz",
+      "sha256": "1990266ef0bb785bfb1cba525cbf24dcda4101a44aabe857b48cbb454cc8af08",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v4/proof-source-and-data.tar.gz"
+    },
+    {
+      "bytes": 17316,
+      "mode": 420,
+      "path": "v5-final/ADOPTION.json",
+      "sha256": "e87114e435dc511b8c5f7942b1d49300446fd0f3578a6163010162c67ba8b572",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/ADOPTION.json"
+    },
+    {
+      "bytes": 464892,
+      "mode": 420,
+      "path": "v5-final/ADOPTION.patch",
+      "sha256": "8803f2ef7af0eb47e3f6f1e229f9ce55a5008f9244890edd1f6f4b3df239f861",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/ADOPTION.patch"
+    },
+    {
+      "bytes": 1008,
+      "mode": 420,
+      "path": "v5-final/COMPOSITION-FINAL.json",
+      "sha256": "873a9734f7014ef428ef642809a4b8629bfca32cdb74f63dd9157ba9bb658444",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/COMPOSITION-FINAL.json"
+    },
+    {
+      "bytes": 1436,
+      "mode": 420,
+      "path": "v5-final/DELTA-FROM-V4.json",
+      "sha256": "2aafbcf388e4eaa2aefb2d6736a27195f032975862adf561858bec3bc789a029",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/DELTA-FROM-V4.json"
+    },
+    {
+      "bytes": 9193,
+      "mode": 420,
+      "path": "v5-final/DELTA-FROM-V4.patch",
+      "sha256": "eb59b6e361384d2a7e7426904200817455ac8902178e270e92a5ea655286b9ec",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/DELTA-FROM-V4.patch"
+    },
+    {
+      "bytes": 10030,
+      "mode": 420,
+      "path": "v5-final/FINAL-CHECKS.json",
+      "sha256": "67c893b35efce243bc205d654f2e887575cfa94f411293b4a43eb7b0bd8389e8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/FINAL-CHECKS.json"
+    },
+    {
+      "bytes": 7223,
+      "mode": 420,
+      "path": "v5-final/HANDOFF.md",
+      "sha256": "3e2d65e1219ebf815a2020164640bab2226006ce052f6ab9bd21cdec7f1618d2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/HANDOFF.md"
+    },
+    {
+      "bytes": 108584,
+      "mode": 420,
+      "path": "v5-final/INVENTORY-ADDITION.json",
+      "sha256": "dd62db82b12ac9bc0f5975c34564826113e0c827d00609d2fc893b8f4550acd3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/INVENTORY-ADDITION.json"
+    },
+    {
+      "bytes": 25098,
+      "mode": 420,
+      "path": "v5-final/MANIFEST.json",
+      "sha256": "b3608e97f3d0cc61267d3ed602675813f2b08bf70fb43cb49cd65c735a7e874b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/MANIFEST.json"
+    },
+    {
+      "bytes": 772,
+      "mode": 420,
+      "path": "v5-final/QA-DEPENDENCY-COPIES.json",
+      "sha256": "460276932daef4dff0d84b15614f07efe1ed99067bcc582f59ce87c22e27133e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/QA-DEPENDENCY-COPIES.json"
+    },
+    {
+      "bytes": 1088,
+      "mode": 420,
+      "path": "v5-final/SEAL.json",
+      "sha256": "2902d5a8059f9a704785672af72395bc6089c17549d0b5159d1778a1d290569a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/SEAL.json"
+    },
+    {
+      "bytes": 6879,
+      "mode": 420,
+      "path": "v5-final/SOURCE-BEFORE-QA.json",
+      "sha256": "b91383f9fc518181fce465b00751f9d66899a5b0ffc96bb10e757dfc8e01d181",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/SOURCE-BEFORE-QA.json"
+    },
+    {
+      "bytes": 7681,
+      "mode": 420,
+      "path": "v5-final/SOURCE.json",
+      "sha256": "d42eac5761a4d6295b5fca401021329504f5927912b5a5fd93d782bb066d8ba9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/SOURCE.json"
+    },
+    {
+      "bytes": 479,
+      "mode": 420,
+      "path": "v5-final/SUMMARY.json",
+      "sha256": "dfae683bcba167b9c35994e8b35ef1e16d16f0d6dcb1164bc0ac21adea1b65df",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/SUMMARY.json"
+    },
+    {
+      "bytes": 647,
+      "mode": 420,
+      "path": "v5-final/TEST-FIRST.json",
+      "sha256": "e19297d76f20a67ac4cfc09d577fc98003713f3337c9b1b8077b04bdb0531b4e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/TEST-FIRST.json"
+    },
+    {
+      "bytes": 286,
+      "mode": 420,
+      "path": "v5-final/V4-ANCHOR.json",
+      "sha256": "05f829aab3a4fed4356f5178daa43faa6a0189ba0723db33948b39e883bb56d9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/V4-ANCHOR.json"
+    },
+    {
+      "bytes": 832369,
+      "mode": 420,
+      "path": "v5-final/proof-source-and-data.tar.gz",
+      "sha256": "ba004fa8a02fb0d29b254e83a826170c3f1c9dee7e1b818f45c08775a7f5d243",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ubuntu-gnome-lifecycle-preparation/v5/proof-source-and-data.tar.gz"
+    }
+  ],
+  "omissions": [
+    "Full2187immutableGitbase bodies and copied QA dependency bodies remain outside; immutable Git/body and dependency-copy maps retained.",
+    "V3 raw source/QA histories remain outside; selected original historical pins/review retained, no complete-v3-retention claim.",
+    "No actual APT/image/host-tool candidate closure, installation, VM/GDM/GUI session or native package lifecycle was produced."
+  ],
+  "regular_members": 91
+}

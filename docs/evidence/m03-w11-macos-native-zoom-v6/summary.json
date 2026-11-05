@@ -1,0 +1,28 @@
+{
+  "actual_routes_each_scale": 7,
+  "all_native_controls_pass": true,
+  "app_files": 43,
+  "budget_ms": 600000,
+  "different_data_joins": 1354,
+  "different_pixel_checks": 590,
+  "formal_acceptance": false,
+  "four_witnesses_pass": true,
+  "fresh_launch": false,
+  "keyboard_return_refresh_and_skip_each_scale": true,
+  "new_orphan_measurement": false,
+  "original_measured_captures": 50,
+  "quit_literal": "Error: Computer Use server error -10005: App quit",
+  "recorded_budget_close_ms": 344260.882292,
+  "result": "CLEAR_AS_RECORDED_SCOPED_MAC_GUI_OBSERVATION",
+  "runtime_files": 40,
+  "scales": [
+    "baseline",
+    "measured-near2",
+    "reset"
+  ],
+  "screen_reader": false,
+  "selected_source_files": 22,
+  "separate_prospective_warmup": 1,
+  "source_commit": "a7caf7101a7445294c8776c6c09c6cbd0d107bc9",
+  "source_tree": "9173225507ad3c4a43c1f4978cc5f005a30264f7"
+}

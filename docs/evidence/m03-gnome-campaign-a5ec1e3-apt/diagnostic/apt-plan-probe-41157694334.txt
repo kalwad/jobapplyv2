@@ -1,0 +1,151 @@
+# Run 41157694334 (diag/windows-service-env afb40d4, ubuntu-24.04): job log, timestamps and ANSI codes stripped.
+
+Current runner version: '2.338.2'
+##[group]Runner Image Provisioner
+Hosted Compute Agent
+Version: 20261021.618
+Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+Build Date: 2026-10-21T00:45:21Z
+Worker ID: {f9342dc4-6b61-408d-9c31-23ed2e887eba}
+Region: eastus
+Cloud: Azure
+##[endgroup]
+##[group]Operating System
+Ubuntu
+24.04.5
+LTS
+##[endgroup]
+##[group]Runner Image
+Image: ubuntu-24.04
+Version: 20261025.353.1
+Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
+Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
+##[endgroup]
+##[group]GITHUB_TOKEN Permissions
+Actions: read
+Contents: read
+Metadata: read
+##[endgroup]
+Secret source: Actions
+Cache mode: write
+Prepare workflow directory
+Prepare all required actions
+Complete job name: host apt plan probe
+##[group]Run gh run download 41154763996 -R kalwad/jobapplyv2 -n unreviewed-gnome-inputs-a5ec1e3a894fc6f11354f5adce1631b1cc262470-41154763996 -D "$RUNNER_TEMP/cand"
+gh run download 41154763996 -R kalwad/jobapplyv2 -n unreviewed-gnome-inputs-a5ec1e3a894fc6f11354f5adce1631b1cc262470-41154763996 -D "$RUNNER_TEMP/cand"
+echo "ImageVersion=$ImageVersion"
+ls "$RUNNER_TEMP/cand/inputs/host-debs" | wc -l
+shell: /usr/bin/bash -e {0}
+env:
+  GH_TOKEN: ***
+##[endgroup]
+ImageVersion=20261026.354.1
+131
+##[group]Run cd "$RUNNER_TEMP/cand/inputs/host-debs"
+cd "$RUNNER_TEMP/cand/inputs/host-debs"
+apt-get -s --no-install-recommends install ./*.deb > "$RUNNER_TEMP/sim.txt" 2>&1 || echo "simulate exit $?"
+grep -E "^(Inst|Conf|Remv)" "$RUNNER_TEMP/sim.txt" | head -200
+echo "--- non-local Inst lines (would need a download):"
+grep -E "^Inst" "$RUNNER_TEMP/sim.txt" | grep -v "/home/runner\|local" | head -50
+tail -20 "$RUNNER_TEMP/sim.txt"
+shell: /usr/bin/bash -e {0}
+##[endgroup]
+Inst genisoimage (9:1.1.11-3.5 Ubuntu:24.04/noble, local-deb [amd64])
+Inst ipxe-qemu (1.21.1+git-20220113.fbbdc3926-0ubuntu2 Ubuntu:24.04/noble, local-deb [all])
+Inst libbrlapi0.8 (6.6-4ubuntu5 Ubuntu:24.04/noble, local-deb [amd64])
+Inst libpcsclite1 (2.0.3-1build1 Ubuntu:24.04/noble, local-deb [amd64])
+Inst libcacard0 (1:2.8.0-3build4 Ubuntu:24.04/noble, local-deb [amd64])
+Inst libdaxctl1 (77-2ubuntu2 Ubuntu:24.04/noble, local-deb [amd64])
+Inst libndctl6 (77-2ubuntu2 Ubuntu:24.04/noble, local-deb [amd64])
+Inst libpmem1 (1.13.1-1.1ubuntu2 Ubuntu:24.04/noble, local-deb [amd64])
+Inst librdmacm1t64 (50.0-2ubuntu0.2 Ubuntu:24.04/noble-updates, local-deb [amd64])
+Inst liburing2 (2.5-1build1 Ubuntu:24.04/noble, local-deb [amd64])
+Inst libusbredirparser1t64 (0.13.0-2.1build1 Ubuntu:24.04/noble, local-deb [amd64])
+Inst qemu-system-common (1:8.2.2+ds-0ubuntu1.18 Ubuntu:24.04/noble-updates, local-deb [amd64])
+Inst qemu-system-data (1:8.2.2+ds-0ubuntu1.18 Ubuntu:24.04/noble-updates, local-deb [all])
+Inst libfdt1 (1.7.0-2build1 Ubuntu:24.04/noble, local-deb [amd64])
+Inst seabios (1.16.3-2 Ubuntu:24.04/noble, local-deb [all])
+Inst qemu-system-x86 (1:8.2.2+ds-0ubuntu1.18 Ubuntu:24.04/noble-updates, local-deb [amd64])
+Inst qemu-utils (1:8.2.2+ds-0ubuntu1.18 Ubuntu:24.04/noble-updates, local-deb [amd64])
+Inst ubuntu-cloudimage-keyring (2023.11.28.1 Ubuntu:24.04/noble, local-deb [all])
+Inst cloud-image-utils (0.33-1 Ubuntu:24.04/noble, local-deb [all])
+Conf genisoimage (9:1.1.11-3.5 Ubuntu:24.04/noble, local-deb [amd64])
+Conf ipxe-qemu (1.21.1+git-20220113.fbbdc3926-0ubuntu2 Ubuntu:24.04/noble, local-deb [all])
+Conf libbrlapi0.8 (6.6-4ubuntu5 Ubuntu:24.04/noble, local-deb [amd64])
+Conf libpcsclite1 (2.0.3-1build1 Ubuntu:24.04/noble, local-deb [amd64])
+Conf libcacard0 (1:2.8.0-3build4 Ubuntu:24.04/noble, local-deb [amd64])
+Conf libdaxctl1 (77-2ubuntu2 Ubuntu:24.04/noble, local-deb [amd64])
+Conf libndctl6 (77-2ubuntu2 Ubuntu:24.04/noble, local-deb [amd64])
+Conf libpmem1 (1.13.1-1.1ubuntu2 Ubuntu:24.04/noble, local-deb [amd64])
+Conf librdmacm1t64 (50.0-2ubuntu0.2 Ubuntu:24.04/noble-updates, local-deb [amd64])
+Conf liburing2 (2.5-1build1 Ubuntu:24.04/noble, local-deb [amd64])
+Conf libusbredirparser1t64 (0.13.0-2.1build1 Ubuntu:24.04/noble, local-deb [amd64])
+Conf qemu-system-common (1:8.2.2+ds-0ubuntu1.18 Ubuntu:24.04/noble-updates, local-deb [amd64])
+Conf qemu-system-data (1:8.2.2+ds-0ubuntu1.18 Ubuntu:24.04/noble-updates, local-deb [all])
+Conf libfdt1 (1.7.0-2build1 Ubuntu:24.04/noble, local-deb [amd64])
+Conf seabios (1.16.3-2 Ubuntu:24.04/noble, local-deb [all])
+Conf qemu-system-x86 (1:8.2.2+ds-0ubuntu1.18 Ubuntu:24.04/noble-updates, local-deb [amd64])
+Conf qemu-utils (1:8.2.2+ds-0ubuntu1.18 Ubuntu:24.04/noble-updates, local-deb [amd64])
+Conf ubuntu-cloudimage-keyring (2023.11.28.1 Ubuntu:24.04/noble, local-deb [all])
+Conf cloud-image-utils (0.33-1 Ubuntu:24.04/noble, local-deb [all])
+--- non-local Inst lines (would need a download):
+Inst cloud-image-utils (0.33-1 Ubuntu:24.04/noble, local-deb [all])
+Conf genisoimage (9:1.1.11-3.5 Ubuntu:24.04/noble, local-deb [amd64])
+Conf ipxe-qemu (1.21.1+git-20220113.fbbdc3926-0ubuntu2 Ubuntu:24.04/noble, local-deb [all])
+Conf libbrlapi0.8 (6.6-4ubuntu5 Ubuntu:24.04/noble, local-deb [amd64])
+Conf libpcsclite1 (2.0.3-1build1 Ubuntu:24.04/noble, local-deb [amd64])
+Conf libcacard0 (1:2.8.0-3build4 Ubuntu:24.04/noble, local-deb [amd64])
+Conf libdaxctl1 (77-2ubuntu2 Ubuntu:24.04/noble, local-deb [amd64])
+Conf libndctl6 (77-2ubuntu2 Ubuntu:24.04/noble, local-deb [amd64])
+Conf libpmem1 (1.13.1-1.1ubuntu2 Ubuntu:24.04/noble, local-deb [amd64])
+Conf librdmacm1t64 (50.0-2ubuntu0.2 Ubuntu:24.04/noble-updates, local-deb [amd64])
+Conf liburing2 (2.5-1build1 Ubuntu:24.04/noble, local-deb [amd64])
+Conf libusbredirparser1t64 (0.13.0-2.1build1 Ubuntu:24.04/noble, local-deb [amd64])
+Conf qemu-system-common (1:8.2.2+ds-0ubuntu1.18 Ubuntu:24.04/noble-updates, local-deb [amd64])
+Conf qemu-system-data (1:8.2.2+ds-0ubuntu1.18 Ubuntu:24.04/noble-updates, local-deb [all])
+Conf libfdt1 (1.7.0-2build1 Ubuntu:24.04/noble, local-deb [amd64])
+Conf seabios (1.16.3-2 Ubuntu:24.04/noble, local-deb [all])
+Conf qemu-system-x86 (1:8.2.2+ds-0ubuntu1.18 Ubuntu:24.04/noble-updates, local-deb [amd64])
+Conf qemu-utils (1:8.2.2+ds-0ubuntu1.18 Ubuntu:24.04/noble-updates, local-deb [amd64])
+Conf ubuntu-cloudimage-keyring (2023.11.28.1 Ubuntu:24.04/noble, local-deb [all])
+Conf cloud-image-utils (0.33-1 Ubuntu:24.04/noble, local-deb [all])
+##[group]Run cd "$RUNNER_TEMP/cand/inputs/host-debs"
+cd "$RUNNER_TEMP/cand/inputs/host-debs"
+sudo -n apt-get --no-download --no-install-recommends -y --print-uris install ./*.deb 2>&1 | grep -vE "is already the newest|set to manually" | tail -60 || true
+shell: /usr/bin/bash -e {0}
+##[endgroup]
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Suggested packages:
+  mtools wodim cdrkit-doc pcscd samba vde2
+Recommended packages:
+  ipxe-qemu-256k-compat-efi-roms ovmf qemu-system-gui
+  qemu-system-modules-spice qemu-system-modules-opengl qemu-block-extra
+  cpu-checker
+E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+##[group]Run cd "$RUNNER_TEMP/cand/inputs/host-debs"
+cd "$RUNNER_TEMP/cand/inputs/host-debs"
+for f in *.deb; do p=$(dpkg-deb -f "$f" Package); v=$(dpkg-deb -f "$f" Version); i=$(dpkg-query -W -f='${Version}' "$p" 2>/dev/null || echo NONE); [ "$v" != "$i" ] && echo "$p locked=$v installed=$i"; done | head -80
+shell: /usr/bin/bash -e {0}
+##[endgroup]
+cloud-image-utils locked=0.33-1 installed=NONE
+genisoimage locked=9:1.1.11-3.5 installed=NONE
+ipxe-qemu locked=1.21.1+git-20220113.fbbdc3926-0ubuntu2 installed=NONE
+libbrlapi0.8 locked=6.6-4ubuntu5 installed=NONE
+libcacard0 locked=1:2.8.0-3build4 installed=NONE
+libdaxctl1 locked=77-2ubuntu2 installed=NONE
+libfdt1 locked=1.7.0-2build1 installed=NONE
+libndctl6 locked=77-2ubuntu2 installed=NONE
+libpcsclite1 locked=2.0.3-1build1 installed=NONE
+libpmem1 locked=1.13.1-1.1ubuntu2 installed=NONE
+librdmacm1t64 locked=50.0-2ubuntu0.2 installed=NONE
+liburing2 locked=2.5-1build1 installed=NONE
+libusbredirparser1t64 locked=0.13.0-2.1build1 installed=NONE
+qemu-system-common locked=1:8.2.2+ds-0ubuntu1.18 installed=NONE
+qemu-system-data locked=1:8.2.2+ds-0ubuntu1.18 installed=NONE
+qemu-system-x86 locked=1:8.2.2+ds-0ubuntu1.18 installed=NONE
+qemu-utils locked=1:8.2.2+ds-0ubuntu1.18 installed=NONE
+seabios locked=1.16.3-2 installed=NONE
+ubuntu-cloudimage-keyring locked=2023.11.28.1 installed=
+Cleaning up orphan processes

@@ -1,0 +1,9 @@
+3a60cf9 diag: round 6 (clang-cl/llvm-lib for build-time C++)
+75be06e diag: round 5 (MSVC tool lineage with command lines)
+173bab0 diag: round 4 (rust-lld + pinned rc.exe, build and test compile)
+16678a7 diag: round 3 (trace VCTIP parent, SQM opt-out)
+cdc4523 diag: round 2 (rust-lld desktop, dumpbin, env control)
+b8b84b0 diag: add runner availability probes
+d9f5838 diag: Windows Job linger experiment (scratch branch, never merge)
+a010835 fix(packaging): align project wheel and debug hashing profile
+4596874 diag: round 6b (no rc pin)

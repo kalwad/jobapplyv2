@@ -1,0 +1,18 @@
+{
+ "accel": "kvm",
+ "variant": "nrsuspend",
+ "end_seconds": 171.8,
+ "collected_at_seconds": 171.1,
+ "vm_exit": null,
+ "serial_bytes": 72641,
+ "max_ssh_seconds": 3.05,
+ "ssh_polls_over_6s": 0,
+ "ssh_polls": 32,
+ "milestones_first_seen_host_seconds": {
+  "probe-start": 48.6,
+  "hashed": 59.3,
+  "installed": 165.8,
+  "configured": 165.8,
+  "gdm-restarted": 165.8
+ }
+}

@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "operation": "accelerator_focus",
+  "result": {
+    "focus_observed": true,
+    "app": "30624:31953",
+    "owned_frame_active": true,
+    "frame_count": 1,
+    "frames": [
+      {
+        "name": "Desktop App",
+        "role": "frame",
+        "active": true,
+        "visible": true,
+        "showing": true
+      }
+    ],
+    "focused_count": 3,
+    "focused": [
+      {
+        "name": "",
+        "role": "scroll pane"
+      },
+      {
+        "name": "Diagnostics \u00b7 Desktop app",
+        "role": "document web"
+      },
+      {
+        "name": "Diagnostics",
+        "role": "heading"
+      }
+    ]
+  },
+  "elapsed_seconds": 0.2361097369999925
+}

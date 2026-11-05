@@ -1,0 +1,119 @@
+--- a/services/orchestrator/src/orchestrator/generation/client.py
++++ b/services/orchestrator/src/orchestrator/generation/client.py
+@@ -61,6 +61,9 @@
+     prompt_eval_duration: Annotated[int, Field(ge=0)] | None = None
+     eval_duration: Annotated[int, Field(ge=0)] | None = None
+     prompt_eval_count: Annotated[int, Field(ge=0, le=_MAX_USAGE_COUNT)] | None = None
++    prompt_eval_cached_count: (
++        Annotated[int, Field(ge=0, le=_MAX_USAGE_COUNT)] | None
++    ) = None
+     eval_count: Annotated[int, Field(ge=0, le=_MAX_USAGE_COUNT)] | None = None
+ 
+ 
+--- a/services/orchestrator/tests/test_generation_boundary.py
++++ b/services/orchestrator/tests/test_generation_boundary.py
+@@ -133,6 +133,104 @@
+         default_local_profile=_PROFILE.profile_ref,
+         local_transport=transport,
+     )
++
++
++@pytest.mark.parametrize("cached", [0, 3, 1_000_000_000, None])
++def test_pinned_mlx_cached_prompt_counter_is_bounded_wire_metadata_only(
++    cached: int | None,
++) -> None:
++    async def scenario() -> None:
++        body = _frame(
++            _DOCUMENT.model_dump_json(),
++            prompt_eval_count=1_000_000_000,
++            prompt_eval_cached_count=cached,
++        )
++        stream = _Stream(tuple(bytes([byte]) for byte in body))
++        transport = _Transport(stream)
++        result = await _client(transport).generate(_request())
++        assert result.candidates == _DOCUMENT
++        assert result.audit.prompt_tokens == 1_000_000_000
++        assert result.audit.output_tokens == 11
++        assert result.audit.attempts == 1
++        assert not result.audit.runtime_digest_verified
++        assert not result.release_permitted
++        assert stream.closed
++
++    asyncio.run(scenario())
++
++
++@pytest.mark.parametrize(
++    "cached", [True, False, -1, 1_000_000_001, 0.0, 1.0, "0", {}, []]
++)
++def test_invalid_cached_prompt_counter_refuses_without_retry(cached: object) -> None:
++    async def scenario() -> None:
++        stream = _Stream(
++            (_frame(_DOCUMENT.model_dump_json(), prompt_eval_cached_count=cached),)
++        )
++        transport = _Transport(stream)
++        with pytest.raises(GenerationFailure) as caught:
++            await _client(transport).generate(_request())
++        assert caught.value.code is ErrorCode.PROTOCOL
++        assert caught.value.audit is not None
++        assert caught.value.audit.attempts == 1
++        assert len(transport.calls) == 1
++        assert stream.closed
++
++    asyncio.run(scenario())
++
++
++@pytest.mark.parametrize(
++    "patch",
++    [
++        {"unknown_metric": 0},
++        {"model": "different:model"},
++        {
++            "message": {
++                "role": "assistant",
++                "content": "",
++                "thinking": "Synthetic forbidden thinking.",
++            }
++        },
++    ],
++)
++def test_known_cached_counter_does_not_relax_other_protocol_guards(
++    patch: dict[str, object],
++) -> None:
++    async def scenario() -> None:
++        stream = _Stream(
++            (_frame(_DOCUMENT.model_dump_json(), prompt_eval_cached_count=0, **patch),)
++        )
++        transport = _Transport(stream)
++        with pytest.raises(GenerationFailure) as caught:
++            await _client(transport).generate(_request())
++        assert caught.value.code is ErrorCode.PROTOCOL
++        assert caught.value.audit is not None
++        assert caught.value.audit.attempts == 1
++        assert len(transport.calls) == 1
++        assert stream.closed
++
++    asyncio.run(scenario())
++
++
++def test_known_cached_counter_preserves_one_schema_repair_attempt() -> None:
++    async def scenario() -> None:
++        first = _Stream((_frame("not JSON", prompt_eval_cached_count=0),))
++        second = _Stream(
++            (_frame(_DOCUMENT.model_dump_json(), prompt_eval_cached_count=3),)
++        )
++        transport = _Transport(first, second)
++        result = await _client(transport).generate(_request())
++        assert result.candidates == _DOCUMENT
++        assert result.audit.attempts == 2
++        assert result.audit.prompt_tokens == 14
++        assert result.audit.output_tokens == 22
++        assert not result.release_permitted
++        assert not result.audit.runtime_digest_verified
++        assert first.closed
++        assert second.closed
++        assert len(transport.calls) == 2
++
++    asyncio.run(scenario())
+ 
+ 
+ def test_split_utf8_stream_is_candidate_only_with_redacted_audit() -> None:

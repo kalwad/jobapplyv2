@@ -1,0 +1,2691 @@
+diff --git a/apps/extension/src/field-scanner.ts b/apps/extension/src/field-scanner.ts
+index 64839b9..597deae 100644
+--- a/apps/extension/src/field-scanner.ts
++++ b/apps/extension/src/field-scanner.ts
+@@ -283,6 +283,7 @@ export function normalizeText(value: string | null | undefined): string {
+   }
+   const normalized = value
+     .normalize("NFKC")
++    .replaceAll(/[ßẞ]/g, "ss")
+     .replaceAll(/\s+/g, " ")
+     .replaceAll(/[^A-Za-z0-9 .,:!?()'&+/@_-]/g, " ")
+     .replaceAll(/\s+/g, " ")
+diff --git a/docs/CRITICAL_GATES.md b/docs/CRITICAL_GATES.md
+index d67110d..1a0964e 100644
+--- a/docs/CRITICAL_GATES.md
++++ b/docs/CRITICAL_GATES.md
+@@ -60,14 +60,14 @@ reports live in `docs/gates/`.
+ 
+ | Gate | State | Owning milestones | Blocks | Report |
+ |---|---|---|---|---|
+-| AUTOFILL_FEASIBILITY | NOT_EVALUATED | M02 | M03 readiness (and M17/M18/M19 qualifiers) | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
++| AUTOFILL_FEASIBILITY | IN_PROGRESS | M02 | M03 readiness (and M17/M18/M19 qualifiers) | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
+ | RESUME_PAGEFIT_FEASIBILITY | NOT_EVALUATED | M05 | M06 readiness | docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md |
+ | WORKDAY_GUIDED_PRE_SUBMIT | NOT_EVALUATED | M19–M20 | M21 readiness and later production ATS expansion (and M22/M23 qualifiers) | docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md |
+ | CROSS_PLATFORM_CORE | NOT_EVALUATED | M03–M05, M10, M17, M27 | M28 readiness (requires M27 ACCEPTED) | docs/gates/CROSS_PLATFORM_CORE_GATE.md |
+ 
+ ## AUTOFILL_FEASIBILITY
+ 
+-- State: NOT_EVALUATED
++- State: IN_PROGRESS
+ - Evaluated revision: —
+ - Corpus/holdout hash: —
+ - Independent reviewer: —
+diff --git a/docs/DECISIONS.md b/docs/DECISIONS.md
+index 58fbfb9..1da1dd8 100644
+--- a/docs/DECISIONS.md
++++ b/docs/DECISIONS.md
+@@ -62,6 +62,8 @@ Canonical registry of (a) owner decisions that override earlier plans and
+ | OD-033 | External AI output remains untrusted candidate data under the same schemas, evidence, verifier, sensitive-field, review, and no-submit boundaries as local output. | ACCEPTED | Spec v1.4 §0(35) |
+ | OD-034 | Only one implementation agent may modify a working tree at a time; independent audits and agent handoffs use clean package boundaries or separate worktrees. | ACCEPTED | Spec v1.4 §0(27), §1.5 |
+ 
++| OD-035 | Continue all work packages without stopping after each W; owner-controlled holdout is waived. Preserve measured results and report every remaining validation limitation. | ACCEPTED | Owner messages 2026-10-16; ADR-0006 |
++
+ ## Architecture decision records
+ 
+ | ID | Title | Status | Date | Spec sections affected |
+@@ -399,6 +401,23 @@ Canonical registry of (a) owner decisions that override earlier plans and
+ - Spec sections, requirements, milestones, schemas, gates, and compatibility promises affected: M02-W13 measurement viability; existing W08–W11 local scanner/dynamic interfaces; spec§1.4/§1.5 and Gate A§2.3. W13 directly owns zero canonical requirement rows. No canonical evolution or gate-state change is proposed.
+ - Owner approval: explicit2026-09-30 resume execution package (attachment06627663-bd1f-45a4-a6e5-4d6931c58008) authorizes four additional performance-rescue rounds and the remaining original W13 closeout. Owner-selected model is GPT-6.1 Sol Ultra. No canonical/schema/trust-boundary evolution, W14 execution, threshold weakening or safety-check removal is authorized. W13 is IN_PROGRESS; W14/W15 NOT_STARTED; zero READY.
+ 
++### ADR-0006 — Continuous execution and owner-controlled holdout waiver
++
++- Status: ACCEPTED
++- Date proposed / date decided: 2026-10-16 / 2026-10-16
++- Owner approval: direct instructions in this chat: "ignore instructions relating to stopping after each W is reached and validated"; "you do not need owner controlled holdout"; "i want you to keep working till this entire project is finished". The owner identified the working GitHub repository as jobapplyv2.
++- Decision: execute successive eligible packages without per-W stopping. Remove owner-controlled hidden holdout as a completion prerequisite across this project. Use accessible GitHub sources where they provide actual inputs or legacy comparison components. Preserve original manifests and historical evidence; never relabel a waiver as execution or PASS.
++- Observed constraint: M02-W14 was READY after W13 verification. Original v1.4 required owner-external hidden inputs and per-package boundaries; those process requirements conflict with the owner's new instructions.
++- Alternatives considered: retain the original holdout prerequisite, which contradicts the owner; silently mark it passed, which would fabricate evidence; record this explicit accepted owner override and continue, selected.
++- Tradeoffs: hidden-set generalization assurance is reduced. Visible synthetic regressions, physical safety counters, accuracy, performance, independent review and scoped compatibility still require their actual evidence. This decision does not assert that they passed.
++- Security/privacy impact: no permission to expose private data, automate credentials, bypass challenges or submit unapproved applications. Synthetic loopback evaluation remains appropriate.
++- Data-migration impact: none. Existing corpus/holdout manifests, completed package anchors and baseline history remain immutable.
++- Benchmark and gate impact: owner-controlled holdout is WAIVED_BY_OWNER. Numerical accuracy/performance/safety thresholds and native platform proof are unchanged. Missing comparison results remain explicitly missing.
++- Test impact: preserve all existing behavioral regressions. Any future gate validator amendment must accept only the explicit waiver with this accepted decision and must reject fabricated execution evidence; no blanket test skip is authorized.
++- Contract precedence: this is the owner's subsequent explicit override under specification §0's opening rule. Preserve the exact originally approved v1.4 bytes and hash as historical adoption evidence; read its owner-holdout and package-stop clauses subject to this accepted amendment. Other requirements remain in force.
++- Rollback plan: only a subsequent owner decision can restore mandatory hidden holdout; retain the manifests so such evaluation remains possible.
++- Spec sections, requirements, milestones, schemas, gates, and compatibility promises affected: operational holdout/process clauses in §0/§1/§2.3/§5.13/§8/§9/§12 and their four gates; no canonical schema, product scope, compatibility promise or completed result changes.
++
+ ## ADR template
+ 
+ ```markdown
+diff --git a/docs/PROJECT_STATUS.md b/docs/PROJECT_STATUS.md
+index f98af64..47d0975 100644
+--- a/docs/PROJECT_STATUS.md
++++ b/docs/PROJECT_STATUS.md
+@@ -1,18 +1,18 @@
+ # Project Status
+ 
+ Spec version: 1.4
+-Repository revision: M02-W13 content 4745149f4b5da7190b5b0c68753f8ec07bed572d, lifecycle closeout
+-Last updated: 2026-10-01T19:58:19Z
++Repository revision: M02-W14 working tree based on 4d6a3e57af8d6224ac1cc7efeabcdacfbc306483
++Last updated: 2026-10-16T15:25:00Z
+ Current phase: A — Contract, measurement, and early autofill proof
+ Current milestone: M02
+-Current work package: NONE
++Current work package: M02-W14
+ Overall release gate: NOT_READY
+ 
+ ## Critical gates
+ 
+ | Gate | State | Evaluated revision | Corpus/holdout hash | Independent reviewer | Report |
+ |---|---|---|---|---|---|
+-| AUTOFILL_FEASIBILITY | NOT_EVALUATED | — | — | — | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
++| AUTOFILL_FEASIBILITY | IN_PROGRESS | — | — | — | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
+ | RESUME_PAGEFIT_FEASIBILITY | NOT_EVALUATED | — | — | — | docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md |
+ | WORKDAY_GUIDED_PRE_SUBMIT | NOT_EVALUATED | — | — | — | docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md |
+ | CROSS_PLATFORM_CORE | NOT_EVALUATED | — | — | — | docs/gates/CROSS_PLATFORM_CORE_GATE.md |
+@@ -23,9 +23,10 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
+ 
+ ## Active work
+ 
+-- State: M02-W13 VERIFIED at the content tree recorded below; M02-W14 is the sole READY package. Zero work packages are IN_PROGRESS. M02 remains IN_PROGRESS.
+-- Evidence: W13 internal content verification, six killed mutations, frozen canonical passes and exact-content proof are recorded in docs/TEST_EVIDENCE.md. Lifecycle changes do not execute W14.
+-- Gate posture: M00/M01 ACCEPTED; M02-W01 through W13 VERIFIED; W14 READY; W15 NOT_STARTED. All critical gates NOT_EVALUATED; release NOT_READY. Owner model remains GPT-6.1 Sol Ultra. No actual owner holdout or Simplify execution, employer navigation/submission, or production ATS claim.
++- State: M02-W14 IN_PROGRESS; M00/M01 ACCEPTED and M02-W01 through W13 VERIFIED satisfy its prerequisites. No package is READY.
++- Scope: execute the visible frozen development and research partitions, measure full-settlement accuracy/performance, and capture available GitHub legacy comparisons. Required results remain unverified until executed and inspected.
++- Owner instruction (2026-10-16, ADR-0006): continue across packages without per-W stops; owner-controlled holdout is waived. A waiver is not a passing holdout result or an accuracy, safety, platform, or comparison result.
++- Gate posture: AUTOFILL_FEASIBILITY IN_PROGRESS, other gates NOT_EVALUATED; release NOT_READY. No employer submission or production ATS compatibility claim.
+ 
+ ## Milestone table
+ 
+@@ -106,7 +107,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
+ | `M02-W11` | VERIFIED | tree b90668b5d8eb120533be26a94817e2081b8df261 | docs/TEST_EVIDENCE.md § M02-W11 | Implement dynamic state, reconciliation, and performance instrumentation |
+ | `M02-W12` | VERIFIED | tree 25f4128163ec73a91afd54a15c026b38d4187e5a | docs/TEST_EVIDENCE.md § M02-W12 | Build ATS research variant matrix |
+ | `M02-W13` | VERIFIED | tree a953274ef14a7534c39201a09738c26b8f085332 | docs/TEST_EVIDENCE.md § M02-W13 | Autofill benchmark/scorer, explicit stand-in interface, baseline isolation and worksheet internally verified |
+-| `M02-W14` | READY | — | — | Execute synthetic, holdout, public no-submit, and side-by-side evaluation |
++| `M02-W14` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M02-W14 | Visible evaluation and GitHub baseline capture; owner holdout waived by ADR-0006 |
+ | `M02-W15` | NOT_STARTED | — | — | Independent Autofill Feasibility Gate audit and decision |
+ | `M03-W01` | NOT_STARTED | — | — | Create Tauri desktop shell and initial design foundation |
+ | `M03-W02` | NOT_STARTED | — | — | Create FastAPI service skeleton |
+@@ -378,8 +379,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
+ 
+ ## Next READY package
+ 
+-- ID: M02-W14
+-- Reason: M02-W13 VERIFIED; its direct and milestone prerequisites are satisfied. W14 evaluation has not begun.
++- ID: NONE
++- Reason: M02-W14 is IN_PROGRESS. Continue its implementation and validation; per-package stopping is superseded by ADR-0006.
+ 
+ ## Known release blockers
+ 
+diff --git a/docs/REQUIREMENTS_TRACEABILITY.md b/docs/REQUIREMENTS_TRACEABILITY.md
+index 855a44b..e86b674 100644
+--- a/docs/REQUIREMENTS_TRACEABILITY.md
++++ b/docs/REQUIREMENTS_TRACEABILITY.md
+@@ -26,15 +26,15 @@ The specification owns exact text, IDs, titles, and explicit milestone/gate depe
+ 
+ ## Deterministic next work
+ 
+-- Current package: `NONE`
+-- Next READY package: `M02-W14`
++- Current package: `M02-W14`
++- Next READY package: `NONE`
+ - Readiness rule: every milestone prerequisite must be `ACCEPTED`, every reviewed direct package prerequisite must be `VERIFIED` or `ACCEPTED`, and every critical-gate prerequisite must be `PASS`.
+ 
+ ## Critical-gate effects
+ 
+ | Gate | State | Blocked milestones | Blocked packages | Report |
+ |---|---|---|---:|---|
+-| AUTOFILL_FEASIBILITY | NOT_EVALUATED | M03, M17, M18, M19 | 40 | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
++| AUTOFILL_FEASIBILITY | IN_PROGRESS | M03, M17, M18, M19 | 40 | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
+ | RESUME_PAGEFIT_FEASIBILITY | NOT_EVALUATED | M06 | 6 | docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md |
+ | WORKDAY_GUIDED_PRE_SUBMIT | NOT_EVALUATED | M21, M22, M23 | 16 | docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md |
+ | CROSS_PLATFORM_CORE | NOT_EVALUATED | M28 | 6 | docs/gates/CROSS_PLATFORM_CORE_GATE.md |
+@@ -284,7 +284,7 @@ The specification owns exact text, IDs, titles, and explicit milestone/gate depe
+ | M02-W11 | Implement dynamic state, reconciliation, and performance instrumentation | VERIFIED | M02-W10 | M00, M01 | — | — | Implement dynamic state, reconciliation, and performance instrumentation | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Browser/document integration or E2E verification when the real surface exists | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation | M02-W12 | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | docs/TEST_EVIDENCE.md (### M02-W11) | REVIEWED_V1_2 |
+ | M02-W12 | Build ATS research variant matrix | VERIFIED | M02-W11 | M00, M01 | — | — | Build ATS research variant matrix | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Browser/document integration or E2E verification when the real surface exists, Measured corpus/holdout assertions and reproducible negative paths | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Browser/manual workflow evidence on declared supported scope | M02-W13 | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | docs/TEST_EVIDENCE.md (### M02-W12) | REVIEWED_V1_2 |
+ | M02-W13 | Build autofill benchmark and clean-room baseline harness | VERIFIED | M02-W12 | M00, M01 | — | — | Build autofill benchmark and clean-room baseline harness | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Browser/document integration or E2E verification when the real surface exists, Measured corpus/holdout assertions and reproducible negative paths | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Browser/manual workflow evidence on declared supported scope, Raw measured artifacts, hashes, reviewer identity, and decision evidence | M02-W14 | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | docs/TEST_EVIDENCE.md (### M02-W13) | REVIEWED_V1_2 |
+-| M02-W14 | Execute synthetic, holdout, public no-submit, and side-by-side evaluation | READY | M02-W13 | M00, M01 | — | — | Execute synthetic, holdout, public no-submit, and side-by-side evaluation | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Measured corpus/holdout assertions and reproducible negative paths | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Raw measured artifacts, hashes, reviewer identity, and decision evidence | M02-W15 | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | — | REVIEWED_V1_2 |
++| M02-W14 | Execute synthetic, holdout, public no-submit, and side-by-side evaluation | IN_PROGRESS | M02-W13 | M00, M01 | — | — | Execute synthetic, holdout, public no-submit, and side-by-side evaluation | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Measured corpus/holdout assertions and reproducible negative paths | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Raw measured artifacts, hashes, reviewer identity, and decision evidence | M02-W15 | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | — | REVIEWED_V1_2 |
+ | M02-W15 | Independent Autofill Feasibility Gate audit and decision | NOT_STARTED | M02-W14 | M00, M01 | — | — | Independent Autofill Feasibility Gate audit and decision | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Measured corpus/holdout assertions and reproducible negative paths | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Raw measured artifacts, hashes, reviewer identity, and decision evidence | — | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | — | REVIEWED_V1_2 |
+ 
+ ### M03 — Desktop shell, local orchestrator lifecycle, and authenticated health path
+diff --git a/docs/TEST_EVIDENCE.md b/docs/TEST_EVIDENCE.md
+index 014aa7c..e4a99e6 100644
+--- a/docs/TEST_EVIDENCE.md
++++ b/docs/TEST_EVIDENCE.md
+@@ -33,6 +33,14 @@ Exact verification commands and summarized results
+ 
+ ## Entries
+ 
++### M02-W14 — Visible evaluation in progress (2026-10-16)
++
++- Starting revision: commit 4d6a3e57af8d6224ac1cc7efeabcdacfbc306483; uncommitted W14 source is identified by the development bundle's complete source inventory, not represented as a frozen commit.
++- Prerequisites: M00/M01 ACCEPTED; M02-W01 through W13 VERIFIED.
++- Owner amendment: ADR-0006 authorizes continuous execution and waives owner-controlled holdout. No holdout execution or PASS is claimed.
++- Implementation: full 200-recipe W12 real-MV3 development campaign with explicit option tokens, resolved option digests, logical radio observation, full 75 ms settlement, all-case physical safety counters, raw observations, worksheets, source/build/browser/hardware commitments and explicit input-model refusals. Actual campaign results will be appended after execution.
++- Status: M02-W14 IN_PROGRESS; Gate A IN_PROGRESS, no READY package; no completed milestone or production support claim.
++
+ ### M02-W13 — Verified autofill benchmark and clean-room baseline harness (2026-10-01)
+ 
+ **Completed prerequisites for W13 governance.** Owner-selected **GPT-6.1 Sol Ultra**. This is SAME-PACKAGE INTERNAL ADVERSARIAL GAUNTLET VERIFICATION, not the independent W15/Gate A decision. W13 is VERIFIED at content tree `a953274ef14a7534c39201a09738c26b8f085332`; W14 is the sole READY package and has not begun. M00/M01 remain ACCEPTED, M02 IN_PROGRESS, W01–W13 VERIFIED, W15 NOT_STARTED, zero work packages IN_PROGRESS, all four critical gates NOT_EVALUATED, release NOT_READY.
+diff --git a/docs/gates/AUTOFILL_FEASIBILITY_GATE.md b/docs/gates/AUTOFILL_FEASIBILITY_GATE.md
+index cf11a63..561e068 100644
+--- a/docs/gates/AUTOFILL_FEASIBILITY_GATE.md
++++ b/docs/gates/AUTOFILL_FEASIBILITY_GATE.md
+@@ -16,7 +16,7 @@ fields, safety pauses, or other Gate A evidence.
+ - Owning milestone: M02 (packages M02-W07 … M02-W15)
+ - Blocks: M03 readiness (spec §9.1.1, §12); M17/M18/M19 carry the same
+   `AUTOFILL_FEASIBILITY = PASS` dependency qualifier.
+-- State: NOT_EVALUATED (mirror of docs/CRITICAL_GATES.md; do not edit here
++- State: IN_PROGRESS (mirror of docs/CRITICAL_GATES.md; do not edit here
+   without updating the ledger and status table in the same change)
+ 
+ ## Blocking thresholds
+@@ -64,3 +64,11 @@ obtain PASS.)
+ | Date | Revision | Result | Notes |
+ |---|---|---|---|
+ | — | — | — | Gate created (template) during M00-W05 v1.2 adoption |
++
++## Owner validation amendment — 2026-10-16
++
++ADR-0006 records the owner's explicit waiver of owner-controlled holdout and
++continuous execution authorization. Holdout is WAIVED_BY_OWNER, not executed
++or passed. Visible corpus, physical safety, accuracy, performance, real-browser,
++comparison and independent-review evidence remain individually reportable.
++The current W14 development campaign is not a final Gate A decision.
+diff --git a/docs/traceability.json b/docs/traceability.json
+index ef0d9d7..8f49b5f 100644
+--- a/docs/traceability.json
++++ b/docs/traceability.json
+@@ -2237,7 +2237,7 @@
+         "apps/extension/test/m02-w11/dynamic-reconcile.test.ts",
+         "e2e/extension/extension-dynamic.spec.ts"
+       ],
+-      "notes": "M02-W11 implements the feasibility portion through the canonical generated reconciliation-inventory contract and its RECONCILIATION_READINESS semantic rule: every currently inventoried control is classified deterministically; a visible enabled required control without currently valid verified evidence is REQUIRED_UNRESOLVED; page-script value changes after verification are detected through fresh W08 re-resolution plus the exact W10 driver observation and classify PAGE_CHANGED_VALUE (non-required) or the canonical required equivalent REQUIRED_UNRESOLVED with the detection counter surfaced; READY requires page and proof generations to agree and zero required-unresolved, blocked-sensitive, page-changed, stale-document, unconfirmed-consequential, and mandatory-uncertain items. W11 only computes and reports the state — no navigation or submit surface exists. The requirement remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE because W11 supplies same-package feasibility evidence only and M18-W05 retains production completion; no compatibility, gate, acceptance, or release claim is made.",
++      "notes": "M02-W11 implements the feasibility portion through the canonical generated reconciliation-inventory contract and its RECONCILIATION_READINESS semantic rule: every currently inventoried control is classified deterministically; a visible enabled required control without currently valid verified evidence is REQUIRED_UNRESOLVED; page-script value changes after verification are detected through fresh W08 re-resolution plus the exact W10 driver observation and classify PAGE_CHANGED_VALUE (non-required) or the canonical required equivalent REQUIRED_UNRESOLVED with the detection counter surfaced; READY requires page and proof generations to agree and zero required-unresolved, blocked-sensitive, page-changed, stale-document, unconfirmed-consequential, and mandatory-uncertain items. W11 only computes and reports the state \u2014 no navigation or submit surface exists. The requirement remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE because W11 supplies same-package feasibility evidence only and M18-W05 retains production completion; no compatibility, gate, acceptance, or release claim is made.",
+       "mapping_review_state": "REVIEWED_V1_2"
+     },
+     {
+@@ -8119,7 +8119,7 @@
+       "id": "M02-W14",
+       "milestone": "M02",
+       "title": "Execute synthetic, holdout, public no-submit, and side-by-side evaluation",
+-      "current_state": "READY",
++      "current_state": "IN_PROGRESS",
+       "verified_revision": "\u2014",
+       "direct_package_prerequisites": [
+         "M02-W13"
+@@ -21148,7 +21148,7 @@
+   "critical_gates": [
+     {
+       "id": "AUTOFILL_FEASIBILITY",
+-      "current_state": "NOT_EVALUATED",
++      "current_state": "IN_PROGRESS",
+       "report_path": "docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+       "blocked_milestones": [
+         "M03",
+diff --git a/e2e/extension/support/autofill-benchmark.ts b/e2e/extension/support/autofill-benchmark.ts
+index 8cc7b8a..8f0576f 100644
+--- a/e2e/extension/support/autofill-benchmark.ts
++++ b/e2e/extension/support/autofill-benchmark.ts
+@@ -6,7 +6,6 @@ import {
+   type FeasibilityConcept,
+ } from "../../../packages/form-engine/src/index.ts";
+ import { normalizeText } from "../../../apps/extension/src/field-scanner.ts";
+-import { semanticDigest } from "../../../apps/extension/src/semantic-identity.ts";
+ import type {
+   FormDriverResultV1,
+   FormFieldDecisionV1,
+@@ -30,13 +29,20 @@ import {
+ } from "./research-harness.ts";
+ export interface SanitizedAutofillInput {
+   html: string;
+-  profile: readonly { concept: FeasibilityConcept; value: string }[];
++  profile: readonly {
++    concept: FeasibilityConcept;
++    value: string;
++    /** Explicit approved option semantics; omitted by the frozen W13 recipe. */
++    valueToken?: string;
++  }[];
+ }
+ export async function executeMv3Autofill(
+   harness: Harness,
+   input: SanitizedAutofillInput,
++  observeInitial?: () => Promise<void>,
+ ) {
+   await setFixture(harness, input.html);
++  await observeInitial?.();
+   await harness.page.evaluate(() => {
+     const page = globalThis as unknown as {
+       w13Meter: {
+@@ -103,6 +109,7 @@ export async function executeMv3Autofill(
+       true,
+     );
+   });
++  const scanFillStarted = performance.now();
+   const top = foundTopFrame(await scanFrames(harness));
+   const records = buildApprovedRecordSet(
+     await Promise.all(
+@@ -112,6 +119,9 @@ export async function executeMv3Autofill(
+           `w13-profile\0${fact.concept}\0${fact.value}`,
+         ),
+         concept: fact.concept,
++        ...(fact.valueToken === undefined
++          ? {}
++          : { valueToken: fact.valueToken }),
+         policy: "FILL_FROM_EXPLICIT_RECORD" as const,
+         confirmation: { state: "MISSING" as const },
+         valueConfidence: 1,
+@@ -135,13 +145,14 @@ export async function executeMv3Autofill(
+       (f) => f.concept === decision.field_concept,
+     );
+     if (fact === undefined) throw new Error("W13_CANDIDATE_RECORD_MISSING");
++    const option = resolved.resolution.optionResolution;
++    if (descriptor.control_kind === "SELECT" && option?.status !== "RESOLVED")
++      throw new Error("W13_CANDIDATE_OPTION_UNRESOLVED");
+     const intended =
+-      descriptor.control_kind === "SELECT"
++      descriptor.control_kind === "SELECT" && option?.status === "RESOLVED"
+         ? {
+             kind: "OPTION" as const,
+-            value_digest: await semanticDigest(
+-              `option-value-v1\0${fact.value}`,
+-            ),
++            value_digest: option.valueDigest,
+           }
+         : { kind: "TEXT" as const, text: fact.value };
+     const transaction = await buildTransaction(
+@@ -158,6 +169,7 @@ export async function executeMv3Autofill(
+   const reconciliation = reconciled(
+     await dynReconcile(harness, top.frame_context.frame_id),
+   );
++  const scanFillDurationMs = performance.now() - scanFillStarted;
+   const observed = await harness.page.evaluate(() => {
+     const page = globalThis as unknown as {
+       w13Meter: {
+@@ -253,9 +265,11 @@ export async function executeMv3Autofill(
+     };
+   });
+   return {
++    scan_fill_duration_ms: scanFillDurationMs,
+     fields,
+     scanner_fields: top.descriptors.map((d) => ({
+       field_id: d.field_id,
++      attribute_fingerprint: d.address.attribute_fingerprint,
+       label: d.label.normalized_text,
+       required: d.required,
+       visible: d.visible,
+diff --git a/packages/form-engine/src/evidence-text.ts b/packages/form-engine/src/evidence-text.ts
+index fbcf9a3..e0fd524 100644
+--- a/packages/form-engine/src/evidence-text.ts
++++ b/packages/form-engine/src/evidence-text.ts
+@@ -14,7 +14,9 @@ const QUALIFIER_SUFFIX = /\s*\((required|optional)\)\s*$/i;
+  */
+ export function normalizeEvidence(value: string): string {
+   return value
++    .normalize("NFKC")
+     .replace(QUALIFIER_SUFFIX, "")
++    .replaceAll(/[ßẞ]/g, "ss")
+     .toLowerCase()
+     .replaceAll(/[^a-z0-9]+/g, " ")
+     .trim();
+diff --git a/packages/form-engine/src/field-classifier.ts b/packages/form-engine/src/field-classifier.ts
+index 88e8962..1b9d836 100644
+--- a/packages/form-engine/src/field-classifier.ts
++++ b/packages/form-engine/src/field-classifier.ts
+@@ -108,6 +108,7 @@ function bestAliasMatch(
+     if (equalsPhrase(text, alias)) {
+       return "EXACT";
+     }
++    if (rule.exactLabelOnlyAliases?.includes(alias)) continue;
+     if (containsPhrase(text, alias)) {
+       best = "PHRASE";
+     }
+diff --git a/packages/form-engine/src/ontology.ts b/packages/form-engine/src/ontology.ts
+index 2890099..d050848 100644
+--- a/packages/form-engine/src/ontology.ts
++++ b/packages/form-engine/src/ontology.ts
+@@ -11,7 +11,7 @@
+ import type { CommonRedactionV1SensitivityClass } from "@japp/contracts/generated";
+ import type { FormFieldDescriptorV1ControlKind } from "@japp/contracts/generated";
+ 
+-export const FEASIBILITY_ONTOLOGY_VERSION = "1.0.0";
++export const FEASIBILITY_ONTOLOGY_VERSION = "1.1.0";
+ 
+ /**
+  * Closed feasibility concept identifiers (canonical enum-token grammar).
+@@ -100,6 +100,8 @@ export interface ConceptRule {
+   readonly concept: FeasibilityConcept;
+   /** Normalized positive alias phrases justified by the frozen M02 corpus. */
+   readonly aliases: readonly string[];
++  /** Short locale aliases are exact labels only; they cannot match an address subtype. */
++  readonly exactLabelOnlyAliases?: readonly string[];
+   /**
+    * Normalized words/phrases that DEFEAT this concept when present in the
+    * field's own label or description (for example "recruiter email" must
+@@ -130,6 +132,8 @@ const OTHER_PARTY_TERMS = [
+   "reference",
+   "references",
+   "emergency",
++  "arbeitgeber",
++  "employeur",
+ ] as const;
+ 
+ const CONTACT_SECTIONS = [
+@@ -258,7 +262,15 @@ const CATALOG: readonly ConceptRule[] = [
+   },
+   {
+     concept: "ADDRESS_LINE_1",
+-    aliases: ["address line 1", "street address", "address line"],
++    aliases: [
++      "address line 1",
++      "street address",
++      "address line",
++      "street",
++      "strasse",
++      "adresse",
++    ],
++    exactLabelOnlyAliases: ["street", "strasse", "adresse"],
+     negativeLabelTerms: [...OTHER_PARTY_TERMS],
+     compatibleControlKinds: TEXT_KINDS,
+     supportingSections: [...CONTACT_SECTIONS],
+@@ -294,7 +306,14 @@ const CATALOG: readonly ConceptRule[] = [
+   },
+   {
+     concept: "ADDRESS_POSTAL_CODE",
+-    aliases: ["postal code", "zip", "zip code", "postcode"],
++    aliases: [
++      "postal code",
++      "zip",
++      "zip code",
++      "postcode",
++      "postleitzahl",
++      "code postal",
++    ],
+     negativeLabelTerms: [...OTHER_PARTY_TERMS],
+     compatibleControlKinds: TEXT_KINDS,
+     supportingSections: [...CONTACT_SECTIONS],
+diff --git a/scripts/tests/test_validate_status.py b/scripts/tests/test_validate_status.py
+index 104c3ed..4d112ca 100644
+--- a/scripts/tests/test_validate_status.py
++++ b/scripts/tests/test_validate_status.py
+@@ -451,6 +451,17 @@ def set_ledger_gate_state(repo: Path, gate: str, state: str) -> None:
+     path.write_text("\n## ".join(sections), encoding="utf-8")
+ 
+ 
++def set_fixture_gate_state(repo: Path, gate: str, state: str) -> None:
++    """Establish all three gate-state records for an isolated test premise."""
++    set_status_gate_row(repo, gate, state)
++    set_ledger_gate_state(repo, gate, state)
++    report = repo / "docs" / "gates" / f"{gate}_GATE.md"
++    text = report.read_text(encoding="utf-8")
++    pattern = re.compile(r"^(- State: )[A-Z_]+", flags=re.MULTILINE)
++    assert pattern.search(text), f"no gate report state for {gate}"
++    report.write_text(pattern.sub(rf"\g<1>{state}", text, count=1), encoding="utf-8")
++
++
+ def set_ledger_gate_pass_evidence(
+     repo: Path, gate: str, *, revision: str = FAKE_TREE
+ ) -> None:
+@@ -693,6 +704,11 @@ def reset_downstream(repo: Path, *, after_package: str, after_milestone: str) ->
+         flags=re.MULTILINE,
+     )
+     path.write_text(text, encoding="utf-8")
++    # A historical boundary before W14 also predates Gate A evaluation.
++    # Reset the fixture's ledger/report with its package rows; the live
++    # repository and the validator's premature-gate rejection stay unchanged.
++    if after_package < "M02-W14":
++        set_fixture_gate_state(repo, "AUTOFILL_FEASIBILITY", "NOT_EVALUATED")
+ 
+ 
+ def prepare_m00_closeout(repo: Path, *, m01_ready: bool) -> None:
+@@ -1660,6 +1676,7 @@ def test_gate_report_cell_must_name_canonical_report(repo_copy: Path) -> None:
+ def test_report_state_must_agree_even_while_not_evaluated(
+     repo_copy: Path,
+ ) -> None:
++    set_fixture_gate_state(repo_copy, "AUTOFILL_FEASIBILITY", "NOT_EVALUATED")
+     report = repo_copy / "docs" / "gates" / "AUTOFILL_FEASIBILITY_GATE.md"
+     edit(report, "- State: NOT_EVALUATED", "- State: PASS", count=1)
+     result = run_validator(repo_copy)
+@@ -1669,10 +1686,7 @@ def test_report_state_must_agree_even_while_not_evaluated(
+ 
+ def test_gate_cannot_start_before_its_evaluation_package(repo_copy: Path) -> None:
+     prepare_m00_closeout(repo_copy, m01_ready=False)
+-    set_status_gate_row(repo_copy, "AUTOFILL_FEASIBILITY", "IN_PROGRESS")
+-    set_ledger_gate_state(repo_copy, "AUTOFILL_FEASIBILITY", "IN_PROGRESS")
+-    report = repo_copy / "docs" / "gates" / "AUTOFILL_FEASIBILITY_GATE.md"
+-    edit(report, "- State: NOT_EVALUATED", "- State: IN_PROGRESS", count=1)
++    set_fixture_gate_state(repo_copy, "AUTOFILL_FEASIBILITY", "IN_PROGRESS")
+     result = run_validator(repo_copy)
+     assert result.returncode == 1
+     assert "before evaluation package M02-W14 is started" in result.stdout
+diff --git a/apps/extension/test/m02-w14/labels.test.ts b/apps/extension/test/m02-w14/labels.test.ts
+new file mode 100644
+index 0000000..3c59c10
+--- /dev/null
++++ b/apps/extension/test/m02-w14/labels.test.ts
+@@ -0,0 +1,11 @@
++import { expect, it } from "vitest";
++import { normalizeScannerText } from "../../src/field-scanner.ts";
++
++it("keeps reviewed sharp-S street labels inside the canonical inert ASCII wire grammar", () => {
++  expect(normalizeScannerText("Straße")).toBe("Strasse");
++  expect(normalizeScannerText("STRAẞE")).toBe("STRAssE");
++  expect(normalizeScannerText("Stråße")).not.toBe(
++    normalizeScannerText("Straße"),
++  );
++  expect(normalizeScannerText("<script>alert(1)</script>")).not.toContain("<");
++});
+diff --git a/e2e/extension/extension-w14-evaluation.spec.ts b/e2e/extension/extension-w14-evaluation.spec.ts
+new file mode 100644
+index 0000000..09f40ff
+--- /dev/null
++++ b/e2e/extension/extension-w14-evaluation.spec.ts
+@@ -0,0 +1,601 @@
++import { execFileSync } from "node:child_process";
++import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
++import { arch, cpus, platform, release, totalmem } from "node:os";
++import { isAbsolute, join, resolve } from "node:path";
++import { gzipSync } from "node:zlib";
++import { test, expect, EXTENSION_DIST } from "./support/extension-test.ts";
++import { openHarness } from "./support/research-harness.ts";
++import { bindMv3Observation } from "./support/autofill-benchmark.ts";
++import {
++  measureW14Candidate,
++  w14Recipe,
++  W14_CONTACT_COHORT,
++  W14_SITE_RUNTIME_VERSION,
++  logicalControls,
++} from "./support/autofill-w14.ts";
++import {
++  RESEARCH_MATRIX,
++  ATS_FAMILIES,
++} from "../../packages/ats-adapters/research/matrix.ts";
++import {
++  worksheet,
++  type AutofillScore,
++} from "../../packages/evaluation-runner/src/autofill.ts";
++import {
++  freezeW14InitialStateOracle,
++  scoreW14Preservation,
++  W14_INITIAL_STATE_SCHEMA_REF,
++  type W14PreservationScore,
++  type W14StateObservation,
++} from "../../packages/evaluation-runner/src/autofill-preservation.ts";
++import {
++  sha256Bytes,
++  sha256Canonical,
++  stableIdFromDigest,
++  type ContentDigest,
++} from "../../packages/evaluation-runner/src/canonical.ts";
++import { loadCommittedLegacyObservations } from "../../packages/evaluation-baselines/src/index.ts";
++
++function git(...args: string[]) {
++  return execFileSync("git", args, { encoding: "utf8" }).trim();
++}
++
++function sourceFacts() {
++  const paths = execFileSync(
++    "git",
++    ["ls-files", "-co", "--exclude-standard", "-z"],
++    { encoding: "utf8" },
++  )
++    .split("\0")
++    .filter((path) => path !== "" && !path.startsWith("docs/evidence/"));
++  const inventory = [...new Set(paths)]
++    .sort()
++    .map((path) => ({ path, digest: sha256Bytes(readFileSync(path)) }));
++  const status = git("status", "--porcelain");
++  return {
++    commit: git("rev-parse", "HEAD"),
++    tree: git("rev-parse", "HEAD^{tree}"),
++    source_state: status === "" ? "CLEAN" : "DIRTY_SOURCE",
++    status,
++    inventory,
++    digest: sha256Canonical(inventory),
++  };
++}
++
++function buildInventory(
++  root: string,
++  prefix = "",
++): { path: string; digest: ContentDigest }[] {
++  return readdirSync(join(root, prefix), { withFileTypes: true })
++    .sort((a, b) => a.name.localeCompare(b.name))
++    .flatMap((entry) => {
++      const path = prefix === "" ? entry.name : `${prefix}/${entry.name}`;
++      if (entry.isSymbolicLink()) throw new Error("W14_BUILD_SYMLINK_REFUSED");
++      return entry.isDirectory()
++        ? buildInventory(root, path)
++        : [{ path, digest: sha256Bytes(readFileSync(join(root, path))) }];
++    });
++}
++
++type Measurement = Awaited<ReturnType<typeof measureW14Candidate>>;
++interface CaseResult {
++  case_id: string;
++  fixture_id: string;
++  ats: (typeof ATS_FAMILIES)[number];
++  started_at: string;
++  ended_at: string;
++  measurement_state: "SCORED" | "REFUSED_INPUT_MODEL" | "MEASUREMENT_ERROR";
++  measurement_issues: string[];
++  observation: Measurement | null;
++  artifact: ReturnType<typeof bindMv3Observation> | null;
++  score: AutofillScore | null;
++  preservation: W14PreservationScore | null;
++  state_observation: W14StateObservation | null;
++  worksheet: ReturnType<typeof worksheet> | null;
++}
++
++function exactRate(numerator: number, denominator: number) {
++  return {
++    numerator,
++    denominator,
++    rate: denominator === 0 ? null : numerator / denominator,
++  };
++}
++
++function metrics(rows: readonly CaseResult[]) {
++  const scores = rows.flatMap((row) => (row.score === null ? [] : [row.score]));
++  const fields = scores.flatMap((score) => score.fields);
++  const ordinary = fields.filter(
++    (field) => field.expected_class === "ORDINARY" && field.supported,
++  );
++  const attempted = ordinary.filter((field) => field.attempted);
++  const sum = (name: keyof AutofillScore["counts"]) =>
++    scores.reduce((count, score) => count + score.counts[name], 0);
++  const timings = rows
++    .flatMap((row) =>
++      row.observation === null
++        ? []
++        : [row.observation.observed.scan_fill_duration_ms],
++    )
++    .sort((a, b) => a - b);
++  return {
++    executed_cases: rows.filter((row) => row.observation !== null).length,
++    scored_cases: scores.length,
++    refused_cases: rows.filter(
++      (row) => row.measurement_state === "REFUSED_INPUT_MODEL",
++    ).length,
++    measurement_error_cases: rows.filter(
++      (row) => row.measurement_state === "MEASUREMENT_ERROR",
++    ).length,
++    scored_logical_controls: fields.length,
++    preservation: {
++      expected: rows.reduce(
++        (n, row) => n + (row.preservation?.counts.expected_preservations ?? 0),
++        0,
++      ),
++      correct: rows.reduce(
++        (n, row) => n + (row.preservation?.counts.correct_preservations ?? 0),
++        0,
++      ),
++      violations: rows.reduce(
++        (n, row) => n + (row.preservation?.counts.preservation_violations ?? 0),
++        0,
++      ),
++      empty_abstention_violations: rows.reduce(
++        (n, row) => n + (row.preservation?.counts.abstention_violations ?? 0),
++        0,
++      ),
++    },
++    ordinary_attempted_precision: exactRate(
++      attempted.filter((field) => field.primary === "CORRECT_FILL").length,
++      attempted.length,
++    ),
++    required_ordinary_recall: exactRate(
++      sum("correct_required_fills"),
++      sum("expected_required_fills"),
++    ),
++    required_reporting: exactRate(
++      sum("required_reported"),
++      sum("required_unresolved"),
++    ),
++    observed_persistence: exactRate(sum("persisted"), sum("attempted_fills")),
++    counts: {
++      required_silent: sum("required_silent"),
++      sensitive_fills: sum("sensitive_fills"),
++      honeypot_fills: sum("honeypot_fills"),
++      catastrophic_option_errors: sum("catastrophic_option_errors"),
++      duplicate_actions: sum("duplicate_actions"),
++    },
++    full_settle_scan_fill_timing: {
++      sample_count: timings.length,
++      p95_ms:
++        timings.length === 0
++          ? null
++          : timings[Math.ceil(timings.length * 0.95) - 1],
++      scope:
++        "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
++      includes_fixture_setup: false,
++      includes_browser_setup: false,
++      includes_reporting: false,
++    },
++  };
++}
++
++test("W14: execute all 200 immutable W12 recipes and preserve incomplete measurement evidence", async ({
++  extensionContext,
++  extensionId,
++  serviceWorker,
++}, testInfo) => {
++  test.setTimeout(600_000);
++  const output = process.env.JAPP_W14_ARTIFACT_DIRECTORY;
++  if (output !== undefined && !isAbsolute(output))
++    throw new Error("W14_EXPLICIT_ABSOLUTE_OUTPUT_REQUIRED");
++  const startedAt = new Date().toISOString();
++  const facts = sourceFacts();
++  const buildFiles = buildInventory(EXTENSION_DIST);
++  const matrixDigest = sha256Canonical(RESEARCH_MATRIX);
++  const toolchainDigest = sha256Canonical({
++    package: sha256Bytes(readFileSync("package.json")),
++    lock: sha256Bytes(readFileSync("pnpm-lock.yaml")),
++    runtime: process.versions,
++  });
++  const corpus = {
++    version: "1.0.0",
++    digest:
++      "sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8" as ContentDigest,
++  };
++  // Freeze every recipe and its expected truth before the first candidate run.
++  const declarationPage = await extensionContext.newPage();
++  const cases = [];
++  try {
++    for (const variant of RESEARCH_MATRIX) {
++      const recipe = w14Recipe(variant, matrixDigest, corpus, toolchainDigest);
++      const initialFields = await logicalControls(
++        { page: declarationPage },
++        recipe.input.html,
++      );
++      const initialOracle = freezeW14InitialStateOracle(
++        {
++          format_version: "W14_INITIAL_STATE_ORACLE_1",
++          case_id: recipe.oracle.case_id,
++          oracle_digest: sha256Canonical(recipe.oracle),
++          input_digest: recipe.oracle.profile_digest,
++          fields: initialFields.map((field) => ({
++            key: field.key,
++            initial_digest: field.value_digest,
++          })),
++        },
++        recipe.oracle,
++      );
++      const initialDigest = sha256Canonical(initialOracle);
++      const benchmarkCase = {
++        ...recipe.benchmarkCase,
++        input_artifacts: [
++          ...recipe.benchmarkCase.input_artifacts,
++          {
++            artifact_ref: stableIdFromDigest("artifact", initialDigest),
++            artifact_digest: initialDigest,
++            schema_ref: W14_INITIAL_STATE_SCHEMA_REF,
++          },
++        ],
++      };
++      cases.push({
++        variant,
++        ...recipe,
++        benchmarkCase,
++        initial_oracle: initialOracle,
++      });
++    }
++  } finally {
++    await declarationPage.close();
++  }
++  const browserVersion = extensionContext.browser()?.version();
++  if (browserVersion === undefined)
++    throw new Error("W14_BROWSER_VERSION_ABSENT");
++  const hardware = {
++    platform: platform(),
++    release: release(),
++    architecture: arch(),
++    cpu_model: cpus()[0]?.model ?? "UNKNOWN",
++    logical_cpus: cpus().length,
++    memory_bytes: totalmem(),
++  };
++  const rows: CaseResult[] = [];
++  for (const entry of cases) {
++    const row: CaseResult = {
++      case_id: entry.oracle.case_id,
++      fixture_id: entry.variant.id,
++      ats: entry.variant.ats,
++      started_at: new Date().toISOString(),
++      ended_at: "",
++      measurement_state: "MEASUREMENT_ERROR",
++      measurement_issues: [],
++      observation: null,
++      artifact: null,
++      score: null,
++      preservation: null,
++      state_observation: null,
++      worksheet: null,
++    };
++    const harness = await openHarness(
++      extensionContext,
++      extensionId,
++      serviceWorker,
++      "/native/",
++    );
++    try {
++      row.observation = await measureW14Candidate(harness, entry.input);
++      if (
++        output !== undefined &&
++        entry.variant.id === "W12-WORKDAY-GROUPED-en-US-MY_INFORMATION"
++      ) {
++        mkdirSync(output, { recursive: true });
++        await harness.page.screenshot({
++          path: resolve(output, "workday-en-us-contact.png"),
++          fullPage: true,
++        });
++      }
++      row.measurement_issues = [...row.observation.measurement_issues];
++      row.artifact = bindMv3Observation(
++        {
++          case_id: entry.oracle.case_id,
++          fixture_id: entry.oracle.fixture_id,
++          oracle_digest: sha256Canonical(entry.oracle),
++          matrix_version: entry.oracle.matrix_version,
++          matrix_digest: entry.oracle.matrix_digest,
++          corpus_version: entry.oracle.corpus_version,
++          corpus_digest: entry.oracle.corpus_digest,
++          profile_digest: entry.oracle.profile_digest,
++        },
++        row.observation.observed,
++      );
++      if (row.measurement_issues.length > 0) {
++        row.measurement_state = row.measurement_issues.some((issue) =>
++          issue.startsWith("MEASUREMENT_ERROR:"),
++        )
++          ? "MEASUREMENT_ERROR"
++          : "REFUSED_INPUT_MODEL";
++      } else {
++        try {
++          row.state_observation = {
++            format_version: "W14_STATE_OBSERVATION_1",
++            case_id: entry.oracle.case_id,
++            initial_oracle_digest: sha256Canonical(entry.initial_oracle),
++            candidate_digest: sha256Canonical(row.artifact.candidate),
++            physical_digest: sha256Canonical(row.artifact.audit),
++            initial: row.observation.initial.map((field) => ({
++              key: field.key,
++              observed_digest: field.value_digest,
++            })),
++            final: row.observation.final.map((field) => ({
++              key: field.key,
++              observed_digest: field.value_digest,
++            })),
++          };
++          const scored = scoreW14Preservation(
++            entry.benchmarkCase,
++            entry.oracle,
++            entry.initial_oracle,
++            row.state_observation,
++            row.artifact.candidate,
++            row.artifact.audit,
++          );
++          row.score = scored.canonical_score;
++          row.preservation = scored.preservation;
++          row.measurement_state = "SCORED";
++        } catch (error) {
++          const code =
++            error instanceof Error &&
++            /^W13_[A-Z_0-9]{1,80}$/.test(error.message)
++              ? error.message
++              : "UNKNOWN_SCORER_ERROR";
++          row.measurement_issues.push(
++            `MEASUREMENT_ERROR:SCORER_REFUSED:${code}`,
++          );
++        }
++      }
++    } catch (error) {
++      row.measurement_issues.push(
++        `MEASUREMENT_ERROR:CANDIDATE_EXECUTION_FAILED:${error instanceof Error && /^W(?:13|14)_[A-Z_0-9]{1,80}$/.test(error.message) ? error.message : error instanceof Error && ["TimeoutError", "AssertionError"].includes(error.name) ? error.name : "UNKNOWN_EXECUTION_ERROR"}`,
++      );
++    } finally {
++      row.ended_at = new Date().toISOString();
++      await harness.page.close();
++      await harness.controller.close();
++    }
++    if (row.score !== null)
++      row.worksheet = worksheet(entry.oracle, row.score, {
++        browser: "Chromium",
++        browser_version: browserVersion,
++        product_version: "1.0.0",
++        observed_at: row.ended_at,
++        provenance_digest: facts.digest,
++      });
++    rows.push(row);
++    if (rows.length % 25 === 0)
++      console.log(
++        `W14_PROGRESS ${String(rows.length)}/${String(cases.length)}`,
++      );
++  }
++  // Independent physical counters cover refused cases too. Scorer exclusion
++  // never hides a safety write, duplicate, navigation or submission activation.
++  const physicalSafety = {
++    sensitive_fills: 0,
++    honeypot_fills: 0,
++    catastrophic_option_errors: 0,
++    duplicate_actions: 0,
++    navigation_activations: 0,
++    submission_activations: 0,
++    paused_boundary_actions: 0,
++  };
++  for (const [index, row] of rows.entries()) {
++    const entry = cases[index];
++    if (entry === undefined || row.artifact === null) continue;
++    const audit = row.artifact.audit;
++    physicalSafety.navigation_activations += audit.navigation_activations;
++    physicalSafety.submission_activations += audit.submission_activations;
++    for (const field of audit.fields) {
++      const expected = entry.oracle.fields.find(
++        (item) => item.key === field.key,
++      );
++      if (expected?.class === "SENSITIVE" || expected?.class === "PROHIBITED")
++        physicalSafety.sensitive_fills += Number(field.actions.length > 0);
++      if (expected?.class === "HONEYPOT")
++        physicalSafety.honeypot_fills += Number(field.actions.length > 0);
++      if (
++        expected?.option &&
++        field.actions.some(
++          (action) => action.value_digest !== expected.value_digest,
++        )
++      )
++        physicalSafety.catastrophic_option_errors++;
++      physicalSafety.duplicate_actions += Math.max(0, field.actions.length - 1);
++      if (entry.variant.expected.sessionBoundary)
++        physicalSafety.paused_boundary_actions += field.actions.length;
++    }
++  }
++  const baselineRecords = loadCommittedLegacyObservations().records;
++  const safetyCoverage = {
++    expected_cases: cases.length,
++    observed_cases: rows.filter((row) => row.artifact !== null).length,
++    state: rows.every((row) => row.artifact !== null)
++      ? "OBSERVED"
++      : "INCOMPLETE_UNOBSERVED_CASES",
++  };
++  const unsupportedFeatures = [
++    "FILE_UPLOAD",
++    "REPEATER_OPERATION",
++    "DATE_DRIVER",
++    "CHECKBOX_DRIVER",
++    "RADIO_DRIVER",
++    "CUSTOM_COMBOBOX_DRIVER",
++    "IFRAME",
++    "SHADOW_DOM",
++    "PAGE_TRANSITION",
++    "PARSER_EFFECT",
++    "LONG_SESSION_SOAK",
++  ];
++  const assessment = {
++    format_version: "W14_DEVELOPMENT_ASSESSMENT_1",
++    authority: "NONE",
++    gate_decision: "NOT_DECIDED",
++    complete_gate_evidence: false,
++    source_inventory_digest: facts.digest,
++    matrix_digest: matrixDigest,
++    expected_cases: RESEARCH_MATRIX.length,
++    recorded_cases: rows.length,
++    authored_logical_controls: cases.reduce(
++      (count, entry) => count + entry.oracle.fields.length,
++      0,
++    ),
++    observed_native_controls: rows.reduce(
++      (count, row) =>
++        count +
++        (row.observation?.final.reduce(
++          (total, field) => total + field.native_keys.length,
++          0,
++        ) ?? 0),
++      0,
++    ),
++    metrics: metrics(rows),
++    family_metrics: Object.fromEntries(
++      ATS_FAMILIES.map((family) => [
++        family,
++        metrics(rows.filter((row) => row.ats === family)),
++      ]),
++    ),
++    physical_safety_all_executed_cases: physicalSafety,
++    physical_safety_coverage: safetyCoverage,
++    measurement_refusals: rows
++      .filter((row) => row.measurement_state !== "SCORED")
++      .map((row) => ({
++        case_id: row.case_id,
++        fixture_id: row.fixture_id,
++        state: row.measurement_state,
++        issues: row.measurement_issues,
++      })),
++    unsupported_scored_feature_coverage: unsupportedFeatures.map((feature) => ({
++      feature,
++      state: "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN",
++    })),
++    actual_external_execution: {
++      holdout: "HOLDOUT_WAIVED_OWNER_ADR0006",
++      public_no_submit: "NOT_EXECUTED",
++      simplify: "NOT_EXECUTED",
++      legacy: baselineRecords.map((record) => ({
++        system: record.system,
++        status: record.observation_status,
++        source_revision: record.source_revision,
++      })),
++    },
++    limitations: [
++      "Visible synthetic W12 expansion only; W06 parent corpus is separately committed and is not wholly executed by this campaign.",
++      "Supported ordinary cohort is the predeclared contact profile; other features retain separate W10/W12 tests and have no scored support claim here.",
++      "W13 canonical abstention counts remain unchanged. A separately committed W14 initial-state model measures preservation with live initial/final snapshots and zero-write proof.",
++      "Timing uses full settlement across different pages; this is not a repeated 128-control target-Mac performance proof.",
++      "No comparison or independent critical-gate approval is inferred from development metrics.",
++    ],
++  };
++  const bundle = {
++    format_version: "W14_DEVELOPMENT_BUNDLE_1",
++    labels: ["DEVELOPMENT", "PARTIAL_GATE_EVIDENCE", "NO_GATE_AUTHORITY"],
++    started_at: startedAt,
++    ended_at: new Date().toISOString(),
++    source: facts,
++    extension_build: {
++      digest: sha256Canonical(buildFiles),
++      inventory: buildFiles,
++    },
++    runtime: {
++      node: process.versions.node,
++      browser: { family: "CHROMIUM", version: browserVersion },
++      hardware,
++      hardware_digest: sha256Canonical(hardware),
++      toolchain_digest: toolchainDigest,
++    },
++    configuration: {
++      settle_budget_ms: 75,
++      rerender_delay_ms: 20,
++      ai_enabled: false,
++      navigation_enabled: false,
++      submission_enabled: false,
++      supported_cohort: W14_CONTACT_COHORT,
++      site_runtime_version: W14_SITE_RUNTIME_VERSION,
++    },
++    corpus: {
++      ...corpus,
++      parent_manifest_digest: sha256Bytes(
++        readFileSync(
++          "packages/evaluation-corpus/artifacts/development/M02_AUTOFILL_DEVELOPMENT_V1/1.0.0/corpus.manifest.json",
++        ),
++      ),
++      expansion_matrix_digest: matrixDigest,
++    },
++    cases,
++    rows,
++    assessment,
++  };
++  const compressed = gzipSync(JSON.stringify(bundle), { level: 9 });
++  const evidence = {
++    ...assessment,
++    compressed_bundle_digest: sha256Bytes(compressed),
++    compressed_bundle_bytes: compressed.byteLength,
++  };
++  await testInfo.attach("w14-development-run.json.gz", {
++    body: compressed,
++    contentType: "application/gzip",
++  });
++  await testInfo.attach("w14-development-assessment", {
++    body: JSON.stringify(evidence, null, 2),
++    contentType: "application/json",
++  });
++  if (output !== undefined) {
++    mkdirSync(output, { recursive: true });
++    writeFileSync(resolve(output, "development-run.json.gz"), compressed);
++    writeFileSync(
++      resolve(output, "assessment.json"),
++      JSON.stringify(evidence, null, 2) + "\n",
++    );
++  }
++  console.log(
++    `W14_DEVELOPMENT ${JSON.stringify({ recorded_cases: rows.length, metrics: assessment.metrics, safety: physicalSafety, bundle_digest: evidence.compressed_bundle_digest })}`,
++  );
++  // Assertions check measurement integrity and safety, not fabricated product
++  // accuracy. Failed metrics remain reviewable in the saved evidence first.
++  expect(rows).toHaveLength(200);
++  expect(new Set(rows.map((row) => row.case_id)).size).toBe(200);
++  expect(safetyCoverage).toEqual({
++    expected_cases: 200,
++    observed_cases: 200,
++    state: "OBSERVED",
++  });
++  expect(
++    rows.filter((row) => row.measurement_state === "MEASUREMENT_ERROR"),
++  ).toEqual([]);
++  expect(Object.values(physicalSafety).every((count) => count === 0)).toBe(
++    true,
++  );
++  expect(assessment.authored_logical_controls).toBe(4020);
++  expect(assessment.observed_native_controls).toBe(4060);
++  expect(
++    rows.filter((row) => row.measurement_state === "REFUSED_INPUT_MODEL"),
++  ).toEqual([]);
++  expect(assessment.metrics.scored_cases).toBe(200);
++  expect(assessment.metrics.preservation).toEqual({
++    expected: 90,
++    correct: 90,
++    violations: 0,
++    empty_abstention_violations: 0,
++  });
++  for (const family of ATS_FAMILIES) {
++    const contact = rows.find(
++      (row) => row.fixture_id === `W12-${family}-GROUPED-en-US-MY_INFORMATION`,
++    );
++    expect(contact?.score?.rates.required_recall).toEqual({
++      numerator: 9,
++      denominator: 9,
++      rate: 1,
++    });
++    expect(contact?.score?.counts.sensitive_fills).toBe(0);
++  }
++});
+diff --git a/e2e/extension/extension-w14-validation.spec.ts b/e2e/extension/extension-w14-validation.spec.ts
+new file mode 100644
+index 0000000..5313cdd
+--- /dev/null
++++ b/e2e/extension/extension-w14-validation.spec.ts
+@@ -0,0 +1,112 @@
++import { test, expect } from "./support/extension-test.ts";
++import { openHarness } from "./support/research-harness.ts";
++import { RESEARCH_MATRIX } from "../../packages/ats-adapters/research/matrix.ts";
++import { fixtureHtml } from "../../packages/ats-adapters/research/fixture-html.ts";
++import { executeMv3Autofill } from "./support/autofill-benchmark.ts";
++import {
++  installW14SiteRuntime,
++  type W14SanitizedInput,
++} from "./support/autofill-w14.ts";
++
++const source = RESEARCH_MATRIX.find(
++  (v) =>
++    v.expected.validation === "REQUIRED_MISSING" && !v.expected.sessionBoundary,
++);
++if (source === undefined) throw new Error("W14_VALIDATION_RECIPE_ABSENT");
++const html = fixtureHtml(source);
++const scenarios = [
++  {
++    name: "native-valid email clears the recoverable site error and survives controlled replacement",
++    email: "synthetic@example.invalid",
++    mode: "RECOVERABLE_NATIVE_REQUIRED_V1",
++    expected: "FILLED",
++    restoreRejection: false,
++  },
++  {
++    name: "malformed email retains native and ARIA rejection",
++    email: "invalid-email",
++    mode: "RECOVERABLE_NATIVE_REQUIRED_V1",
++    expected: "UNRESOLVED",
++    restoreRejection: false,
++  },
++  {
++    name: "persistent site rejection remains rejected despite native validity",
++    email: "synthetic@example.invalid",
++    mode: "STATIC_REJECTION_V1",
++    expected: "UNRESOLVED",
++    restoreRejection: false,
++  },
++  {
++    name: "a rerender restoring rejection prevents a verified-fill claim",
++    email: "synthetic@example.invalid",
++    mode: "RECOVERABLE_NATIVE_REQUIRED_V1",
++    expected: "UNRESOLVED",
++    restoreRejection: true,
++  },
++] as const;
++
++for (const scenario of scenarios) {
++  test(`W14 site runtime: ${scenario.name}`, async ({
++    extensionContext,
++    extensionId,
++    serviceWorker,
++  }) => {
++    const harness = await openHarness(
++      extensionContext,
++      extensionId,
++      serviceWorker,
++      "/native/",
++    );
++    try {
++      const input: W14SanitizedInput = {
++        html,
++        site_runtime: scenario.mode,
++        profile: [{ concept: "EMAIL_ADDRESS", value: scenario.email }],
++      };
++      const observed = await executeMv3Autofill(harness, input, async () => {
++        await installW14SiteRuntime(harness, input.site_runtime);
++        if (scenario.restoreRejection)
++          await harness.page.evaluate(() => {
++            document.addEventListener(
++              "input",
++              (event) => {
++                const node = event.target;
++                if (node instanceof HTMLInputElement && node.type === "email")
++                  setTimeout(() => {
++                    node.setAttribute("aria-invalid", "true");
++                  }, 10);
++              },
++              true,
++            );
++          });
++      });
++      expect(
++        observed.fields.find((field) => field.key === "email")?.status,
++      ).toBe(scenario.expected);
++      expect(observed.meter.actions).toHaveLength(1);
++      expect(observed.meter.rerenders).toBe(1);
++      expect(observed.meter.navigation).toBe(0);
++      expect(observed.meter.submission).toBe(0);
++      if (scenario.expected === "UNRESOLVED") {
++        expect(
++          observed.fields.find((field) => field.key === "email")?.reason,
++        ).toBe("REQUIRED_UNRESOLVED");
++        expect(
++          observed.reconciliation.inventory.counts.required_unresolved,
++        ).toBeGreaterThan(0);
++        expect(observed.reconciliation.inventory.readiness).toBe("NOT_READY");
++      } else {
++        expect(
++          observed.fields.find((field) => field.key === "email")?.persistence,
++        ).toBe("PERSISTED");
++        expect(
++          observed.fields.find((field) => field.key === "email")
++            ?.site_acceptance,
++        ).toBe("ACCEPTED");
++      }
++    } finally {
++      await harness.page.close();
++      await harness.controller.close();
++    }
++  });
++}
+diff --git a/e2e/extension/support/autofill-w14.ts b/e2e/extension/support/autofill-w14.ts
+new file mode 100644
+index 0000000..e81d62a
+--- /dev/null
++++ b/e2e/extension/support/autofill-w14.ts
+@@ -0,0 +1,430 @@
++/** W14 visible development measurement. No gate or private-holdout authority. */
++import { semanticDigest } from "../../../apps/extension/src/semantic-identity.ts";
++import { normalizeText } from "../../../apps/extension/src/field-scanner.ts";
++import type { ResearchVariant } from "../../../packages/ats-adapters/research/matrix.ts";
++import { fixtureHtml } from "../../../packages/ats-adapters/research/fixture-html.ts";
++import {
++  freezeOracle,
++  type AutofillOracle,
++  type FieldObservation,
++} from "../../../packages/evaluation-runner/src/autofill.ts";
++import {
++  sha256Canonical,
++  stableIdFromDigest,
++  type ContentDigest,
++} from "../../../packages/evaluation-runner/src/canonical.ts";
++import { computeThresholdSetDigest } from "../../../packages/evaluation-runner/src/thresholds.ts";
++import type { BenchmarkCaseV1 } from "../../../packages/evaluation-runner/src/model.ts";
++import type { FeasibilityConcept } from "../../../packages/form-engine/src/index.ts";
++import {
++  executeMv3Autofill,
++  type SanitizedAutofillInput,
++} from "./autofill-benchmark.ts";
++import type { Harness } from "./research-harness.ts";
++
++export const W14_SITE_RUNTIME_VERSION = "1.0.0";
++export type W14SanitizedInput = SanitizedAutofillInput & {
++  site_runtime: "RECOVERABLE_NATIVE_REQUIRED_V1" | "STATIC_REJECTION_V1";
++};
++
++/** Site-owned validation behavior. It has no oracle/profile/expected-value input. */
++export async function installW14SiteRuntime(
++  harness: Harness,
++  mode: W14SanitizedInput["site_runtime"],
++) {
++  await harness.page.evaluate((runtimeMode) => {
++    if (runtimeMode !== "RECOVERABLE_NATIVE_REQUIRED_V1") return;
++    const validate = (event: Event) => {
++      const node = event.target;
++      if (!(node instanceof HTMLInputElement) || node.type !== "email") return;
++      const error = document.getElementById("email-error");
++      if (
++        error?.textContent !== "Email address is required." ||
++        !node
++          .getAttribute("aria-describedby")
++          ?.split(/\s+/u)
++          .includes("email-error")
++      )
++        return;
++      node.setAttribute("aria-invalid", String(!node.validity.valid));
++      error.hidden = node.validity.valid;
++    };
++    document.addEventListener("input", validate, true);
++    document.addEventListener("change", validate, true);
++  }, mode);
++}
++
++// This cohort is declared before execution. The executor receives only HTML
++// and approved synthetic facts, never these expected classes or value digests.
++export const W14_CONTACT_COHORT: Readonly<Record<string, FeasibilityConcept>> =
++  {
++    "first-name": "FIRST_NAME",
++    "last-name": "LAST_NAME",
++    email: "EMAIL_ADDRESS",
++    phone: "PHONE_NUMBER",
++    website: "WEBSITE_URL",
++    "street-address": "ADDRESS_LINE_1",
++    city: "ADDRESS_CITY",
++    state: "ADDRESS_REGION",
++    province: "ADDRESS_REGION",
++    county: "ADDRESS_REGION",
++    "postal-code": "ADDRESS_POSTAL_CODE",
++    country: "ADDRESS_COUNTRY",
++  };
++
++/** Independently declared locale examples, not values inferred from options. */
++export function w14Profile(
++  locale: ResearchVariant["locale"],
++): SanitizedAutofillInput["profile"] {
++  const address = (
++    {
++      "en-US": ["United States", "Michigan", "48104"],
++      "en-GB": ["United Kingdom", "Greater London", "SW1A 1AA"],
++      "de-DE": ["Germany", "Berlin", "10115"],
++      "fr-CA": ["Canada", "Québec", "H2Y 1C6"],
++    } as const
++  )[locale];
++  return [
++    { concept: "FIRST_NAME", value: "Synthetic" },
++    { concept: "LAST_NAME", value: "Applicant" },
++    { concept: "EMAIL_ADDRESS", value: "synthetic@example.invalid" },
++    { concept: "PHONE_NUMBER", value: "2025550100" },
++    { concept: "WEBSITE_URL", value: "https://example.invalid/profile" },
++    { concept: "ADDRESS_LINE_1", value: "100 Synthetic Avenue" },
++    { concept: "ADDRESS_CITY", value: "Synthetic City" },
++    { concept: "ADDRESS_REGION", value: address[1], valueToken: address[1] },
++    { concept: "ADDRESS_POSTAL_CODE", value: address[2] },
++    { concept: "ADDRESS_COUNTRY", value: address[0], valueToken: address[0] },
++  ];
++}
++
++export function w14Recipe(
++  variant: ResearchVariant,
++  matrixDigest: ContentDigest,
++  corpus: { version: string; digest: ContentDigest },
++  toolchainDigest: ContentDigest,
++) {
++  const input: W14SanitizedInput = {
++    site_runtime:
++      variant.expected.validation === "REQUIRED_MISSING"
++        ? "RECOVERABLE_NATIVE_REQUIRED_V1"
++        : "STATIC_REJECTION_V1",
++    html: fixtureHtml(variant),
++    profile: w14Profile(variant.locale),
++  };
++  const caseId = stableIdFromDigest(
++    "benchmarkcase",
++    sha256Canonical({ variant: variant.id, input }),
++  );
++  const oracle = freezeOracle({
++    format_version: "W13_ORACLE_1",
++    case_id: caseId,
++    fixture_id: variant.id,
++    matrix_version: "1.0.0",
++    matrix_digest: matrixDigest,
++    corpus_version: corpus.version,
++    corpus_digest: corpus.digest,
++    profile_digest: sha256Canonical(input),
++    provenance_digest: sha256Canonical({
++      author: "W14_PREDECLARED_CONTACT_RECIPE",
++      cohort: W14_CONTACT_COHORT,
++      profile: input.profile,
++      variant,
++    }),
++    fields: variant.controls.map((control) => {
++      const concept = W14_CONTACT_COHORT[control.id];
++      const fact = input.profile.find((f) => f.concept === concept);
++      const sensitive = control.policy === "SENSITIVE_ABSTAIN";
++      const honeypot = control.policy === "HONEYPOT_ABSTAIN";
++      const supported = !sensitive && !honeypot && fact !== undefined;
++      const fill = supported && !variant.expected.sessionBoundary;
++      return {
++        key: control.id,
++        concept: concept ?? "UNKNOWN",
++        required: control.required,
++        visible: !honeypot,
++        enabled: !variant.expected.sessionBoundary,
++        class: sensitive
++          ? "SENSITIVE"
++          : honeypot
++            ? "HONEYPOT"
++            : supported
++              ? "ORDINARY"
++              : "UNSUPPORTED",
++        supported,
++        expected: fill ? "FILL" : "ABSTAIN",
++        value_digest: fill ? sha256Canonical(fact.value) : null,
++        option: control.kind === "select",
++      };
++    }),
++  } satisfies AutofillOracle);
++  // MEASURE preserves raw failures. These thresholds concern safety only;
++  // no PASS from this development case is a Gate A decision.
++  const thresholds: BenchmarkCaseV1["thresholds"] = [
++    "SENSITIVE_FILLS",
++    "HONEYPOT_FILLS",
++    "CATASTROPHIC_OPTION_ERRORS",
++    "DUPLICATE_ACTIONS",
++    "NAVIGATION_ACTIVATIONS",
++    "SUBMISSION_ACTIVATIONS",
++  ].map((metric_id) => ({
++    metric_id,
++    unit: "COUNT",
++    comparator: "EXACT",
++    expected_value: 0,
++  }));
++  const thresholdRef = stableIdFromDigest(
++    "thresholdset",
++    sha256Canonical(thresholds),
++  );
++  const benchmarkCase: BenchmarkCaseV1 = {
++    case_id: caseId,
++    case_schema_version: "BENCHMARK_CASE_V1",
++    benchmark_family: "AUTOFILL_FEASIBILITY",
++    corpus_version: corpus.version,
++    corpus_digest: corpus.digest,
++    input_artifacts: [
++      {
++        artifact_ref: stableIdFromDigest("artifact", sha256Canonical(oracle)),
++        artifact_digest: sha256Canonical(oracle),
++        schema_ref: "urn:japp:schema:evaluation-artifact:w13-oracle:v1",
++      },
++      {
++        artifact_ref: stableIdFromDigest("artifact", sha256Canonical(input)),
++        artifact_digest: sha256Canonical(input),
++        schema_ref: "urn:japp:schema:evaluation-artifact:w13-input:v1",
++      },
++    ],
++    expected_behavior: "MEASURE",
++    threshold_set_ref: thresholdRef,
++    threshold_set_digest: computeThresholdSetDigest({
++      threshold_set_ref: thresholdRef,
++      thresholds,
++    }),
++    thresholds,
++    environment_requirements: {
++      runtime_profile: "NODE",
++      platform_profile: "DEVELOPMENT",
++      toolchain_digest: toolchainDigest,
++      adapter_version: "1.0.0",
++    },
++    synthetic_data: true,
++    provenance: {
++      source_kind: "GENERATED",
++      source_id: stableIdFromDigest("source", oracle.provenance_digest),
++      observed_at: "2026-10-16T00:00:00Z",
++      source_digest: oracle.provenance_digest,
++    },
++    holdout_visibility: "PUBLIC_SYNTHETIC",
++    applicable_platform_profiles: ["DEVELOPMENT"],
++  };
++  return { benchmarkCase, oracle, input };
++}
++
++export async function logicalControls(
++  harness: Pick<Harness, "page">,
++  markup?: string,
++) {
++  const controls = await harness.page.evaluate((html) => {
++    const root =
++      html === null
++        ? document
++        : new DOMParser().parseFromString(html, "text/html");
++    const seen = new Set<string>();
++    return [
++      ...root.querySelectorAll<
++        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
++      >("input,select,textarea"),
++    ].flatMap((node) => {
++      const radio = node instanceof HTMLInputElement && node.type === "radio";
++      const group = radio ? node.closest("fieldset") : null;
++      const key = group?.id ?? node.id;
++      if (seen.has(key)) return [];
++      seen.add(key);
++      const members =
++        group === null
++          ? [node]
++          : [...group.querySelectorAll<HTMLInputElement>("input[type=radio]")];
++      const selected = members.find(
++        (member) => member instanceof HTMLInputElement && member.checked,
++      );
++      const value = radio
++        ? (selected?.value ?? "")
++        : node instanceof HTMLInputElement && node.type === "checkbox"
++          ? node.checked
++            ? "true"
++            : ""
++          : node.value;
++      const scannerKind = radio
++        ? "RADIO_GROUP"
++        : node.getAttribute("role") === "combobox"
++          ? "COMBOBOX"
++          : node instanceof HTMLTextAreaElement
++            ? "TEXTAREA"
++            : node instanceof HTMLSelectElement
++              ? node.multiple
++                ? "MULTI_SELECT"
++                : "SELECT"
++              : node.type === "date"
++                ? "DATE"
++                : node.type === "file"
++                  ? "FILE"
++                  : node.type === "checkbox"
++                    ? "CHECKBOX"
++                    : "TEXT";
++      // Measurement join only. This disposable DOM association never enters
++      // a decision or transaction, whose semantic address remains authoritative.
++      const attributeSeed = [
++        "field-attributes-v1",
++        scannerKind,
++        node.tagName.toLowerCase(),
++        node.getAttribute("role") ?? "",
++        node instanceof HTMLInputElement ? node.type.toLowerCase() : "",
++        node.getAttribute("name") ?? "",
++        node.getAttribute("autocomplete") ?? "",
++        node.getAttribute("placeholder") ?? "",
++        node.getAttribute("aria-multiline") ?? "",
++        node instanceof HTMLSelectElement && node.multiple ? "multiple" : "",
++      ].join("\0");
++      return [
++        {
++          attributeSeed,
++          key,
++          native_keys: members.map((member) => member.id),
++          label:
++            group?.querySelector("legend")?.textContent ??
++            node.labels?.[0]?.textContent ??
++            "",
++          value,
++          valid: members.every(
++            (member) =>
++              member.validity.valid &&
++              member.getAttribute("aria-invalid") !== "true",
++          ),
++          required: members.some((member) => member.required),
++          disabled: members.every((member) => member.disabled),
++          kind: radio
++            ? "radio"
++            : node.getAttribute("role") === "combobox"
++              ? "combobox"
++              : node instanceof HTMLInputElement
++                ? node.type
++                : node.tagName.toLowerCase(),
++        },
++      ];
++    });
++  }, markup ?? null);
++  return Promise.all(
++    controls.map(async ({ value, attributeSeed, ...control }) => ({
++      ...control,
++      attribute_fingerprint: await semanticDigest(attributeSeed),
++      value_digest: value === "" ? null : sha256Canonical(value),
++    })),
++  );
++}
++
++/** Candidate has no oracle input. Only this observer normalizes logical radios. */
++export async function measureW14Candidate(
++  harness: Harness,
++  input: W14SanitizedInput,
++) {
++  const declaredInitial = await logicalControls(harness, input.html);
++  let initial: Awaited<ReturnType<typeof logicalControls>> | undefined;
++  const candidate = await executeMv3Autofill(harness, input, async () => {
++    await installW14SiteRuntime(harness, input.site_runtime);
++    initial = await logicalControls(harness);
++  });
++  if (initial === undefined) throw new Error("W14_INITIAL_OBSERVATION_MISSING");
++  const final = await logicalControls(harness);
++  const issues: string[] = [];
++
++  if (
++    initial
++      .map((f) => f.key)
++      .sort()
++      .join() !==
++    final
++      .map((f) => f.key)
++      .sort()
++      .join()
++  )
++    issues.push("MEASUREMENT_ERROR:CHANGED_CONTROL_INVENTORY");
++  const actions = candidate.meter.actions.map((action) => {
++    const field = final.find((item) => item.native_keys.includes(action.key));
++    if (field === undefined)
++      issues.push("MEASUREMENT_ERROR:UNJOINED_PHYSICAL_ACTION");
++    return { ...action, key: field?.key ?? action.key };
++  });
++  const fields: FieldObservation[] = final.map((field) => {
++    const matches = candidate.scanner_fields.filter(
++      (descriptor) =>
++        descriptor.label === normalizeText(field.label) &&
++        descriptor.attribute_fingerprint === field.attribute_fingerprint,
++    );
++    if (matches.length > 1)
++      issues.push("REFUSED_INPUT_MODEL:DUPLICATE_SEMANTIC_JOIN");
++    const descriptor = matches.length === 1 ? matches[0] : undefined;
++    const decision = candidate.decisions.find(
++      (item) => item.field_id === descriptor?.field_id,
++    );
++    const result =
++      decision === undefined
++        ? undefined
++        : candidate.results.find(
++            (item) => item.correlation_id === decision.correlation_id,
++          );
++    const inventory =
++      descriptor === undefined
++        ? undefined
++        : candidate.reconciliation.inventory.items.find(
++            (item) => item.field_id === descriptor.field_id,
++          );
++    const attempted = actions.some((action) => action.key === field.key);
++    const unresolved =
++      inventory !== undefined &&
++      inventory.required &&
++      inventory.visible &&
++      inventory.enabled &&
++      inventory.category !== "VERIFIED_FILLED";
++    const filled =
++      result?.outcome === "VERIFIED" &&
++      inventory?.category === "VERIFIED_FILLED";
++    return {
++      key: field.key,
++      status: filled ? "FILLED" : unresolved ? "UNRESOLVED" : "ABSTAINED",
++      observed_digest: field.value_digest,
++      persistence: attempted
++        ? result?.persistence_verified === true && !inventory?.changed_value
++          ? "PERSISTED"
++          : "REVERTED"
++        : "UNKNOWN",
++      site_acceptance: attempted
++        ? result?.site_acceptance === "ACCEPTED" && field.valid
++          ? "ACCEPTED"
++          : "REJECTED"
++        : "UNKNOWN",
++      reason: filled
++        ? "VERIFIED"
++        : unresolved
++          ? "REQUIRED_UNRESOLVED"
++          : attempted
++            ? "SITE_REJECTED"
++            : "POLICY_ABSTAIN",
++      report_digest: sha256Canonical({
++        decision:
++          candidate.decisions.find(
++            (d) => d.field_id === descriptor?.field_id,
++          ) ?? null,
++        result: result ?? null,
++        inventory: inventory ?? null,
++      }),
++    };
++  });
++  return {
++    declared_initial: declaredInitial,
++    initial,
++    final,
++    measurement_issues: [...new Set(issues)].sort(),
++    observed: { ...candidate, fields, meter: { ...candidate.meter, actions } },
++  };
++}
+diff --git a/packages/evaluation-runner/src/autofill-preservation.ts b/packages/evaluation-runner/src/autofill-preservation.ts
+new file mode 100644
+index 0000000..8c4cb4e
+--- /dev/null
++++ b/packages/evaluation-runner/src/autofill-preservation.ts
+@@ -0,0 +1,383 @@
++/**
++ * W14 initial-state preservation supplement over the frozen W13 scorer.
++ * Evaluation only: this artifact grants no critical-gate authority.
++ *
++ * Freeze the expected initial-state artifact before candidate execution. The
++ * actual initial snapshot must observe the installed page before candidate
++ * work; parsing fixture HTML alone is not an actual-page observation.
++ */
++import {
++  freezeOracle,
++  scoreAutofill,
++  type AutofillOracle,
++  type AutofillScore,
++  type CandidateFields,
++  type PhysicalAudit,
++} from "./autofill.ts";
++import {
++  isContentDigest,
++  sha256Canonical,
++  type ContentDigest,
++} from "./canonical.ts";
++import type { BenchmarkCaseV1 } from "./model.ts";
++
++export const W14_PRESERVATION_SCORER_VERSION = "1.0.0";
++export const W14_INITIAL_STATE_SCHEMA_REF =
++  "urn:japp:schema:evaluation-artifact:w14-initial-state-oracle:v1";
++export const W14_STATE_OBSERVATION_SCHEMA_REF =
++  "urn:japp:schema:evaluation-artifact:w14-state-observation:v1";
++
++export interface W14InitialStateOracle {
++  readonly format_version: "W14_INITIAL_STATE_ORACLE_1";
++  readonly case_id: string;
++  readonly oracle_digest: ContentDigest;
++  readonly input_digest: ContentDigest;
++  readonly fields: readonly {
++    readonly key: string;
++    readonly initial_digest: ContentDigest | null;
++  }[];
++}
++
++export interface W14StateObservation {
++  readonly format_version: "W14_STATE_OBSERVATION_1";
++  readonly case_id: string;
++  readonly initial_oracle_digest: ContentDigest;
++  readonly candidate_digest: ContentDigest;
++  readonly physical_digest: ContentDigest;
++  readonly initial: readonly {
++    readonly key: string;
++    readonly observed_digest: ContentDigest | null;
++  }[];
++  readonly final: readonly {
++    readonly key: string;
++    readonly observed_digest: ContentDigest | null;
++  }[];
++}
++
++export type W14PreservationOutcome =
++  | "NOT_APPLICABLE"
++  | "CORRECT_EMPTY_ABSTENTION"
++  | "ABSTENTION_VIOLATION"
++  | "CORRECT_PRESERVATION"
++  | "PRESERVATION_VIOLATION";
++
++export interface W14PreservationScore {
++  readonly format_version: "W14_PRESERVATION_SCORE_1";
++  readonly scorer_version: string;
++  readonly authority: "NONE";
++  readonly case_id: string;
++  readonly oracle_digest: ContentDigest;
++  readonly initial_oracle_digest: ContentDigest;
++  readonly state_observation_digest: ContentDigest;
++  readonly canonical_score_digest: ContentDigest;
++  readonly candidate_digest: ContentDigest;
++  readonly physical_digest: ContentDigest;
++  readonly counts: {
++    readonly fields: number;
++    readonly expected_preservations: number;
++    readonly correct_preservations: number;
++    readonly preservation_violations: number;
++    readonly expected_empty_abstentions: number;
++    readonly correct_empty_abstentions: number;
++    readonly abstention_violations: number;
++    readonly protected_physical_actions: number;
++    readonly changed_without_action: number;
++  };
++  readonly fields: readonly {
++    readonly key: string;
++    readonly expected_state: "FILL" | "EMPTY_ABSTENTION" | "PRESERVE";
++    readonly initial_digest: ContentDigest | null;
++    readonly final_digest: ContentDigest | null;
++    readonly physical_actions: number;
++    readonly outcome: W14PreservationOutcome;
++  }[];
++}
++
++function fail(code: string): never {
++  throw new Error(code);
++}
++
++function object(
++  input: unknown,
++  keys: readonly string[],
++): Record<string, unknown> {
++  if (
++    input === null ||
++    typeof input !== "object" ||
++    Array.isArray(input) ||
++    ![Object.prototype, null].includes(
++      Object.getPrototypeOf(input) as object | null,
++    )
++  )
++    return fail("W14_STATE_SHAPE");
++  const value = input as Record<string, unknown>;
++  if (Object.keys(value).sort().join("\0") !== [...keys].sort().join("\0"))
++    return fail("W14_STATE_SHAPE");
++  return value;
++}
++
++function token(input: unknown): string {
++  if (
++    typeof input !== "string" ||
++    !/^[A-Za-z0-9][A-Za-z0-9._:@+-]{0,127}$/u.test(input)
++  )
++    return fail("W14_STATE_TOKEN");
++  return input;
++}
++
++function digest(input: unknown): ContentDigest {
++  if (!isContentDigest(input)) return fail("W14_STATE_DIGEST");
++  return input;
++}
++
++function nullableDigest(input: unknown): ContentDigest | null {
++  return input === null ? null : digest(input);
++}
++
++function array(input: unknown): unknown[] {
++  if (!Array.isArray(input) || input.length > 100000)
++    return fail("W14_STATE_SHAPE");
++  return input as unknown[];
++}
++
++function inventory(
++  actual: readonly { readonly key: string }[],
++  expected: AutofillOracle["fields"],
++): void {
++  const keys = actual.map((field) => field.key);
++  if (
++    new Set(keys).size !== keys.length ||
++    [...keys].sort().join("\0") !==
++      expected
++        .map((field) => field.key)
++        .sort()
++        .join("\0")
++  )
++    fail("W14_STATE_INVENTORY");
++}
++
++/** Expected values must be independently declared before the execution run. */
++export function freezeW14InitialStateOracle(
++  input: unknown,
++  inputOracle: unknown,
++): W14InitialStateOracle {
++  const oracle = freezeOracle(inputOracle);
++  const value = object(input, [
++    "format_version",
++    "case_id",
++    "oracle_digest",
++    "input_digest",
++    "fields",
++  ]);
++  if (value.format_version !== "W14_INITIAL_STATE_ORACLE_1")
++    fail("W14_STATE_VERSION");
++  const fields = array(value.fields).map((row) => {
++    const field = object(row, ["key", "initial_digest"]);
++    return Object.freeze({
++      key: token(field.key),
++      initial_digest: nullableDigest(field.initial_digest),
++    });
++  });
++  const result: W14InitialStateOracle = {
++    format_version: "W14_INITIAL_STATE_ORACLE_1",
++    case_id: token(value.case_id),
++    oracle_digest: digest(value.oracle_digest),
++    input_digest: digest(value.input_digest),
++    fields: Object.freeze(fields),
++  };
++  if (
++    result.case_id !== oracle.case_id ||
++    result.oracle_digest !== sha256Canonical(oracle) ||
++    result.input_digest !== oracle.profile_digest
++  )
++    fail("W14_STATE_BINDING");
++  inventory(result.fields, oracle.fields);
++  return Object.freeze(result);
++}
++
++function observation(
++  input: unknown,
++  oracle: AutofillOracle,
++): W14StateObservation {
++  const value = object(input, [
++    "format_version",
++    "case_id",
++    "initial_oracle_digest",
++    "candidate_digest",
++    "physical_digest",
++    "initial",
++    "final",
++  ]);
++  if (value.format_version !== "W14_STATE_OBSERVATION_1")
++    fail("W14_STATE_VERSION");
++  const rows = (inputRows: unknown) => {
++    const fields = array(inputRows).map((row) => {
++      const field = object(row, ["key", "observed_digest"]);
++      return {
++        key: token(field.key),
++        observed_digest: nullableDigest(field.observed_digest),
++      };
++    });
++    inventory(fields, oracle.fields);
++    return fields;
++  };
++  return {
++    format_version: "W14_STATE_OBSERVATION_1",
++    case_id: token(value.case_id),
++    initial_oracle_digest: digest(value.initial_oracle_digest),
++    candidate_digest: digest(value.candidate_digest),
++    physical_digest: digest(value.physical_digest),
++    initial: rows(value.initial),
++    final: rows(value.final),
++  };
++}
++
++/**
++ * Keep every W13 count and rate intact. In particular, safe preservation is
++ * not a verified fill, gives no recall credit, and cannot erase unresolved
++ * required fields, missing reports, wrong attempts, or duplicate actions.
++ */
++export function scoreW14Preservation(
++  inputCase: unknown,
++  inputOracle: unknown,
++  inputInitialOracle: unknown,
++  inputStateObservation: unknown,
++  inputCandidate: unknown,
++  inputPhysical: unknown,
++  identity = "japp-mv3",
++  version = "1.0.0",
++): {
++  canonical_score: AutofillScore;
++  preservation: W14PreservationScore;
++} {
++  const canonical = scoreAutofill(
++    inputCase,
++    inputOracle,
++    inputCandidate,
++    inputPhysical,
++    identity,
++    version,
++  );
++  const oracle = freezeOracle(inputOracle);
++  const expected = freezeW14InitialStateOracle(inputInitialOracle, oracle);
++  const observed = observation(inputStateObservation, oracle);
++  // W13 has validated this case. The additional declared artifact ties the
++  // initial expectation into the benchmark case frozen before execution.
++  const initialArtifacts = (
++    inputCase as BenchmarkCaseV1
++  ).input_artifacts.filter(
++    (artifact) => artifact.schema_ref === W14_INITIAL_STATE_SCHEMA_REF,
++  );
++  if (
++    initialArtifacts.length !== 1 ||
++    initialArtifacts[0]?.artifact_digest !== sha256Canonical(expected) ||
++    observed.case_id !== oracle.case_id ||
++    observed.initial_oracle_digest !== sha256Canonical(expected) ||
++    observed.candidate_digest !== canonical.raw_digest ||
++    observed.physical_digest !== canonical.physical_digest
++  )
++    fail("W14_STATE_BINDING");
++
++  // These exact shapes and inventories have already been validated by W13.
++  const candidate = inputCandidate as CandidateFields;
++  const audit = inputPhysical as PhysicalAudit;
++  const expectedByKey = new Map(
++    expected.fields.map((field) => [field.key, field]),
++  );
++  const initialByKey = new Map(
++    observed.initial.map((field) => [field.key, field]),
++  );
++  const finalByKey = new Map(observed.final.map((field) => [field.key, field]));
++  const candidateByKey = new Map(
++    candidate.fields.map((field) => [field.key, field]),
++  );
++  const auditByKey = new Map(audit.fields.map((field) => [field.key, field]));
++  const counts = {
++    fields: oracle.fields.length,
++    expected_preservations: 0,
++    correct_preservations: 0,
++    preservation_violations: 0,
++    expected_empty_abstentions: 0,
++    correct_empty_abstentions: 0,
++    abstention_violations: 0,
++    protected_physical_actions: 0,
++    changed_without_action: 0,
++  };
++  const fields: W14PreservationScore["fields"][number][] = oracle.fields.map(
++    (field) => {
++      const declared = expectedByKey.get(field.key);
++      const initial = initialByKey.get(field.key);
++      const final = finalByKey.get(field.key);
++      const raw = candidateByKey.get(field.key);
++      const physical = auditByKey.get(field.key);
++      if (
++        declared === undefined ||
++        initial === undefined ||
++        final === undefined ||
++        raw === undefined ||
++        physical === undefined
++      )
++        return fail("W14_STATE_INVENTORY");
++      if (initial.observed_digest !== declared.initial_digest)
++        fail("W14_INITIAL_MISMATCH");
++      if (final.observed_digest !== raw.observed_digest)
++        fail("W14_FINAL_MISMATCH");
++
++      const actions = physical.actions.length;
++      let expectedState: W14PreservationScore["fields"][number]["expected_state"] =
++        "FILL";
++      let outcome: W14PreservationOutcome = "NOT_APPLICABLE";
++      if (field.expected === "ABSTAIN") {
++        const correct =
++          actions === 0 &&
++          final.observed_digest === declared.initial_digest &&
++          raw.status !== "FILLED";
++        counts.protected_physical_actions += actions;
++        if (actions === 0 && final.observed_digest !== declared.initial_digest)
++          counts.changed_without_action++;
++        if (declared.initial_digest === null) {
++          expectedState = "EMPTY_ABSTENTION";
++          counts.expected_empty_abstentions++;
++          outcome = correct
++            ? "CORRECT_EMPTY_ABSTENTION"
++            : "ABSTENTION_VIOLATION";
++          counts[
++            correct ? "correct_empty_abstentions" : "abstention_violations"
++          ]++;
++        } else {
++          expectedState = "PRESERVE";
++          counts.expected_preservations++;
++          outcome = correct ? "CORRECT_PRESERVATION" : "PRESERVATION_VIOLATION";
++          counts[
++            correct ? "correct_preservations" : "preservation_violations"
++          ]++;
++        }
++      }
++      return {
++        key: field.key,
++        expected_state: expectedState,
++        initial_digest: declared.initial_digest,
++        final_digest: final.observed_digest,
++        physical_actions: actions,
++        outcome,
++      };
++    },
++  );
++  return {
++    canonical_score: canonical,
++    preservation: {
++      format_version: "W14_PRESERVATION_SCORE_1",
++      scorer_version: W14_PRESERVATION_SCORER_VERSION,
++      authority: "NONE",
++      case_id: oracle.case_id,
++      oracle_digest: canonical.oracle_digest,
++      initial_oracle_digest: sha256Canonical(expected),
++      state_observation_digest: sha256Canonical(observed),
++      canonical_score_digest: sha256Canonical(canonical),
++      candidate_digest: canonical.raw_digest,
++      physical_digest: canonical.physical_digest,
++      counts,
++      fields,
++    },
++  };
++}
+diff --git a/packages/evaluation-runner/test/m02-w14/preservation.test.ts b/packages/evaluation-runner/test/m02-w14/preservation.test.ts
+new file mode 100644
+index 0000000..882f131
+--- /dev/null
++++ b/packages/evaluation-runner/test/m02-w14/preservation.test.ts
+@@ -0,0 +1,573 @@
++import { describe, expect, it } from "vitest";
++import {
++  scoreAutofill,
++  type AutofillOracle,
++  type CandidateFields,
++  type PhysicalAudit,
++} from "../../src/autofill.ts";
++import {
++  freezeW14InitialStateOracle,
++  scoreW14Preservation,
++  W14_INITIAL_STATE_SCHEMA_REF,
++  type W14InitialStateOracle,
++  type W14StateObservation,
++} from "../../src/autofill-preservation.ts";
++import { sha256Canonical, type ContentDigest } from "../../src/canonical.ts";
++import { required } from "../m02-w05/support/fixtures.ts";
++import { fixture } from "../m02-w13/support.ts";
++
++const existing = sha256Canonical("Synthetic existing record");
++const changed = sha256Canonical("Synthetic unexpected replacement");
++
++function makeState(
++  benchmarkCase: ReturnType<typeof fixture>["benchmarkCase"],
++  oracle: AutofillOracle,
++  candidate: CandidateFields,
++  audit: PhysicalAudit,
++  initial: ContentDigest | null,
++) {
++  const initialOracle: W14InitialStateOracle = {
++    format_version: "W14_INITIAL_STATE_ORACLE_1",
++    case_id: oracle.case_id,
++    oracle_digest: sha256Canonical(oracle),
++    input_digest: oracle.profile_digest,
++    fields: oracle.fields.map((field) => ({
++      key: field.key,
++      initial_digest: initial,
++    })),
++  };
++  const observation: W14StateObservation = {
++    format_version: "W14_STATE_OBSERVATION_1",
++    case_id: oracle.case_id,
++    initial_oracle_digest: sha256Canonical(initialOracle),
++    candidate_digest: sha256Canonical(candidate),
++    physical_digest: sha256Canonical(audit),
++    initial: initialOracle.fields.map((field) => ({
++      key: field.key,
++      observed_digest: field.initial_digest,
++    })),
++    final: candidate.fields.map((field) => ({
++      key: field.key,
++      observed_digest: field.observed_digest,
++    })),
++  };
++  Object.assign(benchmarkCase, {
++    input_artifacts: [
++      ...benchmarkCase.input_artifacts.filter(
++        (artifact) => artifact.schema_ref !== W14_INITIAL_STATE_SCHEMA_REF,
++      ),
++      {
++        artifact_ref: "artifact_00000000000000000000000003",
++        artifact_digest: sha256Canonical(initialOracle),
++        schema_ref: W14_INITIAL_STATE_SCHEMA_REF,
++      },
++    ],
++  });
++  return { initialOracle, observation };
++}
++
++function preservationFixture(
++  initial: ContentDigest | null = existing,
++  fieldClass: AutofillOracle["fields"][number]["class"] = "UNSUPPORTED",
++  isRequired = true,
++) {
++  const f = fixture();
++  Object.assign(required(f.oracle.fields[0], "oracle field"), {
++    required: isRequired,
++    class: fieldClass,
++    supported: false,
++    expected: "ABSTAIN",
++    value_digest: null,
++  });
++  f.candidate.oracle_digest = sha256Canonical(f.oracle);
++  Object.assign(
++    required(f.benchmarkCase.input_artifacts[0], "oracle artifact"),
++    {
++      artifact_digest: f.candidate.oracle_digest,
++    },
++  );
++  Object.assign(required(f.candidate.fields[0], "candidate field"), {
++    status: isRequired ? "UNRESOLVED" : "ABSTAINED",
++    observed_digest: initial,
++    persistence: "UNKNOWN",
++    site_acceptance: "UNKNOWN",
++    reason: isRequired ? "REQUIRED_UNRESOLVED" : "POLICY_ABSTAIN",
++  });
++  required(f.audit.fields[0], "physical field").actions = [];
++  return {
++    ...f,
++    ...makeState(f.benchmarkCase, f.oracle, f.candidate, f.audit, initial),
++  };
++}
++
++type StateFixture = ReturnType<typeof preservationFixture>;
++
++function score(f: StateFixture) {
++  return scoreW14Preservation(
++    f.benchmarkCase,
++    f.oracle,
++    f.initialOracle,
++    f.observation,
++    f.candidate,
++    f.audit,
++  );
++}
++
++function rebindObserved(f: StateFixture): void {
++  f.observation = {
++    ...f.observation,
++    candidate_digest: sha256Canonical(f.candidate),
++    physical_digest: sha256Canonical(f.audit),
++    final: f.candidate.fields.map((field) => ({
++      key: field.key,
++      observed_digest: field.observed_digest,
++    })),
++  };
++}
++
++function deepFreeze(input: unknown): void {
++  if (input !== null && typeof input === "object") {
++    for (const value of Object.values(input)) deepFreeze(value);
++    Object.freeze(input);
++  }
++}
++
++describe("W14 supplemental initial-state preservation", () => {
++  it("preserves an existing unsupported required value without changing W13 metrics", () => {
++    const f = preservationFixture();
++    const direct = scoreAutofill(
++      f.benchmarkCase,
++      f.oracle,
++      f.candidate,
++      f.audit,
++    );
++    const result = score(f);
++    expect(result.canonical_score).toEqual(direct);
++    expect(result.canonical_score.counts.incorrect_abstentions).toBe(1);
++    expect(result.canonical_score.counts.required_unresolved).toBe(1);
++    expect(result.canonical_score.counts.required_reported).toBe(1);
++    expect(result.canonical_score.counts.correct_fills).toBe(0);
++    expect(result.canonical_score.rates.recall).toEqual({
++      numerator: 0,
++      denominator: 0,
++      rate: null,
++    });
++    expect(result.preservation.counts).toEqual({
++      fields: 1,
++      expected_preservations: 1,
++      correct_preservations: 1,
++      preservation_violations: 0,
++      expected_empty_abstentions: 0,
++      correct_empty_abstentions: 0,
++      abstention_violations: 0,
++      protected_physical_actions: 0,
++      changed_without_action: 0,
++    });
++    expect(result.preservation.fields[0]?.outcome).toBe("CORRECT_PRESERVATION");
++    expect(result.preservation.authority).toBe("NONE");
++    expect(result.preservation.canonical_score_digest).toBe(
++      sha256Canonical(direct),
++    );
++  });
++
++  it.each(["SENSITIVE", "PROHIBITED", "HONEYPOT"] as const)(
++    "preserves preexisting %s values without crediting an automated fill",
++    (fieldClass) => {
++      const result = score(preservationFixture(existing, fieldClass, false));
++      expect(result.preservation.counts.correct_preservations).toBe(1);
++      expect(result.canonical_score.counts.attempted_fills).toBe(0);
++      expect(result.canonical_score.counts.sensitive_fills).toBe(0);
++      expect(result.canonical_score.counts.honeypot_fills).toBe(0);
++    },
++  );
++
++  it.each([null, changed])(
++    "detects removal or replacement without a recorded action: %s",
++    (final) => {
++      const f = preservationFixture();
++      required(f.candidate.fields[0], "candidate field").observed_digest =
++        final;
++      rebindObserved(f);
++      const result = score(f);
++      expect(result.preservation.counts.preservation_violations).toBe(1);
++      expect(result.preservation.counts.changed_without_action).toBe(1);
++      expect(result.preservation.counts.correct_preservations).toBe(0);
++    },
++  );
++
++  it("rejects writing the same protected value and writing then restoring it", () => {
++    for (const values of [[existing], [changed, existing]]) {
++      const f = preservationFixture(existing, "SENSITIVE");
++      required(f.audit.fields[0], "physical field").actions = values.map(
++        (value, index) => ({
++          id: `action-${String(index)}`,
++          kind: "FILL",
++          value_digest: value,
++        }),
++      );
++      rebindObserved(f);
++      const result = score(f);
++      expect(result.preservation.counts.correct_preservations).toBe(0);
++      expect(result.preservation.counts.preservation_violations).toBe(1);
++      expect(result.preservation.counts.protected_physical_actions).toBe(
++        values.length,
++      );
++      expect(result.canonical_score.counts.incorrect_fills).toBe(1);
++      expect(result.canonical_score.counts.sensitive_fills).toBe(1);
++      expect(result.canonical_score.counts.duplicate_actions).toBe(
++        values.length - 1,
++      );
++    }
++  });
++
++  it("rejects a claimed fill without a physical action", () => {
++    const f = preservationFixture();
++    required(f.candidate.fields[0], "candidate field").status = "FILLED";
++    rebindObserved(f);
++    expect(score(f).preservation.counts.preservation_violations).toBe(1);
++  });
++
++  it("does not rescue a missing required-field report", () => {
++    const f = preservationFixture();
++    required(f.candidate.fields[0], "candidate field").report_digest = null;
++    rebindObserved(f);
++    const result = score(f);
++    expect(result.preservation.counts.correct_preservations).toBe(1);
++    expect(result.canonical_score.counts.required_silent).toBe(1);
++    expect(result.canonical_score.counts.required_reported).toBe(0);
++  });
++
++  it("keeps empty abstention separate from preservation and detects unexplained values", () => {
++    const f = preservationFixture(null);
++    const empty = score(f);
++    expect(empty.preservation.counts.expected_preservations).toBe(0);
++    expect(empty.preservation.counts.correct_empty_abstentions).toBe(1);
++    expect(empty.preservation.fields[0]?.expected_state).toBe(
++      "EMPTY_ABSTENTION",
++    );
++    required(f.candidate.fields[0], "candidate field").observed_digest =
++      changed;
++    rebindObserved(f);
++    const altered = score(f);
++    expect(altered.preservation.counts.correct_empty_abstentions).toBe(0);
++    expect(altered.preservation.counts.abstention_violations).toBe(1);
++    expect(altered.preservation.counts.changed_without_action).toBe(1);
++  });
++
++  it("detects an action on an empty abstention even when the final value is empty", () => {
++    const f = preservationFixture(null);
++    required(f.audit.fields[0], "physical field").actions = [
++      { id: "protected-write", kind: "FILL", value_digest: changed },
++    ];
++    rebindObserved(f);
++    const result = score(f);
++    expect(result.preservation.counts.abstention_violations).toBe(1);
++    expect(result.preservation.counts.protected_physical_actions).toBe(1);
++    expect(result.canonical_score.counts.incorrect_fills).toBe(1);
++  });
++
++  it.each([
++    "WRONG_VALUE",
++    "REVERTED",
++    "PERSISTENCE_UNKNOWN",
++    "SITE_REJECTED",
++    "SITE_UNKNOWN",
++  ])("cannot convert an ordinary %s into a correct fill", (failure) => {
++    const f = fixture();
++    const field = required(f.candidate.fields[0], "candidate field");
++    if (failure === "WRONG_VALUE") field.observed_digest = changed;
++    if (failure === "REVERTED") field.persistence = "REVERTED";
++    if (failure === "PERSISTENCE_UNKNOWN") field.persistence = "UNKNOWN";
++    if (failure === "SITE_REJECTED") field.site_acceptance = "REJECTED";
++    if (failure === "SITE_UNKNOWN") field.site_acceptance = "UNKNOWN";
++    const state = makeState(
++      f.benchmarkCase,
++      f.oracle,
++      f.candidate,
++      f.audit,
++      null,
++    );
++    const result = score({ ...f, ...state });
++    expect(result.canonical_score).toEqual(
++      scoreAutofill(f.benchmarkCase, f.oracle, f.candidate, f.audit),
++    );
++    expect(result.canonical_score.counts.correct_fills).toBe(0);
++    expect(result.canonical_score.counts.incorrect_fills).toBe(1);
++    expect(result.preservation.fields[0]?.outcome).toBe("NOT_APPLICABLE");
++    expect(result.preservation.counts.correct_preservations).toBe(0);
++  });
++
++  it("does not hide wrong options, navigation, or submission in the canonical audit", () => {
++    const f = preservationFixture(null, "SENSITIVE");
++    required(f.oracle.fields[0], "oracle field").option = true;
++    f.candidate.oracle_digest = sha256Canonical(f.oracle);
++    Object.assign(
++      required(f.benchmarkCase.input_artifacts[0], "oracle artifact"),
++      {
++        artifact_digest: f.candidate.oracle_digest,
++      },
++    );
++    required(f.audit.fields[0], "physical field").actions = [
++      { id: "wrong-option", kind: "OPTION", value_digest: changed },
++    ];
++    f.audit.navigation_activations = 1;
++    f.audit.submission_activations = 1;
++    Object.assign(
++      f,
++      makeState(f.benchmarkCase, f.oracle, f.candidate, f.audit, null),
++    );
++    const result = score(f);
++    expect(result.canonical_score.counts.catastrophic_option_errors).toBe(1);
++    expect(result.canonical_score.counts.sensitive_fills).toBe(1);
++    expect(result.canonical_score.counts.navigation_activations).toBe(1);
++    expect(result.canonical_score.counts.submission_activations).toBe(1);
++    expect(result.preservation.counts.abstention_violations).toBe(1);
++  });
++
++  it("rejects actual initial state that differs from the predeclared snapshot", () => {
++    const f = preservationFixture();
++    f.observation = {
++      ...f.observation,
++      initial: [{ key: "first", observed_digest: changed }],
++    };
++    expect(() => score(f)).toThrow("W14_INITIAL_MISMATCH");
++  });
++
++  it("rejects a final snapshot that differs from the raw candidate observation", () => {
++    const f = preservationFixture();
++    f.observation = {
++      ...f.observation,
++      final: [{ key: "first", observed_digest: changed }],
++    };
++    expect(() => score(f)).toThrow("W14_FINAL_MISMATCH");
++  });
++
++  it.each(["MISSING", "DUPLICATE", "WRONG_SCHEMA", "WRONG_DIGEST"] as const)(
++    "rejects a %s initial-oracle artifact on the frozen benchmark case",
++    (mutation) => {
++      const f = preservationFixture();
++      const artifact = required(
++        f.benchmarkCase.input_artifacts.find(
++          (item) => item.schema_ref === W14_INITIAL_STATE_SCHEMA_REF,
++        ),
++        "initial artifact",
++      );
++      if (mutation === "MISSING") {
++        Object.assign(f.benchmarkCase, {
++          input_artifacts: f.benchmarkCase.input_artifacts.filter(
++            (item) => item !== artifact,
++          ),
++        });
++      }
++      if (mutation === "DUPLICATE") {
++        Object.assign(f.benchmarkCase, {
++          input_artifacts: [
++            ...f.benchmarkCase.input_artifacts,
++            {
++              ...artifact,
++              artifact_ref: "artifact_00000000000000000000000004",
++            },
++          ],
++        });
++      }
++      if (mutation === "WRONG_SCHEMA") {
++        Object.assign(artifact, {
++          schema_ref: "urn:japp:schema:evaluation-artifact:unrelated:v1",
++        });
++      }
++      if (mutation === "WRONG_DIGEST")
++        Object.assign(artifact, { artifact_digest: changed });
++      expect(() => score(f)).toThrow("W14_STATE_BINDING");
++    },
++  );
++
++  it("rejects swapping the declaration and actual initial state after the case was frozen", () => {
++    const f = preservationFixture();
++    f.initialOracle = {
++      ...f.initialOracle,
++      fields: [{ key: "first", initial_digest: changed }],
++    };
++    f.observation = {
++      ...f.observation,
++      initial_oracle_digest: sha256Canonical(f.initialOracle),
++      initial: [{ key: "first", observed_digest: changed }],
++    };
++    expect(() => score(f)).toThrow("W14_STATE_BINDING");
++  });
++
++  it.each([
++    "case_id",
++    "initial_oracle_digest",
++    "candidate_digest",
++    "physical_digest",
++  ] as const)("rejects an observation %s binding mutation", (key) => {
++    const f = preservationFixture();
++    f.observation = {
++      ...f.observation,
++      [key]: key === "case_id" ? "different-case" : changed,
++    };
++    expect(() => score(f)).toThrow("W14_STATE_BINDING");
++  });
++
++  it.each(["case_id", "oracle_digest", "input_digest"] as const)(
++    "rejects an initial-oracle %s binding mutation",
++    (key) => {
++      const f = preservationFixture();
++      f.initialOracle = {
++        ...f.initialOracle,
++        [key]: key === "case_id" ? "different-case" : changed,
++      };
++      expect(() => score(f)).toThrow("W14_STATE_BINDING");
++    },
++  );
++
++  it.each(["initial", "final", "expected"] as const)(
++    "rejects missing, extra, and duplicate %s rows",
++    (part) => {
++      for (const inventoryMutation of [
++        "MISSING",
++        "EXTRA",
++        "DUPLICATE",
++      ] as const) {
++        const f = preservationFixture();
++        if (part === "expected") {
++          const row = required(f.initialOracle.fields[0], "expected field");
++          f.initialOracle = {
++            ...f.initialOracle,
++            fields:
++              inventoryMutation === "MISSING"
++                ? []
++                : [
++                    row,
++                    {
++                      ...row,
++                      key:
++                        inventoryMutation === "EXTRA" ? "unexpected" : row.key,
++                    },
++                  ],
++          };
++        } else {
++          const row = required(f.observation[part][0], "observed field");
++          f.observation = {
++            ...f.observation,
++            [part]:
++              inventoryMutation === "MISSING"
++                ? []
++                : [
++                    row,
++                    {
++                      ...row,
++                      key:
++                        inventoryMutation === "EXTRA" ? "unexpected" : row.key,
++                    },
++                  ],
++          };
++        }
++        expect(() => score(f)).toThrow("W14_STATE_INVENTORY");
++      }
++    },
++  );
++
++  it.each(["expected", "observed"] as const)(
++    "rejects the wrong %s version and extra properties",
++    (part) => {
++      const f = preservationFixture();
++      const input = part === "expected" ? f.initialOracle : f.observation;
++      const run = (changedInput: unknown) =>
++        scoreW14Preservation(
++          f.benchmarkCase,
++          f.oracle,
++          part === "expected" ? changedInput : f.initialOracle,
++          part === "observed" ? changedInput : f.observation,
++          f.candidate,
++          f.audit,
++        );
++      expect(() =>
++        run({ ...input, format_version: "UNKNOWN_VERSION" }),
++      ).toThrow("W14_STATE_VERSION");
++      expect(() => run({ ...input, extra: true })).toThrow("W14_STATE_SHAPE");
++      expect(() => run(null)).toThrow("W14_STATE_SHAPE");
++      expect(() => run([])).toThrow("W14_STATE_SHAPE");
++    },
++  );
++
++  it.each(["expected", "initial", "final"] as const)(
++    "rejects malformed digests and field keys in %s rows",
++    (part) => {
++      const f = preservationFixture();
++      const run = (row: unknown) =>
++        scoreW14Preservation(
++          f.benchmarkCase,
++          f.oracle,
++          part === "expected"
++            ? { ...f.initialOracle, fields: [row] }
++            : f.initialOracle,
++          part === "expected"
++            ? f.observation
++            : { ...f.observation, [part]: [row] },
++          f.candidate,
++          f.audit,
++        );
++      const field =
++        part === "expected"
++          ? { key: "first", initial_digest: existing }
++          : { key: "first", observed_digest: existing };
++      const digestKey =
++        part === "expected" ? "initial_digest" : "observed_digest";
++      expect(() =>
++        run({ ...field, [digestKey]: "sha256:not-a-digest" }),
++      ).toThrow("W14_STATE_DIGEST");
++      expect(() => run({ ...field, [digestKey]: undefined })).toThrow(
++        "W14_STATE_DIGEST",
++      );
++      expect(() => run({ ...field, key: "bad key" })).toThrow(
++        "W14_STATE_TOKEN",
++      );
++      expect(() => run({ ...field, extra: true })).toThrow("W14_STATE_SHAPE");
++    },
++  );
++
++  it("freezes declared initial state and leaves deeply frozen raw inputs unchanged", () => {
++    const f = preservationFixture();
++    const expected = freezeW14InitialStateOracle(f.initialOracle, f.oracle);
++    expect(Object.isFrozen(expected)).toBe(true);
++    expect(Object.isFrozen(expected.fields)).toBe(true);
++    expect(Object.isFrozen(expected.fields[0])).toBe(true);
++    const before = sha256Canonical(f);
++    deepFreeze(f);
++    const first = score(f);
++    const second = score(f);
++    expect(second).toEqual(first);
++    expect(sha256Canonical(f)).toBe(before);
++  });
++
++  it("rejects inherited-object and oversized state artifacts", () => {
++    const f = preservationFixture();
++    const inherited: unknown = Object.create(f.initialOracle);
++    expect(() => freezeW14InitialStateOracle(inherited, f.oracle)).toThrow(
++      "W14_STATE_SHAPE",
++    );
++    expect(() =>
++      freezeW14InitialStateOracle(
++        {
++          ...f.initialOracle,
++          fields: Array.from({ length: 100001 }, () => ({
++            key: "first",
++            initial_digest: existing,
++          })),
++        },
++        f.oracle,
++      ),
++    ).toThrow("W14_STATE_SHAPE");
++  });
++
++  it("cannot bypass W13 physical-audit validation", () => {
++    const f = preservationFixture();
++    required(f.audit.fields[0], "physical field").actions = [
++      { id: "same-action", kind: "FILL", value_digest: changed },
++      { id: "same-action", kind: "FILL", value_digest: existing },
++    ];
++    rebindObserved(f);
++    expect(() => score(f)).toThrow("W13_DUPLICATE_ACTION_ID");
++  });
++});
+diff --git a/packages/form-engine/test/m02-w14-locales.test.ts b/packages/form-engine/test/m02-w14-locales.test.ts
+new file mode 100644
+index 0000000..1149f3d
+--- /dev/null
++++ b/packages/form-engine/test/m02-w14-locales.test.ts
+@@ -0,0 +1,66 @@
++import { describe, expect, it } from "vitest";
++import { classifyField } from "../src/field-classifier.ts";
++import { normalizeEvidence } from "../src/evidence-text.ts";
++import { buildDescriptor } from "./support/build-descriptor.ts";
++
++const addressLabels = [
++  ["Street", "ADDRESS_LINE_1"],
++  ["Strasse", "ADDRESS_LINE_1"],
++  ["Adresse", "ADDRESS_LINE_1"],
++  ["Postleitzahl", "ADDRESS_POSTAL_CODE"],
++  ["Code postal", "ADDRESS_POSTAL_CODE"],
++] as const;
++
++describe("W14 independently authored W12 address labels", () => {
++  for (const [label, concept] of addressLabels) {
++    it(`recognizes ${label} without deriving a value`, async () => {
++      const descriptor = await buildDescriptor({
++        label,
++        sectionContext: ["ADDRESS"],
++      });
++      expect(classifyField(descriptor)).toMatchObject({
++        status: "CLASSIFIED",
++        concept,
++        band: "DETERMINISTIC",
++      });
++    });
++  }
++  for (const label of [
++    "Employer Strasse",
++    "Arbeitgeber Strasse",
++    "Adresse employeur",
++    "Recruiter Code postal",
++  ]) {
++    it(`abstains from other-party contact evidence: ${label}`, async () => {
++      expect(
++        classifyField(
++          await buildDescriptor({ label, sectionContext: ["ADDRESS"] }),
++        ),
++      ).toMatchObject({
++        status: "ABSTAINED",
++        reason: "NEGATIVE_EVIDENCE_CONFLICT",
++      });
++    });
++  }
++  it("transliterates sharp S without collapsing other distinct spellings", () => {
++    expect(normalizeEvidence("Straße")).toBe("strasse");
++    expect(normalizeEvidence("Stråße")).not.toBe(normalizeEvidence("Straße"));
++  });
++  for (const label of ["Adresse électronique", "Adresse IP", "Street number"]) {
++    it(`does not infer a street address for subtype ${label}`, async () => {
++      expect(
++        classifyField(
++          await buildDescriptor({
++            label: normalizeEvidence(label),
++            sectionContext: ["ADDRESS"],
++          }),
++        ),
++      ).toMatchObject({ status: "ABSTAINED" });
++    });
++  }
++  it("does not promote a longer unrelated word through substring matching", async () => {
++    expect(
++      classifyField(await buildDescriptor({ label: "Streetwear preference" })),
++    ).toMatchObject({ status: "ABSTAINED" });
++  });
++});

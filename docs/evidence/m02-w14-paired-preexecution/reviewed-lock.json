@@ -1,0 +1,8 @@
+{
+  "format": "W14_PAIRED_REVIEWED_PREEXECUTION_LOCK_1",
+  "reviewed_lock_digest": "sha256:307fc4cd296f35aeb9c0a534c5e5f36d573c46753e736391bf34ac52986e3ec0",
+  "supersedes_unexecuted_lock": "sha256:1a0b76cef2a7f5b7218aa031c836ea71550b53391b621327f6701164a4ac2d7b",
+  "correction": "PREEXECUTION.md build command removes actual JAPP_W14_PUBLIC_INSPECTION flag; _EVALUATION was a runbook typo. Only PREEXECUTION hash entry and lock sidecar changed.",
+  "actual_runs_before_correction": 0,
+  "runtime_and_frozen_data_unchanged": true
+}

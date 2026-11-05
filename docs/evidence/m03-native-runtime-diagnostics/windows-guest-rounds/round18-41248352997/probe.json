@@ -1,0 +1,402 @@
+[
+    {
+        "at":  "2026-10-31T22:29:38.0774345+00:00",
+        "key":  "region-and-scope",
+        "value":  {
+                      "value":  [
+                                    {
+                                        "2.12.4":  {
+                                                       "last":  {
+                                                                    "rects":  [
+                                                                                  574,
+                                                                                  254,
+                                                                                  8,
+                                                                                  16
+                                                                              ],
+                                                                    "text":  "4",
+                                                                    "element":  "2.12.4"
+                                                                },
+                                                       "first":  {
+                                                                     "rects":  [
+                                                                                   574,
+                                                                                   254,
+                                                                                   8,
+                                                                                   16
+                                                                               ],
+                                                                     "text":  "4",
+                                                                     "element":  "2.12.4"
+                                                                 },
+                                                       "same":  true
+                                                   },
+                                        "type":  "ControlType.Group",
+                                        "0.0.1":  {
+                                                      "last":  {
+                                                                   "rects":  [
+                                                                                 559,
+                                                                                 207,
+                                                                                 16,
+                                                                                 16,
+                                                                                 314,
+                                                                                 253,
+                                                                                 22,
+                                                                                 20
+                                                                             ],
+                                                                   "text":  ".1\nTau",
+                                                                   "element":  ""
+                                                               },
+                                                      "first":  {
+                                                                    "rects":  [
+                                                                                  559,
+                                                                                  207,
+                                                                                  16,
+                                                                                  16,
+                                                                                  314,
+                                                                                  253,
+                                                                                  22,
+                                                                                  20
+                                                                              ],
+                                                                    "text":  ".1\nTau",
+                                                                    "element":  ""
+                                                                },
+                                                      "same":  true
+                                                  },
+                                        "Tauri version":  {
+                                                              "last":  {
+                                                                           "rects":  [
+                                                                                         340,
+                                                                                         253,
+                                                                                         52,
+                                                                                         20,
+                                                                                         538,
+                                                                                         254,
+                                                                                         30,
+                                                                                         16
+                                                                                     ],
+                                                                           "text":  "i version\n2.12",
+                                                                           "element":  ""
+                                                                       },
+                                                              "first":  {
+                                                                            "rects":  [
+                                                                                          340,
+                                                                                          253,
+                                                                                          52,
+                                                                                          20,
+                                                                                          538,
+                                                                                          254,
+                                                                                          30,
+                                                                                          16
+                                                                                      ],
+                                                                            "text":  "i version\n2.12",
+                                                                            "element":  ""
+                                                                        },
+                                                              "same":  true
+                                                          },
+                                        "element_0.0.1_in_region":  {
+                                                                        "type":  "ControlType.Text",
+                                                                        "rect":  [
+                                                                                     538,
+                                                                                     207
+                                                                                 ]
+                                                                    },
+                                        "scope_rects":  [
+                                                            314,
+                                                            156,
+                                                            109,
+                                                            20,
+                                                            892,
+                                                            156,
+                                                            63,
+                                                            18,
+                                                            314,
+                                                            206,
+                                                            75,
+                                                            20,
+                                                            538,
+                                                            207,
+                                                            37,
+                                                            16,
+                                                            314,
+                                                            253,
+                                                            78,
+                                                            20,
+                                                            538,
+                                                            254,
+                                                            44,
+                                                            16
+                                                        ],
+                                        "scope_text":  "Desktop versions\nNative app\nApp version\n0.0.1\nTauri version\n2.12.4",
+                                        "App version":  {
+                                                            "last":  {
+                                                                         "rects":  [
+                                                                                       331,
+                                                                                       206,
+                                                                                       58,
+                                                                                       20,
+                                                                                       538,
+                                                                                       207,
+                                                                                       15,
+                                                                                       16
+                                                                                   ],
+                                                                         "text":  "p version\n0.",
+                                                                         "element":  ""
+                                                                     },
+                                                            "first":  {
+                                                                          "rects":  [
+                                                                                        331,
+                                                                                        206,
+                                                                                        58,
+                                                                                        20,
+                                                                                        538,
+                                                                                        207,
+                                                                                        15,
+                                                                                        16
+                                                                                    ],
+                                                                          "text":  "p version\n0.",
+                                                                          "element":  ""
+                                                                      },
+                                                            "same":  true
+                                                        }
+                                    },
+                                    {
+                                        "2.12.4":  {
+                                                       "last":  null,
+                                                       "first":  null,
+                                                       "same":  null
+                                                   },
+                                        "type":  "ControlType.Text",
+                                        "0.0.1":  {
+                                                      "last":  null,
+                                                      "first":  null,
+                                                      "same":  null
+                                                  },
+                                        "Tauri version":  {
+                                                              "last":  null,
+                                                              "first":  null,
+                                                              "same":  null
+                                                          },
+                                        "element_0.0.1_in_region":  {
+
+                                                                    },
+                                        "scope_rects":  [
+                                                            314,
+                                                            156,
+                                                            109,
+                                                            20
+                                                        ],
+                                        "scope_text":  "Desktop versions",
+                                        "App version":  {
+                                                            "last":  null,
+                                                            "first":  null,
+                                                            "same":  null
+                                                        }
+                                    }
+                                ],
+                      "ok":  true
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:29:38.9414886+00:00",
+        "key":  "leaf-ranges",
+        "value":  {
+                      "value":  {
+                                    "0.0.1":  {
+                                                  "first":  {
+                                                                "text":  "0.0.1",
+                                                                "rects":  [
+                                                                              538,
+                                                                              207,
+                                                                              37,
+                                                                              16
+                                                                          ]
+                                                            },
+                                                  "same":  true,
+                                                  "last":  {
+                                                               "text":  "0.0.1",
+                                                               "rects":  [
+                                                                             538,
+                                                                             207,
+                                                                             37,
+                                                                             16
+                                                                         ]
+                                                           },
+                                                  "leaf_rect":  [
+                                                                    538,
+                                                                    207,
+                                                                    37,
+                                                                    16
+                                                                ],
+                                                  "scope_rects":  [
+                                                                      538,
+                                                                      207,
+                                                                      37,
+                                                                      16
+                                                                  ],
+                                                  "scope_text":  "0.0.1",
+                                                  "leaves":  1
+                                              },
+                                    "App version":  {
+                                                        "first":  {
+                                                                      "text":  "App version",
+                                                                      "rects":  [
+                                                                                    314,
+                                                                                    206,
+                                                                                    75,
+                                                                                    20
+                                                                                ]
+                                                                  },
+                                                        "same":  true,
+                                                        "last":  {
+                                                                     "text":  "App version",
+                                                                     "rects":  [
+                                                                                   314,
+                                                                                   206,
+                                                                                   75,
+                                                                                   20
+                                                                               ]
+                                                                 },
+                                                        "leaf_rect":  [
+                                                                          314,
+                                                                          206,
+                                                                          74,
+                                                                          20
+                                                                      ],
+                                                        "scope_rects":  [
+                                                                            314,
+                                                                            206,
+                                                                            75,
+                                                                            20
+                                                                        ],
+                                                        "scope_text":  "App version",
+                                                        "leaves":  1
+                                                    },
+                                    "Tauri version":  {
+                                                          "first":  {
+                                                                        "text":  "Tauri version",
+                                                                        "rects":  [
+                                                                                      314,
+                                                                                      253,
+                                                                                      78,
+                                                                                      20
+                                                                                  ]
+                                                                    },
+                                                          "same":  true,
+                                                          "last":  {
+                                                                       "text":  "Tauri version",
+                                                                       "rects":  [
+                                                                                     314,
+                                                                                     253,
+                                                                                     78,
+                                                                                     20
+                                                                                 ]
+                                                                   },
+                                                          "leaf_rect":  [
+                                                                            314,
+                                                                            253,
+                                                                            78,
+                                                                            20
+                                                                        ],
+                                                          "scope_rects":  [
+                                                                              314,
+                                                                              253,
+                                                                              78,
+                                                                              20
+                                                                          ],
+                                                          "scope_text":  "Tauri version",
+                                                          "leaves":  1
+                                                      },
+                                    "2.12.4":  {
+                                                   "first":  {
+                                                                 "text":  "2.12.4",
+                                                                 "rects":  [
+                                                                               538,
+                                                                               254,
+                                                                               44,
+                                                                               16
+                                                                           ]
+                                                             },
+                                                   "same":  true,
+                                                   "last":  {
+                                                                "text":  "2.12.4",
+                                                                "rects":  [
+                                                                              538,
+                                                                              254,
+                                                                              44,
+                                                                              16
+                                                                          ]
+                                                            },
+                                                   "leaf_rect":  [
+                                                                     538,
+                                                                     254,
+                                                                     44,
+                                                                     16
+                                                                 ],
+                                                   "scope_rects":  [
+                                                                       538,
+                                                                       254,
+                                                                       44,
+                                                                       16
+                                                                   ],
+                                                   "scope_text":  "2.12.4",
+                                                   "leaves":  1
+                                               }
+                                },
+                      "ok":  true
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:29:39.1342456+00:00",
+        "key":  "shell-measure-current-driver",
+        "value":  {
+                      "value":  {
+                                    "stage":  "baseline",
+                                    "window_id":  "131536",
+                                    "app_pid":  6860,
+                                    "frame":  [
+                                                  0,
+                                                  0,
+                                                  1044,
+                                                  788
+                                              ],
+                                    "backing":  {
+                                                    "kind":  "WIN32_OWNED_HWND",
+                                                    "dpi":  96,
+                                                    "awareness":  2
+                                                },
+                                    "anchors":  [
+                                                    {
+                                                        "text":  "0.0.1",
+                                                        "rect":  [
+                                                                     538,
+                                                                     207,
+                                                                     37,
+                                                                     16
+                                                                 ],
+                                                        "single_line":  true,
+                                                        "visible":  true,
+                                                        "showing":  true
+                                                    },
+                                                    {
+                                                        "text":  "2.12.4",
+                                                        "rect":  [
+                                                                     538,
+                                                                     254,
+                                                                     44,
+                                                                     16
+                                                                 ],
+                                                        "single_line":  true,
+                                                        "visible":  true,
+                                                        "showing":  true
+                                                    }
+                                                ]
+                                },
+                      "ok":  true
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:29:39.1741593+00:00",
+        "key":  "end",
+        "value":  {
+
+                  }
+    }
+]

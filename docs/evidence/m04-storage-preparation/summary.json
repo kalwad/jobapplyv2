@@ -1,0 +1,14 @@
+{
+  "scope": "REVIEWED_OUTSIDE_PREPARATION_NOT_CANONICAL_ACTIVATION_OR_M04_ACCEPTANCE",
+  "actual_final_cases_pass": 178,
+  "inherited_cases": 156,
+  "new_retention_cases": 22,
+  "restore_baseline_pass": 144,
+  "new_restore_cases": 12,
+  "installed_wheel_commands_closed0": 4,
+  "wheel_package_files": 27,
+  "installed_sql_resources": 3,
+  "canonical_runtime_dependency_change": false,
+  "logical_rows_only_not_secure_erasure": true,
+  "native_keystore_and_foreign_matrix": "PENDING"
+}

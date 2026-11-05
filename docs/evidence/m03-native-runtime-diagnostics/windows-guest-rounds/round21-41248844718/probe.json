@@ -1,0 +1,1065 @@
+[
+    {
+        "at":  "2026-10-31T22:35:36.7503964+00:00",
+        "key":  "parse",
+        "value":  {
+                      "errors":  [
+
+                                 ]
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:35:38.9053427+00:00",
+        "key":  "package",
+        "value":  {
+                      "files":  64,
+                      "root":  "C:\\Users\\runneradmin\\AppData\\Local\\JobApply Ω space aaaaaaaaaaaa"
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:35:38.9399324+00:00",
+        "key":  "phase-body",
+        "value":  {
+                      "bytes":  3727,
+                      "sha256":  "FE805E1D84CC02738A940F2D2D7974197FE7063EFCE6AFA733DE0D89407C7F02"
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:35:50.5209471+00:00",
+        "key":  "receipt-ready",
+        "value":  {
+                      "elapsed_s":  12.14,
+                      "details":  {
+                                      "api_version":  "1.0.0",
+                                      "pid":  3860,
+                                      "unicode_spaces_path":  true,
+                                      "service":  {
+                                                      "port":  58401,
+                                                      "pid":  3440,
+                                                      "creation_time":  134379597459124468
+                                                  },
+                                      "version":  "0.0.1"
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:35:50.6900120+00:00",
+        "key":  "receipt-unauthorized12",
+        "value":  {
+                      "elapsed_s":  12.31,
+                      "details":  {
+                                      "statuses":  [
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401
+                                                   ]
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:36:12.9936555+00:00",
+        "key":  "receipt-keyboard",
+        "value":  {
+                      "elapsed_s":  34.61,
+                      "details":  {
+                                      "checked_after":  "2026-10-31T22:35:50.9479331Z",
+                                      "native_shell":  {
+                                                           "routes":  [
+                                                                          {
+                                                                              "heading_unique":  true,
+                                                                              "scale":  "baseline",
+                                                                              "window_id":  "131374",
+                                                                              "frame":  [
+                                                                                            0,
+                                                                                            0,
+                                                                                            1044,
+                                                                                            788
+                                                                                        ],
+                                                                              "heading_focused":  true,
+                                                                              "skip_main":  true,
+                                                                              "image_width":  1044,
+                                                                              "tab_shift_tab":  true,
+                                                                              "checked_before":  null,
+                                                                              "checked_after":  null,
+                                                                              "image_sha256":  "aec8d28c289ba5be3f964b9f6823b4ad0fcae7565fdad673412107dd23b779ac",
+                                                                              "image_height":  788,
+                                                                              "heading":  "Home",
+                                                                              "navigation_unique":  true,
+                                                                              "glyph":  {
+                                                                                            "text":  "Home",
+                                                                                            "rect":  [
+                                                                                                         289,
+                                                                                                         86,
+                                                                                                         67,
+                                                                                                         33
+                                                                                                     ],
+                                                                                            "single_line":  true,
+                                                                                            "visible":  true,
+                                                                                            "showing":  true
+                                                                                        },
+                                                                              "app_pid":  3860,
+                                                                              "backing":  {
+                                                                                              "kind":  "WIN32_OWNED_HWND",
+                                                                                              "dpi":  96,
+                                                                                              "awareness":  2
+                                                                                          },
+                                                                              "route":  "home"
+                                                                          },
+                                                                          {
+                                                                              "heading_unique":  true,
+                                                                              "scale":  "baseline",
+                                                                              "window_id":  "131374",
+                                                                              "frame":  [
+                                                                                            0,
+                                                                                            0,
+                                                                                            1044,
+                                                                                            788
+                                                                                        ],
+                                                                              "heading_focused":  true,
+                                                                              "skip_main":  true,
+                                                                              "image_width":  1044,
+                                                                              "tab_shift_tab":  true,
+                                                                              "checked_before":  null,
+                                                                              "checked_after":  null,
+                                                                              "image_sha256":  "9af91f7464a1d705317a5fc1d09503d4bf9b582e718c044cd392d60a99cf8158",
+                                                                              "image_height":  788,
+                                                                              "heading":  "Jobs",
+                                                                              "navigation_unique":  true,
+                                                                              "glyph":  {
+                                                                                            "text":  "Jobs",
+                                                                                            "rect":  [
+                                                                                                         289,
+                                                                                                         86,
+                                                                                                         49,
+                                                                                                         33
+                                                                                                     ],
+                                                                                            "single_line":  true,
+                                                                                            "visible":  true,
+                                                                                            "showing":  true
+                                                                                        },
+                                                                              "app_pid":  3860,
+                                                                              "backing":  {
+                                                                                              "kind":  "WIN32_OWNED_HWND",
+                                                                                              "dpi":  96,
+                                                                                              "awareness":  2
+                                                                                          },
+                                                                              "route":  "jobs"
+                                                                          },
+                                                                          {
+                                                                              "heading_unique":  true,
+                                                                              "scale":  "baseline",
+                                                                              "window_id":  "131374",
+                                                                              "frame":  [
+                                                                                            0,
+                                                                                            0,
+                                                                                            1044,
+                                                                                            788
+                                                                                        ],
+                                                                              "heading_focused":  true,
+                                                                              "skip_main":  true,
+                                                                              "image_width":  1044,
+                                                                              "tab_shift_tab":  true,
+                                                                              "checked_before":  null,
+                                                                              "checked_after":  null,
+                                                                              "image_sha256":  "f869a8770b2a4119d089ea2bd97f7f6f4c1a3aedbeed17976a8ed5be87d5384e",
+                                                                              "image_height":  788,
+                                                                              "heading":  "Tracker",
+                                                                              "navigation_unique":  true,
+                                                                              "glyph":  {
+                                                                                            "text":  "Trac",
+                                                                                            "rect":  [
+                                                                                                         289,
+                                                                                                         86,
+                                                                                                         45,
+                                                                                                         33
+                                                                                                     ],
+                                                                                            "single_line":  true,
+                                                                                            "visible":  true,
+                                                                                            "showing":  true
+                                                                                        },
+                                                                              "app_pid":  3860,
+                                                                              "backing":  {
+                                                                                              "kind":  "WIN32_OWNED_HWND",
+                                                                                              "dpi":  96,
+                                                                                              "awareness":  2
+                                                                                          },
+                                                                              "route":  "tracker"
+                                                                          },
+                                                                          {
+                                                                              "heading_unique":  true,
+                                                                              "scale":  "baseline",
+                                                                              "window_id":  "131374",
+                                                                              "frame":  [
+                                                                                            0,
+                                                                                            0,
+                                                                                            1044,
+                                                                                            788
+                                                                                        ],
+                                                                              "heading_focused":  true,
+                                                                              "skip_main":  true,
+                                                                              "image_width":  1044,
+                                                                              "tab_shift_tab":  true,
+                                                                              "checked_before":  null,
+                                                                              "checked_after":  null,
+                                                                              "image_sha256":  "79a6f0e5788144fc3847a71b042752e660b6e4fd2f3991c7561afdf3eb500cc6",
+                                                                              "image_height":  788,
+                                                                              "heading":  "Documents / Resumes",
+                                                                              "navigation_unique":  true,
+                                                                              "glyph":  {
+                                                                                            "text":  "Docu",
+                                                                                            "rect":  [
+                                                                                                         289,
+                                                                                                         86,
+                                                                                                         57,
+                                                                                                         33
+                                                                                                     ],
+                                                                                            "single_line":  true,
+                                                                                            "visible":  true,
+                                                                                            "showing":  true
+                                                                                        },
+                                                                              "app_pid":  3860,
+                                                                              "backing":  {
+                                                                                              "kind":  "WIN32_OWNED_HWND",
+                                                                                              "dpi":  96,
+                                                                                              "awareness":  2
+                                                                                          },
+                                                                              "route":  "documents"
+                                                                          },
+                                                                          {
+                                                                              "heading_unique":  true,
+                                                                              "scale":  "baseline",
+                                                                              "window_id":  "131374",
+                                                                              "frame":  [
+                                                                                            0,
+                                                                                            0,
+                                                                                            1044,
+                                                                                            788
+                                                                                        ],
+                                                                              "heading_focused":  true,
+                                                                              "skip_main":  true,
+                                                                              "image_width":  1044,
+                                                                              "tab_shift_tab":  true,
+                                                                              "checked_before":  null,
+                                                                              "checked_after":  null,
+                                                                              "image_sha256":  "c1427f607877f91ebfa652a50f5de069f7e27094d33d0d3df79448b06b3e959b",
+                                                                              "image_height":  788,
+                                                                              "heading":  "Profile",
+                                                                              "navigation_unique":  true,
+                                                                              "glyph":  {
+                                                                                            "text":  "Prof",
+                                                                                            "rect":  [
+                                                                                                         289,
+                                                                                                         86,
+                                                                                                         46,
+                                                                                                         33
+                                                                                                     ],
+                                                                                            "single_line":  true,
+                                                                                            "visible":  true,
+                                                                                            "showing":  true
+                                                                                        },
+                                                                              "app_pid":  3860,
+                                                                              "backing":  {
+                                                                                              "kind":  "WIN32_OWNED_HWND",
+                                                                                              "dpi":  96,
+                                                                                              "awareness":  2
+                                                                                          },
+                                                                              "route":  "profile"
+                                                                          },
+                                                                          {
+                                                                              "heading_unique":  true,
+                                                                              "scale":  "baseline",
+                                                                              "window_id":  "131374",
+                                                                              "frame":  [
+                                                                                            0,
+                                                                                            0,
+                                                                                            1044,
+                                                                                            788
+                                                                                        ],
+                                                                              "heading_focused":  true,
+                                                                              "skip_main":  true,
+                                                                              "image_width":  1044,
+                                                                              "tab_shift_tab":  true,
+                                                                              "checked_before":  null,
+                                                                              "checked_after":  null,
+                                                                              "image_sha256":  "fc862e949796b33a76bcd2749a3f9b6b65b5f7cd6b69e844ad32d1a59218e851",
+                                                                              "image_height":  788,
+                                                                              "heading":  "Settings",
+                                                                              "navigation_unique":  true,
+                                                                              "glyph":  {
+                                                                                            "text":  "Sett",
+                                                                                            "rect":  [
+                                                                                                         289,
+                                                                                                         86,
+                                                                                                         44,
+                                                                                                         33
+                                                                                                     ],
+                                                                                            "single_line":  true,
+                                                                                            "visible":  true,
+                                                                                            "showing":  true
+                                                                                        },
+                                                                              "app_pid":  3860,
+                                                                              "backing":  {
+                                                                                              "kind":  "WIN32_OWNED_HWND",
+                                                                                              "dpi":  96,
+                                                                                              "awareness":  2
+                                                                                          },
+                                                                              "route":  "settings"
+                                                                          },
+                                                                          {
+                                                                              "heading_unique":  true,
+                                                                              "scale":  "baseline",
+                                                                              "window_id":  "131374",
+                                                                              "frame":  [
+                                                                                            0,
+                                                                                            0,
+                                                                                            1044,
+                                                                                            788
+                                                                                        ],
+                                                                              "heading_focused":  true,
+                                                                              "skip_main":  true,
+                                                                              "image_width":  1044,
+                                                                              "tab_shift_tab":  true,
+                                                                              "checked_before":  "2026-10-31T22:35:58.9730921Z",
+                                                                              "checked_after":  "2026-10-31T22:36:00.0677977Z",
+                                                                              "image_sha256":  "6b4f720dc748a352c08d6db42d438209f782aecf2b2143d1495f53838ea2cbc9",
+                                                                              "image_height":  788,
+                                                                              "heading":  "Diagnostics",
+                                                                              "navigation_unique":  true,
+                                                                              "glyph":  {
+                                                                                            "text":  "Diag",
+                                                                                            "rect":  [
+                                                                                                         289,
+                                                                                                         82,
+                                                                                                         51,
+                                                                                                         32
+                                                                                                     ],
+                                                                                            "single_line":  true,
+                                                                                            "visible":  true,
+                                                                                            "showing":  true
+                                                                                        },
+                                                                              "app_pid":  3860,
+                                                                              "backing":  {
+                                                                                              "kind":  "WIN32_OWNED_HWND",
+                                                                                              "dpi":  96,
+                                                                                              "awareness":  2
+                                                                                          },
+                                                                              "route":  "diagnostics"
+                                                                          },
+                                                                          {
+                                                                              "heading_unique":  true,
+                                                                              "scale":  "enlarged",
+                                                                              "window_id":  "131374",
+                                                                              "frame":  [
+                                                                                            0,
+                                                                                            0,
+                                                                                            1044,
+                                                                                            788
+                                                                                        ],
+                                                                              "heading_focused":  true,
+                                                                              "skip_main":  true,
+                                                                              "image_width":  1044,
+                                                                              "tab_shift_tab":  true,
+                                                                              "checked_before":  null,
+                                                                              "checked_after":  null,
+                                                                              "image_sha256":  "81ff2bc7c2ef3b3e5a5337952624d99c04d4c44f1dbdd5da76c4b4fd4d7f24cf",
+                                                                              "image_height":  788,
+                                                                              "heading":  "Home",
+                                                                              "navigation_unique":  true,
+                                                                              "glyph":  {
+                                                                                            "text":  "Home",
+                                                                                            "rect":  [
+                                                                                                         40,
+                                                                                                         716,
+                                                                                                         131,
+                                                                                                         64
+                                                                                                     ],
+                                                                                            "single_line":  true,
+                                                                                            "visible":  true,
+                                                                                            "showing":  true
+                                                                                        },
+                                                                              "app_pid":  3860,
+                                                                              "backing":  {
+                                                                                              "kind":  "WIN32_OWNED_HWND",
+                                                                                              "dpi":  96,
+                                                                                              "awareness":  2
+                                                                                          },
+                                                                              "route":  "home"
+                                                                          },
+                                                                          {
+                                                                              "heading_unique":  true,
+                                                                              "scale":  "enlarged",
+                                                                              "window_id":  "131374",
+                                                                              "frame":  [
+                                                                                            0,
+                                                                                            0,
+                                                                                            1044,
+                                                                                            788
+                                                                                        ],
+                                                                              "heading_focused":  true,
+                                                                              "skip_main":  true,
+                                                                              "image_width":  1044,
+                                                                              "tab_shift_tab":  true,
+                                                                              "checked_before":  null,
+                                                                              "checked_after":  null,
+                                                                              "image_sha256":  "d4a12ebf7a70aff112809df51eecd81963e79e7431cd629d393ad3ec55277852",
+                                                                              "image_height":  788,
+                                                                              "heading":  "Jobs",
+                                                                              "navigation_unique":  true,
+                                                                              "glyph":  {
+                                                                                            "text":  "Jobs",
+                                                                                            "rect":  [
+                                                                                                         40,
+                                                                                                         716,
+                                                                                                         97,
+                                                                                                         64
+                                                                                                     ],
+                                                                                            "single_line":  true,
+                                                                                            "visible":  true,
+                                                                                            "showing":  true
+                                                                                        },
+                                                                              "app_pid":  3860,
+                                                                              "backing":  {
+                                                                                              "kind":  "WIN32_OWNED_HWND",
+                                                                                              "dpi":  96,
+                                                                                              "awareness":  2
+                                                                                          },
+                                                                              "route":  "jobs"
+                                                                          },
+                                                                          {
+                                                                              "heading_unique":  true,
+                                                                              "scale":  "enlarged",
+                                                                              "window_id":  "131374",
+                                                                              "frame":  [
+                                                                                            0,
+                                                                                            0,
+                                                                                            1044,
+                                                                                            788
+                                                                                        ],
+                                                                              "heading_focused":  true,
+                                                                              "skip_main":  true,
+                                                                              "image_width":  1044,
+                                                                              "tab_shift_tab":  true,
+                                                                              "checked_before":  null,
+                                                                              "checked_after":  null,
+                                                                              "image_sha256":  "737e18ca3ca965ff95b26b3140fae02be3c303631803f97304b4b519af50bcce",
+                                                                              "image_height":  788,
+                                                                              "heading":  "Tracker",
+                                                                              "navigation_unique":  true,
+                                                                              "glyph":  {
+                                                                                            "text":  "Trac",
+                                                                                            "rect":  [
+                                                                                                         40,
+                                                                                                         716,
+                                                                                                         88,
+                                                                                                         64
+                                                                                                     ],
+                                                                                            "single_line":  true,
+                                                                                            "visible":  true,
+                                                                                            "showing":  true
+                                                                                        },
+                                                                              "app_pid":  3860,
+                                                                              "backing":  {
+                                                                                              "kind":  "WIN32_OWNED_HWND",
+                                                                                              "dpi":  96,
+                                                                                              "awareness":  2
+                                                                                          },
+                                                                              "route":  "tracker"
+                                                                          },
+                                                                          {
+                                                                              "heading_unique":  true,
+                                                                              "scale":  "enlarged",
+                                                                              "window_id":  "131374",
+                                                                              "frame":  [
+                                                                                            0,
+                                                                                            0,
+                                                                                            1044,
+                                                                                            788
+                                                                                        ],
+                                                                              "heading_focused":  true,
+                                                                              "skip_main":  true,
+                                                                              "image_width":  1044,
+                                                                              "tab_shift_tab":  true,
+                                                                              "checked_before":  null,
+                                                                              "checked_after":  null,
+                                                                              "image_sha256":  "2bf4db5dae397674f2b3942627dc5dacf3959f25cbf7bc3e65c2e77ea950ecfe",
+                                                                              "image_height":  788,
+                                                                              "heading":  "Documents / Resumes",
+                                                                              "navigation_unique":  true,
+                                                                              "glyph":  {
+                                                                                            "text":  "Docu",
+                                                                                            "rect":  [
+                                                                                                         40,
+                                                                                                         716,
+                                                                                                         112,
+                                                                                                         64
+                                                                                                     ],
+                                                                                            "single_line":  true,
+                                                                                            "visible":  true,
+                                                                                            "showing":  true
+                                                                                        },
+                                                                              "app_pid":  3860,
+                                                                              "backing":  {
+                                                                                              "kind":  "WIN32_OWNED_HWND",
+                                                                                              "dpi":  96,
+                                                                                              "awareness":  2
+                                                                                          },
+                                                                              "route":  "documents"
+                                                                          },
+                                                                          {
+                                                                              "heading_unique":  true,
+                                                                              "scale":  "enlarged",
+                                                                              "window_id":  "131374",
+                                                                              "frame":  [
+                                                                                            0,
+                                                                                            0,
+                                                                                            1044,
+                                                                                            788
+                                                                                        ],
+                                                                              "heading_focused":  true,
+                                                                              "skip_main":  true,
+                                                                              "image_width":  1044,
+                                                                              "tab_shift_tab":  true,
+                                                                              "checked_before":  null,
+                                                                              "checked_after":  null,
+                                                                              "image_sha256":  "e43781e9b588efcd04bf18cd386b5339368738f5e72ba57476d47c6e76ed19ad",
+                                                                              "image_height":  788,
+                                                                              "heading":  "Profile",
+                                                                              "navigation_unique":  true,
+                                                                              "glyph":  {
+                                                                                            "text":  "Prof",
+                                                                                            "rect":  [
+                                                                                                         40,
+                                                                                                         713,
+                                                                                                         91,
+                                                                                                         65
+                                                                                                     ],
+                                                                                            "single_line":  true,
+                                                                                            "visible":  true,
+                                                                                            "showing":  true
+                                                                                        },
+                                                                              "app_pid":  3860,
+                                                                              "backing":  {
+                                                                                              "kind":  "WIN32_OWNED_HWND",
+                                                                                              "dpi":  96,
+                                                                                              "awareness":  2
+                                                                                          },
+                                                                              "route":  "profile"
+                                                                          },
+                                                                          {
+                                                                              "heading_unique":  true,
+                                                                              "scale":  "enlarged",
+                                                                              "window_id":  "131374",
+                                                                              "frame":  [
+                                                                                            0,
+                                                                                            0,
+                                                                                            1044,
+                                                                                            788
+                                                                                        ],
+                                                                              "heading_focused":  true,
+                                                                              "skip_main":  true,
+                                                                              "image_width":  1044,
+                                                                              "tab_shift_tab":  true,
+                                                                              "checked_before":  null,
+                                                                              "checked_after":  null,
+                                                                              "image_sha256":  "83819586bb3d44f92fede53bd6fbe693ae52b9787e5338101ae8fc2bbe8e18e9",
+                                                                              "image_height":  788,
+                                                                              "heading":  "Settings",
+                                                                              "navigation_unique":  true,
+                                                                              "glyph":  {
+                                                                                            "text":  "Sett",
+                                                                                            "rect":  [
+                                                                                                         40,
+                                                                                                         713,
+                                                                                                         85,
+                                                                                                         65
+                                                                                                     ],
+                                                                                            "single_line":  true,
+                                                                                            "visible":  true,
+                                                                                            "showing":  true
+                                                                                        },
+                                                                              "app_pid":  3860,
+                                                                              "backing":  {
+                                                                                              "kind":  "WIN32_OWNED_HWND",
+                                                                                              "dpi":  96,
+                                                                                              "awareness":  2
+                                                                                          },
+                                                                              "route":  "settings"
+                                                                          },
+                                                                          {
+                                                                              "heading_unique":  true,
+                                                                              "scale":  "enlarged",
+                                                                              "window_id":  "131374",
+                                                                              "frame":  [
+                                                                                            0,
+                                                                                            0,
+                                                                                            1044,
+                                                                                            788
+                                                                                        ],
+                                                                              "heading_focused":  true,
+                                                                              "skip_main":  true,
+                                                                              "image_width":  1044,
+                                                                              "tab_shift_tab":  true,
+                                                                              "checked_before":  "2026-10-31T22:36:10.6689439Z",
+                                                                              "checked_after":  "2026-10-31T22:36:11.7638975Z",
+                                                                              "image_sha256":  "0c37afa95ac11396f5ee707c61ed8a1a1bd19e205e8215337431948cf6e9bbc1",
+                                                                              "image_height":  788,
+                                                                              "heading":  "Diagnostics",
+                                                                              "navigation_unique":  true,
+                                                                              "glyph":  {
+                                                                                            "text":  "Diag",
+                                                                                            "rect":  [
+                                                                                                         40,
+                                                                                                         291,
+                                                                                                         100,
+                                                                                                         65
+                                                                                                     ],
+                                                                                            "single_line":  true,
+                                                                                            "visible":  true,
+                                                                                            "showing":  true
+                                                                                        },
+                                                                              "app_pid":  3860,
+                                                                              "backing":  {
+                                                                                              "kind":  "WIN32_OWNED_HWND",
+                                                                                              "dpi":  96,
+                                                                                              "awareness":  2
+                                                                                          },
+                                                                              "route":  "diagnostics"
+                                                                          }
+                                                                      ],
+                                                           "reset_image":  "32706ee7f468971fbc40e8559b7dc73e636b923bd1eb70e5b44f83f3ba637ed2",
+                                                           "measurements":  [
+                                                                                {
+                                                                                    "stage":  "baseline",
+                                                                                    "window_id":  "131374",
+                                                                                    "app_pid":  3860,
+                                                                                    "frame":  [
+                                                                                                  0,
+                                                                                                  0,
+                                                                                                  1044,
+                                                                                                  788
+                                                                                              ],
+                                                                                    "backing":  {
+                                                                                                    "kind":  "WIN32_OWNED_HWND",
+                                                                                                    "dpi":  96,
+                                                                                                    "awareness":  2
+                                                                                                },
+                                                                                    "anchors":  [
+                                                                                                    {
+                                                                                                        "text":  "0.0.1",
+                                                                                                        "rect":  [
+                                                                                                                     538,
+                                                                                                                     207,
+                                                                                                                     37,
+                                                                                                                     16
+                                                                                                                 ],
+                                                                                                        "single_line":  true,
+                                                                                                        "visible":  true,
+                                                                                                        "showing":  true
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "text":  "2.12.4",
+                                                                                                        "rect":  [
+                                                                                                                     538,
+                                                                                                                     254,
+                                                                                                                     44,
+                                                                                                                     16
+                                                                                                                 ],
+                                                                                                        "single_line":  true,
+                                                                                                        "visible":  true,
+                                                                                                        "showing":  true
+                                                                                                    }
+                                                                                                ]
+                                                                                },
+                                                                                {
+                                                                                    "stage":  "step1",
+                                                                                    "window_id":  "131374",
+                                                                                    "app_pid":  3860,
+                                                                                    "frame":  [
+                                                                                                  0,
+                                                                                                  0,
+                                                                                                  1044,
+                                                                                                  788
+                                                                                              ],
+                                                                                    "backing":  {
+                                                                                                    "kind":  "WIN32_OWNED_HWND",
+                                                                                                    "dpi":  96,
+                                                                                                    "awareness":  2
+                                                                                                },
+                                                                                    "anchors":  [
+                                                                                                    {
+                                                                                                        "text":  "0.0.1",
+                                                                                                        "rect":  [
+                                                                                                                     556,
+                                                                                                                     223,
+                                                                                                                     40,
+                                                                                                                     18
+                                                                                                                 ],
+                                                                                                        "single_line":  true,
+                                                                                                        "visible":  true,
+                                                                                                        "showing":  true
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "text":  "2.12.4",
+                                                                                                        "rect":  [
+                                                                                                                     556,
+                                                                                                                     274,
+                                                                                                                     48,
+                                                                                                                     18
+                                                                                                                 ],
+                                                                                                        "single_line":  true,
+                                                                                                        "visible":  true,
+                                                                                                        "showing":  true
+                                                                                                    }
+                                                                                                ]
+                                                                                },
+                                                                                {
+                                                                                    "stage":  "step2",
+                                                                                    "window_id":  "131374",
+                                                                                    "app_pid":  3860,
+                                                                                    "frame":  [
+                                                                                                  0,
+                                                                                                  0,
+                                                                                                  1044,
+                                                                                                  788
+                                                                                              ],
+                                                                                    "backing":  {
+                                                                                                    "kind":  "WIN32_OWNED_HWND",
+                                                                                                    "dpi":  96,
+                                                                                                    "awareness":  2
+                                                                                                },
+                                                                                    "anchors":  [
+                                                                                                    {
+                                                                                                        "text":  "0.0.1",
+                                                                                                        "rect":  [
+                                                                                                                     583,
+                                                                                                                     247,
+                                                                                                                     46,
+                                                                                                                     20
+                                                                                                                 ],
+                                                                                                        "single_line":  true,
+                                                                                                        "visible":  true,
+                                                                                                        "showing":  true
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "text":  "2.12.4",
+                                                                                                        "rect":  [
+                                                                                                                     583,
+                                                                                                                     305,
+                                                                                                                     55,
+                                                                                                                     20
+                                                                                                                 ],
+                                                                                                        "single_line":  true,
+                                                                                                        "visible":  true,
+                                                                                                        "showing":  true
+                                                                                                    }
+                                                                                                ]
+                                                                                },
+                                                                                {
+                                                                                    "stage":  "step3",
+                                                                                    "window_id":  "131374",
+                                                                                    "app_pid":  3860,
+                                                                                    "frame":  [
+                                                                                                  0,
+                                                                                                  0,
+                                                                                                  1044,
+                                                                                                  788
+                                                                                              ],
+                                                                                    "backing":  {
+                                                                                                    "kind":  "WIN32_OWNED_HWND",
+                                                                                                    "dpi":  96,
+                                                                                                    "awareness":  2
+                                                                                                },
+                                                                                    "anchors":  [
+                                                                                                    {
+                                                                                                        "text":  "0.0.1",
+                                                                                                        "rect":  [
+                                                                                                                     382,
+                                                                                                                     407,
+                                                                                                                     54,
+                                                                                                                     24
+                                                                                                                 ],
+                                                                                                        "single_line":  true,
+                                                                                                        "visible":  true,
+                                                                                                        "showing":  true
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "text":  "2.12.4",
+                                                                                                        "rect":  [
+                                                                                                                     382,
+                                                                                                                     476,
+                                                                                                                     64,
+                                                                                                                     24
+                                                                                                                 ],
+                                                                                                        "single_line":  true,
+                                                                                                        "visible":  true,
+                                                                                                        "showing":  true
+                                                                                                    }
+                                                                                                ]
+                                                                                },
+                                                                                {
+                                                                                    "stage":  "step4",
+                                                                                    "window_id":  "131374",
+                                                                                    "app_pid":  3860,
+                                                                                    "frame":  [
+                                                                                                  0,
+                                                                                                  0,
+                                                                                                  1044,
+                                                                                                  788
+                                                                                              ],
+                                                                                    "backing":  {
+                                                                                                    "kind":  "WIN32_OWNED_HWND",
+                                                                                                    "dpi":  96,
+                                                                                                    "awareness":  2
+                                                                                                },
+                                                                                    "anchors":  [
+                                                                                                    {
+                                                                                                        "text":  "0.0.1",
+                                                                                                        "rect":  [
+                                                                                                                     388,
+                                                                                                                     499,
+                                                                                                                     63,
+                                                                                                                     28
+                                                                                                                 ],
+                                                                                                        "single_line":  true,
+                                                                                                        "visible":  true,
+                                                                                                        "showing":  true
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "text":  "2.12.4",
+                                                                                                        "rect":  [
+                                                                                                                     388,
+                                                                                                                     580,
+                                                                                                                     75,
+                                                                                                                     28
+                                                                                                                 ],
+                                                                                                        "single_line":  true,
+                                                                                                        "visible":  true,
+                                                                                                        "showing":  true
+                                                                                                    }
+                                                                                                ]
+                                                                                },
+                                                                                {
+                                                                                    "stage":  "step5",
+                                                                                    "window_id":  "131374",
+                                                                                    "app_pid":  3860,
+                                                                                    "frame":  [
+                                                                                                  0,
+                                                                                                  0,
+                                                                                                  1044,
+                                                                                                  788
+                                                                                              ],
+                                                                                    "backing":  {
+                                                                                                    "kind":  "WIN32_OWNED_HWND",
+                                                                                                    "dpi":  96,
+                                                                                                    "awareness":  2
+                                                                                                },
+                                                                                    "anchors":  [
+                                                                                                    {
+                                                                                                        "text":  "0.0.1",
+                                                                                                        "rect":  [
+                                                                                                                     410,
+                                                                                                                     615,
+                                                                                                                     71,
+                                                                                                                     32
+                                                                                                                 ],
+                                                                                                        "single_line":  true,
+                                                                                                        "visible":  true,
+                                                                                                        "showing":  true
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "text":  "2.12.4",
+                                                                                                        "rect":  [
+                                                                                                                     410,
+                                                                                                                     709,
+                                                                                                                     86,
+                                                                                                                     32
+                                                                                                                 ],
+                                                                                                        "single_line":  true,
+                                                                                                        "visible":  true,
+                                                                                                        "showing":  true
+                                                                                                    }
+                                                                                                ]
+                                                                                },
+                                                                                {
+                                                                                    "stage":  "reset",
+                                                                                    "window_id":  "131374",
+                                                                                    "app_pid":  3860,
+                                                                                    "frame":  [
+                                                                                                  0,
+                                                                                                  0,
+                                                                                                  1044,
+                                                                                                  788
+                                                                                              ],
+                                                                                    "backing":  {
+                                                                                                    "kind":  "WIN32_OWNED_HWND",
+                                                                                                    "dpi":  96,
+                                                                                                    "awareness":  2
+                                                                                                },
+                                                                                    "anchors":  [
+                                                                                                    {
+                                                                                                        "text":  "0.0.1",
+                                                                                                        "rect":  [
+                                                                                                                     538,
+                                                                                                                     144,
+                                                                                                                     37,
+                                                                                                                     16
+                                                                                                                 ],
+                                                                                                        "single_line":  true,
+                                                                                                        "visible":  true,
+                                                                                                        "showing":  true
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "text":  "2.12.4",
+                                                                                                        "rect":  [
+                                                                                                                     538,
+                                                                                                                     191,
+                                                                                                                     44,
+                                                                                                                     16
+                                                                                                                 ],
+                                                                                                        "single_line":  true,
+                                                                                                        "visible":  true,
+                                                                                                        "showing":  true
+                                                                                                    }
+                                                                                                ]
+                                                                                }
+                                                                            ],
+                                                           "schema":  "japp-native-shell-capture-v1",
+                                                           "platform":  "WINDOWS_UIA",
+                                                           "policy_sha256":  "7aaf7a099cf111661c9fd6e98497ebf97bbb4d6a1c72c8d6ec2d20f190735e88",
+                                                           "reader_output":  "NOT_COLLECTED",
+                                                           "subject_sha256":  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+                                                       },
+                                      "action":  "owned_foreground_focused_Check_again_Enter",
+                                      "checked_before":  "2026-10-31T22:35:49.0080054Z"
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:36:13.0472707+00:00",
+        "key":  "receipt-crash",
+        "value":  {
+                      "elapsed_s":  34.67,
+                      "details":  {
+                                      "held_creation_time":  134379597459124468,
+                                      "held_service_pid":  3440
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:36:19.7135602+00:00",
+        "key":  "receipt-restart",
+        "value":  {
+                      "elapsed_s":  41.34,
+                      "details":  {
+                                      "scope":  "close_and_relaunch_after_controlled_service_crash",
+                                      "service":  {
+                                                      "port":  62103,
+                                                      "pid":  8756,
+                                                      "creation_time":  134379597765165937
+                                                  }
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:36:22.2601332+00:00",
+        "key":  "receipt-close",
+        "value":  {
+                      "elapsed_s":  43.88,
+                      "details":  {
+                                      "listener":  "ConnectionRefused",
+                                      "remaining_owned_processes":  0
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:36:26.1834593+00:00",
+        "key":  "receipt-relaunch",
+        "value":  {
+                      "elapsed_s":  47.8,
+                      "details":  {
+                                      "scope":  "same_immutable_package_update_neutral",
+                                      "service":  {
+                                                      "port":  49363,
+                                                      "pid":  5660,
+                                                      "creation_time":  134379597830138565
+                                                  }
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:36:32.6669992+00:00",
+        "key":  "receipt-collision",
+        "value":  {
+                      "elapsed_s":  54.29,
+                      "details":  {
+                                      "scope":  "retired_port_occupied_before_new_random_port_launch_not_forced_startup_race",
+                                      "service":  {
+                                                      "port":  63118,
+                                                      "pid":  3984,
+                                                      "creation_time":  134379597894864036
+                                                  },
+                                      "occupied_port":  49363
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:36:35.3153897+00:00",
+        "key":  "receipt-quit",
+        "value":  {
+                      "elapsed_s":  56.94,
+                      "details":  {
+                                      "remaining_owned_processes":  0,
+                                      "action":  "owned_UIAutomation_InvokePattern_Quit"
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:36:41.7830011+00:00",
+        "key":  "receipt-accelerator",
+        "value":  {
+                      "elapsed_s":  63.41,
+                      "details":  {
+                                      "remaining_owned_processes":  0,
+                                      "action":  "owned_foreground_Ctrl_Q"
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:36:47.8001730+00:00",
+        "key":  "receipt-forced-parent",
+        "value":  {
+                      "elapsed_s":  69.42,
+                      "details":  {
+                                      "remaining_owned_processes":  0,
+                                      "action":  "held_parent_TerminateProcess_without_emergency_job_kill"
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:36:47.8041968+00:00",
+        "key":  "receipt-cleanup",
+        "value":  {
+                      "elapsed_s":  69.43,
+                      "details":  {
+                                      "remaining_owned_processes":  0
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:36:47.8062100+00:00",
+        "key":  "terminal",
+        "value":  {
+                      "terminal":  "PASS",
+                      "elapsed_s":  69.43
+                  }
+    }
+]

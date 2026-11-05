@@ -1,0 +1,8 @@
+{
+  "powershell": "5.1.26100.33648",
+  "edition": "Desktop",
+  "attestor_lines": 49,
+  "attestor_sha256": "9e212bae35a4c85850596c9111498dd3221c0cdb3cf75754586cceed38b2541d",
+  "attestor_errors": [],
+  "outer_errors": []
+}

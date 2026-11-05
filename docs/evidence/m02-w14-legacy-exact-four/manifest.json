@@ -1,0 +1,26 @@
+{
+  "format_version": "W14_LEGACY_EXACT_FOUR_SUPPLEMENT_1",
+  "scope": "DISPOSABLE_SOURCE_COPY_NOT_FINAL_ROOT_VALIDATION",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "0e1f53f8e33412577aa02cc6ca98bc4a7eaa274baef97705df76a39d2ed7355d",
+      "bytes": 9166
+    },
+    {
+      "path": "assessment.json",
+      "sha256": "afd2ff33318bd1591817281b7b9b2c37a48da7574ea89e2cbf29a43bd51f8352",
+      "bytes": 6517
+    },
+    {
+      "path": "exact-four-raw.json.gz",
+      "sha256": "6898aac89ce4649a54b0aa5211fe2cedf41207c23520a295404ba7de951abfcb",
+      "bytes": 251710
+    },
+    {
+      "path": "validation.json",
+      "sha256": "3d84ad6d5110563cb37f40b20d43543cad89d3ac630fe9ad6b651c88cf62600d",
+      "bytes": 5101
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "operation": "shell_scale_baseline",
+  "result": {
+    "stage": "baseline",
+    "window_id": "16069:18057",
+    "app_pid": 16069,
+    "frame": [
+      0,
+      0,
+      1214,
+      768
+    ],
+    "backing": {
+      "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+      "serial": 1,
+      "connector": "Virtual-1",
+      "width": 1280,
+      "height": 800,
+      "scale": 1.0,
+      "transform": 0,
+      "layout_mode": 2
+    },
+    "anchors": [
+      {
+        "text": "0.0.1",
+        "rect": [
+          599,
+          219,
+          41,
+          15
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      {
+        "text": "2.12.4",
+        "rect": [
+          599,
+          265,
+          49,
+          15
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      }
+    ]
+  },
+  "elapsed_seconds": 1.2583493070000031
+}

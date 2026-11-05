@@ -1,0 +1,24 @@
+{
+  "label": "tags",
+  "endpoint": "http://127.0.0.1:11434",
+  "received_bytes": 1724,
+  "received_sha256": "02115cd36a41516c80e670a0857f1193eacfdd150dfec5a88b51f33375fa852b",
+  "retention": "PUBLIC_ALLOWLIST_PROJECTION",
+  "public": {
+    "models": [
+      {
+        "name": "gemma4:12b-mlx",
+        "digest": "ded7a27350032202d9e9b2a6071e8aa89959ab156771b5228f30863c741c4970",
+        "size": 7714091504,
+        "details": {
+          "format": "safetensors",
+          "family": null,
+          "parameter_size": null,
+          "quantization_level": null,
+          "runner": "mlx"
+        }
+      }
+    ],
+    "other_model_count": 3
+  }
+}

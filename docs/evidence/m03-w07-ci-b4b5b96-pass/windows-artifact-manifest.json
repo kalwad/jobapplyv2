@@ -1,0 +1,1497 @@
+{
+  "scope": "Finite selected raw/build/package/helper evidence; no whole TEMP, target, cache or interpreter image",
+  "files": {
+    "worker/ci-command-001.launch.json": {
+      "bytes": 134,
+      "sha256": "40e3e8456c4cbdb73c3292b08970b43849f006d2900e04e2e8bd0bef976f03a8",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-001.launch.json"
+    },
+    "worker/ci-command-001.result.json": {
+      "bytes": 4569,
+      "sha256": "0f25962e93a531f36824cf1aa8d02f34c5aba302f9a0bd66f93f8870ad6139e7",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-001.result.json"
+    },
+    "worker/ci-command-001.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-001.stderr"
+    },
+    "worker/ci-command-001.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-001.stdout"
+    },
+    "worker/ci-command-001.upfront.json": {
+      "bytes": 3716,
+      "sha256": "9ab5fa805c434b3878d7bf55710b74d2ef5130523c7899728d5bffe92d5062d3",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-001.upfront.json"
+    },
+    "worker/ci-command-002.launch.json": {
+      "bytes": 134,
+      "sha256": "79da0a4e06da7162a0359ef5793152fd89aa257fa4dd3bc5affcd577c32d3673",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-002.launch.json"
+    },
+    "worker/ci-command-002.result.json": {
+      "bytes": 4537,
+      "sha256": "9e0f6cf13e4bc2bf73387fa22c80cceb157b4f7f61def52443cc9d4fe5e839c0",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-002.result.json"
+    },
+    "worker/ci-command-002.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-002.stderr"
+    },
+    "worker/ci-command-002.stdout": {
+      "bytes": 144944,
+      "sha256": "8fc74218f7d2c22fae18997832099771febce87e8cdb0bf32666d8074e1fbcb2",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-002.stdout"
+    },
+    "worker/ci-command-002.upfront.json": {
+      "bytes": 3665,
+      "sha256": "7d232ebf7e132b58c793d0b30ba67b6cd3eec92169c2174c98b1c7e7a50db55f",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-002.upfront.json"
+    },
+    "worker/ci-command-003.launch.json": {
+      "bytes": 134,
+      "sha256": "5b2d3759d84969fe7d61716dd964fb4f878bc4d52025ba3924b4930f69c66691",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-003.launch.json"
+    },
+    "worker/ci-command-003.result.json": {
+      "bytes": 4537,
+      "sha256": "8129954cc65d689bb578e323be55f268c70852ca73fdd83dc7be30c91dbbc3d4",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-003.result.json"
+    },
+    "worker/ci-command-003.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-003.stderr"
+    },
+    "worker/ci-command-003.stdout": {
+      "bytes": 41,
+      "sha256": "973f33b1472d4c2edbbc04c88dff355394b5d413ebca201a7544b95b1bd96212",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-003.stdout"
+    },
+    "worker/ci-command-003.upfront.json": {
+      "bytes": 3668,
+      "sha256": "b104ae5a79ca99d6dfe4f01e6ed6b73c60d6ce6c1abf1b280ff9c98931ae1d86",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-003.upfront.json"
+    },
+    "worker/ci-command-004.launch.json": {
+      "bytes": 134,
+      "sha256": "991960bcda2dcf75b86a5327341ea3dc174cff3cf2952c4c1aaf15ee5fe20b86",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-004.launch.json"
+    },
+    "worker/ci-command-004.result.json": {
+      "bytes": 4543,
+      "sha256": "9a74ff7bfb4eaab17f5bf0e7a83a09aa55dc9f6533df7b06fe54a24dac47f32f",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-004.result.json"
+    },
+    "worker/ci-command-004.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-004.stderr"
+    },
+    "worker/ci-command-004.stdout": {
+      "bytes": 41,
+      "sha256": "e87336e85f279157e5be0985f815a692c771d4d63c5eca27ed645a6e0e7a0c76",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-004.stdout"
+    },
+    "worker/ci-command-004.upfront.json": {
+      "bytes": 3675,
+      "sha256": "031424d8ae4b0c1ae4a07916a9a0e350f95dab047bfeef8f2e717ac0fa39b7f3",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-004.upfront.json"
+    },
+    "worker/ci-command-005.launch.json": {
+      "bytes": 134,
+      "sha256": "e0ea5bc2cc1a2d33361309e15070fb5362fdd7c7bad7f5a5b8888c002f20b3be",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-005.launch.json"
+    },
+    "worker/ci-command-005.result.json": {
+      "bytes": 4620,
+      "sha256": "c143120c39dc7db8b45f657db997732822019512897d57f823c6fa63436937c9",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-005.result.json"
+    },
+    "worker/ci-command-005.stderr": {
+      "bytes": 2599,
+      "sha256": "a9c29a711b3974cb59a14773f52cba720dc06b30ce2c5d365c3107e8bd09a47e",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-005.stderr"
+    },
+    "worker/ci-command-005.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-005.stdout"
+    },
+    "worker/ci-command-005.upfront.json": {
+      "bytes": 3752,
+      "sha256": "a83a31733844bb5d002513097e3b362f93001de09e862383051ecf62ae3b3018",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-005.upfront.json"
+    },
+    "worker/ci-command-006.launch.json": {
+      "bytes": 134,
+      "sha256": "6d6e9ed0aab6185112af7f2fd7a0dca8cdd98dbfd99c9399108a2242a8a29967",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-006.launch.json"
+    },
+    "worker/ci-command-006.result.json": {
+      "bytes": 4593,
+      "sha256": "00497cbbff8126d1c243af459edf695cdbbd1c82a97f81193923fab7c60c056f",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-006.result.json"
+    },
+    "worker/ci-command-006.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-006.stderr"
+    },
+    "worker/ci-command-006.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-006.stdout"
+    },
+    "worker/ci-command-006.upfront.json": {
+      "bytes": 3728,
+      "sha256": "83b8fdde255f70d846e449cf48ed92f432a330f9fdb8b5688b48ad8e23096bf4",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-006.upfront.json"
+    },
+    "worker/ci-command-007.launch.json": {
+      "bytes": 134,
+      "sha256": "7c247329e332a02a403371a7a8693e23384d80631bd205ee7d65d4ea5ac995bc",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-007.launch.json"
+    },
+    "worker/ci-command-007.result.json": {
+      "bytes": 4551,
+      "sha256": "d7a31489a7f978474c8467fbe294a1a800b03288fa2516879ee2a7d79f520bf8",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-007.result.json"
+    },
+    "worker/ci-command-007.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-007.stderr"
+    },
+    "worker/ci-command-007.stdout": {
+      "bytes": 144944,
+      "sha256": "8fc74218f7d2c22fae18997832099771febce87e8cdb0bf32666d8074e1fbcb2",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-007.stdout"
+    },
+    "worker/ci-command-007.upfront.json": {
+      "bytes": 3679,
+      "sha256": "0c1f0f7c70dbee1098e4c308e98a5b13f50e4a6445365e36f9d64e3c537125d1",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-007.upfront.json"
+    },
+    "worker/ci-command-008.launch.json": {
+      "bytes": 134,
+      "sha256": "e2053f62a87b966c989d6ee8d4f256673867977eaf269a9ea187423cfaeae573",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-008.launch.json"
+    },
+    "worker/ci-command-008.result.json": {
+      "bytes": 4550,
+      "sha256": "6ece69884c055f1ac1205c0dd7b41b13b939db8635754036088b1f80dac2ffb7",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-008.result.json"
+    },
+    "worker/ci-command-008.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-008.stderr"
+    },
+    "worker/ci-command-008.stdout": {
+      "bytes": 41,
+      "sha256": "973f33b1472d4c2edbbc04c88dff355394b5d413ebca201a7544b95b1bd96212",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-008.stdout"
+    },
+    "worker/ci-command-008.upfront.json": {
+      "bytes": 3682,
+      "sha256": "880469c98696276a404ef7a9e8539c390fea8e5aa406ec0ebc44df4ae4e79794",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-008.upfront.json"
+    },
+    "worker/ci-command-009.launch.json": {
+      "bytes": 134,
+      "sha256": "48b0a0868ce072c669ae860e978569c8e02bb0451e81afbbaa3279fbf7e5ba11",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-009.launch.json"
+    },
+    "worker/ci-command-009.result.json": {
+      "bytes": 4558,
+      "sha256": "4a84cf8755200986a0f7960f9f486909997d40d9c2683b9df3b99a45002669b5",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-009.result.json"
+    },
+    "worker/ci-command-009.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-009.stderr"
+    },
+    "worker/ci-command-009.stdout": {
+      "bytes": 41,
+      "sha256": "e87336e85f279157e5be0985f815a692c771d4d63c5eca27ed645a6e0e7a0c76",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-009.stdout"
+    },
+    "worker/ci-command-009.upfront.json": {
+      "bytes": 3689,
+      "sha256": "3dca16b4bd628244a98fa4088e48e8dca3502ba5bc092e927e012153d65dcea6",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-009.upfront.json"
+    },
+    "worker/ci-command-010.launch.json": {
+      "bytes": 134,
+      "sha256": "eeca7a20699d4e2db6d8f9bb5d40a8dee058aa689e01798fc5b92d0841bc6299",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-010.launch.json"
+    },
+    "worker/ci-command-010.result.json": {
+      "bytes": 4559,
+      "sha256": "621d871b6133b5d38f811ff4f018eb02bb8c607503200ab79f115f0eb30de900",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-010.result.json"
+    },
+    "worker/ci-command-010.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-010.stderr"
+    },
+    "worker/ci-command-010.stdout": {
+      "bytes": 78,
+      "sha256": "3672b52e5f236683e0519c7e94ecaa5b687454fd6e01c1966ac1179ad0ae0234",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-010.stdout"
+    },
+    "worker/ci-command-010.upfront.json": {
+      "bytes": 3690,
+      "sha256": "73a9a088a46ded93e80cc1619d8de6c25671d115cb6efbd24eeac7e3101589b7",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-010.upfront.json"
+    },
+    "worker/ci-command-011.launch.json": {
+      "bytes": 134,
+      "sha256": "80d7a37a6e128de87c055de509ce44122da08cfd5a8da9a0247c17b7d7f059b8",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-011.launch.json"
+    },
+    "worker/ci-command-011.result.json": {
+      "bytes": 4558,
+      "sha256": "57390b8b5e12496bddf686ed139a311f058c5e4d41e4ef91f0d2573c95c612ea",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-011.result.json"
+    },
+    "worker/ci-command-011.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-011.stderr"
+    },
+    "worker/ci-command-011.stdout": {
+      "bytes": 78,
+      "sha256": "3e43a1d677310dad32048356816692473e9f5e567c147201c91229e5d73227e9",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-011.stdout"
+    },
+    "worker/ci-command-011.upfront.json": {
+      "bytes": 3690,
+      "sha256": "1a5b9c7edd05360009f8e9a658a3dfc13b9e7a1c1151a367b8774d0ccc3704df",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-011.upfront.json"
+    },
+    "worker/ci-command-012.launch.json": {
+      "bytes": 134,
+      "sha256": "18e92bbce3252251206b21c82228773780d9db375c9093bbb9a1dc2bd0dc5e30",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-012.launch.json"
+    },
+    "worker/ci-command-012.result.json": {
+      "bytes": 4731,
+      "sha256": "b1a9b62ba7ffdbe1291de40d20ee3ee719b01a2af5d8e1dda7ee1f4809e294fe",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-012.result.json"
+    },
+    "worker/ci-command-012.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-012.stderr"
+    },
+    "worker/ci-command-012.stdout": {
+      "bytes": 56,
+      "sha256": "964d8e70b4aa4d9aa7404be8e37fdd78b159937b9533b22ea21393a90da78e75",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-012.stdout"
+    },
+    "worker/ci-command-012.upfront.json": {
+      "bytes": 3864,
+      "sha256": "e4d632fc278a1ecb88850ee60a6af0f3c334ef988e3512eb88688e70d7792ca6",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-012.upfront.json"
+    },
+    "worker/ci-command-013.launch.json": {
+      "bytes": 134,
+      "sha256": "6149a9576e822556fc718af3aa5a7cecc2c6292c42fb15d48d114cd35016808e",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-013.launch.json"
+    },
+    "worker/ci-command-013.result.json": {
+      "bytes": 4582,
+      "sha256": "277c7727e28bf0739e15805e5a32f351c158465fbacad100d76b7c549dc699c6",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-013.result.json"
+    },
+    "worker/ci-command-013.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-013.stderr"
+    },
+    "worker/ci-command-013.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-013.stdout"
+    },
+    "worker/ci-command-013.upfront.json": {
+      "bytes": 3715,
+      "sha256": "0edc94cc2e0cab1f3c91184c8b2325270e88568b9a86903f2297ea568369bafc",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-013.upfront.json"
+    },
+    "worker/ci-command-014.launch.json": {
+      "bytes": 133,
+      "sha256": "800e31c0d4588aedc9e1ac45b09a69691c721a2275f08c1a6a538e9ecdc126d6",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-014.launch.json"
+    },
+    "worker/ci-command-014.result.json": {
+      "bytes": 4536,
+      "sha256": "52f6610812d30423b0f270005a851ea17cf233d49002e25648b7d3d8671de035",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-014.result.json"
+    },
+    "worker/ci-command-014.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-014.stderr"
+    },
+    "worker/ci-command-014.stdout": {
+      "bytes": 144944,
+      "sha256": "8fc74218f7d2c22fae18997832099771febce87e8cdb0bf32666d8074e1fbcb2",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-014.stdout"
+    },
+    "worker/ci-command-014.upfront.json": {
+      "bytes": 3664,
+      "sha256": "fa8c1ba1384886f7623860f778c2cd07f3aa57db19b5ed41b6ad619a11e9e5e0",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-014.upfront.json"
+    },
+    "worker/ci-command-015.launch.json": {
+      "bytes": 135,
+      "sha256": "404c103490cbe7f1c2e8cb1c842d5149ac8889e7bea1146628db508b94340aca",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-015.launch.json"
+    },
+    "worker/ci-command-015.result.json": {
+      "bytes": 4536,
+      "sha256": "a800c5f7a72a700b4f7b967fbcfc06b97855a322264ef4bd7b1e1ffefbec2881",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-015.result.json"
+    },
+    "worker/ci-command-015.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-015.stderr"
+    },
+    "worker/ci-command-015.stdout": {
+      "bytes": 41,
+      "sha256": "973f33b1472d4c2edbbc04c88dff355394b5d413ebca201a7544b95b1bd96212",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-015.stdout"
+    },
+    "worker/ci-command-015.upfront.json": {
+      "bytes": 3667,
+      "sha256": "faf71c46bbb989cdf982f62c28625f0ed8f6f9f45cad58c9929be345279579cc",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-015.upfront.json"
+    },
+    "worker/ci-command-016.launch.json": {
+      "bytes": 134,
+      "sha256": "0ec2b4f15ad49202b902186cdee4faef7fa08c6c4747bb8174aba698b0c6a505",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-016.launch.json"
+    },
+    "worker/ci-command-016.result.json": {
+      "bytes": 4543,
+      "sha256": "e73171c3f1d494a487f739ecb78b2a20b500fe0ab5d6dfe6a644a08a6b98071c",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-016.result.json"
+    },
+    "worker/ci-command-016.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-016.stderr"
+    },
+    "worker/ci-command-016.stdout": {
+      "bytes": 41,
+      "sha256": "e87336e85f279157e5be0985f815a692c771d4d63c5eca27ed645a6e0e7a0c76",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-016.stdout"
+    },
+    "worker/ci-command-016.upfront.json": {
+      "bytes": 3674,
+      "sha256": "8cb9a8266563384312fda1c1fe18518af227815e3c58c75acf79f9cb2420e69b",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-command-016.upfront.json"
+    },
+    "worker/ci-result.json": {
+      "bytes": 359,
+      "sha256": "7571d5a472ed695cc5198defe049f9465a135be0920d68fd320192fe8282424d",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\ci-result.json"
+    },
+    "worker/host.json": {
+      "bytes": 582,
+      "sha256": "d3c9104c83ea6c022a623fd1f156751b35af88455718a0a5242217f21725dbf7",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\host.json"
+    },
+    "worker/msvc-default-selection.json": {
+      "bytes": 617,
+      "sha256": "05c6e00b248d96f8e1f5c84582d250489539fbe7debfd2f2544c7641c4991f96",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\msvc-default-selection.json"
+    },
+    "worker/msvc-default-version.stdout": {
+      "bytes": 11,
+      "sha256": "2ca998516f8f18b39c28ce022abb90ef5ad711b468494671dd84b74618b569d9",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\msvc-default-version.stdout"
+    },
+    "worker/native-inputs.json": {
+      "bytes": 341923,
+      "sha256": "d1bcb1c54a240545843584bb1565a2ee99ff7dd6d256df7b036ce6cdb304bfd0",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\native-inputs.json"
+    },
+    "worker/original-source-after.json": {
+      "bytes": 510835,
+      "sha256": "1464adaa2480595a2ec22bc82900899bc2911b675128f7fdc6b6837dd65d1f46",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\original-source-after.json"
+    },
+    "worker/original-source-before.json": {
+      "bytes": 510835,
+      "sha256": "1464adaa2480595a2ec22bc82900899bc2911b675128f7fdc6b6837dd65d1f46",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\original-source-before.json"
+    },
+    "worker/owned-command-helper.py": {
+      "bytes": 54459,
+      "sha256": "19bf1ae0eec2f1511703f3ff9e97de14b289a1f67d64c36a2e5bf52e616b86b2",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\owned-command-helper.py"
+    },
+    "worker/pipeline.result.json": {
+      "bytes": 254,
+      "sha256": "d4c1a592f2c8070085a1304535d9e60349866a026f97ee2b8e419b0bc405df09",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline.result.json"
+    },
+    "worker/pipeline.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline.stderr"
+    },
+    "worker/pipeline.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline.stdout"
+    },
+    "worker/pipeline.upfront.json": {
+      "bytes": 3943,
+      "sha256": "858fafa00afa371c0a143589cd459af7de936563fd408df449ccd06d2ca7031e",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline.upfront.json"
+    },
+    "worker/vswhere-image.json": {
+      "bytes": 173,
+      "sha256": "c0b343a7d430aa91eba408bdb8329e037b26ee7dfe1fb53de6d7cb185984f84a",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\vswhere-image.json"
+    },
+    "worker/vswhere-installation.stdout": {
+      "bytes": 56,
+      "sha256": "964d8e70b4aa4d9aa7404be8e37fdd78b159937b9533b22ea21393a90da78e75",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\vswhere-installation.stdout"
+    },
+    "worker/whole-pipeline-budget.json": {
+      "bytes": 317,
+      "sha256": "f2dc141a0c78cefb9bf3e11f3d4cd964dba3707b639a56694a4534ea60c484b3",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\whole-pipeline-budget.json"
+    },
+    "pipeline-preflight/initial-head.launch.json": {
+      "bytes": 134,
+      "sha256": "adf039cf9463b0ff32f4963fd2414fb0d09de36477bc9a90cb5c11bc68718bcb",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline-preflight\\initial-head.launch.json"
+    },
+    "pipeline-preflight/initial-head.result.json": {
+      "bytes": 4547,
+      "sha256": "7812cd9be56a82a13be7ec50b52db336f5bcdb73cc3915be985ba7299eca470e",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline-preflight\\initial-head.result.json"
+    },
+    "pipeline-preflight/initial-head.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline-preflight\\initial-head.stderr"
+    },
+    "pipeline-preflight/initial-head.stdout": {
+      "bytes": 41,
+      "sha256": "973f33b1472d4c2edbbc04c88dff355394b5d413ebca201a7544b95b1bd96212",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline-preflight\\initial-head.stdout"
+    },
+    "pipeline-preflight/initial-head.upfront.json": {
+      "bytes": 3679,
+      "sha256": "78744eeb99b21dd6714b0a44e93e813ec0d59bd67de9531495c8c9d67d819c94",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline-preflight\\initial-head.upfront.json"
+    },
+    "pipeline-preflight/initial-status.launch.json": {
+      "bytes": 134,
+      "sha256": "6fadb641c2d0162a040520afaf0f3470fa7436d5124fba1d9e6b09d13e7d9530",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline-preflight\\initial-status.launch.json"
+    },
+    "pipeline-preflight/initial-status.result.json": {
+      "bytes": 4596,
+      "sha256": "aa98a801aae3577cb78d7f6e606c4a9769f724fc2bcd796eddc70a9849377850",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline-preflight\\initial-status.result.json"
+    },
+    "pipeline-preflight/initial-status.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline-preflight\\initial-status.stderr"
+    },
+    "pipeline-preflight/initial-status.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline-preflight\\initial-status.stdout"
+    },
+    "pipeline-preflight/initial-status.upfront.json": {
+      "bytes": 3729,
+      "sha256": "4a0c58e17aa8d887458acaccea7ae7cb9337f6401ad98c18000675d3cfe62a6c",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline-preflight\\initial-status.upfront.json"
+    },
+    "tool-images/23cf0f8194ff576562646a1a2950c6826249c8806cd1547debd24db77eb68f58-uv.exe": {
+      "bytes": 76544512,
+      "sha256": "23cf0f8194ff576562646a1a2950c6826249c8806cd1547debd24db77eb68f58",
+      "original": "C:\\Program Files (x86)\\pipx\\venvs\\uv\\Scripts\\uv.exe"
+    },
+    "tool-images/9a4eb5f1c29c6a2e93852ead46b999e284a6a5ca8bab4d4e241d587d025a52de-node.exe": {
+      "bytes": 92534088,
+      "sha256": "9a4eb5f1c29c6a2e93852ead46b999e284a6a5ca8bab4d4e241d587d025a52de",
+      "original": "C:\\hostedtoolcache\\windows\\node\\24.18.0\\x64\\node.exe"
+    },
+    "tool-images/00f139da614dced87d3c3d4121c43eebdac3c1bf8a5ee86b9d80dfd71c8d70fd-cargo.exe": {
+      "bytes": 12724224,
+      "sha256": "00f139da614dced87d3c3d4121c43eebdac3c1bf8a5ee86b9d80dfd71c8d70fd",
+      "original": "C:\\Users\\runneradmin\\.cargo\\bin\\cargo.exe"
+    },
+    "tool-images/54bda91c773c6bba2b970424423cfcb80552d92dc6967d766f98931fe1251a54-git.exe": {
+      "bytes": 45400,
+      "sha256": "54bda91c773c6bba2b970424423cfcb80552d92dc6967d766f98931fe1251a54",
+      "original": "C:\\Program Files\\Git\\bin\\git.exe"
+    },
+    "tool-images/f598fb950a86a895d8f9b4755fc9b38c48adc7a15732a342e55c17a3c3499602-python.exe": {
+      "bytes": 91648,
+      "sha256": "f598fb950a86a895d8f9b4755fc9b38c48adc7a15732a342e55c17a3c3499602",
+      "original": "C:\\Users\\runneradmin\\AppData\\Roaming\\uv\\python\\cpython-3.12.13-windows-x86_64-none\\python.exe"
+    },
+    "tool-images/ab0e1ca4f3f3059571b8fc7a7efffe010b719644268eb3b3c6a2a36649b2fa9e-pnpm.js": {
+      "bytes": 189,
+      "sha256": "ab0e1ca4f3f3059571b8fc7a7efffe010b719644268eb3b3c6a2a36649b2fa9e",
+      "original": "C:\\hostedtoolcache\\windows\\node\\24.18.0\\x64\\node_modules\\corepack\\dist\\pnpm.js"
+    },
+    "tool-images/045eb4580b746837ecf0091d32384dbf519fa4f33f9f1d4da9452b8cea7dc232-pnpm.CMD": {
+      "bytes": 210,
+      "sha256": "045eb4580b746837ecf0091d32384dbf519fa4f33f9f1d4da9452b8cea7dc232",
+      "original": "C:\\hostedtoolcache\\windows\\node\\24.18.0\\x64\\pnpm.CMD"
+    },
+    "tool-images/ddfbad20b31b918d3439d070945ec59bbfe037a6ec0ab5b584459e69c8b37d1b-cargo.exe": {
+      "bytes": 31278592,
+      "sha256": "ddfbad20b31b918d3439d070945ec59bbfe037a6ec0ab5b584459e69c8b37d1b",
+      "original": "D:\\a\\_temp\\rustup-home\\toolchains\\1.97.1-x86_64-pc-windows-msvc\\bin\\cargo.exe"
+    },
+    "tool-images/cf79cfd77b0a144c56a0a6af6bf10bcdf095a73718cd4bf2b9d4fe2d2cbded55-rustc.exe": {
+      "bytes": 110592,
+      "sha256": "cf79cfd77b0a144c56a0a6af6bf10bcdf095a73718cd4bf2b9d4fe2d2cbded55",
+      "original": "D:\\a\\_temp\\rustup-home\\toolchains\\1.97.1-x86_64-pc-windows-msvc\\bin\\rustc.exe"
+    },
+    "tool-images/357c989e1c926841df4e6e97c25a60b205b30110cd6db39bde8d81a627e48ebb-dumpbin.exe": {
+      "bytes": 23376,
+      "sha256": "357c989e1c926841df4e6e97c25a60b205b30110cd6db39bde8d81a627e48ebb",
+      "original": "C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\dumpbin.exe"
+    },
+    "tool-images/4e9676b75f0caebde0bc586b0c6b8b62ce7b75ef7fff056c2a463c6c5b4da5bb-rust-lld.exe": {
+      "bytes": 113407488,
+      "sha256": "4e9676b75f0caebde0bc586b0c6b8b62ce7b75ef7fff056c2a463c6c5b4da5bb",
+      "original": "D:\\a\\_temp\\rustup-home\\toolchains\\1.97.1-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\bin\\rust-lld.exe"
+    },
+    "tool-images/57e32b1ea2456f12f97bf802453171bbff12d56b2c486b4eca0c75343c0cda2c-clang-cl.exe": {
+      "bytes": 101879296,
+      "sha256": "57e32b1ea2456f12f97bf802453171bbff12d56b2c486b4eca0c75343c0cda2c",
+      "original": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe"
+    },
+    "tool-images/ac241b193d1954102c9282caa1fb0f2faf0331c6b3d137bc704a04b0f8763e76-llvm-lib.exe": {
+      "bytes": 16904704,
+      "sha256": "ac241b193d1954102c9282caa1fb0f2faf0331c6b3d137bc704a04b0f8763e76",
+      "original": "C:\\Program Files\\LLVM\\bin\\llvm-lib.exe"
+    },
+    "pipeline/01-python.launch.json": {
+      "bytes": 134,
+      "sha256": "14c37ca8e9a90aa7d75d754714d94d4fddc643ae9706d5afe801873a5c515a1f",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\01-python.launch.json"
+    },
+    "pipeline/01-python.result.json": {
+      "bytes": 5478,
+      "sha256": "35a2adf0698e3bf90a948c4dbced16790fab9ceb915b5150d23a5b3b5c30d1c5",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\01-python.result.json"
+    },
+    "pipeline/01-python.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\01-python.stderr"
+    },
+    "pipeline/01-python.stdout": {
+      "bytes": 16,
+      "sha256": "2dc0d5541cf70196cb92df8ad4223b66b7c62eb932b290936086e003b1e6f76e",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\01-python.stdout"
+    },
+    "pipeline/01-python.upfront.json": {
+      "bytes": 4609,
+      "sha256": "cae742c43f47b263048d25dfd98507aac6fc8eb8006cbd462e8c564a051a47a4",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\01-python.upfront.json"
+    },
+    "pipeline/02-uv.launch.json": {
+      "bytes": 134,
+      "sha256": "f9593f2100623536fec64e12cb75fb72e668eb4e5110ea7176a2aebeaba26bd5",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\02-uv.launch.json"
+    },
+    "pipeline/02-uv.result.json": {
+      "bytes": 5417,
+      "sha256": "00cf20b805e765761056877de65f81d739bcdf5ac8a8d215e71f7631cb1f4b40",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\02-uv.result.json"
+    },
+    "pipeline/02-uv.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\02-uv.stderr"
+    },
+    "pipeline/02-uv.stdout": {
+      "bytes": 57,
+      "sha256": "a2396cd52b640353e0025ca0faece1b52de93fc14ac52616a177ba97d3656ac4",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\02-uv.stdout"
+    },
+    "pipeline/02-uv.upfront.json": {
+      "bytes": 4549,
+      "sha256": "3fd62ac556a424c7b65e969f85895ad2b53d8e53dbe0857172aa31d90e633643",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\02-uv.upfront.json"
+    },
+    "pipeline/03-node.launch.json": {
+      "bytes": 135,
+      "sha256": "f417747876091930f88463cdc308f54b01a277a72c4bb978aa9469e983a7fba2",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\03-node.launch.json"
+    },
+    "pipeline/03-node.result.json": {
+      "bytes": 5434,
+      "sha256": "c9c138f58780ebd247b361a9ec1458e8d82cbec385b0ba88b6767c8d0f0eaa50",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\03-node.result.json"
+    },
+    "pipeline/03-node.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\03-node.stderr"
+    },
+    "pipeline/03-node.stdout": {
+      "bytes": 10,
+      "sha256": "b447734bea5971cc4beed4007192e4cf2e07a9f04fdaff5d9df3bb307e61987e",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\03-node.stdout"
+    },
+    "pipeline/03-node.upfront.json": {
+      "bytes": 4566,
+      "sha256": "560213b4396c929fa119e26d23d4f50280cde88da3cf8f5c42159ca3c654f9de",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\03-node.upfront.json"
+    },
+    "pipeline/04-pnpm.launch.json": {
+      "bytes": 134,
+      "sha256": "baa1a27ad7aa7519c89e52498f5b461040d2e9ce714c0061ab18250f371f861e",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\04-pnpm.launch.json"
+    },
+    "pipeline/04-pnpm.result.json": {
+      "bytes": 5516,
+      "sha256": "4ea12d892bf65d81df11379d2a06ba0089ef62047e308608beadbaab769ddd39",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\04-pnpm.result.json"
+    },
+    "pipeline/04-pnpm.stderr": {
+      "bytes": 83,
+      "sha256": "cccfbafec267c3ae81ae7fa7ad0a09f7fdc6f4a4c6ff4c8ccc4eab1497029f07",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\04-pnpm.stderr"
+    },
+    "pipeline/04-pnpm.stdout": {
+      "bytes": 8,
+      "sha256": "a38e383f1e9080b0dd9001481f6e56b341000de90a05061b66734350ad3adc41",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\04-pnpm.stdout"
+    },
+    "pipeline/04-pnpm.upfront.json": {
+      "bytes": 4662,
+      "sha256": "ad4ca2950f8be9dc5017332f4437c063e22606defd1cb15ac98fc62c3df4d968",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\04-pnpm.upfront.json"
+    },
+    "pipeline/05-cargo.launch.json": {
+      "bytes": 133,
+      "sha256": "9df8d98da62f26e73a1cb54584d5c8f76dfe4fbe6eb473b6904af63f2cbf5d9b",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\05-cargo.launch.json"
+    },
+    "pipeline/05-cargo.result.json": {
+      "bytes": 5422,
+      "sha256": "31b1b217c061cf219454b99c2dcd78cf5fb856394043439f860c632472dad5dd",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\05-cargo.result.json"
+    },
+    "pipeline/05-cargo.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\05-cargo.stderr"
+    },
+    "pipeline/05-cargo.stdout": {
+      "bytes": 36,
+      "sha256": "1aedaa9cce116919d39b1eb303a58865771582bc24fc259aa8e26cb212e0f59e",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\05-cargo.stdout"
+    },
+    "pipeline/05-cargo.upfront.json": {
+      "bytes": 4554,
+      "sha256": "7f41ca81a1a78b1ee0f5f1ed355d16ecd2fdad9661e4a4052e1892e48e1b6f5d",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\05-cargo.upfront.json"
+    },
+    "pipeline/06-resolved-cargo.launch.json": {
+      "bytes": 134,
+      "sha256": "08fc2583e5049ed676b308547ba94fe4975d2367d367fb8c5dde550644bccfe9",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\06-resolved-cargo.launch.json"
+    },
+    "pipeline/06-resolved-cargo.result.json": {
+      "bytes": 5433,
+      "sha256": "c928c9c6c10bd361cbf727896a00b92db98ad8bf2db5902fa61a8b7fe9f7b4e6",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\06-resolved-cargo.result.json"
+    },
+    "pipeline/06-resolved-cargo.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\06-resolved-cargo.stderr"
+    },
+    "pipeline/06-resolved-cargo.stdout": {
+      "bytes": 78,
+      "sha256": "3672b52e5f236683e0519c7e94ecaa5b687454fd6e01c1966ac1179ad0ae0234",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\06-resolved-cargo.stdout"
+    },
+    "pipeline/06-resolved-cargo.upfront.json": {
+      "bytes": 4565,
+      "sha256": "4809c2cb0401a8717962e26d87750c542b86cb8be728e9cd46f45fc2e24b107f",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\06-resolved-cargo.upfront.json"
+    },
+    "pipeline/06-resolved-rustc.launch.json": {
+      "bytes": 134,
+      "sha256": "855e5ef07526736790a065c69fa5792b261027f76b6c685e568b8cd2ca139642",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\06-resolved-rustc.launch.json"
+    },
+    "pipeline/06-resolved-rustc.result.json": {
+      "bytes": 5433,
+      "sha256": "3ad7940257fafc858f7a0e5fbe9da479b9c6a83100db7b76d00eff7657c49c2f",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\06-resolved-rustc.result.json"
+    },
+    "pipeline/06-resolved-rustc.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\06-resolved-rustc.stderr"
+    },
+    "pipeline/06-resolved-rustc.stdout": {
+      "bytes": 78,
+      "sha256": "3e43a1d677310dad32048356816692473e9f5e567c147201c91229e5d73227e9",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\06-resolved-rustc.stdout"
+    },
+    "pipeline/06-resolved-rustc.upfront.json": {
+      "bytes": 4565,
+      "sha256": "c7e1e0046f7e2dd40798fc9b354e57d0f99a2c2379c9a1df7ba3fb3a2375f172",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\06-resolved-rustc.upfront.json"
+    },
+    "pipeline/06-rustc.launch.json": {
+      "bytes": 133,
+      "sha256": "b91ff1fa6bcb149dbf3b75895ed1940111e168dc4da8e6d93158fc9999fce75e",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\06-rustc.launch.json"
+    },
+    "pipeline/06-rustc.result.json": {
+      "bytes": 5422,
+      "sha256": "886bd923513672a73e1283bce2081147bc47fb54a2fdbf04a81cb019efaaa572",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\06-rustc.result.json"
+    },
+    "pipeline/06-rustc.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\06-rustc.stderr"
+    },
+    "pipeline/06-rustc.stdout": {
+      "bytes": 36,
+      "sha256": "4ad84f16acc2f3bdcfbc7b0788f1e74a4e649b962154a585b8f8d0b28eb0dd06",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\06-rustc.stdout"
+    },
+    "pipeline/06-rustc.upfront.json": {
+      "bytes": 4554,
+      "sha256": "4fa948e62286ec03e6a74c331b05a5921c611774f877a6e217ef29017e77ccd2",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\06-rustc.upfront.json"
+    },
+    "pipeline/07-js-install.launch.json": {
+      "bytes": 134,
+      "sha256": "b667fc92c16da1dec157d075eea83529711988207ec6996f70d4766be7996d69",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\07-js-install.launch.json"
+    },
+    "pipeline/07-js-install.result.json": {
+      "bytes": 5541,
+      "sha256": "94feaf25f46def9a31f06e7806a9bf272fb32f12e7a33f79d513117b5a3099a7",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\07-js-install.result.json"
+    },
+    "pipeline/07-js-install.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\07-js-install.stderr"
+    },
+    "pipeline/07-js-install.stdout": {
+      "bytes": 1681,
+      "sha256": "13fbb776906135a235048e25b46a2b4d4635e6c94460be290964454dd6cab88a",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\07-js-install.stdout"
+    },
+    "pipeline/07-js-install.upfront.json": {
+      "bytes": 4687,
+      "sha256": "f36da2664a7c4ba0935c53d4627d86a610eb8a841c1fdca88f374018b3268cab",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\07-js-install.upfront.json"
+    },
+    "pipeline/07-tauri.launch.json": {
+      "bytes": 134,
+      "sha256": "01e87e566b2171d68510e3230d0e1f08f6cff493ea78baa53ba741167413cf03",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\07-tauri.launch.json"
+    },
+    "pipeline/07-tauri.result.json": {
+      "bytes": 5595,
+      "sha256": "e5c8463838a0bd94a00ad53b2f3e8204812ab64712468fb00d36d78877df96ea",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\07-tauri.result.json"
+    },
+    "pipeline/07-tauri.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\07-tauri.stderr"
+    },
+    "pipeline/07-tauri.stdout": {
+      "bytes": 17,
+      "sha256": "0fa907c6cbe9a0634eb33cde2cc2fb407f23163c398a67bd5adae51da6fcebce",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\07-tauri.stdout"
+    },
+    "pipeline/07-tauri.upfront.json": {
+      "bytes": 4728,
+      "sha256": "13e77972781c4cf4ee3187cc0e9cbe091649d4854aa22cd8ff151d456f0eb29c",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\07-tauri.upfront.json"
+    },
+    "pipeline/08-runtime-export.launch.json": {
+      "bytes": 134,
+      "sha256": "3860ea25a8933a255ed6bbb7f6a1f0fddacf84f8cf1a58d16b96764aaba1a9cc",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\08-runtime-export.launch.json"
+    },
+    "pipeline/08-runtime-export.result.json": {
+      "bytes": 5626,
+      "sha256": "44d4588ca7dd52abffc486f726743f02a3434c20a85ed6dece1acca1ecb970c6",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\08-runtime-export.result.json"
+    },
+    "pipeline/08-runtime-export.stderr": {
+      "bytes": 50,
+      "sha256": "61054114cf94243b3c91e5e308a6280689beb64d22cb2b86b36f744f89134824",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\08-runtime-export.stderr"
+    },
+    "pipeline/08-runtime-export.stdout": {
+      "bytes": 4783,
+      "sha256": "e75988003f2a339f96389729ce41bbb385c168ff19d363e52fe994477e6ba61c",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\08-runtime-export.stdout"
+    },
+    "pipeline/08-runtime-export.upfront.json": {
+      "bytes": 4755,
+      "sha256": "96964ae1dfdf88b75b1417bdf7a55103e571264d6d8e5017068bcd7c4dccb5ab",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\08-runtime-export.upfront.json"
+    },
+    "pipeline/09-native-runtime.launch.json": {
+      "bytes": 134,
+      "sha256": "a844df1bc4066e3b48a5da03d2c6acde295e4452a0f93dca1bc54bb2665e459f",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\09-native-runtime.launch.json"
+    },
+    "pipeline/09-native-runtime.result.json": {
+      "bytes": 6746,
+      "sha256": "312f9ee9fbf6f0b72c347a048f6676941dae801f927c173d22e3a7a15bae85ab",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\09-native-runtime.result.json"
+    },
+    "pipeline/09-native-runtime.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\09-native-runtime.stderr"
+    },
+    "pipeline/09-native-runtime.stdout": {
+      "bytes": 225,
+      "sha256": "ac7c6a64ba03251ef19d3d055c55593324b334ba5a10a00e03c13ba4f94a22d6",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\09-native-runtime.stdout"
+    },
+    "pipeline/09-native-runtime.upfront.json": {
+      "bytes": 5878,
+      "sha256": "865828e11d659e86df7bef5a47ba9cc5748e5df50cc3b987083c121d5ac8902b",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\09-native-runtime.upfront.json"
+    },
+    "pipeline/10-tauri-package.launch.json": {
+      "bytes": 134,
+      "sha256": "62f51e2456be6fc62f7c4be55c470fe83a7950ae3f535beb2c088f91de77b854",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\10-tauri-package.launch.json"
+    },
+    "pipeline/10-tauri-package.result.json": {
+      "bytes": 5761,
+      "sha256": "aacc738d1675ccd89dd508474826b55503b39988cc6c01434a7c0deca3038f61",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\10-tauri-package.result.json"
+    },
+    "pipeline/10-tauri-package.stderr": {
+      "bytes": 18384,
+      "sha256": "9af61466f305d1017b84a62329c9b4433ac66f083b4f200058f40a56ee267953",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\10-tauri-package.stderr"
+    },
+    "pipeline/10-tauri-package.stdout": {
+      "bytes": 648,
+      "sha256": "48ce56b478cbea5ecfa25ed28c3ac09b4ce0a6fd870ff27dfb834bbcc0c468a1",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\10-tauri-package.stdout"
+    },
+    "pipeline/10-tauri-package.upfront.json": {
+      "bytes": 4891,
+      "sha256": "98b565ef0bb577b06655d7d45fca220e0bde6e1e539fe8949ec6691e3bbe58b7",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\10-tauri-package.upfront.json"
+    },
+    "pipeline/11-package-stage.launch.json": {
+      "bytes": 134,
+      "sha256": "0b55aa10e94ff023b2558104eb0744a6a1cb5157221e62d7dd62a593a4caeade",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\11-package-stage.launch.json"
+    },
+    "pipeline/11-package-stage.result.json": {
+      "bytes": 5986,
+      "sha256": "05b1231e58a7d2e1631900db45b55d80b92e727ec2cc35d95d05720be55db62d",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\11-package-stage.result.json"
+    },
+    "pipeline/11-package-stage.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\11-package-stage.stderr"
+    },
+    "pipeline/11-package-stage.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\11-package-stage.stdout"
+    },
+    "pipeline/11-package-stage.upfront.json": {
+      "bytes": 5120,
+      "sha256": "340561f7bd09ec2d59d8874b68df6987bdd61937a826bcd8245c3062cbae1565",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\11-package-stage.upfront.json"
+    },
+    "pipeline/12-package-inspect.launch.json": {
+      "bytes": 134,
+      "sha256": "bc53e08b61cb93436ed699bfc31721019a554d3689daec9ee320424f810e6ffb",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\12-package-inspect.launch.json"
+    },
+    "pipeline/12-package-inspect.result.json": {
+      "bytes": 5736,
+      "sha256": "c3e6a92b3ebf5633ac46553216a7377fa43e40725ba3e7f4b0fab52c3d7e284d",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\12-package-inspect.result.json"
+    },
+    "pipeline/12-package-inspect.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\12-package-inspect.stderr"
+    },
+    "pipeline/12-package-inspect.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\12-package-inspect.stdout"
+    },
+    "pipeline/12-package-inspect.upfront.json": {
+      "bytes": 4883,
+      "sha256": "ef5aea4d89b16f7b07162edb3447e25cde394ed7e7629c1a258f805a773eb6e6",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\12-package-inspect.upfront.json"
+    },
+    "pipeline/12-pe-app.launch.json": {
+      "bytes": 134,
+      "sha256": "17ebac91adf75e490c9ba638ce4e173b878dfaadb2e25e453119a61c26702e06",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\12-pe-app.launch.json"
+    },
+    "pipeline/12-pe-app.result.json": {
+      "bytes": 5621,
+      "sha256": "5aaa077b48fe78752acdd21314b11ffd9bba11232ba8215b6e161f801b31a98e",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\12-pe-app.result.json"
+    },
+    "pipeline/12-pe-app.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\12-pe-app.stderr"
+    },
+    "pipeline/12-pe-app.stdout": {
+      "bytes": 29805,
+      "sha256": "57b471d504ec0ad9c94c8b4493bad74cef3e6933ee89580d2f9ac2b2c538a33d",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\12-pe-app.stdout"
+    },
+    "pipeline/12-pe-app.upfront.json": {
+      "bytes": 4750,
+      "sha256": "5650fa280d91ad7ea1d7f122414b52c671bfe9fcb5df7678ee2028a26eb4442f",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\12-pe-app.upfront.json"
+    },
+    "pipeline/12-pe-service.launch.json": {
+      "bytes": 133,
+      "sha256": "1b47b88bcdbd9f0d009d141c50699550decadaa14e31c9c8f790582772c60e82",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\12-pe-service.launch.json"
+    },
+    "pipeline/12-pe-service.result.json": {
+      "bytes": 5659,
+      "sha256": "3e35063b1766206bb83e7865f03933db5c51d42c05942d19d0748512110ece53",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\12-pe-service.result.json"
+    },
+    "pipeline/12-pe-service.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\12-pe-service.stderr"
+    },
+    "pipeline/12-pe-service.stdout": {
+      "bytes": 13206,
+      "sha256": "c5cadb36f4d4cc6939392af5b9eea714dd0832de06d11942bf6ae7a7259bdbaf",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\12-pe-service.stdout"
+    },
+    "pipeline/12-pe-service.upfront.json": {
+      "bytes": 4788,
+      "sha256": "c8b96ff6d9beaa0e8f150d0356fc3dc850d937950d8b38d889f0303159328ee6",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\12-pe-service.upfront.json"
+    },
+    "pipeline/13-package-actor-compile.launch.json": {
+      "bytes": 134,
+      "sha256": "99e550fcbbaf5e1110ec6d2cc133cc0841eda1eddb6745b270497481aa605569",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\13-package-actor-compile.launch.json"
+    },
+    "pipeline/13-package-actor-compile.result.json": {
+      "bytes": 5775,
+      "sha256": "893e2cdc94390bb046be2fc0d667e18d521912951d5bac2c959c39c44d4cc4fa",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\13-package-actor-compile.result.json"
+    },
+    "pipeline/13-package-actor-compile.stderr": {
+      "bytes": 288,
+      "sha256": "5709ff7cb02c7e6c6cd313e38b3a0102354454f6c33980c9d4975686c8da78d6",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\13-package-actor-compile.stderr"
+    },
+    "pipeline/13-package-actor-compile.stdout": {
+      "bytes": 359379,
+      "sha256": "e2970dc6a04142f406296636bcbcbeb04ccc2a5e306ebbf56aa52ae6f8904563",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\13-package-actor-compile.stdout"
+    },
+    "pipeline/13-package-actor-compile.upfront.json": {
+      "bytes": 4904,
+      "sha256": "c114e0626a0d4e89bb2214031e338d9e4c329dd00aec5fb791946c7c4f38c1d0",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\13-package-actor-compile.upfront.json"
+    },
+    "pipeline/14-package-actor-catalog.launch.json": {
+      "bytes": 134,
+      "sha256": "d7ad163c6ef9d491f573b0227ba196ae3d60077635f9f058fb53cda34f2c8b2c",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\14-package-actor-catalog.launch.json"
+    },
+    "pipeline/14-package-actor-catalog.result.json": {
+      "bytes": 5486,
+      "sha256": "80eb56f0e1fea7f324248a46daa0e2aba464b90e9960e7d6913626fb6ebcd348",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\14-package-actor-catalog.result.json"
+    },
+    "pipeline/14-package-actor-catalog.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\14-package-actor-catalog.stderr"
+    },
+    "pipeline/14-package-actor-catalog.stdout": {
+      "bytes": 32218,
+      "sha256": "330236d2af055a364dad1f279405d5a3203a32ea55a585d5c0b0522b4416a35d",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\14-package-actor-catalog.stdout"
+    },
+    "pipeline/14-package-actor-catalog.upfront.json": {
+      "bytes": 4615,
+      "sha256": "e4af14915e87796d5f4ee04ab99a724af45d7f02aa5cbdcf6fff2482535f1c60",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\14-package-actor-catalog.upfront.json"
+    },
+    "pipeline/15-package-actor.launch.json": {
+      "bytes": 134,
+      "sha256": "8fe9f9d7a6ed5bd929ad07adbbc6bdc720f2a2b14e65781ce27777f5edf9abe9",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\15-package-actor.launch.json"
+    },
+    "pipeline/15-package-actor.result.json": {
+      "bytes": 5729,
+      "sha256": "85cdc3984bdf0c18c5cf94be6c5f2f35e214893cb1989dbc4f80edf805dfc56c",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\15-package-actor.result.json"
+    },
+    "pipeline/15-package-actor.stderr": {
+      "bytes": 218,
+      "sha256": "e6854d993a6b5468116347762c56ee50aaaa22848d529a4344cb41624ec76bc0",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\15-package-actor.stderr"
+    },
+    "pipeline/15-package-actor.stdout": {
+      "bytes": 202,
+      "sha256": "1a4fb48870888ca0a07f090684b37be14b3fca245c7137b4761992684d4569a8",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\15-package-actor.stdout"
+    },
+    "pipeline/15-package-actor.upfront.json": {
+      "bytes": 4862,
+      "sha256": "13bd98da43bfd6c8988c098749b6b0e39c2345df7caaa64e7eb865e91bc06f0f",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\15-package-actor.upfront.json"
+    },
+    "pipeline/actor-derivative.json": {
+      "bytes": 332932,
+      "sha256": "fe0f7fccdeb99c0ea1ecd586545a95a55e6ac814294084a69c48fb85c47166af",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\actor-derivative.json"
+    },
+    "pipeline/actor-image.json": {
+      "bytes": 398,
+      "sha256": "30ebc14cc0a6b7df2e9316a4dcdae586995047d052d241b70e3ce44c34018e46",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\actor-image.json"
+    },
+    "pipeline/closure.json": {
+      "bytes": 878,
+      "sha256": "983a4af1fa04ccdfc826957054e2daaa7c639bf40c1f13a35c38b0ce0d3a0af7",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\closure.json"
+    },
+    "pipeline/commands.json": {
+      "bytes": 116282,
+      "sha256": "564670f4feb3f38ad7fa46d750efac1998f8d5071ade85726c9ccc7fb2fe4200",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\commands.json"
+    },
+    "pipeline/derivative-head.launch.json": {
+      "bytes": 134,
+      "sha256": "61c6c638a068e8ea7e22db12e51a09483540a8073a7523f6834acce842927e64",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\derivative-head.launch.json"
+    },
+    "pipeline/derivative-head.result.json": {
+      "bytes": 5426,
+      "sha256": "3d25d6982849a83a011c0cf8143e5ed78fddb9908c577d3445cb1f1fd60f5184",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\derivative-head.result.json"
+    },
+    "pipeline/derivative-head.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\derivative-head.stderr"
+    },
+    "pipeline/derivative-head.stdout": {
+      "bytes": 41,
+      "sha256": "973f33b1472d4c2edbbc04c88dff355394b5d413ebca201a7544b95b1bd96212",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\derivative-head.stdout"
+    },
+    "pipeline/derivative-head.upfront.json": {
+      "bytes": 4557,
+      "sha256": "85e13305ac1b3acbe86d8338bb688b7572b026e511c52454cab8dd00bd749086",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\derivative-head.upfront.json"
+    },
+    "pipeline/derivative-status.launch.json": {
+      "bytes": 134,
+      "sha256": "7e4d3e15e3f787764ec85f840270cedd94535139b035740723bdc7977863d185",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\derivative-status.launch.json"
+    },
+    "pipeline/derivative-status.result.json": {
+      "bytes": 5474,
+      "sha256": "1b3f2110dc7c88dafa7c42f00c6e569f7f5dd415ab0b631607b26598432de157",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\derivative-status.result.json"
+    },
+    "pipeline/derivative-status.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\derivative-status.stderr"
+    },
+    "pipeline/derivative-status.stdout": {
+      "bytes": 105,
+      "sha256": "9092ba8ea462260c221b8cf7ee423c6bf5d1ac9c77e276c57275f9d246184ecf",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\derivative-status.stdout"
+    },
+    "pipeline/derivative-status.upfront.json": {
+      "bytes": 4605,
+      "sha256": "fbe175f8fd276df0d6f7ee349024c11e2eb412c41741a85c79e3b8af0a63508a",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\derivative-status.upfront.json"
+    },
+    "pipeline/owned-command-helper.py": {
+      "bytes": 54459,
+      "sha256": "19bf1ae0eec2f1511703f3ff9e97de14b289a1f67d64c36a2e5bf52e616b86b2",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\owned-command-helper.py"
+    },
+    "pipeline/package-probe-input.json": {
+      "bytes": 322,
+      "sha256": "b052190343c8089129af1a8265ae0db5961eacd44853851c66560e0d3ff276bb",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\package-probe-input.json"
+    },
+    "pipeline/portable-inspection.inspector.py": {
+      "bytes": 12001,
+      "sha256": "b32650242ef56009b67a2cc7825f9204f8f8be1a30796a70130cedd8d48938e0",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\portable-inspection.inspector.py"
+    },
+    "pipeline/portable-inspection.json": {
+      "bytes": 350,
+      "sha256": "78aa49c26695129d71771452a99bb75d0dda7d2cbbeb3100d9da03a2ed8230d1",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\portable-inspection.json"
+    },
+    "pipeline/runtime-export.txt": {
+      "bytes": 4783,
+      "sha256": "e75988003f2a339f96389729ce41bbb385c168ff19d363e52fe994477e6ba61c",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-export.txt"
+    },
+    "pipeline/runtime-lock-receipt.json": {
+      "bytes": 4732,
+      "sha256": "fce5abb7addc6b3c1a926b76acfd054df1ee960e8ea468670252a1d8b1461faa",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-lock-receipt.json"
+    },
+    "pipeline/runtime-wheels.requirements.lock": {
+      "bytes": 3075,
+      "sha256": "35908d41b608a8dd9c6ba40cc70e1cccf82072b29126c896c337b3aef0eb43be",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-wheels.requirements.lock"
+    },
+    "pipeline/shipping-descriptors.json": {
+      "bytes": 363,
+      "sha256": "2ae9a1161c9aab727156ff0562107fb486697d97df0336ff2dc139f843474cba",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\shipping-descriptors.json"
+    },
+    "pipeline/shipping-head.launch.json": {
+      "bytes": 135,
+      "sha256": "74344196b1b7e398b65fd117e8bf86c9c0d8bee62e3910e21af2cf8716c8964b",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\shipping-head.launch.json"
+    },
+    "pipeline/shipping-head.result.json": {
+      "bytes": 5425,
+      "sha256": "cb9cc0f419c06b645f7919deabf163b3d4f4cfd01624d19eb9bba9c9ef8a281d",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\shipping-head.result.json"
+    },
+    "pipeline/shipping-head.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\shipping-head.stderr"
+    },
+    "pipeline/shipping-head.stdout": {
+      "bytes": 41,
+      "sha256": "973f33b1472d4c2edbbc04c88dff355394b5d413ebca201a7544b95b1bd96212",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\shipping-head.stdout"
+    },
+    "pipeline/shipping-head.upfront.json": {
+      "bytes": 4557,
+      "sha256": "46891887ca00824dd97e0744cfc699b9413c72ae78100b03c050b464f8818c27",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\shipping-head.upfront.json"
+    },
+    "pipeline/shipping-runtime-descriptor-0.rs": {
+      "bytes": 653,
+      "sha256": "d80eade713731b9145c40d7ef644361d301327c19042395ae22e36f4af87b5ba",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\shipping-runtime-descriptor-0.rs"
+    },
+    "pipeline/shipping-status.launch.json": {
+      "bytes": 134,
+      "sha256": "fecf05cf4448bf8194c074fc647d2ac1315d1d672807720c9326966f9decdabc",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\shipping-status.launch.json"
+    },
+    "pipeline/shipping-status.result.json": {
+      "bytes": 5472,
+      "sha256": "0482b7800c9558cdd7ba8ac36be41a360d864f2ff65a0b771d579f41a3ba6788",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\shipping-status.result.json"
+    },
+    "pipeline/shipping-status.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\shipping-status.stderr"
+    },
+    "pipeline/shipping-status.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\shipping-status.stdout"
+    },
+    "pipeline/shipping-status.upfront.json": {
+      "bytes": 4605,
+      "sha256": "6f57de9a8a828092a3f25c940743f272fbc71844e4862d758c80b31aefa84927",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\shipping-status.upfront.json"
+    },
+    "pipeline/upfront.json": {
+      "bytes": 342436,
+      "sha256": "cac3f733bf9d8404a9ae9f1091add82947be267e9e1f6e7270937ea1f51b566d",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\upfront.json"
+    },
+    "runtime-build/00-python-pin.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\00-python-pin.stderr"
+    },
+    "runtime-build/00-python-pin.stdout": {
+      "bytes": 16,
+      "sha256": "2dc0d5541cf70196cb92df8ad4223b66b7c62eb932b290936086e003b1e6f76e",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\00-python-pin.stdout"
+    },
+    "runtime-build/00-uv-pin.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\00-uv-pin.stderr"
+    },
+    "runtime-build/00-uv-pin.stdout": {
+      "bytes": 57,
+      "sha256": "a2396cd52b640353e0025ca0faece1b52de93fc14ac52616a177ba97d3656ac4",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\00-uv-pin.stdout"
+    },
+    "runtime-build/01-venv.stderr": {
+      "bytes": 217,
+      "sha256": "3d5bef3473ed2e4e31885153f7b654072a90a0c57cbf133ecb58d9ff493dbbac",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\01-venv.stderr"
+    },
+    "runtime-build/01-venv.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\01-venv.stdout"
+    },
+    "runtime-build/02-runtime-install.stderr": {
+      "bytes": 500,
+      "sha256": "3675cfe95ca8f0e7028e9202ecb9edb1f50440bfab5ec9a733ce68935890baa3",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\02-runtime-install.stderr"
+    },
+    "runtime-build/02-runtime-install.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\02-runtime-install.stdout"
+    },
+    "runtime-build/03-build-install.stderr": {
+      "bytes": 359,
+      "sha256": "197235ac02da5554c329f39e3caaa8ea70d1402832b5e2fe69141c6ec347bc51",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\03-build-install.stderr"
+    },
+    "runtime-build/03-build-install.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\03-build-install.stdout"
+    },
+    "runtime-build/04-wheels-install.stderr": {
+      "bytes": 427,
+      "sha256": "b0f38ea6d40cf42c837ce0c6bac1a81f6e50c76dbf15eccbe56b2a5be829b095",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\04-wheels-install.stderr"
+    },
+    "runtime-build/04-wheels-install.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\04-wheels-install.stdout"
+    },
+    "runtime-build/05-resolved-pins.stderr": {
+      "bytes": 47,
+      "sha256": "735cd7adde933dad7d9d56f92461f0a2291d0a6110ab323896f3d978b8dee454",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\05-resolved-pins.stderr"
+    },
+    "runtime-build/05-resolved-pins.stdout": {
+      "bytes": 672,
+      "sha256": "c7b6605b682b51820187e49d418a6e1e3ee5e1d1e9bce5216470697e0ffd344f",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\05-resolved-pins.stdout"
+    },
+    "runtime-build/06-native-build.stderr": {
+      "bytes": 13043,
+      "sha256": "eb11c5ee77703699c990082b5543f042a139bf5b746d91fbab7abf2d63e6ee2b",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\06-native-build.stderr"
+    },
+    "runtime-build/06-native-build.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\06-native-build.stdout"
+    },
+    "runtime-build/build-proof.json": {
+      "bytes": 15467,
+      "sha256": "dcdcfe74511057a59d003f23c8bea18eba481eeee72dff99bb04023d27a09b08",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\build-proof.json"
+    },
+    "runtime-build/builder-executed.py": {
+      "bytes": 13806,
+      "sha256": "baa3a8b955e461ff3fbe102f4f871b16038a6244ebb86a9b84cf4eeebaa2eb43",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\builder-executed.py"
+    },
+    "runtime-build/service_entry.py": {
+      "bytes": 64,
+      "sha256": "206957c6078399f2d61fcdf17473a99af35dfa9bd7e111818f8eb49bde8eaea6",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\service_entry.py"
+    },
+    "runtime-build/staging-result.json": {
+      "bytes": 311,
+      "sha256": "904aa08d64f57ac631e5e5588d842dd6c25bfa07832d9861b9d327f1b66b60a3",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\staging-result.json"
+    },
+    "runtime-build/inputs/japp_contracts-0.0.1-py3-none-any.whl": {
+      "bytes": 214204,
+      "sha256": "d1ac6f4725a98bb35dca624192bc80b89d4634a3558467b80b6b2f190b2c6d7c",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\inputs\\japp_contracts-0.0.1-py3-none-any.whl"
+    },
+    "runtime-build/inputs/orchestrator-0.0.1-py3-none-any.whl": {
+      "bytes": 32666,
+      "sha256": "21fdd2c137f4575fadf5d7d0f8ad1389650e75a4a185fdf07255693fc06540f7",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\inputs\\orchestrator-0.0.1-py3-none-any.whl"
+    },
+    "runtime-build/inputs/runtime-wheels.requirements.lock": {
+      "bytes": 3075,
+      "sha256": "35908d41b608a8dd9c6ba40cc70e1cccf82072b29126c896c337b3aef0eb43be",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\inputs\\runtime-wheels.requirements.lock"
+    },
+    "runtime-build/inputs/windows-build-tools.requirements.lock": {
+      "bytes": 819,
+      "sha256": "085dba16fc60d8606cac2360c0bb9a8c9dcca7a3d319a0bed9e286f9c449a6a0",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\runtime-build\\inputs\\windows-build-tools.requirements.lock"
+    },
+    "packages/windows-portable.zip": {
+      "bytes": 22119796,
+      "sha256": "8b5131f72bee8ed837d21f4472e64d1c7c30a0764999b0504cf67f2d7f7bdd79",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\windows-portable.zip"
+    },
+    "native-helper/japp_desktop-e75aa2b0d2276e04.exe": {
+      "bytes": 25381888,
+      "sha256": "3f736ddd2e5c3e320baffd5f735d2b269525ddfd325c2c7c8616c2c7bb07db19",
+      "original": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\target\\debug\\deps\\japp_desktop-e75aa2b0d2276e04.exe"
+    }
+  },
+  "file_count": 278,
+  "bytes": 496942325,
+  "subject_execution": false,
+  "selected_tool_image_roles": {
+    "uv": {
+      "invocation": "C:\\Program Files (x86)\\pipx_bin\\uv.EXE",
+      "resolved_path": "C:\\Program Files (x86)\\pipx\\venvs\\uv\\Scripts\\uv.exe",
+      "sha256": "23cf0f8194ff576562646a1a2950c6826249c8806cd1547debd24db77eb68f58",
+      "retained": "tool-images/23cf0f8194ff576562646a1a2950c6826249c8806cd1547debd24db77eb68f58-uv.exe"
+    },
+    "node": {
+      "invocation": "C:\\hostedtoolcache\\windows\\node\\24.18.0\\x64\\node.EXE",
+      "resolved_path": "C:\\hostedtoolcache\\windows\\node\\24.18.0\\x64\\node.exe",
+      "sha256": "9a4eb5f1c29c6a2e93852ead46b999e284a6a5ca8bab4d4e241d587d025a52de",
+      "retained": "tool-images/9a4eb5f1c29c6a2e93852ead46b999e284a6a5ca8bab4d4e241d587d025a52de-node.exe"
+    },
+    "cargo": {
+      "invocation": "C:\\Users\\runneradmin\\.cargo\\bin\\cargo.EXE",
+      "resolved_path": "C:\\Users\\runneradmin\\.cargo\\bin\\cargo.exe",
+      "sha256": "00f139da614dced87d3c3d4121c43eebdac3c1bf8a5ee86b9d80dfd71c8d70fd",
+      "retained": "tool-images/00f139da614dced87d3c3d4121c43eebdac3c1bf8a5ee86b9d80dfd71c8d70fd-cargo.exe"
+    },
+    "rustc": {
+      "invocation": "C:\\Users\\runneradmin\\.cargo\\bin\\rustc.EXE",
+      "resolved_path": "C:\\Users\\runneradmin\\.cargo\\bin\\rustc.exe",
+      "sha256": "00f139da614dced87d3c3d4121c43eebdac3c1bf8a5ee86b9d80dfd71c8d70fd",
+      "retained": "tool-images/00f139da614dced87d3c3d4121c43eebdac3c1bf8a5ee86b9d80dfd71c8d70fd-cargo.exe"
+    },
+    "rustup": {
+      "invocation": "C:\\Users\\runneradmin\\.cargo\\bin\\rustup.EXE",
+      "resolved_path": "C:\\Users\\runneradmin\\.cargo\\bin\\rustup.exe",
+      "sha256": "00f139da614dced87d3c3d4121c43eebdac3c1bf8a5ee86b9d80dfd71c8d70fd",
+      "retained": "tool-images/00f139da614dced87d3c3d4121c43eebdac3c1bf8a5ee86b9d80dfd71c8d70fd-cargo.exe"
+    },
+    "git": {
+      "invocation": "C:\\Program Files\\Git\\bin\\git.EXE",
+      "resolved_path": "C:\\Program Files\\Git\\bin\\git.exe",
+      "sha256": "54bda91c773c6bba2b970424423cfcb80552d92dc6967d766f98931fe1251a54",
+      "retained": "tool-images/54bda91c773c6bba2b970424423cfcb80552d92dc6967d766f98931fe1251a54-git.exe"
+    },
+    "python": {
+      "invocation": "C:\\Users\\runneradmin\\AppData\\Roaming\\uv\\python\\cpython-3.12.13-windows-x86_64-none\\python.exe",
+      "resolved_path": "C:\\Users\\runneradmin\\AppData\\Roaming\\uv\\python\\cpython-3.12.13-windows-x86_64-none\\python.exe",
+      "sha256": "f598fb950a86a895d8f9b4755fc9b38c48adc7a15732a342e55c17a3c3499602",
+      "retained": "tool-images/f598fb950a86a895d8f9b4755fc9b38c48adc7a15732a342e55c17a3c3499602-python.exe"
+    },
+    "pnpm_js": {
+      "invocation": "C:\\hostedtoolcache\\windows\\node\\24.18.0\\x64\\node_modules\\corepack\\dist\\pnpm.js",
+      "resolved_path": "C:\\hostedtoolcache\\windows\\node\\24.18.0\\x64\\node_modules\\corepack\\dist\\pnpm.js",
+      "sha256": "ab0e1ca4f3f3059571b8fc7a7efffe010b719644268eb3b3c6a2a36649b2fa9e",
+      "retained": "tool-images/ab0e1ca4f3f3059571b8fc7a7efffe010b719644268eb3b3c6a2a36649b2fa9e-pnpm.js"
+    },
+    "build_pnpm": {
+      "invocation": "C:\\hostedtoolcache\\windows\\node\\24.18.0\\x64\\pnpm.CMD",
+      "resolved_path": "C:\\hostedtoolcache\\windows\\node\\24.18.0\\x64\\pnpm.CMD",
+      "sha256": "045eb4580b746837ecf0091d32384dbf519fa4f33f9f1d4da9452b8cea7dc232",
+      "retained": "tool-images/045eb4580b746837ecf0091d32384dbf519fa4f33f9f1d4da9452b8cea7dc232-pnpm.CMD"
+    },
+    "cargo_real": {
+      "invocation": "D:\\a\\_temp\\rustup-home\\toolchains\\1.97.1-x86_64-pc-windows-msvc\\bin\\cargo.exe",
+      "resolved_path": "D:\\a\\_temp\\rustup-home\\toolchains\\1.97.1-x86_64-pc-windows-msvc\\bin\\cargo.exe",
+      "sha256": "ddfbad20b31b918d3439d070945ec59bbfe037a6ec0ab5b584459e69c8b37d1b",
+      "retained": "tool-images/ddfbad20b31b918d3439d070945ec59bbfe037a6ec0ab5b584459e69c8b37d1b-cargo.exe"
+    },
+    "rustc_real": {
+      "invocation": "D:\\a\\_temp\\rustup-home\\toolchains\\1.97.1-x86_64-pc-windows-msvc\\bin\\rustc.exe",
+      "resolved_path": "D:\\a\\_temp\\rustup-home\\toolchains\\1.97.1-x86_64-pc-windows-msvc\\bin\\rustc.exe",
+      "sha256": "cf79cfd77b0a144c56a0a6af6bf10bcdf095a73718cd4bf2b9d4fe2d2cbded55",
+      "retained": "tool-images/cf79cfd77b0a144c56a0a6af6bf10bcdf095a73718cd4bf2b9d4fe2d2cbded55-rustc.exe"
+    },
+    "dumpbin": {
+      "invocation": "C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\dumpbin.exe",
+      "resolved_path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\dumpbin.exe",
+      "sha256": "357c989e1c926841df4e6e97c25a60b205b30110cd6db39bde8d81a627e48ebb",
+      "retained": "tool-images/357c989e1c926841df4e6e97c25a60b205b30110cd6db39bde8d81a627e48ebb-dumpbin.exe"
+    },
+    "rust_lld": {
+      "invocation": "D:\\a\\_temp\\rustup-home\\toolchains\\1.97.1-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\bin\\rust-lld.exe",
+      "resolved_path": "D:\\a\\_temp\\rustup-home\\toolchains\\1.97.1-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\bin\\rust-lld.exe",
+      "sha256": "4e9676b75f0caebde0bc586b0c6b8b62ce7b75ef7fff056c2a463c6c5b4da5bb",
+      "retained": "tool-images/4e9676b75f0caebde0bc586b0c6b8b62ce7b75ef7fff056c2a463c6c5b4da5bb-rust-lld.exe"
+    },
+    "clang_cl": {
+      "invocation": "C:\\Program Files\\LLVM\\bin\\clang-cl.EXE",
+      "resolved_path": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+      "sha256": "57e32b1ea2456f12f97bf802453171bbff12d56b2c486b4eca0c75343c0cda2c",
+      "retained": "tool-images/57e32b1ea2456f12f97bf802453171bbff12d56b2c486b4eca0c75343c0cda2c-clang-cl.exe"
+    },
+    "llvm_lib": {
+      "invocation": "C:\\Program Files\\LLVM\\bin\\llvm-lib.EXE",
+      "resolved_path": "C:\\Program Files\\LLVM\\bin\\llvm-lib.exe",
+      "sha256": "ac241b193d1954102c9282caa1fb0f2faf0331c6b3d137bc704a04b0f8763e76",
+      "retained": "tool-images/ac241b193d1954102c9282caa1fb0f2faf0331c6b3d137bc704a04b0f8763e76-llvm-lib.exe"
+    }
+  },
+  "whole_tool_shared_library_or_SDK_closure_claimed": false,
+  "curator": {
+    "path": "D:\\a\\jobapplyv2\\jobapplyv2\\scripts\\native_package_retention.py",
+    "sha256": "8f36a9b94b550c4c7759b93096b3eead67cc17bbd34948415504b3bfa9f5d94d",
+    "python": "C:\\Users\\runneradmin\\AppData\\Roaming\\uv\\python\\cpython-3.12.13-windows-x86_64-none\\python.exe",
+    "version": "3.12.13 (main, Jul 18 2026, 17:08:38) [MSC v.1944 64 bit (AMD64)]"
+  }
+}

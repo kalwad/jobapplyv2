@@ -1,0 +1,8 @@
+{
+  "terminal": "FAIL",
+  "phase": "environment",
+  "nonce": "9e2aaf20003fb8f13569e6272dcdfaa852097fa2401e957007002ebe2b9a71bc",
+  "package_sha256": "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+  "error_type": "System.Management.Automation.RuntimeException",
+  "message": "Protected machine attestor failed; its named step is retained"
+}

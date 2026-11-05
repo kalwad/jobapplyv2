@@ -1,0 +1,221 @@
+﻿[
+    {
+        "at":  "2026-10-31T18:33:43.1006146+00:00",
+        "key":  "window",
+        "value":  {
+                      "ok":  true,
+                      "value":  {
+                                    "file":  {
+                                                 "name":  "File",
+                                                 "patterns":  [
+                                                                  "ExpandCollapsePatternIdentifiers.Pattern"
+                                                              ],
+                                                 "class":  "",
+                                                 "pid":  856,
+                                                 "type":  "ControlType.MenuItem",
+                                                 "enabled":  true
+                                             },
+                                    "children":  [
+                                                     {
+                                                         "name":  "",
+                                                         "patterns":  [
+
+                                                                      ],
+                                                         "class":  "WRY_WEBVIEW",
+                                                         "pid":  856,
+                                                         "type":  "ControlType.Pane",
+                                                         "enabled":  true
+                                                     },
+                                                     {
+                                                         "name":  "Desktop App",
+                                                         "patterns":  [
+
+                                                                      ],
+                                                         "class":  "",
+                                                         "pid":  856,
+                                                         "type":  "ControlType.TitleBar",
+                                                         "enabled":  true
+                                                     },
+                                                     {
+                                                         "name":  "Application",
+                                                         "patterns":  [
+
+                                                                      ],
+                                                         "class":  "",
+                                                         "pid":  856,
+                                                         "type":  "ControlType.MenuBar",
+                                                         "enabled":  true
+                                                     }
+                                                 ],
+                                    "window":  {
+                                                   "name":  "Desktop App",
+                                                   "patterns":  [
+                                                                    "WindowPatternIdentifiers.Pattern",
+                                                                    "TransformPatternIdentifiers.Pattern"
+                                                                ],
+                                                   "class":  "Tauri Window",
+                                                   "pid":  856,
+                                                   "type":  "ControlType.Window",
+                                                   "enabled":  true
+                                               }
+                                },
+                      "ms":  999
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:33:44.3167511+00:00",
+        "key":  "popups-before",
+        "value":  {
+                      "ok":  true,
+                      "value":  {
+
+                                },
+                      "ms":  26
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:33:44.4285203+00:00",
+        "key":  "expand-file",
+        "value":  {
+                      "ok":  true,
+                      "value":  "expanded",
+                      "ms":  110
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:33:44.5566302+00:00",
+        "key":  "popups-after-100",
+        "value":  {
+                      "ok":  true,
+                      "value":  {
+                                    "owner_pid":  856,
+                                    "owned":  true,
+                                    "visible":  true,
+                                    "element":  {
+                                                    "name":  "File",
+                                                    "patterns":  [
+
+                                                                 ],
+                                                    "class":  "#32768",
+                                                    "pid":  856,
+                                                    "type":  "ControlType.Menu",
+                                                    "enabled":  true
+                                                },
+                                    "items":  [
+                                                  {
+                                                      "name":  "Quit",
+                                                      "patterns":  [
+                                                                       "InvokePatternIdentifiers.Pattern"
+                                                                   ],
+                                                      "class":  "",
+                                                      "pid":  856,
+                                                      "type":  "ControlType.MenuItem",
+                                                      "enabled":  true
+                                                  }
+                                              ],
+                                    "hwnd":  197150
+                                },
+                      "ms":  17
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:33:44.9605099+00:00",
+        "key":  "popups-after-400",
+        "value":  {
+                      "ok":  true,
+                      "value":  {
+                                    "owner_pid":  856,
+                                    "owned":  true,
+                                    "visible":  true,
+                                    "element":  {
+                                                    "name":  "File",
+                                                    "patterns":  [
+
+                                                                 ],
+                                                    "class":  "#32768",
+                                                    "pid":  856,
+                                                    "type":  "ControlType.Menu",
+                                                    "enabled":  true
+                                                },
+                                    "items":  [
+                                                  {
+                                                      "name":  "Quit",
+                                                      "patterns":  [
+                                                                       "InvokePatternIdentifiers.Pattern"
+                                                                   ],
+                                                      "class":  "",
+                                                      "pid":  856,
+                                                      "type":  "ControlType.MenuItem",
+                                                      "enabled":  true
+                                                  }
+                                              ],
+                                    "hwnd":  197150
+                                },
+                      "ms":  1
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:33:45.9651092+00:00",
+        "key":  "popups-after-1000",
+        "value":  {
+                      "ok":  true,
+                      "value":  {
+                                    "owner_pid":  856,
+                                    "owned":  true,
+                                    "visible":  true,
+                                    "element":  {
+                                                    "name":  "File",
+                                                    "patterns":  [
+
+                                                                 ],
+                                                    "class":  "#32768",
+                                                    "pid":  856,
+                                                    "type":  "ControlType.Menu",
+                                                    "enabled":  true
+                                                },
+                                    "items":  [
+                                                  {
+                                                      "name":  "Quit",
+                                                      "patterns":  [
+                                                                       "InvokePatternIdentifiers.Pattern"
+                                                                   ],
+                                                      "class":  "",
+                                                      "pid":  856,
+                                                      "type":  "ControlType.MenuItem",
+                                                      "enabled":  true
+                                                  }
+                                              ],
+                                    "hwnd":  197150
+                                },
+                      "ms":  1
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:33:46.7924973+00:00",
+        "key":  "invoke-quit-from-owned-popup",
+        "value":  {
+                      "ok":  true,
+                      "value":  {
+                                    "item":  {
+                                                 "name":  "Quit",
+                                                 "patterns":  [
+                                                                  "InvokePatternIdentifiers.Pattern"
+                                                              ],
+                                                 "class":  "",
+                                                 "pid":  856,
+                                                 "type":  "ControlType.MenuItem",
+                                                 "enabled":  true
+                                             },
+                                    "drained":  true
+                                },
+                      "ms":  825
+                  }
+    },
+    {
+        "at":  "2026-10-31T18:33:46.7945405+00:00",
+        "key":  "end",
+        "value":  {
+
+                  }
+    }
+]

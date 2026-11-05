@@ -1,0 +1,19 @@
+{
+  "archive": "proof.tar.gz",
+  "archive_bytes": 5296414,
+  "archive_sha256": "8cef3ebebf57365ff576a1c5e715b6f0bc90b5d99911d43055ffa446096044f1",
+  "builder_sha256": "00537a89ac4872a6e7ffe2a6c41775b39bf66947e5d156471285056123eb45a3",
+  "exhaustive_archive_byte_comparison": {
+    "expected": 236,
+    "matched": 236,
+    "result": "PASS"
+  },
+  "format_version": "W14_CLOSURE_RETENTION_MANIFEST_1",
+  "index": "archive.index.json",
+  "index_sha256": "5081b53fabe12d3dcfb0f3d1fc4cace1ca90f96b2c9a341cdc821baf82c06b18",
+  "regular_archive_member_count": 236,
+  "root_writes_product_tests_builds_browsers": 0,
+  "source_file_count": 235,
+  "source_payload_bytes": 24194665,
+  "source_recapture_unchanged": true
+}

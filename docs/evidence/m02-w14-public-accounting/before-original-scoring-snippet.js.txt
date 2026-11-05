@@ -1,0 +1,56 @@
+      const positiveScores = expected.positive.map((item) => {
+        const initial = before.filter((control) =>
+          sameLiteral(control.match, item.match),
+        );
+        const settled = final.filter((control) =>
+          sameLiteral(control.match, item.match),
+        );
+        return {
+          source: item.source,
+          concept: item.concept,
+          required: item.match.required,
+          state:
+            initial.length !== 1 || settled.length !== 1
+              ? "UNMEASURABLE_IDENTITY"
+              : requireObserved(initial[0]).empty
+                ? requireObserved(settled[0]).value_digest ===
+                  sha256Canonical(item.value)
+                  ? "INTENDED_RETAINED"
+                  : "MISSING_OR_WRONG"
+                : requireObserved(settled[0]).value_digest ===
+                    requireObserved(initial[0]).value_digest
+                  ? "PREFILLED_PRESERVED"
+                  : "PREFILLED_CHANGED",
+        };
+      });
+      const changes = before.flatMap((control) => {
+        const matches = final.filter((item) =>
+          sameLiteral(item.match, control.match),
+        );
+        const initialMatches = before.filter((item) =>
+          sameLiteral(item.match, control.match),
+        );
+        if (matches.length !== 1 || initialMatches.length !== 1)
+          return [
+            {
+              index: control.index,
+              state: "UNMEASURABLE_IDENTITY",
+              positive: expected.positive.some((item) =>
+                sameLiteral(item.match, control.match),
+              ),
+            },
+          ];
+        return requireObserved(matches[0]).value_digest !==
+          control.value_digest ||
+          requireObserved(matches[0]).checked !== control.checked
+          ? [
+              {
+                index: control.index,
+                state: "CHANGED",
+                positive: expected.positive.some((item) =>
+                  sameLiteral(item.match, control.match),
+                ),
+              },
+            ]
+          : [];
+      });

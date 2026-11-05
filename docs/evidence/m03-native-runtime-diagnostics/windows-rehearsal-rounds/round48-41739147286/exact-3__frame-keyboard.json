@@ -1,0 +1,8 @@
+{
+  "file": "win11-keyboard.ppm",
+  "width": 1280,
+  "height": 800,
+  "sha256": "a615a78462191ccc11db0a0ef267880b44dbc416760048ea86fa3a8bbfcdce0e",
+  "nonblank": true,
+  "scope": "ACTUAL_VIRTUAL_GPU_FRAME_SEMANTICS_JOINED_TO_SESSION_AND_AX"
+}

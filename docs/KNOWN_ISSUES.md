@@ -32,6 +32,1417 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## Latest W07/W11 validation scope (2026-10-31UTC)
+
+Hosted a5ec1e3/run41149738856 (KI-0145 correction) is terminal SUCCESS with the Windows package actor passing again. Fresh download-only candidates were reviewed by an independent multi-agent workflow: the GNOME candidate is released for one bound VM campaign; the Windows 11 candidate is not, because two protected campaign defects (KI-0146 bundle path, KI-0147 host-side package inspector) would stop any campaign. Exact docs/evidence/m03-native-candidates-a5ec1e3-review.
+
+Download-only requests bound to the b4b5b96 package artifacts were authorized, then both the GNOME and the Windows 11 candidate downloads failed closed at the signed Debian index line bound (KI-0145); no archive was installed and no VM started. Exact docs/evidence/m03-prepare-3f2a7d3-7ac6bda-index-bound.
+
+Hosted b4b5b96/run41139850970 is the first terminal SUCCESS: three verify jobs PASS (20 ACTIVE suites each; Python Mac2899/Ubuntu2899/Windows2897) and both native package jobs PASS, including the first passing Windows packaged service actor (KI-0142 FIXED). Exact docs/evidence/m03-w07-ci-b4b5b96-pass. Native Windows 11 and default GNOME desktop campaigns remain pending.
+
+Hosted b74d867/run41124431600: three verify jobs PASS (20 ACTIVE suites each; Python Mac2899/Ubuntu2899/Windows2897), Ubuntu package and service actor PASS, the Windows package pipeline reaches step 15 with retained steps10–14 strictly successful (KI-0137 and KI-0141 FIXED); the Windows package actor then fails because the packaged service exits before READY when launched with an empty environment block (KI-0142, root cause confirmed by a scratch-branch probe of the exact artifact, corrected in the next commit). Exact docs/evidence/m03-w07-ci-b74d867-terminal.
+
+Hosted f30f023/run41114369378: three verify jobs PASS (20 ACTIVE suites each; Python Mac2897/Ubuntu2897/Windows2895), Ubuntu package and service actor PASS, Windows package steps01–12 strictly successful (KI-0137 FIXED) but the post-build projection check refuses a CRLF-rewritten runtime-payload/.gitignore (KI-0141, corrected in the next commit). Exact docs/evidence/m03-w07-ci-f30f023-terminal.
+
+Hosted a010835/run40989502173 is terminal FAILURE: all three verify jobs pass20ACTIVE suites (Mac2882/797.31s, Ubuntu2882/605.38s, WindowsServer2880/996.18s Python) and the Ubuntu native package job succeeds, so KI-0140 is FIXED. The Windows package job compiles japp-desktop.exe (direct exit0) but its held Job still contains a process twelve seconds later; strict cleanup then terminates it and refuses. Scratch-branch Windows Job experiments (never merged) identify that member as MSVC VCTIP.EXE, observed as a child of link.exe and of cl.exe for the vswhom-sys build script, outliving every observation window (up to720s). KI-0137 records that established cause; the corrected source links the Windows package with the toolchain's own rust-lld and compiles build-time C/C++ with LLVM clang-cl/llvm-lib, under which fresh-runner cargo build and test-compile Jobs drain naturally. Exact docs/evidence/m03-w07-ci-a010835-terminal. Fresh hosted package results remain required.
+
+## Earlier W07/W11 validation scope (2026-10-29UTC)
+
+Current cf9local full/three-host verification now PASS with separate stale-wheel packageFAIL/zero eligibleexports; bounded M04v6 headless debug-profile actual53.427s remains outside currentGUI/default/wholemilestone acceptance. Exact docs/evidence/m03-w07-full-cf9b60d, docs/evidence/m03-w07-ci-cf9b60d-terminal and docs/evidence/m04-frozen-debug-sha2-profile. KI-0139 closes only its source invariant; KI-0140 remainsIN_PROGRESS until corrected actual packages. Older pending statements below retain their historical revision scope.
+
+Latest closed437local fullPASS and originalf3 three-host verifyPASS/Ubuntu packagePASS/Windows packageFAIL are docs/evidence/m03-w07-full-4378627 and docs/evidence/m03-w07-ci-f3-terminal. RequestRc930 fails at GNOME metadata before any package/VM actor. Narrow authorizer and WindowsJob corrections have different CLEAR reviews and guarded8path/62catalog root adoption, but a stale package-loader helper pin and canonical focus remain pending;  KI-0135 closes only its source invariant, KI-0136/0137/0138 retain their pending actual validation. Earlier observations below keep historical scope; no currentR/newfix full or native acceptance is inferred.
+
+Clean bd4 is a preserved19PASS/onePythonFAIL aggregate; the narrow cache fixture correction and native zoom source now pass216focused/full2627collection/registeredRust and different2576 data joins. Earlier revision-scoped observations below remain historical; no corrected full/native acceptance is inferred. Exact docs/evidence/m03-w07-full-bd4-failure and docs/evidence/m03-native-zoom-and-cache-correction.
+
+Current scoped correction supersedes the pending source/focus statements: all ten canonical checks pass with693Python/2704collection, different2573joins CLEAR, exact docs/evidence/m03-ci-path-and-bytecode-correction. Actual native Mac zoom/reset/routes/keyboard now passes the prospective policy and different1354data+590pixel checks, exact docs/evidence/m03-w11-macos-native-zoom-v6. Hosted bd4 remains failed with no curated package exports, exact docs/evidence/m03-w07-hosted-bd4-terminal. Fresh corrected full/hosted and native foreign-platform/reader evidence remain pending.
+
+The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
+
+### KI-0189 — Native campaign prepare refuses its host tools while Ubuntu's archive is ahead of the hosted runner image
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: Windows 11 download-only prepare run 41907004859 (request 7a0ee8c for source 2bf7a4d), 2026-11-04UTC.
+- Affects: M03-W07 Windows 11 and M03-W08 GNOME candidate preparation (scripts/linux_gnome/ubuntu_gnome_prepare.py, ubuntu_gnome_host.closed_install_plan).
+- Description: the prepare passed authorization and the hosted Windows PowerShell 5.1 source checks. It downloaded the pinned ISO, which matched its locked digest, and then failed closed with CANDIDATE_FAILED and no VM started: "Simulated host install would replace or remove runner packages". The host-tool lock resolved libpcre2-8-0 10.42-4ubuntu2.2 and libsqlite3-0 3.45.1-1ubuntu2.9, which Ubuntu published on 2026-11-03 and 2026-11-04. The runner (image 20261025.353.1 by its job-log banner) carries 10.42-4ubuntu2.1 and 3.45.1-1ubuntu2.8, so the install would upgrade both and remove php8.3-dev, libpcre2-dev, libsqlite3-dev and sqlite3. The 2100780 candidate ran on 2026-11-03, before both updates were published, on a runner with the same job-log banner, 20261025.353.1, and passed; its lock records that runner's `ImageVersion` variable as 20261026.354.1. The refusal is the reviewed design working as intended: the lock is resolved against an empty dpkg status, and a plan that replaces or removes runner packages is refused.
+- Reproduction: the retained candidate of run 41907004859 (closure.json and the apt command records).
+- Workaround: wait for an ubuntu-24.04 runner image that carries both updates, then request a fresh candidate. Image 20261101.360, now rolling out, was built before both updates.
+- Resolution + evidence link: corrected in source for the Windows 11 host closure only, pending a reviewed candidate and campaign. The owner accepted ADR-0009 on 2026-11-04. The Windows prepare now resolves the host closure against a copy of the runner's dpkg status (`resolve(..., runner_status=True)` in scripts/linux_gnome/ubuntu_gnome_prepare.py, called by windows11_candidate.py):
+  - It downloads every root, and only those dependencies that the runner image lacks at a version the closure accepts. Each pinned tool and firmware file therefore still comes from a hashed deb with its signed index chain.
+  - The v2 host-tools lock records every installed runner package that the downloaded closure declares a dependency on. Pre-Depends and Depends are walked through every alternative and every provider, so the list over-approximates the declared relations. Packages need not declare Essential packages, so an Essential package that no walked relation declares is not recorded; as before, it is bound only through the runner image version. On the round-53 runner, 21 of its 23 Essential packages are such; dpkg and tar are declared and recorded. Each package is recorded with its version, architecture and dpkg status, and dpkg's live database must agree with the copy. A relation that neither the lock nor the runner satisfies fails the prepare.
+  - The candidate retains the status it resolved against (`runner-dpkg-status`, with its SHA-256 in the lock), so a reviewer can recompute the list. It also keeps the status when resolution refuses after the runner's status was copied.
+  - The campaign (windows11_vm.install_tools) requires the v2 lock and a named runner image on both sides. It re-checks every recorded package's version, architecture and status before the simulated install and again after the real one.
+  - The simulated install's refusal of any plan that replaces or removes a runner package is unchanged.
+
+  Four scratch-branch rounds on hosted runners (docs/evidence/m03-native-runtime-diagnostics, windows-host-closure, rounds 51 to 54; not campaign evidence) reproduced this refusal with the old resolution. With the new one, they downloaded 29 packages, recorded 88 runner-provided ones (libpcre2-8-0 and libsqlite3-0 at the runner's versions among them), and the simulated install was accepted. Rounds 51 and 54 ran on runners with the failing prepare's job-log banner, 20261025.353.1, whose `ImageVersion` read 20261026.354.1; the failing prepare's own `ImageVersion` was not recorded. Rounds 52 and 53 ran on the newer 20261101.360.1. Round 54 ran the committed sources. Four separate-context reviews launched by the implementing session (wf_8b1c4c96-433, wf_3c8d4e79-2d4, wf_c6d10595-e2a and wf_9f7f0884-cc0) had their findings corrected, except one part recorded as the second limit below; see TEST_EVIDENCE.
+
+  Limits:
+  - The GNOME host closure (M03-W08) is unchanged: it still resolves against an empty status, so this issue still affects it.
+  - The Windows roots acl and python3 are installed on the runner, yet they are still downloaded from the archive. Every root is: apt only prints a notice for a root it cannot reinstall, so the prepare requires every root in the lock. For acl, this also keeps setfacl pinned from a hashed deb; python3 carries no pinned file. So an archive update to either one ahead of the image still fails the prepare the same way, together with the runner packages that root requires at its exact version (libacl1; python3-minimal and libpython3-stdlib). This is narrower than ADR-0009's wording, which says a package the image carries is used as installed (see its implementation note).
+  - The issue is fixed for Windows only once a candidate prepared this way passes review and its campaign.
+
+### KI-0188 — macOS e2e-browser extension-driver test missed its 15 s content-ready wait on a slow hosted run
+
+- Severity: MEDIUM
+- State: OPEN
+- Discovered: hosted CI 48e0eca/run41759387660 attempt 1, macOS verify, 2026-11-04UTC.
+- Affects: the e2e-browser suite (e2e/extension/extension-drivers.spec.ts, `openHarness`); the exact-SHA hosted gate.
+- Description: one test failed: "UNDO2 and frame/document authority: restoration re-resolves, consumes stale attempts, and page world cannot forge controller authority" (extension-drivers.spec.ts:1281). Its harness page never received the extension's content-ready attribute within `READY_TIMEOUT_MS` (15 s): the `html` element's attribute stayed unset through 33 checks. The other 277 tests passed, but the suite took 29.7 minutes, against 17.0 minutes on the same SHA in attempt 2 (all 278 passed) and 13.2 to 13.4 minutes on Windows (all 278 passed). Whether the runner's slowness alone explains it, or the content script has a real readiness gap, is not known.
+- Reproduction: the attempt 1 macOS job log of run 41759387660 (job 126343179979), with its retained Playwright screenshot, trace and error context named in the log.
+- Workaround: none. Labelling the test flaky or raising its timeout without a cause would weaken it.
+- Resolution + evidence link: open. Investigate the content script's readiness signal under a slow runner (for example with the retained trace, or by reproducing under CPU throttling) before any change.
+
+### KI-0187 — Windows 11 guest's ready capture was refused the foreground for an unrecorded reason
+
+- Severity: MEDIUM
+- State: OPEN
+- Discovered: diagnostic Windows 11 campaign rehearsal round 49 (run 41747013174), 2026-11-04UTC.
+- Affects: M03-W07 Windows 11 VM campaign, ready phase. `OwnForeground` in scripts/windows11/windows11_owned.cs (Capture in Snapshot 'ready').
+- Description: in one of the six round 49 VMs (exact-5, an AMD EPYC 9V74 runner), the ready phase failed with "Actual owned foreground window required for capture": for 10 s, SetForegroundWindow on the product window did not leave it the foreground. In rounds 43 to 47 every measured foreground request succeeded on its first attempt, and no other VM in rounds 48 to 50 was refused. The refusal did not record what held the foreground, and the failure frame, taken after cleanup, shows only the guest's console. The VM's disk was encrypted, so its event logs could not be read. The cause is unknown.
+- Reproduction: docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds/round49-41747013174 (exact-5).
+- Workaround: re-release the campaign; the phase fails closed.
+- Resolution + evidence link: open. A refused foreground request (`OwnForeground`, used by the capture and before every key sequence) now names the process and window class that held the foreground when it was refused (diagnostic text only, read once at the refusal and never part of any condition), so a recurrence at those points records its cause. A foreground lost only during the key-focus settle, or between the settle and SendInput, still fails without naming the holder. A test pins it, and a mutant that makes it part of the foreground condition is killed.
+
+### KI-0186 — Windows 11 attestor can read the console user before Windows reports it
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic Windows 11 campaign rehearsal round 49 (run 41747013174), 2026-11-04UTC.
+- Affects: M03-W07 Windows 11 VM campaign, environment phase. The SYSTEM attestor's interactive-user step in scripts/windows11/windows11_bootstrap.ps1.
+- Description: in one of the six round 49 VMs (exact-2), the attestor failed at its interactive-user step with "Exact synthetic interactive fixture required; observed user: " (empty). The logon trigger started it 36 s after boot, and it read `Win32_ComputerSystem.UserName` once, 1.5 s later, before Windows reported the console user. The guest then failed closed with "Protected machine attestor failed; its named step is retained". The attestor passed this step in every other VM that reached it in rounds 35 and 38 to 50, including two (round 48 exact-6, round 49 exact-4) that reached it within 2.3 s of starting, so how soon Windows reports the user varies.
+- Reproduction: docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds/round49-41747013174 (exact-2 attestor-trace.txt and machine-error.json).
+- Workaround: re-release the campaign.
+- Resolution + evidence link: corrected in source, pending a reviewed campaign. While the user reads as empty, the attestor reads it again every second for up to 60 s; any other user, and an empty one at that bound, still fails the exact fixture check at once. The attestor starts at logon, before the guest; in the seventeen passing runs of rounds 48 to 50 (traces retained) it took 9.1 to 89.6 s, and each receipt was ready before its guest's environment phase (21.1 to 28.4 s of the guest clock). Round 50 ran this wait in seven VMs, and every attestation passed. The guest still waits only to its 150 s mark, so a run delayed past it fails closed. A test pins the bound and that only an empty user is read again; three mutants (no wait, a wait for any user, and a 600 s bound) are each killed.
+
+### KI-0185 — Windows 11 guest fails a teardown phase while an owned process is exiting
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic Windows 11 campaign rehearsal round 47 (run 41733587131), 2026-11-03UTC.
+- Affects: M03-W07 Windows 11 VM campaign. `Members` and `WaitEmpty` in scripts/windows11/windows11_owned.cs, and every phase that waits for the owned job to empty (forced-parent, quit, close).
+- Description: in one of the six round 47 VMs, the forced-parent phase failed with `Exception calling "WaitEmpty" with "1" argument(s): "Finite complete owned job list required"`. The phase terminates the app's root process, then waits for the owned job to empty. `Members` reads the job's process ID list and treated any difference between the job's assigned-process count and the number of listed IDs as a broken invariant. The query succeeded, and its buffer holds 64 IDs, so the list did not overflow. The likely cause is a member that was exiting, so that the count and the list briefly disagreed. The two values were not recorded, so neither the cause nor which way they differed was measured. The same phase passed in the other VMs that reached it (four in rounds 45 and 47).
+- Reproduction: docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds/round47-41733587131 (hv-5 failure.json).
+- Workaround: none in a campaign; the phase fails closed.
+- Resolution + evidence link: corrected in source, pending a reviewed campaign. `Members` now treats any difference between the count and the list, either way, as 'not yet' (`InvalidOperationException`, which every bounded wait retries) and never returns a list in that state. A negative or overflowing result still fails at once as an owned invariant. Both refusals now name the two values. `WaitEmpty` keeps waiting through the 'not yet' state, and if the list is still changing at its deadline it fails with that refusal, so a recurrence records both values. A disposed owner still fails at once, and a caller outside any wait (an endpoint or member lookup) fails at once on the 'not yet' state, as it did on the old invariant. Tests pin both, and three mutants (one direction left unhandled, `WaitEmpty` failing on the 'not yet' state, and `WaitEmpty` dropping the values at its deadline) are each killed. Every VM that reached the forced-parent, quit and close phases in rounds 48 to 50 (five, four and seven) passed them.
+
+### KI-0184 — Windows 11 guest's fixed keys can be lost after a UIA focus request into WebView2
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic Windows 11 campaign rehearsal rounds 43 to 46 (runs 41686846768, 41707301526, 41717391994 and 41721262751), 2026-11-03UTC; traced in round 47 (run 41733587131).
+- Affects: M03-W07 Windows 11 VM campaign, keyboard phase and native shell capture. `Keys` and `ShellKeys` in scripts/windows11/windows11_owned.cs, after the UIA focus requests in `Keys` (Check again), `ShellFocusRoute` and `ShellFocusSkip`.
+- Description: a fixed Tab or Enter sent to the product window sometimes had no effect. Nine of the ten VMs that reached the keyboard phase in rounds 43 to 46 failed it with the same refusal (the shell focus did not settle): all four in rounds 43 and 44, two of three in round 45 and all three in round 46. Rounds 43 and 44 did not record the focus window; round 44's waits show the wait after Tab timing out in both of its VMs. The product window answered WM_NULL at once and was not hung, and the same key resent every 5 s for a minute still had no effect. After each of the 41 Tab presses that worked in rounds 45 and 46, Win32 focus was on WebView2's `Chrome_WidgetWin_1` window. At each of the five lost keys it was on `Chrome_RenderWidgetHostHWND`, WebView2's accessibility-only child window.
+  - Round 47 traced every foreground and Win32 focus change against the guest's own steps in six VMs. A UIA SetFocus on a WebView2 element briefly made that child window the foreground. The product window was then reactivated, and it forwarded focus to `Chrome_WidgetWin_1`. The two focus changes race. When the child takes focus last, it keeps focus and drops keys.
+  - All 132 UIA focus requests' focus changes ended within 85 ms (median 47 ms). Of 279 fixed keys, 9 were sent while the child held focus, each straight after a UIA focus request, and 7 of those were lost. These 7 were every lost key in the round. No key sent after any other step found focus there.
+  - Two VMs lost the first key (the Check again Enter) and failed. In three VMs the diagnostic recoveries continued the run. Handing Win32 focus from the child to its parent keyboard window worked all three times it was tried. Repeating the UIA focus request worked both times. Three VMs passed the whole guest, two of them only through those recoveries.
+  - This is WebView2's behaviour under an external UIA SetFocus. Whether an assistive technology's focus requests hit the same race in the product was not measured.
+- Reproduction: docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds/round45-41717391994, round46-41721262751 (diag-focus.txt and diag-waits.txt) and round47-41733587131 (diag-focus-trace.txt).
+- Workaround: none in a campaign; a lost key fails its phase closed.
+- Resolution + evidence link: corrected in source, pending a reviewed campaign.
+  - Before every fixed key sequence (`Keys` and `ShellKeys`), the owner waits, within 3 s, until Win32 focus has stayed on WebView2's keyboard window for 250 ms. That window must be inside the owned window and belong to a current job member. A focused window inside the owned window from any other process fails at once as an owned invariant.
+  - When focus is on the accessibility child, the owner hands it to the child's parent with `AttachThreadInput` and `SetFocus`, at most three times. The parent must be the keyboard window, on the same thread. No input is sent. The handoff runs on its own thread, never starts after the 3 s bound, and is waited for only within what is left of it, so a WebView2 thread that stops responding cannot hold the guest past it.
+  - While the race's own brief foreground change lasts, the wait continues; SendInput still requires the owned window to be the foreground.
+  - The settle adds at least 250 ms to each of the guest's 68 key sequences, at least 17 s in all.
+  - Tests pin the window classes, the bounds, the handoff and both call sites. Eleven mutants are each killed: either call site removed, the handoff removed, a zero quiet interval, any window accepted, the focused window's process taken from the owned window, a foreground change failing at once, a non-member's window retried, and an unbounded, late-started or silently failed handoff.
+  - Diagnostic round 48 (run 41739147286) ran the repository's first version of this correction, byte for byte and with no instrumentation, in six VMs; device encryption was on in the five that finished Setup. The hosted Windows PowerShell 5.1 job parsed and compiled it. Those five ran the whole guest to PASS with the host's post-PASS checks, with no lost key.
+  - Diagnostic round 49 (run 41747013174) ran the reviewed version the same way. Four of six VMs passed the whole guest, with no lost key; the other two failed earlier, for KI-0186 and KI-0187. Diagnostic round 50 (run 41750667920) then ran the final version, after both reviews and the round 49 fixes, the same way in eight VMs: seven passed the whole guest with no lost key, and the eighth froze in Setup (KI-0183).
+
+### KI-0183 — Windows Setup can freeze in its first (WinPE) stage on a hosted runner
+
+- Severity: MEDIUM
+- State: OPEN
+- Discovered: diagnostic Windows 11 campaign rehearsal rounds 43 and 44 (runs 41686846768 and 41707301526), 2026-11-03UTC; seen again in rounds 46, 48 and 50 (runs 41721262751, 41739147286 and 41750667920).
+- Affects: M03-W07 Windows 11 VM campaign (scripts/windows11/windows11_vm.py; the hosted ubuntu-24.04 runner's nested KVM).
+- Description: five of the 52 rehearsal VMs in rounds 38 to 50 never left Setup's "Installing Windows 11" stage. They stopped at 23% (round 43, `-cpu host`), 54% (round 44), 40% (round 46), 18% (round 48) and 20% (round 50), the last four with Hyper-V enlightenments. Two were on AMD EPYC 7763 runners, the only CPU the campaign's gate accepts, and two on Intel Xeon 6975P-C runners. In the first three, all five progress frames, taken ten minutes apart, are byte-identical, so the spinner had stopped and the VM was frozen, not slow; the failure frame at the 55-minute host deadline still shows the same percentage. In the round 48 VM the first two progress frames are identical, and every later frame capture failed; in the round 50 VM every capture after the first failed. The firmware console shows only the media boot, and the KVM trace has no RDPMC exit or injected #GP. All five freezes came before the reviewed bootstrap runs, so no guest change explains them. A campaign that hits this fails closed at the host's work deadline.
+- Reproduction: the nodiagtrack VM of round 43, the hv-a VM of round 44, the hv-3 VM of round 46, the exact-1 VM of round 48 and the exact-4 VM of round 50, with their progress-frame records (docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds).
+- Workaround: re-release the campaign; no guest or product state survives a failed campaign.
+- Resolution + evidence link: open. A diagnostic round could record vCPU state and block-device progress during a freeze. Until then a campaign may need more than one release.
+
+### KI-0182 — Desktop app's first local-service start fails on a cold Windows 11 machine
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: diagnostic Windows 11 campaign rehearsal rounds 40 and 42 (runs 41573532694 and 41593519821), 2026-11-03UTC.
+- Affects: M03-W05 and M03-W07. `Supervisor::start_until` and `RestartOwner::start_initial` in apps/desktop/src-tauri/src/service/supervisor.rs and restart.rs; the packaged Windows desktop app.
+- Description: in three VMs without Hyper-V enlightenments, the product window opened, but its local service never became ready. They are round 40 ignore-terminal and round 42 host-terminal on Intel runners, and round 44 host-nowhesvc on an AMD EPYC 7763 runner. In round 42 the window title still read "Desktop App — Starting local service" 13.8 s after launch and read "Desktop App — Local service failed" by 19.9 s; the service process and its console host had left the owned job. Nothing restarted it, even though the guest pressed "Check again" every 2 s for 240 s. Each VM was a fresh Windows 11 Enterprise Evaluation install (2 nested vCPUs, Defender on) at the package's first execution. The service's 10 s startup deadline covers the runtime-integrity preflight, which hashes every packaged runtime file. In round 42 the service process first appeared 4.5 to 8.8 s after the desktop process (process samples were about 2.2 s apart); that gap also includes the desktop's own setup before the deadline starts. `start_initial` makes one attempt, and on failure the state is terminal with no automatic retry. With Hyper-V enlightenments, which the campaign now uses, all 15 VMs that launched the product in rounds 43 to 47 reached Ready within the 10 s bound, and so did the five round 48 VMs.
+- Reproduction: docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds/round42-41593519821 (host-terminal: diag-ready.ndjson, diag-procs.txt, guest-terminal.json) and round40-41573532694 (ignore-terminal).
+- Workaround: none in the product. A user would have to quit and relaunch, with no guarantee the second start is faster.
+- Resolution + evidence link: corrected in source, pending a rebuilt package and a reviewed campaign.
+  - Diagnostic round 43 (run 41686846768) started the packaged service on its own on a fresh VM (an Intel runner, `-cpu host`), outside the desktop app: Process.Start returned after 1.3 s, and READY arrived 7.6 s after the spawn began. With the runtime-integrity preflight inside the same deadline, that exceeds the 10 s bound on such a machine. The preflight's own time was not measured separately.
+  - `Policy` now carries `initial_startup_timeout` (30 s, the supervisor's existing cap), which bounds the first start, `Supervisor::start`, from preflight to READY. Relaunches through `start_until` keep the reviewed 10 s `startup_timeout` and the 24 s restart cycle. The startup deadline still includes the preflight and still prevents a late spawn. The constructor refuses a first-start bound below the relaunch bound or above 30 s.
+  - The first start still checks cancellation at every permit check, as before; whether a Quit during a slow first start ends within the quit cap is not separately measured.
+  - Four new Rust tests pin the first-start bound, the unchanged relaunch bound and the policy limits, and drive the restart owner through a first start and a relaunch that each fail at their own bound. All 272 desktop service tests pass. Four mutants are each killed: the first start on the relaunch bound, a supervisor relaunch on the first-start bound, the restart owner's relaunch on the first-start bound, and dropping the lower limit.
+
+### KI-0181 — Windows 11 guest bugchecks when an ETW session allocates hardware counters on a runner without a virtual PMU
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: diagnostic Windows 11 campaign rehearsal rounds 39 to 42, 2026-11-03UTC.
+- Affects: M03-W07 Windows 11 VM campaign on hosted ubuntu-24.04 runners (QEMU `-cpu host` under KVM, nested on Azure). The VM configuration in scripts/windows11/windows11_vm.py `qemu_argv`.
+- Description: after the environment phase, the guest VM restarted or hung on a SYSTEM_SERVICE_EXCEPTION (0x3B, c0000096) about 20 s after the product launch. It happened in all seven `-cpu host` VMs on AMD runners that reached the product launch with whesvc enabled (rounds 39, 40, 42 and 43), whichever console host they used, and in none of the three on Intel runners. For one of the seven, round 39's Windows Terminal VM, the evidence is a restart, not a dump: its firmware console shows a third Windows Boot Manager start where a run to the environment phase shows two, and its failure frame shows the lock screen. Round 39's conhost VM also bugchecked once during Setup. The AMD runners' kernel logs "kvm_amd: PMU virtualization is disabled": the Azure host gives those runners no performance-monitoring unit, so KVM has none to give the guest. The campaign's CPU gate accepts only an AMD EPYC 7763 runner. Just before each crash, the guest programmed the AMD legacy counters (MSR C001_0004 = -10000, C001_0000 = 0x530076, C001_0001 = 0x4300c0); KVM logged these writes as unhandled and ignored them. The round 42 trace of the two crashing VMs shows exactly one RDPMC exit at the faulting address, followed by an injected #GP. The kernel minidump, resolved with Microsoft's public ntoskrnl.exe and ntkrnlmp.pdb for build 26100, puts the fault at the `rdpmc` in `HalpAllocatePmcCounterSetEx`. It was reached from a system call in svchost.exe (PID 5980), with `EtwpEnableStackCaching` on the stack. So a Windows service starts an ETW session that requests hardware counters; under KVM with no vPMU, RDPMC raises #GP, and the kernel bugchecks. Setting `ignore_msrs=1` (round 40) and `-cpu host,pmu=off` (round 42) did not prevent it; RDPMC is not an MSR access.
+- Reproduction: docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds/round42-41593519821 (kvm-trace.txt, dmesg-kvm.txt, the minidump triage summary, symbolized-stack.json and the host-conhost bugcheck frame); rounds 39 and 40.
+- Workaround: none measured. No guest phase after environment can run reliably until this is addressed.
+- Resolution + evidence link: corrected in source, pending a reviewed campaign.
+  - Round 43 (run 41686846768) mapped the crashing svchost (PID 4804 in its dump) to `whesvc`, the Windows Health and Optimized Experiences service. Disabling the Diagnostic Policy services did not prevent the crash.
+  - With QEMU's standard Hyper-V enlightenments, Windows never wrote a counter MSR or executed RDPMC in any of the three VMs that reached the desktop in rounds 43 and 44 (two on AMD runners, two with whesvc enabled). It also ran Setup to the environment phase in 525 to 645 s, against 925 to 1207 s for `-cpu host`. No enlightened VM bugchecked in rounds 45 to 48 either.
+  - With `-cpu host` and whesvc disabled (round 44), the guest also did not touch the counters over 4 minutes. Disabling a Windows service would change the target OS, so it is not adopted.
+  - `qemu_argv` now passes `-cpu host,hv-relaxed,hv-vapic,hv-spinlocks=0x1fff,hv-vpindex,hv-runtime,hv-time,hv-synic,hv-stimer,hv-frequencies`. The host CPU, and so its attested name, is unchanged, and there is no model, vendor or `hv-vendor-id` override. The enlightenments do make the guest see QEMU's default Hyper-V hypervisor signature instead of KVM's, which is how Windows takes its enlightened code paths. A test pins the exact flag list. The VMs' guests still attested the host CPU name.
+  - Separately, because a bugcheck restarts the VM and the guest controller with it, the host's `observe()` now fails at once when OVMF's boot-manager line (`BdsDxe: `) appears again after the first guest receipt, instead of waiting for the 55-minute work deadline. Tests cover a restart, and firmware text without a boot line. It has not fired in a VM: no round 48 VM restarted.
+
+### KI-0180 — Owned dxdiag launch writes no display report in the Windows 11 guest
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic Windows 11 campaign rehearsal round 38 (run 41562893419), 2026-11-03UTC.
+- Affects: M03-W07 Windows 11 VM campaign, environment phase. The guest's `$dx.StartCommand('C:\Windows\System32\dxdiag.exe',@('/whql:off','/x',$dxPath))` in scripts/windows11/windows11_guest.ps1; `QuoteArgument` in scripts/windows11/windows11_owned.cs.
+- Description: in every round 38 VM the owned dxdiag job emptied but no XML existed, so the environment phase failed with ItemNotFoundException on the report path. In round 39 (run 41566483934) the same guest first started dxdiag directly three ways in each VM, and each wrote its report: the owned launch's switches (`/whql:off /x`, about 168 KB of XML in 26 to 27 s), `/whql:off /t` (an 84 to 85 KB text report in 10 to 14 s) and `/x` alone (about 168 KB of XML in 10 s). The owned launch that followed still wrote nothing, and its job emptied after about 10 s. The owned launcher quoted every argument (`"/whql:off" "/x" "C:\...xml"`). Diagnostic round 41 (run 41573731214, hosted Windows Server 2025, Windows PowerShell 5.1) launched dxdiag 10 ways into an 8.3 and a long-form directory. With every argument quoted, from the owned launcher or a plain process, it never wrote a report, and the plain process exited 127. With bare tokens, the owned launcher, a plain process and Start-Process each wrote the 165,182-byte report in about 4 s. So dxdiag does not accept its arguments fully quoted; whether it accepts a quoted path after bare switches was not tested.
+- Reproduction: docs/evidence/m03-native-runtime-diagnostics/windows-rehearsal-rounds (rounds 38, 39 and 41).
+- Workaround: none in a campaign.
+- Resolution + evidence link: corrected in source, pending a reviewed campaign. `QuoteArgument` now passes a token with no space, tab or quote unquoted. CRT parsing reads such a token the same either way, and every other token keeps the bounded CRT quoting. The guest's report path has no space, so every dxdiag argument is now bare; a path with a space would still be quoted, which is untested. A test pins the bare-token return and its place after the bound check; removing it fails the test. Every VM that reached the environment phase in rounds 42 to 48 wrote the report through the owned launcher.
+
+### KI-0177 — Windows 11 first-logon Start menu holds the foreground the guest needs
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: completeness critic of the 2100780 candidate review (wf_3d706db2-168), 2026-11-03UTC.
+- Affects: M03-W07 Windows 11 VM campaign. Guest foreground assertions in scripts/windows11/windows11_owned.cs (Capture, Keys, ShellFocusRoute, ShellKeys, ShellFocusSkip). The first-logon state set by scripts/windows11/windows11_bootstrap.ps1.
+- Description: Windows 11 opens the Start menu by itself at the fixture's first logon, and it stays open. It was open in every post-logon frame of diagnostic rounds 34 (22 frames, about 7.5 minutes) and 35 (21 frames), and in the a03aadf campaign's failure frame. Throughout, the guest console's taskbar button shows a refused activation. The guest's first foreground assertion, Capture in Snapshot 'ready', requires SetForegroundWindow to succeed on the product window, and it has no retry. Nothing suppresses Start or relaxes the foreground lock. A campaign would therefore very likely fail closed at 'ready' for a harness reason, never reaching the product.
+- Reproduction: docs/evidence/m03-w07-win11-campaign-a03aadf/run41505468952/retained/win11-failure.png. The frames of diagnostic runs 41514384986 and 41520516660 (rounds 34 and 35; artifact ZIP digests in docs/evidence/m03-native-runtime-diagnostics/run-metadata.json). docs/evidence/m03-native-candidates-2100780-review.
+- Workaround: none. The 2100780 candidate was not released.
+- Resolution + evidence link: corrected in source, pending a reviewed campaign.
+  - Round 38 (run 41562893419): with `StartShownOnUpgrade=1` in the Default profile the fixture is created from, Start did not open at first logon and the console held the foreground. Without it, Start opened and SearchHost held the foreground.
+  - The bootstrap sets that value in the Default profile hive, loaded and unloaded around the change, with every native step checked. It also delegates the fixture's console to the classic console host. In rounds 43 and 44, under that console, every one of more than 140 guest foreground requests succeeded on the first attempt.
+  - Each foreground request is now one bounded retry loop (10 s) of the same SetForegroundWindow request, never input sent to take the foreground; every key sequence still checks the foreground just before SendInput. Tests pin the Default-profile value, the console host, the bound and the three call sites.
+
+### KI-0178 — Windows 11 guest serial write timeout is unmeasured for its largest receipt
+
+- Severity: LOW
+- State: IN_PROGRESS
+- Discovered: 2100780 candidate review (wf_3d706db2-168; lenses win-ki0175 and win-later-phases, NON_BLOCKING after refutation), 2026-11-03UTC.
+- Affects: scripts/windows11/windows11_guest.ps1 (`$serial.WriteTimeout=500`, one WriteLine per receipt); the host receipt parser in scripts/windows11/windows11_vm.py observe().
+- Description: each phase receipt is written to COM2 in one WriteLine with a 500 ms timeout. The environment receipt is about 1 KB. The keyboard receipt, with its native shell capture, is about 10.8 KB and would need at least about 21.7 KB/s, a rate never measured on the campaign's emulated UART. A timeout fails closed: a write error, or a truncated line that the host refuses as JSON.
+- Reproduction: static only, with no VM measurement. The receipt sizes are reviewer estimates: the native shell capture was 10,440 B compact in hosted Windows Server 2025 diagnostic rounds 21, 23 and 26 (docs/evidence/m03-native-runtime-diagnostics).
+- Workaround: none measured.
+- Resolution + evidence link: corrected in source and measured, pending a reviewed campaign.
+  - Rounds 39 and 40 measured the ~1 KB environment receipt's write at 43 to 70 ms across five VMs (`-cpu host`). With Hyper-V enlightenments, the ~10.8 KB keyboard receipt took 197 to 287 ms in five VMs (rounds 45 and 47). At the `-cpu host` rates it would take about 0.47 to 0.77 s, at or past the old 500 ms. A partial write at that bound would have truncated the line, which the host refuses.
+  - The write bound is now 30 s, inside the guest's own work budget; the guest's 64 KB receipt bound keeps every line finite. A test pins the value and that it is set before the port opens.
+
+### KI-0179 — Windows 11 guest work budget and display timeout are unmeasured in the VM
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2100780 candidate review (wf_3d706db2-168), 2026-11-03UTC.
+- Affects: scripts/windows11/windows11_guest.ps1 (WithinBudget, 300 s from the guest clock; the 150 s machine-receipt mark); the first-logon display state.
+- Description: the guest's 300 s budget includes the up-to-150 s wait for the attestor. What remains must cover dxdiag, the package hashing and extraction, six launches, five framed host accepts and the shell capture. In hosted Windows Server 2025 diagnostic rounds 21, 23 and 26 (4 vCPUs; without COM2, frames, dxdiag or extraction), the product phases took 64.6 to 69.4 s; they have never been measured on Windows 11 with 2 nested vCPUs. A budget overrun inside a wait is reported with that phase's own message, so it can look like a product failure. Separately, with no input the Windows 11 display went black 326 to 352 s after logon (rounds 34 and 35). Framed phases need a non-blank frame, so a larger budget also requires the display timeout to be off.
+- Reproduction: rounds 34 and 35 frames; docs/evidence/m03-native-candidates-2100780-review.
+- Workaround: none measured.
+- Resolution + evidence link: corrected in source and measured, pending a reviewed campaign.
+  - The bootstrap sets the display timeout off (`powercfg /change monitor-timeout-ac 0`, checked). In rounds 39 to 48 every VM that reached logon kept a live display, and the setting read 0 for AC power in the guest where it was read (rounds 38 to 42).
+  - Round 45 (run 41717391994, Hyper-V enlightenments) ran the whole guest to PASS in one VM. Environment at 24.5 s, ready at 44.5 s, keyboard (the full native shell capture) at 70.1 s, and cleanup at 107.5 s of the guest clock. Across the nine VMs with the enlightenments that reached logon (rounds 43 to 46), environment came at 21.7 to 29.7 s. In round 48, with the KI-0184 focus settle and Windows' device encryption on (the diagnostic bootstraps of rounds 42 to 47 had prevented it; see the evidence README), the five passing VMs took 85.8 to 96.3 s from environment to cleanup (environment at 25.7 to 27.6 s, cleanup at 111.5 to 123.2 s); the four round 49 passes took 84.3 to 94.7 s, and the seven round 50 passes 83.1 to 95.5 s. The guest reads the attestation before it runs dxdiag, and the owned dxdiag took 19.5 to 27.0 s in the 15 VMs of rounds 42 to 46 that retained its timing, within its 45 s bound. So with the attestation at the 150 s mark, its worst case, the measured phases end by about 273 s, and at dxdiag's own bound by about 291 s, inside the 300 s budget.
+  - Every bounded UI wait that succeeded took 24 to 426 ms (round 44, 30 s diagnostic bounds), well inside the existing 3 s and 6 s bounds, which are unchanged. The lost-key failures are KI-0184.
+
+### KI-0175 — Windows 11 guest gives up on the SYSTEM machine attestation before it is written
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: reviewed Windows 11 lifecycle run41505468952 at a03aadf, 2026-11-02UTC.
+- Affects: M03-W07 Windows 11 VM campaign (scripts/windows11/windows11_bootstrap.ps1 machine attestor task; scripts/windows11/windows11_guest.ps1 machine receipt wait).
+- Description: in the first Windows 11 guest run, Setup, specialize (the real bootstrap as SYSTEM), OOBE and auto-logon all completed, and the guest driver started at logon. It waited its 30 s for `machine.json` from the SYSTEM attestor scheduled task. Neither `machine.json` nor `machine-error.json` appeared, so it failed closed with "Protected current-boot machine attestation missing or unreadable".
+  - Diagnostic run41509581288, with the real bootstrap and an observing probe: no receipt appeared in 7.5 minutes after logon.
+  - Diagnostic run41514384986, with step tracing and a 10-minute task limit: the attestor task started as `NT AUTHORITY\SYSTEM` one second after the logon probe.
+  - Diagnostic run41520516660, with compact tracing: every attestor step completed and `machine.json` was written about 10 s after the task started (TPM step 2.6 s).
+  - So the task runs at logon and is fast when it completes, but a first-logon run can also produce nothing. The old one-minute task limit ends a run without its catch block, so it leaves no error receipt; that this happened in the empty runs is an inference, not a measurement.
+- Reproduction: the runs above; evidence in docs/evidence/m03-w07-win11-campaign-a03aadf and docs/evidence/m03-native-runtime-diagnostics (windows-attestor-rounds).
+- Workaround: none.
+- Resolution + evidence link: corrected in source, pending a reviewed campaign.
+  - The attestor task limit is now 10 minutes, set once and never changed afterwards.
+  - The guest waits until the 150 s mark of its own clock, which starts at the same logon as the attestor task. That is the midpoint of its 300 s work deadline. The wait ends early only on a receipt, or an attestor error, bound to this run's nonce and boot.
+  - The guest reads each receipt through one handle that shares write and delete access and is bounded at 64 KB. So a poll never blocks the attestor from removing an earlier run's file, and a file still being written is 'not yet'.
+  - The attestor removes an earlier trace before an earlier error, so a run that stops there never leaves an earlier run's trace.
+  - The attestor appends a trace of UTC times and fixed step names only. The guest retains it, read with shared access and bounded at 64 KB, before any decision, so a run that is still working when the wait ends names its step.
+  - Tests pin these behaviours, case-insensitively where PowerShell resolves names in any case: six new test IDs and stronger existing ones. 85 of 86 mutants are killed, including every reviewer mutant that routes a read value into the trace or rewrites the task limit. The survivor inserts a sleep before the wait, which only the file's SHA-256 pin catches.
+  - Diagnostic rounds 36 (run41532813750, the first bytes) and 37 (run41534670479, the final bytes) ran on hosted Windows Server 2025 with Windows PowerShell 5.1, with no VM and not as SYSTEM. They parsed the exact attestor body and ran it, the guest's receipt reader and its trace retention against real files: 20 of 20 and 26 of 26 checks pass. Their attestor runs stopped at the fixture check, so the later steps ran only in round 35.
+  - Residual, all failing closed: a run that takes longer than the wait still fails the campaign, now with its step named. An error receipt from an earlier logon of the same boot could end the wait before the new run removes it; the campaign has one auto-logon per boot. A trace or receipt removed between the guest's existence check and its retention copy fails the guest.
+  - A rebuilt, re-reviewed Windows 11 candidate and campaign are required before closure.
+
+### KI-0176 — No gate parses the Windows 11 attestor body before a campaign
+
+- Severity: LOW
+- State: IN_PROGRESS
+- Discovered: separate review of the KI-0175 correction, 2026-11-02UTC.
+- Affects: M03-W07 download-only preparation (scripts/windows11/windows11_source_check.ps1); the attestor here-string in scripts/windows11/windows11_bootstrap.ps1.
+- Description: the prepare run's Windows PowerShell 5.1 source check parses windows11_bootstrap.ps1 and windows11_guest.ps1. But the attestor is a single-quoted here-string inside the bootstrap, so it is parsed only as a string. A syntax error in it would first show in a VM campaign, as a missing machine receipt.
+- Reproduction: read windows11_source_check.ps1 at 2100780; it calls ParseFile on the two .ps1 files only.
+- Workaround: diagnostic round 37 parsed the current attestor body under Windows PowerShell 5.1 (docs/evidence/m03-native-runtime-diagnostics, windows-attestor-rounds).
+- Resolution + evidence link: corrected in source, pending a reviewed campaign.
+  - The source check takes the bootstrap's one `$attestor` assignment from its syntax tree, requires a single-quoted here-string, and parses its body with `Parser::ParseInput`. It refuses to write a receipt unless that parse ran without errors, and the receipt records `attestor_body_parsed`.
+  - The candidate refuses a receipt unless `attestor_body_parsed` is `true`; tests cover a missing field, null, false and a string.
+  - The hosted Windows PowerShell 5.1 source-check jobs of diagnostic rounds 39 and 48 (runs 41566483934 and 41739147286) ran this source check, and each receipt records `attestor_body_parsed: true` (round 39's job log extract is retained).
+
+### KI-0174 — Prepare-time gpgv accepts any key in the runner archive keyring
+
+- Severity: LOW
+- State: OPEN
+- Discovered: independent reviews of the 10f247b and a03aadf native candidates, 2026-11-02UTC.
+- Affects: M03-W07/M03-W08 download-only preparation (scripts/linux_gnome/ubuntu_gnome_signed_indexes.py retain_releases, used by both candidates).
+- Description: retain_releases accepts a gpgv exit status 0 without pinning the signer (no `--status-fd` VALIDSIG check). The copied archive keyring holds three Canonical keys: Archive 2012, CD Image 2012 and Archive 2018. Independent pure-Python checks in both reviews found every retained InRelease signed only by the 2018 archive key (F6ECB376…C93C). The campaigns rely on the bound locks' per-file SHA-256 pins, not on gpgv, so this only narrows the defence-in-depth at preparation time.
+- Reproduction: read retain_releases at a03aadf; the reviews' outputs are in docs/evidence/m03-native-candidates-10f247b-review and docs/evidence/m03-native-candidates-a03aadf-review.
+- Workaround: none needed; each reviewed candidate's signatures were independently verified.
+- Resolution + evidence link: open. Pin VALIDSIG to the 2018 archive fingerprint and record the signer in the lock, as prepare_image already pins the UEC image key.
+
+### KI-0173 — The pinned Windows 11 Enterprise Evaluation guest shows "Windows License is expired"
+
+- Severity: LOW
+- State: OPEN
+- Discovered: diagnostic run41380947763 (Setup rounds), raised by the a03aadf candidate review, 2026-11-02UTC.
+- Affects: M03-W07 Windows 11 VM campaign guest state; OD-038 (evaluation licence acceptance).
+- Description: about 15 minutes after an unattended install of the pinned ISO (build 26300.9457), the desktop watermark read "Windows 11 Enterprise Evaluation / Windows License is expired". The cause is unexplained: the VM is offline (`-nic none`), but that being the cause is a guess. The campaign's attestation does not depend on activation state; it checks caption, build and update revision. The run would fail closed if the VM shut down early. Any M03-W07 evidence must state this guest licensing state.
+- Reproduction: diagnostic run41380947763, variant orderseq, frame 45 (docs/evidence/m03-native-runtime-diagnostics/windows-setup-rounds). The reviewed a03aadf campaign shows the same watermark in run41505468952's win11-failure.png (docs/evidence/m03-w07-win11-campaign-a03aadf); that campaign failed at 'environment', before any acceptance claim.
+- Workaround: none needed for the scoped campaign.
+- Resolution + evidence link: open; the owner should know the evaluation guest runs in this state under OD-038.
+
+### KI-0172 — Hosted Windows verify job runs within minutes of its 60-minute limit
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: hosted CI a03aadf/run41384168159 attempt 1, 2026-11-02UTC.
+- Affects: CI `doctor + verify (windows-2025)` in .github/workflows/ci.yml (`timeout-minutes: 60`, pinned at or below 60 by scripts/tests/test_ci_workflow.py::test_job_has_timeout_and_no_global_shell_default); the exact-SHA hosted gate for every package.
+- Description: the Windows verify job took 57m19s (fff3408), 58m59s and 58m48s (10f247b attempts 1 and 2), then 60m13s at a03aadf and 60m38s at 2100780 (attempt 1). Those two runs were cancelled by the job limit during the desktop Rust tests, after every earlier suite had passed; no test failed. The Python suite alone takes about 21.5 minutes on Windows (3166 tests) and e2e-browser about 13 minutes. Each new test brings the job closer to the limit, so exact-SHA results now depend on runner speed. At 48e0eca (run 41759387660), both attempts were cancelled at the limit on Windows and, for the first time, on macOS. On Windows every completed suite passed in both attempts; its Python suite took 1754.65 s and 1774.18 s (3189 tests). On macOS, attempt 1's e2e-browser suite took 29.7 minutes with one failing test (KI-0188). In attempt 2 it passed (278 tests in 17.0 minutes), and Python gave 3191 passed in 1505.81 s. That commit grew docs/ from 2,844 to 3,950 files with retained rehearsal evidence. The status, traceability and doctor test fixtures copy the whole docs/ tree for each test, which is the likely main cause of the increase.
+- Reproduction: the four runs above; job start and finish times come from the GitHub API.
+- Workaround: rerun the cancelled job on the same SHA. a03aadf attempt 2 passed in 39m31s and 2100780 attempt 2 in 52m29s, which shows the variance comes largely from runner speed.
+- Resolution + evidence link: in progress. The fixtures now copy docs/ without docs/evidence/m03-native-runtime-diagnostics (1,418 retained scratch-branch files, 24 MB). No validator input cites it. Only the whole-docs canonical-specification scan reads it, and the real-repository tests (test_migrated_repository_passes, test_real_repository_has_exact_inventories_and_clean_generated_view and test_real_environment_doctor_succeeds) still run that scan over the full tree. Most of docs/'s 689 MB is compressed evidence archives that validator inputs cite, so those stay in each copy. Locally (macOS), scripts/tests/test_validate_status.py went from 269.7 s to 199.3 s, with all 239 tests passing both ways. Hosted timings at the next commit will show whether this restores enough headroom. The 60-minute policy is unchanged; changing it changes the pinned test and needs its own reviewed decision.
+
+### KI-0171 — Windows 11 Setup stops at "Select location to install Windows 11" in the reviewed campaign
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: reviewed Windows 11 lifecycle run41371604274 at 10f247b, 2026-11-02UTC.
+- Affects: M03-W07 Windows 11 VM campaign (scripts/windows11/windows11_deployment.py answer_file; scripts/windows11/windows11_vm.py qemu_argv and seed).
+- Description: the first reviewed Windows 11 campaign on a reviewed EPYC 7763 runner booted the install media with the firmware-triggered key. Windows Setup then stayed on "Select location to install Windows 11" until the work deadline, about 50 minutes, and the guest never wrote a protocol row. The answer file's DiskConfiguration had run: Disk 0 holds its System, MSR and Primary partitions. But its ImageInstall target (Disk 0, Partition 3) was not applied. Nothing interacts with the VM after the boot key, so the campaign failed closed with a TimeoutError.
+- Ruled out: the image name. The pinned ISO's install.wim holds one image, index 1, named exactly "Windows 11 Enterprise Evaluation" (scratch-branch run41377083648).
+- Root cause, measured: the answer file numbered its ModifyPartition entries `Order` 1 and 3, copying the PartitionID, so Setup created the partitions but never formatted them. Order numbers the modifications themselves, contiguously from 1.
+  - Diagnostic run41377438498: the stall reproduced within a minute, with and without the C: letter.
+  - Diagnostic run41380947763: with Order 1, 2 the same ISO installed and reached the auto-logged-on desktop within 15 minutes; with ModifyPartitions removed, Setup reported "Windows 11 installation has failed".
+- Reproduction: run41371604274; frames and closure in docs/evidence/m03-w07-win11-campaign-10f247b.
+- Workaround: none.
+- Resolution + evidence link: answer_file() now numbers ModifyPartition Order contiguously (1, 2) for PartitionID 1 and 3. A test pins the full partition layout and the install target, and fails on the previous generator. The reviewed a03aadf campaign (run41505468952) then installed Windows 11 unattended and ran the guest, which failed later on KI-0175. A passing reviewed campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics (windows-setup-rounds) and docs/evidence/m03-w07-win11-campaign-a03aadf.
+
+### KI-0170 — Hosted Windows Playwright navigation failed once with net::ERR_NO_BUFFER_SPACE
+
+- Severity: LOW
+- State: OPEN
+- Discovered: hosted CI 10f247b/run41356786386 attempt 1, windows-2025 doctor+verify, 2026-11-01UTC.
+- Affects: CI e2e-browser suite on hosted windows-2025 (e2e/mock-ats-lab/react-controlled.spec.ts against the local preview server on 127.0.0.1:4761); no product or harness code.
+- Description: one Playwright test failed at its first `page.goto("/react/")` with `net::ERR_NO_BUFFER_SPACE`, Windows' WSAENOBUFS for exhausted socket buffers or ports. The other 277 browser tests passed. The same test passed on hosted Windows at fff3408 (run41350842944), and the change between the two commits touched only a Python test file, the test inventory and docs. In that job the e2e-browser suite ran before the Python suite, so the new socket tests ran after it.
+- Reproduction: not reproduced. The failed job's log retains the error and the Playwright screenshot/video paths.
+- Workaround: the failed job was rerun on the same SHA (attempt 2).
+- Resolution + evidence link: open; watch for recurrence on hosted Windows before treating it as more than a runner resource fault.
+
+### KI-0169 — Windows 11 failure-path power-off is refused once the VM output cap has tripped
+
+- Severity: LOW
+- State: OPEN
+- Discovered: implementer report of the combined-review correction round, 2026-11-01UTC.
+- Affects: M03-W07 Windows 11 VM campaign failure path (scripts/windows11/windows11_vm.py main() finally; shared Owner.qmp_call and Owner.close() in scripts/linux_gnome/ubuntu_gnome_vm.py).
+- Description: after a failure, main()'s finally sends `system_powerdown` under work authority and waits 20 s. If the failure was qemu.stdout or qemu.stderr exceeding 256 KiB, Owner.qmp_call refuses that request locally. The 20 s wait is then spent for nothing, and close() ends QEMU by signals rather than by QMP quit. The outcome stays bounded and failed. The post-PASS power-off and quit were moved to cleanup authority in the same round; an existing test pins this failure-path request as non-cleanup.
+- Reproduction: not measured. Drive main() to a failure caused by qemu.stderr growing past VM_OUTPUT_CAP while QEMU still runs; the recorded guest_powerdown_error is the local refusal, and 20 s elapse before close().
+- Workaround: none needed; the campaign fails closed.
+- Resolution + evidence link: open; decide whether the failure-path power-off should use cleanup authority.
+
+### KI-0168 — GNOME File→Quit may activate the last good observation after a later poll fails
+
+- Severity: LOW
+- State: FIXED
+- Discovered: implementer report of the combined-review correction round, 2026-11-01UTC.
+- Affects: M03-W08 GNOME VM campaign File→Quit phase (scripts/linux_gnome/ubuntu_gnome_guest.py quit_menu and menu_rows).
+- Description: quit_menu polls menu_rows for up to MENU_SECONDS after opening File. It keeps the last successful observation, which had exactly one actionable Quit under File. If a later poll raises, through a transient AT-SPI error or a second Quit that appears only after the first was seen, it activates that earlier item at the deadline. Resetting on every failed poll would fail closed, but a GLib error on the last poll would then fail an otherwise valid campaign.
+- Reproduction: not measured. A fake tree whose first menu_rows poll shows one Quit under File and whose later polls raise (or add a second Quit) reaches the deadline and activates the first item.
+- Workaround: none; the close is still measured independently by observe_close.
+- Resolution + evidence link: a second File menu or a second Quit item under File is now a MenuInvariantError. It refuses at once, even after a single Quit was seen, so an earlier observation never authorizes activation. Only transient AT-SPI refusals are still retried, and the final "no actionable Quit item" message names the last one. New tests cover a duplicate that appears on the second poll, two File menus and the named last refusal. They kill the no-fail-fast, first-of-many-menus and dropped-cause mutants. The first hosted GNOME campaign is required before closure. Closed 2026-11-02UTC by the first reviewed GNOME VM campaign, lifecycle run41371114075 at 10f247b: ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS, all 115 guest receipts PASS. Exact docs/evidence/m03-w08-gnome-campaign-10f247b. File→Quit passed (receipt 109).
+
+### KI-0167 — GNOME Ctrl+Q close can follow an app exit just after the pre-chord liveness proof
+
+- Severity: LOW
+- State: OPEN
+- Discovered: independent review of the round-3 GNOME guest correction, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign accelerator phase (scripts/linux_gnome/ubuntu_gnome_guest.py focus_before_chord and quit_accelerator; scripts/linux_gnome/ubuntu_gnome_vm.py run_lifecycle).
+- Description: the `accelerator_focus` step now proves at its end that the exact relaunched app is still alive, and `quit_accelerator` accepts a close only with that step's record for the same app identity. A short window remains between that proof and the host's QMP Ctrl+Q: the receipt write, the SSH reply and the receipt read. If the app exited on its own inside that window, the close would still be credited to Ctrl+Q. Diagnostic round 28 shows the expected sequence: the app alive with focus at step 111, then gone at step 112.
+- Reproduction: not observed. Follow ubuntu_gnome_vm.py run_lifecycle from the `accelerator_focus` request to `owner.keys(...)` and then `quit_accelerator`; an app that exits on its own after `focus_before_chord`'s final `same_process` check and before the chord arrives yields the same PASS record.
+- Workaround: none needed for the scoped claim; the File→Quit and forced-parent phases measure closure separately.
+- Resolution + evidence link: open. Holding a pidfd or exit-status witness across the two operations would close it.
+
+### KI-0166 — GNOME keyboard origin counts WebKitGTK's focused ancestors
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: diagnostic run41250366992, the GNOME harness's own functions under KVM in the real GDM session, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign keyboard phase (scripts/linux_gnome/ubuntu_gnome_guest.py keyboard).
+- Description: the keyboard phase required exactly one named FOCUSED accessible to be the Home link. WebKitGTK also marks the focused element's scroll pane and its named document ("Diagnostics · Desktop app") FOCUSED, as the launch receipts show. So `keyboard_before` refused, "Actual keyboard origin is not Home link", even though its failure frame shows the Home link with the focus ring.
+- Reproduction: diagnostic run41250366992 (receipt 98 and its failure frame).
+- Workaround: none.
+- Resolution + evidence link: the keyboard phase judges focus by `focus_leaves(rows)`, the FOCUSED rows that have no FOCUSED descendant. The origin, Tab, Shift+Tab and Enter checks are otherwise unchanged, and a cyclic ancestry is refused. With this and KI-0164/KI-0165, diagnostic round 28 (run41250875399) reached ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS. That round bypassed request authorization (the authorize job); the bundle audit and the reviewed, simulate-first host install of ubuntu_gnome_host.py (host tools came from the workflow's own apt-get line); prepare_inputs, which checks the host-tool lock, the runner image version, the native tool hashes, the resource preflight, the package export and keyring pins and the source binding; and final_source_guard. The first hosted GNOME campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics. Closed 2026-11-02UTC by the first reviewed GNOME VM campaign, lifecycle run41371114075 at 10f247b: ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS, all 115 guest receipts PASS. Exact docs/evidence/m03-w08-gnome-campaign-10f247b. The keyboard phase passed.
+
+### KI-0165 — GNOME guest picks product controls by name and any action
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: diagnostic runs 41248054236 and 41248905032, the GNOME harness's own functions under KVM in the real GDM session, 2026-10-31UTC.
+- Affects: M03-W08/M03-W11 GNOME VM campaign native shell capture and lifecycle (scripts/linux_gnome/ubuntu_gnome_guest.py action, shell_focus, keyboard and the route checks).
+- Description: the guest treated any accessible with the wanted name and a non-empty action list as the control. WebKitGTK gives nearly every web node one unnamed action. On the Diagnostics route both the focused route heading (role heading, actions `['']`) and the navigation link (role link, actions `['jump']`) matched "Diagnostics", so `shell_focus_diagnostics` refused the very first shell step.
+- Reproduction: diagnostic run41248905032 records the refusal with its two candidates; the launch receipt holds the whole measured tree.
+- Workaround: none.
+- Resolution + evidence link: one helper, `controls(rows, name, role)`, now requires the exact name, the exact AT-SPI role and an activating named action (`jump`, `press`, `click` or `activate`). Every guest control lookup uses it: the "Open Diagnostics" link, the "Check again" push button, the Home link, the skip link and the route links. The File menu and its Quit item use it too, keeping their own rules: Quit must descend from File, and only one Quit is accepted. A refusal names its bounded candidates. Tests shaped like the measured tree pin the rule; both a no-role and an any-action mutant fail them. Diagnostic round 24 (run41249463049) then passed 49 of 50 shell steps (receipts 02–51). The first hosted GNOME campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics. Closed 2026-11-02UTC by the first reviewed GNOME VM campaign, lifecycle run41371114075 at 10f247b: ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS, all 115 guest receipts PASS. Exact docs/evidence/m03-w08-gnome-campaign-10f247b.
+
+### KI-0164 — GNOME version labels are checked for visibility before they are scrolled into view
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: diagnostic run41249463049, the GNOME harness's own functions under KVM in the real GDM session, 2026-10-31UTC.
+- Affects: M03-W08/M03-W11 GNOME VM campaign native shell capture (scripts/linux_gnome/ubuntu_gnome_guest.py shell_measure).
+- Description: at the largest zoom step the product stacks its layout, and the "Desktop versions" rows sit below the fold. shell_measure required the "Tauri version" label to be VISIBLE and SHOWING before it scrolled the "App version" label to the top. So `shell_scale_step4` refused with "Actual Text leaf is hidden or offscreen", after baseline and steps 1–3 had passed. Windows had the same order problem at 175% (KI-0163).
+- Reproduction: diagnostic run41249463049; its failure frame shows the stacked navigation with the versions card cut off at the bottom edge.
+- Workaround: none.
+- Resolution + evidence link: shell_measure now scrolls first. Then, for at most 2 s, it clears the AT-SPI cache and requires every label and anchor to be visible and showing. Only the dedicated offscreen refusal is retried; any other refusal, or the deadline, still fails. Exact docs/evidence/m03-native-runtime-diagnostics. Closed 2026-11-02UTC by the first reviewed GNOME VM campaign, lifecycle run41371114075 at 10f247b: ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS, all 115 guest receipts PASS. Exact docs/evidence/m03-w08-gnome-campaign-10f247b. All 7 zoom stages measured their anchors.
+
+### KI-0163 — WebView2 text ranges misplace Windows 11 shell-capture anchors
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: diagnostic runs 41233069849 and 41248672768 on hosted windows-2025, running the guest driver's own windows11_owned.cs against the KI-0157/KI-0158 corrected build, 2026-10-31UTC.
+- Affects: M03-W07/M03-W11 Windows 11 VM campaign native shell capture (scripts/windows11/windows11_owned.cs ShellMeasure and ShellText).
+- Description: two measured WebView2 behaviours stopped ShellMeasure before any Windows 11 campaign could use it.
+  - TextPattern.FindText on the "Desktop versions" region's range returned ranges shifted one character per preceding line break: "0.0.1" read ".1\nTau" and "2.12.4" read "4". The region's own range text was exact, and the region held exactly one Text element for each label.
+  - At 175% zoom, a text range's ScrollIntoView left the version anchors below the fold (on a leaf range) or overshot them (on the region's range), so the visible-glyph check refused them.
+- Reproduction: the diagnostic folder retains the probes. Round 14 (run41233069849) records the FindText drift; round 20 (run41248672768) records the enlarged-zoom refusal.
+- Workaround: none.
+- Resolution + evidence link: ShellText now searches each label only inside its own unique Text element (RangeFromChild of that element). It keeps the whole-label, single-occurrence, visibility and job-ownership checks. ShellMeasure scrolls the region with its ScrollItemPattern before measuring. Static source tests pin both rules. With this driver, diagnostic rounds 21, 23 and 26 passed the guest's own sliced phase code from `ready` through cleanup on hosted windows-2025: 14 shell routes at baseline and 175%, crash, restart, close, relaunch, collision, menu quit, Ctrl+Q and forced parent. The serial receipts, frame-acceptance waits, environment phase, attestation and the guest's terminal block were replaced or did not run. That host is Windows Server 2025, not Windows 11. The first hosted Windows 11 campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0162 — GNOME AT-SPI text reads hit a deprecated Accessible alias
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: diagnostic run41233236511, the GNOME harness's own functions under KVM in the real GDM session, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign (scripts/linux_gnome/ubuntu_gnome_guest.py accessible_text; scripts/linux_gnome/ubuntu_gnome_atspi.py); KI-0151.
+- Description: PyGObject returns the Accessible itself as its Text interface. libatspi's deprecated atspi_accessible_get_text() alias then shadows Text.get_text(start, end), so `interface.get_text(0, count)` raised "Atspi.Accessible.get_text() takes exactly 1 argument (3 given)" on the first product launch. KI-0151 is the same shadowing for Action.get_name.
+- Reproduction: diagnostic run41233236511 runs prepare_image, prepare_guest, launch_vm, observe_session and run_lifecycle from the working tree under KVM.
+- Workaround: none.
+- Resolution + evidence link: accessible_text reads through the interface class, `Atspi.Text.get_text(interface, 0, count)`. The typed AT-SPI protocol no longer offers get_text on the Text interface. A test shaped like the measured Accessible pins the call. Later diagnostic GNOME rounds launched the product past this point. The first hosted GNOME campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics. Closed 2026-11-02UTC by the first reviewed GNOME VM campaign, lifecycle run41371114075 at 10f247b: ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS, all 115 guest receipts PASS. Exact docs/evidence/m03-w08-gnome-campaign-10f247b.
+
+### KI-0161 — Windows runtime paths beyond MAX_PATH fail closed
+
+- Severity: LOW
+- State: OPEN
+- Discovered: independent review of the KI-0157 correction, 2026-10-31UTC.
+- Affects: M03-W07 Windows packaged desktop (apps/desktop/src-tauri/src/service/windows_native.rs, runtime_integrity.rs).
+- Description: after KI-0157 the runtime path reaches GetFileAttributesW, CreateFileW and CreateProcessW in drive form, without `\\?\`, and the application manifest does not declare long-path awareness. So an install folder whose runtime files exceed MAX_PATH gets InvalidRuntime, while std::fs (used by the integrity check) handles long paths. This affects availability only; no check is weakened.
+- Reproduction: not measured. Install the portable package under a folder deep enough that `<folder>\runtime\japp-orchestrator\...` exceeds 260 UTF-16 units and launch it; windows_native.rs passes the drive-form path to GetFileAttributesW/CreateFileW without `\\?\`, and the manifest declares no long-path awareness.
+- Workaround: install to a shorter folder.
+- Resolution + evidence link: open.
+
+### KI-0160 — Windows parent-folder reparse check splits the runtime path on `\` only
+
+- Severity: LOW
+- State: OPEN
+- Discovered: independent review of the KI-0157 correction, 2026-10-31UTC.
+- Affects: M03-W07 Windows packaged desktop (apps/desktop/src-tauri/src/service/windows_native.rs validate_path).
+- Description: the packaged runtime path is the resource folder joined with `runtime/japp-orchestrator/japp-orchestrator.exe` (measured `C:\japp-gui-diag\runtime/japp-orchestrator/japp-orchestrator.exe`). validate_path checks each parent folder for reparse points by splitting on `\` only, so it skips `runtime` and `runtime/japp-orchestrator`. The development path already had this shape. lock_tree runs first, checks every node from the root, and holds handles that block rename or delete while the child runs, so the gap is covered today.
+- Reproduction: read windows_native.rs validate_path with the measured path `C:\japp-gui-diag\runtime/japp-orchestrator/japp-orchestrator.exe`; splitting on `\` yields `C:`, `japp-gui-diag` and one `runtime/japp-orchestrator/japp-orchestrator.exe` component, so the two intermediate folders are never checked for reparse points.
+- Workaround: none needed while lock_tree runs first.
+- Resolution + evidence link: open; normalize `/` inside validate_path in a focused change.
+
+### KI-0159 — A second quit request while the first is running briefly reports "Could not stop local service"
+
+- Severity: LOW
+- State: OPEN
+- Discovered: independent review of the KI-0158 correction, 2026-10-31UTC.
+- Affects: M03-W07 desktop shutdown UX (apps/desktop/src-tauri/src/service/tauri_lifecycle.rs request_shutdown).
+- Description: a second request_shutdown while the first quit is still running publishes CleanupFailed, because the gate refuses the second start. The title then shows "Could not stop local service; retry Quit" until the first quit completes. With KI-0158, pressing Ctrl+Q twice quickly makes this easy to reach. The process still shuts down through the first request.
+- Reproduction: not measured. Press Ctrl+Q (or choose File→Quit) twice within the first quit's shutdown; tauri_lifecycle.rs request_shutdown refuses the second start at its gate and publishes RecoveryState::CleanupFailed, which sets that title.
+- Workaround: none needed; the first quit completes.
+- Resolution + evidence link: open.
+
+### KI-0158 — Windows Ctrl+Q never reaches the File→Quit accelerator while WebView2 has focus
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: pre-flight audit of the a5ec1e3 campaign paths, confirmed by diagnostic run41225412050 on hosted windows-2025, 2026-10-31UTC.
+- Affects: M03-W07 Windows native shell (apps/desktop/src-tauri/src/lib.rs) and its Windows 11 accelerator phase; KI-0127.
+- Description: the product installs File→Quit with the Ctrl+Q accelerator. Tauri 2.12.4 checks menu accelerators only with TranslateAcceleratorW in the desktop process's own message loop, and wry 0.57.0 registers no WebView2 AcceleratorKeyPressed handler. WebView2 keeps keyboard focus in its browser process, so the key never reaches the menu. On a hosted Windows Server 2025 desktop, Ctrl+Q sent to the product's foreground window left all seven job members running after 10 s.
+- Reproduction: diagnostic run41225412050 launches the reviewed a5ec1e3 portable package under the guest driver's job owner and sends Ctrl+Q with SendInput.
+- Workaround: File→Quit.
+- Resolution + evidence link: on Windows the main webview's controller registers an AcceleratorKeyPressed handler. It marks exactly a first Ctrl+Q key-down with neither Alt nor Shift as handled and routes it to the same ManagedService shutdown as File→Quit; every other key stays with WebView2. It uses the exact webview2-com 0.39.1 that Tauri already locks, and adds no IPC command. Pure tests that run on every host cover the chord and how one WebView2 key event is read: AltGr (Ctrl+Alt without the menu flag), the menu flag alone, Alt with the menu flag, auto-repeat, Shift, key-up, another key and GetKeyState's high-order bit (a toggle bit alone is not held). Only the Windows-only wiring that feeds them is untested off Windows. An instrumented Windows build of this change on hosted windows-2025 (scratch branch diag/win-gui-service, run41229600953) registered the handler (Ok, token 20). It received Ctrl key-down and then Q key-down with GetKeyState reporting Ctrl held while focus was in the page, and the app exited after Ctrl+Q from both an ASCII and a Unicode/space install path. The first hosted Windows 11 campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0157 — Packaged Windows desktop refuses its own runtime: Tauri's resource directory is a verbatim `\\?\` path
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: diagnostic runs 41225412050, 41226037122 and 41226305647 on hosted windows-2025, root cause by instrumented build run41226818696, 2026-10-31UTC.
+- Affects: M03-W07 Windows packaged desktop (apps/desktop/src-tauri/src/service/runtime_descriptor.rs, windows_policy.rs launch_plan); every Windows install location.
+- Description: the reviewed a5ec1e3 portable package shows "Desktop App — Local service failed" within about 0.2 s of starting, and the Diagnostics page reports "Unavailable after a service failure". japp-orchestrator.exe never starts, from ASCII and from Unicode/space paths, with or without the guest driver's job owner. Run alone with the product's SystemRoot-only environment, the same service answers READY in 0.97 s. An instrumented build of the same source showed why: Tauri's resource_dir() returns `\\?\C:\...`, and launch_plan accepts only a drive-absolute `X:\` path, so it returns InvalidRuntime (windows_policy.rs lines 43–48; line 55 in the instrumented build's numbering). The CI package actor passed only because it builds a drive-form path itself.
+- Reproduction: the diagnostic folder retains the probes and the instrumented stderr (`JAPP_DIAG resource_dir=Some("\\\\?\\C:\\japp-gui-diag")` … `InvalidRuntime src\service\windows_policy.rs:55`).
+- Workaround: none.
+- Resolution + evidence link: configured_runtime() now rewrites a verbatim local-drive resource directory (`\\?\X:\...`) to the same drive path before the launch policy and runtime integrity check run. UNC, device and any other forms are unchanged and still judged by the strict launch policy. Rust tests cover the measured verbatim forms, the other forms and launch_plan acceptance. A Windows build of this change (run41227766396) went from "Starting local service" to "Desktop App" (service running) from both an ASCII and a Unicode/space path. The guest driver's own functions then reached the running service's 401 envelope, Check again, route focus, close and port release (diagnostic run41229140888). The first hosted Windows 11 campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0156 — GNOME session receipt checks graphical-session.target before it is active
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: diagnostic run41171253889, measured by run41172293108 in the real GDM session, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign; scripts/linux_gnome/ubuntu_gnome_session_receipt.py (run once by ubuntu_gnome_guest.py --serve from XDG autostart).
+- Description: the receipt asked `systemctl --user is-active graphical-session.target` once. GNOME starts XDG autostart applications before that target is active: with the KI-0150 correction in place, the receipt run at autostart failed only this check, the target became active 2.8 s later, and the same receipt run at +60 s and +120 s was SESSION_READY. Because serve() runs the receipt once and exits on failure, the controller socket would never open.
+- Reproduction: diagnostic run41172293108 samples the target every 2 s from the autostart entry and runs the corrected receipt at +0 s, +60 s and +120 s.
+- Workaround: none.
+- Resolution + evidence link: the receipt now polls the target for up to 30 s (one bounded observation per second, each under the existing custody rules) and records the attempt count; the check still requires `active`, and a target that never becomes active still yields CAPABILITY_UNAVAILABLE. Tests cover active at once, active after two polls and never active; the delayed case fails against the old single observation. Exact docs/evidence/m03-native-runtime-diagnostics. Closed 2026-11-02UTC by the first reviewed GNOME VM campaign, lifecycle run41371114075 at 10f247b: ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS, all 115 guest receipts PASS. Exact docs/evidence/m03-w08-gnome-campaign-10f247b.
+
+### KI-0155 — Windows 11 fixed +8 s boot key misses the installation media prompt
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: pre-flight audit of the a5ec1e3 campaign paths, confirmed by diagnostic run41171253889 (scratch branch, never merged), 2026-10-31UTC.
+- Affects: M03-W07 Windows 11 VM campaign; scripts/windows11/windows11_vm.py observe().
+- Description: observe() pressed one space key 8 s after connecting the serial socket. Under the harness's exact QEMU argv, OVMF first fails the USB result disk, starts the Windows media loader at about 2.3 s, shows "Press any key to boot from CD or DVD" and reports the loader's time-out at about 5.5 s, then falls through to "No bootable option or device was found" at about 9.4 s. The fixed key therefore arrives after the prompt, Windows Setup never starts, and the campaign would wait out its whole work deadline.
+- Reproduction: diagnostic run41171253889 boots the pinned ISO with no key and records every COM1 byte with arrival time and a QMP frame every 0.5 s.
+- Workaround: none; no Windows 11 campaign was released.
+- Resolution + evidence link: observe() now waits for OVMF's own complete console line "BdsDxe: starting Boot… from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x1,0xFFFF,0x0)" (the reviewed media on ide.1), sends one space key BOOT_KEY_DELAY (0.5 s) later, and fails fast if the media loader has not started within 60 s. Diagnostic run41172293108 ran this trigger with the corrected qemu_argv() of that time (it predates the later ICH9-LPC S3/S4 globals): the media-start line arrived at 2.2 s, the key went at 2.7 s, and the frame at 26 s shows the Windows 11 Setup language page. Tests replay the observed console bytes, refuse the seed media, a "loading" line and a partial line, and check the single key and the fail-fast path; they fail against the old fixed-time key. The first hosted Windows 11 campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0154 — Windows 11 firmware console shares COM1 with the strict guest protocol
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: pre-flight audit of the a5ec1e3 campaign paths, confirmed by diagnostic run41171253889, 2026-10-31UTC.
+- Affects: M03-W07 Windows 11 VM campaign; scripts/windows11/windows11_vm.py qemu_argv() and observe(), scripts/windows11/windows11_guest.ps1.
+- Description: the only serial device was COM1, and the host refuses any line that does not begin "JAPP11 ". OVMF writes its console to COM1 within 1.2 s of power-on (ANSI clear-screen sequences and BdsDxe boot lines, 923 bytes in 9.4 s), so the parser would raise "Closed bounded owned-guest protocol required" on the first firmware line, long before Windows Setup.
+- Reproduction: diagnostic run41171253889 records the exact COM1 bytes under the harness's argv.
+- Workaround: none.
+- Resolution + evidence link: COM1 is now a firmware console socket that observe() retains (bounded at 256 KiB) and reads to find the media-start line (KI-0155); the guest protocol is a separate COM2 socket, and windows11_guest.ps1 opens COM2 only (its pin is updated in scripts/check_portability.py). Diagnostic run41172293108 ran the corrected argv and showed OVMF writing exactly the same 440 console bytes to COM2 as to COM1, so a second port alone is not enough: every COM2 line must still begin "JAPP11 " unless it equals, in order, the next complete firmware line seen on COM1 within 10 s. Altered, unmirrored and reordered text is refused. That includes COM2 text still unmatched when the guest's terminal row arrives: the combined review found that such text was accepted, and observe() now settles and refuses it before any verdict. Bytes received together with the terminal row are refused too; the guest closes COM2 after that row, so later bytes are never read. Tests replay the measured bytes and fail against the old single-port argv. They kill permissive, over-strict and order-ignoring mutants, and they pin the 10 s window and the terminal-row refusal on a fake clock. The first hosted Windows 11 campaign is required before closure. Exact docs/evidence/m03-native-runtime-diagnostics.
+
+### KI-0153 — GNOME guest locked-install log approaches its 256 KiB bound
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: diagnostic run41171253889, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign; scripts/linux_gnome/ubuntu_gnome_provision.py run().
+- Description: run() fails any guest command whose output exceeds 256 KiB. Installing the reviewed 808-archive closure plus the product package wrote 242,847 bytes, 93% of the bound, so a slightly larger reviewed closure would fail the install after it succeeded.
+- Reproduction: the diagnostic guest ran the same local-only install of the a5ec1e3 candidate closure and retained the log size.
+- Workaround: none.
+- Resolution + evidence link: run() takes a cap argument; only the locked install uses 2 MiB, and every other guest command keeps 256 KiB. Tests check both caps and that no other call is raised; they fail against the old code. Exact docs/evidence/m03-native-runtime-diagnostics. Closed 2026-11-02UTC by the first reviewed GNOME VM campaign, lifecycle run41371114075 at 10f247b: ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS, all 115 guest receipts PASS. Exact docs/evidence/m03-w08-gnome-campaign-10f247b.
+
+### KI-0152 — GNOME campaign used software emulation and one slow readiness poll was fatal
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: pre-flight audit of the a5ec1e3 campaign paths, confirmed by diagnostic run41165269919, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign; scripts/linux_gnome/ubuntu_gnome_vm.py (also the shared Owner used by the Windows 11 harness).
+- Description: the GNOME VM ran under `-accel tcg,thread=multi -cpu max`. On a standard ubuntu-24.04 runner the reviewed guest then took about 1,000 s to install and 18 of 568 SSH readiness polls exceeded the 6 s poll bound; Owner.command raised TimeoutError for an over-time command even with permit_failure, so a single slow poll ended the campaign. Under KVM the same guest reached the GDM desktop in about 195 s with every poll within 3.01 s, and /dev/kvm on these runners answers KVM API 12 once the runner UID is granted access.
+- Reproduction: diagnostic run41165269919 runs the campaign's cloud image, cloud-init shape and device set under both accelerators.
+- Workaround: none.
+- Resolution + evidence link: the GNOME VM now requires KVM with no software fallback (kvm() grants only the runner UID through the reviewed setfacl, checks KVM API 12, and launch_vm() requires QEMU's own query-kvm answer {enabled, present}); setfacl joins the reviewed host tool lock from the acl archive already in the closure. Owner.command raises the distinct CommandDeadlineError only when its own bound expires and the child and its group are fully reaped; observe_session() records such a slow poll and keeps polling within the existing provision and session deadlines, while output caps, outer authority expiry and unsettled process state stay fatal. Tests fail against the old code. Exact docs/evidence/m03-native-runtime-diagnostics. Closed 2026-11-02UTC by the first reviewed GNOME VM campaign, lifecycle run41371114075 at 10f247b: ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS, all 115 guest receipts PASS. Exact docs/evidence/m03-w08-gnome-campaign-10f247b. The campaign ran under KVM (API 12, no TCG fallback).
+
+### KI-0151 — GNOME guest reads AT-SPI action names through Accessible.get_name
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: pre-flight audit of the a5ec1e3 campaign paths, confirmed by diagnostic run41171253889 in the real GDM session, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign; scripts/linux_gnome/ubuntu_gnome_guest.py accessible_actions(), scripts/linux_gnome/ubuntu_gnome_atspi.py.
+- Description: PyGObject returns the Accessible itself as its Action interface, so `interface.get_name(i)` resolves to Accessible.get_name() and raised "takes exactly 1 argument (2 given)" in the real session, while `get_action_name(0)` answered 'activate'. Every accessibility tree walk would fail on the first actionable node.
+- Reproduction: the diagnostic session probe walks the real desktop's accessibility tree and calls both forms on the first node with an action.
+- Workaround: none.
+- Resolution + evidence link: accessible_actions() calls get_action_name(i), and the typing protocol names it. A test with an Accessible-shaped fake fails against the old call. Diagnostic run41172293108 repeated the real-session measurement with the same result. Exact docs/evidence/m03-native-runtime-diagnostics. Closed 2026-11-02UTC by the first reviewed GNOME VM campaign, lifecycle run41371114075 at 10f247b: ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS, all 115 guest receipts PASS. Exact docs/evidence/m03-w08-gnome-campaign-10f247b. File→Quit and every control were activated through named AT-SPI actions.
+
+### KI-0150 — GNOME autostart session has no XDG_SESSION_ID, so the session receipt is never ready
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: pre-flight audit of the a5ec1e3 campaign paths, confirmed by diagnostic run41171253889 in the real GDM session, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign; scripts/linux_gnome/ubuntu_gnome_session_receipt.py (run by ubuntu_gnome_guest.py --serve from XDG autostart).
+- Description: GNOME starts autostart applications in a systemd user scope outside the login session; the real session gave the autostarted probe no XDG_SESSION_ID and `loginctl show-session self` refused it. The repository's own receipt, run unchanged in that session, returned CAPABILITY_UNAVAILABLE: no logind properties, so the GDM-session and display-socket checks failed, and serve() exits without opening the controller socket, so the host would time out.
+- Reproduction: the diagnostic autostart entry records its environment and runs the unchanged receipt in the real autologin session.
+- Workaround: none.
+- Resolution + evidence link: when XDG_SESSION_ID is absent the receipt asks logind for the user's graphical session (`loginctl show-user <uid> --property=Display --value`, which named session 30 in the real session) and applies every existing check to that session. An inherited XDG_SESSION_ID is still used directly. Tests cover a GDM display session, no display session and a non-GDM display session; they fail against the old code. Diagnostic run41172293108 ran the corrected receipt in the real session: logind named session 25 (gdm-autologin, wayland), every logind and display check passed, and the receipt was SESSION_READY once graphical-session.target was active (KI-0156). Exact docs/evidence/m03-native-runtime-diagnostics. Closed 2026-11-02UTC by the first reviewed GNOME VM campaign, lifecycle run41371114075 at 10f247b: ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS, all 115 guest receipts PASS. Exact docs/evidence/m03-w08-gnome-campaign-10f247b. The session receipt resolved the autologin Wayland session.
+
+### KI-0149 — needrestart restarts the GNOME guest's network and SSH after the locked install
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: diagnostic run41165269919, cause confirmed by run41171253889, 2026-10-31UTC.
+- Affects: M03-W08 GNOME VM campaign; scripts/linux_gnome/ubuntu_gnome_provision.py run().
+- Description: Ubuntu's needrestart apt hook restarted ssh, systemd-networkd, systemd-udevd and other services after the locked GNOME install. The install had regenerated netplan's backend files without the systemd-networkd .network for enp0s2, and NetworkManager is not part of the reviewed closure, so the restarted networkd left enp0s2 unmanaged with no IPv4 address; from then on the host's only guest channel (SSH through QEMU user networking) never answered again, although the desktop was up: for about 77 minutes under KVM and about 59 minutes under TCG, until the run ended. Masking NetworkManager made no difference. With NEEDRESTART_SUSPEND=1 the same install, GDM autologin and session dump completed over SSH in about 170 s.
+- Reproduction: diagnostic runs 41165269919 and 41171253889 install the reviewed closure exactly as the provision script does and poll SSH every 5 s.
+- Workaround: none.
+- Resolution + evidence link: every guest provision command now runs with NEEDRESTART_SUSPEND=1 next to DEBIAN_FRONTEND=noninteractive. A test checks the exact environment; it fails against the old code. Diagnostic run41172293108 ran the corrected provision environment under KVM: every SSH poll answered within 3.01 s and collection completed at 268 s. Exact docs/evidence/m03-native-runtime-diagnostics. Closed 2026-11-02UTC by the first reviewed GNOME VM campaign, lifecycle run41371114075 at 10f247b: ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS, all 115 guest receipts PASS. Exact docs/evidence/m03-w08-gnome-campaign-10f247b. Provisioning completed over SSH.
+
+### KI-0148 — apt `--no-download` refuses reviewed local archives
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: first released GNOME VM campaign, lifecycle run41157416726 (a5ec1e3 candidate), 2026-10-31UTC.
+- Affects: M03-W07 and M03-W08 VM campaigns; scripts/linux_gnome/ubuntu_gnome_host.py install_tools, scripts/linux_gnome/ubuntu_gnome_provision.py (guest), scripts/windows11/windows11_vm.py install_tools.
+- Description: every reviewed local install ran `apt-get --no-download ... install <local .deb files>` so that an unprovided dependency could not fetch an unreviewed version. On apt 2.8 (ubuntu-24.04 runners and the noble guest) `--no-download` also refuses archives named as local files, so the GNOME host install failed with "Unable to fetch some archives" although its plan was entirely local. The guest and Windows 11 installers use the same form and would fail the same way.
+- Reproduction: diagnostic run41157694334 replays the refusal on a fresh runner with the reviewed candidate; `apt-get -s` shows an all-local plan. Exact docs/evidence/m03-gnome-campaign-a5ec1e3-apt.
+- Workaround: none; no VM started.
+- Resolution + evidence link: ubuntu_gnome_process.local_only_apt() gives APT an empty source list, empty source-parts and package-list directories and no persistent caches, so no repository exists to download from; all three installers use it instead of --no-download. Diagnostic run41157825709 shows both reviewed host sets installing with zero download at exactly their locked versions and a dependency-withheld negative control refused. Tests pin the options, fresh private state and that every reviewed installer uses the helper. Hosted campaign results are required before closure. Closed 2026-11-02UTC by the first reviewed GNOME VM campaign, lifecycle run41371114075 at 10f247b: ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS, all 115 guest receipts PASS. Exact docs/evidence/m03-w08-gnome-campaign-10f247b. Its host step, REVIEWED_HOST_INSTALL_AND_EXACT_TOOL_BYTES_PASS, ran the simulate-first local-only install.
+
+### KI-0147 — Windows 11 campaign runs the Windows-only package inspector on the Linux host
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: independent review of the a5ec1e3 Windows 11 candidate (workflow wf_584b2a27-a96), 2026-10-31UTC.
+- Affects: M03-W07 Windows 11 VM campaign; scripts/windows11/windows11_vm.py seed() and scripts/windows_package.py.
+- Description: windows11_vm.main() runs on the ubuntu-24.04 host (require_linux). seed() runs scripts/windows_package.py inspect through Owner.command, but windows_package.main() raises "Native Windows x64 host required" on any other host, so the campaign would fail after installing host tools and downloading the ISO, before QEMU starts. No campaign has run, so this was found statically.
+- Reproduction: read windows11_vm.py seed() at a5ec1e3 and windows_package.py main(); the guard rejects platform.system() != "Windows".
+- Workaround: none; the Windows 11 candidate for a5ec1e3 is not released.
+- Resolution + evidence link: windows_package.main() now applies the native Windows x64 host guard to `stage` only; `inspect` reads bytes and runs on any host, so seed() can inspect the reviewed portable package on the Linux VM host. Tests run the inspect CLI on a Linux x86_64 host and keep `stage` refused on Linux x86_64 and Windows ARM64; the Linux-inspect test fails against the old guard. Diagnostic run41157825709 did not exercise this path; the first hosted Windows 11 campaign is required before closure. Exact docs/evidence/m03-native-candidates-a5ec1e3-review.
+
+### KI-0146 — Windows 11 lifecycle passes the wrong bundle path for the prepared artifact
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: independent review of the a5ec1e3 Windows 11 candidate (workflow wf_584b2a27-a96), 2026-10-31UTC.
+- Affects: M03-W07 Windows 11 VM campaign; .github/workflows/windows11-native-prepare.yml and .github/workflows/windows11-native-lifecycle.yml.
+- Description: the prepare workflow uploads two paths (japp-unreviewed-win11-candidate/retained/ and retention-failure.json), so upload-artifact roots the artifact at their common parent and every member sits under retained/. The lifecycle workflow downloads it to japp-reviewed-win11-inputs and passes --bundle .../japp-reviewed-win11-inputs/inputs, which does not exist; the bundle audit would fail before any tool install or VM step.
+- Reproduction: artifact 13023973641 (prepare run41154871189) has only a retained/ top folder; lifecycle line 144 at a5ec1e3 expects inputs/ at the download root.
+- Workaround: none; the Windows 11 candidate for a5ec1e3 is not released.
+- Resolution + evidence link: the lifecycle now passes --bundle .../japp-reviewed-win11-inputs/retained/inputs; the workflow body is re-pinned (size and SHA-256) in scripts/check_portability.py and scripts/tests/test_ci_workflow.py. scripts/tests/test_native_vm_artifact_layout.py parses each prepare and lifecycle workflow, computes the upload root as the common ancestor of the uploaded paths, and requires the lifecycle --bundle to equal the download root plus the produced bundle's path below that root, for both GNOME and Windows 11; it fails against the old workflow. The first hosted Windows 11 campaign is required before closure. Exact docs/evidence/m03-native-candidates-a5ec1e3-review.
+
+### KI-0145 — Debian index line bound refuses the real Ubuntu noble universe index
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: actual GNOME prepare run41147070404 (failed 2026-10-30T23:57Z) and Windows 11 prepare run41147235484 (failed 2026-10-31T00:01Z), the download-only requests for b4b5b96.
+- Affects: M03-W07 and M03-W08 native campaign preparation; scripts/linux_gnome/ubuntu_gnome_signed_indexes.py (shared by the Windows 11 host-tool candidate through ubuntu_gnome_prepare.resolve).
+- Description: the signed-index parser bounded each deb822 line at 65,536 bytes and each stanza at 1 MiB. Ubuntu noble's universe Packages index (universe/binary-amd64/Packages, 73,379,142 bytes, the size and SHA-256 the signed noble Release lists) carries a 70,841-byte Provides line for librust-winapi-dev (stanza 71,854 bytes), so both download-only jobs failed closed with "Debian index line/stanza exceeds bound" before any candidate was complete. Nothing was installed and no VM started. The Windows 11 run had already downloaded the official evaluation ISO (sha256 bc3f2408…).
+- Reproduction: the retained GNOME indexes reproduce it locally: the old parser refuses packages-003 and the corrected parser reads all 64,755 stanzas. The Windows 11 run's indexes were not retained, but both runs verified the same three signed Release files with identical signing times, so it read the same universe index. Exact docs/evidence/m03-prepare-3f2a7d3-7ac6bda-index-bound.
+- Workaround: none; requests bound to b4b5b96 cannot proceed because the parser is a protected source of both request routes.
+- Resolution + evidence link: LINE_CAP now equals the unchanged 1 MiB STANZA_CAP (a field line cannot exceed its stanza; per-index 256 MiB and total 1 GiB caps are unchanged). The oversized-field refusal case now exceeds the new line cap; new tests accept a realistic >64 KiB Provides line, prove the stanza bound still refuses a stanza of individually acceptable lines (both fail against the old cap), and prove the stanza size resets between stanzas (fails if the reset is removed). Independent review found the parser change sound and checked the retained real data against every other bound on this path (all pass); its only blocking finding, naming the index noble main instead of universe, is corrected (docs/evidence/m03-prepare-3f2a7d3-7ac6bda-index-bound/review.md). New download-only requests must bind a fresh hosted package run of the corrected source.
+
+### KI-0144 — Status-validator fixtures inherit a new live HIGH blocker
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: local full Python suite on the uncommitted KI-0142 correction tree, 2026-10-30UTC.
+- Affects: M03-W07 Python verification; scripts/tests/test_validate_status.py copied project-memory fixtures.
+- Description: the status-validator tests copy the live docs and then model historical or future states (a gate PASS making M03-W01 READY, an accepted M00 closeout making M01-W07 READY, and so on). Recording KI-0142 as a live HIGH blocker leaked into those premises: the fixtures replace the live blocker list, so the copied ledger's KI-0142 HIGH/IN_PROGRESS is left unlisted, and it also blocks the modeled ACCEPTED M03 and the modeled READY packages. The validator is right each time, and the 16 tests fail for a reason unrelated to what they test (the KI-0103 class). Earlier live HIGH issues (KI-0077…KI-0096) were handled by listing them among the fixtures' current corrective issues; KI-0142 was not yet listed.
+- Reproduction: `uv run --frozen python scripts/verify.py --suite python` → `16 failed, 2883 passed`, every failure in test_validate_status.py reporting `KI-0142 is HIGH/IN_PROGRESS but is missing from PROJECT_STATUS live blockers` (exact extract docs/evidence/m03-w07-ci-b74d867-terminal/local-python-suite-failure.txt).
+- Workaround: none; KI-0142 stays HIGH and listed as a live blocker.
+- Resolution + evidence link: add CURRENT_M03_CORRECTIVE_ISSUE_IDS = ("KI-0142",) to the issues `resolve_corrective_issues` marks FIXED for modeled states, and to the later-issue set the historical M02-W06 pre-governance fixture marks FIXED. No assertion, test identity or validator rule changes; the live validator still requires KI-0142 in the live blockers. `uv run --frozen pytest -q scripts/tests/test_validate_status.py` → `239 passed`; the full Python suite on the final correction tree → `2899 passed in 456.96s`. Independent fixture review CLEAR_WITH_NOTES (docs/evidence/m03-w07-ci-b74d867-terminal/review/fixture-review.md); the reconciliation tests on synthetic KI-0029…0031 still prove the blocker rules.
+
+### KI-0143 — Windows service temp and home fall back to machine-wide locations
+
+- Severity: LOW
+- State: OPEN
+- Discovered: independent review of the KI-0142 correction, 2026-10-30UTC.
+- Affects: M03-W07 Windows packaged service environment; apps/desktop/src-tauri/src/service/windows_policy.rs; future service storage and upload work.
+- Description: with SystemRoot as its only variable, the Windows service has no TEMP, TMP, USERPROFILE or LOCALAPPDATA. Python's tempfile then falls back to %SYSTEMROOT%\Temp, a machine-wide directory shared by every account, GetTempPathW (used by native libraries such as SQLite) falls back to the Windows directory itself, and expanduser("~") stays relative. The current first-party service and generated contracts source use none of these (no tempfile, sqlite, home or environment reads, and no multipart/upload endpoint that would spool to a temporary file; onedir build, so no extraction directory), so nothing fails today. On Windows Server CI the elevated runner account can write both. Under default Windows ACLs (not verified here) a standard Windows 11 user can create files in %SYSTEMROOT%\Temp but not in the Windows directory, so a later feature could pass CI and fail on desktops through GetTempPathW, or place private temporary data in a machine-wide directory through tempfile.
+- Reproduction: not reproduced; source review of CPython 3.12.13 tempfile._candidate_tempdir_list and the documented GetTempPathW fallback order.
+- Workaround: none needed today; do not add temp, cache or home-relative writes to the service without addressing this.
+- Resolution + evidence link: before any service feature writes files, give the service explicit private data and temp directories through the bootstrap (or point TEMP/TMP at a supervisor-owned private directory) and test it as a standard user. Exact docs/evidence/m03-w07-ci-b74d867-terminal.
+
+### KI-0142 — Windows service is launched with an empty environment and cannot import asyncio
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: actual b74d867 CI Windows native-package job124324728430 (run41124431600), 2026-10-30UTC.
+- Affects: M03-W07 Windows packaged service start; apps/desktop/src-tauri/src/service/windows_policy.rs and windows_native.rs.
+- Description: the native Windows adapter created the service with an empty Unicode environment block (LaunchPlan.environment [0,0]). Winsock resolves its provider DLLs through %SystemRoot%, so without it every socket fails with WinError 10106 (WSAEPROVIDERFAILEDINIT). The frozen service imports asyncio at module load, whose Windows event loop imports _overlapped, which fails with that error before the bootstrap is read, and the supervisor reports ChildExited. The child's stderr goes to NUL and its exit code is not recorded, so the package record names no cause. Linux has no such dependency and passes with a cleared environment. The repository's Windows test launchers already passed SystemRoot for this reason (api_client/tests/python_runtime.rs, services/orchestrator/tests/test_service_cli.py); the production adapter was never cross-checked against them. Earlier Windows CI never reached the packaged service actor, so this is the first actual Windows launch.
+- Reproduction: actual 15-package-actor panic "Actual packaged service must acknowledge and prove health: ChildExited" after2.4s with owned cleanup success. Scratch-branch probe run41133099895 (diag/windows-service-env 2aecfea, never merged) launches the exact artifact's japp-orchestrator.exe (sha256 ca4d4198…, equal to the entrypoint_sha256 in the retained windows-package-probe-input.json) with a synthetic non-secret bootstrap through Python subprocess: empty environment → exit1, frozen traceback ending at asyncio\windows_events.py line8 with WinError 10106 (the runner CPython traceback shows that line is import _overlapped); SystemRoot only → READY acknowledgement after0.88s and exit0 on lease EOF. The probe does not use the adapter's Job, suspended start or handle list, so it shows the empty environment is sufficient to fail, not that SystemRoot is sufficient under the adapter.
+- Workaround: none; do not inherit the parent environment.
+- Resolution + evidence link: service_environment builds a block with exactly SystemRoot=<OS-reported Windows directory> (GetSystemWindowsDirectoryW, never the inherited value), refusing non-drive-absolute, dot-component, reserved-character, '=', control-character and over-260-UTF-16-unit roots; spawn passes it to CreateProcessW. Policy tests pin the exact block, accepted lowercase and minimal roots, each refusal rule (including multibyte prefixes and a lone NUL), the exact UTF-16 length boundary and every required creation flag; one single-pass 28-mutant run kills 27, and the survivor (minimum length 4→3) is equivalent because the only three-byte roots that pass the prefix check are `X:\`, which the empty-component rule refuses. A Windows-only unit test runs the real GetSystemWindowsDirectoryW path in the hosted Windows verify job. The reviewed process-plan contract is unchanged: the plan still requests no environment and no inheritance (LocalProcessSelection refuses both), and the single variable is an OS constant added by the Windows adapter below the plan, not a caller- or plan-supplied entry, consistent with the spec's typed-allowlist rule for payloads crossing a trust boundary. Exact docs/evidence/m03-w07-ci-b74d867-terminal. Fresh hosted package results are required before closure.
+- Closure (2026-10-30UTC): actual b4b5b96/run41139850970 (merge f4854e2, same tree) is terminal SUCCESS. The Windows verify job runs the Windows-only os_windows_directory_forms_the_service_environment test (ok in each of the three desktop test runs), and the Windows native package job passes steps10–15 strictly; its package actor reports PACKAGE_SERVICE_ACTOR_PASS (health, ready, version, shutdown, authority withdrawal and listener release) with owned cleanup in277ms. Exact docs/evidence/m03-w07-ci-b4b5b96-pass. Windows 11 desktop evidence remains a separate W07 requirement.
+
+### KI-0141 — Windows runtime builder rewrites the tracked payload .gitignore with CRLF
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: actual f30f023 CI Windows native-package job124289423097 (run41114369378), 2026-10-30UTC.
+- Affects: M03-W07 Windows package source closure; scripts/build-windows-runtime.py.
+- Description: the builder restages apps/desktop/src-tauri/runtime-payload/.gitignore with Path.write_text("*\\n!.gitignore\\n"). Windows text mode writes CRLF, while the repository pins LF (.gitattributes eol=lf), so the owned package checkout shows the tracked file modified and the strict post-build source projection check refuses before the native service actor. Linux does not translate newlines, so the Ubuntu builder and package pass.
+- Reproduction: actual Windows job traceback "Reviewed source projection changed: apps/desktop/src-tauri/runtime-payload/.gitignore" with git status " M" for that file; steps01–12 (including the KI-0137 correction) were strictly successful first. Locally, scripts/tests/test_windows_builder.py::test_staged_payload_ignore_survives_windows_text_newline_translation emulates Windows text-mode translation and fails against the old write.
+- Workaround: none; keep the strict projection check.
+- Resolution + evidence link: write the exact tracked bytes (STAGE_IGNORE, write_stage_ignore) and assert the staged file equals the tracked bytes in the synthetic Windows build test, which also runs on the Windows CI host. Exact docs/evidence/m03-w07-ci-f30f023-terminal.
+- Closure (2026-10-30UTC): actual b74d867/run41124431600 Windows job passes the post-build source projection check, and steps10–14 are strictly successful; the job then fails on the separate KI-0142. Exact docs/evidence/m03-w07-ci-b74d867-terminal.
+
+### KI-0140 — Committed pure orchestrator wheel lags the corrected client source
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: actual cf9 CI native-package jobs123840589484/123840589553,2026-10-30UTC.
+- Affects: M03-W07 native package source closure; packaging/native-project-wheels/orchestrator-0.0.1-py3-none-any.whl and packaging/native-project-wheels.json.
+- Description: exact wheel/source validation refuses the committed07ab9ea… wheel because its generation/client.py is old66132868…, while tested source has corrected977e0759…. All18paths,17other orchestrator bodies and110contracts bodies match. The strict guard correctly prevents installing the obsolete client.
+- Reproduction: both actual Windows/Ubuntu package jobs fail native_package_pipeline.py:352 with the same ValueError before pipeline output/native service actor; PREPARATION_INCOMPLETE and zero eligible curated exports. Independent inert member hashing binds the sole difference to immutable cf9source and both retained native-input wheel hashes.
+- Workaround: none; preserve exact full package/resource equality, restricted installer surface and every existing limit; do not waive the guard or reuse old exports.
+- Resolution + evidence link: docs/evidence/m03-w07-ci-cf9b60d-terminal, different16874joins/f71b7cef… and exact preserved failedCI/source/member records. Separate frozen source correction SOURCE76103d8f… now supplies exact32666B wheel21fdd2c…/one manifestSHA/two read-only alignment cases/two additive IDs; all23oldtests+2newPASS and samefinaloldwheel1PASS1FAIL preserve the unchanged strict guard. Different2528joins/34e9b0f4… CLEAR and officialHatchling1.32.4 privatebuild provenance are retained in the same packet. Rootguardedadoption/focus and fresh corrected actual hosted package results remain required; derived2882collection is not actualfullcollection. No future package/native/gatePASS is inferred. Closure (2026-10-30UTC): actual a010835/run40989502173 package jobs both pass the unchanged exact wheel/source gate; the Ubuntu job packages and runs its owned service actor, and the Windows job reaches the Tauri build (its separate failure is KI-0137). Exact docs/evidence/m03-w07-ci-a010835-terminal.
+
+### KI-0139 — Strict Turbo tasks lose the CI-installed Rust toolchain home
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: actual D7f7902f Mac CI unit-ts subprocess failures,2026-10-29UTC; source-only controlled environment-loss reproduction,2026-10-30UTC.
+- Affects: M03-W07 hosted contract/parity verification; turbo.json and packages/contracts/test/contract/support process boundary.
+- Description: the workflow installs/exports its pinned compiler under fresh RUSTUP_HOME, while default strict Turbo tasks omit that selector. Actual D's four suite hooks fail cargo build and its infrastructure setup fails rustup which rustc; suppressed stderr prevents asserting this reproduced source mechanism as the sole historical error cause. Direct later contract/Rust suites pass.
+- Reproduction: installedTurbo2.10.7 executes seven tiny Node-only tasks; original default/explicitstrict config loses the synthetic home, exact globalEnv:[RUSTUP_HOME] preserves it, and unrelated synthetic environment data stays filtered. No compiler/network/model actor is used.
+- Workaround: preserve strict filtering and all original tests/limits; do not loosen environment mode, invent a Rust diagnostic or relabel CI.
+- Resolution + evidence link: independently reviewed one-variable correction f090c098…/fullmode33188 over edb1a6db… includes the selector in cache identity. Sourcepeer809joinsCLEAR; all17explicit qualification/format childowners close/reap/groupsABSENT/no signals/timeouts and all failed observer/format histories remain. Exact docs/evidence/m03-ci-turbo-rustup-home. Existing2878common+2POSIX IDs/digest remain unchanged; no new canonical test. Fresh corrected hosted CI remains required before closure.
+
+
+- Current scoped verification: corrected cf9 hosted Mac/Windows/Ubuntu each pass all20ACTIVE suites with Python2880/2878/2880PASS. Different16874joins CLEAR_AS_RECORDED_FAILURE at docs/evidence/m03-w07-ci-cf9b60d-terminal validates these successful verification jobs while preserving both stale-wheel package failures as KI-0140. This closes only the reproduced strict-Turbo compiler-home source invariant; the suppressed historical D Rust stderr/exclusive cause remains UNKNOWN. Original C/D failures are unchanged.
+### KI-0138 — Mutable PR head metadata rejects an otherwise validated authorization request
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: actual GNOME requestRc930 METADATA_GATE_FAILED/ValueError,2026-10-29UTC.
+- Affects: M03-W07/W08 authorizer metadata; scripts/linux_gnome/ubuntu_gnome_request.py and scripts/windows11/windows11_request.py.
+- Description: immutable run.head_sha remains sourceSf3, while a run API's nested PRhead can advance to validated requestR. The old metadata guard requires onlySf3 and rejectsR. The actual job retained no complete exception/API response, so this reproduced defect is not asserted as the sole historical ValueError cause; no actual Windows occurrence is observed.
+- Reproduction: retained live Ubuntu run changes only nested PRheadSf3→Rc930. Original authorizer decode controls give2FAIL/30deselected at that guard; final156pure cases preserve124old+32new. No-context and blanket-check-removal mutants fail2 and6 meaningful cases respectively.
+- Workaround: preserve immutable source/artifact identity and protected-byte enforcement; do not bypass the guard or reuse old artifacts after authorizer changes.
+- Resolution + evidence link: outside SOURCEac4a86cba1c29ea604d31a09f323c75c7d7865ed61a55db6ecb19c47a000fd67 at /Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/authorizer-live-pr-head-correction/v1 admits only an exact validated current head after the unchanged request/ancestry/protected-byte/release checks; standalone default remains source-only strict. Recorded156pure/strict/collection pass, with Windows synthetic only. Different review688ac7c… is CLEAR and root guarded the four authorizer paths as part of eight combined paths/888joins. Canonical343focused/2880collection and strict checks now pass, with original index-stage integrity refusal and separate corrected integrity/diff preserved; different6012actual joins CLEAR at docs/evidence/m03-package-and-authorizer-corrections. A fresh source/package build and corrected actual request remain required; requestR stays failed and its active authorization is withdrawn with exact retained bytes/fullmode.
+
+### KI-0137 — Windows package helper forces Job cleanup before bounded natural drain
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: originalf3 Windows native-package job123763607069 strict failure,2026-10-29UTC; bounded fake reproduction and separate v1 late-completion review.
+- Affects: M03-W07 native package process custody; scripts/_native_package_process.py.
+- Description: after direct exit, a nonzero held Job active count immediately selects contained termination and strict failure. Actual10-tauri-package records directexit0/terminated_jobtrue/successfalse with final closure; lingering helpers versus delayed accounting is UNKNOWN. This is distinct from the prospective v1 finding that a slow query can return after its cleanup bound and falsely grant success.
+- Reproduction: an exact-original delayed-accounting fake forces the Job and fails the natural-drain control. Separate immutable v1 then admits false success when active() returns zero at16s after its15s fence; exact final v2 negative retains that RED. Historical receipts do not establish either fake mechanism as the actual Windows cause.
+- Root cause (established 2026-10-30UTC): a010835 Windows10-tauri-package again records directexit0/terminated_jobtrue/successfalse after the bounded natural drain. Eight scratch-branch Windows Job experiments (diag/windows-job-linger runs41101101252/41103357965/41105253017/41106303366/41107379915/41108392333/41112771730 and diag/windows-job-linger-norc run41108437778, never merged) enumerate and trace the surviving member: MSVC14.51.36231 Hostx64\\x64\\VCTIP.EXE, observed as a child of link.exe under rustc and, with rust-lld linking, of cl.exe under the vswhom-sys build script (embed-resource's build-time Visual Studio finder compiles ext/vswhom.cpp through cc). It outlived every observation window: more than720s after a trivial build and more than300s after the desktop build. strip=debuginfo, VSCMD_SKIP_SENDTELEMETRY=1 and the Visual Studio SQM OptIn=0 registry opt-out do not stop it. VCTIP behaves as a singleton, so only fresh-runner probes are conclusive: on fresh runners, dumpbin (LINK /DUMP) leaves no member, and with rust-lld plus LLVM clang-cl/llvm-lib for build-time C/C++ both the desktop cargo build and its test-harness compile drain naturally at +0.0s (with or without an explicit rc.exe; rc.exe and mt.exe ran inside drained Jobs). No bounded drain can absorb VCTIP; it is a lingering toolchain helper, not delayed accounting.
+- Closure (2026-10-30UTC): actual f30f023/run41114369378 Windows job runs 10-tauri-package with the pinned rust-lld and LLVM clang-cl/llvm-lib, exit0 after228.0s with terminated_job false and zero active Job members; 11-package-stage, 12-package-inspect and both dumpbin 12-pe steps are also strictly successful. The job then fails on the separate KI-0141. Exact docs/evidence/m03-w07-ci-f30f023-terminal.
+- Correction: scripts/native_package_ci.py pins the exact toolchain rust-lld.exe (sibling of the real rustc.exe) and PATH-resolved clang-cl/llvm-lib from one LLVM installation; scripts/native_package_pipeline.py windows_build_tools requires those pins and sets CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_LINKER plus CC/CXX/AR_x86_64_pc_windows_msvc for the Windows package build only; scripts/native_package_retention.py retains the three new tool roles (a separate-context review found the first correction commit omitted them, which would have failed every Windows curation step). The strict zero-intervention cleanup policy, its limits and the pinned process helper are unchanged. Retained diagnostic PE observations of the rust-lld executable show x64, Windows GUI subsystem, Common-Controls v6 manifest, 0.0.1 version resource and a PDB; vswhom-sys is build-script-only and never ships. The experiments ran cargo directly, not the exact tauri build pipeline command, so a fresh hosted package run remains required.
+- Workaround: preserve strict forced/unsettled cleanup failure and all work/cleanup/output limits; do not call successful compilation a packagePASS.
+- Resolution + evidence link: historical actual failure is docs/evidence/m03-w07-ci-f3-terminal. Outside v2 SOURCEc38ee31b9d401cc9db4057b2d37bce7790d9be753e129afb64e22386f6ad5793 at /Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows-package-job-drain-preparation/v2 retains bounded natural drain only for an exited owned direct process, the original first cleanup fence through observations/handle/capture completion, and strict forced-cleanup refusal. Final37fakePASS preserves7old+20v1+10v2; host/fixture strict checks pass without native Win32 calls or broad whole-helper Win32PASS. V1/HOLD and actual failure stay immutable. Different reviewe7a25f9f… is CLEAR and root guarded v2 with the combined8paths/888joins. The separate coordinator constant now pins19bf1a…; one permanent actual sibling-loader regression gives oldpinRED/fixedPASS, with independent686951ea… CLEAR. Root343focused/2880collection/strict checks and separate poststage integrity/diff pass, with original unstaged-deletion refusal preserved and different6012actual joins CLEAR at docs/evidence/m03-package-and-authorizer-corrections. A fresh actual Windows package campaign remains required; no fake drain result proves its historical cause.
+
+### KI-0136 — Suppressed early idle cancellation discards expired timer state
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: actual hosted374 Windows Python failures,2026-10-29UTC.
+- Affects: M03-W07 portability validation and the prepared M05 generation boundary; services/orchestrator/src/orchestrator/generation/client.py.
+- Description: an adapter can suppress an idle timer's cancellation and return while a sampled clock is still before its deadline. Deadline sampling alone can then admit success. Historical Windows callback/clock values were not captured; the early-timer mechanism is independently reproduced, not attributed to unobserved historical timestamps.
+- Reproduction: original Windows test_generation_idle_deadline.py suppressed open/read cancellation cases both fail DID NOT RAISE. New deterministic real asyncio.Timeout callbacks reproduce six early open/read/EOF value/error failures before correction. Exact-final old source gives9FAIL156PASS; removing only expired admission gives the same result. Removing raw-error admission or TIMEOUT precedence over ordinary close errors each gives3FAIL162PASS with final tests unchanged.
+- Workaround: none; preserve original cancellation ownership, all limits/deadlines and existing oracles.
+- Resolution + evidence link: retain the exact open/read timeout owner; unchanged active/caller and deadline checks run first, followed by expired-state refusal. Returned streams still close, pending caller cancellation wins, and ordinary cleanup errors cannot replace a detected TIMEOUT. All136old cases remain;29new cases pass. Different1265source/data checks plus fresh165 and12admission-order controls per child CLEAR the source. Guarded canonical adoption changes only client/catalog plus one new test;2346unselected sources/runtime40 remain. Ten actual checks pass165Python0.24s/2817collection/default-platform services35+explicitWin32generation13/format/portability/integrity/diff; different4832actual joins CLEAR. Exact docs/evidence/m03-generation-idle-timeout-correction. At that focused close, new clean full and actual Windows execution were required; the earlier f3 full predates this correction. The corrected437 local full now passes all20ACTIVE/Python2817PASS488.63s with different4865joins at docs/evidence/m03-w07-full-4378627. Actual corrected-client Windows validation remains required; originalf3 Windows verification used olderclient6613 and does not cover the29new cases.
+
+### KI-0135 — GNOME shell commands follow the required terminal finish operation
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: actual clean374b6fe/treea77820bb aggregate,2026-10-29UTC.
+- Affects: M03-W07/W08/W11 guest capture harness; scripts/linux_gnome/ubuntu_gnome_guest.py.
+- Description: the new shell operation list is appended after finish, violating the unchanged existing protocol boundary test.
+- Reproduction: original full2787PASS/oneFAIL444.92s; original unchanged boundary suite independently reproduces1FAIL35PASS. The exact failing node is test_imports_do_not_load_platform_gi_or_spawn_actor.
+- Workaround: none; preserve the terminal-operation invariant and every old operation/test.
+- Resolution + evidence link: one reviewed tuple composition inserts39shell operations before finish; all52unique operations/old relative orders and every function/class/test remain. Actual ten canonical checks pass564Python/2788collection, strict37+14/portability/integrity; different419source+2451actual joins CLEAR. Exact docs/evidence/m03-gnome-terminal-order-correction. At that focused close, fresh corrected clean full/hosted/packages remained required; the original failed record is docs/evidence/m03-w07-full-374-failure. Subsequent cleanf3 all20ACTIVE/Python2788PASS and different4833joins are recorded at docs/evidence/m03-w07-full-f3a1c6f; Subsequent originalf3 three-host verification all20PASS/Python2788/2788/2786 and Ubuntu package/exportPASS are now recorded at docs/evidence/m03-w07-ci-f3-terminal; newer437 local all20PASS/2817Python488.63s and different4865joins are docs/evidence/m03-w07-full-4378627. These close the finish-last source invariant only. Actual Windows11/defaultGNOME native campaigns remain separate pending requirements; original374 failures are unchanged.
+
+### KI-0134 — General issue-ledger rules are parsed as fields of the preceding issue
+
+- Severity: LOW
+- State: FIXED
+- Discovered: actual status validation after the current documentary update,2026-10-29UTC.
+- Affects: docs/KNOWN_ISSUES.md arrangement; project-memory validation.
+- Description: general Update rules were located between actual KI-0131 and the next numeric issue. The strict unchanged issue parser correctly rejects duplicate Severity/State labels in that section.
+- Reproduction: retained current validator exit1/four field violations; the affected issue-ledger beforeimage is byte identical to a7. No old metadata PASS is transferred to this document arrangement.
+- Workaround: none; keep strict duplicate-field refusal.
+- Resolution + evidence link: move the unchanged general rules/template before the first actual issue; retain every issue and parser/test body. Subsequent actual status/metadata results are recorded in docs/TEST_EVIDENCE.md; the original refusal stays retained in the current evidence packet.
+- Exact original/current validator records and line-preservation proof: docs/evidence/m03-known-issue-ledger-layout, proof12c350b2078bf4101a8d2596f53654bfb8a8dbe45b9eb4335ec962ce8e3839a5.
+
+### KI-0133 — Raw marshal serialization differs for the same compiled code
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: actual integrated portability refusal and controlled CPython3.12.13 serialization,2026-10-29UTC.
+- Affects: M03-W07; scripts/check_portability.py exact-source Linux/Windows bytecode checks.
+- Description: reference-count/intern bookkeeping changes raw marshal output without changing the trusted compiled object. Raw byte equality can reject an otherwise exact local source cache. A first value-only parser proposal separately failed to preserve constant alias identity and was never adopted.
+- Reproduction: retained controlled same-object serialization difference, failed earlier canonical focus, and v1 independent alias counterexample/HOLD. Exact docs/evidence/m03-ci-path-and-bytecode-correction.
+- Workaround: none; do not unmarshal unknown caches, discard caches, ignore headers or erase semantic identity.
+- Resolution + evidence link: independently reviewed bounded inert occurrence graph preserves all code fields, alias topology and meaningful interning. All75 new cases and81 old isolation cases pass in the retained source phase; current canonical693focused/2704collection/strict/portability/integrity pass. Independent2573actual joins validate19cache bodies and five retained stale originals; genuine stale headers/code remain refused. Fresh corrected clean full/hosted validation is pending.
+
+### KI-0132 — Windows package inventory emits host-specific member separators
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: actual bd4 Windows canonical job,2026-10-29UTC.
+- Affects: M03-W07; scripts/windows11/windows11_inputs.py and test_windows11_inputs.py.
+- Description: str(relative_path) emits backslashes on Windows, while the unchanged canonical archive-member validator requires POSIX names. The fixture writer has the same host-specific mistake.
+- Reproduction: retained hosted Windows2620PASS2FAIL and focused old1FAIL56PASS; exact docs/evidence/m03-w07-hosted-bd4-terminal and docs/evidence/m03-ci-path-and-bytecode-correction.
+- Workaround: none; do not admit backslash archive members.
+- Resolution + evidence link: use relative_path.as_posix() only at the two member writers; preserve all14 old test bodies and strict member validation. Two additive controls cover PureWindowsPath and refusal. Source57PASS plus15 independent probes and current canonical693focused/strict/2704collection pass. Fresh corrected hosted Windows execution remains pending.
+
+### KI-0130 — Source-island fixture relocates generated bytecode
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: actual bd4 full Python execution,2026-10-29UTC.
+- Affects: M03-W07; scripts/tests/test_windows11_isolation.py and exact Python inventory.
+- Description: recursive source projection copies legitimate origin __pycache__ whose embedded co_filename differs from the temporary destination. The unchanged strict production checker deliberately refuses that relocated cache; one fixture fails while2623other cases pass.
+- Reproduction: actual bd4 full1FAIL/2623PASS414.65s, plus outside exact RED1FAIL13PASS with six retained origin caches; docs/evidence/m03-w07-full-bd4-failure and docs/evidence/m03-native-zoom-and-cache-correction.
+- Workaround: none; do not clear canonical caches, relax cache checks, remove assertions or skip cases.
+- Resolution + evidence link: fixture copy omits only __pycache__; original whole module AST otherwise identical after removing the additive import/test. Three new controls preserve valid exact-cache acceptance and relocated/payload/flags refusal. Outside17PASS and canonical216focused/2627collection/strict/portability/integrity PASS, different2738source+2576data joins CLEAR. Remains IN_PROGRESS until fresh corrected full/hosted validation; original bd4 remains failed.
+
+### KI-0131 — Native keyboard page zoom needs source enablement and actual validation
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: actual historical Mac content Cmdplus remains visually unchanged and pinned framework flag defaults false,2026-10-29UTC.
+- Affects: M03-W11 native zoom/reflow/accessibility; apps/desktop/src-tauri config/capability/resolved-ACL tests.
+- Description: current browser zoom fixtures do not establish native page zoom. The old native configuration lacks zoomHotkeysEnabled and the required macOS/Linux core permission.
+- Reproduction: exact seven-route native AX/JPEG observations and different169-join review at docs/evidence/m03-w11-macos-ax-observations; pinned SDK/source review in docs/evidence/m03-native-zoom-and-cache-correction.
+- Workaround: none; window screenshot dimensions, key counts, mock dispatch or visually unchanged captures must not be labeled200percent.
+- Resolution + evidence link: explicit native flag and one local-main built-in permission are guarded-adopted; actual resolved allow/remote/othercaller/unlisted tests pass all3native modes,342same IDs each plus separate1/10. Fresh package/actual measured200percent/reset/readable seven routes/keyboard and reader evidence remain pending. No baseline or W11 acceptance follows from mock ACL success.
+- Current resolution: held fresh a7 app now has50 original prospective-policy captures, four near2×/exact1× reset witnesses, all7routes at three scales with scroll views and keyboard refresh/Skip observations. Different1354data/590pixel checks CLEAR; selected22/40/43 endpoints agree within the original600s interval. Exact docs/evidence/m03-w11-macos-native-zoom-v6. No VoiceOver, new orphan check, foreign native scale or final baseline acceptance is inferred; those requirements remain pending.
+
+## Current W07 package validation (2026-10-29UTC)
+
+Clean2ea actual doctor28/all20 ACTIVE PASS, including2477Python, with different7020 data joins CLEAR: docs/evidence/m03-w07-clean-aggregate-2ea. Hosted40898412173 at80e68 is terminal FAILURE despite all three canonical jobs passing all20; both native-package jobs fail at later, separate stages. Exact original raw/API/source/review: docs/evidence/m03-w07-ci-80e68ac-failure. KI-0121 discovery, KI-0122 static inspection and KI-0123 SDK path policy are now FIXED at their stated scopes. New KI-0125/0126 record actual package failures and reviewed corrections; corrected native hosted execution remains pending. KI-0124 still awaits the fixed fixture's hosted run. Guarded three-file adoption and actual26selected/strict/portability/integrity PASS: docs/evidence/m03-w07-native-package-corrections. No native Windows11/default GNOME actor has run. W07 sole IN_PROGRESS/39of300 VERIFIED/M03 IN_PROGRESS/release NOT_READY.
+
+## Current W06 closeout observation (2026-10-28)
+
+Clean9872 actual doctor28/all20PASS includes2120Python and preserves every committed collection identity; KI-0119’s metadata preflight defect is closed by this full validation plus unchanged fixture/negative oracle. Original204bc full/CI failures remain failures in their exact retained packets. Historical pending statement superseded: KI-0120 and KI-0118 are now FIXED at their regression scopes by exact9872 Windows/Mac canonicalfullpasses; bothnativepackagefailures remain separate. Fresh MacGUI is now observed and independently reviewed after owner unlock; lock-related pending prose below is historical. Delegated W06 decision and limitations: docs/TEST_EVIDENCE.md § M03-W06 and docs/evidence/m03-w06-delegated-readiness. W07soleIN_PROGRESS/39of300VERIFIED/M03IN_PROGRESS/releaseNOT_READY. Foreign desktop certification and later storage/native-key activation remain pending.
+
+## Current fixture compatibility validation (2026-10-29UTC)
+
+### KI-0129 — Oversized pytest parameter ID exceeds Windows environment limit
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: actual Windows Server2025 canonical job123589894788/run40914184628 atf5a,2026-10-29UTC.
+- Affects: M03-W07 cross-platform validation; scripts/tests/test_ubuntu_gnome_signed_indexes.py and exact Python test catalog.
+- Description: pytest derives a65646-character node ID from the synthetic b"x"*65537 oversized-field input. Windows rejects its PYTEST_CURRENT_TEST environment assignment before the case body; setup and teardown each error. Python reports2474passed/two errors from2475collected. This is a fixture identifier problem, not evidence that the oversized-input parser body failed or passed.
+- Reproduction: actual raw traceback through _update_current_test_var/os.environ to32767-character ValueError and different7863/109 reviews in docs/evidence/m03-w07-ci-f5a-failure. Dependent native packages SKIPPED/zero exports.
+- Workaround: none; no skip, input reduction, parser limit relaxation or assertion removal.
+- Resolution + evidence link: explicit id="oversized-field" for only that same input; all test bodies, assertions and payload expressions AST-identical, other IDs unchanged. Old/new24collections map exactly one ID65646→124, corrected24tests/strict3checks PASS, six children reaped/groupsABSENT. Different59 joins CLEAR; fresh corrected Windows execution remains pending. The147-case Windows11 addition requires explicit catalog composition preserving all added IDs and original2POSIX metadata.
+
+### KI-0128 — Windows debug package source selects console subsystem
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: source review of the pinned native packaging path and Rust entry attribute,2026-10-29UTC.
+- Affects: M03-W07; apps/desktop/src-tauri/src/main.rs.
+- Description: native packaging invokes TauriCLI2.12.3 build--debug, but the old GUI subsystem attribute applies only without debug assertions. The unchanged inspector requires appPE GUI2 and rejects console3. This is a source-derived gap; no current hosted PE failure is claimed and future ambient runner Cargo configuration is not inventoried.
+- Reproduction: pinned CLI source, project profiles/build/env and primary Rust/Cargo references in docs/evidence/m03-native-desktop-entry. Existing meaningful PE refusal oracle remains unchanged.
+- Workaround: none; do not weaken PE inspection or conceal a terminal window after launch.
+- Resolution + evidence link: explicit Windows-only normal-build GUI selection excluding cfg(test). Different source review CLEAR, guarded exact main.rs adoption and actual five canonical checks PASS with native342same IDs each3modes plus separate1/10; all2255source/runtime40 bytes/full modes/status/HEAD/tree endpoints neutral. Actual corrected Windows PE/native launch is pending. Exact docs/evidence/m03-native-desktop-entry.
+
+### KI-0127 — Windows and Ubuntu lack an explicit native Quit entry
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: pinned Tauri2.12.4 menu installation source review,2026-10-29UTC.
+- Affects: M03-W07/W08/W10; apps/desktop/src-tauri/src/lib.rs.
+- Description: Tauri automatically installs its default menu only on macOS; the project did not install a Windows/Ubuntu native File→Quit action. Close/ExitRequested callbacks alone do not prove native Quit or its accelerator.
+- Reproduction: exact pinned framework/project references and different source review in docs/evidence/m03-native-desktop-entry. No native Windows/Ubuntu missing-control actor is invented.
+- Workaround: none; do not alias window Close to the required Quit action or use an OS Quit that bypasses the common owner.
+- Resolution + evidence link: explicit ordinary native File→Quit/Ctrl+Q item routes the existing ManagedService.request_shutdown owner. macOS retains its native default menu. No renderer authority/schema/dependency/deadline change. Different review CLEAR and guarded lib.rs adoption; combined actual five canonical checks PASS, native342same IDs each3modes plus separate1/10. Corrected real Windows11/defaultGNOME native menu, accelerator and cleanup remain pending. Exact docs/evidence/m03-native-desktop-entry.
+
+### KI-0126 — Unix package cleanup test conflates listener release with immediate address reuse
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: Ubuntu native-package job123566716778/run40898412173 at80e68ac, 2026-10-29UTC.
+- Affects: M03-W07/W08; scripts/package_validation.rs packaged service actor.
+- Description: actual packaged health/authentication and owned cleanup succeed; the next plain TcpListener bind fails AddrInUse/OS98. The original TIME_WAIT, collision or residual-owner cause is UNOBSERVED. Immediate plain-bind success measures more than whether the retired listener accepts connections.
+- Reproduction: original pipeline15 actor exit101/4.267067s, zeroPASS/oneFAIL, cleanup success221ms/bound6000ms, keeper reaped and observed group/session absent. Exact original logs/artifact/API/source and different5720 review: docs/evidence/m03-w07-ci-80e68ac-failure.
+- Workaround: none; no retry, sleep, deadline extension, socket-policy relaxation or fabricated Linux cause.
+- Resolution + evidence link: retain Windows bind/drop and all original actor health/auth/version/cleanup oracles. Unix single250ms connection must refuse specifically ConnectionRefused; successful connection/timeout/other error fails. Add a live/retired owned connected-listener control with prior reuse=false. Production socket exclusivity unchanged. Separate fresh offline compilation binds different old/fixed Mac executables; same five controls PASS each, strict checks PASS. V1 shared-target HOLD remains immutable; different v2 source/data4796 joins CLEAR. Canonical source adoption,26Python/strict/portability/integrity checks PASS. Exact docs/evidence/m03-w07-native-package-corrections. Corrected Linux inline control and real package actor await fresh hosted execution.
+
+### KI-0125 — Scrubbed Windows package builder omits PyInstaller's required home
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: Windows native-package job123566716686/run40898412173 at80e68ac, 2026-10-29UTC.
+- Affects: M03-W07; scripts/build-windows-runtime.py.
+- Description: PyInstaller6.22.3 import calls Path.home().resolve; the intentionally scrubbed eight-key environment supplies no home and fails with RuntimeError: Could not determine home directory. App build and native service actor are not reached.
+- Reproduction: exact runtime-build06-native-build stderr2573B SHA256469cfbe3050b4c3461f597efc6e7e87803513fa88c919b4aef3be2eac3b00bfb, original artifact12911338406 and different5720 failure review: docs/evidence/m03-w07-ci-80e68ac-failure.
+- Workaround: none; do not inherit user profiles, caches, tokens or broader PATH authority.
+- Resolution + evidence link: fresh owned work/build-home/AppData/Local and Roaming plus private PyInstaller cache; pass USERPROFILE/LOCALAPPDATA/APPDATA/PYINSTALLER_CONFIG_DIR explicitly. All original three IDs/eighteen assertions remain. Real Windows stdlib expansion under exact child environment fails old builder (twoPASS/oneFAIL), passes corrected three cases plus strict checks. Different34 source/data joins CLEAR; actual canonical26selected/strict/portability/integrity PASS. Exact docs/evidence/m03-w07-native-package-corrections. Corrected native Windows package execution remains pending.
+
+### KI-0124 — Rollback fixture can rerender before asynchronous driver write
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: originalhosted40803470877/Mac277browserPASS1FAIL and controlledlocalordering proof, 2026-10-29UTC.
+- Affects: M03-W07 crossplatform regression; existing FW3negativeReact browserfixture.
+- Description: pre-armed20msrerender can occur before asynchronous decision/hash preparation and extensionmessage/write. Then the blockedReactevents never commitstate but the DOMwrite persists through the unchanged125mswindow, so the fixture's FAILED assertion receivesVERIFIED without its intended postwrite rollback.
+- Reproduction: actualrealownedChromium with identical100mspreparationlatency logs click→input→change/stateempty/DOMTransient only/VERIFIED and fails the unchangedoracle. This establishes the controlledlocal defect, not the originalhosted eventorder. Oldreferencedtrace/PNG/context are absent from actualMacartifact; specificnonpersistence cause staysUNOBSERVED after27join source/datareview.
+- Workaround: none; no flaky label, retry, skip, deadline increase or assertion weakening.
+- Resolution + evidence link: firstactualinput/change armsone20msrerender; addrender2/emptyReactstateassertions. Samecontrolledcase logs input→change→click/DOMempty/FAILED and alloriginaloraclesPASS. Canonical13drivercases and3strictchecksPASS; different35source/datajoinsCLEAR. Exact raw/actualcontrolledfailuretrace/initialharnessfailures/endpoints/reviews: docs/evidence/m03-w07-browser-rollback-order. Fresh fixedcleanb28 nowactuallypassesall20/Python2141 withdifferent6801joinsCLEAR andneutral2202source/runtime40/HEAD-tree endpoints: docs/evidence/m03-w07-clean-aggregate-b28. Clean2ea expanded2477Python/all20 full now PASS with different7020 joins CLEAR (docs/evidence/m03-w07-clean-aggregate-2ea). Fixed-fixture hosted execution remains pending; state IN_PROGRESS for that scope.
+- Later validation: actual f5a browser278/2/62/17 passes on Mac,Ubuntu and Windows Server2025; different7863 terminal/109 case joins retain exact source/observations in docs/evidence/m03-w07-ci-f5a-failure. This closes the hosted rollback-fixture scope; the separate Windows Python parameter-ID failure and skipped native packages remain failures. Prior pending statements above are historical.
+
+### KI-0123 — Windows SDK f-string fragment violates the existing portability policy
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: clean07eb77b full aggregate, 2026-10-29UTC.
+- Affects: M03-W07; scripts/native_package_ci.py path construction.
+- Description: the new interpolated Windows SDK path contains a literal /bin/Hostx64/x64/dumpbin.exe fragment. The existing conservative PORT-SRC-001 policy refuses it, causing the real-repository Python oracle and standalone portability suite to fail.
+- Reproduction: exact07eb77b doctor28PASS/aggregate18PASS2FAIL, Python2140PASS1FAIL391.89s and raw CLI violation in docs/evidence/m03-w07-portable-sdk-path-correction. Different2269joins confirm the recorded failure and immutable source.
+- Workaround: none; do not relax or bypass the policy.
+- Resolution + evidence link: compose the same path from individual pathlib segments. Existing13focused cases, strict3checks and correct offline-uv CLI pass; different65source/datajoinsCLEAR. Initial wrong-isolated-interpreter CLI2/PyYAML observer error is retained separately. No checker/test/inventory changes. Corrected clean80e68ac full now actually passes all20 suites/Python2141 with unchanged source/runtime/modes/status/HEAD-tree endpoints and different2275joinsCLEAR: docs/evidence/m03-w07-closed-validation. Prior40803470877 remains FAILURE. Actual40898412173 at80e68 now passes this portability policy in all three all20 canonical jobs, including2139Windows/2141POSIX Python; different5720 joins CLEAR_AS_RECORDED_FAILURE for its separate later package failures. Exact docs/evidence/m03-w07-ci-80e68ac-failure. State FIXED at the SDK path-policy scope; no package or GUI certification follows.
+
+### KI-0121 — Installed sibling MSVC toolsets make package inspection discovery ambiguous
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: Windowsnativepackagejob123208496933/run40795147477, tested9872.
+- Affects: M03-W07; scripts/native_package_ci.py.
+- Description: absentPATHdumpbin triggers latestVS -find, which actually returns3installedversions; len==1 refuses before payloadbuild.
+- Reproduction: exactvswhere rawchoices/commands/source/API in docs/evidence/m03-w07-ci-9872aca-failure.
+- Workaround: none; no guessedfirst/highesttool or fabricatedpin.
+- Resolution + evidence link: selectMicrosoft's declareddefault via oneinstallation/default-version file, forcedUTF8, boundedheldregularread and exactdeclaration/toolhashes. New12cases and all134affectedcases/strict/integrity pass; different14source/38data reviewCLEAR. Actual80e68 Windows native-package job123566716686 passes the corrected declared-default discovery and reaches PyInstaller, then fails separately at missing home (KI-0125). All20Windows canonical suites PASS; different5720 data joins clear the recorded failure. FIXED at discovery scope, without a later dumpbin/static-inspection or native desktop pass. See docs/evidence/m03-w07-packaging-corrections and docs/evidence/m03-w07-ci-80e68ac-failure.
+
+### KI-0122 — Static Linux inspector rejects legacy three-component GLIBC versions
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: DATAONLY replay of UbuntuDeb from nativepackagejob123208496922/run40795147477.
+- Affects: M03-W07/W08; scripts/linux_package.py ELF minimum-version screen.
+- Description: actual mainELF declaresGLIBC_2.2.5; oldtwo-componentregex refuses it despite targetceiling2.39.0. Actualhostfailure is genericstaticreject; the exactcriterion is reproduced onMac using package-derived runtime, not originalstage.
+- Reproduction: unchangedDeb24bf9661/oldinspector0036afde metadata/rawreplay and3FAIL6PASS test-first result in docs/evidence/m03-w07-packaging-corrections.
+- Workaround: none; no ignoredELF/version/chain guard or newerGLIBC acceptance.
+- Resolution + evidence link: optionalnumericpatch/normalized3tuple withunchanged2.39.0ceiling; newer/malformed/unknown cases refuse. ActualLinux70affectedcases and finalcombined134/strict/integrity pass, finalsource95ad static package-derived replayPASS. This does not prove exactsymbolavailability, originalstageequality or nativeexecution. Different source/data reviews CLEAR. Actual80e68 Ubuntu job123566716778 completes runtime/app build, catalog and static inspection before its separate service-actor listener assertion fails (KI-0126). All20Ubuntu canonical suites PASS; different5720 joins clear the recorded failure. FIXED at static-inspection scope, without native GUI or overall package acceptance. Exact docs/evidence/m03-w07-ci-80e68ac-failure.
+
+### KI-0119 — Deep malformed-JSON Python fixture trips collection policy
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: clean204bc06 full verification; Python and integrity refuse before Python execution.
+- Affects: M03-W06; new runtime metadata test fixture, not production metadata behavior.
+- Description: the existing conservative verifier treats Python literal nesting beyond its bounded capability traversal as a potential dynamic collection hook. One18-level malformed-JSON fixture passes that literal through `_json`, causing the observed refusal.
+- Reproduction: exact204bc06 raw18PASS/2FAIL full and independent2097-join review in docs/evidence/m03-w06-aggregate-204bc06-failure.
+- Workaround: none; verifier/test inventory protections stay intact.
+- Resolution + evidence link: root-reviewed byte-identical66-byte wire literal preserves all2120 IDs and negative assertions. Corrected current canonical105PASS and integrityPASS; outside same105/preflight/integrity/Ruff pass. Corrected clean9872 full now actually passes all20 suites including2120Python; different2173-join reviewCLEAR at docs/evidence/m03-w06-clean-aggregate-9872aca. See docs/evidence/m03-w06-fixture-portability-corrections.
+
+### KI-0120 — Native owner fixture assumes POSIX absolute roots on Windows
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: run40790930093/Windows job123175708107 at204bc06.
+- Affects: M03-W06/W09; shared native path-owner/Quit test fixture.
+- Description: three fake `/data/app`, `/cache/app`, `/temp` roots are not absolute on Windows; all16 failed native tests stop at the same TrustedBases Invalid setup, before their lifecycle oracle. Rust default300PASS16FAIL; later modes unexecuted.
+- Reproduction: retained exact official raw lines6575–6724 and whole-log pin in docs/evidence/m03-w06-fixture-portability-corrections; separate live CI collector retains official run/source/artifacts.
+- Workaround: none; no guard/assertion/deadline is relaxed.
+- Resolution + evidence link: test-only cfg Windows roots are local absolute C-drive values; exact previous POSIX values remain. All test bodies/assertions/budgets unchanged. Outside Mac owner12/Quit15, catalog342, fmt/compile/strictClippy pass with neutral endpoints. Actual corrected Windows and complete aggregate pending. See docs/evidence/m03-w06-fixture-portability-corrections.
+
+## Current hosted unit-TS validation (2026-10-28)
+
+Current scoped resolution: exact9872 hosted canonicaljobs all20PASS; Windows2118Python/316nativeeach3 and Mac2120Python/342nativeeach3. Originalfailure stays failed. NewpackageFAILURES are separateKI-0121/0122. Evidence docs/evidence/m03-w07-ci-9872aca-failure.
+
+### KI-0118 — Hosted TypeScript tests exceed retained wall-clock budgets
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-28 during M03-W06; run40782097996/macOS job123146069723
+- Affects: M03-W06 / REQ-PLAT-013; canonical unit-ts verification harness
+- Description: immutable run head35b/treef078 records one explicit5000ms holdout-boundary test timeout and two evaluation-runner failed labels at5713/5294ms without final failure diagnostics before Turbo abort. macOS finishes19PASS/unit-tsFAIL; Windows/Ubuntu20PASS. CPU/I/O contention is a scheduling hypothesis, not an established product defect or causal finding.
+- Reproduction: retained official macOS canonical-step raw log and terminal run/job/source metadata under docs/evidence/m03-w06-unit-ts-concurrency. The original hosted result remains failed; native package matrixSKIPPED.
+- Workaround: none; no deadline, assertion, sampled domain, discovery proof or performance threshold is relaxed.
+- Resolution + evidence link: reviewed --force/--concurrency=2 command and exact bounded grammar admission preserve all existing TS inputs. Actual local15fresh tasks/4006PASS88.918566s, frozen2065source/runtime40 size/hash/mode/status endpoints and different172-check data review pass. Retained19focused Python passes and full2120-ID collection have their explicit narrower receipt scopes. Fresh corrected hosted CI and clean aggregate remain pending; this issue is not closed by the local pass. See docs/evidence/m03-w06-unit-ts-concurrency and docs/TEST_EVIDENCE.md.
+
+## Immutable35b local full verification (2026-10-28)
+
+Clean35b46287/tree f0789de7 runs doctor28PASS7.642s and all20ACTIVE suitesPASS1170.553932s: TypeScript4006/Python1860PASS391.37s/native234each3/browser262+2+62+3. All1998tracked file blobs/sizes/executablebits match immutableGit; fullpermissionmodes equal between endpoints; runtime40byte/mode endpoints equal; both outer children reaped/groupsABSENT/zero cleanup signals. Independent source/data review CLEAR; exact raw proof docs/evidence/m03-w06-local-full-35b. This validates35b only: the subsequent source-known FIFO correction and freshCI40782097996 are pending separately. Earlier failed runs remain failed and separately retained. No escaped-descendant, clean-environment, newGUI/foreignpackage/certification or milestone acceptance claim is added. W06IN_PROGRESS;38/300VERIFIED;M03IN_PROGRESS;releaseNOT_READY.
+
+## Current native macOS development package (2026-10-28)
+
+Source434/d093 plus exactly two reviewed test afterimages builds a43-file80,134,001B local ad-hoc signed arm64 debug app; moved spaces/Unicode path equals the built package and40-file29,902,565B runtime equals stage bytes/current modes. Actual native GUI Ready/keyboard refresh, service928→1009 restart, Close/relaunch/six401/Quit and app3293-only forced exit pass for observed identities/groups/listeners. Forced-parent observed closure is0.33389675s. Independent source/data review is CLEAR for this scope. Exact raw/AX/PNG/static/codesign/build/process evidence: docs/evidence/m03-w06-macos-native-package. No controlled app PATH experiment, raw LaunchServices invocation, escaped-descendant, notarization, foreign desktop or certification claim is added. Source closure predates later documentary adoption; product projection stays exact. W06 remainsIN_PROGRESS and releaseNOT_READY pending current clean full/hosted validation.
+
+## Current hosted Windows failures (resumed2026-10-28)
+
+Current scoped resolution: exact9872 hosted canonicaljobs all20PASS; Windows2118Python/316nativeeach3 and Mac2120Python/342nativeeach3. Originalfailure stays failed. NewpackageFAILURES are separateKI-0121/0122. Evidence docs/evidence/m03-w07-ci-9872aca-failure.
+
+### KI-0116 — Synthetic Windows builder test intercepts Python's host probe
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-28 while retaining terminal2026-10-19 run39213957984,Windows job117933391097
+- Affects: M03-W06 / REQ-PLAT-013; scripts/tests/test_windows_builder.py
+- Description: platform.system calls Python's Windows version probe through subprocess.check_output("ver",shell=True). The test's shared subprocess.run fake intercepts this unrelated host probe and correctly rejects shell use, before the final synthetic builder stage. Actual1857PASS/1FAIL999.33s; no production builder shell call is inferred.
+- Reproduction: exact434/d093 testedmerge38a4f211; official Windows raw failure lines8510–8594, retained API/source/log packet.
+- Workaround: none; original hosted Windows FAIL remains failed.
+- Resolution + evidence link: root-reviewed explicit synthetic platform.system Windows seam preserves all18 assertions,8command labels and3test identities. Actual local3PASS, unchanged1988source-content inventory and separate24-check data review. Fresh corrected-head nativeWindows confirmation remains pending. See docs/evidence/m03-w06-resumed-ci-corrections and docs/TEST_EVIDENCE.md.
+
+### KI-0117 — Replacement-listener test assumes immediate reuse after child reap
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-28 while retaining terminal2026-10-19 run39213957984,Windows job117933391097
+- Affects: M03-W06 / REQ-PLAT-013; api_client/tests/python_runtime.rs
+- Description: after killing/reaping the actual Python service, the all-features test's immediate same-port replacement bind returnsWSA10048/AddrInUse. Exact kernel/process cause isUNOBSERVED. Default220PASS/all-features219PASS1FAIL; the protected request/bearer assertions are unexecuted in that failing case.
+- Reproduction: exact434/d093 testedmerge38a4f211; official Windows raw lines9686–9698 and source line167.
+- Workaround: none; no forced socket reuse, different port, ignored error or production timeout change.
+- Resolution + evidence link: root-reviewed private fixture helper admits only actual same-port binding, retries onlyAddrInUse within1s and preserves final failure. Two actual-listener cases prove held-port refusal and success after actual release. Actual local six runtime casesPASS/228filtered, including original no-bearer case; all original assertions reconstruct exactly. Fresh corrected-head nativeWindows confirmation remains pending. See docs/evidence/m03-w06-resumed-ci-corrections and docs/TEST_EVIDENCE.md.
+
+### KI-0114 — Windows builder mock supplies a non-absolute system directory
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-19UTC in hosted run39207973986,Windows job117914852791
+- Affects: M03 native package tests / REQ-PLAT-013; scripts/tests/test_windows_builder.py
+- Description: mocked GetWindowsDirectoryW returns /trusted/windows. On native Windows this lacks a drive and Path(...).is_absolute() refuses before the synthetic six-stage proof. Actual Python1798PASS/1FAIL652.50s; no real native builder or application failure is inferred from this fixture.
+- Reproduction: exact660f/be68 testedmergef1a558ee; official Windows log8267–8429 and API/source bindings are retained.
+- Workaround: none used; original canonical Windows failure stays failed.
+- Resolution + evidence link: reviewed test-only tmp_path-derived absolute directory replaces three fake API/count/expected-env sites, preserving every stage, CLI argument and assertion. Actual local fixture3PASS and canonical715focus/1860collection remain separately bound. Direct native434Windows execution passes the absolute-directory guard and all seven preceding stage environment checks before the distinct platform-probe fixture failureKI-0116. This closes only the original non-absolute mock defect; no complete builder-test/native package PASS is inferred. See additionally docs/evidence/m03-w06-resumed-ci-corrections. See docs/evidence/m03-w06-shared-native-packaging and docs/TEST_EVIDENCE.md.
+
+### KI-0115 — Tauri ACL tests send a nonlocal origin on Windows
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-19UTC in hosted run39207973986,Windows job117914852791
+- Affects: M03 native diagnostics transport tests / REQ-PLAT-013; src/diagnostics/tests/tauri.rs
+- Description: six test requests hardcode tauri://localhost. Pinned Tauri2.12.4 uses http://tauri.localhost on Windows/Android; its actual local-only ACL rejects the hardcoded URL. Two default-library assertions fail: allowed-command unwrap gets ACL refusal and malformed-message assertion sees Null. Actual218PASS/2FAILof220; no production permission broadening is warranted.
+- Reproduction: exact660f/be68 testedmergef1a558ee Windows default cargo test, official log9070–9085. Later all-features/SDK/finalbuild are unexecuted.
+- Workaround: none; no ACL/CSP/command change or ignored assertion is used.
+- Resolution + evidence link: test-only local_app_origin matches the exact pinned framework's official test example; six argument adapters preserve all four tests/assertions and secondary-window/remote denial. Actual localMac Rust15commands/232cases each3/finalbuildPASS; actual434Windows default and all-features runs each pass all four unchanged Tauri ACL/command tests. This closes the exact origin defect; the separate same-port setup failureKI-0117 leaves the aggregate failed and the later custom-protocol mode/finalbuild unexecuted. See additionally docs/evidence/m03-w06-resumed-ci-corrections. See docs/evidence/m03-w06-shared-native-packaging and docs/TEST_EVIDENCE.md.
+
+### KI-0111 — Windows executable link duplicates RT_MANIFEST
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-19UTC during M03-W06 hosted run39201246849
+- Affects: M03 native build/test infrastructure / REQ-PLAT-013; Windows desktop bin-test link
+- Description: Tauri's resource.lib embeds its default manifest while the candidate also passes general /MANIFEST:EMBED and /MANIFESTINPUT. CVTRES rejects duplicate name1/language0x0409; LINK returns LNK1123 before a successful new executable launch.
+- Reproduction: immutablec4f7d9c/treeb7b7bbcf Windows job117894478955, default desktop cargo test exit101; official raw link command and diagnostic are retained.
+- Workaround: none used; originalc4f linkFAIL remains unchanged. The later660f canonical Rust suite still fails on two test-origin assertions, separately tracked by KI-0115.
+- Resolution + evidence link: FIXED for the duplicate-manifest link defect by exact660f Windows evidence: default test executables link and library220 cases actually execute; two retained PE files and mt-extracted manifests contain CommonControls6. No duplicate CVT1100/LNK1123 occurs. Static diagnostic itself claims no causal loader verdict, and later native modes/finalbuild remain unexecuted; this does not close historicalKI-0109 or certify the normal app. See docs/evidence/m03-w06-shared-native-packaging and preserved m03-w06-windows-manifest-correction.
+
+### KI-0112 — Windows typecheck exits without a captured compiler diagnostic
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-19UTC during M03-W06 hosted run39201246849
+- Affects: M03 canonical typecheck validation / REQ-PLAT-013
+- Description: pnpm exec turbo run typecheck exits1; complete captured aggregate output contains package-group discovery and telemetry but no compiler diagnostic or task footer. The source cause is UNOBSERVED.
+- Reproduction: immutablec4f7d9c/treeb7b7bbcf Windows job117894478955 typecheck block; no guessed TypeScript error, timeout or flaky classification is used.
+- Workaround: none used; originalc4f typecheckFAIL is preserved with causeUNOBSERVED, without guessed TypeScript error, timeout or flaky classification.
+- Resolution + evidence link: bounded15fixed-path existing Turbo logs now actually retain446B in successful660f Windows diagnostic; current canonical typecheckPASS. Current successful logs do not establish the olderc4f failure cause, so this historical investigation remains IN_PROGRESS. See docs/evidence/m03-w06-shared-native-packaging and preserved m03-w06-windows-manifest-correction.
+
+### KI-0113 — Windows failure diagnostic joins multiple Git executable paths
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-19UTC during M03-W06 hosted run39201246849 step26
+- Affects: M03 Windows native failure diagnostics / REQ-PLAT-013
+- Description: Get-Command returns multiple ApplicationInfo records; array-to-text coercion makes Get-Item receive one joined invalid path. Diagnostic fails before checkout/image/tool inspection.
+- Reproduction: retained step26 log and DIAGNOSTIC_INCOMPLETE/source null/images empty/tools empty artifact from exactc4f run.
+- Workaround: none; the original incompletec4f artifact/zero-image/zero-tool result remains preserved.
+- Resolution + evidence link: FIXED for joined Git-path resolution by actual660f Windows step26SUCCESS: one first-Application image resolves, checkout/tree145source records bind,14static commands exit0,4tools and2PE/CommonControls6manifests are retained, and artifact upload succeeds. The five historical PowerShell source fixtures remain unexecuted; real native resolver execution supplies the direct outcome. This is static diagnostic success, not a causal loader or full Rust/app verdict. See docs/evidence/m03-w06-shared-native-packaging.
+
+## Current package-test collection correction (2026-10-19UTC)
+
+### KI-0110 — macOS package fixture violates static collection policy
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-19UTC during M03-W06 clean e0a501b full verification
+- Affects: M03-W06 / REQ-PLAT-013; scripts/tests/test_macos_package.py and mandatory Python/integrity preflight
+- Description: a synthetic-mode fixture passes its current module namespace into monkeypatch.setattr. The unchanged fail-closed collection-policy visitor rejects this unmodeled namespace escape. The full reports18PASS/2FAIL before pytest collection/execution; affected tests passing alone did not establish canonical preflight validity.
+- Reproduction: clean e0a501b/treebbf94 pnpm verify exits1; static-policy reproduction also exits1 with dynamic pytest collection hook registration is forbidden. Original failure evidence remains unchanged.
+- Workaround: none; no verifier bypass, skip, allowlist or weakened policy is used.
+- Resolution + evidence link: explicit fixture-helper keyword avoids module-namespace mutation while preserving owned-file checks, all19 test names/args/decorators and36 assertions. Actual six-command check passes, including affected30 and mandatory1801Python/no skips plus integrity; source1951/runtime40 remain unchanged with owned groups reaped/GONE. Different source8 and actual-data12 reviews CLEAR. See docs/evidence/m03-w06-collection-correction and docs/TEST_EVIDENCE.md. A new clean all20 and W06 GUI/package acceptance remain pending separately.
+
+## Current Windows native validation finding (2026-10-19UTC)
+
+### KI-0109 — Desktop unit-test executable fails before startup on Windows
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-19UTC in hosted run39194489970,Windows job117874182536
+- Affects: M03 native test/build infrastructure / REQ-PLAT-013; Windows desktop library test executable
+- Description: default cargo test links then exits0xc0000139 STATUS_ENTRYPOINT_NOT_FOUND before any library test summary. Windows aggregate is19PASS/RustFAIL; later all-features/SDK test modes and final desktop build are unexecuted. Three strict Clippy commands cover three workspaces, only one desktop. No failed-PE import, actual missing DLL/export or production-app failure is observed.
+- Reproduction: immutable2a327/tree4ce9, actual PRmerge bdeb5ddae0ade030b5d0be2aa95dd3a8288fc03b; `cargo test --locked --manifest-path apps/desktop/src-tauri/Cargo.toml` launches japp_desktop-d259cde1f90c873d.exe and returns3221225785. Official logs ZIP72304ac2157ecb71b9a2192dab7ce9e228786d1b06a70867861ccb26f21d0e42 and exact raw lines are retained. The downloadable artifact has10visualPNGs, no native PE/DLL/trace.
+- Workaround: none used; canonical failure remains failed, Windows step26SKIPPED. Mac/local results grant no Windows startup PASS.
+- Resolution + evidence link: target-scoped Common Controls v6 manifest candidate and bounded failure-only diagnostics are now integrated with separate source reviews and actual Mac affected checks (544Python/183native each3). Actual Windows PE/resource/unchanged native tests are next; cause/fix and normal-app resource merging remain unvalidated. Canonical failure handling is unchanged. See docs/evidence/m03-w06-windows-loader-correction, docs/evidence/m03-w04-hosted-ci and docs/TEST_EVIDENCE.md; current work continues in W06.
+
+## Current browser validation regression (2026-10-19UTC)
+
+### KI-0108 — Windows owned browser-context and profile cleanup fails; failure artifact unavailable
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-19UTC in required hosted run39188122249, Windows job117854768223
+- Affects: M03 verification infrastructure / REQ-PLAT-013; e2e/extension/support/extension-test.ts
+- Description: the observed-boundary research case reports1.7s and fails during fixture teardown, which reports EXTENSION_CONTEXT_CLEANUP_FAILED: browserContext.close returns Target page, context or browser has been closed, and recursive owned-profile removal returns EPERM despite the existing10 retries/100ms delay. The default browser suite reports255PASS/1FAIL;19 other suites pass, including all required native modes. No timeout or flaky classification is inferred.
+- Reproduction: exact6d3 source, actual PR merge0d3/tree34, official complete logs.zip SHA25617c2114afd39c71c15686e3a966f7f001775e2216cefdf2f35caba7782e1aa7d; Windows research spec:585. The upload step reports no files and the official artifact API returns total_count0; printed trace/error-context paths do not supply retained artifact bytes.
+- Workaround: none used; Windows aggregate remains FAIL and its separate tracked-change stepSKIPPED. W03 package-scoped verification is separately justified by its actual required behavior/source evidence, while this repository regression and global CI requirements remain open.
+- Resolution + evidence link: repair owned lifecycle/profile cleanup and preserve failure outputs across later suites, retaining every original assertion, strict failure policy and bounded budgets. Revalidate before closing. See docs/evidence/m03-w03-closeout/ci-6d3-terminal.tar.gz and terminal-ci-independent-review.
+
+- Implemented correction (2026-10-19UTC): captured owned-Browser retirement and awaited async profile removal retain all Context.close errors and original budgets; sibling output roots preserve actual failed trace bytes. Actual10-case RED/44GREEN,355 Python checks, one local WD replay and real retained failure trace pass separate review465e8e22. Root strict typecheck initially fails on one local test annotation; the exact annotation fix and complete PASS are retained. Canonical full and actual native Windows validation remain pending; no prior failed job is relabeled. See docs/evidence/m03-w04-browser-cleanup.
+
+- Closure (2026-10-19UTC): actual source-bound run39194489970 browser262+2+62+3 passes on Windows, Ubuntu and macOS; current local W05 all20 also passes, with preserved source/counterproof and separate CI documentary74/74 review. This closes the cleanup/failure-artifact correction scope, while the new Windows Rust loader failure is KI-0109. Old255PASS/1FAIL and missing trace remain unchanged. See docs/evidence/m03-w04-hosted-ci and docs/evidence/m03-w05-closeout.
+
+## M03-W03 validation findings (2026-10-18)
+
+### KI-0107 — Windows deny-warnings compilation exposes unused backend scaffolding
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-19UTC while inspecting terminal hosted run39164520190
+- Affects: M03-W03; strict Windows desktop Rust compilation
+- Description: actual Windows1648 Python tests pass, but strict Clippy rejects currently unused Bootstrap/ReadyFrame imports, bounded stream helpers and the common CleanupPending variant without a Windows production constructor. macOS and Ubuntu complete successfully.
+- Reproduction: official logs.zip SHA256bf47756e7f9027a6ad7e77278c53cc5f1221261b6d8fcdcded194035e18c4a07, full Windows Rust output. Actual PR merge checkout ab2d8a5 has the exact cac56/tree7d7afc0 source content.
+- Workaround: none used; the Windows job remains failed.
+- Resolution + evidence link: independently reviewed four-file compiler-scope patch b7d49f4b preserves every runtime method body, common typed contract, strict warning policy and all77 tests/assertions. Ten isolated Mac commands and53 independent source checks pass. Fresh root/full/native and actual Windows confirmation remain required. W07 integration must restore actual Windows stream consumers and remove the variant-only expectation. See docs/TEST_EVIDENCE.md and docs/evidence/m03-w03-lifecycle/windows-clippy-manifest.json.
+
+- Closure (2026-10-19UTC): current6d3 clean canonical full validation and independently audited actual three-host native modes/strict compilation pass; exact local/native historical applicability and scoped limits are retained in docs/evidence/m03-w03-closeout. This does not relabel the unrelated Windows browser failure as PASS.
+
+### KI-0106 — Windows post-exit refusal observation used a 0.2-second budget
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-18 during hosted validation of M03-W02
+- Affects: M03-W02 / M03-W03; service lifecycle test observation
+- Description: Windows CI completed READY, authenticated canonical responses, parent EOF and service exit0, then timed out in the single post-exit socket probe. The observed failure was at the refusal check, not startup or shutdown.
+- Reproduction: GitHub Actions run39158999648, Windows verify log, test_service_cli.py line167; actual1624PASS/1FAIL. Raw official logs are retained separately.
+- Workaround: none used; this CI run remains failed.
+- Resolution + evidence link: proposed Windows-only3s refusal observation keeps the same required ConnectionRefusedError, single attempt, timeout failure,3s HTTP and8s exit bounds. Eight modeled tests exercise refusal, timeout, other errors and accepted-connection cleanup. Independent review and actual new Windows CI remain required; docs/TEST_EVIDENCE.md § M03-W03 validation corrections.
+
+- Closure (2026-10-19UTC): current6d3 clean canonical full validation and independently audited actual three-host native modes/strict compilation pass; exact local/native historical applicability and scoped limits are retained in docs/evidence/m03-w03-closeout. This does not relabel the unrelated Windows browser failure as PASS.
+
+### KI-0105 — Runtime builder contained a platform-specific PATH literal
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-18 during M03-W03 clean full validation
+- Affects: M03-W03; runtime builder portability policy
+- Description: the unchanged PORT-SRC-001 checker rejects the builder's literal system PATH. Both failing suites in the complete run report this same defect.
+- Reproduction: commit4244afb full validation exits1 with18/20 suites PASS and1631PythonPASS/1FAIL; portability also fails. Failed results remain retained.
+- Workaround: none used; policy and allowlist remain unchanged.
+- Resolution + evidence link: use validated absolute system defaults from os.defpath/os.pathsep while rejecting empty, relative and current-directory entries before any build command. Fifteen builder tests, unchanged policy check, strict statics, exact1642 inventory and a fresh six-stage real runtime build pass. Independent source/integration review clears the correction; fresh complete validation remains required; docs/TEST_EVIDENCE.md § M03-W03 validation corrections.
+
+- Closure (2026-10-19UTC): current6d3 clean canonical full validation and independently audited actual three-host native modes/strict compilation pass; exact local/native historical applicability and scoped limits are retained in docs/evidence/m03-w03-closeout. This does not relabel the unrelated Windows browser failure as PASS.
+
+### KI-0104 — Packaged runtime selection used an application feature alias
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-18 during M03-W03 actual packaged app observation
+- Affects: M03-W03; compile-bound runtime selection
+- Description: the CLI enables tauri/custom-protocol directly; the application's custom-protocol alias can remain false. The packaged debug app therefore selected the development-stage executable despite having a bound bundled runtime.
+- Reproduction: actual4244afb app launch reports the service executable under root runtime-payload instead of bundled Resources/runtime. The observer baseline fails; this is not a passing Close case. Root GUI Quit cleans the exact observed app/service/group/listener.
+- Workaround: none used; the failed actor remains preserved.
+- Resolution + evidence link: choose mode through SDK tauri::is_dev(), preserving manifest/hash/absolute-path/no-fallback guards. Two new shipping-selector tests reproduce the direct-dependency feature mode;77 tests in each of three mandatory modes and strict Clippy/fmt pass. Windows-native fixture paths preserve production guards. Independent review clears source integration; fresh actual bundled lifecycle and full validation remain required; docs/TEST_EVIDENCE.md § M03-W03 validation corrections.
+
+- Closure (2026-10-19UTC): current6d3 clean canonical full validation and independently audited actual three-host native modes/strict compilation pass; exact local/native historical applicability and scoped limits are retained in docs/evidence/m03-w03-closeout. This does not relabel the unrelated Windows browser failure as PASS.
+
+## M03-W02 corrected verification fixtures (2026-10-18)
+
+### KI-0103 — Status mutation fixtures inherited obsolete progress
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-18 during M03-W02 full verification
+- Affects: M03-W02; Python verification and copied status fixtures
+- Description: one runner test replaced W02 NOT_STARTED after W02 became IN_PROGRESS, leaving the supposedly invalid status unchanged. A related negative test inherited an inconsistent current-package header before its invalid-enum mutation.
+- Reproduction: frozen28ba full verification is source-neutral but FAIL with1626Python PASS/1FAIL; two added premise checks independently reproduce the obsolete literal and invalid baseline.
+- Workaround: none used; the failed complete run is preserved and does not verify W02.
+- Resolution + evidence link: use the stable historical M00-W01 VERIFIED row with exact occurrence/change assertions for the runner mutation; establish a coherent copied W01 boundary and require baseline validator PASS before the unchanged invalid-enum mutation. All original test identities and assertions remain. Affected tests and the complete integrity module pass; fresh complete validation remains required. See docs/TEST_EVIDENCE.md § M03-W02 and docs/evidence/m03-w02-service/failed-verification-28ba-manifest.json.
+
+## M03-W02 corrected dependency privacy default (2026-10-18)
+
+### KI-0102 — Framework telemetry defaults could observe sensitive synthetic input
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-18 during outside M03-W02 dependency/API review
+- Affects: M03-W02; local service privacy boundary
+- Description: FastAPI0.146.0 core telemetry defaults could acquire ambient providers and observe exception/validation input. The insecure proposal was never accepted or used with real user data.
+- Reproduction: retained configuration RED observes an enabled switch before any sensitive capture assertion; later hostile-provider factory regression exercises actual construction, requests, validation and exception paths.
+- Workaround: none used; no provider/SDK/exporter success is inferred.
+- Resolution + evidence link: all five switches (tracing, metrics, logs, operation_spans, auto_configure) explicitly false; focused/socket/wheel/clean full tests and independent review PASS; docs/TEST_EVIDENCE.md § M03-W02 and docs/evidence/m03-w02-service.
+
+## M03-W01 corrected native boundary (2026-10-18)
+
+### KI-0101 — Debug-packaged shell accepted the development origin
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-18 during M03-W01 independent review (SHELL-001)
+- Affects: M03-W01; native shell navigation policy
+- Description: cfg!(debug_assertions) treated a debug-packaged custom-protocol app as development and permitted http://127.0.0.1:1420.
+- Reproduction: actual custom-protocol test calling the shipping callback failed before the fix; original RED is retained.
+- Workaround: none used.
+- Resolution + evidence link: shipping callback uses tauri::is_dev(); six tests in each protocol mode pass, independent review closed SHELL-001 and the final rebuilt GUI actually denied development-origin navigation. Clean source-bound full20-suite validation passes; docs/TEST_EVIDENCE.md § M03-W01 and docs/evidence/m03-w01-shell.
+
+## M02-W14 current development findings (2026-10-16)
+
+These entries supersede the older W13 sections' then-current readiness/gate posture without rewriting historical evidence. W14 is VERIFIED, Gate A IN_PROGRESS, W15 READY and release NOT_READY. ADR-0006 waives owner-controlled holdout; accepted ADR-0007 additionally waives direct Simplify comparison and executed public-form evidence. Neither waiver supplies execution or PASS. Scoped legacy baselines, all nonwaived measurement and independent review remain required. Spec §5.9 permits an isolated relevant legacy behavior baseline on the same fixtures; a full legacy scheduler/database deployment is not an added requirement.
+
+### KI-0077 — Corrected full-settlement campaign exceeds the target timing threshold
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14
+- Affects: M02-W14; generic scan/fill Gate A performance; real-MV3 full-settlement evaluation
+- Description: the corrected 200-case campaign reports p95 1799.8664160000044 ms; the subsequent sequential batched campaign reports 2087.8410830000066 ms and fails its explicit <=1500 ms assertion. Earlier 1338.2853750000068 ms belongs to a different source with 60 refused cases and deficient precision/recall, so it cannot establish a passing corrected candidate. Timings cover one execution per different W12 page with 75 ms settlement and 20 ms rerender, excluding setup/reporting; repeated 128-control proof remains separate.
+- Reproduction: run the exact batched command in docs/TEST_EVIDENCE.md § M02-W14, retaining source/build/configuration commitments and all physical counters. The fourth trace-disabled run completed and also failed at 2009.8366249999963 ms; no passing current timing is assumed.
+- Workaround: none accepted. Do not round down, omit settlement, reuse earlier source timings or drop difficult cases.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Historical full-settlement misses remain retained. The a744ff2 contact cohort passes p95 874.831582999992ms, but its separate native128 target 20 fails1535.096375000001ms. The pure SHA byte-preserving optimization is now integrated; root target 20 passes 1432.5265840000002ms with unchanged waits/thresholds and exact128/512/768 action-resolution-descriptor counts. Frozen combined-source validation is pending; no final gate result is inherited from an earlier source. See docs/evidence/m02-w14-a744ff2-aggregate and m02-w14-integrated-preflight.
+
+### KI-0078 — Localized address evidence needs exact recognition and other-party guards
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 full visible matrix evaluation
+- Affects: M02-W14; packages/form-engine evidence normalization, ontology and field classifier
+- Description: frozen W12 address labels including Street/Strasse/Adresse/Postleitzahl/Code postal were not all recognized; adding aliases also required subtype and employer/recruiter-context negatives so applicant address facts could not populate other-party fields.
+- Reproduction: retained locale before log reports 9 failures/2 passes; the later section-negative checkpoint reports 2 failures/14 passes. Permanent tests cover sharp-S normalization, unrelated spelling, subtype/substring rejection and other-party label/section conflicts.
+- Workaround: unresolved/abstained results must remain visible; never change frozen expected answers to match candidate behavior.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: local corrections are present; the inspected final form-engine log reports 93/93 tests across 8 files. Corrected/batched campaigns record ordinary precision 1485/1485 and required ordinary recall 1275/1275 on the declared contact cohort. Final W14 frozen/canonical verification remains pending, so this draft does not mark the issue FIXED. See docs/TEST_EVIDENCE.md § M02-W14 and docs/evidence/m02-w14-validation.
+
+Current scope limits: the preservation model is supplemental and does not rewrite W13 canonical abstention metrics. Rendered upload/repeater/radio controls do not count as exercised drivers. Thirty public sources are structurally inspected, but public fill cases/scored controls are zero. Actual shared legacy component capture is not full-product comparison; frozen registry statuses remain historical. Simplify requires the normal owner-prepared authenticated synthetic comparison route; installed extension/session state is unknown after the browser-policy rejection. Independent W15 decision is pending.
+
+### KI-0079 — Changed ownership description can retain a stale fill approval
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 independent adversarial review
+- Affects: M02-W14; scanner description evidence, W09 approval binding, W10 action preflight and W11 reconciliation
+- Description: an approved First name control can retain its durable address when its referenced description changes from Your contact to Employer. Fresh W09 classification rejects the new ownership context, but executing the earlier approval can still write the applicant value. The defect is reproduced in both the document and an open shadow root.
+- Reproduction: the two description-only ownership mutation probes retain the old W09 approval, change only the referenced description text, establish that the new W09 decision does not permit filling, then execute the old approval and measure physical events and the final value. Both before-fix executions wrote the value. Raw failure records are being retained with the shadow implementation evidence.
+- Workaround: do not integrate or claim the shadow candidate safe while this stale approval remains executable.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Bounded ownership, settled undo and final publication guards are integrated. The retained96 and29 probes, expanded72 MV3 cases and twelve unchanged native-observed independent probes pass against their cited source inventories. The integrated aggregate retained223 browser passes and five shadow-status assertion mismatches; their corrected stronger assertions pass 35/35, and fresh frozen validation is pending. Earlier stale-approval and undo failures remain preserved under docs/evidence/m02-w14-shadow-guards, m02-w14-selected-semantics and m02-w14-independent-review.
+
+### KI-0080 — Event-only action meter cannot exclude eventless writes and restoration
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 independent scoring review
+- Affects: M02-W14; physical-action observation and supplemental initial-value preservation evidence
+- Description: the inherited W13 page meter observes input/change events rather than native setter calls. An eventless write followed by an eventless restore can leave both the event list and final value unchanged. The preservation scorer correctly evaluates its supplied audit, but that meter alone cannot substantiate exhaustive zero-write claims. No eventless production violation has been observed.
+- Reproduction: inspect the event listeners in e2e/extension/support/autofill-benchmark.ts and the zero-action/unchanged-value preservation predicate. An independent real-MV3 setter-to-restore regression is being added before claiming that this observation gap is closed.
+- Workaround: treat historical action counts as event witnesses; do not infer absence of unobserved native property writes from the absence of events.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: The independent W14 native observer is integrated and records supported setters/activations in the actual extension realm, separately from site events/rerenders. Four real-MV3 observation probes and a744ff2 full200-case1485 raw/audited actions pass with zero orphans and all declared installed surfaces. Retained references, other realms and uninstalled surfaces remain explicit limits; W13 historical event metrics remain unchanged. Frozen combined-source validation is pending. See docs/evidence/m02-w14-a744ff2-aggregate.
+
+### KI-0081 — Changed selected-option semantics retain stale authority
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 fresh independent worktree review
+- Affects: M02-W14; native-select, radio and ARIA option approval, settlement and W11 retained verification
+- Description: an approved Country option can retain its raw value while its label changes to a placeholder or Canada. Fresh W09 policy refuses the changed semantics, but the earlier transaction can still select it and publish VERIFIED/READY; an earlier verified selection can also remain READY after relabelling. The existing unrelated-option preservation fallback discards the whole option fingerprint without retaining the selected option's semantic binding.
+- Reproduction: the independent native-six campaign uses both literal US and opaque 17 values. Before-write relabelling produces one native SELECT_VALUE write and VERIFIED despite fresh NO_SEMANTIC_MATCH; after-verification relabelling preserves READY. The unchanged selected option with an appended Mexico option remains a required positive regression. Original setup failures and corrected native proofs are retained separately under /tmp/japp-w14-independent-probes pending archival.
+- Workaround: no Gate A claim or current-source freeze while stale option authority remains. Do not fix this by rejecting all unrelated option-window changes.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Selected value/label/disabled binding is integrated across native selects, radios and ARIA widgets, with bounded original option snapshots and synchronous publication witnesses. All72 focused MV3 cases and twelve unchanged independent probes pass; unrelated Mexico append and virtualized-list positives remain supported, stale semantics perform zero writes. Before/after failures and exact source commitments are archived under docs/evidence/m02-w14-selected-semantics and m02-w14-independent-review. Combined-source focused checks pass; frozen aggregate is pending.
+
+### KI-0082 — Public report snapshot accounting omits inserted controls
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 fresh independent scoring review
+- Affects: M02-W14; network-closed public DOM evaluation report and precision eligibility
+- Description: changes are currently computed by iterating only the before snapshot. A final-only control disappears from identity/change coverage, permitting apparently complete value metrics despite unmatched final topology. This is a reproducible report defect; no saved live public row or production sensitive fill is claimed.
+- Reproduction: replay the exact accounting logic with an initially empty First name control and final First name=Synthetic plus a newly inserted Social Security Number=Synthetic. It reports precision 1, unexpected nonpositive changes 0 and unmeasurable controls 0 while the snapshot lengths are 1 and 2.
+- Workaround: treat unmatched/new/missing/duplicate snapshot identities as unmeasurable. A new control's unknown initial value cannot establish that the extension wrote it.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Union accounting and explicit topology/precision eligibility are integrated. Final-only, missing, duplicate and unmatched controls remain unmeasurable, complete precision is null, and matched-subset metrics stay separately scoped. All61 a744ff2 controlled proofs pass, including the six new pure union regressions; no actual public contact run is inferred. Frozen controlled verification is pending.
+
+### KI-0083 — Native property drift escapes final verification publication
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 fresh independent worktree review
+- Affects: M02-W14; execute/undo final verification and W11 current-value observation
+- Description: MutationObserver evidence revisions do not observe ordinary value-property assignments. A site can change input.value while the final result metadata hash is awaited, leaving the semantic index current while the result publishes an earlier VERIFIED value.
+- Reproduction: actual native-observed EXECUTE and UNDO probes pause the final idempotency hash, assign Changed by site without dispatching events, confirm MutationObserver.takeRecords().length is zero, then release. Both report VERIFIED despite the changed current value. Extension native mutations remain one for execute and two total for execute plus undo; the site assignment is outside that extension-realm witness scope.
+- Workaround: no final source verification claim from an index/DOM-revision fence alone. Do not add another asynchronous hash followed by the same unchecked gap.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Bounded synchronous native-property witnesses are integrated on execute, undo and W11 after the last awaited metadata operation. The original actual eventless EXECUTE/UNDO races and new W11 property race now refuse stale verification while preserving unchanged positives. All twelve original independent probes pass at the recorded source binding. Combined-source aggregate is running; see docs/evidence/m02-w14-independent-review.
+
+### KI-0084 — Additive gate semantics changed a frozen evaluator preimage
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 integrated aggregate at a744ff2
+- Affects: M02-W14; contract generation, W06 source preservation and compatibility
+- Description: the v2 waiver integration added 7920 bytes to the semantic evaluator source frozen in the W06 manifest. The other 102 source artifacts and all expected answers remain exact, but corpus validation correctly refuses the changed evaluator preimage. Original Python V1 catalog checks also require the original 1.1/110 layer.
+- Reproduction: the full aggregate at a744ff2 fails the ATS source-byte assertion (331227 versus 323307 bytes) and corpus:check with CORPUS_DRIFT. The frozen generator digest is d69b85650c220435e06a69186f099e89aa857834354394e47f86966fa821bc02.
+- Workaround: preserve frozen manifests and tests; never rebaseline expected source bytes to the changed implementation.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: The exact reviewed24-file versioned repair is integrated. All103 frozen W06 artifacts are restored byte-for-byte, original V1 semantics remain1.1/110, and explicit V2 modules retain reviewed1.2/114 semantics with strict inherited provenance. All81 schemas, original511/new79 cases and both baselines remain unchanged. Outside sealed2524 contracts/173 generated Python/10 Rust pass; root3859-unit and frozen-corpus stages pass. Remaining combined aggregate is running. See docs/evidence/m02-w14-versioned-semantics.
+
+### KI-0085 — Field identity collisions are misreported as root ambiguity
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 integrated browser regression
+- Affects: M02-W14; W11 reconciliation inventory and unresolved required reporting
+- Description: an intentional duplicate control shares a durable field ID with its peer while the application root remains uniquely FOUND. The action correctly refuses, but reconciliation reports ROOT_AMBIGUOUS instead of retaining both physical controls as unresolved observation evidence.
+- Reproduction: the existing research ambiguity case at a744ff2 expects RECONCILED and receives ROOT_AMBIGUOUS; the trace retains root_status FOUND and two required controls with field_45D1MFTFZHA73GSAHCKK2E99QQ. No prohibited write occurs.
+- Workaround: never remove the collision refusal while allowing the field-ID map to overwrite one control.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Observation-only physical collision entries are integrated, with distinct report item IDs, required unresolved uncertainty and canonical RECONCILED/NOT_READY. No DOM occurrence/report ID grants action authority. The strengthened original P8 actual regression and classifier units pass, retaining every collision member and recovery after removal of one duplicate. All35 affected shadow/P8 cases pass after replacing only contradictory new field/root-status expectations with two unresolved items, unique report IDs, zero verified credit and NOT_READY. Original no-write assertions and P8 are unchanged; frozen aggregate is pending. See docs/evidence/m02-w14-functional-corrections.
+
+### KI-0086 — Mounted confirmation approval becomes stale after cross-field validation
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 mounted W06 regression
+- Affects: M02-W14; fresh W08/W09 approval and composite validation clearing in W10/W11/undo
+- Description: filling primary email in MAL-VAL-001 changes the confirmation control's description. The mounted helper reuses its initial descriptor, so the ownership guard correctly refuses the stale approval and verifies 42 of the expected 43 contact fields. A fresh approval must also prove that only the observed validation error clears while stable help remains unchanged.
+- Reproduction: the a744ff2 W06 attachment records val-email-confirm empty with zero physical actions, its description/address digest changed by Confirm the email address, and the unchanged 43-field assertion fails on 42.
+- Workaround: do not relax description authority or lower the expected count. Do not treat arbitrary description shrinkage as validation clearing.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: The existing bounded W08 re-resolution endpoint supplies fresh same-frame/document/field evidence before each W09 decision. Exact component-level clearing permits only observed rejected error text to become empty, retaining stable help/ownership/references through W11 and undo. Outside actual W06 passes 32 cases and43/43 controls with unchanged source/build; P8 and six composite cases pass. All35 affected shadow/P8 cases pass after replacing only contradictory new field/root-status expectations with two unresolved items, unique report IDs, zero verified credit and NOT_READY. Original no-write assertions and P8 are unchanged; frozen aggregate is pending. See docs/evidence/m02-w14-functional-corrections.
+
+### KI-0087 — Healthy doctor fixture omits active W14 public artifacts
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 integrated Python validation
+- Affects: M02-W14; scripts/tests/test_doctor.py healthy Windows simulation
+- Description: the healthy fixture copies the current M02-W14 status and suite registry but omits the two new required public suites' discovery artifacts. The doctor correctly reports REQUIRED_MISSING, contradicting the fixture's healthy premise.
+- Reproduction: integrated Python collects1454 and reports1452 passes/two failures. The Windows simulation reports missing public-inspection/public-contact paths. The other neutrality failure came from root edits during validation and is retained separately.
+- Workaround: preserve the required-suite checks and all original assertions; never mark the suites not applicable to make a healthy fixture pass.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: copy the four actual committed discovery artifacts into the simulated repo. All50 doctor tests pass, including the unchanged healthy-Windows and tracked-file neutrality assertions; Ruff lint/format pass. Full frozen validation remains pending. Exact logs are retained under docs/evidence/m02-w14-integrated-checkpoint.
+
+### KI-0088 — Public observation chooses a different label channel from the frozen capture
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 actual public evaluation
+- Affects: M02-W14; independent literal-control observation and startup readiness
+- Description: Greenhouse's visible First Name*/Last Name*/Email*/Phone* labels still match the frozen oracle, but the observer prefers ARIA labels without the required marker and falsely reports oracle drift. Closure also may be attempted during ordinary startup traffic.
+- Reproduction: retained read-only label-channel diagnostic reads no values and confirms the associated labels exactly, separately from ARIA. A read-only Lever diagnostic naturally drains pending requests to0 around2s and the unchanged closure guard succeeds.
+- Workaround: never strip markers, change the oracle, bypass protected boundaries or weaken transport closure to obtain a score.
+- Resolution + evidence link: associated literal label text is observed first and every alternative channel is retained separately. A bounded read-only5000ms/50ms/max100-poll startup observation precedes the same strict closure check; it grants no action authority. A new controlled regression verifies the literal required marker while conflicting employer ownership still refuses. The held-request test retains refusal/no-write assertions and verifies natural completion separately. All62 mandatory controlled proofs (all61 retained plus one new case),19 verifier guards, static checks and unchanged1454-node Python preflight pass. The actual30-source rerun has17 transport refusals,7 form/protected refusals and6 interference rows,0 action requests and no scored public accuracy. Evidence: docs/evidence/m02-w14-public-observation-correction.
+
+### KI-0089 — External public-form and direct Simplify evidence prerequisites waived by owner
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 final evidence reconciliation
+- Affects: M02-W14; M02-W15; M02 acceptance and Autofill Feasibility Gate
+- Description: accepted OD-036 / ADR-0007 removes only the direct Simplify comparison and executed public-form evidence prerequisites behind this finding. Actual cases remain0 and their assessment is WAIVED_BY_OWNER_ADR_0007, never PASS. W14 now has reviewed scoped package evidence and successful clean-clone full verification at commit6384d98156ae198cd93d7b35d1bb28b501ed475e/treed2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4. Formal eligible W15/source-bound owner Gate A decision remains required as the next planned package and is not claimed complete.
+- Reproduction: inspect the exact accepted ADR/source-aware machine authority, paired ledger/report waiver fields, retained W14 candidate index/manual synthetic checklist and the clean-clone closeout proof. Historical attempts, zero counts, old limitations and findings remain retained below.
+- Workaround: the owner-authorized waiver is the resolution for only those two external prerequisites. It removes no controlled/absolute numeric, physical-safety, other-baseline, native, usability/accessibility/visual, independent-review or owner-decision requirement.
+- Resolution + evidence link: FIXED at the waived external scope and completed W14 package closeout, documented in docs/TEST_EVIDENCE.md § M02-W14 and docs/evidence/m02-w14-candidate-handoff. Formal W15 audit is READY and Gate A remains IN_PROGRESS; no owner gate verdict or M02 acceptance is inferred. The earlier pending-W15 work is retained as package work rather than a circular HIGH blocker preventing its own readiness.
+- Historical finding before the 2026-10-17 waiver:
+
+- Description: the latest declared public campaign records all 30 pages but scores none: 17 strict network-closure refusals, 7 form/protected-surface refusals and 6 interference outcomes. The normal-user Simplify comparison has zero cases. Final independent W15 review and the source-bound gate decision have not occurred. Passing local tests cannot supply these missing observations.
+- Reproduction: inspect the latest actual clean0dd88ce campaign binding, action journal and assessment in docs/evidence/m02-w14-public-0dd88ce; the earlier8ae96f0 records remain unchanged in docs/evidence/m02-w14-public-observation-correction, the Simplify readiness record, and the Gate A review/decision sections. All owned evaluation browsers were closed normally. Review agents initially returned the account usage-limit error; capacity subsequently resumed and fresh supplemental reports are retained. Neither condition constitutes the formal W15 verdict.
+- Workaround: none accepted. Preserve CAPTCHA, authentication, legal-consent, dialog and transport boundaries. The owner-controlled holdout is already waived by ADR-0006 and is not part of this blocker. The pending request identifies the normal signed-in synthetic Simplify session without requesting credentials.
+- Resolution + evidence link: OPEN. Suitable normal-user public evaluation conditions, an authenticated synthetic Simplify session and final independent W15 review/decision are required. Supplemental reviewers confirmed KI-0091; its complete corrected root regression and new source-bound legacy comparison now pass. They separately validate the latest public evidence but grant no formal W15/Gate A decision. See docs/gates/AUTOFILL_FEASIBILITY_GATE.md and docs/TEST_EVIDENCE.md § M02-W14. No downstream readiness or final PASS is granted.
+
+### KI-0090 — Windows negative compiler probe times out behind a Rust proxy
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 from the cancelled b8b1423 Windows CI job log
+- Affects: M02-W14; three-OS repository verification; contract infrastructure tests
+- Description: the noncompiling Rust fixture invokes the rustup proxy from a temporary working directory. The Windows job records a 30-second probe and EPERM during mandatory directory cleanup; 2,523 of 2,524 contract tests passed. The run was subsequently cancelled by the newer push, so this is an observed individual test failure, not a completed aggregate result. The installed/default toolchain is already the correct 1.97.1; a version mismatch is not established. A proxy/compiler lifetime issue is the working diagnosis.
+- Reproduction: job 117159565827 in run 38955928003, infrastructure.test.ts negative Rust compiler case. Raw cancelled-job stdout is retained under docs/evidence/m02-w14-windows-compiler. Linux/macOS passed that checkpoint and do not prove this Windows case.
+- Workaround: no skipped assertion, longer timeout, swallowed cleanup error or speculative green result. Retain the original failure.
+- Resolution + evidence link: correction resolves the pinned compiler with bounded rustup which rustc inside the repository and invokes the returned absolute compiler directly. The same executable and temporary output directory must first compile valid source; invalid source must still produce ADAPTER_EXIT_NONZERO. The original 30-second negative bound, 45-second case bound and mandatory bounded cleanup remain unchanged. All eight focused and all 2,524 contract cases pass locally, along with typecheck/static checks, 201 ledger cases and the two unchanged boundary probes. Native Windows job117181432489 now passes both exact infrastructure8 runs (2419ms/2609ms) and all2524 contracts on tested PR mergecb58e4a85d51fe47cf4c77dd232cb867af9f652c, whose tree616f54ca25ac97db7de6ac6eea204a140610364c equalsd99c592. This confirms the direct-compiler correction locally and natively. The surrounding Windows aggregate fails only five unrelated waiver-fixture encoding tests (KI-0093), so no complete three-OS PASS is claimed. Terminal logs and source/tree records are retained under docs/evidence/m02-w14-d99-ci. See docs/TEST_EVIDENCE.md § M02-W14.
+
+### KI-0091 — Late native validity changes can publish stale accepted verification
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during fresh author-independent W14 safety review
+- Affects: M02-W14; execute/undo publication and W11 retained verification
+- Description: native setCustomValidity can reject a field without changing its value or generating a DOM mutation. Acceptance is read before asynchronous result/evidence hashing; the final native-property fence originally captures values/checked/files/options but omits the native validity inputs. EXECUTE/UNDO can publish VERIFIED/ACCEPTED and W11 READY despite current rejection. This is a newly confirmed gap beyond KI-0083's corrected value-property race.
+- Reproduction: at exact d99c592, six actual-MV3 probes preserve three unchanged positives and fail all three late-rejection safety negatives. Values stay unchanged; MutationObserver records are zero. EXECUTE incorrectly grants undo; W11 initially reports READY while a fresh reconcile reports NOT_READY. A second identical red run binds all 355 runtime sources, probe, build, HEAD/status, tools/env before and after with exact equality. Original failures and sealed bindings are retained unchanged under docs/evidence/m02-w14-native-validity.
+- Workaround: no acceptance credit from unchanged values or DOM revisions alone; no test/threshold weakening and no new await after the final fence.
+- Resolution + evidence link: the exact two-file patch snapshots primitive willValidate, validity.valid and validationMessage, including native driver acceptanceElements, and compares synchronously alongside all prior value/option/DOM fences. The unchanged six probes pass independently; 29 adjacent existing regressions pass. The integration copy only removes four lint findings without changing assertions/seeds. The exact patch and lint-clean permanent six-case copy are integrated in root; the complete clean0dd88ce root regression now passes all19 active suites,3859 units,234 default browser tests including the six permanent cases,62 controlled proofs and1454 Python tests. The independently reviewed revision7 candidate4/legacy4 execution also completes with unchanged corrected-runtime binding. Full proof: docs/evidence/m02-w14-frozen-0dd88ce/proof.tar.gz (SHA-256 6b9ab884d4c6990da2af98229f0bf7f78837a16bbeac63b82bb9832c8b6d5edb). This closes the local publication defect, not the external Gate A evidence gap. The original raw probe/expectations and all derivation hunks remain retained. Evidence archive SHA-256 c10dec4ebfe565dde09425a73a38c647f9e8e51105e15163ae96eb4cb602596f (115 safe regular members). See docs/TEST_EVIDENCE.md § M02-W14; source patch SHA-256 56382908665d5fd4c8543df701b67498b3f222bafc768164a15607755b0d21e8.
+
+### KI-0092 — Revision6 comparison prose omitted recorded legacy native activations
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during independent read-only audit of actual M02-W14 revision7 comparison evidence
+- Affects: M02-W14 comparison reporting in TEST_EVIDENCE.md and AUTOFILL_FEASIBILITY_GATE.md; no functional defect or actor-code change
+- Description: historical prose incorrectly reported zero unexpected native mutations for both actors. The revision6 legacy raw observations and worksheet already record four succeeded country-code ACTIVATION witnesses, one per case at sequence53; candidate unexpected native mutations are0. Nonordinary final-value changes and navigation/submission event witnesses are0 for both. The four complete legacy native witness arrays are identical between revision6 and revision7, so this is a reporting error rather than newly observed behavioral nondeterminism.
+- Reproduction: inspect legacy_unexpected_native_mutations in all four cases of docs/evidence/m02-w14-comparisons-actual/paired-comparison.json (SHA-256 a1162c802c512ec741e7c500f68ed6bcfc8e971eef870afdaec6271cc1e424c8) and unexpected_native_mutations in legacy-r6/paired-options-legacy.json inside its proof.tar.gz (raw member SHA-256 1ac239a7b8c9c94344066b944d4e08b32d0120048eed9db440f29f19259d0e74). Both bind revision6 lock47b6fe33c9e68d8aed9815f2cd35887e289a0e93fbf27045a059e467d35fe6fb and retain one succeeded ACTIVATION on nonordinary country-code per row. Independent read-only raw-field/witness recomputation at revision7 confirms candidate0/legacy4 unexpected native mutations,40/40 versus28/40 exact values and40/40 versus32/40 phone equivalent; it starts no browser, build or actor.
+- Workaround: distinguish attempted installed native calls from final value changes and use the retained raw arrays; never erase or relabel a nonzero observation to match prose.
+- Resolution + evidence link: FIXED by correcting both false historical sentences and explicitly disclosing the prose error. Original revision6 archive and worksheet bytes remain unchanged; no runtime behavior, control assertion, test case, package state, gate state or threshold changes. The existing synthetic historical/current issue lists now include KI-0092 so historical isolation removes the later finding and the current boundary preserves it. Independent revision7 audit/report.md and audit/summary.json are retained in docs/evidence/m02-w14-revision7-actual/proof.tar.gz (SHA-256 1f4e05a9f86d94832cbfde33b1d7b38d73255f42efd00337954e2ccfaf3a2018;25 safe regular members), with retention-manifest.json plus report.md/summary.json copies alongside. The audit verifies raw joins, native witness counts, source/build/lock commitments and the identical revision6/revision7 legacy witness arrays. See docs/TEST_EVIDENCE.md § M02-W14. Formal W15/Gate A approval remains unexecuted.
+
+### KI-0093 — Waiver test fixtures use platform-default text encoding
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 from completed Windows CI job117181432489 in run38962597205
+- Affects: M02-W14; status-validator waiver fixtures; three-OS repository validation
+- Description: new waiver fixtures read and rewrite UTF-8 decision Markdown without an explicit encoding. The pinned Windows Python locale decodes the em-dash heading differently from its UTF-8 literal. Three unaccepted-ADR variants fail splitting the heading; changed-record replacement becomes a no-op; an unrelated later-ADR write corrupts UTF-8 text. The production authority helper already reads UTF-8 and is unchanged.
+- Reproduction: exact tested mergecb58e4a85d51fe47cf4c77dd232cb867af9f652c/tree616f54ca25ac97db7de6ac6eea204a140610364c (tree equalsd99c592); Windows final Python result5failed/1447passed in1118.28s. Failures are test_gate_v2_waiver_refuses_unaccepted_adr[PROPOSED/REJECTED/SUPERSEDED], test_gate_v2_waiver_refuses_changed_own_record_preimage and test_gate_v2_waiver_ignores_unrelated_later_adr. Original stack traces and raw logs are retained under docs/evidence/m02-w14-d99-ci; Ubuntu/macOS aggregates pass their respective same-source-tree runs.
+- Workaround: no skipped fixture, altered authority assertion, locale-wide environment override or production parser weakening. Preserve original native failures.
+- Resolution + evidence link: FIXED at the explicitUTF8 fixture/native-platform scope. Native run38979349323 completes all19 active suites on Ubuntu/macOS/Windows at headfc48930/tested merge34477f17c8b97e2caf04fb4d716d352d7e7a8a32/treecb787f46afec1281c87074a82fd31e23b37c865a. Windows passes all201 status IDs and1452 Python cases in673.22s; Ubuntu/macOS pass1454. The two platform cohort differences are the declared FIFO/Unix-socket parametrizations, with no unexplained missing IDs. Tracked-clean succeeds on all three. Native proof: docs/evidence/m02-w14-fc48930-ci/proof.tar.gz, SHA-256 5f416858c4585067fbf656e350152475fc1bf342ec799aa1fbb03dfcf18f9434,814341bytes/85 safe regular members; independent retained archive/API/log/source review is clear. This does not assert native validation of later730 or the next final head, and does not attribute the old stackless contact F.
+- Historical correction checkpoints: IN_PROGRESS. The exact reviewed patch115be0ee440433d0d70db984433889ca7fea3290da12b1dba29e6e2cad437864 is integrated: eight fixture calls explicitly useUTF8, with every assertion/test identity unchanged. Independent review verifies all315 assertions/173function bodies/128test identities after removing only eight encoding keywords and threeKI93 constants. The retained cp1252 contrast supports the localized encoding diagnosis but is not a native locale print or Windows execution. Root ledger now passes201/201 in114.40s after exact integration; Ruff lint/format, strict typing, formatting, status and exhaustive retained-archive checks pass. The later clean fc48930 full Python suite passes1454/1454 in299.26s; this is local evidence only. Fresh complete native Windows confirmation remains pending. Source/proposal/diagnostic proof: docs/evidence/m02-w14-windows-fixture-utf8. KI-0090's native compiler proof is separate and passes; this failure is not attributed to the compiler or corrected native-validity runtime. See docs/TEST_EVIDENCE.md § M02-W14.
+
+
+### KI-0094 — Focus handlers can cause text/date lost updates during execute and undo
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during supplemental independent W14 runtime review
+- Affects: M02-W14; native text/date execute and undo; pre-write value preservation
+- Description: a page focus handler can change a native value without a DOM mutation. The driver rechecks ownership and actionability after focus but originally omits the value. Execute overwrites the newer value and grants undo; undo overwrites it with the captured prior value. Both can report VERIFIED/ACCEPTED.
+- Reproduction: the sealed eight-case actual-MV3 probe at exact918 runtime355/c375 has four unchanged positives PASS and four focus-preservation negatives FAIL in13.9s. Each negative records zero DOM mutation records for the page edit and one additional extension setter. All13 source/probe/build/tool bindings are unchanged. An earlier missing-await setup failure and two unreachable digest-pause cases remain explicitly separate from the confirmed focus defect. Complete original proof: docs/evidence/m02-w14-focus-value-red/proof.tar.gz, SHA-256 aebfb3fba84ce7c689bcb69234310cdccc87f4390ee116933631adeedaeef829,4793116bytes/459 safe regular members.
+- Workaround: do not overwrite a newer page-owned focus value or grant recovery/undo authority for a refused pre-write action. The source-only asynchronous re-resolution concern is unconfirmed and its draft is not integrated.
+- Resolution + evidence link: FIXED at the reviewed focus-preservation correction and complete affected local regression/comparison scope. Clean730c641a9855fc3e95620636314a28d0eee8439a/tree7402873a081286dbddce5b93ed4db997fea4f24d passes all19 active suites, including all8 permanent focus cases and242 default-browser cases, with unchanged1504 tracked-file closure. Actual revision9 then completes candidate4/legacy4 under lock72a68/runtime355-3b6c with all7 source/tool/build checks stable and corrected independent audit200/200. Complete frozen proof: docs/evidence/m02-w14-frozen-730c641/proof.tar.gz, SHA-256 0584744b75a3940f88d35fa842fd9386c66b9a9a8d12c5de278d957d0deb8c58,6867546bytes/88 safe regular members; independent full-data audit79/79 and separate archive peer review24/24. Actual comparison proof: docs/evidence/m02-w14-revision9-actual/proof.tar.gz, SHA-256 72bf11df63cad7b036d1c08e005430d6c8a87b757e0868336087cd14adb817b8,1058673bytes/102 safe regular members; corrected independent actual-data audit200/200 and separate archive peer review26/26. Revision8 was never invoked; revision7 remains historical. This closes neither public/Simplify evidence nor formal W15/Gate A.
+- Historical correction checkpoints: IN_PROGRESS. Root integrated the exact independently reviewed two-file patch3adbcf83e27327c1fe2293cc197c80ce22286cca50a1c7c665a1e1b1f6950177. Text/date snapshot the value immediately before focus and refuse drift before their sole setter. Execute suppresses recovery/undo only for the typed marker from those exact trusted drivers; generic and partial-write recovery remain unchanged. The unchanged eight-case independent GREEN passes11.2s with all four newer values preserved, zero additional setters/input/change events, no VERIFIED result and execute undo=false. All23 existing adjacent browser regressions pass54.7s, including actual partial-widget rollback; all13 bindings match. GREEN proof: docs/evidence/m02-w14-focus-value-green/proof.tar.gz, SHA-256 cd8fd90b9a4d2dcb7e196404e5ff791fd23b0e2325b2f5d069523c1916c2e447,9803118bytes/456 members. Corrected355-file runtime is8c61ebee8af7823f2812c514fb2bbb5eb0ca44c95b919a5ac3919eb9b5fec9cc. Clean fc48930 executes the permanent eight focus cases successfully, but its full aggregate fails the native128 target20 threshold (KI-0096), so it does not close the complete regression obligation. Revision8 coordinator is source-reviewed but NEVER INVOKED, UNEXECUTED and UNRELEASED because the full run failed; candidate/legacy actor counts are0. The reviewed guard would refuse that failed full run, but no coordinator invocation or guard-refusal execution is claimed. Its proof is docs/evidence/m02-w14-revision8-coordinator/proof.tar.gz, SHA-256 9be801fefecb570931ad717d978cc5c058a2090db7045fae335f723c097fc3ff,28025bytes/14members. The later pure metadata correction changes the runtime again; complete frozen regression and a newly source-bound comparison remain pending. No Gate A approval is inferred.
+
+### KI-0095 — Function-scoped repository copies exhaust native Windows test storage
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 from terminal Windows CI job117206260868 in run38970154103
+- Affects: M02-W14; full Python verification fixture lifecycle and hosted Windows capacity
+- Description: full-docs fixture copies accumulate until session cleanup. The918 docs payload and255 declared fixture users imply about30.80GiB of logical copied docs. The actual Windows run reaches18 setup errors while copying docs, and the runner explicitly reports insufficient disk space. That failed918 run has no complete Python or aggregate PASS.
+- Reproduction: actual tested merge3781e31a17013ae361f14f371502196a7f516245 has treebd9eb473719dba61ed842c266c553e334c893538, exactly918. The first recorded setup error is test_gate_v2_waiver_refuses_invalid_owner_decision_row[missing] at full docs copytree. Original Windows raw SHA-256 e866fd0df169e7ce4227f336a3b5bb6e7123c0bed94ad3d221ad61ba76ecc3ec,962594bytes. Complete three-OS proof is retained in docs/evidence/m02-w14-918-ci; Ubuntu/macOS pass19 active suites. Windows compiler8 twice/contracts2524 pass; its final Python summary is absent and tracked-clean is SKIPPED. A separate contact child-environment test has an F progress symbol and no retained stack; its cause remains unresolved and is not assigned to disk exhaustion.
+- Workaround: preserve every full input, assertion and isolated copy. Do not omit archives, share mutable hardlinks, ignore cleanup failures or increase CI budgets to conceal the capacity failure.
+- Resolution + evidence link: FIXED at the complete-copy fixture lifecycle and native verification scope. The reviewed try/yield/finally correction remains unchanged. Fresh native fc48930 run38979349323 passes all19 active suites on all three platforms, including Windows1452 Python in673.22s,201 status IDs,11 contact-proof IDs and tracked-clean; Ubuntu/macOS pass1454. Native proof: docs/evidence/m02-w14-fc48930-ci/proof.tar.gz, SHA-256 5f416858c4585067fbf656e350152475fc1bf342ec799aa1fbb03dfcf18f9434,814341bytes/85 safe regular members; independent retained archive/API/log/source review is clear. Later clean730 local full Python1454/1454 passes305.66s within the full19-suite PASS. The old918 stackless contact F has no retained cause: UNPROVEN remains explicit despite fresh success. No capacity explanation is assigned to it, and no later final-head native CI result is claimed.
+- Historical correction checkpoints: IN_PROGRESS. Ruff rejects the initial finalizer-only proposal186b6a45 under PT021; its source/proof05a84f35 remain unchanged history. Root now integrates exact corrected patch9426e72a384533f86459a49db48e45aa2b89ddf821f2a86851995d1dcba2fcc4: each fixture uses Iterator[Path], preserves all original full-copy setup inside try, yields the same owned Path, and strictly removes only its tmp_path/repo in finally. Setup-copy exceptions also unwind through cleanup. Independent48 checks preserve all569 assertions,218 test functions and six finding-list literals; targeted Ruff lint/format pass without policy changes. Complete corrected proposal/review and original failed/corrected static records: docs/evidence/m02-w14-fixture-lifecycle-yield/proof.tar.gz, SHA-25699523db9cd272a483b147097d6b955b4015b19574ed64b6abc05cce3580b3a2b,90240bytes/22 members. Production/environment guards and thresholds remain untouched. Clean fc48930 now passes all1454 local Python tests in299.26s with complete tracked-source neutrality; proof is docs/evidence/m02-w14-frozen-fc48930/proof.tar.gz, SHA-256 28e1132c7762c3327f0943bad8973625e74e8a14ff556d9ad0c12efacc564a0a,5089970bytes/48members. Fresh complete native Windows verification remains pending, so this issue stays IN_PROGRESS; the separate contact-environment F stays causally unresolved.
+
+### KI-0096 — Frozen native128 target timing exceeds the unchanged threshold
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 frozen validation at fc48930
+- Affects: current M02-W15 final-candidate validation; Gate A generic scan/fill performance; historical M02-W14 failures
+- Description: clean fc48930 completes18 active suites PASS and one FAIL. The only default-browser failure is the native128 target20 p95,1527.9433329999993ms against unchanged <=1500ms;241 other browser cases and all1454 local Python tests pass. Four live resolutions per field,128 physical fills,512 resolutions and768 descriptors remain measured; the failed threshold cannot be replaced by other passing scopes.
+- Reproduction: run the exact frozen outer Python-wrapper command recorded in docs/TEST_EVIDENCE.md § M02-W14; the wrapper records its `pnpm verify` child argv and target20 environment. The complete failed run, raw rows, source/command endpoints and independent1478-Git-blob closure remain retained in docs/evidence/m02-w14-frozen-fc48930/proof.tar.gz, SHA-256 28e1132c7762c3327f0943bad8973625e74e8a14ff556d9ad0c12efacc564a0a,5089970bytes/48members; archive peer review passes21 checks. This is failed historical-source evidence, not current-runtime or gate approval.
+- Workaround: none accepted. Do not round down, omit slow samples, change thresholds/waits/cache budgets or bypass live identity/validation/recovery checks.
+- Historical resolution + evidence link: FIXED at the earlier unchanged native128 target20 regression scope. Complete clean730 local verification now passes all19 active suites, with native128 nearest-rank p95(rank19)1447.4198340000003ms below unchanged1500ms; all20 samples retain128 physical actions/512 re-resolutions/768 descriptors. The same bounded seven-hash correction and all live authority checks remain. Full proof: docs/evidence/m02-w14-frozen-730c641/proof.tar.gz, SHA-256 0584744b75a3940f88d35fa842fd9386c66b9a9a8d12c5de278d957d0deb8c58,6867546bytes/88 safe regular members; independent full-data audit79/79 and separate archive peer review24/24. Actual revision9 is independently reconciled200/200 under the same runtime and lock; docs/evidence/m02-w14-revision9-actual/proof.tar.gz, SHA-256 72bf11df63cad7b036d1c08e005430d6c8a87b757e0868336087cd14adb817b8,1058673bytes/102 safe regular members; corrected independent actual-data audit200/200 and separate archive peer review26/26. This is the existing zero-settle/no-async-rerender lower-bound harness, not final full-settlement Gate A performance proof. Earlier fc1527.9433329999993ms failure and separate focused1473.5945839999986ms pass remain retained; no isolated causal hash-cost claim, threshold waiver or final Gate A PASS is inferred.
+- Historical correction checkpoints: IN_PROGRESS. The reviewed one-file correction issues the same seven immutable result metadata computations concurrently, waits with Promise.allSettled and unwraps in original order, preserving eventual raw rejection identity, exact seed/output bytes, field order and all posthash authority witnesses. Final driver-engine SHA-25622071b77f7610b315dc58f51275d3703f895c92f5f6c919f2efbbd275a312557; corrected355-file runtime3b6c0e0c0950b03e3bb9e1f12b27bb8d385174c36fb4b68ef3345597aa8b3502. The pure metadata differential passes3 success/7 single-rejection/21 pair/all-seven profiles; it is not canonical/browser proof. All21 affected actual-MV3 guards pass24.1s. The separate unchanged native128 target20 run passes p95 1473.5945839999986ms, closing2026-10-16T23:11:06Z with source/status/head unchanged. Focused proof: docs/evidence/m02-w14-build-result-concurrency/proof.tar.gz, SHA-256 2620c4c3706a78f4895c5dc9e67450f0924b45d2f5d5ab5bd6fe94d5e09628ef,4275812bytes/95members; independent archive peer review passes24 checks, distinct from the retained40-check actual-evidence audit. Complete affected frozen regression remains pending; no measured hash-cost attribution or final Gate A PASS is inferred.
+
+- Reopened2026-10-17: exact clean507a/tree235bc696fb37e887b5efa817039276a775a18e2e completes18/19 ACTIVE suites PASS and native128 FAIL at p951662.986499999999ms (rank19/20;7/20 above1500ms), preserving128 actions/512 live resolutions/768 descriptors per sample. All1587 tracked files, HEAD/tree/status and355-file runtime3b6c remain exact. Cause is UNPROVEN. Separate actual phase diagnostic also FAILS1644.6497500000005ms; it identifies the execution phase as dominant without attributing a causal percentage. The one-line preventScroll focus proposal is independently source-clear; meaningful real-focus/viewport RED/GREEN and unchanged regressions are pending, with no performance fix or current PASS inferred. Closed raw507a result, independent81/87 failure-aware full audit,336/336 mounted/10/10 resolver audits and actual synthetic image inspection: docs/evidence/m02-w15-failed-507a/proof.tar.gz SHA2567bc9ac8e69969c98aaf2030d2ab04a1285ff8a9189c932a3ecb0201f749f55a5,6717941bytes/39outerregularmembers, including the unchanged96member independent failed-component archive. Original failure trace/screenshot remain lost; no diagnostic replacement claim.
+- Current corrective source (2026-10-18UTC): distinct TEXT/TEXTAREA-only987/c46 proposal is root-integrated after actual RED4 intended viewport failures/GREEN28PASS and independent source clearance; original date49b failure and eaf invalidtextarea/W09refusals remain unchanged. Complete root241extension units/type/lint/format/status/trace and R10pure42 PASS. Candidate355runtime/harness inventory4f5a/3372811 and newR10lock0b7c are frozen, future releaseNULL/0actors. Performance target20/finalfull/native/currentbaseline/keyreview pending; no measured benefit/currentPASS or causeclaim. Complete exact source/focused/history/review/root evidence: docs/evidence/m02-w15-corrections-integration/proof.tar.gz SHA25687a507c911329262572c159537a4ee7bffb5ad3a7db40b00f1e126fbf6278481.
+- Latest actual246 canonicaltarget20: oneoriginal120000ms whole-testtimeout, childexit1, no W13aggregate/p95 (null). Eighteen complete native128 iterations preserve allrequiredcounts/VERIFIEDvalues;19th firstbatch pendingonly~2.641ms beforeteardown,20thnotstarted. Source1642/cleanhead/tree/runtime3554f5a unchanged; all6nativeartifacts/trace retainedimmediately. Cumulativebudgetexhaustion isobserved; rootcause/visibility/timereffectUNPROVEN, notone120-secondRPCstall. Exactraw/source/independentclosedtrace proof: docs/evidence/m02-w15-canonical-246-timeout/proof.tar.gz SHA256b2fc20e5d81d3f3258d156ecaff55dcb2cbe2470e8647ad5793a5855fa633840. Foregrounddiagnostic onlysource-prepared; no rerun/deadlinewaiver/performancefix or newfullPASS.
+
+- Current foreground-method correction (2026-10-18UTC): Foreground measurement correction: independently reviewed patch17e9e2800095838469e1752944df4e5bb2ec3b6c86a4a87c364748cfa06a1474 is integrated as benchmarkc1864e71bd22d8c8df596bdec77bc39bce6b11b69171893cb0d9cd3cb1df48e2. It declares the actual target Chrome tab active and visible before original timing and checks both after each synchronously retained completed row. Original timed span6b066, assertions, row values,20samples,1500ms,120000ms and zero settlement remain exact; complete355/3372811/runtime4f5a is unchanged. Root e2e TypeScript/lint/format/status45/trace193-300/diff PASS. Actual separate V3 diagnostic completes22rows/20native128, p95842.6034590000017ms; all original/before/after DOM visibility/focus values stay visible/true, while only active-tab IDs transition to target. This proves no timer/root cause and supplies no canonical acceptance. Optional command-line metadata remains UNAVAILABLE once with0actualargv; normal successful retention produces only.last-run.json, no trace. Canonical246 timeout,507a failure and V2 zero-sample query failure remain preserved. Exact source/raw/derived corrections/root checks and nested58member independent source/raw review: docs/evidence/m02-w15-foreground-method/proof.tar.gz, SHA2561255fdcc4bd31191098f9a486a98c52782de98bf0f264fb4bbf82ad0925195b1,664265bytes/103outerregularmembers, exhaustivecomparisonPASS. Fresh frozen full/current nativeCI/R10/key14 and source-bound owner decision remain pending; W15/GateA stay IN_PROGRESS.
+- Current resolution (2026-10-18UTC): Actual frozen95f5 strict full99 and separate canonical20 pass unchanged1500ms at846.236875/847.323333ms; currentR10comparison204 and freshkey14 close. Foreground measurement is declared outside original timed work, with20samples/120000ms/settle0 unchanged. This fixes the current accepted regression scope, not a causal explanation or historical PASS. Source-bound proof and independent PASS recommendation: docs/evidence/m02-w15-review-95f5; owner Gate A decision remains pending.
+
+### KI-0097 — Evaluation harness acquisition and rejected-close paths can skip owned cleanup
+
+W15 independent source inspection at507a additionally confirmed the inherited test-only e2e/extension/support/extension-test.ts close-before-remove and unguarded listener paths. The distinct independently source-clear correction7346d2cddf53ea3261e1d74fd8a4c6c36419dcd6d4ab5201aa669274d9ffc8a9 is now root-integrated: guarded acquisition/use/isolation and cleanup that always attempts owned close/removal with explicit primary/secondary errors. Same28fake cases yield original16FAIL/12PASS and candidate28PASS; combined outside cleanup family46PASS. Root complete extension241units, complete typecheck/lint/format/status/trace and newR10pure42 now pass; final clean-candidate validation remains pending. Sealed R9 remains unchanged; newR10 initial-writer correction is separately prepared/unreleased. No actual historical run leak or whole-family FIXED claim is asserted.
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-17 by the independent230-path source closure review at frozen6384d98156ae198cd93d7b35d1bb28b501ed475e/tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4, finding SRC-CLEANUP-01
+- Affects: opt-in public contact/inspection evaluation harness error paths; separate future corrected legacy campaign acquisition
+- Description: contact-harness.ts creates its owned temporary profile, then awaits context launch, HTTP route and WebSocket route before entering the cleanup try. Those acquisition/setup rejections can bypass cleanup. Both contact and inspection await context.close before profile removal without a finally, so a close rejection can skip the removal attempt. Inspection launch itself is guarded correctly. This is one source-control-flow cleanup family, not an observed run leak, numeric/scoring contradiction, unauthorized public write, shipped-runtime defect or fundamental Gate A architecture failure.
+- Reproduction: inspect frozen6384 e2e/extension/public-contact/contact-harness.ts:310–374 and494–504, and e2e/extension/public-research/inspection-harness.ts:151–162 close/removal paths. Meaningful injected launch/HTTP-route/WebSocket-route/later-setup/rejected-close/rejected-removal/ownership-transfer cases are separate corrective verification; the source review itself ran none.
+- Workaround: retain the original error and honest cleanup outcome; do not relabel rejection as cleanup success or weaken caller assertions. The existing successful6384 measurements retain their actual source and observation scope.
+- Resolution + evidence link: OPEN, MEDIUM M02 corrective work before the final W15 decision. The final separate three-file correction98d6e14cd31514623bf5d93550ecd73dc65a0347fb81f3baf12d134319e2dcb8 has independent source clearance and actual focused author evidence: the same18 fake-context cases yield13 original failures/5 passes and18 candidate passes in355ms. Sparse outside type/lint/format/policy checks pass. Exact sources, logs and review are retained in docs/evidence/m02-w14-harness-cleanup/proof.tar.gz (SHA256a885cd4d29f950fbf067d60f4a8fc7b48753c308891f6938b5c284e82db891b9). The exact patch is now root-integrated with213 complete extension units, complete repository typecheck/static checks and status/traceability passing; proof is docs/evidence/m02-w15-cleanup-integration. Controlled-browser and final clean-candidate/key-case validation remain pending; unmodified6384 is not claimed fixed. W14 may close at actually tested6384 with this finding disclosed, and W15 may begin; integrate the reviewed correction and run a full clean final candidate plus key independent reproductions before any Gate A decision.
+- Sealed R9 boundary: legacy-browser.mjs creates its owned profile before the initial evidence-write/finalize operation outside its try, so initial writer rejection can leave an empty owned profile. Its normal cleanup separately attempts close and removal. The original R9 actor and all65 locked campaign files stay byte-exact; record the initial-writer cleanup repair as a precondition of any future corrected campaign before a new invocation. Do not mutate sealed R9, rerun it to rewrite history or transfer its outcomes to corrected source. No actual historical R9 leak is asserted.
+- Current resolution (2026-10-18UTC): Reviewed contact/inspection/inherited-fixture/R10 initial-writer corrections now close actual frozen95f5 local19 and native3host full PASS, freshkey14 and currentonce-executed4+4comparison204. Fake acquisition/rejected-close proofs remain retained. Normalownedcleanup is observed; OS descendants and unexercised failures remain outside that observation. No historical leak is asserted. Source-bound proof and independent PASS recommendation: docs/evidence/m02-w15-review-95f5; owner Gate A decision remains pending.
+
+### KI-0098 — Controlled Playwright invocations erase default-suite failure artifacts
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-17 during final507a failed native128 evidence closure
+- Affects: M02-W15 browser evidence retention; controlled contact/inspection Playwright output configuration
+- Description: all three configs use the pinned Playwright1.62 nearest-package default test-results directory. Ordinary controlled-suite startup clears it after default-suite failure, erasing the original native128 trace/screenshot. Raw aggregate/log and all22 timing rows survive; the original native failure artifacts remain unavailable. A later separate diagnostic trace is not their recovery.
+- Reproduction: pinned actual CLI fixture reproduces deletion with original configs, then preserves a real failure trace.zip and marker byte-for-byte after both controlled invocations with distinct descendant output directories. Exact three-file patch177181da420e4852f5ac18ccb00758f03f06e8ea78db01e8221c601127f99793 and actual61focused checks/discovery2+62 have independent source/raw clearance; root integration now passes41existing CI tests plus Ruff/format/mypy/config lint/format/diff, with exact afterimages and unchanged policy bindings. Final-candidate validation remains pending.
+- Workaround: copy closed native failure artifacts before a subsequent invocation; do not infer original trace closure from later diagnostics.
+- Resolution + evidence link: IN_PROGRESS. Failed507a retained source/observation and independent review: docs/evidence/m02-w15-failed-507a. Exact root integration and pinned author evidence: docs/evidence/m02-w15-retention-integration/proof.tar.gz SHA256946a85efbb9984d5b3c6796f0f1fc4f90678308acb9b950b55720baafa34ec9c. The correction preserves existing41CI test identities, Python inventory, retries0, trace policies and recursive CI artifact upload. No historical artifact recovery or current full PASS is asserted.
+
+- Current resolution (2026-10-18UTC): Distinct controlled output directories and immediate native retention are validated by retained actual marker/traceRED-GREEN, unchanged41CI tests and complete current95f5local/native verification. Current successful default run correctly retains only.last-run; old507a trace/screenshot remain unavailable and are not recovered by later proof. Source-bound proof and independent PASS recommendation: docs/evidence/m02-w15-review-95f5; owner Gate A decision remains pending.
+
+## M02-W14 local defect closeout — 2026-10-16
+
+KI-0077 through KI-0087 are FIXED at the code scopes recorded above and frozen checkpoint b8b1423: all19 active suites pass,3859 TypeScript units,228 default browser tests,61 then-required controlled tests and1454 Python tests. Source/build/declarations and Git status remain unchanged. The later observation correction adds a mandatory62nd controlled proof and preserves all originals. This closes local defects only; public scored coverage, normal-user Simplify comparison and independent W15/Gate A acceptance remain incomplete. No later package is started.
+
+## M02-W13 final closeout and retained limits (2026-10-01)
+
+KI-0070 through KI-0076 are FIXED at verified content4745149f4b5da7190b5b0c68753f8ec07bed572d /tree a953274ef14a7534c39201a09738c26b8f085332. Earlier local/blocked lifecycle statements below are historical checkpoints; final governance makes W13 VERIFIED and W14 sole READY. Exact-SHA target 20 p95 is1391.5025000000005ms. Final A–N internal review has no residual PACKAGE_BLOCKER or DIRECT_REGRESSION. Evidence: docs/TEST_EVIDENCE.md § M02-W13 verified harness and docs/evidence/m02-w13-closeout/final-verifier.json.
+
+DOCUMENTED_LIMITATION: generic precision counts all attempted fields. W14 must predeclare its supported cohort and derive ordinary attempted precision from immutable field class, attempted flag and primary score; it must not directly map generic PRECISION to that Gate A dimension. The target timing is a zero-settle development lower bound, while the four-family harness separately exercises75ms settlement/20ms rerender. Full-settlement/frozen partitions and actual authorized holdout/public/Simplify/legacy comparison are FUTURE_OWNER W14; independent Gate A decision is W15. The bounded1024-entry/512KiB pure SHA memo retains memory without target authority; historical raw timing source hashes remain historical. None is final Gate A evidence; all gates NOT_EVALUATED, release NOT_READY.
+
 ## M02-W13 finite evidence corrections
 
 ### KI-0073 — Canonical replay metrics could contradict independently verified raw scores
@@ -76,7 +1487,7 @@ broadening a work package (spec §1.5).
 - Description: the focused corpus command runs218 passing tests, but its accepted exact-count guard still requires207 and discovery lists only W06. Classification: DIRECT_REGRESSION in verification metadata.
 - Reproduction: full `pnpm verify` at invalidated tree86e72fbb80683d3e90d1ab0be992339714410978 fails only evaluation-corpus proof, reporting218 rather than207. All other active suites pass, including134 browser,1390 Python and retained Rust checks. Raw log: docs/evidence/m02-w13-closeout/invalidated-pass1-verify.log.
 - Workaround: n/a.
-- Resolution + evidence link: retain all207 W06 tests unchanged, discover the11 W13 interface stand-ins and require exact218 with unchanged no-skip proof/commands. `pnpm verify --suite evaluation-corpus` passes218/218 and the discovery proof. No test exclusion or lower count. Freeze invalidated; BOTH full canonical passes restart on the updated bytes. docs/TEST_EVIDENCE.md § M02-W13.
+- Resolution + evidence link: retain all 207 W06 tests unchanged, discover the11 W13 interface stand-ins and require exact218 with unchanged no-skip proof/commands. `pnpm verify --suite evaluation-corpus` passes 218/218 and the discovery proof. No test exclusion or lower count. Freeze invalidated; BOTH full canonical passes restart on the updated bytes. docs/TEST_EVIDENCE.md § M02-W13.
 
 ## M02-W13 bounded-stop findings
 
@@ -108,7 +1519,7 @@ broadening a work package (spec §1.5).
 - State: FIXED
 - Discovered: 2026-09-30 during late M02-W13 family K review
 - Affects: M02-W13; apps/extension/src/dynamic-engine.ts root/subtree recovery
-- Description: the draft local capacity refusal returned no descriptors but did not latch the incomplete root/subtree scan. Start observation at513 controls, remove one optional control inside a single section, then reconcile: the minimized regression reported total0 instead of512, omitting the remaining required control.
+- Description: the draft local capacity refusal returned no descriptors but did not latch the incomplete root/subtree scan. Start observation at 513 controls, remove one optional control inside a single section, then reconcile: the minimized regression reported total0 instead of512, omitting the remaining required control.
 - Reproduction: permanent `W13 K: observation beginning over capacity requires a complete recovery scan`; the original run failed expected512/received0. Its second phase also inserts and removes a transient513th control between reconciliation passes while the observer drains each batch.
 - Workaround: n/a.
 - Resolution + evidence link: latch every observed root/subtree capacity refusal, clear inventory, and reset only after a complete current root scan; carry refusal from actual candidate capture and recheck the bound after async scans and all inventory hashing immediately before canonical publication. Both recovery phases now prove total512, required_unresolved1 and NOT_READY; initial513 reports CAPACITY_EXCEEDED with no canonical inventory. The bound512 and canonical schemas are unchanged. Final affected browser suite34/34 passes; docs/TEST_EVIDENCE.md § M02-W13 blocked development attempt.
@@ -121,10 +1532,10 @@ broadening a work package (spec §1.5).
 - State: FIXED
 - Discovered: 2026-09-06 during M02-W12 hosted CI correction2
 - Affects: M02-W12 retained-suite portability; packages/evaluation-runner/package.json
-- Description: after the W12 matrix tests passed65/65 on Ubuntu, the unchanged M02-W05 whole-domain UTC reference test took6047ms against its default5000ms deadline. Windows also timed out the unchanged paired-count rejection case at5078ms in the same file (job101557017782, same run). Other runner cases took up to4690ms during concurrent file initialization. This is TEST_PORTABILITY, not a calendar assertion mismatch.
-- Reproduction: Ubuntu job101557017908 of run34059370913 at268d954ef5bf6bb1ea3d0b630b47dab9178659e5; complete raw log4168 lines/478894bytes, SHA-2569b7a53a3c27b27f458ddaad4fd7cb1c87e63ccd9b0d21e7858a6e5fae2f78f71.
+- Description: after the W12 matrix tests passed65/65 on Ubuntu, the unchanged M02-W05 whole-domain UTC reference test took6047ms against its default5000ms deadline. Windows also timed out the unchanged paired-count rejection case at 5078ms in the same file (job101557017782, same run). Other runner cases took up to4690ms during concurrent file initialization. This is TEST_PORTABILITY, not a calendar assertion mismatch.
+- Reproduction: Ubuntu job101557017908 of run34059370913 at 268d954ef5bf6bb1ea3d0b630b47dab9178659e5; complete raw log4168 lines/478894bytes, SHA-2569b7a53a3c27b27f458ddaad4fd7cb1c87e63ccd9b0d21e7858a6e5fae2f78f71.
 - Workaround: n/a.
-- Resolution + evidence link: apply the existing single-worker/no-file-parallelism Vitest convention only to evaluation-runner's test command. Every test source byte, all10000 years/reference assertions, test count290 and default deadlines remain unchanged. Concurrent focused suites601 PASS; integrity, finite replay, two new frozen canonical passes and exact forward-SHA hosted proof are required before governance. docs/TEST_EVIDENCE.md § M02-W12.
+- Resolution + evidence link: apply the existing single-worker/no-file-parallelism Vitest convention only to evaluation-runner's test command. Every test source byte, all 10000 years/reference assertions, test count290 and default deadlines remain unchanged. Concurrent focused suites601 PASS; integrity, finite replay, two new frozen canonical passes and exact forward-SHA hosted proof are required before governance. docs/TEST_EVIDENCE.md § M02-W12.
 
 ### KI-0068 — Batched matrix-integrity negatives exceeded one hosted test deadline
 
@@ -133,7 +1544,7 @@ broadening a work package (spec §1.5).
 - Discovered: 2026-09-06 during M02-W12 hosted CI round1
 - Affects: M02-W12; packages/ats-adapters/test/matrix.test.ts and package.json
 - Description: nine full matrix revalidations shared one default5000ms test; Ubuntu measured5561ms under concurrent workspace tests. A retained runner test also crossed5000ms during the same burst. Classified TEST_PORTABILITY; no semantic assertion failure observed.
-- Reproduction: Ubuntu job101549006289 of run34056407698 at475dcb69e5f31caa8ea941980396d2c250d6c2c5; complete raw log preserved in the W12 evidence directory.
+- Reproduction: Ubuntu job101549006289 of run34056407698 at 475dcb69e5f31caa8ea941980396d2c250d6c2c5; complete raw log preserved in the W12 evidence directory.
 - Workaround: n/a.
 - Resolution + evidence link: register all nine negative cases independently under unchanged per-test deadlines, and bound the ATS test package to one worker/no file parallelism. All65 ATS tests pass; no old test, fixture, manifest, core or global timeout change. Retained and hosted proof required in the forward correction; docs/TEST_EVIDENCE.md § M02-W12.
 
@@ -146,7 +1557,7 @@ broadening a work package (spec §1.5).
 - Description: three `it.each` tables imported runtime enums; the repository policy could not statically prove them safe/nonempty. All57 ATS tests and125 browser tests passed, but aggregate integrity and its real-repository Python oracle correctly failed. Classified DIRECT_REGRESSION in correction round2.
 - Reproduction: `pnpm verify --suite integrity` at invalidated content tree 2da677733fa79e66d80360d7298994b6ae5c9af6 reports three unprovable parameter tables.
 - Workaround: n/a.
-- Resolution + evidence link: explicit closed literal tables preserve all12 session,11 step and4 family cases and every assertion, independent of runtime enum availability;57 tests and canonical integrity pass. No runner/policy/implementation change or test skip. Both frozen canonical passes restarted; docs/TEST_EVIDENCE.md § M02-W12.
+- Resolution + evidence link: explicit closed literal tables preserve all 12 session,11 step and4 family cases and every assertion, independent of runtime enum availability;57 tests and canonical integrity pass. No runner/policy/implementation change or test skip. Both frozen canonical passes restarted; docs/TEST_EVIDENCE.md § M02-W12.
 
 ### KI-0066 — Writer status edit matched a gate-description sentence
 
@@ -3408,3 +4819,31 @@ W13 follow-up,2026-09-30: reproduced and treated as PACKAGE_BLOCKER for measurem
 - Workaround: n/a (not currently exploitable; layered checks cover today's
   tree).
 - Resolution + evidence link: pending a later hardening package.
+
+### KI-0099 — Node-only R10 tests enter default Playwright discovery
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-18UTC, actual strict clean3c79bd0/tree8c8c095 full validation.
+- Affects: default browser test discovery before any browser cases execute; test harness only.
+- Description: Playwright default matching imports .test.mjs. The new R10 legacy cleanup Node test imports experimental SourceTextModule and requires a separately bound Node runner, so default discovery throws before W13/default browser execution. This is a test-location/discovery regression; current p95 is null and no new runtime performance conclusion follows.
+- Correction: reviewed patch820a340c6a29bdc4819461a3d0d0c1013219065c5a81d53159b4b7602bbaa3c2 adds only a narrow testIgnore for four R10 Node-only modules. All54specfiles/5customproofs/9customconfigs,36R10graph and originalR9 bytes remain unchanged. Proper Node runner executes42PASS/0fail/cancelled/skipped/todo; browser --list discovers all246cases, without execution. Root type/lint/format/diff pass.
+- Resolution + evidence link: IN_PROGRESS pending a fresh frozen full validation. docs/evidence/m02-w15-discovery-correction/proof.tar.gz SHA256ef870ded9945f3c8653d85879c571dbe1f3e6a2435ecd00ad6270c952039693b. The failed3c79 run, full source/tool/build endpoints and independent review remain retained. No browser test is removed, rewritten or marked skipped to obtain a pass.
+- Current resolution (2026-10-18UTC): Corrected95f5 runs all246 default browser cases in the full local and every native host;19ACTIVE PASS. All54specfiles and4Node-onlyR10source tests remain preserved; properNode42 focused proof remains separate. Original3c79 discovery failure stays historical. Source-bound proof and independent PASS recommendation: docs/evidence/m02-w15-review-95f5; owner Gate A decision remains pending.
+
+
+### KI-0100 — Temporary-directory aliases suppress the offline comparison CLI entry point
+
+- Severity: MEDIUM
+- State: OPEN
+- Discovered: 2026-10-18UTC, current R10 reporting after both actors completed once.
+- Affects: M02-W15 external comparison coordinator reuse; test/evidence tooling only.
+- Description: frozen compare-paired.mjs compares lexical resolve(argv1) with physical import.meta.url. On macOS /tmp aliases /private/tmp, so the coordinator's offline invocation exits0 without running main or creating a worksheet; its required-file check then fails closed. Original pipeline exit1/FileNotFound and all7 neutral source/tool/build endpoints remain retained.
+- Reproduction: actual Node24 pure resolver probe gives unequal original entry paths and equal physical entry; current candidate4/legacy4 raw artifacts remain unchanged. No product actor was repeated.
+- Workaround: invoke the identical frozen comparator through its physical source path with the same lock/release/inputs and fresh separate output. This actual pure join passes, yields40/40vs28/40exact, and closes independent204raw+5postflight checks.
+- Resolution + evidence link: OPEN as a future coordinator reuse precondition: normalize that CLI entry path in any newly reviewed coordinator before another campaign. Current Gate A comparison evidence is independently complete through the separately reviewed join. Do not mutate sealed R9/R10 history or relabel the original pipelinePASS. docs/evidence/m02-w15-review-95f5 preserves the complete failure, separate join and independent scope decision.
+
+
+## M02 delegated acceptance — 2026-10-18
+
+Gate A PASS and M02 ACCEPTED under OD-037 / ADR-0008 after actual independent validation. Earlier pending-approval prose is historical. KI-0100 remains MEDIUM/OPEN for future harness reuse; original comparison evidence remains complete.

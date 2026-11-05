@@ -1,0 +1,353 @@
+{
+  "members": [
+    {
+      "bytes": 44535,
+      "mode": 420,
+      "path": "hosted/api-receipts.json",
+      "sha256": "26c36268c3975f5cc41543e641013fa14e44901721a809420f76b736f2f3a670",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/api-receipts.json"
+    },
+    {
+      "bytes": 32,
+      "mode": 420,
+      "path": "hosted/artifact-lists/035.json",
+      "sha256": "244563f989470892c537c9a4622920af0d228ee4528f7d00c64a06d6cd95856c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifact-lists/035.json"
+    },
+    {
+      "bytes": 32,
+      "mode": 420,
+      "path": "hosted/artifact-lists/051.json",
+      "sha256": "244563f989470892c537c9a4622920af0d228ee4528f7d00c64a06d6cd95856c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifact-lists/051.json"
+    },
+    {
+      "bytes": 32,
+      "mode": 420,
+      "path": "hosted/artifact-lists/052.json",
+      "sha256": "244563f989470892c537c9a4622920af0d228ee4528f7d00c64a06d6cd95856c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifact-lists/052.json"
+    },
+    {
+      "bytes": 799,
+      "mode": 420,
+      "path": "hosted/artifact-lists/054.json",
+      "sha256": "b58447fbdf034c82ec6924f51179c16d7968f4f76d5006e363041f77ea7eb27a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifact-lists/054.json"
+    },
+    {
+      "bytes": 1568,
+      "mode": 420,
+      "path": "hosted/artifact-lists/058.json",
+      "sha256": "cacf2bca00ee2b29738406b6d023c2e337778f3b3a6bfed398d91b01029014b2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifact-lists/058.json"
+    },
+    {
+      "bytes": 32524,
+      "mode": 420,
+      "path": "hosted/artifacts/12911338406-members.json",
+      "sha256": "d2fe83fe465436d0f03b017f02dccd349eec56889d3cd1e9bfa62fb288d5510a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifacts/12911338406-members.json"
+    },
+    {
+      "bytes": 26395,
+      "mode": 420,
+      "path": "hosted/artifacts/12911338406-retention-verification.json",
+      "sha256": "d4b2bf80b1683c44aee437d07e60004c5e36f0c3dc8e709d134a004a1fff608b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifacts/12911338406-retention-verification.json"
+    },
+    {
+      "bytes": 69939,
+      "mode": 420,
+      "path": "hosted/artifacts/12911479368-members.json",
+      "sha256": "c709656b43f78cccdb16570f10fe72229a72f36c8a16aaa9886ab867d1e18fbf",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifacts/12911479368-members.json"
+    },
+    {
+      "bytes": 56995,
+      "mode": 420,
+      "path": "hosted/artifacts/12911479368-retention-verification.json",
+      "sha256": "e4829a78e160d97f490a1a556031754382ae07640bddd18e35f00ddaf866b753",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifacts/12911479368-retention-verification.json"
+    },
+    {
+      "bytes": 406,
+      "mode": 420,
+      "path": "hosted/checkout-source-bindings.json",
+      "sha256": "e85374c35db7875db673b784d13d34dadcd7e1e0f1341e9e3197f2995ef2b82d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/checkout-source-bindings.json"
+    },
+    {
+      "bytes": 1474235,
+      "mode": 420,
+      "path": "hosted/closed-jobs/123533749306.log",
+      "sha256": "af1c8544418f8025ec6097e8e22e647dfffcb07c821925f34d67880cf3c0265c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/closed-jobs/123533749306.log"
+    },
+    {
+      "bytes": 1588907,
+      "mode": 420,
+      "path": "hosted/closed-jobs/123533749595.log",
+      "sha256": "e805c52f556555b687bdd896ce65303e12c3d6765fabb626f8abf74cc263fe22",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/closed-jobs/123533749595.log"
+    },
+    {
+      "bytes": 1471492,
+      "mode": 420,
+      "path": "hosted/closed-jobs/123533749839.log",
+      "sha256": "27270cf0bff379d8736e1b13cd0f16669321760793dbcb1dc2c88b9414befd2f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/closed-jobs/123533749839.log"
+    },
+    {
+      "bytes": 12002,
+      "mode": 420,
+      "path": "hosted/closed-jobs/123566716686-failure-excerpt.txt",
+      "sha256": "77cb70cab9ca61e639adebb05e85c6696b062f5883a00c051c9ad87dab60960a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/closed-jobs/123566716686-failure-excerpt.txt"
+    },
+    {
+      "bytes": 35603,
+      "mode": 420,
+      "path": "hosted/closed-jobs/123566716686.log",
+      "sha256": "347409380e680c84fa30fcd80c19d66c2f0b5583d5fc9613a0fa06cb2fa36e9b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/closed-jobs/123566716686.log"
+    },
+    {
+      "bytes": 12002,
+      "mode": 420,
+      "path": "hosted/closed-jobs/123566716778-failure-excerpt.txt",
+      "sha256": "d48aa8dcd5c99a3dd6374a41b368b74d779164016a880e823e31ee5e4fc0144f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/closed-jobs/123566716778-failure-excerpt.txt"
+    },
+    {
+      "bytes": 143454,
+      "mode": 420,
+      "path": "hosted/closed-jobs/123566716778.log",
+      "sha256": "ccf406573d05a702e2899a6cf8bacf791909163181f6f13edc021ba7f2f3dcbf",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/closed-jobs/123566716778.log"
+    },
+    {
+      "bytes": 806,
+      "mode": 420,
+      "path": "hosted/collector-closure.json",
+      "sha256": "ab427a56633e7931a6b7706e86f8f8c0bd794a595205157cdfb78415bdb18f7c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/collector-closure.json"
+    },
+    {
+      "bytes": 317,
+      "mode": 420,
+      "path": "hosted/collector-context.json",
+      "sha256": "48cdd44b6179e2ce44a7eb8271addf62d2b65185bdec2894f7776e5b275a5ed9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/collector-context.json"
+    },
+    {
+      "bytes": 11515,
+      "mode": 420,
+      "path": "hosted/collector-executed.py",
+      "sha256": "2a2a32d126e9455f2d6de880f5e7c6b81e37db99860df5420f62c570adf06897",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/collector-executed.py"
+    },
+    {
+      "bytes": 1113,
+      "mode": 420,
+      "path": "hosted/head-commit.json",
+      "sha256": "412b9015ab75901efc8e08e548896247da6a95ebb054174d8aaf9e3329fdba6a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/head-commit.json"
+    },
+    {
+      "bytes": 679966,
+      "mode": 420,
+      "path": "hosted/head-tree.json",
+      "sha256": "eab268ce1043660a7acc585e2e71d403f18fa424ed40ed228bcdbe8e6aa31240",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/head-tree.json"
+    },
+    {
+      "bytes": 588449,
+      "mode": 420,
+      "path": "hosted/immutable-git-source-sha256.json",
+      "sha256": "adce597e06c12eb2c9d01b5b88a2d5d1c4adce3c694b6de97edab640b9a15f92",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/immutable-git-source-sha256.json"
+    },
+    {
+      "bytes": 253,
+      "mode": 420,
+      "path": "hosted/immutable-source-api-join.json",
+      "sha256": "254e406f36d36b5f0e60e4998dbf2c4af35db9b95225bbc2d70fb2c59a6ecbd9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/immutable-source-api-join.json"
+    },
+    {
+      "bytes": 23828,
+      "mode": 420,
+      "path": "hosted/log-members.json",
+      "sha256": "45b6ced74eef615760f33f0eac6bf8d79ea17e66473c087ba2c24aa4700c2549",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/log-members.json"
+    },
+    {
+      "bytes": 1740179,
+      "mode": 420,
+      "path": "hosted/official-logs.zip",
+      "sha256": "06e2f10f58b19fd0d3eb26d5e258cfc74ea76f436191c1676746982f0f8ddb3d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/official-logs.zip"
+    },
+    {
+      "bytes": 2600,
+      "mode": 420,
+      "path": "hosted/source-bindings/6f54aa9e09b6c7356dc00d73469c411ef8bd60b8-commit.json",
+      "sha256": "851db86c749a8dfc010aefad1734a590af66c6c9d34efc9be685a9d6d94be95f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/source-bindings/6f54aa9e09b6c7356dc00d73469c411ef8bd60b8-commit.json"
+    },
+    {
+      "bytes": 679966,
+      "mode": 420,
+      "path": "hosted/source-bindings/6f54aa9e09b6c7356dc00d73469c411ef8bd60b8-tree.json",
+      "sha256": "eab268ce1043660a7acc585e2e71d403f18fa424ed40ed228bcdbe8e6aa31240",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/source-bindings/6f54aa9e09b6c7356dc00d73469c411ef8bd60b8-tree.json"
+    },
+    {
+      "bytes": 43929,
+      "mode": 420,
+      "path": "hosted/terminal-jobs.json",
+      "sha256": "04bc01d09add53f8bb6c8cc211c6e135e8340df44641f0bbe52755f69337743a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/terminal-jobs.json"
+    },
+    {
+      "bytes": 13888,
+      "mode": 420,
+      "path": "hosted/terminal-run.json",
+      "sha256": "bf99a3a27e557df1f7a56ad45e6f4b0393333b818a31c1a711d4c21c280903c5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/terminal-run.json"
+    },
+    {
+      "bytes": 4336,
+      "mode": 420,
+      "path": "independent/REVIEW.md",
+      "sha256": "7bc52397bcbb41424457dfb5b817cd5e75c674e72b4b6475de00fdb2cbefc5ab",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac-independent-review/REVIEW.md"
+    },
+    {
+      "bytes": 859011,
+      "mode": 420,
+      "path": "independent/actual-data-checks.json",
+      "sha256": "b2c2b364cab0edb5ae452d65809e38b10de42d927ae36884cbc16372fa0bc883",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac-independent-review/actual-data-checks.json"
+    },
+    {
+      "bytes": 13460,
+      "mode": 420,
+      "path": "independent/audit-observer-before-label-correction.py",
+      "sha256": "ef2545b6dd78429e8b917bc28bd71e4221daed4d3ba1981e07e94281d6a8c2e7",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac-independent-review/audit-observer-before-label-correction.py"
+    },
+    {
+      "bytes": 13482,
+      "mode": 420,
+      "path": "independent/audit.py",
+      "sha256": "c72817e38bc407ef6292e870091a651808dd4d0948eac278d74665c31bfbbb81",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac-independent-review/audit.py"
+    },
+    {
+      "bytes": 805,
+      "mode": 420,
+      "path": "independent/manifest.json",
+      "sha256": "c0f4c98e8b9d9a7903915fe47799433cf19d9a984e37002e92795d12b50de0a3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac-independent-review/manifest.json"
+    },
+    {
+      "bytes": 506,
+      "mode": 420,
+      "path": "independent/observer-label-correction.json",
+      "sha256": "e1caa59f04c501bd16f2d6cbc81cfec44ba43ea55e48c38818b9571152172e4d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac-independent-review/observer-label-correction.json"
+    },
+    {
+      "bytes": 6400,
+      "mode": 420,
+      "path": "observer/package-executed.py",
+      "sha256": "c21161a1040d1e99ac4ee2a96b7b736be12b4da0deafd5a59b590340a49f27dc",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/package-closed-ci80.py"
+    },
+    {
+      "bytes": 2573,
+      "mode": 420,
+      "path": "selected-original-failure/12911338406/runtime-build/06-native-build.stderr",
+      "sha256": "469cfbe3050b4c3461f597efc6e7e87803513fa88c919b4aef3be2eac3b00bfb",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifacts/12911338406-contents/runtime-build/06-native-build.stderr"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "selected-original-failure/12911338406/runtime-build/06-native-build.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifacts/12911338406-contents/runtime-build/06-native-build.stdout"
+    },
+    {
+      "bytes": 11588,
+      "mode": 420,
+      "path": "selected-original-failure/12911338406/runtime-build/build-proof.json",
+      "sha256": "ac1465bcb176ef0b952cd4f7bb279d04c682fb7a485d1a8921201a3c84e7b6ef",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifacts/12911338406-contents/runtime-build/build-proof.json"
+    },
+    {
+      "bytes": 12923,
+      "mode": 420,
+      "path": "selected-original-failure/12911338406/runtime-build/builder-executed.py",
+      "sha256": "78d32f99c9624bbf6fbe51643c9818d6bd17d276d4843b0db77304bd675eb9ef",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifacts/12911338406-contents/runtime-build/builder-executed.py"
+    },
+    {
+      "bytes": 332,
+      "mode": 420,
+      "path": "selected-original-failure/12911338406/worker/ci-result.json",
+      "sha256": "496e439acec8bba80979803e89624d77846975804f19415aeabff8bd4cf27c26",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifacts/12911338406-contents/worker/ci-result.json"
+    },
+    {
+      "bytes": 442,
+      "mode": 420,
+      "path": "selected-original-failure/12911338406/worker/pipeline.result.json",
+      "sha256": "5322ab51a4c74d000c683310374696cce3aefd6e65fabd401163bcf7d9338831",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifacts/12911338406-contents/worker/pipeline.result.json"
+    },
+    {
+      "bytes": 2381,
+      "mode": 420,
+      "path": "selected-original-failure/12911479368/pipeline/15-package-actor.result.json",
+      "sha256": "e51e51ce50f5ba1854d2a55dbddb4a9956e64a5dada27f82842fadeba5baf47f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifacts/12911479368-contents/pipeline/15-package-actor.result.json"
+    },
+    {
+      "bytes": 403,
+      "mode": 420,
+      "path": "selected-original-failure/12911479368/pipeline/15-package-actor.stderr",
+      "sha256": "7633a56afb92af78f39681e82d2e55f31c8ca31f418b5f731c1e6ff3262c82ad",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifacts/12911479368-contents/pipeline/15-package-actor.stderr"
+    },
+    {
+      "bytes": 312,
+      "mode": 420,
+      "path": "selected-original-failure/12911479368/pipeline/15-package-actor.stdout",
+      "sha256": "86eb6b29a0bcf5ba5b4d35ba9324b46e963c603e8fd087f18f2be4fb6dedb155",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifacts/12911479368-contents/pipeline/15-package-actor.stdout"
+    },
+    {
+      "bytes": 332,
+      "mode": 420,
+      "path": "selected-original-failure/12911479368/worker/ci-result.json",
+      "sha256": "0d66e2f35e19c4e79d0e26b8e9899600d1b70cb385c35a0cb2637aa451d0690e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifacts/12911479368-contents/worker/ci-result.json"
+    },
+    {
+      "bytes": 354,
+      "mode": 420,
+      "path": "selected-original-failure/12911479368/worker/pipeline.result.json",
+      "sha256": "faf16d8f7c68f3ede7764068cf151faaba9cef8fdf7e5d1d25e2648545788e80",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-80e68ac/artifacts/12911479368-contents/worker/pipeline.result.json"
+    }
+  ],
+  "omissions": [
+    "Full2187immutableGit source bodies and all runtime/package payloads",
+    "Two original package artifact ZIP bodies and complete unpacked640member bodies remain durable in original CI collector; exact API ZIP digest and every member map retained here."
+  ],
+  "original_bytes_full_modes_and_archive_equal": true,
+  "regular_members": 49
+}

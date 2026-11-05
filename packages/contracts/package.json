@@ -6,7 +6,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./generated": "./generated/typescript/index.ts"
+    "./generated": "./generated/typescript/index.ts",
+    "./error-catalog": "./generated/typescript/error/catalog-data.v1.ts"
   },
   "scripts": {
     "typecheck": "tsc -p tsconfig.json",

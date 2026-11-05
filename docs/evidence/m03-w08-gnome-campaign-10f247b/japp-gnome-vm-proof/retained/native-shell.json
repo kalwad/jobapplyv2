@@ -1,0 +1,971 @@
+{
+  "schema": "japp-native-shell-capture-v1",
+  "policy_sha256": "7aaf7a099cf111661c9fd6e98497ebf97bbb4d6a1c72c8d6ec2d20f190735e88",
+  "subject_sha256": "25675a83d0b37fafa9425c3fcb34c8078050dbffd02eafa1766959fb795514d1",
+  "platform": "GNOME_ATSPI",
+  "measurements": [
+    {
+      "stage": "baseline",
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "anchors": [
+        {
+          "text": "0.0.1",
+          "rect": [
+            599,
+            219,
+            41,
+            15
+          ],
+          "single_line": true,
+          "visible": true,
+          "showing": true
+        },
+        {
+          "text": "2.12.4",
+          "rect": [
+            599,
+            265,
+            49,
+            15
+          ],
+          "single_line": true,
+          "visible": true,
+          "showing": true
+        }
+      ]
+    },
+    {
+      "stage": "step1",
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "anchors": [
+        {
+          "text": "0.0.1",
+          "rect": [
+            635,
+            250,
+            49,
+            19
+          ],
+          "single_line": true,
+          "visible": true,
+          "showing": true
+        },
+        {
+          "text": "2.12.4",
+          "rect": [
+            635,
+            306,
+            58,
+            19
+          ],
+          "single_line": true,
+          "visible": true,
+          "showing": true
+        }
+      ]
+    },
+    {
+      "stage": "step2",
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "anchors": [
+        {
+          "text": "0.0.1",
+          "rect": [
+            671,
+            280,
+            57,
+            22
+          ],
+          "single_line": true,
+          "visible": true,
+          "showing": true
+        },
+        {
+          "text": "2.12.4",
+          "rect": [
+            671,
+            345,
+            68,
+            22
+          ],
+          "single_line": true,
+          "visible": true,
+          "showing": true
+        }
+      ]
+    },
+    {
+      "stage": "step3",
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "anchors": [
+        {
+          "text": "0.0.1",
+          "rect": [
+            443,
+            643,
+            65,
+            25
+          ],
+          "single_line": true,
+          "visible": true,
+          "showing": true
+        },
+        {
+          "text": "2.12.4",
+          "rect": [
+            443,
+            717,
+            77,
+            25
+          ],
+          "single_line": true,
+          "visible": true,
+          "showing": true
+        }
+      ]
+    },
+    {
+      "stage": "step4",
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "anchors": [
+        {
+          "text": "0.0.1",
+          "rect": [
+            448,
+            626,
+            72,
+            29
+          ],
+          "single_line": true,
+          "visible": true,
+          "showing": true
+        },
+        {
+          "text": "2.12.4",
+          "rect": [
+            448,
+            709,
+            87,
+            29
+          ],
+          "single_line": true,
+          "visible": true,
+          "showing": true
+        }
+      ]
+    },
+    {
+      "stage": "step5",
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "anchors": [
+        {
+          "text": "0.0.1",
+          "rect": [
+            453,
+            611,
+            80,
+            30
+          ],
+          "single_line": true,
+          "visible": true,
+          "showing": true
+        },
+        {
+          "text": "2.12.4",
+          "rect": [
+            453,
+            704,
+            96,
+            30
+          ],
+          "single_line": true,
+          "visible": true,
+          "showing": true
+        }
+      ]
+    },
+    {
+      "stage": "reset",
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "anchors": [
+        {
+          "text": "0.0.1",
+          "rect": [
+            599,
+            219,
+            41,
+            15
+          ],
+          "single_line": true,
+          "visible": true,
+          "showing": true
+        },
+        {
+          "text": "2.12.4",
+          "rect": [
+            599,
+            265,
+            49,
+            15
+          ],
+          "single_line": true,
+          "visible": true,
+          "showing": true
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "heading": "Home",
+      "heading_unique": true,
+      "heading_focused": true,
+      "navigation_unique": true,
+      "glyph": {
+        "text": "Home",
+        "rect": [
+          288,
+          100,
+          76,
+          29
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "checked_before": null,
+      "checked_after": null,
+      "scale": "baseline",
+      "route": "home",
+      "tab_shift_tab": true,
+      "skip_main": true,
+      "image_sha256": "3911ab5a0920ea9c911e1936c82210c6199ece3a4cf3174fcb14b83166cc5b9d",
+      "image_width": 1280,
+      "image_height": 800
+    },
+    {
+      "heading": "Jobs",
+      "heading_unique": true,
+      "heading_focused": true,
+      "navigation_unique": true,
+      "glyph": {
+        "text": "Jobs",
+        "rect": [
+          288,
+          100,
+          55,
+          29
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "checked_before": null,
+      "checked_after": null,
+      "scale": "baseline",
+      "route": "jobs",
+      "tab_shift_tab": true,
+      "skip_main": true,
+      "image_sha256": "cfec5bc3ea54282fb7444b9b305dcf24d2c006e46368d21694329244d976f106",
+      "image_width": 1280,
+      "image_height": 800
+    },
+    {
+      "heading": "Tracker",
+      "heading_unique": true,
+      "heading_focused": true,
+      "navigation_unique": true,
+      "glyph": {
+        "text": "Trac",
+        "rect": [
+          288,
+          100,
+          56,
+          29
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "checked_before": null,
+      "checked_after": null,
+      "scale": "baseline",
+      "route": "tracker",
+      "tab_shift_tab": true,
+      "skip_main": true,
+      "image_sha256": "42eda4199cd9244dca9c35fc621784ce8e4fe032c1b0fe0eac01a122529f9271",
+      "image_width": 1280,
+      "image_height": 800
+    },
+    {
+      "heading": "Documents / Resumes",
+      "heading_unique": true,
+      "heading_focused": true,
+      "navigation_unique": true,
+      "glyph": {
+        "text": "Docu",
+        "rect": [
+          288,
+          100,
+          67,
+          29
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "checked_before": null,
+      "checked_after": null,
+      "scale": "baseline",
+      "route": "documents",
+      "tab_shift_tab": true,
+      "skip_main": true,
+      "image_sha256": "0853694288046b1de63ab63e81b2e563b5e1605ec40bb652feec865ade6420e9",
+      "image_width": 1280,
+      "image_height": 800
+    },
+    {
+      "heading": "Profile",
+      "heading_unique": true,
+      "heading_focused": true,
+      "navigation_unique": true,
+      "glyph": {
+        "text": "Prof",
+        "rect": [
+          288,
+          100,
+          56,
+          29
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "checked_before": null,
+      "checked_after": null,
+      "scale": "baseline",
+      "route": "profile",
+      "tab_shift_tab": true,
+      "skip_main": true,
+      "image_sha256": "b4e301df0f1a2d98ce376ca0154256a63e341a38d955a0ad6bbccee6ec83c90d",
+      "image_width": 1280,
+      "image_height": 800
+    },
+    {
+      "heading": "Settings",
+      "heading_unique": true,
+      "heading_focused": true,
+      "navigation_unique": true,
+      "glyph": {
+        "text": "Sett",
+        "rect": [
+          288,
+          100,
+          56,
+          29
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "checked_before": null,
+      "checked_after": null,
+      "scale": "baseline",
+      "route": "settings",
+      "tab_shift_tab": true,
+      "skip_main": true,
+      "image_sha256": "e1de5c3eed508a90ce2a5eded6726ec96c102f214b771f9b1411f427559f2acd",
+      "image_width": 1280,
+      "image_height": 800
+    },
+    {
+      "heading": "Diagnostics",
+      "heading_unique": true,
+      "heading_focused": true,
+      "navigation_unique": true,
+      "glyph": {
+        "text": "Diag",
+        "rect": [
+          288,
+          96,
+          61,
+          28
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "checked_before": "2026-11-02T01:16:10.857601939Z",
+      "checked_after": "2026-11-02T01:16:14.091278905Z",
+      "scale": "baseline",
+      "route": "diagnostics",
+      "tab_shift_tab": true,
+      "skip_main": true,
+      "image_sha256": "0d5ac75ed4b2d2b8ed818879ab4ceb830589b4797353bd18a2e023d7cbbef058",
+      "image_width": 1280,
+      "image_height": 800
+    },
+    {
+      "heading": "Home",
+      "heading_unique": true,
+      "heading_focused": true,
+      "navigation_unique": true,
+      "glyph": {
+        "text": "Home",
+        "rect": [
+          32,
+          696,
+          150,
+          56
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "checked_before": null,
+      "checked_after": null,
+      "scale": "enlarged",
+      "route": "home",
+      "tab_shift_tab": true,
+      "skip_main": true,
+      "image_sha256": "f0b17847df4b00691382bdc65e9ec4ce6df90f72030f189da502010e2fc15f2b",
+      "image_width": 1280,
+      "image_height": 800
+    },
+    {
+      "heading": "Jobs",
+      "heading_unique": true,
+      "heading_focused": true,
+      "navigation_unique": true,
+      "glyph": {
+        "text": "Jobs",
+        "rect": [
+          32,
+          696,
+          108,
+          56
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "checked_before": null,
+      "checked_after": null,
+      "scale": "enlarged",
+      "route": "jobs",
+      "tab_shift_tab": true,
+      "skip_main": true,
+      "image_sha256": "82629beddd5446825f6e642f73b9d905cbb01295dc643b13a9d64695c0b43238",
+      "image_width": 1280,
+      "image_height": 800
+    },
+    {
+      "heading": "Tracker",
+      "heading_unique": true,
+      "heading_focused": true,
+      "navigation_unique": true,
+      "glyph": {
+        "text": "Trac",
+        "rect": [
+          32,
+          696,
+          108,
+          56
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "checked_before": null,
+      "checked_after": null,
+      "scale": "enlarged",
+      "route": "tracker",
+      "tab_shift_tab": true,
+      "skip_main": true,
+      "image_sha256": "3508d7ce81e4e545a4659b06e51e8713bb63970caf9287af9985ac8b9b6b5189",
+      "image_width": 1280,
+      "image_height": 800
+    },
+    {
+      "heading": "Documents / Resumes",
+      "heading_unique": true,
+      "heading_focused": true,
+      "navigation_unique": true,
+      "glyph": {
+        "text": "Docu",
+        "rect": [
+          32,
+          696,
+          132,
+          56
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "checked_before": null,
+      "checked_after": null,
+      "scale": "enlarged",
+      "route": "documents",
+      "tab_shift_tab": true,
+      "skip_main": true,
+      "image_sha256": "d1ba283a190775d0dad6a2ef09be1b12ce8f2e3bfbdd4731dd7520a6c9d20d4f",
+      "image_width": 1280,
+      "image_height": 800
+    },
+    {
+      "heading": "Profile",
+      "heading_unique": true,
+      "heading_focused": true,
+      "navigation_unique": true,
+      "glyph": {
+        "text": "Prof",
+        "rect": [
+          32,
+          696,
+          109,
+          56
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "checked_before": null,
+      "checked_after": null,
+      "scale": "enlarged",
+      "route": "profile",
+      "tab_shift_tab": true,
+      "skip_main": true,
+      "image_sha256": "f1dbaaa7544b2e891e8d64194839c2e6b7c7afa3c3d1981842e4cd5a19772651",
+      "image_width": 1280,
+      "image_height": 800
+    },
+    {
+      "heading": "Settings",
+      "heading_unique": true,
+      "heading_focused": true,
+      "navigation_unique": true,
+      "glyph": {
+        "text": "Sett",
+        "rect": [
+          32,
+          696,
+          109,
+          56
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "checked_before": null,
+      "checked_after": null,
+      "scale": "enlarged",
+      "route": "settings",
+      "tab_shift_tab": true,
+      "skip_main": true,
+      "image_sha256": "616dae657eb2d8d4c81a7e480d2b789f04b1ee34feee062763224936ec450f0a",
+      "image_width": 1280,
+      "image_height": 800
+    },
+    {
+      "heading": "Diagnostics",
+      "heading_unique": true,
+      "heading_focused": true,
+      "navigation_unique": true,
+      "glyph": {
+        "text": "Diag",
+        "rect": [
+          32,
+          308,
+          119,
+          56
+        ],
+        "single_line": true,
+        "visible": true,
+        "showing": true
+      },
+      "frame": [
+        0,
+        0,
+        1214,
+        768
+      ],
+      "backing": {
+        "kind": "MUTTER_SINGLE_PRIMARY_CURRENT_MODE",
+        "serial": 1,
+        "connector": "Virtual-1",
+        "width": 1280,
+        "height": 800,
+        "scale": 1.0,
+        "transform": 0,
+        "layout_mode": 2
+      },
+      "window_id": "16069:18057",
+      "app_pid": 16069,
+      "checked_before": "2026-11-02T01:17:21.496284765Z",
+      "checked_after": "2026-11-02T01:17:25.370431971Z",
+      "scale": "enlarged",
+      "route": "diagnostics",
+      "tab_shift_tab": true,
+      "skip_main": true,
+      "image_sha256": "88de441920e5fafda1b422ef61ac539a93c4459cdc1dadf0c3b40efbea25f568",
+      "image_width": 1280,
+      "image_height": 800
+    }
+  ],
+  "reset_image": "8f316418bbee8581a7895973ed08a1cc5249e7092d5f91d6734da472daa51b24",
+  "reader_output": "NOT_COLLECTED"
+}

@@ -2306,8 +2306,12 @@ def test_status_validator_failure_propagates_through_runner(
 ) -> None:
     corrupt = tmp_path / "corrupt_status.md"
     real_status = (REPO_ROOT / "docs/PROJECT_STATUS.md").read_text(encoding="utf-8")
+    original_row = "| `M00-W01` | VERIFIED |"
+    assert real_status.count(original_row) == 1
+    invalid_status = real_status.replace(original_row, "| `M00-W01` | DONE |", 1)
+    assert invalid_status != real_status
     corrupt.write_text(
-        real_status.replace("| `M03-W02` | NOT_STARTED |", "| `M03-W02` | DONE |"),
+        invalid_status,
         encoding="utf-8",
     )
     status_cmd = [

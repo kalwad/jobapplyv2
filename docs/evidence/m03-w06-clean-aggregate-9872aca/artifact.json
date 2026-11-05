@@ -1,0 +1,10 @@
+{
+  "archive": {
+    "bytes": 1551950,
+    "sha256": "122f13912acde191781d8fec8d0c91221329814506aa4a53bddfba9cde5af9ec",
+    "safe_regular_members": 46
+  },
+  "review_sha256": "4aa7a5d8499b703343097ef2c13bf651c21530112d11c1fee6579042c39772f3",
+  "audit_sha256": "16f21ccad07868f10019a43563bae70a988feb26848aa89dca1f1dce000e1c3d",
+  "scope": "INDEPENDENT_ACTUAL_CLEAN_LOCAL_FULL_AGGREGATE_9872_DATA_REVIEW_NOT_CI_OR_NATIVE_GUI_ACCEPTANCE"
+}

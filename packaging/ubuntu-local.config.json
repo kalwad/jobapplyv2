@@ -1,0 +1,11 @@
+{
+  "bundle": {
+    "active": true,
+    "targets": ["deb"],
+    "linux": {
+      "deb": {
+        "desktopTemplate": "../../../packaging/ubuntu.desktop"
+      }
+    }
+  }
+}

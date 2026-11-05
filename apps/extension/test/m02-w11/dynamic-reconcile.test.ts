@@ -9,9 +9,13 @@ import {
   classifyField,
   computeInventoryCounts,
   computeReadiness,
+  reconciliationItemIdentity,
   type CurrentValueComparison,
   type ReconcileFieldEvidence,
 } from "../../src/dynamic-reconcile.ts";
+
+import { isCanonicalReconciliationInventory } from "../../src/dynamic-protocol.ts";
+import { stableSemanticId } from "../../src/semantic-identity.ts";
 
 const DIGEST_A = `sha256:${"a".repeat(64)}`;
 const DIGEST_B = `sha256:${"b".repeat(64)}`;
@@ -416,5 +420,136 @@ describe("canonical ordering", () => {
     const sortedTwo = [second, third, first].sort(canonicalEvidenceOrder);
     expect(sortedOne).toEqual([first, second, third]);
     expect(sortedTwo).toEqual(sortedOne);
+  });
+});
+
+describe("physical observations with colliding semantic identities", () => {
+  const verified = {
+    outcome: "VERIFIED",
+    decisionConfirmation: "NOT_REQUIRED",
+    generationCurrent: true,
+    currentValue: "MATCHES_SETTLED",
+  } as const;
+
+  test("a required collision stays unresolved and uncertain even with matching verified evidence", () => {
+    for (const transaction of [undefined, verified]) {
+      const input = evidence({
+        identityAmbiguous: true,
+        ...(transaction === undefined ? {} : { transaction }),
+      });
+      expect(classifyField(input)).toEqual({
+        category: "REQUIRED_UNRESOLVED",
+        document_state: "CURRENT",
+        changed_value: false,
+        confirmation_state: "NOT_APPLICABLE",
+        mandatory_uncertain: true,
+        pageChangedDetected: false,
+      });
+    }
+  });
+
+  test("an optional collision is explicitly reviewable and receives no fill credit", () => {
+    expect(
+      classifyField(
+        evidence({
+          required: false,
+          identityAmbiguous: true,
+          transaction: verified,
+        }),
+      ),
+    ).toEqual({
+      category: "NEEDS_REVIEW",
+      document_state: "CURRENT",
+      changed_value: false,
+      confirmation_state: "NOT_APPLICABLE",
+      mandatory_uncertain: false,
+      pageChangedDetected: false,
+    });
+  });
+
+  test("hidden or disabled collision members stay outside unresolved requirements", () => {
+    for (const inactive of [{ visible: false }, { enabled: false }]) {
+      const classified = classifyField(
+        evidence({
+          ...inactive,
+          identityAmbiguous: true,
+          transaction: verified,
+        }),
+      );
+      expect(classified.category).toBe("UNSUPPORTED_OR_SKIPPED");
+      expect(classified.mandatory_uncertain).toBe(false);
+    }
+  });
+
+  test("every collision member has a distinct report item while unique verified controls remain intact", async () => {
+    const duplicate = evidence({
+      identityAmbiguous: true,
+      transaction: verified,
+    });
+    const unique = evidence({
+      fieldId: "field_1123456789ABCDEFGHJKMNPQRS",
+      fieldAddressDigest: DIGEST_B,
+      transaction: verified,
+    });
+    const observations = [duplicate, { ...duplicate }, unique].sort(
+      canonicalEvidenceOrder,
+    );
+    const occurrences = new Map<string, number>();
+    const items = await Promise.all(
+      observations.map(async (observation) => {
+        const base = `${observation.fieldAddressDigest}\0${observation.fieldId}`;
+        const occurrence = occurrences.get(base) ?? 0;
+        occurrences.set(base, occurrence + 1);
+        const classified = classifyField(observation);
+        return {
+          item_id: await stableSemanticId(
+            "item",
+            reconciliationItemIdentity(base, occurrence),
+          ),
+          field_id: observation.fieldId,
+          field_address_digest: observation.fieldAddressDigest,
+          required: observation.required,
+          visible: observation.visible,
+          enabled: observation.enabled,
+          category: classified.category,
+          document_state: classified.document_state,
+          changed_value: classified.changed_value,
+          confirmation_state: classified.confirmation_state,
+          mandatory_uncertain: classified.mandatory_uncertain,
+        };
+      }),
+    );
+    expect(items).toHaveLength(3);
+    expect(new Set(items.map((item) => item.item_id)).size).toBe(3);
+    expect(
+      items.filter((item) => item.field_id === duplicate.fieldId),
+    ).toHaveLength(2);
+    expect(
+      items.filter((item) => item.category === "VERIFIED_FILLED"),
+    ).toHaveLength(1);
+    const counts = computeInventoryCounts(items);
+    expect(counts.total).toBe(3);
+    expect(counts.required_unresolved).toBe(2);
+    expect(counts.mandatory_uncertain).toBe(2);
+    expect(counts.verified_filled).toBe(1);
+    const inventory = {
+      inventory_id: await stableSemanticId("inv", "collision-regression"),
+      session_id: await stableSemanticId("session", "collision-regression"),
+      page_id: await stableSemanticId("page", "collision-regression"),
+      document_id: await stableSemanticId("document", "collision-regression"),
+      page_generation: 0,
+      proof_generation: 0,
+      items,
+      counts,
+      readiness: computeReadiness(counts, 0, 0),
+      evidence_digest: DIGEST_A,
+      correlation_id: await stableSemanticId("cor", "collision-regression"),
+    };
+    expect(inventory.readiness).toBe("NOT_READY");
+    expect(isCanonicalReconciliationInventory(inventory)).toBe(true);
+    expect(reconciliationItemIdentity("original-unique-item-seed", 0)).toBe(
+      "original-unique-item-seed",
+    );
+    expect(duplicate.fieldId).toBe("field_0123456789ABCDEFGHJKMNPQRS");
   });
 });

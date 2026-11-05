@@ -1,0 +1,382 @@
+{
+  "format_version": "W13_GOVERNANCE_CLOSEOUT_1",
+  "authority": "INTERNAL_ONLY_NOT_GATE_A_FINAL_EVIDENCE",
+  "content_sha": "4745149f4b5da7190b5b0c68753f8ec07bed572d",
+  "content_tree": "a953274ef14a7534c39201a09738c26b8f085332",
+  "governance_parent": "4745149f4b5da7190b5b0c68753f8ec07bed572d",
+  "created_at": "2026-09-30T19:57:52.933273+00:00",
+  "oracle_digest_inventory": [
+    {
+      "case_id": "benchmarkcase_03V44C83WM2VFNX01STRHHGRXF",
+      "oracle_digest": "sha256:3bb842e0ff7ed410e019d4d59121c7a8c057625456f601e489fc157d9646f18b"
+    },
+    {
+      "case_id": "benchmarkcase_2J80QHS92HHFAJD1WZQ7DZ1X15",
+      "oracle_digest": "sha256:95b98fe6c2b9a88d81f2a2f9a4076afaa4ed788976a8fdd763a7c0033cdcbc1a"
+    },
+    {
+      "case_id": "benchmarkcase_5ZFV555N324C5TW0D3Y3ZKQC0B",
+      "oracle_digest": "sha256:addd374475e09662293e34dd6df65790bd9e5ca3db4443101414a6bb6be034bb"
+    },
+    {
+      "case_id": "benchmarkcase_7FHETQGRS7Q4VX31SGMAHK338T",
+      "oracle_digest": "sha256:5403d4f0a59d814d7e1036ab0eb3385404ba5099baf110f4ff34ce1e8ede29c4"
+    }
+  ],
+  "oracle_digest_inventory_serialization": "UTF8 JSON sorted object keys, compact separators, case_id sorted rows",
+  "oracle_digest_inventory_sha256": "981182c6b261821ef05f262b583fc77afe548aa33089fbed30066b7ba695bdf8",
+  "artifact_path_mapping": {
+    "/tmp/jobapply-w13-content-freeze.json": "docs/evidence/m02-w13-closeout/content-freeze.json",
+    "/tmp/jobapply-w13-content-commit.json": "docs/evidence/m02-w13-closeout/content-commit.json",
+    "/tmp/jobapply-w13-canonical-pass1.json": "docs/evidence/m02-w13-closeout/canonical-pass1/manifest.json",
+    "/tmp/jobapply-w13-canonical-pass1-1.log": "docs/evidence/m02-w13-closeout/canonical-pass1/1.log",
+    "/tmp/jobapply-w13-canonical-pass1-2.log": "docs/evidence/m02-w13-closeout/canonical-pass1/2.log",
+    "/tmp/jobapply-w13-canonical-pass1-3.log": "docs/evidence/m02-w13-closeout/canonical-pass1/3.log",
+    "/tmp/jobapply-w13-canonical-pass1-4.log": "docs/evidence/m02-w13-closeout/canonical-pass1/4.log",
+    "/tmp/jobapply-w13-canonical-pass1-5.log": "docs/evidence/m02-w13-closeout/canonical-pass1/5.log",
+    "/tmp/jobapply-w13-canonical-pass1-6.log": "docs/evidence/m02-w13-closeout/canonical-pass1/6.log",
+    "/tmp/jobapply-w13-canonical-pass1-7.log": "docs/evidence/m02-w13-closeout/canonical-pass1/7.log",
+    "/tmp/jobapply-w13-canonical-pass2.json": "docs/evidence/m02-w13-closeout/canonical-pass2/manifest.json",
+    "/tmp/jobapply-w13-canonical-pass2-1.log": "docs/evidence/m02-w13-closeout/canonical-pass2/1.log",
+    "/tmp/jobapply-w13-canonical-pass2-2.log": "docs/evidence/m02-w13-closeout/canonical-pass2/2.log",
+    "/tmp/jobapply-w13-canonical-pass2-3.log": "docs/evidence/m02-w13-closeout/canonical-pass2/3.log",
+    "/tmp/jobapply-w13-canonical-pass2-4.log": "docs/evidence/m02-w13-closeout/canonical-pass2/4.log",
+    "/tmp/jobapply-w13-canonical-pass2-5.log": "docs/evidence/m02-w13-closeout/canonical-pass2/5.log",
+    "/tmp/jobapply-w13-canonical-pass2-6.log": "docs/evidence/m02-w13-closeout/canonical-pass2/6.log",
+    "/tmp/jobapply-w13-canonical-pass2-7.log": "docs/evidence/m02-w13-closeout/canonical-pass2/7.log",
+    "/tmp/jobapply-w13-content-ci/ci-manifest.json": "docs/evidence/m02-w13-closeout/content-ci/ci-manifest.json",
+    "/tmp/jobapply-w13-content-ci/ubuntu-24.04.log": "docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log",
+    "/tmp/jobapply-w13-content-ci/macos-15.log": "docs/evidence/m02-w13-closeout/content-ci/macos-15.log",
+    "/tmp/jobapply-w13-content-ci/windows-2025.log": "docs/evidence/m02-w13-closeout/content-ci/windows-2025.log",
+    "/tmp/jobapply-w13-content-ci/windows-2025-complete-normalized.log": "docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log",
+    "/tmp/jobapply-w13-final-proof/manifest.json": "docs/evidence/m02-w13-closeout/final-proof/manifest.json",
+    "/tmp/jobapply-w13-final-proof/1.log": "docs/evidence/m02-w13-closeout/final-proof/1.log",
+    "/tmp/jobapply-w13-final-proof/2.log": "docs/evidence/m02-w13-closeout/final-proof/2.log",
+    "/tmp/jobapply-w13-final-proof/3.log": "docs/evidence/m02-w13-closeout/final-proof/3.log",
+    "/tmp/jobapply-w13-final-proof/4.log": "docs/evidence/m02-w13-closeout/final-proof/4.log",
+    "/tmp/jobapply-w13-final-proof/5.log": "docs/evidence/m02-w13-closeout/final-proof/5.log",
+    "/tmp/jobapply-w13-lifecycle-proof/manifest.json": "docs/evidence/m02-w13-closeout/lifecycle-proof/manifest.json",
+    "/tmp/jobapply-w13-lifecycle-proof/1.log": "docs/evidence/m02-w13-closeout/lifecycle-proof/1.log",
+    "/tmp/jobapply-w13-lifecycle-proof/2.log": "docs/evidence/m02-w13-closeout/lifecycle-proof/2.log",
+    "/tmp/jobapply-w13-lifecycle-proof/3.log": "docs/evidence/m02-w13-closeout/lifecycle-proof/3.log",
+    "/tmp/jobapply-w13-lifecycle-proof/4.log": "docs/evidence/m02-w13-closeout/lifecycle-proof/4.log",
+    "/tmp/jobapply-w13-lifecycle-proof/5.log": "docs/evidence/m02-w13-closeout/lifecycle-proof/5.log",
+    "/tmp/jobapply-w13-final-proof/target-performance.json": "docs/evidence/m02-w13-closeout/final-proof/target-performance.json",
+    "/tmp/jobapply-w13-lifecycle-attempt1/failure.json": "docs/evidence/m02-w13-closeout/lifecycle-draft-correction/failure.json",
+    "/tmp/jobapply-w13-lifecycle-attempt1/progress.log": "docs/evidence/m02-w13-closeout/lifecycle-draft-correction/progress.log",
+    "/tmp/jobapply-w13-lifecycle-attempt1/1.log": "docs/evidence/m02-w13-closeout/lifecycle-draft-correction/1.log",
+    "/tmp/jobapply-w13-lifecycle-attempt1/2.log": "docs/evidence/m02-w13-closeout/lifecycle-draft-correction/2.log",
+    "/tmp/jobapply-w13-lifecycle-attempt1/3.log": "docs/evidence/m02-w13-closeout/lifecycle-draft-correction/3.log",
+    "/tmp/jobapply-w13-final-verifier.json": "docs/evidence/m02-w13-closeout/final-verifier.json",
+    "/tmp/jobapply-w13-governance-draft-review.json": "docs/evidence/m02-w13-closeout/governance-draft-review.json",
+    "/var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-internal-verifier-pqakfmi2/snapshot-manifest.json": "docs/evidence/m02-w13-closeout/final-exact-sha-inventory.json"
+  },
+  "requirements_unchanged": 193,
+  "all_gates": "NOT_EVALUATED",
+  "release": "NOT_READY",
+  "files": [
+    {
+      "path": "docs/evidence/m02-w13-closeout/.gitattributes",
+      "bytes": 242,
+      "sha256": "9aada8dd7c2637ce18196cdbaadf76a86140ad0e1309ea48b8f892a91a4e3923"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass1/1.log",
+      "bytes": 144,
+      "sha256": "0719a826bcbb1fa198edabe34de03ec95ae52f9bd5bdc77dd092332cefc8ead9"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass1/2.log",
+      "bytes": 3563,
+      "sha256": "84b501d18c32b2526bf9e2b72d40d08aa9d87edda83d25ca2cc8bc69a445ec55"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass1/3.log",
+      "bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass1/4.log",
+      "bytes": 108,
+      "sha256": "0fa734fa4cc7fa4edb1ec4496774cec113b3c9c222d05cedaded478e7371660d"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass1/5.log",
+      "bytes": 3155,
+      "sha256": "82dcf823e5949846725a8a1b3daf7ee7f723909a7ad7b30a2dd102e4c4d574c6"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass1/6.log",
+      "bytes": 339415,
+      "sha256": "f73ee20366ec6402898c5fe1af621177191dfa52dcdb3805e06d21aca0075497"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass1/7.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass1/manifest.json",
+      "bytes": 2259,
+      "sha256": "c4c7d47874d53db17d0bba522f08e701e7138daef92ef903d4850f635d6cecfb"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass2/1.log",
+      "bytes": 144,
+      "sha256": "0719a826bcbb1fa198edabe34de03ec95ae52f9bd5bdc77dd092332cefc8ead9"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass2/2.log",
+      "bytes": 3563,
+      "sha256": "84b501d18c32b2526bf9e2b72d40d08aa9d87edda83d25ca2cc8bc69a445ec55"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass2/3.log",
+      "bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass2/4.log",
+      "bytes": 108,
+      "sha256": "0fa734fa4cc7fa4edb1ec4496774cec113b3c9c222d05cedaded478e7371660d"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass2/5.log",
+      "bytes": 3155,
+      "sha256": "82dcf823e5949846725a8a1b3daf7ee7f723909a7ad7b30a2dd102e4c4d574c6"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass2/6.log",
+      "bytes": 339674,
+      "sha256": "2bbff9bcca46af3a4962f98f444e0cae0c390306f54936b77d661c9466567329"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass2/7.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/canonical-pass2/manifest.json",
+      "bytes": 2257,
+      "sha256": "86e418dd5694c847bfa2c75b962c6d65935440e06a647c6a7eeb1109d2745db7"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/content-ci/ci-manifest.json",
+      "bytes": 12776,
+      "sha256": "18bf36ff5299c16c9806bc69a565760d7c9bf1ce285bd19f3549bd620113eed5"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/content-ci/macos-15.log",
+      "bytes": 508699,
+      "sha256": "57c71f1c8d540251624e8c6cec27dc4a1d88413bc8ee61279e5e31ce1de2bbd6"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log",
+      "bytes": 527707,
+      "sha256": "bfdb719b9f67afbbcf944088e9718df69b81799e6672df5d2be1281a562c266b"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log",
+      "bytes": 411352,
+      "sha256": "7be11b84c7f7e81306c43a664316bec9edd0c03de7d0cf64af107f01d1a54f02"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/content-ci/windows-2025.log",
+      "bytes": 516721,
+      "sha256": "3257eb49e6de105c36cdaa43c8e208c09cc950d899dd7def15dc77e7a8f28570"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/content-commit.json",
+      "bytes": 222,
+      "sha256": "f711c86cae7234b7bab1db35fabb08ab5aeb368300017813804573fef8efd451"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/content-freeze.json",
+      "bytes": 158786,
+      "sha256": "022273c927d76d8cbff2944eee47f6e33bfe975912a9f04e161168c24767cf78"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/corpus-count-alignment.log",
+      "bytes": 1314,
+      "sha256": "bec8a416b54cb4371b902a3a362e0c27fbea2218b023703e35de63071df593e4"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/final-exact-sha-inventory.json",
+      "bytes": 158610,
+      "sha256": "db9eb6fee97c3bf89a79fc6ef4ce083b2b0cc7f6026dab765323f3319bfdc06c"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/final-proof/1.log",
+      "bytes": 374,
+      "sha256": "fa65330deb4a989c026c129bae93ba8800088691859622b52b1dc7a355b702f3"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/final-proof/2.log",
+      "bytes": 372,
+      "sha256": "e4b36740f0997da0b1cbfe330eb2cf7a4f8996b34dfb1da2b6d945a9e205bc17"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/final-proof/3.log",
+      "bytes": 48644,
+      "sha256": "9395d79f61ec00858eeeac233fe638f279514088c062d39339ec7ccc2993c264"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/final-proof/4.log",
+      "bytes": 362,
+      "sha256": "3be953228c024149ce42324c21143a9383e600d6425f3970612d69acf3699e46"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/final-proof/5.log",
+      "bytes": 39475,
+      "sha256": "79d90a5c6b1c51609ac556c860addb86417d01294445692be2c27f7292a018e7"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/final-proof/manifest.json",
+      "bytes": 2416,
+      "sha256": "a619bc8441d436ffee98afa1cd2a2afe8cf3f3ceb42a2bd5bd6e2148c9015db9"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/final-proof/target-performance.json",
+      "bytes": 49489,
+      "sha256": "5ade06a2042c9cb67e34ba1600e484f8f5ff0ed8716cca0eae2de7299fb1c7c9"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/final-verifier.json",
+      "bytes": 3613,
+      "sha256": "a5474e9b4dbc2c99cdd184d2195925886b08b17245c1a27edb7eab96b3a19b7a"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/governance-capture-correction/capture-incident.json",
+      "bytes": 2022,
+      "sha256": "000faf83e36243da6684b847385062a21c1338bb53bb6a76e7ff46c29bdff2de"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/governance-capture-correction/staged-check-failure.log",
+      "bytes": 109554,
+      "sha256": "fd8a8cae43d045676c752205b2c89d1bb32ee16da77f3d4bd05c46cdb29fc07c"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/governance-draft-review.json",
+      "bytes": 1044,
+      "sha256": "9cf3093f2bc21c4062943aacd95dc42b12f8eb264a310b979c1d8b0abc991277"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/governance-precommit/1.log",
+      "bytes": 3575,
+      "sha256": "b672c1fc6058a1ed9400bf0029f45bba3e5a525bf2ca83eea6ecac5bdcacf637"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/governance-precommit/2.log",
+      "bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/governance-precommit/3.log",
+      "bytes": 108,
+      "sha256": "0fa734fa4cc7fa4edb1ec4496774cec113b3c9c222d05cedaded478e7371660d"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/governance-precommit/4.log",
+      "bytes": 46394,
+      "sha256": "e7f773a05643be0af8c1bb5d82b44b5dc73dc442b19f3d17b1182d7c4ea843c9"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/governance-precommit/5.log",
+      "bytes": 144,
+      "sha256": "0719a826bcbb1fa198edabe34de03ec95ae52f9bd5bdc77dd092332cefc8ead9"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/governance-precommit/6.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/governance-precommit/manifest.json",
+      "bytes": 1952,
+      "sha256": "5c7700a79769236aae2b8c8db8d8f459ed4758395bb1aacecdd76280521c722f"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/invalidated-freeze.json",
+      "bytes": 158022,
+      "sha256": "a21ce946eaebf9299b97f24305aad43db0f6ac70a141fa27ec56bd0f14e04c74"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/invalidated-pass1-verify.log",
+      "bytes": 339401,
+      "sha256": "1949a82f8ccd90cba94b3520430e84e3aba950e586e26b4760ec0eed8b6e3611"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/lifecycle-draft-correction/1.log",
+      "bytes": 163,
+      "sha256": "4d3e1b8d5f90d484a0ed24058818f515e138bad45094231813e9173950d2927c"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/lifecycle-draft-correction/2.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/lifecycle-draft-correction/3.log",
+      "bytes": 3503,
+      "sha256": "51365cc5b9c36124256e287e4a997509c355cda9323563c93492c2481c54dd76"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/lifecycle-draft-correction/failure.json",
+      "bytes": 524,
+      "sha256": "a5352de4a62e5569855375d7eeb3a0c07fb83a25b8c433ef2d809b1c7f46ebde"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/lifecycle-draft-correction/progress.log",
+      "bytes": 1626,
+      "sha256": "5367e1560fff74b5854141c8b77d962c779a3b751f29658a0249245cc1d57c01"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/lifecycle-proof/1.log",
+      "bytes": 163,
+      "sha256": "4d3e1b8d5f90d484a0ed24058818f515e138bad45094231813e9173950d2927c"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/lifecycle-proof/2.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/lifecycle-proof/3.log",
+      "bytes": 3575,
+      "sha256": "b672c1fc6058a1ed9400bf0029f45bba3e5a525bf2ca83eea6ecac5bdcacf637"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/lifecycle-proof/4.log",
+      "bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/lifecycle-proof/5.log",
+      "bytes": 344018,
+      "sha256": "9b84b74e08cc3687699340e88dd9d90944b15e57488aecb8cedcf6ddfa49b99c"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/lifecycle-proof/manifest.json",
+      "bytes": 3108,
+      "sha256": "5c2049193537413ab11f218c41dc5a1ba093238502f697d4567a7f0fcbdc728a"
+    },
+    {
+      "path": "docs/evidence/m02-w13-closeout/metadata-review.json",
+      "bytes": 715,
+      "sha256": "b9bed89be46b1d4c36acf1ecb39ad01e8237478fad931128369eb4f541298258"
+    }
+  ],
+  "governance_precommit": "PASS; six commands",
+  "raw_capture_policy": "Scoped *.log -text -diff; no whitespace or line-ending transformation; source/prose checks remain",
+  "owner_history_exception": {
+    "original_unpublished_sha": "92c78d1cb90a889222e977fbeb1799e5a37f085a",
+    "original_unpublished_tree": "6d114c6605edb657daec68012f8f7fd2a9ecb308",
+    "verified_content_parent": "4745149f4b5da7190b5b0c68753f8ec07bed572d",
+    "recovery_ref": "refs/heads/codex/w13-governance-capture-recovery-92c78d1",
+    "verified_recovery_target": "92c78d1cb90a889222e977fbeb1799e5a37f085a",
+    "local_only_not_pushed": true,
+    "owner_decision_date": "2026-10-01",
+    "owner_authorization": "Replace ONLY unpublished W13 governance commit; preserve recovery ref; no content or pushed history rewrite; no forward correction unless replacement technically impossible",
+    "recorded_at_utc": "2026-10-01T19:57:36.429624+00:00"
+  }
+}

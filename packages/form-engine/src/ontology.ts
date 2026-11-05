@@ -11,7 +11,7 @@
 import type { CommonRedactionV1SensitivityClass } from "@japp/contracts/generated";
 import type { FormFieldDescriptorV1ControlKind } from "@japp/contracts/generated";
 
-export const FEASIBILITY_ONTOLOGY_VERSION = "1.0.0";
+export const FEASIBILITY_ONTOLOGY_VERSION = "1.1.0";
 
 /**
  * Closed feasibility concept identifiers (canonical enum-token grammar).
@@ -100,6 +100,8 @@ export interface ConceptRule {
   readonly concept: FeasibilityConcept;
   /** Normalized positive alias phrases justified by the frozen M02 corpus. */
   readonly aliases: readonly string[];
+  /** Short locale aliases are exact labels only; they cannot match an address subtype. */
+  readonly exactLabelOnlyAliases?: readonly string[];
   /**
    * Normalized words/phrases that DEFEAT this concept when present in the
    * field's own label or description (for example "recruiter email" must
@@ -130,6 +132,8 @@ const OTHER_PARTY_TERMS = [
   "reference",
   "references",
   "emergency",
+  "arbeitgeber",
+  "employeur",
 ] as const;
 
 const CONTACT_SECTIONS = [
@@ -149,6 +153,8 @@ const OTHER_PARTY_SECTIONS = [
   "REFERENCES",
   "EMERGENCY CONTACT",
   "HIRING TEAM",
+  "ARBEITGEBER",
+  "EMPLOYEUR",
 ] as const;
 
 const ELIGIBILITY_SECTIONS = [
@@ -258,7 +264,15 @@ const CATALOG: readonly ConceptRule[] = [
   },
   {
     concept: "ADDRESS_LINE_1",
-    aliases: ["address line 1", "street address", "address line"],
+    aliases: [
+      "address line 1",
+      "street address",
+      "address line",
+      "street",
+      "strasse",
+      "adresse",
+    ],
+    exactLabelOnlyAliases: ["street", "strasse", "adresse"],
     negativeLabelTerms: [...OTHER_PARTY_TERMS],
     compatibleControlKinds: TEXT_KINDS,
     supportingSections: [...CONTACT_SECTIONS],
@@ -294,7 +308,14 @@ const CATALOG: readonly ConceptRule[] = [
   },
   {
     concept: "ADDRESS_POSTAL_CODE",
-    aliases: ["postal code", "zip", "zip code", "postcode"],
+    aliases: [
+      "postal code",
+      "zip",
+      "zip code",
+      "postcode",
+      "postleitzahl",
+      "code postal",
+    ],
     negativeLabelTerms: [...OTHER_PARTY_TERMS],
     compatibleControlKinds: TEXT_KINDS,
     supportingSections: [...CONTACT_SECTIONS],

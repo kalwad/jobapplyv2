@@ -1,0 +1,20 @@
+{
+  "archive": {
+    "sha256": "e3f7f4c954fa628eac136f5d0d2ea070b7b607b1ef42437c7d83c047dddb55a7",
+    "bytes": 1809663,
+    "safe_regular_members": 4
+  },
+  "retained_original_packets": [
+    {
+      "path": "ci-434/proof.tar.gz",
+      "bytes": 1619277,
+      "sha256": "a67abe78ebdc84b70434ccd0734b8219e44643293d7420fc6d599da7afce1165"
+    },
+    {
+      "path": "focused-corrections/proof.tar.gz",
+      "bytes": 189920,
+      "sha256": "153620db90f6ada045c87970c238eaa532e077383a78049d8c2c04859af614a6"
+    }
+  ],
+  "scope": "Exact-source failed hosted run plus local focused correction evidence; no completion claim"
+}

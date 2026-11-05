@@ -1,0 +1,77 @@
+{
+  "scope": "Exact committed (LF-normalized) bytes; windows-10-tauri-package.result.json line endings normalized from the CRLF artifact copy, content otherwise identical",
+  "files": {
+    "README.md": {
+      "bytes": 6104,
+      "sha256": "979011f88c6e017a7432d8b805c0c059c73f3527b544d06d5c0e1d7dca0b76cc"
+    },
+    "diagnostic/branch-commits.txt": {
+      "bytes": 538,
+      "sha256": "ebaa6c9ceff20f94c149f53c49878f755e6145f49658cd63e33e0df26bfdcdcd"
+    },
+    "diagnostic/job_linger_diag.py": {
+      "bytes": 6963,
+      "sha256": "b10e392973a259eb3b364ddbff59f3e55b1ce5d59b231d115ab58aad8d3b3504"
+    },
+    "diagnostic/pe-observations.txt": {
+      "bytes": 1862,
+      "sha256": "4bfcbff4e6595e54bdb7312d6343314640364bf0947560e59f2290c6a04a991a"
+    },
+    "diagnostic/round1-observations.txt": {
+      "bytes": 2005,
+      "sha256": "21cd2be1cbc6e5b29a78553945e803aa03960d586b89a9e0250d861cf87b5c54"
+    },
+    "diagnostic/rounds2-7-observations.txt": {
+      "bytes": 11996,
+      "sha256": "8e4c4a57f3a1e62304f86c716f7f9ac7350d17f06f70b42d49e9dc8cf1ae5eea"
+    },
+    "diagnostic/workflow-16678a7.yml": {
+      "bytes": 2527,
+      "sha256": "dedc439c731971a1ca750402dba23521367dd5fc35dcb35ffc03af98a172cde7"
+    },
+    "diagnostic/workflow-173bab0.yml": {
+      "bytes": 2241,
+      "sha256": "f885b3d92315501b5c3d09fe17339e4eed1577c0e0e6749ae5427aff5c703fe7"
+    },
+    "diagnostic/workflow-3a60cf9.yml": {
+      "bytes": 2586,
+      "sha256": "61c444c3b87913d09aa825a5b85e85fa3687d932f4126d7c689957ff5d871337"
+    },
+    "diagnostic/workflow-75be06e.yml": {
+      "bytes": 2267,
+      "sha256": "ebcb9fde107a4d6f75d204b3e688f4913d6364b0ae76a54164ccdd754008480a"
+    },
+    "diagnostic/workflow-80b0c14.yml": {
+      "bytes": 1587,
+      "sha256": "378cb77010dc35dc3a746909375772466baf324100c07234625e922b6d1879d8"
+    },
+    "diagnostic/workflow-b8b84b0.yml": {
+      "bytes": 3046,
+      "sha256": "45b57ed9a7ecbe36cf4bb981eee48cc6827191912dad24338319b2e03f38a4d4"
+    },
+    "diagnostic/workflow-cdc4523.yml": {
+      "bytes": 3797,
+      "sha256": "1e409e982c9b474d569a6d61a3eec42b998cb0432f53a1c90831bba3a2e2f662"
+    },
+    "diagnostic/workflow-norc.yml": {
+      "bytes": 2532,
+      "sha256": "7c292894cd27418084696cd0108a63370447e2741efcecbf47298b6f525ddb5f"
+    },
+    "summary.json": {
+      "bytes": 1718,
+      "sha256": "3587de1469b01df1fccb234d8eff2118345b381a5ed3dc3b8f5537491d0f878e"
+    },
+    "ubuntu-15-package-actor.stderr": {
+      "bytes": 593,
+      "sha256": "e5d8f909241201ec3adcfdfee580de3608a4df7868ef91cc91ac3bfe0dc66c25"
+    },
+    "ubuntu-15-package-actor.stdout": {
+      "bytes": 202,
+      "sha256": "a9011a540c3c1f3ea8ccd1f5f93067b5e5908c8b7d220403ce919506b07a6444"
+    },
+    "windows-10-tauri-package.result.json": {
+      "bytes": 5263,
+      "sha256": "faf7104b49b908311de43b9dc30ebbc0205677a06c2586bab4af55beea2847e7"
+    }
+  }
+}

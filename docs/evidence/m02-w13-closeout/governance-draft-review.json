@@ -1,0 +1,14 @@
+{
+  "format_version": "W13_INTERNAL_GOVERNANCE_DRAFT_REVIEW_1",
+  "reviewer": "reused /root/w13_contract_audit; read-only",
+  "family": "existing finite N/lifecycle; no new probe/category",
+  "verdict": "CLEAR_CONDITIONAL_ON_ACTUAL_LIFECYCLE_PASS_BEFORE_MAIN_WRITES",
+  "state": "W13 VERIFIED; W14 sole READY; current work NONE; W15 NOT_STARTED; zero package IN_PROGRESS; all gates NOT_EVALUATED; release NOT_READY",
+  "unchanged_objects": "193 requirements; critical gates; unrelated work-package rows",
+  "writer_prerequisites": "frozen canonical passes, exact-content hosted green, final internal CONTENT CLEAR, final proof PASS and lifecycle PASS",
+  "documented_limitation": "The successful simulation serializer has a representation-only literal em dash to Unicode escape delta in one W11 note; semantic objects are identical. Main governance writer preserves exact unrelated raw bytes using row-only replacement.",
+  "remaining_package_blockers": 0,
+  "remaining_direct_regressions": 0,
+  "fresh_probes": 14,
+  "fresh_probe_limit": 16
+}

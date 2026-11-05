@@ -1,0 +1,18 @@
+{
+  "authority": "NONE",
+  "result": "BYTE_EXACT_RETENTION_PREPARED_PENDING_PEER_ARCHIVE_AUDIT",
+  "archive_sha256": "0584744b75a3940f88d35fa842fd9386c66b9a9a8d12c5de278d957d0deb8c58",
+  "archive_bytes": 6867546,
+  "regular_members": 88,
+  "original_source_files": 86,
+  "source_directories": [
+    "/tmp/japp-w14-concurrency-frozen-20261016",
+    "/tmp/japp-w14-730-full-audit-preparation",
+    "/tmp/japp-w14-730-full-independent-audit"
+  ],
+  "safe_unique_regular_members": true,
+  "outer_manifest_exhaustive_including_embedded_index": true,
+  "source_bytes_unchanged_during_retention": true,
+  "tests_builds_actors_browsers_root_writes": 0,
+  "scope": "Historical closed local full pnpm verify at clean730c641a9855fc3e95620636314a28d0eee8439a/tree7402873a081286dbddce5b93ed4db997fea4f24d; exit0/all19ACTIVE PASS, ended2026-10-16T23:41:30Z, immutable1504tracked-file closure. Preserve all58raw frozen outputs including prefreeze history, original command/wrapper/source flags/snapshots, raw benchmark/contact rows/reports and sealed79check independent audit/checker/source-preparation history. Native12820 nearest-rank(rank19)p95=1447.4198340000003ms is the existing zero-settle lower-bound scope; separate contact200p95=873.2555000000284ms/90preserved values does not erase90canonical incorrect abstentions. Earlier frozenfc failure remains historical, unchanged. No R9 actor outcome is part of this full proof; public scored/Simplify/native-platform aggregate/formalW15/ownerGateA remain separate and no blanket gate approval or threshold waiver is claimed."
+}

@@ -1,0 +1,143 @@
+{
+  "all_original_archive_bytes_fullmodes_join": true,
+  "members": [
+    {
+      "bytes": 3008,
+      "mode": 420,
+      "path": "complete-collector-envelope/HANDOFF.md",
+      "sha256": "7045791ca304b23797ef7ad7b292e3cd67ec0088975a391b562280f6683dbe75",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f5a05ba/HANDOFF.md"
+    },
+    {
+      "bytes": 193528,
+      "mode": 420,
+      "path": "complete-collector-envelope/MANIFEST.json",
+      "sha256": "c4caa44dabead6023be6d477268cef4c840aa6455b7e2887e835d141422bf1f9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f5a05ba/MANIFEST.json"
+    },
+    {
+      "bytes": 2088,
+      "mode": 420,
+      "path": "original-compact-v1/README.md",
+      "sha256": "3ee5bf0b4ca0d9c2ad73d6c1c6cae5144b5d699c491d6b3e043d016ebb524a80",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w07-ci-f5a-failure-evidence-v1/README.md"
+    },
+    {
+      "bytes": 129,
+      "mode": 420,
+      "path": "original-compact-v1/artifact.json",
+      "sha256": "a231db912b8ac6acf6a4b485820c67cc55fdefad6a58800bce3ecd01ea531ec1",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w07-ci-f5a-failure-evidence-v1/artifact.json"
+    },
+    {
+      "bytes": 3628214,
+      "mode": 420,
+      "path": "original-compact-v1/proof.tar.gz",
+      "sha256": "81f48075448f1ea19a7e4891484f5fed1be8b9f7853b70bf2dc5f3143d75b7c8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w07-ci-f5a-failure-evidence-v1/proof.tar.gz"
+    },
+    {
+      "bytes": 17702,
+      "mode": 420,
+      "path": "original-compact-v1/retention-manifest.json",
+      "sha256": "2171c6ad0c0613307dfbbbe04b5cc66a6f9becefe134e1d8c81003bf6d84cc13",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w07-ci-f5a-failure-evidence-v1/retention-manifest.json"
+    },
+    {
+      "bytes": 1288,
+      "mode": 420,
+      "path": "original-compact-v1/summary.json",
+      "sha256": "931030bd7c648d81d475b5d3c39f0ec7cc16713561fb26dad530234c865f6f51",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w07-ci-f5a-failure-evidence-v1/summary.json"
+    },
+    {
+      "bytes": 1997,
+      "mode": 420,
+      "path": "supplementary-case-review/REVIEW.md",
+      "sha256": "4c762e8cd071627bf03519752d78bec5b23915e3e384b4db3c3ea6d5674fdbe6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f5a05ba-cases-review/REVIEW.md"
+    },
+    {
+      "bytes": 1714001,
+      "mode": 420,
+      "path": "supplementary-case-review/actual-suite-results.json",
+      "sha256": "581209db5bb495897622295c1a8d6eddea63c43d0f360299ea26e16617042c79",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f5a05ba-cases-review/actual-suite-results.json"
+    },
+    {
+      "bytes": 7939,
+      "mode": 420,
+      "path": "supplementary-case-review/audit.py",
+      "sha256": "e02f5ee0288693c37fb737f3ee8db4c0c6683542f587d0afcb3e687f4e0cce2b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f5a05ba-cases-review/audit.py"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "supplementary-case-review/audit.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f5a05ba-cases-review/audit.stderr"
+    },
+    {
+      "bytes": 535,
+      "mode": 420,
+      "path": "supplementary-case-review/audit.stdout",
+      "sha256": "483239d054d9c498e9c4245ea0a817b54827976da656dfda662ddb47936a9664",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f5a05ba-cases-review/audit.stdout"
+    },
+    {
+      "bytes": 1842,
+      "mode": 420,
+      "path": "supplementary-case-review/manifest.json",
+      "sha256": "e7a9f77664324ee0687ea289993543a4d62f0f33bb08914823c34b4aefa7c909",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f5a05ba-cases-review/manifest.json"
+    },
+    {
+      "bytes": 7556,
+      "mode": 420,
+      "path": "supplementary-case-review/observer-v1/audit.py",
+      "sha256": "f45d0145be83c643a6d7bf6e0adb9ae7494a47ce9aa8a7a0012cab16c885018a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f5a05ba-cases-review/observer-v1/audit.py"
+    },
+    {
+      "bytes": 704,
+      "mode": 420,
+      "path": "supplementary-case-review/observer-v1/audit.stderr",
+      "sha256": "c36157a95e24d57aefd46aa268f8c192d36c08da0e3857b55c007c4503d925b6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f5a05ba-cases-review/observer-v1/audit.stderr"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "supplementary-case-review/observer-v1/audit.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f5a05ba-cases-review/observer-v1/audit.stdout"
+    },
+    {
+      "bytes": 7798,
+      "mode": 420,
+      "path": "supplementary-case-review/observer-v2/audit.py",
+      "sha256": "3f0d7e214d03ddf73bda8f45d562bd15d550e7987b9dc3528349aa9721ec70e5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f5a05ba-cases-review/observer-v2/audit.py"
+    },
+    {
+      "bytes": 708,
+      "mode": 420,
+      "path": "supplementary-case-review/observer-v2/audit.stderr",
+      "sha256": "111c0d788bddc30d83d17a22792eb75821ab369d221e582e9edef204eab10777",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f5a05ba-cases-review/observer-v2/audit.stderr"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "supplementary-case-review/observer-v2/audit.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f5a05ba-cases-review/observer-v2/audit.stdout"
+    }
+  ],
+  "omissions": [
+    "Original complete69MBcollector proof and its omitted raw payload/source bodies remain outside. Its retained original envelope preserves the precise full-prooftar commitment.",
+    "The nested original compact-v1 envelope lists its own finite subset and explicit payload omissions."
+  ],
+  "regular_members": 19
+}

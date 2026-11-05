@@ -1,0 +1,7 @@
+# Clean bd4 aggregate failure
+
+Clean bd4cffd/tree75d79ae7 runs actual doctor28PASS and pnpm verify19ACTIVE/PASS, PythonFAIL after1211.364739s. Python collects2624 and reports1FAIL/2623PASS414.65s: the Windows11 isolation fixture copies generated origin bytecode into a different source directory, and the unchanged strict validator refuses the relocated cache. This original run remains failed. Later fixture corrections have no result transfer.
+
+TypeScript4006/15fresh/zero cached unit tasks, browser278+2+62+17 and342same native IDs each3modes plus separate1/10 pass. Ordinary typecheck has14cached tasks, separately disclosed. All2294source/runtime40 bytes/full modes/clean statuses/immediate HEAD-tree endpoints agree; both children reaped/groupsABSENT/no timeouts/signals. Different7226 retained-data joins clear the record as FAILURE, joining actual immutable local Git bodies and all67 original visual bodies retained during the active Python phase. Root-selected33visual files contain19PNG/14metadata/29unique bodies, all19PNG identical to prior captures.
+
+The packet retains actual raw commands/logs/endpoints/visuals and complete different-review data, with exact archive byte/full-mode verification. Full Git/runtime payload bodies remain outside explicitly. No hosted result, corrected aggregate pass, Windows11/GNOME native behavior, milestone acceptance, visual baseline approval or release readiness follows.

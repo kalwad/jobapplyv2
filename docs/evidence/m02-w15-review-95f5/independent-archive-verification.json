@@ -1,0 +1,13 @@
+{
+  "archive": "/tmp/japp-m02-w15-independent-final-gate95f5-retained/proof.tar.gz",
+  "archive_bytes": 55310,
+  "archive_sha256": "7c18b1123063908036094b7986628d21ddc0fdd3e0d7b520a76747747ab7a218",
+  "regular_members": 26,
+  "explicit_source_members": 25,
+  "exhaustive_postwrite_and_source_recapture": "PASS",
+  "recommendation": "PASS",
+  "owner_decision": "PENDING",
+  "gate_pass_authorized": false,
+  "predecision_pack_sha256": "sha256:5085d94111a2dab8aba4f879f9ffb197287bd436d8df5193aef8aaafc505f5aa",
+  "independent_verdict_sha256": "sha256:b86bca4619fe541e6a82b0ef01175c35de3ebcbd344798efc33f340929b729cf"
+}

@@ -1,0 +1,7 @@
+# Native adapter preparation — actual local validation
+
+The native integration retains provider-owned paths and workers, fixed work/cleanup deadlines and shared Quit cancellation. A different source review cleared the narrow measured Darwin directory-settlement correction before adoption. Actual v2 completes all eleven phases: format, compilation/342-name collection, three strict all-target Clippy modes, three complete 342-PASS suites, Windows source compilation and final custom-protocol build. Different retained-data review is CLEAR143/143.
+
+`proof.tar.gz` keeps the original v1 335-PASS/five-FAIL logs, actual APFS observations, reviewed two-file correction, corrected raw receipts, frozen 2055-source/40-runtime size/hash/mode inventories, evaluated native/protected sources, original donor/preimage sources and independent source/data/body-preservation audits. All11 direct children were reaped/groups observed absent without timeout or cleanup signals.
+
+This is local source-bound preparation under a dirty reference35b tree. Actual current SDK data/cache/temp roundtrip, updated GUI/package, clean aggregate and native Windows/Ubuntu evidence remain separate. Darwin proves observed private per-user namespace settlement, not kernel inode unlinkage or prevention of malicious same-UID replacement. No M04/M05 validation or milestone acceptance follows. W06/M03 remain IN_PROGRESS, W09 NOT_STARTED,38of300 VERIFIED, release NOT_READY.

@@ -1,0 +1,9 @@
+# Retain expired idle-timeout state before success
+
+The reviewed client correction refuses an expired idle context even when a coarse host timer fired before the absolute comparison advanced. Caller/disconnect cancellation and close-error priority remain covered. Exact client6613→977e and newtest795f preserve all136old generation cases plus29additions. Exact final controls report old source9FAIL/156PASS; no-expired-guard9FAIL/156PASS; no-raw-expired-admission3FAIL/162PASS; no-timeout-close-priority3FAIL/162PASS. Initial lint/format failures and root-reader false assumption remain disclosed in original sealed source/review proofs. No historical Windows clock value is invented.
+
+SDK SOURCE471d and different root REVIEWfc538 are pinned. Guarded adoption changes only client/catalog and adds the reviewed test:2348→2349logical,2346unselected/runtime40fullmodes and adoptionHEAD/tree/index unchanged. All2788old IDs remain; exact29 additions give2815common/2817POSIX.
+
+Actual ten focus commands pass:165generation tests0.24s, exact2817collection, Ruff/format/Prettier, services default-platform Mypy35files, explicitWin32 generation/tests Mypy13, portability, scopedintegrity anddiff. No Linux target receipt is inferred. Focus2349source/runtime40/fullmodes/status/HEAD/tree endpoints agree; focusindex is not recorded. Allten children reaped/groupsABSENT/no signals/timeouts. Different actualreviewab433 passes4832joins. Outer adoptiontool has no independent numeric custody assertion.
+
+Complete original source/root-review/actual-review sealed proofs retain authoritative histories and scopes; direct actual logs/commands/endpoints remain compact. Original374failures and passing localf3full remain separate. This later client still needs its own coherent full/hosted validation; pendingCIoriginalf3 uses the older client. No native Windows/Linux, model, M03/Gate/milestone or release credit follows. Formal39/300 and activeM03-W07 remain unchanged.

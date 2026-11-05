@@ -1,0 +1,27 @@
+{
+  "schema": "japp-gnome-pr-request-v1",
+  "enabled": true,
+  "mode": "ONE_REVIEWED_VM",
+  "repository": "kalwad/jobapplyv2",
+  "repository_id": 1312360079,
+  "pull_request": 1,
+  "head_branch": "codex/autofill-evaluation-hardening",
+  "request_id": "a5a37319474b510b93407f32b2f98239",
+  "request_parent_sha": "3a3c58c805e50f616948250fde661011a196e715",
+  "expected_source_sha": "10f247bc441036233963004d1d663cd80e3a0212",
+  "package_build_sha": "c25742ef0af8421bc4bfc7a3a6533506dbf8be10",
+  "source_tree_sha": "bb8fb0d4677f5d1726a9fe9902748bcf299cf7d7",
+  "artifact": {
+    "run_id": "41367416097",
+    "run_attempt": "1",
+    "run_head_sha": "4938c1137e9f2a402bfd75c77a429f4db1754928",
+    "artifact_id": "13106829926",
+    "digest_sha256": "ac3e3f9118bb0170dcc019fefb42bae3f569d86f7c802a97bbf83b97b31a7ff3",
+    "export_sha256": "56f18b2614e9337728b5e2e866622eb288a3ac356c72cb83eedc19a11b9e02c6"
+  },
+  "release_receipt_sha256": "654527961ce24216448b344a1635bc5e0e3bf21b608c93d5ece359556ce16b47",
+  "bundle_sha256": "ac34c8969aa7b0fbd5b955e25c01707bf3fdf25bfdf1b0d5963616683a69e14c",
+  "guest_closure_sha256": "193416ec73e4ea05e70a463ff6bfc7a5ddadc00aa7709fd9e4d3480acbfbd41e",
+  "host_tools_sha256": "4c3552e228f806afae9b4dc794e2b6ca37fc65190ef6e45fbd10ea9d9ceda447",
+  "keyring_sha256": "c2d40d925557dbe9a0745c12ca0dc98bed593ce9a6652f1b2faa1ff0858dbf2f"
+}

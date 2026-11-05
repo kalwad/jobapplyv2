@@ -1,0 +1,45 @@
+{
+  "scope": "Optional known wire metadata compatibility only; first actual wire failure point unobserved",
+  "production_delta": "One optional strict integer prompt_eval_cached_count, zero through 1000000000 inclusive; parsed value unused by audit",
+  "unchanged": [
+    "payload",
+    "candidate schema",
+    "audit schema",
+    "unknown-field refusal",
+    "nonempty-thinking refusal",
+    "model identity matching",
+    "deadlines",
+    "schema-only repair",
+    "release false"
+  ],
+  "final_red": {
+    "actual_failed": 5,
+    "actual_passed": 12,
+    "exit_code": 1,
+    "raw_log_sha256": "b2c42c4942626650970547e99a51b39fdb58cc12df9cedb98f16d5f74a9854e0",
+    "raw_log_bytes": 25082,
+    "production_source_sha256": "e415a6ddd86c4df4be3856aad8c3ad6da995c0b6190bfdc79215bbb636c1de9c",
+    "test_sha256": "ca07218f4f3778f0f227bab2beab2584c493e33a341e39abcf2cb2ee25d9b4be",
+    "same_final_test_bytes_as_green": true,
+    "raw_log_external_locator": "generation-review/v7/red-final/red.log"
+  },
+  "final_green": {
+    "actual_passed": 136,
+    "elapsed_test_seconds": 0.22,
+    "all119prior_IDs_retained": true,
+    "new_ID_count": 17,
+    "prior_named_test_helpers_AST_compared": 73,
+    "all_prior_named_test_helpers_AST_unchanged": true,
+    "production_AST_otherwise_unchanged": true,
+    "quality_exit_codes": {
+      "ruff": 0,
+      "format": 0,
+      "mypy": 0,
+      "collection": 0,
+      "tests": 0
+    },
+    "source_and_config_unchanged": true,
+    "collection_raw_log_sha256": "79f10e3fa910bab004ab56fcdd1ba3bd100e2685aee825acbdf954dea9485e0a"
+  },
+  "v7_manifest_sha256": "c260bcab7f191c42ca2d2b4d45b1850384104f97159d92a14bf61480f6c58cdc"
+}

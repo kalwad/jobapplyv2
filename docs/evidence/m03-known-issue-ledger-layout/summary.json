@@ -1,0 +1,10 @@
+{
+  "all_old_lines_preserved": true,
+  "corrected_exit": 0,
+  "corrected_groups": 45,
+  "general_rules_template_exact": true,
+  "new_tests": 0,
+  "original_exit": 1,
+  "original_violations": 4,
+  "result": "PASS_DOCUMENT_LAYOUT_CORRECTION"
+}

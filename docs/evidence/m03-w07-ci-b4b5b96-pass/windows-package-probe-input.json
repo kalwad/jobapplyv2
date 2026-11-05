@@ -1,0 +1,6 @@
+{
+  "target": "x86_64-pc-windows-msvc",
+  "runtime_root": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\portable\\runtime",
+  "manifest_sha256": "e9419498e9fdff00c95bafae43cd1f76e4fa99a114629e9cba6da63073549241",
+  "entrypoint_sha256": "90da5aa2600a34e5bbd65cd4c41866af447edf401f2249b31c9a1d9594ffca72"
+}

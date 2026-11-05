@@ -1,0 +1,11 @@
+{
+  "archive": {
+    "bytes": 955629,
+    "sha256": "0e7e2c9dd139126c55938984e635f5a8be3aa81c1ea56ed9698c3b54e3c214fb",
+    "safe_regular_members": 80
+  },
+  "review_sha256": "0f3e7835bc7179f1b7b66a7a713e3052f944cefafabea74a0c78618e291db96d",
+  "audit_sha256": "4181fe68a14a3f20d90f6688184ddd42a94574c2fd2376c014b9afcf2ac21032",
+  "wheel_audit_sha256": "35bf5540be66073f88de623517631e6b83917ff0e4ac17d1b57d6918c236fadb",
+  "scope": "HISTORICAL_DIRTY_SOURCE_BOUND_PYTHON_FOCUS_COLLECTION_PURE_WHEELS_NOT_WHOLECURRENT_ACCEPTANCE"
+}

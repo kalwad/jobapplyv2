@@ -1,0 +1,17 @@
+{
+  "schema": "JAPP_SCOPED_SYNTHETIC_CANDIDATE_EVIDENCE_REVIEW_V1",
+  "verdict": "CLEAR_FOR_SCOPED_EVIDENCE_INTEGRATION",
+  "read_only_checks_passed": 227,
+  "read_only_checks_total": 227,
+  "failed": [],
+  "audit_script_sha256": "9e035a3220c4daeb587890e3e714fb437e51dcd5998f92c9088a50d0ec43b967",
+  "audit_results_sha256": "22955e00d153b68b34246023fb55de6fe90a0f3a03a49fa780e9522f73c66652",
+  "audit_scope": "Source AST, receipt hashes and retained safe data only; no subject imports, tests, socket/runtime requests, inference, native or canonical writes",
+  "output_hash_recomputed_from_raw_response": false,
+  "output_hash_limit": "Raw response was deliberately not retained; equality/format and reviewed source calculation checked, not raw hash reconstruction.",
+  "qualification": "NOT_EVALUATED",
+  "qualified_full": false,
+  "runtime_digest_verified": false,
+  "release_permitted": false,
+  "milestone_or_gate_promotion": false
+}

@@ -1,0 +1,5 @@
+# M03-W06 post-closeout record regressions
+
+At clean f10468a/tree48477a, the existing status, traceability and UI-governance subset actually passes338 cases in138.27s (outer138.7866s). All2161tracked source bytes/full modes match endpoints; direct child reaped/groupABSENT/no signals. The result retains ending HEAD/clean status only, not a starting pointer receipt. This subset adds no new tests and is not another20-suite run. Different9-check data review is CLEAR.
+
+The first identical subset was cut off by its50-second outer wrapper after partial dots: exit-9/SIGKILL, reaped/groupABSENT/source unchanged, no completed test summary. That is retained separately and is not described as a product failure. The successful attempt changes only the own wrapper cap to360s and the evidence/temp destination; no test assertion or product deadline changes. Wrapper source was retained later, without an executed-source receipt in these actual directories. The archive also retains the separate26-file documentary-closeout review. No foreign desktop/M03/release acceptance.

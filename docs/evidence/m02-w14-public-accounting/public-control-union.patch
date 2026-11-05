@@ -1,0 +1,791 @@
+--- /dev/null
++++ b/e2e/extension/public-contact/control-accounting.ts
+@@ -0,0 +1,238 @@
++/** Pure accounting of both physical snapshots; these deltas do not prove cause. */
++import { sha256Canonical } from "../../../packages/evaluation-runner/src/canonical.ts";
++import type { LiteralMatch, PhysicalControl } from "./contact-harness.ts";
++
++type TopologyReason =
++  | "INITIAL_UNOBSERVED"
++  | "FINAL_UNOBSERVED"
++  | "AMBIGUOUS_INITIAL_IDENTITY"
++  | "AMBIGUOUS_FINAL_IDENTITY";
++interface ControlObservation {
++  match: LiteralMatch;
++  positive: boolean;
++  before: PhysicalControl[];
++  final: PhysicalControl[];
++  state: "MATCHED_UNIQUE_LITERAL" | "UNMEASURABLE_TOPOLOGY";
++  reasons: TopologyReason[];
++  value_delta: "CHANGED" | "UNCHANGED" | "UNOBSERVED";
++  extension_write_causality: "UNOBSERVED";
++}
++export interface ControlChange {
++  before_indices: number[];
++  final_indices: number[];
++  state: "CHANGED" | "UNMEASURABLE_TOPOLOGY";
++  reasons: TopologyReason[];
++  positive: boolean;
++  extension_write_causality: "UNOBSERVED";
++}
++export interface ControlAccounting {
++  identity_scope: "UNIQUE_LITERAL_MATCH_SNAPSHOT_UNION";
++  topology_state: "COMPLETE_UNIQUE_LITERAL_UNION" | "UNMEASURABLE_TOPOLOGY";
++  precision_eligible: boolean;
++  initial_controls: number;
++  final_controls: number;
++  matched_unique_controls: number;
++  unmeasurable_topology_groups: number;
++  unmeasurable_snapshot_control_observations: number;
++  observations: ControlObservation[];
++  changes: ControlChange[];
++}
++
++/** A final-only value has no observed initial value and is never called a write. */
++export function accountControlUnion(
++  before: readonly PhysicalControl[],
++  final: readonly PhysicalControl[],
++  positives: readonly LiteralMatch[],
++): ControlAccounting {
++  const groups = new Map<
++    string,
++    { match: LiteralMatch; before: PhysicalControl[]; final: PhysicalControl[] }
++  >();
++  for (const [side, controls] of [
++    ["before", before],
++    ["final", final],
++  ] as const) {
++    for (const control of controls) {
++      const key = sha256Canonical(control.match);
++      let group = groups.get(key);
++      if (group === undefined) {
++        group = { match: control.match, before: [], final: [] };
++        groups.set(key, group);
++      }
++      group[side].push(control);
++    }
++  }
++  const positiveKeys = new Set<string>(
++    positives.map((match) => sha256Canonical(match)),
++  );
++  const observations: ControlObservation[] = [...groups].map(([key, group]) => {
++    const reasons: TopologyReason[] = [];
++    if (group.before.length === 0) reasons.push("INITIAL_UNOBSERVED");
++    if (group.final.length === 0) reasons.push("FINAL_UNOBSERVED");
++    if (group.before.length > 1) reasons.push("AMBIGUOUS_INITIAL_IDENTITY");
++    if (group.final.length > 1) reasons.push("AMBIGUOUS_FINAL_IDENTITY");
++    const initial = group.before[0];
++    const settled = group.final[0];
++    const matched =
++      reasons.length === 0 && initial !== undefined && settled !== undefined;
++    return {
++      ...group,
++      positive: positiveKeys.has(key),
++      state: matched ? "MATCHED_UNIQUE_LITERAL" : "UNMEASURABLE_TOPOLOGY",
++      reasons,
++      value_delta: !matched
++        ? "UNOBSERVED"
++        : initial.value_digest !== settled.value_digest ||
++            initial.checked !== settled.checked
++          ? "CHANGED"
++          : "UNCHANGED",
++      extension_write_causality: "UNOBSERVED",
++    };
++  });
++  const unknown = observations.filter(
++    (item) => item.state === "UNMEASURABLE_TOPOLOGY",
++  );
++  return {
++    identity_scope: "UNIQUE_LITERAL_MATCH_SNAPSHOT_UNION",
++    topology_state:
++      unknown.length === 0
++        ? "COMPLETE_UNIQUE_LITERAL_UNION"
++        : "UNMEASURABLE_TOPOLOGY",
++    precision_eligible: unknown.length === 0,
++    initial_controls: before.length,
++    final_controls: final.length,
++    matched_unique_controls: observations.length - unknown.length,
++    unmeasurable_topology_groups: unknown.length,
++    unmeasurable_snapshot_control_observations: unknown.reduce(
++      (count, item) => count + item.before.length + item.final.length,
++      0,
++    ),
++    observations,
++    changes: observations.flatMap((item): ControlChange[] =>
++      item.value_delta === "UNCHANGED"
++        ? []
++        : [
++            {
++              before_indices: item.before.map((control) => control.index),
++              final_indices: item.final.map((control) => control.index),
++              state:
++                item.state === "UNMEASURABLE_TOPOLOGY"
++                  ? "UNMEASURABLE_TOPOLOGY"
++                  : "CHANGED",
++              reasons: item.reasons,
++              positive: item.positive,
++              extension_write_causality: "UNOBSERVED",
++            },
++          ],
++    ),
++  };
++}
++
++export interface ContactMeasuredRow {
++  source?: { ats: string };
++  evaluation_state?: string;
++  positive_scores?: { state: string; required: boolean }[];
++  changes?: ControlChange[];
++  control_accounting?: ControlAccounting;
++  before_measurements?: unknown[];
++  final_measurements?: unknown[];
++  action_phase_events?: {
++    click?: number | null;
++    submit?: number | null;
++  } | null;
++  action_phase_navigations?: number | null;
++  safety_observation?: string;
++}
++
++export function hasCompleteControlCoverage(row: ContactMeasuredRow): boolean {
++  return (
++    row.before_measurements !== undefined &&
++    row.final_measurements !== undefined &&
++    row.control_accounting?.topology_state ===
++      "COMPLETE_UNIQUE_LITERAL_UNION" &&
++    row.control_accounting.precision_eligible &&
++    row.control_accounting.initial_controls ===
++      row.before_measurements.length &&
++    row.control_accounting.final_controls === row.final_measurements.length
++  );
++}
++
++/** Full-row metrics stay unknown if any physical identity is unmeasurable. */
++export function contactDomMetrics(items: readonly ContactMeasuredRow[]) {
++  const scores = items.flatMap((row) => row.positive_scores ?? []);
++  const changes = items.flatMap((row) => row.changes ?? []);
++  const complete =
++    items.length > 0 &&
++    items.every(hasCompleteControlCoverage) &&
++    items.every((row) => row.positive_scores !== undefined);
++  const correct = scores.filter(
++    (score) => score.state === "INTENDED_RETAINED",
++  ).length;
++  const required = scores.filter(
++    (score) =>
++      score.required &&
++      ["INTENDED_RETAINED", "MISSING_OR_WRONG"].includes(score.state),
++  );
++  const requiredCorrect = required.filter(
++    (score) => score.state === "INTENDED_RETAINED",
++  ).length;
++  const changed = changes.filter((change) => change.state === "CHANGED").length;
++  const unexpected = changes.filter(
++    (change) => change.state === "CHANGED" && !change.positive,
++  ).length;
++  return {
++    source_pages: items.length,
++    complete_topology_rows: items.filter(hasCompleteControlCoverage).length,
++    incomplete_topology_rows: items.filter(
++      (row) => !hasCompleteControlCoverage(row),
++    ).length,
++    dom_value_precision_eligibility:
++      items.length === 0
++        ? "UNOBSERVED_NO_ROWS"
++        : complete
++          ? "ELIGIBLE_COMPLETE_LITERAL_TOPOLOGY"
++          : "INELIGIBLE_INCOMPLETE_TOPOLOGY_OR_SCORES",
++    expected_positive_controls: scores.length,
++    initially_empty_required_controls: required.length,
++    intended_contact_values_retained: correct,
++    required_values_retained: requiredCorrect,
++    known_matched_physical_changes: changed,
++    observed_physical_changes: complete ? changed : null,
++    dom_value_known_matched_subset_precision:
++      changed === 0 ? null : correct / changed,
++    dom_value_precision: !complete || changed === 0 ? null : correct / changed,
++    dom_value_required_recall:
++      !complete ||
++      scores.some(
++        (score) => score.required && score.state === "UNMEASURABLE_IDENTITY",
++      ) ||
++      required.length === 0
++        ? null
++        : requiredCorrect / required.length,
++    dom_value_known_matched_subset_required_recall:
++      required.length === 0 ? null : requiredCorrect / required.length,
++    unmeasurable_topology_groups: items.reduce(
++      (count, row) =>
++        count + (row.control_accounting?.unmeasurable_topology_groups ?? 0),
++      0,
++    ),
++    unmeasurable_snapshot_control_observations: items.reduce(
++      (count, row) =>
++        count +
++        (row.control_accounting?.unmeasurable_snapshot_control_observations ??
++          0),
++      0,
++    ),
++    unknown_topology_rows: items.filter(
++      (row) => row.control_accounting === undefined,
++    ).length,
++    known_unexpected_nonpositive_changes: unexpected,
++    unexpected_nonpositive_changes: complete ? unexpected : null,
++    prefilled_preserved: scores.filter(
++      (score) => score.state === "PREFILLED_PRESERVED",
++    ).length,
++    prefilled_changed: scores.filter(
++      (score) => score.state === "PREFILLED_CHANGED",
++    ).length,
++  };
++}
+--- a/e2e/extension/public-contact/run-contact.ts
++++ b/e2e/extension/public-contact/run-contact.ts
+@@ -35,6 +35,12 @@
+   finalizeRunnerEvidence,
+   type RunnerFinalization,
+ } from "./runner-evidence.ts";
++import {
++  accountControlUnion,
++  contactDomMetrics,
++  hasCompleteControlCoverage,
++  type ContactMeasuredRow,
++} from "./control-accounting.ts";
+ 
+ if (process.env.JAPP_W14_PUBLIC_CONTACT_RUN !== "1")
+   throw new Error("W14_PUBLIC_CONTACT_RUN_REQUIRES_SEPARATE_EXPLICIT_OPT_IN");
+@@ -324,37 +330,14 @@
+                   : "PREFILLED_CHANGED",
+         };
+       });
+-      const changes = before.flatMap((control) => {
+-        const matches = final.filter((item) =>
+-          sameLiteral(item.match, control.match),
+-        );
+-        const initialMatches = before.filter((item) =>
+-          sameLiteral(item.match, control.match),
+-        );
+-        if (matches.length !== 1 || initialMatches.length !== 1)
+-          return [
+-            {
+-              index: control.index,
+-              state: "UNMEASURABLE_IDENTITY",
+-              positive: expected.positive.some((item) =>
+-                sameLiteral(item.match, control.match),
+-              ),
+-            },
+-          ];
+-        return requireObserved(matches[0]).value_digest !==
+-          control.value_digest ||
+-          requireObserved(matches[0]).checked !== control.checked
+-          ? [
+-              {
+-                index: control.index,
+-                state: "CHANGED",
+-                positive: expected.positive.some((item) =>
+-                  sameLiteral(item.match, control.match),
+-                ),
+-              },
+-            ]
+-          : [];
+-      });
++      const controlAccounting = accountControlUnion(
++        before,
++        final,
++        expected.positive.map((item) => item.match),
++      );
++      partial.control_accounting = controlAccounting;
++      partial.changes = controlAccounting.changes;
++      partial.positive_scores = positiveScores;
+       const interference =
+         actualNavigation > 0 ||
+         session.network.length > 0 ||
+@@ -375,7 +358,8 @@
+         before_measurements: before,
+         final_measurements: final,
+         positive_scores: positiveScores,
+-        changes,
++        changes: controlAccounting.changes,
++        control_accounting: controlAccounting,
+         network_observations: session.network,
+         failed_request_metadata: requestsFailed,
+         ...actionObservationSnapshot(
+@@ -392,7 +376,9 @@
+           ? "NETWORK_OR_NAVIGATION_INTERFERENCE"
+           : frozen.state === "FROZEN" &&
+               (prepared as { state?: unknown } | null)?.state === "PREPARED"
+-            ? "OBSERVED_NETWORK_CLOSED_DOM_SUBSET"
++            ? controlAccounting.precision_eligible
++              ? "OBSERVED_NETWORK_CLOSED_DOM_SUBSET"
++              : "UNMEASURABLE_TOPOLOGY"
+             : "REFUSED",
+         action_and_reconciliation_ms: performance.now() - started,
+       };
+@@ -432,81 +418,12 @@
+   build_inventory_digest: string;
+   oracle_map_digest: string;
+ }
+-interface MeasuredRow {
+-  source?: { ats: string };
+-  evaluation_state?: string;
+-  positive_scores?: { state: string; required: boolean }[];
+-  changes?: { state: string; positive: boolean }[];
+-  before_measurements?: unknown[];
+-  final_measurements?: unknown[];
+-  action_phase_events?: {
+-    click?: number | null;
+-    submit?: number | null;
+-  } | null;
+-  action_phase_navigations?: number | null;
+-  safety_observation?: string;
+-}
+-const measuredRows = rows as MeasuredRow[];
++const measuredRows = rows as ContactMeasuredRow[];
+ const scoredRows = measuredRows.filter(
+-  (row) => row.evaluation_state === "OBSERVED_NETWORK_CLOSED_DOM_SUBSET",
++  (row) =>
++    row.evaluation_state === "OBSERVED_NETWORK_CLOSED_DOM_SUBSET" &&
++    hasCompleteControlCoverage(row),
+ );
+-function domMetrics(items: MeasuredRow[]) {
+-  const scores = items.flatMap((row) => row.positive_scores ?? []);
+-  const changes = items.flatMap((row) => row.changes ?? []);
+-  const correct = scores.filter(
+-    (score) => score.state === "INTENDED_RETAINED",
+-  ).length;
+-  const required = scores.filter(
+-    (score) =>
+-      score.required &&
+-      ["INTENDED_RETAINED", "MISSING_OR_WRONG"].includes(score.state),
+-  );
+-  const changed = changes.filter((change) => change.state === "CHANGED").length;
+-  return {
+-    source_pages: items.length,
+-    expected_positive_controls: scores.length,
+-    initially_empty_required_controls: required.length,
+-    intended_contact_values_retained: correct,
+-    required_values_retained: required.filter(
+-      (score) => score.state === "INTENDED_RETAINED",
+-    ).length,
+-    observed_physical_changes: changed,
+-    dom_value_uniquely_measured_precision:
+-      changed === 0 ? null : correct / changed,
+-    dom_value_precision:
+-      items.some((row) => row.positive_scores === undefined) ||
+-      changes.some((change) => change.state === "UNMEASURABLE_IDENTITY") ||
+-      changed === 0
+-        ? null
+-        : correct / changed,
+-    dom_value_required_recall:
+-      items.some((row) => row.positive_scores === undefined) ||
+-      scores.some(
+-        (score) => score.required && score.state === "UNMEASURABLE_IDENTITY",
+-      ) ||
+-      required.length === 0
+-        ? null
+-        : required.filter((score) => score.state === "INTENDED_RETAINED")
+-            .length / required.length,
+-    dom_value_uniquely_measured_required_recall:
+-      required.length === 0
+-        ? null
+-        : required.filter((score) => score.state === "INTENDED_RETAINED")
+-            .length / required.length,
+-    unmeasurable_identity_controls: changes.filter(
+-      (change) => change.state === "UNMEASURABLE_IDENTITY",
+-    ).length,
+-    unexpected_nonpositive_changes: changes.filter(
+-      (change) => change.state === "CHANGED" && !change.positive,
+-    ).length,
+-    prefilled_preserved: scores.filter(
+-      (score) => score.state === "PREFILLED_PRESERVED",
+-    ).length,
+-    prefilled_changed: scores.filter(
+-      (score) => score.state === "PREFILLED_CHANGED",
+-    ).length,
+-  };
+-}
+ const summary = {
+   format_version: "W14_PUBLIC_CONTACT_ASSESSMENT_1",
+   title: "Public network-closed ordinary-contact development evaluation",
+@@ -534,25 +451,30 @@
+     ),
+     source_pages: oracle.map.pages.length,
+   },
+-  no_interference_network_closed_dom_subset: domMetrics(scoredRows),
++  no_interference_network_closed_dom_subset: contactDomMetrics(scoredRows),
+   per_ats_network_closed_dom_subset: Object.fromEntries(
+     ["WORKDAY", "GREENHOUSE", "LEVER", "ASHBY"].map((ats) => [
+       ats,
+-      domMetrics(scoredRows.filter((row) => row.source?.ats === ats)),
++      contactDomMetrics(scoredRows.filter((row) => row.source?.ats === ats)),
+     ]),
+   ),
+-  all_observed_rows_including_interference: domMetrics(measuredRows),
++  all_observed_rows_including_interference: contactDomMetrics(measuredRows),
+   observation_coverage: {
+-    complete_rows: measuredRows.filter(
++    complete_rows: measuredRows.filter(hasCompleteControlCoverage).length,
++    incomplete_rows: measuredRows.filter(
++      (row) => !hasCompleteControlCoverage(row),
++    ).length,
++    snapshot_pairs_observed: measuredRows.filter(
+       (row) =>
+         row.before_measurements !== undefined &&
+         row.final_measurements !== undefined,
+     ).length,
+-    incomplete_rows: measuredRows.filter(
++    unmeasurable_topology_rows: measuredRows.filter(
+       (row) =>
+-        row.before_measurements === undefined ||
+-        row.final_measurements === undefined,
++        row.control_accounting?.topology_state === "UNMEASURABLE_TOPOLOGY",
+     ).length,
++    control_identity_scope: "UNIQUE_LITERAL_MATCH_SNAPSHOT_UNION",
++    extension_write_causality: "UNOBSERVED_FROM_SNAPSHOT_DELTAS",
+     safety_state: "INCOMPLETE_DOCUMENT_EVENT_SCOPE",
+     event_counter_scope: "DOCUMENT_CAPTURE_ONLY",
+     composed_tree_event_coverage: "UNOBSERVED_NONCOMPOSED_OPEN_ROOT_EVENTS",
+@@ -589,6 +511,7 @@
+     "All candidate-visible TEXT controls enter the frozen candidate inventory; independent expected concepts/values are not supplied to W09.",
+     "A separate guarded native driver variant disables undo and refuses all synchronous focus-time markup changes; default production build and driver are unchanged.",
+     "Network closure refuses pending HTTP, installs early WebSocket interception and immutable page RTC/WebTransport constructor denials, and requires a controlled worker WebTransport-unavailable probe. HTTP remains offline/blocked. These enforcement changes limit the environment; blocked validation/autosave or capability attempts are interference, not natural site acceptance.",
++    "Physical accounting uses the union of both snapshots. New, missing or ambiguous literal identities make the row incomplete and precision-ineligible. A newly observed value has unknown initial state and is never attributed to extension writes. Unique literal matching does not prove persistent DOM-node identity or observe transient mutations.",
+     "Event counters observe document capture only. Non-composed open-root events and complete composed-tree click/submit totals are unobserved; known partial counters survive errors and unknown counts are explicit.",
+     "A lifecycle or journal failure stops further actions. Immutable page rows, action intents/results and final raw rows preserve completed and partial work; finalization attempts all artifacts even after an earlier writer fails.",
+     "Natural remote validation, uploads, choices, credentials, protected boundaries, consent, application methods and final actions are outside this public subset.",
+--- a/e2e/extension/public-contact/controlled-contact.proof.ts
++++ b/e2e/extension/public-contact/controlled-contact.proof.ts
+@@ -24,7 +24,15 @@
+   readOracle,
+   type IndependentPageOracle,
+   type ContactSession,
++  type PhysicalControl,
+ } from "./contact-harness.ts";
++import { sha256Canonical } from "../../../packages/evaluation-runner/src/canonical.ts";
++import {
++  accountControlUnion,
++  contactDomMetrics,
++  hasCompleteControlCoverage,
++  type ControlAccounting,
++} from "./control-accounting.ts";
+ const source = requireObserved(
+   PUBLIC_SOURCES.find((row) => row.ats === "GREENHOUSE"),
+ );
+@@ -1074,6 +1082,199 @@
+     ],
+   });
+   expect(changed.integrity_error).toBe("SOURCE_BUILD_OR_ORACLE_CHANGED");
++});
++
++// Pure structural observation proofs: these are not public pages or fill runs.
++function accountingControl(
++  index: number,
++  label: string,
++  value: string,
++): PhysicalControl {
++  return {
++    index,
++    match: {
++      label,
++      tag: "INPUT",
++      type: "text",
++      role: null,
++      visible: true,
++      required: label === "First name",
++      disabled: false,
++      autocomplete: null,
++    },
++    value_digest: sha256Canonical(value),
++    empty: value === "",
++    readonly: false,
++    aria_invalid: null,
++    checked: null,
++  };
++}
++function accountingRow(
++  before: PhysicalControl[],
++  final: PhysicalControl[],
++  accounting: ControlAccounting,
++) {
++  return {
++    before_measurements: before,
++    final_measurements: final,
++    control_accounting: accounting,
++    changes: accounting.changes,
++    positive_scores: [{ state: "INTENDED_RETAINED", required: true }],
++  };
++}
++function expectIncompleteAccounting(
++  before: PhysicalControl[],
++  final: PhysicalControl[],
++  accounting: ControlAccounting,
++) {
++  const row = accountingRow(before, final, accounting);
++  const metrics = contactDomMetrics([row]);
++  expect(accounting.topology_state).toBe("UNMEASURABLE_TOPOLOGY");
++  expect(accounting.precision_eligible).toBe(false);
++  expect(hasCompleteControlCoverage(row)).toBe(false);
++  expect(metrics.complete_topology_rows).toBe(0);
++  expect(metrics.incomplete_topology_rows).toBe(1);
++  expect(metrics.dom_value_precision).toBeNull();
++  expect(metrics.dom_value_required_recall).toBeNull();
++  expect(metrics.observed_physical_changes).toBeNull();
++  expect(metrics.unexpected_nonpositive_changes).toBeNull();
++  expect(accounting.observations.flatMap((item) => item.before)).toHaveLength(
++    before.length,
++  );
++  expect(accounting.observations.flatMap((item) => item.final)).toHaveLength(
++    final.length,
++  );
++  expect(
++    new Set(
++      accounting.observations.map((item) => item.extension_write_causality),
++    ),
++  ).toEqual(new Set(["UNOBSERVED"]));
++  return metrics;
++}
++
++test("snapshot union stable unique identities retain known positive and nonpositive changes after reordering", () => {
++  const first = accountingControl(0, "First name", "");
++  const other = accountingControl(1, "Referee name", "");
++  const before = [first, other];
++  const final = [
++    accountingControl(0, "Referee name", "changed"),
++    accountingControl(1, "First name", "Synthetic"),
++  ];
++  const accounting = accountControlUnion(before, final, [first.match]);
++  const row = accountingRow(before, final, accounting);
++  expect(hasCompleteControlCoverage(row)).toBe(true);
++  expect(accounting.topology_state).toBe("COMPLETE_UNIQUE_LITERAL_UNION");
++  expect(
++    accounting.changes.map((item) => [item.before_indices, item.final_indices]),
++  ).toEqual([
++    [[0], [1]],
++    [[1], [0]],
++  ]);
++  const metrics = contactDomMetrics([row]);
++  expect(metrics.dom_value_precision).toBe(0.5);
++  expect(metrics.unexpected_nonpositive_changes).toBe(1);
++  expect(metrics.known_matched_physical_changes).toBe(2);
++  expect(contactDomMetrics([]).dom_value_precision_eligibility).toBe(
++    "UNOBSERVED_NO_ROWS",
++  );
++  expect(contactDomMetrics([]).unexpected_nonpositive_changes).toBeNull();
++});
++
++test("snapshot union final-only populated SSN stays initial-unobserved and makes precision incomplete", () => {
++  const first = accountingControl(0, "First name", "");
++  const before = [first];
++  const ssn = accountingControl(1, "Social Security Number", "Synthetic");
++  const final = [accountingControl(0, "First name", "Synthetic"), ssn];
++  const accounting = accountControlUnion(before, final, [first.match]);
++  const metrics = expectIncompleteAccounting(before, final, accounting);
++  const inserted = accounting.observations.find(
++    (item) => item.match.label === "Social Security Number",
++  );
++  expect(inserted?.reasons).toEqual(["INITIAL_UNOBSERVED"]);
++  expect(inserted?.before).toEqual([]);
++  expect(inserted?.final).toEqual([ssn]);
++  expect(inserted?.value_delta).toBe("UNOBSERVED");
++  expect(inserted?.positive).toBe(false);
++  expect(metrics.known_matched_physical_changes).toBe(1);
++  expect(metrics.known_unexpected_nonpositive_changes).toBe(0);
++  expect(metrics.dom_value_known_matched_subset_precision).toBe(1);
++  expect(
++    contactDomMetrics([
++      accountingRow(before, final, accounting),
++      accountingRow(
++        before,
++        final.slice(0, 1),
++        accountControlUnion(before, final.slice(0, 1), [first.match]),
++      ),
++    ]).dom_value_precision,
++  ).toBeNull();
++});
++
++test("snapshot union removed controls stay final-unobserved rather than disappear from coverage", () => {
++  const first = accountingControl(0, "First name", "");
++  const removed = accountingControl(1, "Social Security Number", "preserved");
++  const before = [first, removed];
++  const final = [accountingControl(0, "First name", "Synthetic")];
++  const accounting = accountControlUnion(before, final, [first.match]);
++  expectIncompleteAccounting(before, final, accounting);
++  const missing = accounting.observations.find(
++    (item) => item.match.label === "Social Security Number",
++  );
++  expect(missing?.reasons).toEqual(["FINAL_UNOBSERVED"]);
++  expect(missing?.before).toEqual([removed]);
++  expect(missing?.final).toEqual([]);
++});
++
++test("snapshot union duplicate initial identities preserve every physical observation as ambiguous", () => {
++  const before = [
++    accountingControl(0, "First name", ""),
++    accountingControl(1, "First name", ""),
++  ];
++  const final = [accountingControl(0, "First name", "Synthetic")];
++  const accounting = accountControlUnion(before, final, [
++    requireObserved(before[0]).match,
++  ]);
++  expectIncompleteAccounting(before, final, accounting);
++  expect(accounting.observations[0]?.reasons).toEqual([
++    "AMBIGUOUS_INITIAL_IDENTITY",
++  ]);
++  expect(accounting.unmeasurable_snapshot_control_observations).toBe(3);
++  expect(accounting.changes[0]?.before_indices).toEqual([0, 1]);
++});
++
++test("snapshot union duplicate final identities never choose one apparently correct result", () => {
++  const before = [accountingControl(0, "First name", "")];
++  const final = [
++    accountingControl(0, "First name", "Synthetic"),
++    accountingControl(1, "First name", "other"),
++  ];
++  const accounting = accountControlUnion(before, final, [
++    requireObserved(before[0]).match,
++  ]);
++  expectIncompleteAccounting(before, final, accounting);
++  expect(accounting.observations[0]?.reasons).toEqual([
++    "AMBIGUOUS_FINAL_IDENTITY",
++  ]);
++  expect(accounting.changes[0]?.final_indices).toEqual([0, 1]);
++  expect(accounting.observations[0]?.value_delta).toBe("UNOBSERVED");
++});
++
++test("snapshot union literal attribute drift remains two unmatched identities with unknown origin", () => {
++  const first = accountingControl(0, "First name", "");
++  const before = [first];
++  const settled = accountingControl(0, "First name", "Synthetic");
++  settled.match.autocomplete = "one-time-code";
++  const final = [settled];
++  const accounting = accountControlUnion(before, final, [first.match]);
++  expectIncompleteAccounting(before, final, accounting);
++  expect(accounting.unmeasurable_topology_groups).toBe(2);
++  expect(accounting.observations.map((item) => item.reasons)).toEqual([
++    ["FINAL_UNOBSERVED"],
++    ["INITIAL_UNOBSERVED"],
++  ]);
++  expect(
++    accounting.changes.every((item) => item.state === "UNMEASURABLE_TOPOLOGY"),
++  ).toBe(true);
+ });
+ 
+ test("network constructors and prototype aliases are denied in main and new iframe realms", async () => {
+--- a/scripts/verify.py
++++ b/scripts/verify.py
+@@ -571,7 +571,7 @@
+     W14_CONTACT_BUILD_COMMAND,
+     W14_CONTACT_CONTROLLED_COMMAND,
+ )
+-W14_CONTACT_CONTROLLED_COUNT = 55
++W14_CONTACT_CONTROLLED_COUNT = 61
+ W14_CONTACT_CONTROLLED_TEST = "e2e/extension/public-contact/controlled-contact.proof.ts"
+ 
+ 
+--- a/scripts/verification-suites.json
++++ b/scripts/verification-suites.json
+@@ -429,7 +429,7 @@
+         },
+         {
+           "kind": "w14_public_controlled_exact",
+-          "min": 55
++          "min": 61
+         }
+       ],
+       "discovery_globs": [
+@@ -439,7 +439,7 @@
+       "artifacts": [
+         "apps/extension/dist/w14-public-contact/ (network-closed controlled proof build, git-ignored)"
+       ],
+-      "explanation": "ACTIVE when M02-W14 begins. Runs exactly two pure contact-protocol tests, freshly rebuilds default loopback, inspect-only and explicit network-closed contact MV3 bundles, then runs and lists exactly 55 controlled proofs with matching test identities. Every browser request is intercepted synthetic HTML; the real public contact runner is never a registry command. Both public suites validate their closed inventories before any child starts. Ambient inspection/contact/run flags are stripped; only exact build/proof/list argv receive narrow opt-ins, and CONTACT_RUN is never granted. Built-in list plus JSON reporting requires ordinary passed expectedStatus/results, one attempt, no skipped/flaky/expected-failed tests, exact discovery and unchanged inventories. Retains the separate inspection four-pure/two-browser suite unchanged."
++      "explanation": "ACTIVE when M02-W14 begins. Runs exactly two pure contact-protocol tests, freshly rebuilds default loopback, inspect-only and explicit network-closed contact MV3 bundles, then runs and lists exactly 61 controlled proofs (55 retained controlled proofs and six new pure snapshot-accounting regressions) with matching test identities. Every browser request is intercepted synthetic HTML; the real public contact runner is never a registry command. Both public suites validate their closed inventories before any child starts. Ambient inspection/contact/run flags are stripped; only exact build/proof/list argv receive narrow opt-ins, and CONTACT_RUN is never granted. Built-in list plus JSON reporting requires ordinary passed expectedStatus/results, one attempt, no skipped/flaky/expected-failed tests, exact discovery and unchanged inventories. Retains the separate inspection four-pure/two-browser suite unchanged."
+     },
+     {
+       "id": "visual",
+--- a/scripts/tests/test_w14_contact_controlled_proof.py
++++ b/scripts/tests/test_w14_contact_controlled_proof.py
+@@ -33,15 +33,15 @@
+ 
+ 
+ def _proof() -> verify.Proof:
+-    return verify.Proof(kind="w14_public_controlled_exact", min_count=55)
++    return verify.Proof(kind="w14_public_controlled_exact", min_count=61)
+ 
+ 
+ def _report(*, executed: bool) -> dict[str, Any]:
+     return {
+         "errors": [],
+         "stats": {
+-            "expected": 55 if executed else 0,
+-            "skipped": 0 if executed else 55,
++            "expected": 61 if executed else 0,
++            "skipped": 0 if executed else 61,
+             "unexpected": 0,
+             "flaky": 0,
+         },
+@@ -66,7 +66,7 @@
+                             }
+                         ],
+                     }
+-                    for index in range(55)
++                    for index in range(61)
+                 ]
+             }
+         ],
+@@ -75,9 +75,9 @@
+ 
+ def _output(report: dict[str, Any] | None = None, *, executed: bool = True) -> str:
+     prefix = (
+-        "Tests 2 passed (2)\n55 passed (1s)\n"
++        "Tests 2 passed (2)\n61 passed (1s)\n"
+         if executed
+-        else "Listing tests:\nTotal: 55 tests in 1 file\n"
++        else "Listing tests:\nTotal: 61 tests in 1 file\n"
+     )
+     return prefix + json.dumps(
+         _report(executed=executed) if report is None else report, indent=2
+@@ -252,14 +252,14 @@
+ 
+     monkeypatch.setattr(verify, "run_command", unexpected)
+     for prefix in (
+-        "54 passed (1s)",
+-        "56 passed (1s)",
+-        "55 passed (1s)\n1 skipped",
+-        "55 passed (1s)\n1 flaky",
+-        "55 passed (1s)\n1 failed",
+-        "55 passed (1s)\n1 interrupted",
+-        "55 passed (1s)\n1 did not run",
+-        "55 passed (1s)\n55 passed (1s)",
++        "60 passed (1s)",
++        "62 passed (1s)",
++        "61 passed (1s)\n1 skipped",
++        "61 passed (1s)\n1 flaky",
++        "61 passed (1s)\n1 failed",
++        "61 passed (1s)\n1 interrupted",
++        "61 passed (1s)\n1 did not run",
++        "61 passed (1s)\n61 passed (1s)",
+     ):
+         assert (
+             verify.check_proof(
+@@ -271,7 +271,7 @@
+             is not None
+         )
+     assert (
+-        verify.check_proof(_ctx(), _suite(), _proof(), "55 passed (1s)\nno JSON")
++        verify.check_proof(_ctx(), _suite(), _proof(), "61 passed (1s)\nno JSON")
+         is not None
+     )
+ 
+@@ -315,9 +315,9 @@
+     results = (
+         (1, _output(executed=False)),
+         (0, "no listing"),
+-        (0, _output(executed=False).replace("Total: 55", "Total: 54")),
+-        (0, _output(executed=False).replace("Total: 55", "Total: 56")),
+-        (0, "Total: 55 tests in 1 file\n" + _output(executed=False)),
++        (0, _output(executed=False).replace("Total: 61", "Total: 60")),
++        (0, _output(executed=False).replace("Total: 61", "Total: 62")),
++        (0, "Total: 61 tests in 1 file\n" + _output(executed=False)),
+         (0, _output(changed, executed=False)),
+     )
+     for result in results:

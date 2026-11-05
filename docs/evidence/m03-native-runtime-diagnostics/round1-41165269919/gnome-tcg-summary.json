@@ -1,0 +1,14 @@
+{
+ "accel": "tcg",
+ "end_seconds": 4805.7,
+ "collected_at_seconds": null,
+ "vm_exit": null,
+ "serial_bytes": 80205,
+ "max_ssh_seconds": 60.0,
+ "ssh_polls_over_6s": 18,
+ "ssh_polls": 568,
+ "milestones_first_seen_host_seconds": {
+  "probe-start": 162.7,
+  "hashed": 200.6
+ }
+}

@@ -1,0 +1,57 @@
+{
+  "format_version": "W14_PUBLIC_CONTACT_EXACT_SOURCE_REPLAY_MANIFEST_1",
+  "command": "node /tmp/japp-w14-public-contact-before-proof/replay.mjs",
+  "runs": 2,
+  "exit_codes": [
+    0,
+    0
+  ],
+  "repeat_outputs_identical": true,
+  "files": [
+    {
+      "path": "/tmp/japp-w14-public-contact-before-proof/README.txt",
+      "sha256": "sha256:6b6a8c96d4eefc9ec38b0c1fc3aa0587eec4fe36b66fcbb6f598ab320fb17a52",
+      "bytes": 997
+    },
+    {
+      "path": "/tmp/japp-w14-public-contact-before-proof/original-domMetrics-snippet.ts",
+      "sha256": "sha256:3ac24f5a90a58af369d1912899805390c9da67c95855075ad5ae4c293798f774",
+      "bytes": 2213
+    },
+    {
+      "path": "/tmp/japp-w14-public-contact-before-proof/original-scoring-snippet.js",
+      "sha256": "sha256:c606c57deb55e528722178e2d20fe4cf2b95895a05efb82ccfb33ed775903955",
+      "bytes": 2057
+    },
+    {
+      "path": "/tmp/japp-w14-public-contact-before-proof/provenance.json",
+      "sha256": "sha256:fbc4029cd6022e0754fa7ea3bb613488eaf77fca60e8bbff63eb7fe2974a36eb",
+      "bytes": 3362
+    },
+    {
+      "path": "/tmp/japp-w14-public-contact-before-proof/raw-output-repeat.json",
+      "sha256": "sha256:7e92c3006642b3a4c7558b55ea9e02c26f493acbe6df9b280830fe58c0c1ff10",
+      "bytes": 4355
+    },
+    {
+      "path": "/tmp/japp-w14-public-contact-before-proof/raw-output.json",
+      "sha256": "sha256:7e92c3006642b3a4c7558b55ea9e02c26f493acbe6df9b280830fe58c0c1ff10",
+      "bytes": 4355
+    },
+    {
+      "path": "/tmp/japp-w14-public-contact-before-proof/replay.mjs",
+      "sha256": "sha256:9bfa400507ebc8da4d458544dee65afd7614b917f90e0ca0a0bfa4e90a4d57f0",
+      "bytes": 4595
+    },
+    {
+      "path": "/tmp/japp-w14-public-contact-before-proof/stderr-repeat.log",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/tmp/japp-w14-public-contact-before-proof/stderr.log",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ]
+}

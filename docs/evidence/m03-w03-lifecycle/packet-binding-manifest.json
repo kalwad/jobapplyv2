@@ -1,0 +1,108 @@
+{
+  "archive": "packet-binding-review.tar.gz",
+  "sha256": "957b691b67d8b21387804cd1f42ff5ac47bc6838309c94d8103e669842b70454",
+  "bytes": 506723,
+  "durable_local_store": "/Users/tanishkalwad/jobapplyv2-evidence/m03-w03-final-packet-binding-review-20261019",
+  "members": {
+    "REVIEW.md": {
+      "bytes": 5672,
+      "sha256": "41ce4892adcc2ebb9c83bb413207ee9f750a5a821b50edce89c1dda5386db081"
+    },
+    "archive-members-observed.json": {
+      "bytes": 186711,
+      "sha256": "d38e025291e0977a85949eed1adfd0f9108a5fbd5d6d05ab46531bfa9297cf76"
+    },
+    "audit.py": {
+      "bytes": 12059,
+      "sha256": "c3116c6514b5ed50174d9f8915e5e36b93d7faa279f46279dd5f5eac9b9b4384"
+    },
+    "checks.json": {
+      "bytes": 7182,
+      "sha256": "102fe962f22e3bd93022abc7e9121d7a996831e47fa3515f0a2207ed7342da91"
+    },
+    "clippy-archive-members-observed.json": {
+      "bytes": 39500,
+      "sha256": "b5c45d1ec94a71f826baf373fdb92266fe3f62dfc357ed456c7c828eff41fc9f"
+    },
+    "clippy-checks.json": {
+      "bytes": 2027,
+      "sha256": "8ebc850d2dee703642875b65a691c126d47d07b9bdb9f5fef304dd118f163087"
+    },
+    "clippy-input-retention.json": {
+      "bytes": 115887,
+      "sha256": "7772db4a1574dbe0429be2a2cbe55770370912ad87eee0ca9a26951f45209611"
+    },
+    "clippy-packet-audit.py": {
+      "bytes": 5898,
+      "sha256": "b60672c696a9eda1c2a7e3ba03d405b99b6903948289dd454c31527d2d8a9d8d"
+    },
+    "findings.json": {
+      "bytes": 2048,
+      "sha256": "0d2de746b545c26a5754ec7ea44909f1144accdfc18255fb93cf6472b9e5b910"
+    },
+    "input-retention.json": {
+      "bytes": 510436,
+      "sha256": "e003868b169021bc667e3a88daa26598acf313cf36d936ee6e39a885b9427b6f"
+    },
+    "inputs/Users/tanishkalwad/jobapplyv2-evidence/m03-w03-cac56-native-20261019/README.md": {
+      "bytes": 849,
+      "sha256": "918932ef3bc8d05c2a8897d63502eaeff35d38698b098bfa2b1f98e2b4aa633a"
+    },
+    "inputs/Users/tanishkalwad/jobapplyv2-evidence/m03-w03-cac56-native-20261019/collector.py": {
+      "bytes": 11560,
+      "sha256": "1bd863e9da7f0b535584fcb3395802fdfebb5543a415dc0b4db880f2f3a9cdc4"
+    },
+    "inputs/Users/tanishkalwad/jobapplyv2-evidence/m03-w03-cac56-native-20261019/retention-manifest.json": {
+      "bytes": 186761,
+      "sha256": "6beddb56e8c883df5ea1061f2a7debe3039a4c7d27924c3816c048018667d54f"
+    },
+    "inputs/Users/tanishkalwad/jobapplyv2-evidence/m03-w03-cac56-native-20261019/selection.json": {
+      "bytes": 511451,
+      "sha256": "eed05278c1b719d6ddebc50815c0a3a6c9802a1eb3442275e4fd48b71de27753"
+    },
+    "inputs/Users/tanishkalwad/jobapplyv2-evidence/m03-w03-cac56-native-20261019/tracked-after.json": {
+      "bytes": 480468,
+      "sha256": "be6ee3466bd663fea75bfa06f06c31ba704b9de4794a4619de29707a70385db6"
+    },
+    "inputs/Users/tanishkalwad/jobapplyv2-evidence/m03-w03-cac56-native-20261019/tracked-before.json": {
+      "bytes": 480468,
+      "sha256": "be6ee3466bd663fea75bfa06f06c31ba704b9de4794a4619de29707a70385db6"
+    },
+    "inputs/Users/tanishkalwad/jobapplyv2-evidence/m03-w03-clippy-correction-20261019/README.md": {
+      "bytes": 570,
+      "sha256": "aae5eeb619228b7033c76dcd07a051ac34e6670ba519cc02a804b379105a796f"
+    },
+    "inputs/Users/tanishkalwad/jobapplyv2-evidence/m03-w03-clippy-correction-20261019/collector.py": {
+      "bytes": 4216,
+      "sha256": "20cf5022a75a78a944f03b2d0e89ae4eec606af941e0d1c3935278020eac4bbb"
+    },
+    "inputs/Users/tanishkalwad/jobapplyv2-evidence/m03-w03-clippy-correction-20261019/retention.json": {
+      "bytes": 40272,
+      "sha256": "cbfc9e90aa04575051dd7ae21b42dcd095d656abf65e3d2a2037c0c7cf11caaa"
+    },
+    "inputs/Users/tanishkalwad/jobapplyv2-evidence/m03-w03-clippy-correction-20261019/selection.json": {
+      "bytes": 75459,
+      "sha256": "e4a881c499696b667ae088f091d9b6fc51d0a581524ecaf4cfbf7ce21907eb1a"
+    },
+    "inputs/tmp/japp-m03-w03-clippy-retained-20261019/archive-manifest.json": {
+      "bytes": 42503,
+      "sha256": "312063bdf6f7590a33a5cbdbc5ab0971664b7d107aa79bc983370345aeaa4ce2"
+    },
+    "inputs/tmp/japp-m03-w03-independent-native-actual-review-20261019/findings.json": {
+      "bytes": 1516,
+      "sha256": "b48a1b5efa8a0dd1ba7c059a0993d92e66625e2b48e61084cb7d2951890511d4"
+    },
+    "inputs/tmp/japp-m03-w03-native-retained-20261019/archive-manifest.json": {
+      "bytes": 194382,
+      "sha256": "9e48040271d6de03095500a38c5ecb910717e63d8dacc57b4ff38c4d51cbc2a1"
+    },
+    "retention-manifest.json": {
+      "bytes": 4463,
+      "sha256": "3966dd4633da9b40c8012ccaf06d91f3e8f5508ea4d9911cd70d4dda9b03a7e7"
+    },
+    "selection-category-counts.json": {
+      "bytes": 769,
+      "sha256": "79c3d1e50623f7e80ec0ad33d5bea234d174d845c5104538269b2970b5ffecae"
+    }
+  }
+}

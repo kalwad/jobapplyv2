@@ -1,0 +1,10 @@
+{
+  "observed": {
+    "model name": "Intel(R) Xeon(R) 6973P-C",
+    "vendor_id": "GenuineIntel",
+    "cpu family": "6",
+    "model": "173",
+    "stepping": "1"
+  },
+  "gate": "NOT_APPLIED_DIAGNOSTIC"
+}

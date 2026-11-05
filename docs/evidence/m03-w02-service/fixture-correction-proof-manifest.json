@@ -1,0 +1,176 @@
+{
+  "sha256": "6a1cc0bf6f52c98fdd5f8e7028aaecfdd2ca0c39b825779d5f267a4d28fc3911",
+  "bytes": 302600,
+  "members": [
+    {
+      "member": "japp-m03-w02-fixture-correction-20261018/affected-green.log",
+      "bytes": 493,
+      "sha256": "d7019f7d1119c5337d34854a3840a6654a68fa02b05477fb5820ec1ba184f5ee"
+    },
+    {
+      "member": "japp-m03-w02-fixture-correction-20261018/fixture-only.patch",
+      "bytes": 1660,
+      "sha256": "65b22e13c7e1bd2620aba2d0c0112387d4158caac83dff1ebc2844cdaa42c346"
+    },
+    {
+      "member": "japp-m03-w02-fixture-correction-20261018/integrity-green.log",
+      "bytes": 494,
+      "sha256": "1dc9e62495d8c0a9c5146a68ffff5d656b7350fa6d58773392628a079fcd33d4"
+    },
+    {
+      "member": "japp-m03-w02-fixture-correction-20261018/invalid-enum-premise-red.log",
+      "bytes": 1852,
+      "sha256": "886043c1419d6653a4bcc8c45dfabf94713ef5305a5447e170acfa11516e56d3"
+    },
+    {
+      "member": "japp-m03-w02-fixture-correction-20261018/metadata-green.log",
+      "bytes": 895,
+      "sha256": "4b389bd7b3f78f723181e3d0296fa1d6dfc84e45ab43671c5daf04cc656603e9"
+    },
+    {
+      "member": "japp-m03-w02-fixture-correction-20261018/observed-command-results.json",
+      "bytes": 3145,
+      "sha256": "2df77d6192ec02062a2803e8ac5cf49a6d858ee083c11bf29e8be154b76e7c38"
+    },
+    {
+      "member": "japp-m03-w02-fixture-correction-20261018/premise-red.log",
+      "bytes": 2054,
+      "sha256": "bcbb14c4168bc9059e039f4ae0f40a3969fdb19f6c1923e9eaa29253852743d7"
+    },
+    {
+      "member": "japp-m03-w02-fixture-correction-20261018/source-comparison.json",
+      "bytes": 901,
+      "sha256": "66470fb398e7d10656422e13bbf6d7d8ca1218af80e4e94c05b7ceecef963c4b"
+    },
+    {
+      "member": "japp-m03-w02-fixture-correction-20261018/test_integrity-after.py",
+      "bytes": 98692,
+      "sha256": "799903b58589da9e29896a4eb09755562452aabb89fb3ef3e68dc5ebe3ef31b0"
+    },
+    {
+      "member": "japp-m03-w02-fixture-correction-20261018/test_integrity-before.py",
+      "bytes": 98535,
+      "sha256": "5f86829976fcb43a9de4bf2bef097e66bee932d2a3ee128c49281f5faf9366ad"
+    },
+    {
+      "member": "japp-m03-w02-fixture-correction-20261018/test_integrity-premise-red.py",
+      "bytes": 98695,
+      "sha256": "7fa5f1538a8f961f64b418c1527cf14ec95b2b4b6c4f29b331ed20dd07c1c487"
+    },
+    {
+      "member": "japp-m03-w02-fixture-correction-20261018/test_validate_status-after.py",
+      "bytes": 125875,
+      "sha256": "f7f78ac236f06182bf7d2b9fc439402dcb0efb6a4d17052abe0ecf61b70dcf14"
+    },
+    {
+      "member": "japp-m03-w02-fixture-correction-20261018/test_validate_status-before.py",
+      "bytes": 125683,
+      "sha256": "99cf2eae9659450900c801b11371d5dda67947501a4c532ed4aabd8a2555b0ff"
+    },
+    {
+      "member": "japp-m03-w02-fixture-correction-20261018/test_validate_status-premise-red.py",
+      "bytes": 125735,
+      "sha256": "195e861c32eadb23f75f12f315259d643b90f835a820f68101513dea7611b197"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-source-review/findings.json",
+      "bytes": 2558,
+      "sha256": "9324c32ffc846b8dd54266227575434c5a01d1977bc04c0d42bb1a9da6b34342"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-source-review/test_integrity-before.py",
+      "bytes": 98535,
+      "sha256": "5f86829976fcb43a9de4bf2bef097e66bee932d2a3ee128c49281f5faf9366ad"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-source-review/test_integrity-current.py",
+      "bytes": 98692,
+      "sha256": "799903b58589da9e29896a4eb09755562452aabb89fb3ef3e68dc5ebe3ef31b0"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-source-review/test_validate_status-before.py",
+      "bytes": 125683,
+      "sha256": "99cf2eae9659450900c801b11371d5dda67947501a4c532ed4aabd8a2555b0ff"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-source-review/test_validate_status-current.py",
+      "bytes": 125875,
+      "sha256": "f7f78ac236f06182bf7d2b9fc439402dcb0efb6a4d17052abe0ecf61b70dcf14"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-focused-closure/REVIEW.md",
+      "bytes": 1249,
+      "sha256": "352b3a6b9cd4a4881da98e5ae6310601ab5163cf923bcd687ca7dd4437a19586"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-focused-closure/affected-green.log",
+      "bytes": 493,
+      "sha256": "d7019f7d1119c5337d34854a3840a6654a68fa02b05477fb5820ec1ba184f5ee"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-focused-closure/findings.json",
+      "bytes": 5866,
+      "sha256": "6bc5638ae9a0b1ad7c5e497a1fad89c762e1f7b27102f3462f0f6367b042b154"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-focused-closure/fixture-only.patch",
+      "bytes": 1660,
+      "sha256": "65b22e13c7e1bd2620aba2d0c0112387d4158caac83dff1ebc2844cdaa42c346"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-focused-closure/integrity-green.log",
+      "bytes": 494,
+      "sha256": "1dc9e62495d8c0a9c5146a68ffff5d656b7350fa6d58773392628a079fcd33d4"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-focused-closure/invalid-enum-premise-red.log",
+      "bytes": 1852,
+      "sha256": "886043c1419d6653a4bcc8c45dfabf94713ef5305a5447e170acfa11516e56d3"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-focused-closure/metadata-green.log",
+      "bytes": 895,
+      "sha256": "4b389bd7b3f78f723181e3d0296fa1d6dfc84e45ab43671c5daf04cc656603e9"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-focused-closure/premise-red.log",
+      "bytes": 2054,
+      "sha256": "bcbb14c4168bc9059e039f4ae0f40a3969fdb19f6c1923e9eaa29253852743d7"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-focused-closure/source-comparison.json",
+      "bytes": 901,
+      "sha256": "66470fb398e7d10656422e13bbf6d7d8ca1218af80e4e94c05b7ceecef963c4b"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-focused-closure/test_integrity-after.py",
+      "bytes": 98692,
+      "sha256": "799903b58589da9e29896a4eb09755562452aabb89fb3ef3e68dc5ebe3ef31b0"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-focused-closure/test_integrity-before.py",
+      "bytes": 98535,
+      "sha256": "5f86829976fcb43a9de4bf2bef097e66bee932d2a3ee128c49281f5faf9366ad"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-focused-closure/test_integrity-premise-red.py",
+      "bytes": 98695,
+      "sha256": "7fa5f1538a8f961f64b418c1527cf14ec95b2b4b6c4f29b331ed20dd07c1c487"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-focused-closure/test_validate_status-after.py",
+      "bytes": 125875,
+      "sha256": "f7f78ac236f06182bf7d2b9fc439402dcb0efb6a4d17052abe0ecf61b70dcf14"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-focused-closure/test_validate_status-before.py",
+      "bytes": 125683,
+      "sha256": "99cf2eae9659450900c801b11371d5dda67947501a4c532ed4aabd8a2555b0ff"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/fixture-correction-focused-closure/test_validate_status-premise-red.py",
+      "bytes": 125735,
+      "sha256": "195e861c32eadb23f75f12f315259d643b90f835a820f68101513dea7611b197"
+    }
+  ]
+}

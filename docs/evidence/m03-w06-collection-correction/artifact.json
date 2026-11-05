@@ -1,0 +1,12 @@
+{
+  "scope": "DERIVED evidence descriptor, not execution/Gate verdict",
+  "archive": {
+    "bytes": 746918,
+    "sha256": "891e135f5380170ab3287bc93ae646d13f3a405f39446c6c9f62b375acc8ccb2"
+  },
+  "members": 88,
+  "payload_bytes": 3239669,
+  "status": "W06_IN_PROGRESS",
+  "physical_images_in_archive": false,
+  "whole_current20": "NOT_ESTABLISHED_AFTER_CORRECTION"
+}

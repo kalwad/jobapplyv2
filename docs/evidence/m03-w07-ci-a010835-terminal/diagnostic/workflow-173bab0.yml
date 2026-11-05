@@ -1,0 +1,41 @@
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 4: rust-lld plus a pinned
+# Windows SDK rc.exe, traced over the app build and the test-harness compile.
+name: ci
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  desktop:
+    name: desktop (lld+rc)
+    runs-on: windows-2025
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+      - run: corepack enable pnpm
+      - name: Install pinned toolchain (rust-toolchain.toml)
+        shell: pwsh
+        run: rustup toolchain install 1.97.1 --profile minimal --component rustfmt --component clippy
+      - run: pnpm install --frozen-lockfile
+      - name: Build and test-compile desktop inside traced Jobs
+        shell: pwsh
+        run: |
+          pnpm --filter @japp/desktop build
+          $kits = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows Kits\Installed Roots').KitsRoot10
+          Get-ChildItem "$kits\bin" -Directory | Format-Table Name
+          $rc = Get-ChildItem "$kits\bin\10.*\x64\rc.exe" | Sort-Object { [version]$_.Directory.Parent.Name } | Select-Object -Last 1
+          Write-Output "rc=$($rc.FullName)"
+          $env:CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_LINKER = 'rust-lld.exe'
+          $env:RC_x86_64_pc_windows_msvc = $rc.FullName
+          python scripts\diag\job_linger_diag.py lldrc-build 60 no -- cargo build --locked --manifest-path apps\desktop\src-tauri\Cargo.toml
+          python scripts\diag\job_linger_diag.py lldrc-test 60 no -- cargo test --locked --no-run --manifest-path apps\desktop\src-tauri\Cargo.toml
+          $exe = 'apps\desktop\src-tauri\target\debug\japp-desktop.exe'
+          $sdk = Get-ChildItem "$kits\bin\10.*\x64\mt.exe" | Sort-Object { [version]$_.Directory.Parent.Name } | Select-Object -Last 1
+          & $sdk.FullName -nologo "-inputresource:$exe;#1" "-out:$env:RUNNER_TEMP\embedded.manifest"
+          Get-Content "$env:RUNNER_TEMP\embedded.manifest"
+          (Get-Item $exe).VersionInfo | Format-List FileVersion,ProductVersion,ProductName,FileDescription

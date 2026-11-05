@@ -1,0 +1,55 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "uv",
+        "run",
+        "pytest",
+        "scripts/tests/test_validate_status.py",
+        "scripts/tests/test_traceability.py",
+        "-q"
+      ],
+      "exit_code": 0,
+      "actual": "302 passed in114.62s",
+      "stdout": "metadata-tests.stdout",
+      "stderr": "metadata-tests.stderr"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "traceability:generate"
+      ],
+      "exit_code": 0,
+      "actual": "193 requirements/300 work packages"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "traceability:check"
+      ],
+      "exit_code": 0,
+      "actual": "193 requirements/300 work packages"
+    },
+    {
+      "argv": [
+        "uv",
+        "run",
+        "python",
+        "scripts/validate_status.py"
+      ],
+      "exit_code": 0,
+      "actual": "45 check groups"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "scope": "Metadata-focused validation; no new product/full/native/hosted execution. Canonical documents are explicitly excluded by .prettierignore; pnpm exec prettier --write on these ignored paths returned0 without formatting. One harmless JSON Unicode serialization expansion was restored to original ASCII escaping before final checks.",
+  "record_review": "c050e12a30586913783b9e5c43d7e3b9a22db144dd3d53de91640333461a672f",
+  "review_condition_closed": "KI0108 wording now says reported test duration, not separately timed body; focused tests actually closed0/302PASS. Only wording and actual-result/evidence additions followed the focused test command."
+}

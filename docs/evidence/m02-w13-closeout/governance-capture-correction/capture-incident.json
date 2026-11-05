@@ -1,0 +1,40 @@
+{
+  "classification": "DIRECT_REGRESSION",
+  "scope": "raw governance evidence capture only; no implementation/test/schema/gate change",
+  "local_unpublished_commit": "92c78d1cb90a889222e977fbeb1799e5a37f085a",
+  "tree": "6d114c6605edb657daec68012f8f7fd2a9ecb308",
+  "parent": "4745149f4b5da7190b5b0c68753f8ec07bed572d",
+  "cause": "gitdiff--cached --check returned2 for exactrawterminalwhitespace; shellincorrectlycontinuedto localcommit; textauto normalizedWindowsCRLF",
+  "windows_original": {
+    "bytes": 516721,
+    "sha256": "3257eb49e6de105c36cdaa43c8e208c09cc950d899dd7def15dc77e7a8f28570"
+  },
+  "windows_in_incorrect_git_blob": {
+    "bytes": 512499,
+    "sha256": "ab61b79899d0567fda1c7cbd74643f2d8886eb051a46a579617b5a958cffe808"
+  },
+  "original_bytes_preserved": true,
+  "correction": "scoped raw*.log -text -diff attributes; exactGitindexblob matches allartifacts; source/prosechecks unchanged",
+  "reproduction_command": [
+    "git",
+    "diff-tree",
+    "--check",
+    "HEAD^",
+    "HEAD"
+  ],
+  "reproduction_exit_code": 2,
+  "failed_log_sha256": "fd8a8cae43d045676c752205b2c89d1bb32ee16da77f3d4bd05c46cdb29fc07c",
+  "history_policy_decision": "OWNER_AUTHORIZED_REPLACEMENT_ONLY_UNPUBLISHED_GOVERNANCE",
+  "owner_decision": {
+    "original_unpublished_sha": "92c78d1cb90a889222e977fbeb1799e5a37f085a",
+    "original_unpublished_tree": "6d114c6605edb657daec68012f8f7fd2a9ecb308",
+    "verified_content_parent": "4745149f4b5da7190b5b0c68753f8ec07bed572d",
+    "recovery_ref": "refs/heads/codex/w13-governance-capture-recovery-92c78d1",
+    "verified_recovery_target": "92c78d1cb90a889222e977fbeb1799e5a37f085a",
+    "local_only_not_pushed": true,
+    "owner_decision_date": "2026-10-01",
+    "owner_authorization": "Replace ONLY unpublished W13 governance commit; preserve recovery ref; no content or pushed history rewrite; no forward correction unless replacement technically impossible",
+    "recorded_at_utc": "2026-10-01T19:57:36.429624+00:00"
+  },
+  "no_pushed_or_content_history_rewritten": true
+}

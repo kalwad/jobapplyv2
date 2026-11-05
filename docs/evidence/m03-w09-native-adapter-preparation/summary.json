@@ -1,0 +1,339 @@
+{
+  "schema": "M03_W09_NATIVE_ADAPTER_PREPARATION_LOCAL_ACTUAL_V2",
+  "scope": "HISTORICAL_LOCAL_NATIVE_SOURCE_BOUND_VALIDATION_NOT_MILESTONE_ACCEPTANCE",
+  "reference_head": "35b46287dc754a5987d653490ab49f978647ca26",
+  "reference_tree": "f0789de7f5c82f6931eebe489110fcb771130724",
+  "reference_tree_binding": "Git reference only; actual dirty-source inventory retained. Actor did not record final HEAD/tree.",
+  "start_utc": "2026-10-28T23:35:41.680462+00:00",
+  "end_utc": "2026-10-28T23:36:27.913886+00:00",
+  "source_files": 2055,
+  "runtime_files": 40,
+  "same_source_runtime_sizes_hashes_modes_status_endpoints": true,
+  "dirty_status": " M apps/desktop/README.md\n M apps/desktop/src-tauri/Cargo.toml\n M apps/desktop/src-tauri/src/lib.rs\n M apps/desktop/src-tauri/src/service/mod.rs\n M apps/desktop/src-tauri/src/service/platform.rs\n M apps/desktop/src-tauri/src/service/restart.rs\n M apps/desktop/src-tauri/src/service/runtime_integrity.rs\n M apps/desktop/src-tauri/src/service/supervisor.rs\n M apps/desktop/src-tauri/src/service/tauri_lifecycle.rs\n M apps/desktop/src-tauri/src/service/windows_native.rs\n M apps/desktop/test/renderer/main.tsx\n M apps/desktop/vite.renderer.config.ts\n M docs/KNOWN_ISSUES.md\n M docs/PROJECT_STATUS.md\n M docs/TEST_EVIDENCE.md\n M docs/UI_FAMILIARITY.md\n M docs/ui/ANTI_BLOAT_CHECKLIST.md\n M docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md\n M packaging/native-project-wheels.json\n M packaging/native-project-wheels/orchestrator-0.0.1-py3-none-any.whl\n M pyproject.toml\n M scripts/python-test-inventory.v1.json\n?? apps/desktop/src-tauri/src/service/native_paths.rs\n?? apps/desktop/src-tauri/src/service/owned_worker.rs\n?? apps/desktop/src-tauri/src/service/platform_adapters/app_owner.rs\n?? apps/desktop/src-tauri/src/service/platform_adapters/app_owner_tests.rs\n?? apps/desktop/src-tauri/src/service/platform_adapters/creation.rs\n?? apps/desktop/src-tauri/src/service/platform_adapters/fixture_isolation.rs\n?? apps/desktop/src-tauri/src/service/platform_adapters/macos_sdk_alias.rs\n?? apps/desktop/src-tauri/src/service/platform_adapters/mod.rs\n?? apps/desktop/src-tauri/src/service/platform_adapters/native.rs\n?? apps/desktop/src-tauri/src/service/platform_adapters/ownership_tests.rs\n?? apps/desktop/src-tauri/src/service/platform_adapters/paths.rs\n?? apps/desktop/src-tauri/src/service/platform_adapters/policy.rs\n?? apps/desktop/src-tauri/src/service/platform_adapters/posix_cleanup_tests.rs\n?? apps/desktop/src-tauri/src/service/platform_adapters/posix_paths.rs\n?? apps/desktop/src-tauri/src/service/platform_adapters/probe_admission_tests.rs\n?? apps/desktop/src-tauri/src/service/platform_adapters/tests.rs\n?? apps/desktop/src-tauri/src/service/platform_adapters/windows_paths.rs\n?? apps/desktop/src-tauri/src/service/quit.rs\n?? apps/desktop/src-tauri/src/service/quit_tests.rs\n?? apps/desktop/test/renderer/catalog-main.tsx\n?? apps/desktop/test/renderer/catalog.html\n?? apps/desktop/test/renderer/catalog.ts\n?? docs/evidence/m03-w06-local-full-35b/README.md\n?? docs/evidence/m03-w06-local-full-35b/artifact.json\n?? docs/evidence/m03-w06-local-full-35b/proof.tar.gz\n?? docs/evidence/m03-w06-local-full-35b/retention-manifest.json\n?? docs/evidence/m03-w06-local-full-35b/summary.json\n?? docs/evidence/m03-w06-runtime-preflight/README.md\n?? docs/evidence/m03-w06-runtime-preflight/artifact.json\n?? docs/evidence/m03-w06-runtime-preflight/proof.tar.gz\n?? docs/evidence/m03-w06-runtime-preflight/retention-manifest.json\n?? docs/evidence/m03-w06-runtime-preflight/summary.json\n?? docs/evidence/m03-w11-shell-catalog/README.md\n?? docs/evidence/m03-w11-shell-catalog/artifact.json\n?? docs/evidence/m03-w11-shell-catalog/proof.tar.gz\n?? docs/evidence/m03-w11-shell-catalog/retention-manifest.json\n?? docs/evidence/m03-w11-shell-catalog/summary.json\n?? e2e/desktop/state-catalog.spec.ts\n?? e2e/visual/desktop-catalog.spec.ts\n?? e2e/visual/support/desktop-capture.ts\n?? services/orchestrator/src/orchestrator/generation/__init__.py\n?? services/orchestrator/src/orchestrator/generation/client.py\n?? services/orchestrator/src/orchestrator/generation/fake.py\n?? services/orchestrator/src/orchestrator/generation/transport.py\n?? services/orchestrator/src/orchestrator/generation/types.py\n?? services/orchestrator/src/orchestrator/runtime/__init__.py\n?? services/orchestrator/src/orchestrator/runtime/metadata.py\n?? services/orchestrator/src/orchestrator/runtime/transport.py\n?? services/orchestrator/tests/test_generation_boundary.py\n?? services/orchestrator/tests/test_generation_cancellation_deadline.py\n?? services/orchestrator/tests/test_generation_header_whitespace.py\n?? services/orchestrator/tests/test_generation_idle_deadline.py\n?? services/orchestrator/tests/test_generation_loopback.py\n?? services/orchestrator/tests/test_generation_sticky_cancellation.py\n?? services/orchestrator/tests/test_generation_transport.py\n?? services/orchestrator/tests/test_runtime_metadata.py\n?? services/orchestrator/tests/test_runtime_metadata_transport.py\n",
+  "actual_phases": 11,
+  "successful_phases": 11,
+  "unexecuted_phases": [],
+  "rustfmt": "PASS",
+  "strict_alltarget_clippy_modes": 3,
+  "native_actual_cases_per_mode": 342,
+  "actual_three_mode_names_equal_default_catalog": true,
+  "prior238_actual_cases_retained": true,
+  "original91_W09_actual_cases_retained": true,
+  "seven_POSIX_cases_in_each_full_suite": true,
+  "separate_focused_process_runs": "NOT_RECORDED_IN_THIS_COHORT",
+  "foreign_Windows_source_check": "PASS_SOURCE_ONLY_NOT_NATIVE_WINDOWS",
+  "custom_protocol_build": "PASS",
+  "first_v1_failure": {
+    "actual_cases": 340,
+    "passed": 335,
+    "failed": 5,
+    "executed_phases": 5,
+    "planned_phases": 11,
+    "preserved": true,
+    "reason": "New directory cleanup nlink-zero expectation does not match actual Darwin/APFS; ordinary/retry success checks failed."
+  },
+  "v1_to_v2_source_delta": [
+    "apps/desktop/src-tauri/src/service/platform_adapters/posix_cleanup_tests.rs",
+    "apps/desktop/src-tauri/src/service/platform_adapters/posix_paths.rs"
+  ],
+  "darwin_settlement": "Observed held-identity plus anchored parent/name absence and same-variant held-path comparison in private per-user serialized namespace. No kernel inode-unlinked or hostile same-UID prevention claim.",
+  "original_test_source_preservation": {
+    "donor_full_bodies": 182,
+    "affected_current_preimage_full_bodies": 94,
+    "literal_preserving_token_comparison": "PASS"
+  },
+  "owned_direct_children_reaped": 11,
+  "outer_groups_observed_absent": 11,
+  "timeouts": 0,
+  "outer_cleanup_signals": 0,
+  "independent_actual_data_review": {
+    "verdict": "CLEAR",
+    "passed_checks": 143,
+    "review_sha256": "0f400dd1825c0bce009e8b6587145c744ada6a4f39f2a01ddc5c6361dd960366",
+    "audit_sha256": "2c12effb37c372bfa20fbd6bd8d0e636c3c81cec35cc0f317d84c88a455cf0b1"
+  },
+  "evaluated_native_source": [
+    {
+      "path": "apps/desktop/src-tauri/Cargo.toml",
+      "bytes": 2307,
+      "sha256": "230df99445e2aef8581b362574b1871163527d778c5fb3f077c0852282c3e1b8",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/api_client/mod.rs",
+      "bytes": 1231,
+      "sha256": "f08eae0a03abb160acf72fe7fe2635e23445b4afd285c8d1e840a5c47294bb20",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/api_client/tests/client.rs",
+      "bytes": 20819,
+      "sha256": "7f53766e143a5e135dd27d75c3b417351ec28ada9092a23def9a2886f429ad71",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/api_client/tests/mod.rs",
+      "bytes": 2351,
+      "sha256": "a3b0c9983d6235c6f3a15895be6f3d0a0a330fcae228d46fb8f2c9b7aee14063",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/diagnostics/mod.rs",
+      "bytes": 435,
+      "sha256": "0576ed4a07434dfb0a2142ce28aa10fe21d89cdd8cf0669c743ddc3a2dd9fc6a",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/diagnostics/tests/http_integration.rs",
+      "bytes": 15688,
+      "sha256": "5199aa776c34ab055317fda633782ae33f873ab33a4c589fb7d4ad4ab6d4fbfa",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/lib.rs",
+      "bytes": 9028,
+      "sha256": "e1fd74f0d82f80bf0a8bea4554ae9e49a97af441d59da3f30b73fb51e7eb8027",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/mod.rs",
+      "bytes": 835,
+      "sha256": "aa8af7ac886734f2f80414df7a82541aef83967ae2a0665270ca24605a17bd13",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/native_paths.rs",
+      "bytes": 429,
+      "sha256": "73a34de21e828a0f54e6c1722b06d635a384cec7d9d06c9e429a80391a8c5b61",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/owned_worker.rs",
+      "bytes": 4319,
+      "sha256": "2f49bde63239ac8aaa5e1326bffe30de2dd71c2407baca23f7332590420bc30d",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform.rs",
+      "bytes": 30175,
+      "sha256": "664b3cf480203393c525e754c363efc53310b2bfdf7086954f374decdf578be4",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform_adapters/app_owner.rs",
+      "bytes": 14011,
+      "sha256": "67fde29fe40e3dc6e8674ad2466394799e2afc51533d6418eda833f07ecc6022",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform_adapters/app_owner_tests.rs",
+      "bytes": 15379,
+      "sha256": "856f248a8a56567a52745ba49a2bbd3a7c0c1049fa6cef80dc3a297fc4f5ecd7",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform_adapters/creation.rs",
+      "bytes": 7254,
+      "sha256": "b78d54f35f837e37cc92c949458008d8d542528fb3fade0eabc9b8e618564aa1",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform_adapters/fixture_isolation.rs",
+      "bytes": 4622,
+      "sha256": "90918a0d0ff22b8a06b7093e392a187d5b7305f56d9df7143d2bf6fc5f1e946a",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform_adapters/macos_sdk_alias.rs",
+      "bytes": 4129,
+      "sha256": "5e905056518e1f784f8348fdc7ea2965a7abda85de2a533a49f346f600014854",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform_adapters/mod.rs",
+      "bytes": 665,
+      "sha256": "0c4b546326c3ac1961bf7cb5ea1ba2b789a65afd83726e6424ca7d2833e5573b",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform_adapters/native.rs",
+      "bytes": 2916,
+      "sha256": "65cbff7e3db9b9962897c0bb8e778fa3ded1593ce54a939d998a78bc690dd7c7",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform_adapters/ownership_tests.rs",
+      "bytes": 24655,
+      "sha256": "2f904ccae10679b9b349f6e6c44f83fd163f06352611193dd9d580a2f681c24f",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform_adapters/paths.rs",
+      "bytes": 25553,
+      "sha256": "02e8961bc0e2e72f90c1988e5da3f78a59bb437c5006321492397ba35a8060f8",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform_adapters/policy.rs",
+      "bytes": 7585,
+      "sha256": "ecee9b481407cac5949ccf899c28480a305a6d4c7103c66f995799478941c791",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform_adapters/posix_cleanup_tests.rs",
+      "bytes": 8445,
+      "sha256": "d7bc55995dff35436c425e12d15dfe43dfe19fd27a36498dd36b2f08167ada55",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform_adapters/posix_paths.rs",
+      "bytes": 21682,
+      "sha256": "df76115e4a4849700ca995239793cf8e4dc3782691e1d6b82f1b4d39b06d1792",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform_adapters/probe_admission_tests.rs",
+      "bytes": 3042,
+      "sha256": "82fa46d9a8bd2fc0b853fc24b7165da5e2df40c3c65a29ddcd2a2a43fec0518d",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform_adapters/tests.rs",
+      "bytes": 32023,
+      "sha256": "33cd111424c429798836bf64c03cff1de73196c74361d087adc599212b6c0f78",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/platform_adapters/windows_paths.rs",
+      "bytes": 25403,
+      "sha256": "850e505708db6abadeae5e7e8532c0f4f5b53ecc27667757707184b82b724163",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/quit.rs",
+      "bytes": 4012,
+      "sha256": "ccc903b954e1c52e3f70534aadabb5cadb456a28aa05492eeee874e4ae2d3597",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/quit_tests.rs",
+      "bytes": 17642,
+      "sha256": "df6c47c4c95ceb09087aae3b2ae9d32ad67e30f6966a983b080d0888e9f8be5c",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/restart.rs",
+      "bytes": 53224,
+      "sha256": "a2aa5a37c0d7afb6ae26c967d159fe9ff10510cb8ff2a1257282c5fcb4ddb852",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/supervisor.rs",
+      "bytes": 56789,
+      "sha256": "9d407222268bf8e4c89d1d55a327c9930850f96e5155dd18c2c3dea77db1cbbe",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/tauri_lifecycle.rs",
+      "bytes": 28815,
+      "sha256": "4ccf238462e9bbd7115b23e1fe6ff31859d2dc341cf7691724ec86ff60540393",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/windows_native.rs",
+      "bytes": 30170,
+      "sha256": "892e84d14f7d7e8edd1a5f69b43a005223fee616a4cbae8fe7f9d5cd66791d5e",
+      "mode": 420
+    }
+  ],
+  "protected_current_paths": [
+    {
+      "path": "apps/desktop/README.md",
+      "bytes": 2780,
+      "sha256": "cfc4696da479acac4d17213750a4ed66b969c8aa9d4f7c1333a09cc18e9ab107",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/api_client/tests/python_runtime.rs",
+      "bytes": 15661,
+      "sha256": "aab65aab2b022cce409df44f017b4bb774f0f314ccf9abd577de8688216c2020",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/src-tauri/src/service/runtime_integrity.rs",
+      "bytes": 22546,
+      "sha256": "6596e63f9e29d4a6d30423ba5205f926a9b1f4161ab5298a7e46785e92464718",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/test/renderer/catalog-main.tsx",
+      "bytes": 2366,
+      "sha256": "30e54f4327409817463e9aba1ea7b8d7fb60d7f4604d528bb2e3b2abc41884c6",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/test/renderer/catalog.html",
+      "bytes": 313,
+      "sha256": "73a7f70887c6fed182d87a341dda844160eb9914647291ba0b43ce709f3697f7",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/test/renderer/catalog.ts",
+      "bytes": 2122,
+      "sha256": "58ee89e7ead3aaff8cea13b1b83149b4525a1770d8c7e124b9ca9109373e243d",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/test/renderer/main.tsx",
+      "bytes": 2456,
+      "sha256": "8fda62e1f379b72ffd890aa7217a9b2fdd472176a9cd5ea2d12de7cb29eee363",
+      "mode": 420
+    },
+    {
+      "path": "apps/desktop/vite.renderer.config.ts",
+      "bytes": 670,
+      "sha256": "9efa1e12d40e5297b2fccb189b5249ffd4147747e4e129195c537e25bc95f899",
+      "mode": 420
+    },
+    {
+      "path": "e2e/desktop/state-catalog.spec.ts",
+      "bytes": 2394,
+      "sha256": "347243ea474880bba340f4327cd392a3d849898abb4f954d6ac9ed31d6998b88",
+      "mode": 420
+    },
+    {
+      "path": "e2e/visual/desktop-catalog.spec.ts",
+      "bytes": 2297,
+      "sha256": "8b6251a0dcfc5e1f58f7686c234e94a834a7d4927dc4c5f65b919f6e00ff40c4",
+      "mode": 420
+    },
+    {
+      "path": "e2e/visual/support/desktop-capture.ts",
+      "bytes": 5460,
+      "sha256": "427a98f219d9585974d323f854160785183d3f84da114420d5d192547fffe10f",
+      "mode": 420
+    },
+    {
+      "path": "scripts/tests/test_windows_builder.py",
+      "bytes": 6400,
+      "sha256": "636bf6300697dfbfd07a5902f0b2108d358618d778038dc21a654af60f635806",
+      "mode": 420
+    }
+  ],
+  "states": {
+    "M03-W06": "IN_PROGRESS",
+    "M03-W09": "NOT_STARTED",
+    "M03": "IN_PROGRESS",
+    "verified": 38,
+    "release": "NOT_READY"
+  },
+  "limits": [
+    "Actual NativePaths::from_app current SDK data/cache/temp roundtrip is not recorded in this cohort.",
+    "These are local native source checks/tests; no native Windows/Ubuntu execution or certified target matrix is implied.",
+    "GUI/package evidence must be refreshed for the new production integration; clean committed-source full-project validation is separate.",
+    "Python generation/runtime sources in the frozen inventory are not validated by these native command results.",
+    "No M04 storage/capsule, M05 model qualification, milestone acceptance or whole-product completion follows.",
+    "Actor records source/runtime hash-size-mode/status equality but no final HEAD/tree observation or global escaped-descendant inventory.",
+    "Darwin path reconstruction is observational; unsupported malicious same-UID namespace races can remove a replacement and cannot be prevented by POSIX unlink."
+  ]
+}

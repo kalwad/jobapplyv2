@@ -1,0 +1,11 @@
+START 1 python3 /tmp/jobapply-w13-lifecycle.py /var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-lifecycle-final-d4hq9dwx/candidate 4745149f4b5da7190b5b0c68753f8ec07bed572d a953274ef14a7534c39201a09738c26b8f085332
+DONE {"command": ["python3", "/tmp/jobapply-w13-lifecycle.py", "/var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-lifecycle-final-d4hq9dwx/candidate", "4745149f4b5da7190b5b0c68753f8ec07bed572d", "a953274ef14a7534c39201a09738c26b8f085332"], "exit_code": 0, "seconds": 0.5068413749977481, "log": "/tmp/jobapply-w13-lifecycle-proof/1.log", "log_sha256": "4d3e1b8d5f90d484a0ed24058818f515e138bad45094231813e9173950d2927c"}
+START 2 pnpm exec prettier --write docs/PROJECT_STATUS.md docs/traceability.json docs/REQUIREMENTS_TRACEABILITY.md
+DONE {"command": ["pnpm", "exec", "prettier", "--write", "docs/PROJECT_STATUS.md", "docs/traceability.json", "docs/REQUIREMENTS_TRACEABILITY.md"], "exit_code": 0, "seconds": 0.4427859170245938, "log": "/tmp/jobapply-w13-lifecycle-proof/2.log", "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+START 3 python3 scripts/validate_status.py
+DONE {"command": ["python3", "scripts/validate_status.py"], "exit_code": 1, "seconds": 0.09766258299350739, "log": "/tmp/jobapply-w13-lifecycle-proof/3.log", "log_sha256": "51365cc5b9c36124256e287e4a997509c355cda9323563c93492c2481c54dd76"}
+Traceback (most recent call last):
+  File "/tmp/jobapply-w13-lifecycle-proof.py", line 16, in <module>
+    if r.returncode:raise RuntimeError(log)
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: /tmp/jobapply-w13-lifecycle-proof/3.log

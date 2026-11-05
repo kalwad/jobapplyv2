@@ -1,0 +1,90 @@
+{
+  "retrieved_with": "gh api (2026-10-30UTC); selected fields only",
+  "run": {
+    "id": 41124431600,
+    "run_attempt": 1,
+    "event": "pull_request",
+    "head_sha": "b74d867e544741d5de9736f72e79981a253c9ea2",
+    "head_branch": "codex/autofill-evaluation-hardening",
+    "status": "completed",
+    "conclusion": "failure",
+    "path": ".github/workflows/ci.yml",
+    "pull_request_heads": [
+      "b74d867e544741d5de9736f72e79981a253c9ea2"
+    ]
+  },
+  "jobs": [
+    {
+      "id": 124299149118,
+      "name": "doctor + verify (ubuntu-24.04)",
+      "conclusion": "success"
+    },
+    {
+      "id": 124299149765,
+      "name": "doctor + verify (macos-15)",
+      "conclusion": "success"
+    },
+    {
+      "id": 124299149797,
+      "name": "doctor + verify (windows-2025)",
+      "conclusion": "success"
+    },
+    {
+      "id": 124324728336,
+      "name": "native development package (ubuntu-24.04)",
+      "conclusion": "success"
+    },
+    {
+      "id": 124324728430,
+      "name": "native development package (windows-2025)",
+      "conclusion": "failure"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13014200693,
+      "name": "native-development-windows-2025-af74040c1371eab07d9671f2464d909a60ad626d",
+      "size_in_bytes": 190916646,
+      "digest": "sha256:9c8f67a7f7a152bcafd45adc8fc5b45660ea8a0faf8fca8336fa072807740af3",
+      "expires_at": "2026-11-06T21:39:34Z"
+    },
+    {
+      "id": 13014140795,
+      "name": "native-development-ubuntu-24.04-af74040c1371eab07d9671f2464d909a60ad626d",
+      "size_in_bytes": 258824994,
+      "digest": "sha256:eda7cff61e6c0452ae784f933cce06e98281cf480c2427a5ed48a0755ea8c34b",
+      "expires_at": "2026-11-06T21:38:36Z"
+    },
+    {
+      "id": 13012999851,
+      "name": "gnome-package-input-af74040c1371eab07d9671f2464d909a60ad626d",
+      "size_in_bytes": 85474390,
+      "digest": "sha256:fad8b4ddf41690304400b8d1322991b74a39eea15a6e24bb2178aa54b6e5f199",
+      "expires_at": "2026-11-06T21:38:30Z"
+    }
+  ],
+  "merge_commit": {
+    "sha": "af74040c1371eab07d9671f2464d909a60ad626d",
+    "tree": "fa1cbf24587a37cb800ccf58797c0912b8446a81",
+    "parents": [
+      "4745149f4b5da7190b5b0c68753f8ec07bed572d",
+      "b74d867e544741d5de9736f72e79981a253c9ea2"
+    ]
+  },
+  "diagnostic_runs": [
+    {
+      "id": 41133099895,
+      "head_sha": "2aecfeaae1a1fe139bedebbd080ce88c96e2d6e8",
+      "head_branch": "diag/windows-service-env",
+      "event": "workflow_dispatch",
+      "conclusion": "success"
+    },
+    {
+      "id": 41137888774,
+      "head_sha": "7dc7d351de666207a78a803834feda6c0caa4865",
+      "head_branch": "diag/windows-service-env",
+      "event": "workflow_dispatch",
+      "conclusion": "success"
+    }
+  ]
+}

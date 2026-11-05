@@ -1,0 +1,585 @@
+{
+  "all_selected_original_and_archive_bytes_full_modes_verified": true,
+  "members": [
+    {
+      "bytes": 4876,
+      "mode": 420,
+      "path": "browser-independent-review/REVIEW.md",
+      "sha256": "39fffffb6713b82710c39b022c2d6c6eacd4d3ba052a274d158ebbb5c9d8057b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-independent-review/v1/REVIEW.md"
+    },
+    {
+      "bytes": 15087,
+      "mode": 420,
+      "path": "browser-independent-review/audit.py",
+      "sha256": "32ff659f1a9ea4c9466c2a5334f37f3de874dc81d4ae6a647392b8791bad8105",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-independent-review/v1/audit.py"
+    },
+    {
+      "bytes": 23965,
+      "mode": 420,
+      "path": "browser-independent-review/data-review.json",
+      "sha256": "d5f4dae7f2ad18d46f15e2e67fc08352fa6fddef1245245e25fb06abc20eab09",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-independent-review/v1/data-review.json"
+    },
+    {
+      "bytes": 14107,
+      "mode": 420,
+      "path": "browser-independent-review/initial-audit.py",
+      "sha256": "430c88bda7290a20c9b48421e37b99e4586471979bd6dab20f9b905ea19794c9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-independent-review/v1/initial-audit.py"
+    },
+    {
+      "bytes": 19644,
+      "mode": 420,
+      "path": "browser-independent-review/initial-checks.json",
+      "sha256": "5b03b13faec943fa834ac5f828e47109fab8a4928edc494e1d9f913f6cf45598",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-independent-review/v1/initial-checks.json"
+    },
+    {
+      "bytes": 1042,
+      "mode": 420,
+      "path": "browser-independent-review/manifest.json",
+      "sha256": "9d581e8bb124169776b664b618dea24726bec0588336b4388487447911f327b6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-independent-review/v1/manifest.json"
+    },
+    {
+      "bytes": 1993,
+      "mode": 420,
+      "path": "browser-independent-review/source-review.json",
+      "sha256": "2dab940df318a250b413821eff45864e57c761ebf63db843a427698d9eee3040",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-independent-review/v1/source-review.json"
+    },
+    {
+      "bytes": 441083,
+      "mode": 420,
+      "path": "canonical-focus/after.json",
+      "sha256": "7e7d4be07faf87194e13d77ec2f46dfdd0a2172a6e23914e443bfced6eb95b0d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-canonical-v1/after.json"
+    },
+    {
+      "bytes": 441083,
+      "mode": 420,
+      "path": "canonical-focus/before.json",
+      "sha256": "7e7d4be07faf87194e13d77ec2f46dfdd0a2172a6e23914e443bfced6eb95b0d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-canonical-v1/before.json"
+    },
+    {
+      "bytes": 4900,
+      "mode": 420,
+      "path": "canonical-focus/browser.log",
+      "sha256": "46eac2b1f3f38fa5d425f14a0da25daaa9dcbba8d48c7f26722b84b1b8f39ffa",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-canonical-v1/browser.log"
+    },
+    {
+      "bytes": 256,
+      "mode": 420,
+      "path": "canonical-focus/closure.json",
+      "sha256": "44712d3f0832831333ed905ed6cf061198256b187dfaa6fa9194a541896fedd3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-canonical-v1/closure.json"
+    },
+    {
+      "bytes": 224,
+      "mode": 420,
+      "path": "canonical-focus/context.json",
+      "sha256": "2c8b8c635ebe375e38f883700558b877882693a0fef090b9ea1add324c9d16a9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-canonical-v1/context.json"
+    },
+    {
+      "bytes": 66,
+      "mode": 420,
+      "path": "canonical-focus/format.log",
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-canonical-v1/format.log"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/lint.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-canonical-v1/lint.log"
+    },
+    {
+      "bytes": 1339,
+      "mode": 420,
+      "path": "canonical-focus/results.json",
+      "sha256": "47d53ac95d5e1916ed11f27d17e47c09a286750eebe66cc60f54d0ba16c6b2a9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-canonical-v1/results.json"
+    },
+    {
+      "bytes": 4652,
+      "mode": 420,
+      "path": "canonical-focus/run-quality.py",
+      "sha256": "97923cf8e5615b7feafd0fc9c78d83f3355919ae5b1eb5084be6e125cdd0c7e5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-canonical-v1/run-quality.py"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-canonical-v1/typecheck.log"
+    },
+    {
+      "bytes": 441039,
+      "mode": 420,
+      "path": "controlled-order-v3/after.json",
+      "sha256": "e2f8e09e7359046aadbb268087c8394f1ef8122c62bc083c77aeb5098189469f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/after.json"
+    },
+    {
+      "bytes": 96,
+      "mode": 420,
+      "path": "controlled-order-v3/baseline-artifacts/.last-run.json",
+      "sha256": "95872552ca50c598a61f9a1763f23184d75d41679952dd10a5bcc2fe08f954ff",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/baseline-artifacts/.last-run.json"
+    },
+    {
+      "bytes": 9454,
+      "mode": 420,
+      "path": "controlled-order-v3/baseline-artifacts/extension-drivers-FW3-VAL1-4927c-jected-matches-never-verify-chromium/error-context.md",
+      "sha256": "ef2240b52212085de1f58bcf83fb60383ea52bd5381217baec0c656d5f467e68",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/baseline-artifacts/extension-drivers-FW3-VAL1-4927c-jected-matches-never-verify-chromium/error-context.md"
+    },
+    {
+      "bytes": 4254,
+      "mode": 420,
+      "path": "controlled-order-v3/baseline-artifacts/extension-drivers-FW3-VAL1-4927c-jected-matches-never-verify-chromium/test-failed-1.png",
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/baseline-artifacts/extension-drivers-FW3-VAL1-4927c-jected-matches-never-verify-chromium/test-failed-1.png"
+    },
+    {
+      "bytes": 59507,
+      "mode": 420,
+      "path": "controlled-order-v3/baseline-artifacts/extension-drivers-FW3-VAL1-4927c-jected-matches-never-verify-chromium/test-failed-2.png",
+      "sha256": "6448c264139f6891a4d9e2590a1981bac136e70f9ed8bfe1f41845abf2c4e9fe",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/baseline-artifacts/extension-drivers-FW3-VAL1-4927c-jected-matches-never-verify-chromium/test-failed-2.png"
+    },
+    {
+      "bytes": 27162,
+      "mode": 420,
+      "path": "controlled-order-v3/baseline-artifacts/extension-drivers-FW3-VAL1-4927c-jected-matches-never-verify-chromium/test-failed-3.png",
+      "sha256": "ab5fb88ab019f1b7cdea3dd9b947f868ab1eb474fb3741a94ee145914996ce0c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/baseline-artifacts/extension-drivers-FW3-VAL1-4927c-jected-matches-never-verify-chromium/test-failed-3.png"
+    },
+    {
+      "bytes": 333565,
+      "mode": 420,
+      "path": "controlled-order-v3/baseline-artifacts/extension-drivers-FW3-VAL1-4927c-jected-matches-never-verify-chromium/trace.zip",
+      "sha256": "a20489847c1657c7483e0efa7dd7cca75fbd4ae70e915799660b918cf9401275",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/baseline-artifacts/extension-drivers-FW3-VAL1-4927c-jected-matches-never-verify-chromium/trace.zip"
+    },
+    {
+      "bytes": 627,
+      "mode": 420,
+      "path": "controlled-order-v3/baseline.config.ts",
+      "sha256": "680a3c8d273b73a9e7ba81defe3dd9b9875e08164f0818f23d76e83846463fa8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/baseline.config.ts"
+    },
+    {
+      "bytes": 7108,
+      "mode": 420,
+      "path": "controlled-order-v3/baseline.log",
+      "sha256": "e37da51e40ff2a80b3fdce7b0f714f11e538914c32bd9163837ad611c3048a04",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/baseline.log"
+    },
+    {
+      "bytes": 49894,
+      "mode": 420,
+      "path": "controlled-order-v3/baseline/extension-drivers.spec.ts",
+      "sha256": "9eaa4a39bbc5cbf12715637cd67242a8f32b36eea54a15b92058726453ce406b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/baseline/extension-drivers.spec.ts"
+    },
+    {
+      "bytes": 441039,
+      "mode": 420,
+      "path": "controlled-order-v3/before.json",
+      "sha256": "e2f8e09e7359046aadbb268087c8394f1ef8122c62bc083c77aeb5098189469f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/before.json"
+    },
+    {
+      "bytes": 264,
+      "mode": 420,
+      "path": "controlled-order-v3/closure.json",
+      "sha256": "4ef2543e53a59c8d3a6616d025b696d32054abc9ac5f90d37460ad354982fad6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/closure.json"
+    },
+    {
+      "bytes": 231,
+      "mode": 420,
+      "path": "controlled-order-v3/context.json",
+      "sha256": "cad488b754e248731c48cf3b8f8ce8f471c81feba9c203cd2098404015c787f6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/context.json"
+    },
+    {
+      "bytes": 45,
+      "mode": 420,
+      "path": "controlled-order-v3/fixed-artifacts/.last-run.json",
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/fixed-artifacts/.last-run.json"
+    },
+    {
+      "bytes": 621,
+      "mode": 420,
+      "path": "controlled-order-v3/fixed.config.ts",
+      "sha256": "86884dab8d082562dd36a7561ddf167dfa1a31ae087165e6471d42e0dad2f598",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/fixed.config.ts"
+    },
+    {
+      "bytes": 2843,
+      "mode": 420,
+      "path": "controlled-order-v3/fixed.log",
+      "sha256": "bb669886da04a98b339374788c269238d13bc9fa666a3a7dbccf2ed2d2e557f7",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/fixed.log"
+    },
+    {
+      "bytes": 49054,
+      "mode": 420,
+      "path": "controlled-order-v3/fixed.spec.ts.txt",
+      "sha256": "c30827902eb704d270dd0eebf7890bd369a41c647c679a9fe1133b0406742961",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/fixed.spec.ts.txt"
+    },
+    {
+      "bytes": 50307,
+      "mode": 420,
+      "path": "controlled-order-v3/fixed/extension-drivers.spec.ts",
+      "sha256": "cbc352ad0515b1e4d164320568e82e3fc087c985a1dcce0b32a1989eacfbcf39",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/fixed/extension-drivers.spec.ts"
+    },
+    {
+      "bytes": 48641,
+      "mode": 420,
+      "path": "controlled-order-v3/original.spec.ts.txt",
+      "sha256": "53463398a599e1aa0a411f46a1a17e6e82dfe57b01ee5588504fecbb81a6ed5d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/original.spec.ts.txt"
+    },
+    {
+      "bytes": 33,
+      "mode": 420,
+      "path": "controlled-order-v3/package.json",
+      "sha256": "a90fc33418afa2b9cbf4768524b021135b965ecdf993457505bfae3ac44a8428",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/package.json"
+    },
+    {
+      "bytes": 1440,
+      "mode": 420,
+      "path": "controlled-order-v3/preparation.json",
+      "sha256": "74b7449a9203fa8c0a91584d06f9d3aff9a32d24a2600d6c86a0aac2a0d189f9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/preparation.json"
+    },
+    {
+      "bytes": 5221,
+      "mode": 420,
+      "path": "controlled-order-v3/prepare.py",
+      "sha256": "d5910fcabd856a907ff28a137097a10856258fe6ef0a5a01672a0634da1e7d05",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/prepare.py"
+    },
+    {
+      "bytes": 919,
+      "mode": 420,
+      "path": "controlled-order-v3/results.json",
+      "sha256": "c021376b9f86d8080d66191cf1ce9dbaa6a102334ef9a2d987695e7be67aad79",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/results.json"
+    },
+    {
+      "bytes": 4413,
+      "mode": 420,
+      "path": "controlled-order-v3/run-experiment.py",
+      "sha256": "7908350829e361f67f0ded516657e806f72a8934466b18a6198a4ff457218ccd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v3/run-experiment.py"
+    },
+    {
+      "bytes": 441039,
+      "mode": 420,
+      "path": "harness-failure-v1/after.json",
+      "sha256": "e2f8e09e7359046aadbb268087c8394f1ef8122c62bc083c77aeb5098189469f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/after.json"
+    },
+    {
+      "bytes": 45,
+      "mode": 420,
+      "path": "harness-failure-v1/baseline-artifacts/.last-run.json",
+      "sha256": "e22df5d0991eb28c09093b1e678b3fa8cd1fab48185d38e67cf79fb6e63ad5ea",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/baseline-artifacts/.last-run.json"
+    },
+    {
+      "bytes": 671,
+      "mode": 420,
+      "path": "harness-failure-v1/baseline.config.ts",
+      "sha256": "5f7be17f91393334157ccfc9b735dd49eeb36a9038d174e2dd91a84c3e798859",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/baseline.config.ts"
+    },
+    {
+      "bytes": 3542,
+      "mode": 420,
+      "path": "harness-failure-v1/baseline.log",
+      "sha256": "f283793c44d8b5dd6e6fcffd830267ab28d4ccb3d1889345d7d221db45a7a5a7",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/baseline.log"
+    },
+    {
+      "bytes": 49894,
+      "mode": 420,
+      "path": "harness-failure-v1/baseline/extension-drivers.spec.ts",
+      "sha256": "9eaa4a39bbc5cbf12715637cd67242a8f32b36eea54a15b92058726453ce406b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/baseline/extension-drivers.spec.ts"
+    },
+    {
+      "bytes": 441039,
+      "mode": 420,
+      "path": "harness-failure-v1/before.json",
+      "sha256": "e2f8e09e7359046aadbb268087c8394f1ef8122c62bc083c77aeb5098189469f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/before.json"
+    },
+    {
+      "bytes": 265,
+      "mode": 420,
+      "path": "harness-failure-v1/closure.json",
+      "sha256": "cfb8ee2aefb6ad9586ff687bcfd28b8b1162e409b62631cd983024723f8e071e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/closure.json"
+    },
+    {
+      "bytes": 231,
+      "mode": 420,
+      "path": "harness-failure-v1/context.json",
+      "sha256": "2173a90c57780263835c39a06a78fbc86071cc6ad8b71c3e5e5ed71a9a86c568",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/context.json"
+    },
+    {
+      "bytes": 45,
+      "mode": 420,
+      "path": "harness-failure-v1/fixed-artifacts/.last-run.json",
+      "sha256": "e22df5d0991eb28c09093b1e678b3fa8cd1fab48185d38e67cf79fb6e63ad5ea",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/fixed-artifacts/.last-run.json"
+    },
+    {
+      "bytes": 665,
+      "mode": 420,
+      "path": "harness-failure-v1/fixed.config.ts",
+      "sha256": "1b3146ed552860ecabd41abd5fb88a0179d562ed1eb6c8800f7535e0c1123af4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/fixed.config.ts"
+    },
+    {
+      "bytes": 3539,
+      "mode": 420,
+      "path": "harness-failure-v1/fixed.log",
+      "sha256": "8dee4c9ac97fa7da11a0a24f3fd652107296d1b03e93bfbb69de271ea38b4b01",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/fixed.log"
+    },
+    {
+      "bytes": 49054,
+      "mode": 420,
+      "path": "harness-failure-v1/fixed.spec.ts.txt",
+      "sha256": "c30827902eb704d270dd0eebf7890bd369a41c647c679a9fe1133b0406742961",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/fixed.spec.ts.txt"
+    },
+    {
+      "bytes": 50307,
+      "mode": 420,
+      "path": "harness-failure-v1/fixed/extension-drivers.spec.ts",
+      "sha256": "cbc352ad0515b1e4d164320568e82e3fc087c985a1dcce0b32a1989eacfbcf39",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/fixed/extension-drivers.spec.ts"
+    },
+    {
+      "bytes": 48641,
+      "mode": 420,
+      "path": "harness-failure-v1/original.spec.ts.txt",
+      "sha256": "53463398a599e1aa0a411f46a1a17e6e82dfe57b01ee5588504fecbb81a6ed5d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/original.spec.ts.txt"
+    },
+    {
+      "bytes": 1171,
+      "mode": 420,
+      "path": "harness-failure-v1/preparation.json",
+      "sha256": "f7caad6d68943b4e45566158ae7559789deb65849ed0b4f7996f325b2657538e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/preparation.json"
+    },
+    {
+      "bytes": 5241,
+      "mode": 420,
+      "path": "harness-failure-v1/prepare.py",
+      "sha256": "c914467bb7362265da7a2490605bda8eff2d876a0a034b0cfccd2f23cfaa6b9e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/prepare.py"
+    },
+    {
+      "bytes": 919,
+      "mode": 420,
+      "path": "harness-failure-v1/results.json",
+      "sha256": "5d210c52d33a994b3ca49f24690a39aa8a88f3ffa18f5576ad77725fdd854ec1",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/results.json"
+    },
+    {
+      "bytes": 4413,
+      "mode": 420,
+      "path": "harness-failure-v1/run-experiment.py",
+      "sha256": "7908350829e361f67f0ded516657e806f72a8934466b18a6198a4ff457218ccd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v1/run-experiment.py"
+    },
+    {
+      "bytes": 441039,
+      "mode": 420,
+      "path": "harness-failure-v2/after.json",
+      "sha256": "e2f8e09e7359046aadbb268087c8394f1ef8122c62bc083c77aeb5098189469f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/after.json"
+    },
+    {
+      "bytes": 671,
+      "mode": 420,
+      "path": "harness-failure-v2/baseline.config.ts",
+      "sha256": "82487dbd2d386ed534e832610b72a6cc76b90f6a20a25d125a50adc6c8b5e4fe",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/baseline.config.ts"
+    },
+    {
+      "bytes": 3536,
+      "mode": 420,
+      "path": "harness-failure-v2/baseline.log",
+      "sha256": "5721ee84f20e9a680e499eefdd6975d6853edfa14ec9575cd1c47e9973d7c404",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/baseline.log"
+    },
+    {
+      "bytes": 49894,
+      "mode": 420,
+      "path": "harness-failure-v2/baseline/extension-drivers.spec.ts",
+      "sha256": "9eaa4a39bbc5cbf12715637cd67242a8f32b36eea54a15b92058726453ce406b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/baseline/extension-drivers.spec.ts"
+    },
+    {
+      "bytes": 441039,
+      "mode": 420,
+      "path": "harness-failure-v2/before.json",
+      "sha256": "e2f8e09e7359046aadbb268087c8394f1ef8122c62bc083c77aeb5098189469f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/before.json"
+    },
+    {
+      "bytes": 265,
+      "mode": 420,
+      "path": "harness-failure-v2/closure.json",
+      "sha256": "f89acfe9bb4778e6db2869cfa9437ce8874293664d9842d83d1af0123694efd6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/closure.json"
+    },
+    {
+      "bytes": 231,
+      "mode": 420,
+      "path": "harness-failure-v2/context.json",
+      "sha256": "67cdf22ee32b68d6408484330b7992ec9073cf6b9064e87ef5a26688567eca10",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/context.json"
+    },
+    {
+      "bytes": 665,
+      "mode": 420,
+      "path": "harness-failure-v2/fixed.config.ts",
+      "sha256": "ec403b8c9fc5809cc8235fca668dcea8cbb6046bc9978656a3ecee9e5b41dbb3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/fixed.config.ts"
+    },
+    {
+      "bytes": 3533,
+      "mode": 420,
+      "path": "harness-failure-v2/fixed.log",
+      "sha256": "5538cb9de3527f64fa5c031f829a99af9ed02d6d7b315989d46471c80021caaa",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/fixed.log"
+    },
+    {
+      "bytes": 49054,
+      "mode": 420,
+      "path": "harness-failure-v2/fixed.spec.ts.txt",
+      "sha256": "c30827902eb704d270dd0eebf7890bd369a41c647c679a9fe1133b0406742961",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/fixed.spec.ts.txt"
+    },
+    {
+      "bytes": 50307,
+      "mode": 420,
+      "path": "harness-failure-v2/fixed/extension-drivers.spec.ts",
+      "sha256": "cbc352ad0515b1e4d164320568e82e3fc087c985a1dcce0b32a1989eacfbcf39",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/fixed/extension-drivers.spec.ts"
+    },
+    {
+      "bytes": 48641,
+      "mode": 420,
+      "path": "harness-failure-v2/original.spec.ts.txt",
+      "sha256": "53463398a599e1aa0a411f46a1a17e6e82dfe57b01ee5588504fecbb81a6ed5d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/original.spec.ts.txt"
+    },
+    {
+      "bytes": 33,
+      "mode": 420,
+      "path": "harness-failure-v2/package.json",
+      "sha256": "a90fc33418afa2b9cbf4768524b021135b965ecdf993457505bfae3ac44a8428",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/package.json"
+    },
+    {
+      "bytes": 1440,
+      "mode": 420,
+      "path": "harness-failure-v2/preparation.json",
+      "sha256": "e58766c88ab13ae5894a7ccc4ccabb27fc10261a48e5b5e06736877e39dbffd4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/preparation.json"
+    },
+    {
+      "bytes": 5241,
+      "mode": 420,
+      "path": "harness-failure-v2/prepare.py",
+      "sha256": "c914467bb7362265da7a2490605bda8eff2d876a0a034b0cfccd2f23cfaa6b9e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/prepare.py"
+    },
+    {
+      "bytes": 921,
+      "mode": 420,
+      "path": "harness-failure-v2/results.json",
+      "sha256": "7c1aad26ed6cc4219ef448bcb925c6150dca7d02b87e598a8a9d65c03a30fa4e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/results.json"
+    },
+    {
+      "bytes": 4413,
+      "mode": 420,
+      "path": "harness-failure-v2/run-experiment.py",
+      "sha256": "7908350829e361f67f0ded516657e806f72a8934466b18a6198a4ff457218ccd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/browser-rollback-order-v2/run-experiment.py"
+    },
+    {
+      "bytes": 3382,
+      "mode": 420,
+      "path": "old-retention-independent-review/REVIEW.md",
+      "sha256": "15c4938aee0b1a42e7c3aa74296f8ff88c9248bb09020abca1c95797064ab34f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/old-ci-browser-retention-review-v1/REVIEW.md"
+    },
+    {
+      "bytes": 7475,
+      "mode": 420,
+      "path": "old-retention-independent-review/audit.py",
+      "sha256": "1bb5573aedb0db4f12e0ee8602594cf2eb7341105af9674b94f25b43677c35fd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/old-ci-browser-retention-review-v1/audit.py"
+    },
+    {
+      "bytes": 18443,
+      "mode": 420,
+      "path": "old-retention-independent-review/checks.json",
+      "sha256": "4667d3aab2e7b48253be2cbd85df1529372e951b997f3cfdc926a49db155aad3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/old-ci-browser-retention-review-v1/checks.json"
+    },
+    {
+      "bytes": 7479,
+      "mode": 420,
+      "path": "old-retention-independent-review/initial-audit.py",
+      "sha256": "409ae9c4b841f0206ef743a3836685b197cf6f3c62ef52f0f9156aa5e9a2e368",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/old-ci-browser-retention-review-v1/initial-audit.py"
+    },
+    {
+      "bytes": 18444,
+      "mode": 420,
+      "path": "old-retention-independent-review/initial-checks.json",
+      "sha256": "24d280c9eb49b5ebf0db9eec6d55204c2da0006149f4c7e6b9ac8742809f4a19",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/old-ci-browser-retention-review-v1/initial-checks.json"
+    },
+    {
+      "bytes": 854,
+      "mode": 420,
+      "path": "old-retention-independent-review/manifest.json",
+      "sha256": "df80ff4993c01c59d3d74a2870f07610426b688ae8c2c2ea75cead2fd17d8f2e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/old-ci-browser-retention-review-v1/manifest.json"
+    }
+  ],
+  "omissions": [
+    "Three outside experiment node_modules directory symlinks are intentional dependency relocation aids, not retained or traversed.",
+    "Full original canonical source/runtime bodies and installed Playwright bodies remain outside; original endpoint hash/mode records retained.",
+    "Old hosted failure attachments were not retained by that run and are not fabricated here."
+  ],
+  "regular_members": 82
+}

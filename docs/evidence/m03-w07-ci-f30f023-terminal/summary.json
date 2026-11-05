@@ -1,0 +1,55 @@
+{
+  "source": "f30f023a7b9d5150b1a3a95d64bc350fa2dd3df1",
+  "tree": "4d75c708bc67e396ee392cdf96f2b20d591f312c",
+  "merge": "cec2692ad28e8e99a94db1c822c9a23b714a5314",
+  "run": 41114369378,
+  "attempt": 1,
+  "outcome": "FAILURE",
+  "verification": {
+    "macos-15": {
+      "suites_active_pass": 20,
+      "python_passed": 2897,
+      "seconds": 1022.01
+    },
+    "ubuntu-24.04": {
+      "suites_active_pass": 20,
+      "python_passed": 2897,
+      "seconds": 468.13
+    },
+    "windows-2025": {
+      "suites_active_pass": 20,
+      "python_passed": 2895,
+      "seconds": 1168.04
+    }
+  },
+  "packages": {
+    "ubuntu-24.04": "PASS",
+    "windows-2025": "FAIL_POST_BUILD_SOURCE_PROJECTION_RUNTIME_PAYLOAD_GITIGNORE_CRLF"
+  },
+  "windows_steps_strict_success": [
+    "10-tauri-package",
+    "11-package-stage",
+    "12-package-inspect",
+    "12-pe-app",
+    "12-pe-service"
+  ],
+  "KI0137": "FIXED_ON_HOSTED_BUILD_HOST",
+  "KI0141": "OPEN_CORRECTION_IN_NEXT_COMMIT",
+  "artifacts": {
+    "windows": {
+      "id": 13009845076,
+      "sha256": "b57dd4b49b9f108a7d4be576dd7e539f8cf7dd17cf89eaa2404bd544befb3867"
+    },
+    "ubuntu": {
+      "id": 13008389238,
+      "sha256": "5fa6d65158a78886224dad7e414bf8f4fd2e3c92163506a7091694ffba58d8dd"
+    },
+    "gnome_input": {
+      "id": 13008793013,
+      "sha256": "dafe3da8d62c65b172f6ab9ad815fdf8b2488a2ac213e960a96aeaed1ccf560a"
+    },
+    "expires": "2026-11-06"
+  },
+  "windows_service_actor_ran": false,
+  "windows11_evidence": false
+}

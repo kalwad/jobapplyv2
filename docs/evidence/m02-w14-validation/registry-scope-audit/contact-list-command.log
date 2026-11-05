@@ -1,0 +1,1365 @@
+$ pnpm exec playwright test --config e2e/extension/public-contact/playwright.config.ts --reporter=list,json --list
+Listing tests:
+  controlled-contact.proof.ts:128:1 › fixed synthetic contact policy, real transaction, reconciliation, negative semantics and duplicate rejection
+  controlled-contact.proof.ts:237:1 › network-open and altered before-scan/profile plans refuse, concurrent prepare preserves one freeze
+  controlled-contact.proof.ts:343:3 › active tokenized-username-mislabel boundary refuses preparation without writes
+  controlled-contact.proof.ts:343:3 › active tokenized-webauthn-mislabel boundary refuses preparation without writes
+  controlled-contact.proof.ts:343:3 › active tokenized-otp-mislabel boundary refuses preparation without writes
+  controlled-contact.proof.ts:343:3 › active tokenized-current-password-mislabel boundary refuses preparation without writes
+  controlled-contact.proof.ts:343:3 › active tokenized-new-password-mislabel boundary refuses preparation without writes
+  controlled-contact.proof.ts:343:3 › active generic-dialog boundary refuses preparation without writes
+  controlled-contact.proof.ts:343:3 › active generic-alertdialog boundary refuses preparation without writes
+  controlled-contact.proof.ts:343:3 › active generic-aria-modal boundary refuses preparation without writes
+  controlled-contact.proof.ts:343:3 › active generic-native-dialog boundary refuses preparation without writes
+  controlled-contact.proof.ts:343:3 › active password boundary refuses preparation without writes
+  controlled-contact.proof.ts:343:3 › active labelled-code boundary refuses preparation without writes
+  controlled-contact.proof.ts:343:3 › active native-dialog boundary refuses preparation without writes
+  controlled-contact.proof.ts:343:3 › active compact-challenge boundary refuses preparation without writes
+  controlled-contact.proof.ts:404:3 › focus-time tokenized-username refuses setter and automatic recovery
+  controlled-contact.proof.ts:404:3 › focus-time tokenized-webauthn refuses setter and automatic recovery
+  controlled-contact.proof.ts:404:3 › focus-time tokenized-otp refuses setter and automatic recovery
+  controlled-contact.proof.ts:404:3 › focus-time tokenized-current-password refuses setter and automatic recovery
+  controlled-contact.proof.ts:404:3 › focus-time tokenized-new-password refuses setter and automatic recovery
+  controlled-contact.proof.ts:404:3 › focus-time generic-modal refuses setter and automatic recovery
+  controlled-contact.proof.ts:404:3 › focus-time shadow-markup refuses setter and automatic recovery
+  controlled-contact.proof.ts:404:3 › focus-time shadow-password refuses setter and automatic recovery
+  controlled-contact.proof.ts:404:3 › focus-time password refuses setter and automatic recovery
+  controlled-contact.proof.ts:404:3 › focus-time repurpose refuses setter and automatic recovery
+  controlled-contact.proof.ts:404:3 › focus-time inert refuses setter and automatic recovery
+  controlled-contact.proof.ts:448:1 › preexisting contact value stays preserved and stale site rejection remains rejected
+  controlled-contact.proof.ts:488:1 › site-owned autosave cannot send an HTTP body during action phase
+  controlled-contact.proof.ts:537:3 › forged canonical contact decision cannot authorize Social Security Number
+  controlled-contact.proof.ts:537:3 › forged canonical contact decision cannot authorize Employer first name
+  controlled-contact.proof.ts:574:1 › default loopback and inspect-only builds refuse a canonical contact preparation
+  controlled-contact.proof.ts:657:3 › open shadow tokenized-username-mislabel is a protected no-write boundary
+  controlled-contact.proof.ts:657:3 › open shadow tokenized-webauthn-mislabel is a protected no-write boundary
+  controlled-contact.proof.ts:657:3 › open shadow tokenized-otp-mislabel is a protected no-write boundary
+  controlled-contact.proof.ts:657:3 › open shadow tokenized-current-password-mislabel is a protected no-write boundary
+  controlled-contact.proof.ts:657:3 › open shadow tokenized-new-password-mislabel is a protected no-write boundary
+  controlled-contact.proof.ts:657:3 › open shadow generic-dialog-shadow-text is a protected no-write boundary
+  controlled-contact.proof.ts:657:3 › open shadow password is a protected no-write boundary
+  controlled-contact.proof.ts:657:3 › open shadow local-idref-code is a protected no-write boundary
+  controlled-contact.proof.ts:657:3 › open shadow challenge is a protected no-write boundary
+  controlled-contact.proof.ts:657:3 › open shadow dialog is a protected no-write boundary
+  controlled-contact.proof.ts:676:1 › open-tree boundary capacity fails closed before any setter
+  controlled-contact.proof.ts:711:1 › independent oracle archive and derived map retain exact frozen bindings
+  controlled-contact.proof.ts:729:1 › hidden credential tokens and hidden dialogs stay untouched while ordinary contact executes
+  controlled-contact.proof.ts:767:1 › site-owned beacon cannot send an HTTP body during action phase
+  controlled-contact.proof.ts:813:3 › site-owned navigation request is blocked by context network enforcement
+  controlled-contact.proof.ts:813:3 › site-owned popup request is blocked by context network enforcement
+  controlled-contact.proof.ts:854:1 › outstanding initial HTTP causes explicit refusal before contact writes
+  controlled-contact.proof.ts:897:1 › runner launch failure journals an incomplete row without invented zero observations
+  controlled-contact.proof.ts:934:1 › runner observation failure preserves known submit and navigation counters
+  controlled-contact.proof.ts:972:1 › runner cleanup failure retains completed measurements and journals the error
+  controlled-contact.proof.ts:1005:1 › runner row journal failure stops further actions and retains the raw row
+  controlled-contact.proof.ts:1033:1 › runner end binding and bundle failures still attempt all later evidence artifacts
+  controlled-contact.proof.ts:1155:1 › snapshot union stable unique identities retain known positive and nonpositive changes after reordering
+  controlled-contact.proof.ts:1183:1 › snapshot union final-only populated SSN stays initial-unobserved and makes precision incomplete
+  controlled-contact.proof.ts:1213:1 › snapshot union removed controls stay final-unobserved rather than disappear from coverage
+  controlled-contact.proof.ts:1228:1 › snapshot union duplicate initial identities preserve every physical observation as ambiguous
+  controlled-contact.proof.ts:1245:1 › snapshot union duplicate final identities never choose one apparently correct result
+  controlled-contact.proof.ts:1262:1 › snapshot union literal attribute drift remains two unmatched identities with unknown origin
+  controlled-contact.proof.ts:1280:1 › network constructors and prototype aliases are denied in main and new iframe realms
+  controlled-contact.proof.ts:1355:1 › worker transport probe verifies WebTransport is unavailable before public document load
+Total: 61 tests in 1 file
+{
+  "config": {
+    "argv": [
+      "/opt/homebrew/Cellar/node@24/24.18.0/bin/node",
+      "/private/tmp/japp-w14-registry-scope-audit/tree/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "e2e/extension/public-contact/playwright.config.ts",
+      "--reporter=list,json",
+      "--list"
+    ],
+    "configFile": "/private/tmp/japp-w14-registry-scope-audit/tree/e2e/extension/public-contact/playwright.config.ts",
+    "rootDir": "/private/tmp/japp-w14-registry-scope-audit/tree/e2e/extension/public-contact",
+    "failOnFlakyTests": false,
+    "forbidOnly": true,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/private/tmp/japp-w14-registry-scope-audit/tree/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "",
+        "name": "",
+        "testDir": "/private/tmp/japp-w14-registry-scope-audit/tree/e2e/extension/public-contact",
+        "testIgnore": [],
+        "testMatch": [
+          "controlled-contact.proof.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "controlled-contact.proof.ts",
+      "file": "controlled-contact.proof.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "fixed synthetic contact policy, real transaction, reconciliation, negative semantics and duplicate rejection",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-25cfe2dc737808b254fc",
+          "file": "controlled-contact.proof.ts",
+          "line": 128,
+          "column": 1
+        },
+        {
+          "title": "network-open and altered before-scan/profile plans refuse, concurrent prepare preserves one freeze",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-e97358535d2ad29b99f0",
+          "file": "controlled-contact.proof.ts",
+          "line": 237,
+          "column": 1
+        },
+        {
+          "title": "active tokenized-username-mislabel boundary refuses preparation without writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-256d2abdacdd0864ecd5",
+          "file": "controlled-contact.proof.ts",
+          "line": 343,
+          "column": 3
+        },
+        {
+          "title": "active tokenized-webauthn-mislabel boundary refuses preparation without writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-d3ac8f36e48cbc6b02d0",
+          "file": "controlled-contact.proof.ts",
+          "line": 343,
+          "column": 3
+        },
+        {
+          "title": "active tokenized-otp-mislabel boundary refuses preparation without writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-599d5266fd705a860833",
+          "file": "controlled-contact.proof.ts",
+          "line": 343,
+          "column": 3
+        },
+        {
+          "title": "active tokenized-current-password-mislabel boundary refuses preparation without writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-fc42c18d5379f7c48dac",
+          "file": "controlled-contact.proof.ts",
+          "line": 343,
+          "column": 3
+        },
+        {
+          "title": "active tokenized-new-password-mislabel boundary refuses preparation without writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-6230d7d448c316a14c33",
+          "file": "controlled-contact.proof.ts",
+          "line": 343,
+          "column": 3
+        },
+        {
+          "title": "active generic-dialog boundary refuses preparation without writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-fb41a5e10c405dd7c799",
+          "file": "controlled-contact.proof.ts",
+          "line": 343,
+          "column": 3
+        },
+        {
+          "title": "active generic-alertdialog boundary refuses preparation without writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-5f0fa9e98a975d6152cc",
+          "file": "controlled-contact.proof.ts",
+          "line": 343,
+          "column": 3
+        },
+        {
+          "title": "active generic-aria-modal boundary refuses preparation without writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-52ba704ca766ce462c5c",
+          "file": "controlled-contact.proof.ts",
+          "line": 343,
+          "column": 3
+        },
+        {
+          "title": "active generic-native-dialog boundary refuses preparation without writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-1bb69ee62c31c4d41509",
+          "file": "controlled-contact.proof.ts",
+          "line": 343,
+          "column": 3
+        },
+        {
+          "title": "active password boundary refuses preparation without writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-531cbdc3d2104f86b901",
+          "file": "controlled-contact.proof.ts",
+          "line": 343,
+          "column": 3
+        },
+        {
+          "title": "active labelled-code boundary refuses preparation without writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-6d48ca2db86d4f7d2b37",
+          "file": "controlled-contact.proof.ts",
+          "line": 343,
+          "column": 3
+        },
+        {
+          "title": "active native-dialog boundary refuses preparation without writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-1b156960e83124e645e9",
+          "file": "controlled-contact.proof.ts",
+          "line": 343,
+          "column": 3
+        },
+        {
+          "title": "active compact-challenge boundary refuses preparation without writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-763d610a4ab3562cead6",
+          "file": "controlled-contact.proof.ts",
+          "line": 343,
+          "column": 3
+        },
+        {
+          "title": "focus-time tokenized-username refuses setter and automatic recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-49655911f39bc55a75bb",
+          "file": "controlled-contact.proof.ts",
+          "line": 404,
+          "column": 3
+        },
+        {
+          "title": "focus-time tokenized-webauthn refuses setter and automatic recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-741781b0bb399433b6ef",
+          "file": "controlled-contact.proof.ts",
+          "line": 404,
+          "column": 3
+        },
+        {
+          "title": "focus-time tokenized-otp refuses setter and automatic recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-53d7515e0859282348e4",
+          "file": "controlled-contact.proof.ts",
+          "line": 404,
+          "column": 3
+        },
+        {
+          "title": "focus-time tokenized-current-password refuses setter and automatic recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-a114d33f1be714566148",
+          "file": "controlled-contact.proof.ts",
+          "line": 404,
+          "column": 3
+        },
+        {
+          "title": "focus-time tokenized-new-password refuses setter and automatic recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-8c438257c14ac08c69c7",
+          "file": "controlled-contact.proof.ts",
+          "line": 404,
+          "column": 3
+        },
+        {
+          "title": "focus-time generic-modal refuses setter and automatic recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-c754ee848f83a5480ecd",
+          "file": "controlled-contact.proof.ts",
+          "line": 404,
+          "column": 3
+        },
+        {
+          "title": "focus-time shadow-markup refuses setter and automatic recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-e10d706775b43d0111b8",
+          "file": "controlled-contact.proof.ts",
+          "line": 404,
+          "column": 3
+        },
+        {
+          "title": "focus-time shadow-password refuses setter and automatic recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-e3a079521c007b057116",
+          "file": "controlled-contact.proof.ts",
+          "line": 404,
+          "column": 3
+        },
+        {
+          "title": "focus-time password refuses setter and automatic recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-b83a614fcd62ca408bb8",
+          "file": "controlled-contact.proof.ts",
+          "line": 404,
+          "column": 3
+        },
+        {
+          "title": "focus-time repurpose refuses setter and automatic recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-32e63b914a700253577b",
+          "file": "controlled-contact.proof.ts",
+          "line": 404,
+          "column": 3
+        },
+        {
+          "title": "focus-time inert refuses setter and automatic recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-ed0ad37d14006fc3016a",
+          "file": "controlled-contact.proof.ts",
+          "line": 404,
+          "column": 3
+        },
+        {
+          "title": "preexisting contact value stays preserved and stale site rejection remains rejected",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-6a957f6febd92e992009",
+          "file": "controlled-contact.proof.ts",
+          "line": 448,
+          "column": 1
+        },
+        {
+          "title": "site-owned autosave cannot send an HTTP body during action phase",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-5cd64fef48620dc32538",
+          "file": "controlled-contact.proof.ts",
+          "line": 488,
+          "column": 1
+        },
+        {
+          "title": "forged canonical contact decision cannot authorize Social Security Number",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-4b47d1854bed6bfc149a",
+          "file": "controlled-contact.proof.ts",
+          "line": 537,
+          "column": 3
+        },
+        {
+          "title": "forged canonical contact decision cannot authorize Employer first name",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-b2d9549effa2db7c26f1",
+          "file": "controlled-contact.proof.ts",
+          "line": 537,
+          "column": 3
+        },
+        {
+          "title": "default loopback and inspect-only builds refuse a canonical contact preparation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-89192614b68ef4b2c816",
+          "file": "controlled-contact.proof.ts",
+          "line": 574,
+          "column": 1
+        },
+        {
+          "title": "open shadow tokenized-username-mislabel is a protected no-write boundary",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-2717b599c1fed8933305",
+          "file": "controlled-contact.proof.ts",
+          "line": 657,
+          "column": 3
+        },
+        {
+          "title": "open shadow tokenized-webauthn-mislabel is a protected no-write boundary",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-c0e6e32356daf700a0f1",
+          "file": "controlled-contact.proof.ts",
+          "line": 657,
+          "column": 3
+        },
+        {
+          "title": "open shadow tokenized-otp-mislabel is a protected no-write boundary",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-189e968e3f2632151557",
+          "file": "controlled-contact.proof.ts",
+          "line": 657,
+          "column": 3
+        },
+        {
+          "title": "open shadow tokenized-current-password-mislabel is a protected no-write boundary",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-c87719ef9aef9daf9a20",
+          "file": "controlled-contact.proof.ts",
+          "line": 657,
+          "column": 3
+        },
+        {
+          "title": "open shadow tokenized-new-password-mislabel is a protected no-write boundary",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-9a3476ad35683a6db7e1",
+          "file": "controlled-contact.proof.ts",
+          "line": 657,
+          "column": 3
+        },
+        {
+          "title": "open shadow generic-dialog-shadow-text is a protected no-write boundary",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-0b47b632b7b1c6e97894",
+          "file": "controlled-contact.proof.ts",
+          "line": 657,
+          "column": 3
+        },
+        {
+          "title": "open shadow password is a protected no-write boundary",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-ff0451eb32dd84c6e0b5",
+          "file": "controlled-contact.proof.ts",
+          "line": 657,
+          "column": 3
+        },
+        {
+          "title": "open shadow local-idref-code is a protected no-write boundary",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-31587338df15d4d06741",
+          "file": "controlled-contact.proof.ts",
+          "line": 657,
+          "column": 3
+        },
+        {
+          "title": "open shadow challenge is a protected no-write boundary",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-08f77d173369544f79a6",
+          "file": "controlled-contact.proof.ts",
+          "line": 657,
+          "column": 3
+        },
+        {
+          "title": "open shadow dialog is a protected no-write boundary",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-55c8a8ecf7f18be3b5ea",
+          "file": "controlled-contact.proof.ts",
+          "line": 657,
+          "column": 3
+        },
+        {
+          "title": "open-tree boundary capacity fails closed before any setter",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-0886b74b6b12713d2cdb",
+          "file": "controlled-contact.proof.ts",
+          "line": 676,
+          "column": 1
+        },
+        {
+          "title": "independent oracle archive and derived map retain exact frozen bindings",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-dc1b69079368e5b654bd",
+          "file": "controlled-contact.proof.ts",
+          "line": 711,
+          "column": 1
+        },
+        {
+          "title": "hidden credential tokens and hidden dialogs stay untouched while ordinary contact executes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-c5629c427cc46ea282c2",
+          "file": "controlled-contact.proof.ts",
+          "line": 729,
+          "column": 1
+        },
+        {
+          "title": "site-owned beacon cannot send an HTTP body during action phase",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-7df52575d3db5f0524c5",
+          "file": "controlled-contact.proof.ts",
+          "line": 767,
+          "column": 1
+        },
+        {
+          "title": "site-owned navigation request is blocked by context network enforcement",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-7af48d9e04da09f03ae7",
+          "file": "controlled-contact.proof.ts",
+          "line": 813,
+          "column": 3
+        },
+        {
+          "title": "site-owned popup request is blocked by context network enforcement",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-a9e988ec996ed16a4e03",
+          "file": "controlled-contact.proof.ts",
+          "line": 813,
+          "column": 3
+        },
+        {
+          "title": "outstanding initial HTTP causes explicit refusal before contact writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-6ede2f29218383134621",
+          "file": "controlled-contact.proof.ts",
+          "line": 854,
+          "column": 1
+        },
+        {
+          "title": "runner launch failure journals an incomplete row without invented zero observations",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-1476dbf00b2a4a58dea4",
+          "file": "controlled-contact.proof.ts",
+          "line": 897,
+          "column": 1
+        },
+        {
+          "title": "runner observation failure preserves known submit and navigation counters",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-2186073ac6c8fbef4c44",
+          "file": "controlled-contact.proof.ts",
+          "line": 934,
+          "column": 1
+        },
+        {
+          "title": "runner cleanup failure retains completed measurements and journals the error",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-451b8e5adde063e84697",
+          "file": "controlled-contact.proof.ts",
+          "line": 972,
+          "column": 1
+        },
+        {
+          "title": "runner row journal failure stops further actions and retains the raw row",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-bd34c15401dc11f38504",
+          "file": "controlled-contact.proof.ts",
+          "line": 1005,
+          "column": 1
+        },
+        {
+          "title": "runner end binding and bundle failures still attempt all later evidence artifacts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-584c0d76ace0037b8cad",
+          "file": "controlled-contact.proof.ts",
+          "line": 1033,
+          "column": 1
+        },
+        {
+          "title": "snapshot union stable unique identities retain known positive and nonpositive changes after reordering",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-0d9d8ee363d6e9f518ef",
+          "file": "controlled-contact.proof.ts",
+          "line": 1155,
+          "column": 1
+        },
+        {
+          "title": "snapshot union final-only populated SSN stays initial-unobserved and makes precision incomplete",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-bb7ece6165342b6fb8f3",
+          "file": "controlled-contact.proof.ts",
+          "line": 1183,
+          "column": 1
+        },
+        {
+          "title": "snapshot union removed controls stay final-unobserved rather than disappear from coverage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-f0081e281a8ae0b831a3",
+          "file": "controlled-contact.proof.ts",
+          "line": 1213,
+          "column": 1
+        },
+        {
+          "title": "snapshot union duplicate initial identities preserve every physical observation as ambiguous",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-b3d292f729106efc7411",
+          "file": "controlled-contact.proof.ts",
+          "line": 1228,
+          "column": 1
+        },
+        {
+          "title": "snapshot union duplicate final identities never choose one apparently correct result",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-0faede7ab126e0e93960",
+          "file": "controlled-contact.proof.ts",
+          "line": 1245,
+          "column": 1
+        },
+        {
+          "title": "snapshot union literal attribute drift remains two unmatched identities with unknown origin",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-ac70a5dfd3adc385190c",
+          "file": "controlled-contact.proof.ts",
+          "line": 1262,
+          "column": 1
+        },
+        {
+          "title": "network constructors and prototype aliases are denied in main and new iframe realms",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-bb9058b373b61f31447f",
+          "file": "controlled-contact.proof.ts",
+          "line": 1280,
+          "column": 1
+        },
+        {
+          "title": "worker transport probe verifies WebTransport is unavailable before public document load",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "a62ae8649583d95861fe-61621c6cfb35170c5bf1",
+          "file": "controlled-contact.proof.ts",
+          "line": 1355,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-16T18:02:59.978Z",
+    "duration": 385.35900000000004,
+    "expected": 0,
+    "skipped": 61,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

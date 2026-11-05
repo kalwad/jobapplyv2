@@ -1,3 +1,5 @@
+import type { OptionMeaningApproval } from "../option-meaning.ts";
+export type { OptionMeaningApproval } from "../option-meaning.ts";
 // M02-W10 control-driver contract (spec §5.11.5).
 //
 // The canonical architecture rejects one monolithic fillField(): each
@@ -16,6 +18,13 @@ export interface DriverContext {
   readonly document: Document;
   readonly target: ResolvedFieldTarget;
   readonly intended: DriverIntendedValue;
+  readonly approvedOption?: OptionMeaningApproval;
+  readonly restorationOptionApproval?: OptionMeaningApproval;
+  /** Engine-bound approval fence. Rechecks live ownership after awaits and
+   * runs the physical mutation synchronously against the current target. */
+  readonly mutate: (
+    mutation: (current: ResolvedFieldTarget) => void,
+  ) => Promise<void>;
 }
 
 export type PreconditionOutcome =
@@ -48,6 +57,9 @@ export interface ControlDriver {
   execute(context: DriverContext): Promise<void>;
   /** Redacted semantic observation of the control's current value. */
   observe(context: DriverContext): Promise<SemanticObservation>;
+  /** Extra synchronous property witness when observation uses a native editor
+   * beyond the resolved anchor/members. DOM text/attributes use the index fence. */
+  captureObservationWitness?(context: DriverContext): () => boolean;
   /** Reverse the captured action on the freshly re-resolved target. */
   applyUndo(context: DriverContext, payload: unknown): Promise<void>;
   /** Expected settled resolution for the action (default PRESENT). */

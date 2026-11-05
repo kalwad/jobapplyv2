@@ -1,0 +1,434 @@
+{
+  "actual_commands": [
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--manifest-path",
+        "apps/desktop/src-tauri/Cargo.toml",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "group": "ABSENT",
+      "reaped": true,
+      "seconds": 0.3155321249505505,
+      "signals": [],
+      "stderr": {
+        "bytes": 0,
+        "mode": 420,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 0,
+        "mode": 420,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "timeout": false
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--manifest-path",
+        "apps/desktop/src-tauri/Cargo.toml",
+        "--all-targets",
+        "--all-features",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "group": "ABSENT",
+      "reaped": true,
+      "seconds": 3.0254904580069706,
+      "signals": [],
+      "stderr": {
+        "bytes": 161,
+        "mode": 420,
+        "sha256": "78d30af5709b5c492784417c78e8c044832525fa24daf0dfe9934eb07aefab86"
+      },
+      "stdout": {
+        "bytes": 0,
+        "mode": 420,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "timeout": false
+    },
+    {
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "python",
+        "scripts/verify.py",
+        "--suite",
+        "rust"
+      ],
+      "exit_code": 0,
+      "group": "ABSENT",
+      "reaped": true,
+      "seconds": 31.19126866699662,
+      "signals": [],
+      "stderr": {
+        "bytes": 0,
+        "mode": 420,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 116223,
+        "mode": 420,
+        "sha256": "c40cb2173e4367f211dd431e2ad8768bfc537c8b238f1043ac5cca33bb5ca893"
+      },
+      "timeout": false
+    },
+    {
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "ruff",
+        "check",
+        "--config",
+        "pyproject.toml",
+        "scripts/check_portability.py",
+        "scripts/windows11",
+        "scripts/tests"
+      ],
+      "exit_code": 0,
+      "group": "ABSENT",
+      "reaped": true,
+      "seconds": 0.08742429199628532,
+      "signals": [],
+      "stderr": {
+        "bytes": 0,
+        "mode": 420,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 19,
+        "mode": 420,
+        "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+      },
+      "timeout": false
+    },
+    {
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "ruff",
+        "format",
+        "--check",
+        "--config",
+        "pyproject.toml",
+        "scripts/check_portability.py",
+        "scripts/windows11",
+        "scripts/tests"
+      ],
+      "exit_code": 0,
+      "group": "ABSENT",
+      "reaped": true,
+      "seconds": 0.024081000010482967,
+      "signals": [],
+      "stderr": {
+        "bytes": 0,
+        "mode": 420,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 27,
+        "mode": 420,
+        "sha256": "eb27c90aa064a61ea9229c3acedb339696979cc4f1b6d1e8e8dd6eab0c1292a7"
+      },
+      "timeout": false
+    },
+    {
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "mypy",
+        "--config-file",
+        "pyproject.toml",
+        "--platform",
+        "linux",
+        "scripts/check_portability.py",
+        "scripts/windows11",
+        "scripts/tests/test_windows11_inputs.py",
+        "scripts/tests/test_windows11_request.py",
+        "scripts/tests/test_windows11_isolation.py",
+        "scripts/tests/test_windows11_resources.py",
+        "scripts/tests/test_ubuntu_gnome_signed_indexes.py",
+        "scripts/tests/test_ci_workflow.py"
+      ],
+      "exit_code": 0,
+      "group": "ABSENT",
+      "reaped": true,
+      "seconds": 0.8544880830449983,
+      "signals": [],
+      "stderr": {
+        "bytes": 0,
+        "mode": 420,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 44,
+        "mode": 420,
+        "sha256": "fc409d91e6c781eb25a1ec1310b7fcb0086b74ed3aa2c415bcd73f884f23f07a"
+      },
+      "timeout": false
+    },
+    {
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "mypy",
+        "--config-file",
+        "pyproject.toml",
+        "--platform",
+        "win32",
+        "scripts/tests/test_windows11_inputs.py",
+        "scripts/tests/test_windows11_request.py",
+        "scripts/tests/test_windows11_isolation.py",
+        "scripts/tests/test_windows11_resources.py",
+        "scripts/tests/test_ubuntu_gnome_signed_indexes.py",
+        "scripts/tests/test_ci_workflow.py"
+      ],
+      "exit_code": 0,
+      "group": "ABSENT",
+      "reaped": true,
+      "seconds": 0.9785020840354264,
+      "signals": [],
+      "stderr": {
+        "bytes": 0,
+        "mode": 420,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 43,
+        "mode": 420,
+        "sha256": "ab35ee42183d4d6d3ba483825ab037d18a5a15622d03be01d82220b1564851ff"
+      },
+      "timeout": false
+    },
+    {
+      "argv": [
+        "pnpm",
+        "exec",
+        "prettier",
+        "--check",
+        ".github/windows11",
+        ".github/workflows/windows11-native-prepare.yml",
+        ".github/workflows/windows11-native-lifecycle.yml",
+        "package.json",
+        "scripts/python-test-inventory.v1.json",
+        "scripts/verification-suites.json",
+        "apps/desktop/src-tauri/tauri.conf.json",
+        "apps/desktop/src-tauri/capabilities/main-shell.json"
+      ],
+      "exit_code": 0,
+      "group": "ABSENT",
+      "reaped": true,
+      "seconds": 0.42472716700285673,
+      "signals": [],
+      "stderr": {
+        "bytes": 0,
+        "mode": 420,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 66,
+        "mode": 420,
+        "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+      },
+      "timeout": false
+    },
+    {
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "pytest",
+        "-c",
+        "pyproject.toml",
+        "--strict-config",
+        "--strict-markers",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp",
+        "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/pytest-temp",
+        "-q",
+        "scripts/tests/test_windows11_inputs.py",
+        "scripts/tests/test_windows11_request.py",
+        "scripts/tests/test_windows11_isolation.py",
+        "scripts/tests/test_windows11_resources.py",
+        "scripts/tests/test_ubuntu_gnome_signed_indexes.py",
+        "scripts/tests/test_ci_workflow.py"
+      ],
+      "exit_code": 0,
+      "group": "ABSENT",
+      "reaped": true,
+      "seconds": 3.3401817500125617,
+      "signals": [],
+      "stderr": {
+        "bytes": 0,
+        "mode": 420,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 260,
+        "mode": 420,
+        "sha256": "e6de41a8fc3a88559fec596552c26bdd4cc2ff9e993b8fee6b25abc04df4ed0f"
+      },
+      "timeout": false
+    },
+    {
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "pytest",
+        "-c",
+        "pyproject.toml",
+        "--strict-config",
+        "--strict-markers",
+        "-p",
+        "no:cacheprovider",
+        "--collect-only",
+        "-q",
+        "services/orchestrator/tests",
+        "scripts/tests"
+      ],
+      "exit_code": 0,
+      "group": "ABSENT",
+      "reaped": true,
+      "seconds": 0.4850315829971805,
+      "signals": [],
+      "stderr": {
+        "bytes": 0,
+        "mode": 420,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 327420,
+        "mode": 420,
+        "sha256": "a41ade3203bd91feae81dc417a25bef1f80be19aaaf0de3305d9b22b1d65c605"
+      },
+      "timeout": false
+    },
+    {
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "python",
+        "scripts/check_portability.py",
+        "--quiet"
+      ],
+      "exit_code": 0,
+      "group": "ABSENT",
+      "reaped": true,
+      "seconds": 1.325874499976635,
+      "signals": [],
+      "stderr": {
+        "bytes": 0,
+        "mode": 420,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 35,
+        "mode": 420,
+        "sha256": "b2369f3d044bc4c808b5aa346434aa52316f5d38268cf433815a465cbafca415"
+      },
+      "timeout": false
+    },
+    {
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "python",
+        "scripts/verify.py",
+        "--suite",
+        "integrity"
+      ],
+      "exit_code": 0,
+      "group": "ABSENT",
+      "reaped": true,
+      "seconds": 8.106944208033383,
+      "signals": [],
+      "stderr": {
+        "bytes": 0,
+        "mode": 420,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 134379,
+        "mode": 420,
+        "sha256": "9a9ca1680d2b3ca9ddd9c014ee10635ab43080c2924750e06fb615c6d90161f5"
+      },
+      "timeout": false
+    }
+  ],
+  "actual_focus_closure": {
+    "all_twelve_commands_closed_zero": true,
+    "end_utc": "2026-10-29T18:30:52.271704+00:00",
+    "runtime_count": 40,
+    "source_count": 2294,
+    "source_runtime_bytes_fullmodes_status_head_tree_equal": true
+  },
+  "base_head": "bd4cffd7f61f99f77520e7dc522f852488cdd9d3",
+  "base_tree": "75d79ae7fc14e9a02c1f326e5376b16d74a7736e",
+  "created_utc": "2026-10-29T18:39:04.550056+00:00",
+  "different_data_review": {
+    "manifest_sha256": "3da6d80435228f245be7e0baa5dba32d430218167065b8eff9419b3133b03c1d",
+    "report_sha256": "146999af63fd0c711c58ceabd2dfa843af768b1844ecf6ffa2cc9c373c87c6fd"
+  },
+  "fresh_native_build_gui_200percent_full_aggregate": "PENDING",
+  "guarded_replacements": {
+    "all_unselected_bytes_full_modes_unchanged": true,
+    "current_canonical_focus_build_gui": "PENDING",
+    "observed_utc": "2026-10-29T18:29:39.469977+00:00",
+    "prior_full_result": "FAILURE19PASS1PythonFAIL; immutable and independently reviewed",
+    "replacements": [
+      "apps/desktop/src-tauri/tauri.conf.json",
+      "apps/desktop/src-tauri/capabilities/main-shell.json",
+      "apps/desktop/src-tauri/src/diagnostics/tests/tauri.rs",
+      "scripts/tests/test_windows11_isolation.py",
+      "scripts/python-test-inventory.v1.json"
+    ],
+    "runtime_files": 40,
+    "runtime_index_HEAD_tree_unchanged": true,
+    "source_files": 2294
+  },
+  "milestone_visualbaseline_or_release_credit": false,
+  "native": {
+    "mock_dispatcher_is_not_native_rendering": true,
+    "real_resolved_ACL_zoom_authorization_and_remote_othercaller_denials": true,
+    "same_unique_cases_each_three_modes": 342,
+    "separate_contract": 10,
+    "separate_unit": 1
+  },
+  "prior_full_result": "FAILURE19PASS1PythonFAIL; immutable separate evidence",
+  "python": {
+    "collected": 2627,
+    "collection_seconds": 0.34,
+    "common": 2625,
+    "focused_pass": 216,
+    "focused_seconds": 3.21,
+    "original2624_all_retained": true,
+    "posix_only": 2
+  }
+}

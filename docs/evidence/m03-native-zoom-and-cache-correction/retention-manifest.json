@@ -1,0 +1,1026 @@
+{
+  "all_selected_original_archive_bytes_full_modes_verified": true,
+  "members": [
+    {
+      "bytes": 3418,
+      "mode": 420,
+      "path": "cache-proposal/HANDOFF.md",
+      "sha256": "7b888c80a12885d799f679fe45e0f24bce3a1d1082264e425aef500a908466da",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/HANDOFF.md"
+    },
+    {
+      "bytes": 17340,
+      "mode": 420,
+      "path": "cache-proposal/MANIFEST.json",
+      "sha256": "9518b703f9587b7a571f4a829bb39e2e005ddce585213bf91d5b4db076255a63",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/MANIFEST.json"
+    },
+    {
+      "bytes": 578,
+      "mode": 420,
+      "path": "cache-proposal/SEAL.json",
+      "sha256": "5f05451ed2116fae4f013c00472a7fd77beae26d653d9457c36060d1ac448c96",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/SEAL.json"
+    },
+    {
+      "bytes": 2062,
+      "mode": 420,
+      "path": "cache-proposal/SOURCE.json",
+      "sha256": "a76937a0fe0cf3500237fc5b8e4d55a6570ba910af704a5d109e1575ff9323a6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/SOURCE.json"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/actual/01-origin-cache-relocation-RED.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/01-origin-cache-relocation-RED.stderr"
+    },
+    {
+      "bytes": 1348,
+      "mode": 420,
+      "path": "cache-proposal/actual/01-origin-cache-relocation-RED.stdout",
+      "sha256": "32e49ddd955d25c30c500c73c34172a1dee8f855d9b22961fdb9eccaa7dc3e59",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/01-origin-cache-relocation-RED.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/actual/02-fixed-and-negative-controls.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/02-fixed-and-negative-controls.stderr"
+    },
+    {
+      "bytes": 99,
+      "mode": 420,
+      "path": "cache-proposal/actual/02-fixed-and-negative-controls.stdout",
+      "sha256": "084a25fd7fc57b69d76f16eaf5bf6197aefadfde1d0102d9db63b3ed8dd33a12",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/02-fixed-and-negative-controls.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/actual/03-original-collection.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/03-original-collection.stderr"
+    },
+    {
+      "bytes": 1566,
+      "mode": 420,
+      "path": "cache-proposal/actual/03-original-collection.stdout",
+      "sha256": "53379c0e197d92063b0e3a34361809c69616c58045e93c5c8e9b0170b44e235c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/03-original-collection.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/actual/04-fixed-collection.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/04-fixed-collection.stderr"
+    },
+    {
+      "bytes": 1878,
+      "mode": 420,
+      "path": "cache-proposal/actual/04-fixed-collection.stdout",
+      "sha256": "605deee05bc22b297c202c88804e56b2535df8367e46e2e3800ebdcaf91deaef",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/04-fixed-collection.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/actual/05-ruff-check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/05-ruff-check.stderr"
+    },
+    {
+      "bytes": 19,
+      "mode": 420,
+      "path": "cache-proposal/actual/05-ruff-check.stdout",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/05-ruff-check.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/actual/06-ruff-format.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/06-ruff-format.stderr"
+    },
+    {
+      "bytes": 25,
+      "mode": 420,
+      "path": "cache-proposal/actual/06-ruff-format.stdout",
+      "sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/06-ruff-format.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/actual/07-mypy-win32.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/07-mypy-win32.stderr"
+    },
+    {
+      "bytes": 42,
+      "mode": 420,
+      "path": "cache-proposal/actual/07-mypy-win32.stdout",
+      "sha256": "5d4b6d285b77932e3d08212c3b4974d0a803f98ec60408ac6ccf6a063fa6c19e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/07-mypy-win32.stdout"
+    },
+    {
+      "bytes": 3758,
+      "mode": 420,
+      "path": "cache-proposal/actual/actual-origin-cache.json",
+      "sha256": "8fe7ffcef3588dc7628277671e9f6d53dd7e869e792d2da49fe3e830a44dfd53",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/actual-origin-cache.json"
+    },
+    {
+      "bytes": 522320,
+      "mode": 420,
+      "path": "cache-proposal/actual/after.json",
+      "sha256": "5964a9a9183bb40e9197e994855988430570f0970da1c5b031bebe617b00f8be",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/after.json"
+    },
+    {
+      "bytes": 522320,
+      "mode": 420,
+      "path": "cache-proposal/actual/before.json",
+      "sha256": "5964a9a9183bb40e9197e994855988430570f0970da1c5b031bebe617b00f8be",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/before.json"
+    },
+    {
+      "bytes": 345,
+      "mode": 420,
+      "path": "cache-proposal/actual/closure.json",
+      "sha256": "4eaae229631cf290bf0b41ca23db7384324a91919cf5ddf27ad146bfb45026a6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/closure.json"
+    },
+    {
+      "bytes": 4023,
+      "mode": 420,
+      "path": "cache-proposal/actual/collection.json",
+      "sha256": "e85163189e09f9ded4759eadda479ded280fc51148f90d1d3863b86d5ff64b40",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/collection.json"
+    },
+    {
+      "bytes": 10367,
+      "mode": 420,
+      "path": "cache-proposal/actual/commands.json",
+      "sha256": "56af8ad6d2ad2b169946108037692b6365c2fcf284b7b12a29beb1d8d17246fc",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/actual/commands.json"
+    },
+    {
+      "bytes": 352654,
+      "mode": 420,
+      "path": "cache-proposal/after/scripts/python-test-inventory.v1.json",
+      "sha256": "414788e2a67a3bb40241c2dc3766176a324e224522a186f628346499cb9ed03a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/after/scripts/python-test-inventory.v1.json"
+    },
+    {
+      "bytes": 6855,
+      "mode": 420,
+      "path": "cache-proposal/after/scripts/tests/test_windows11_isolation.py",
+      "sha256": "2a8146f90550e6736b336b672d3cbfeaa9a7427745faaef82a9e50420d050d98",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/after/scripts/tests/test_windows11_isolation.py"
+    },
+    {
+      "bytes": 352315,
+      "mode": 420,
+      "path": "cache-proposal/before/scripts/python-test-inventory.v1.json",
+      "sha256": "aa7cbc869d1540fe5edc7a14b69d84bad57bfed4db08ff5ea45dd066e007035b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/before/scripts/python-test-inventory.v1.json"
+    },
+    {
+      "bytes": 5437,
+      "mode": 420,
+      "path": "cache-proposal/before/scripts/tests/test_windows11_isolation.py",
+      "sha256": "fccfcde5bde9dd1e04b159b6dd1e0984238e94670762525d4959a4967e8622cb",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/before/scripts/tests/test_windows11_isolation.py"
+    },
+    {
+      "bytes": 548,
+      "mode": 420,
+      "path": "cache-proposal/catalog-additions.json",
+      "sha256": "ee66f0214303535f3d449ce3fd04cca504b8c5721404d83f38d3538830bc9802",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/catalog-additions.json"
+    },
+    {
+      "bytes": 3870,
+      "mode": 420,
+      "path": "cache-proposal/correction.patch",
+      "sha256": "f3d02a61ce8b78a68ddcb8ad8d01fb8f5b9c8b55c7ae4b8b7534a88dbac4bbc8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/correction.patch"
+    },
+    {
+      "bytes": 1222,
+      "mode": 420,
+      "path": "cache-proposal/full-failure-excerpt.txt",
+      "sha256": "f71b0734ea6a421b40a345d8154d6f2d42e36958b48222e43b59fe698f0b8958",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/full-failure-excerpt.txt"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/observer-v1/actual/01-origin-cache-relocation-RED.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v1/actual/01-origin-cache-relocation-RED.stderr"
+    },
+    {
+      "bytes": 1348,
+      "mode": 420,
+      "path": "cache-proposal/observer-v1/actual/01-origin-cache-relocation-RED.stdout",
+      "sha256": "f09f7a89affa6caa2a32693645f90c73d7d182efc8cef10e8bd7cd1c39b947e2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v1/actual/01-origin-cache-relocation-RED.stdout"
+    },
+    {
+      "bytes": 3758,
+      "mode": 420,
+      "path": "cache-proposal/observer-v1/actual/actual-origin-cache.json",
+      "sha256": "8fe7ffcef3588dc7628277671e9f6d53dd7e869e792d2da49fe3e830a44dfd53",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v1/actual/actual-origin-cache.json"
+    },
+    {
+      "bytes": 522320,
+      "mode": 420,
+      "path": "cache-proposal/observer-v1/actual/after.json",
+      "sha256": "5964a9a9183bb40e9197e994855988430570f0970da1c5b031bebe617b00f8be",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v1/actual/after.json"
+    },
+    {
+      "bytes": 522320,
+      "mode": 420,
+      "path": "cache-proposal/observer-v1/actual/before.json",
+      "sha256": "5964a9a9183bb40e9197e994855988430570f0970da1c5b031bebe617b00f8be",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v1/actual/before.json"
+    },
+    {
+      "bytes": 394,
+      "mode": 420,
+      "path": "cache-proposal/observer-v1/actual/closure.json",
+      "sha256": "152980b91e128560e0b2f79acebb06ef40c4dfcdcf8080960b5f7dc5be203e05",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v1/actual/closure.json"
+    },
+    {
+      "bytes": 1564,
+      "mode": 420,
+      "path": "cache-proposal/observer-v1/actual/commands.json",
+      "sha256": "b1eec63c74bdea365316b91a27ef194f34fd35861f8bbf009517701d1d3c48f7",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v1/actual/commands.json"
+    },
+    {
+      "bytes": 5338,
+      "mode": 420,
+      "path": "cache-proposal/observer-v1/run-qa.py",
+      "sha256": "20e2ee3321005895de3c7858c0d9f9fd7da220f5d2cd7ee98a2b3670a0598f9e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v1/run-qa.py"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/observer-v1/wrapper.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v1/wrapper.stderr"
+    },
+    {
+      "bytes": 94,
+      "mode": 420,
+      "path": "cache-proposal/observer-v1/wrapper.stdout",
+      "sha256": "c8327fa96beefd1a80614894b88af6fc0033ac327bbe28ab35b2e5837217786f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v1/wrapper.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/01-origin-cache-relocation-RED.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/01-origin-cache-relocation-RED.stderr"
+    },
+    {
+      "bytes": 1348,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/01-origin-cache-relocation-RED.stdout",
+      "sha256": "dc98eb5553164df155f442e843ee896793f7808cf910b2da7f553992aca42043",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/01-origin-cache-relocation-RED.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/02-fixed-and-negative-controls.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/02-fixed-and-negative-controls.stderr"
+    },
+    {
+      "bytes": 99,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/02-fixed-and-negative-controls.stdout",
+      "sha256": "356f9c98ed9a8a9e26cdfec980f860f806b8464fb1726f4d53b940a9a0ca47b6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/02-fixed-and-negative-controls.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/03-original-collection.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/03-original-collection.stderr"
+    },
+    {
+      "bytes": 1566,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/03-original-collection.stdout",
+      "sha256": "53379c0e197d92063b0e3a34361809c69616c58045e93c5c8e9b0170b44e235c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/03-original-collection.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/04-fixed-collection.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/04-fixed-collection.stderr"
+    },
+    {
+      "bytes": 1878,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/04-fixed-collection.stdout",
+      "sha256": "605deee05bc22b297c202c88804e56b2535df8367e46e2e3800ebdcaf91deaef",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/04-fixed-collection.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/05-ruff-check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/05-ruff-check.stderr"
+    },
+    {
+      "bytes": 5269,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/05-ruff-check.stdout",
+      "sha256": "702a7b4be1fe72b50abfc861a00fdbbbd0c8b0703fc10d2c909c4f562e53d25f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/05-ruff-check.stdout"
+    },
+    {
+      "bytes": 3758,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/actual-origin-cache.json",
+      "sha256": "8fe7ffcef3588dc7628277671e9f6d53dd7e869e792d2da49fe3e830a44dfd53",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/actual-origin-cache.json"
+    },
+    {
+      "bytes": 522320,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/after.json",
+      "sha256": "5964a9a9183bb40e9197e994855988430570f0970da1c5b031bebe617b00f8be",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/after.json"
+    },
+    {
+      "bytes": 522320,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/before.json",
+      "sha256": "5964a9a9183bb40e9197e994855988430570f0970da1c5b031bebe617b00f8be",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/before.json"
+    },
+    {
+      "bytes": 394,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/closure.json",
+      "sha256": "e7d353bc00a62715bbb0b9954bf86c3381f0843fb8a47a169c33fdbf1bc7c45c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/closure.json"
+    },
+    {
+      "bytes": 4023,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/collection.json",
+      "sha256": "e85163189e09f9ded4759eadda479ded280fc51148f90d1d3863b86d5ff64b40",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/collection.json"
+    },
+    {
+      "bytes": 7510,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/actual/commands.json",
+      "sha256": "cc362863e89282923430305f5415abfc7777660e4015ec595dfd2d556216450d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/actual/commands.json"
+    },
+    {
+      "bytes": 5338,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/run-qa.py",
+      "sha256": "3109f9a58e22caa83c69570390d55e067d9ea163d5f9603351c599e195710d46",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/run-qa.py"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/wrapper.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/wrapper.stderr"
+    },
+    {
+      "bytes": 94,
+      "mode": 420,
+      "path": "cache-proposal/observer-v2/wrapper.stdout",
+      "sha256": "1f6d8098b974b27999e7085d84870a75c7ea73a73ee395ffd4fd55251475f778",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/observer-v2/wrapper.stdout"
+    },
+    {
+      "bytes": 765,
+      "mode": 420,
+      "path": "cache-proposal/original-ast-retention.json",
+      "sha256": "7cd84b33f61ba4fb8985375aeea816ce0f986a3f54a2c7c77703329129e3ea22",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/original-ast-retention.json"
+    },
+    {
+      "bytes": 4450,
+      "mode": 420,
+      "path": "cache-proposal/prepare.py",
+      "sha256": "435ad0afa4e04aaa49292f6f9fa9ed98d738fc3ae001cb4b5a374e688c9223ef",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/prepare.py"
+    },
+    {
+      "bytes": 92641,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/check_portability.py",
+      "sha256": "6e0f4d56513ea5f383838d36f734edfa6bda9cb0ead26c12be3802e434cf45f9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/check_portability.py"
+    },
+    {
+      "bytes": 6677,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/origin-cache/windows11_deployment.cpython-312.pyc",
+      "sha256": "3fea9e2b3d5745e357dd39e00606d3fd62f96d19b6f055cd285cec4ac5bb6cc2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/origin-cache/windows11_deployment.cpython-312.pyc"
+    },
+    {
+      "bytes": 25183,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/origin-cache/windows11_inputs.cpython-312.pyc",
+      "sha256": "9af63d92c40ee1b1da1339c39e48b8454637b2b4371e64a12f5ee9813559b475",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/origin-cache/windows11_inputs.cpython-312.pyc"
+    },
+    {
+      "bytes": 791,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/origin-cache/windows11_platform.cpython-312.pyc",
+      "sha256": "9cbd6b821338d3dd9eac0f979794697edab95dd6843285f3fc3c28d38b5ee88d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/origin-cache/windows11_platform.cpython-312.pyc"
+    },
+    {
+      "bytes": 2494,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/origin-cache/windows11_process.cpython-312.pyc",
+      "sha256": "c21d522f813c5a4757442d21ffa97cf0da605902e3435bd9f49f9f40cd836ccf",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/origin-cache/windows11_process.cpython-312.pyc"
+    },
+    {
+      "bytes": 34871,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/origin-cache/windows11_request.cpython-312.pyc",
+      "sha256": "2cdedc92b831fea84e130adc4f0a663f2cb11502334622514a8827ba2da0095c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/origin-cache/windows11_request.cpython-312.pyc"
+    },
+    {
+      "bytes": 6939,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/origin-cache/windows11_resources.cpython-312.pyc",
+      "sha256": "b8a85219988c26bad314d0376cf452ea0ec1cc1e075ade1e26d50f49c6eb5b81",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/origin-cache/windows11_resources.cpython-312.pyc"
+    },
+    {
+      "bytes": 5678,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/origin-sources/windows11_deployment.py",
+      "sha256": "aec9381e07dc267c4ee848d216e8a247e72466587fbba6fa20adf3771ec02f74",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/origin-sources/windows11_deployment.py"
+    },
+    {
+      "bytes": 17544,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/origin-sources/windows11_inputs.py",
+      "sha256": "d43efce77adf7ab61a7eec5fe8b5db237530cbe05677245a9b592b2f3745187d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/origin-sources/windows11_inputs.py"
+    },
+    {
+      "bytes": 457,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/origin-sources/windows11_platform.py",
+      "sha256": "fc8949ba1d89314d90b21a027e697e339f77da341a31d9a88a393fd8536d2460",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/origin-sources/windows11_platform.py"
+    },
+    {
+      "bytes": 1549,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/origin-sources/windows11_process.py",
+      "sha256": "1bed1775fe376d05f32e125c310e538b4693cb475dfd075edb47ff70579ead7a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/origin-sources/windows11_process.py"
+    },
+    {
+      "bytes": 26496,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/origin-sources/windows11_request.py",
+      "sha256": "b47db0df07e5de725272d9c77b097025990ba55911d7047d08d132ba612a728a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/origin-sources/windows11_request.py"
+    },
+    {
+      "bytes": 5356,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/origin-sources/windows11_resources.py",
+      "sha256": "eb061cb5f1ac08f6f390586298514b3ccd3322c802ccf6cc6d8a18ac3e14c51a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/origin-sources/windows11_resources.py"
+    },
+    {
+      "bytes": 2503,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/package.json",
+      "sha256": "af48263e5369bcadc142698bab4e302ffdcabff31b409e51869ed0ae7f148091",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/package.json"
+    },
+    {
+      "bytes": 6796,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/pyproject.toml",
+      "sha256": "6db5d5c370efd1db95b2097a0ef8e01044268bfa15c02d6504efe2f35ea2f722",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/pyproject.toml"
+    },
+    {
+      "bytes": 32888,
+      "mode": 420,
+      "path": "cache-proposal/retained-inputs/scripts/verification-suites.json",
+      "sha256": "0c6881a5b93cf0ccc8341fa8ce59c2177f79529e9a521dc5fde6894371360ca2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/retained-inputs/scripts/verification-suites.json"
+    },
+    {
+      "bytes": 5284,
+      "mode": 420,
+      "path": "cache-proposal/run-qa.py",
+      "sha256": "c19749e17da173fd58605fe16a82c1102ec16f7b6b59f0e4ac5bd8b32282418b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/run-qa.py"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "cache-proposal/wrapper.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/wrapper.stderr"
+    },
+    {
+      "bytes": 57,
+      "mode": 420,
+      "path": "cache-proposal/wrapper.stdout",
+      "sha256": "a1377d15ff4f8f036d4626ba216c55fd05f1d269b4f365991f8cb435433bf617",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-preparation/v1/wrapper.stdout"
+    },
+    {
+      "bytes": 607,
+      "mode": 420,
+      "path": "cache-source-review/MANIFEST.json",
+      "sha256": "d44b01fd8707214ac7481d1f624e499596a1ec658239dea25bd7cbdf4d1a950b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-root-review/v1/MANIFEST.json"
+    },
+    {
+      "bytes": 1500,
+      "mode": 420,
+      "path": "cache-source-review/REVIEW.md",
+      "sha256": "04d8858a05b481ab66343aaf045ab50f4d749b3c80a445708b163bdaa11caa9e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-root-review/v1/REVIEW.md"
+    },
+    {
+      "bytes": 528400,
+      "mode": 420,
+      "path": "cache-source-review/data-review.json",
+      "sha256": "6122611b17329b0fd04133a8ba098c6467fcbf172e57b728893347d9533888f9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-root-review/v1/data-review.json"
+    },
+    {
+      "bytes": 7779,
+      "mode": 420,
+      "path": "cache-source-review/reviewer-executed.py",
+      "sha256": "969936fd9652f28f50f9f18ac1ab91f72743a35aba33f35555ce1c593cbe41d2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/windows11-bytecode-fixture-root-review/v1/reviewer-executed.py"
+    },
+    {
+      "bytes": 625,
+      "mode": 420,
+      "path": "canonical-adoption/ADOPTED.json",
+      "sha256": "03c6203b183efcd99c8a3b6eaa51a9b9d0a830c7c0063ca8006f5ffe27a5fc00",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-and-bytecode-canonical-adoption-v1/ADOPTED.json"
+    },
+    {
+      "bytes": 462014,
+      "mode": 420,
+      "path": "canonical-adoption/after.json",
+      "sha256": "3fd2f3e4998b551cce31759101ece454a44568208296ddf054fb02941cdb1529",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-and-bytecode-canonical-adoption-v1/after.json"
+    },
+    {
+      "bytes": 461772,
+      "mode": 420,
+      "path": "canonical-adoption/before.json",
+      "sha256": "f183e94a4982a3d8465c32639efa7ef5b914b50348401d5edaa05a7626946138",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-and-bytecode-canonical-adoption-v1/before.json"
+    },
+    {
+      "bytes": 4431,
+      "mode": 420,
+      "path": "canonical-adoption/executed-observer.py",
+      "sha256": "7e4ff1cdfffeece84d18ccd8a1ae7f033c058b39f8f9f7c1c6e630baa82e9619",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-and-bytecode-canonical-adoption-v1/executed-observer.py"
+    },
+    {
+      "bytes": 397,
+      "mode": 420,
+      "path": "canonical-adoption/preimages/apps/desktop/src-tauri/capabilities/main-shell.json",
+      "sha256": "050b299181531267a997822009ef576d8bb01cbfb19b74f828b964a3ef1eeb14",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-and-bytecode-canonical-adoption-v1/preimages/apps/desktop/src-tauri/capabilities/main-shell.json"
+    },
+    {
+      "bytes": 7257,
+      "mode": 420,
+      "path": "canonical-adoption/preimages/apps/desktop/src-tauri/src/diagnostics/tests/tauri.rs",
+      "sha256": "42c3ff4eebe5f357b04a763c303d07287710d06e64fc64de7bc32b8f97c2c935",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-and-bytecode-canonical-adoption-v1/preimages/apps/desktop/src-tauri/src/diagnostics/tests/tauri.rs"
+    },
+    {
+      "bytes": 1381,
+      "mode": 420,
+      "path": "canonical-adoption/preimages/apps/desktop/src-tauri/tauri.conf.json",
+      "sha256": "0b91a6ae96a45cb2044576d06cd2b38a1c75359d4e38d7ce5f1cf4212723e202",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-and-bytecode-canonical-adoption-v1/preimages/apps/desktop/src-tauri/tauri.conf.json"
+    },
+    {
+      "bytes": 352315,
+      "mode": 420,
+      "path": "canonical-adoption/preimages/scripts/python-test-inventory.v1.json",
+      "sha256": "aa7cbc869d1540fe5edc7a14b69d84bad57bfed4db08ff5ea45dd066e007035b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-and-bytecode-canonical-adoption-v1/preimages/scripts/python-test-inventory.v1.json"
+    },
+    {
+      "bytes": 5437,
+      "mode": 420,
+      "path": "canonical-adoption/preimages/scripts/tests/test_windows11_isolation.py",
+      "sha256": "fccfcde5bde9dd1e04b159b6dd1e0984238e94670762525d4959a4967e8622cb",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-and-bytecode-canonical-adoption-v1/preimages/scripts/tests/test_windows11_isolation.py"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/01.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/01.stderr"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/01.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/01.stdout"
+    },
+    {
+      "bytes": 161,
+      "mode": 420,
+      "path": "canonical-focus/02.stderr",
+      "sha256": "78d30af5709b5c492784417c78e8c044832525fa24daf0dfe9934eb07aefab86",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/02.stderr"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/02.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/02.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/03.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/03.stderr"
+    },
+    {
+      "bytes": 116223,
+      "mode": 420,
+      "path": "canonical-focus/03.stdout",
+      "sha256": "c40cb2173e4367f211dd431e2ad8768bfc537c8b238f1043ac5cca33bb5ca893",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/03.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/04.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/04.stderr"
+    },
+    {
+      "bytes": 19,
+      "mode": 420,
+      "path": "canonical-focus/04.stdout",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/04.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/05.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/05.stderr"
+    },
+    {
+      "bytes": 27,
+      "mode": 420,
+      "path": "canonical-focus/05.stdout",
+      "sha256": "eb27c90aa064a61ea9229c3acedb339696979cc4f1b6d1e8e8dd6eab0c1292a7",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/05.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/06.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/06.stderr"
+    },
+    {
+      "bytes": 44,
+      "mode": 420,
+      "path": "canonical-focus/06.stdout",
+      "sha256": "fc409d91e6c781eb25a1ec1310b7fcb0086b74ed3aa2c415bcd73f884f23f07a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/06.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/07.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/07.stderr"
+    },
+    {
+      "bytes": 43,
+      "mode": 420,
+      "path": "canonical-focus/07.stdout",
+      "sha256": "ab35ee42183d4d6d3ba483825ab037d18a5a15622d03be01d82220b1564851ff",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/07.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/08.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/08.stderr"
+    },
+    {
+      "bytes": 66,
+      "mode": 420,
+      "path": "canonical-focus/08.stdout",
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/08.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/09.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/09.stderr"
+    },
+    {
+      "bytes": 260,
+      "mode": 420,
+      "path": "canonical-focus/09.stdout",
+      "sha256": "e6de41a8fc3a88559fec596552c26bdd4cc2ff9e993b8fee6b25abc04df4ed0f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/09.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/10.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/10.stderr"
+    },
+    {
+      "bytes": 327420,
+      "mode": 420,
+      "path": "canonical-focus/10.stdout",
+      "sha256": "a41ade3203bd91feae81dc417a25bef1f80be19aaaf0de3305d9b22b1d65c605",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/10.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/11.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/11.stderr"
+    },
+    {
+      "bytes": 35,
+      "mode": 420,
+      "path": "canonical-focus/11.stdout",
+      "sha256": "b2369f3d044bc4c808b5aa346434aa52316f5d38268cf433815a465cbafca415",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/11.stdout"
+    },
+    {
+      "bytes": 0,
+      "mode": 420,
+      "path": "canonical-focus/12.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/12.stderr"
+    },
+    {
+      "bytes": 134379,
+      "mode": 420,
+      "path": "canonical-focus/12.stdout",
+      "sha256": "9a9ca1680d2b3ca9ddd9c014ee10635ab43080c2924750e06fb615c6d90161f5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/12.stdout"
+    },
+    {
+      "bytes": 461880,
+      "mode": 420,
+      "path": "canonical-focus/after.json",
+      "sha256": "4556e95d972235c79dd131cc3ba33f8b204a547e6266ac5aa44ad9e30139bc14",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/after.json"
+    },
+    {
+      "bytes": 461880,
+      "mode": 420,
+      "path": "canonical-focus/before.json",
+      "sha256": "4556e95d972235c79dd131cc3ba33f8b204a547e6266ac5aa44ad9e30139bc14",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/before.json"
+    },
+    {
+      "bytes": 207,
+      "mode": 420,
+      "path": "canonical-focus/closure.json",
+      "sha256": "c2a1bde021e43d4d1f20a423444af7c1698c6a16015851e1bad4d0b7299245e4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/closure.json"
+    },
+    {
+      "bytes": 9034,
+      "mode": 420,
+      "path": "canonical-focus/results.json",
+      "sha256": "0a1ec4a824acb93d44be67e8602554cf14bc46ec67c77a706e1f8cc035f81428",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/results.json"
+    },
+    {
+      "bytes": 5486,
+      "mode": 420,
+      "path": "canonical-focus/wrapper-executed.py",
+      "sha256": "be81ee73672b88c428489b9b97b738e4f107f122d8fa99a6ed5ba356f4726f34",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/wrapper-executed.py"
+    },
+    {
+      "bytes": 4241,
+      "mode": 420,
+      "path": "different-canonical-data-review/REVIEW.md",
+      "sha256": "146999af63fd0c711c58ceabd2dfa843af768b1844ecf6ffa2cc9c373c87c6fd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-independent-review/v1/REVIEW.md"
+    },
+    {
+      "bytes": 937,
+      "mode": 420,
+      "path": "different-canonical-data-review/SEAL.json",
+      "sha256": "8d3c317f9fdfe0c6716ac831f9e1a935aeb88313e8b4a8ecd15bea33818111ed",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-independent-review/v1/SEAL.json"
+    },
+    {
+      "bytes": 23212,
+      "mode": 420,
+      "path": "different-canonical-data-review/manifest.json",
+      "sha256": "3da6d80435228f245be7e0baa5dba32d430218167065b8eff9419b3133b03c1d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-independent-review/v1/manifest.json"
+    },
+    {
+      "bytes": 3026415,
+      "mode": 420,
+      "path": "different-canonical-data-review/proof.tar.gz",
+      "sha256": "5ad34cf11fd316ac7382a03b4357b0c2396f05a1f254f5c62d98d838a7f23fd6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-independent-review/v1/proof.tar.gz"
+    },
+    {
+      "bytes": 2304,
+      "mode": 420,
+      "path": "zoom-proposal/ADOPTION.json",
+      "sha256": "dee8b7a325b8c4d2c08f97bf59ce237f57fe843a91207226bcfc74f95a8b8c5f",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-preparation/v1/ADOPTION.json"
+    },
+    {
+      "bytes": 551,
+      "mode": 420,
+      "path": "zoom-proposal/HANDOFF.json",
+      "sha256": "3584d8dea9f68afa3f46e20ea2393e8f880f935217db6c601b4466437b51df39",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-preparation/v1/HANDOFF.json"
+    },
+    {
+      "bytes": 2773,
+      "mode": 420,
+      "path": "zoom-proposal/README.md",
+      "sha256": "72ae280491bd69809ca6088f00dcedacce5828c82b1d61045f0a3f7712eee3a0",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-preparation/v1/README.md"
+    },
+    {
+      "bytes": 2025,
+      "mode": 420,
+      "path": "zoom-proposal/SOURCE.json",
+      "sha256": "4f000271d56c3f344c369e13701c3361526cbceea0ed52cd99aacb05577bbb58",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-preparation/v1/SOURCE.json"
+    },
+    {
+      "bytes": 468,
+      "mode": 420,
+      "path": "zoom-proposal/after/apps/desktop/src-tauri/capabilities/main-shell.json",
+      "sha256": "46936d614287b5ae6af70c053c92f3b51f0c4637fef570d49ef92731d25aebf9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-preparation/v1/after/apps/desktop/src-tauri/capabilities/main-shell.json"
+    },
+    {
+      "bytes": 8653,
+      "mode": 420,
+      "path": "zoom-proposal/after/apps/desktop/src-tauri/src/diagnostics/tests/tauri.rs",
+      "sha256": "8a8b9c31e64b87686473af6ccee30e527828293b1f87ed1234c5035212dbc994",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-preparation/v1/after/apps/desktop/src-tauri/src/diagnostics/tests/tauri.rs"
+    },
+    {
+      "bytes": 1417,
+      "mode": 420,
+      "path": "zoom-proposal/after/apps/desktop/src-tauri/tauri.conf.json",
+      "sha256": "cba4649bc363a90fbb1f18775abcb58a2dea5d3c631f0de72ddada4dedb93f15",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-preparation/v1/after/apps/desktop/src-tauri/tauri.conf.json"
+    },
+    {
+      "bytes": 397,
+      "mode": 420,
+      "path": "zoom-proposal/before/apps/desktop/src-tauri/capabilities/main-shell.json",
+      "sha256": "050b299181531267a997822009ef576d8bb01cbfb19b74f828b964a3ef1eeb14",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-preparation/v1/before/apps/desktop/src-tauri/capabilities/main-shell.json"
+    },
+    {
+      "bytes": 7257,
+      "mode": 420,
+      "path": "zoom-proposal/before/apps/desktop/src-tauri/src/diagnostics/tests/tauri.rs",
+      "sha256": "42c3ff4eebe5f357b04a763c303d07287710d06e64fc64de7bc32b8f97c2c935",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-preparation/v1/before/apps/desktop/src-tauri/src/diagnostics/tests/tauri.rs"
+    },
+    {
+      "bytes": 1381,
+      "mode": 420,
+      "path": "zoom-proposal/before/apps/desktop/src-tauri/tauri.conf.json",
+      "sha256": "0b91a6ae96a45cb2044576d06cd2b38a1c75359d4e38d7ce5f1cf4212723e202",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-preparation/v1/before/apps/desktop/src-tauri/tauri.conf.json"
+    },
+    {
+      "bytes": 3421,
+      "mode": 420,
+      "path": "zoom-proposal/correction.patch",
+      "sha256": "c9c056da9e4f7504a3d8cb1aed6a32f9aab475811e5f1030b399c2350cc0c1c4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-preparation/v1/correction.patch"
+    },
+    {
+      "bytes": 2603,
+      "mode": 420,
+      "path": "zoom-proposal/prepare.py",
+      "sha256": "74f41c10a03f9018c4a52cda52e296c60a3d64efa5212a1f1309a9b4d8009a86",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-preparation/v1/prepare.py"
+    },
+    {
+      "bytes": 13721,
+      "mode": 420,
+      "path": "zoom-proposal/sdk-source.json",
+      "sha256": "cb38443fc946e13554502f11f4e851974721889c8b1d76ad8d2f9b7ccead23a4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-preparation/v1/sdk-source.json"
+    },
+    {
+      "bytes": 4976,
+      "mode": 420,
+      "path": "zoom-proposal/seal.py",
+      "sha256": "dc525ceac1ae31081d057e22a0ad6e76ba3b58781b726e19055d214c71fe1d26",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-preparation/v1/seal.py"
+    },
+    {
+      "bytes": 529,
+      "mode": 420,
+      "path": "zoom-source-review/MANIFEST.json",
+      "sha256": "70542893766e3c7a148c9c8426ae7efc0c25da6748135aa403f2227bb9b3ed16",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-root-review/v1/MANIFEST.json"
+    },
+    {
+      "bytes": 1540,
+      "mode": 420,
+      "path": "zoom-source-review/REVIEW.md",
+      "sha256": "bad9791a461aea7864cbb48af881c186b3961d86d57ac04b7f3168a13bc03b76",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-root-review/v1/REVIEW.md"
+    },
+    {
+      "bytes": 8487,
+      "mode": 420,
+      "path": "zoom-source-review/data-review.json",
+      "sha256": "384654b4c7eb1906a18528f2b36556bb0895f91aa0b7272074c1a9cdd43363c3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-root-review/v1/data-review.json"
+    },
+    {
+      "bytes": 7770,
+      "mode": 420,
+      "path": "zoom-source-review/reviewer-executed.py",
+      "sha256": "b7dc2f31ef428d561092bc9b69098f93d2a28ee2dfc789849258990b46e1f979",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-native-zoom-root-review/v1/reviewer-executed.py"
+    }
+  ],
+  "omissions": [
+    "Unselected pytest/mypy/ruff derived scratch and full2294source/runtime40 body payloads are not copied. Complete recorded endpoints, selected original pre/postimages and original bytecode inputs are retained.",
+    "Different data review expanded originals/history are retained once inside its exact105-member sealed proof; duplicate expanded copies are omitted.",
+    "No fresh clean aggregate, native GUI200percent, screen-reader or foreign package result is inferred."
+  ],
+  "regular_members": 145
+}

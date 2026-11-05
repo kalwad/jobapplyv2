@@ -1,0 +1,2 @@
+JAPP_DIAG resource_dir=Some("C:\\Users\\runneradmin\\AppData\\Local\\JobApply Ω space diag") is_dev=false
+JAPP_DIAG runtime_path="C:\\Users\\runneradmin\\AppData\\Local\\JobApply Ω space diag\\runtime/japp-orchestrator/japp-orchestrator.exe"

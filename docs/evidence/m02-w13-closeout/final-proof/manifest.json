@@ -1,0 +1,83 @@
+{
+  "format_version": "W13_FINAL_EXACT_SHA_PROOF_1",
+  "authority": "INTERNAL_ONLY_NOT_GATE_A_FINAL_EVIDENCE",
+  "sha": "4745149f4b5da7190b5b0c68753f8ec07bed572d",
+  "tree": "a953274ef14a7534c39201a09738c26b8f085332",
+  "clone": "/var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-internal-verifier-pqakfmi2/candidate",
+  "created_after_hosted_green": true,
+  "source_files": 839,
+  "source_bytes_unchanged": true,
+  "started_at": "2026-09-30T19:33:50.333137+00:00",
+  "ended_at": "2026-09-30T19:41:20.766711+00:00",
+  "commands": [
+    {
+      "command": [
+        "pnpm",
+        "--filter",
+        "@japp/evaluation-runner",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 5.354671334003797,
+      "log": "/tmp/jobapply-w13-final-proof/1.log",
+      "log_sha256": "fa65330deb4a989c026c129bae93ba8800088691859622b52b1dc7a355b702f3"
+    },
+    {
+      "command": [
+        "pnpm",
+        "--filter",
+        "@japp/evaluation-corpus",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 3.3232191250135656,
+      "log": "/tmp/jobapply-w13-final-proof/2.log",
+      "log_sha256": "e4b36740f0997da0b1cbfe330eb2cf7a4f8996b34dfb1da2b6d945a9e205bc17"
+    },
+    {
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "e2e/extension"
+      ],
+      "exit_code": 0,
+      "seconds": 198.94450995800435,
+      "log": "/tmp/jobapply-w13-final-proof/3.log",
+      "log_sha256": "9395d79f61ec00858eeeac233fe638f279514088c062d39339ec7ccc2993c264"
+    },
+    {
+      "command": [
+        "pnpm",
+        "--filter",
+        "@japp/extension",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 2.924569333990803,
+      "log": "/tmp/jobapply-w13-final-proof/4.log",
+      "log_sha256": "3be953228c024149ce42324c21143a9383e600d6425f3970612d69acf3699e46"
+    },
+    {
+      "command": [
+        "JAPP_W13_PERFORMANCE_SAMPLES=20",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "e2e/extension/extension-benchmark.spec.ts",
+        "--grep",
+        "W13 L"
+      ],
+      "exit_code": 0,
+      "log": "/tmp/jobapply-w13-final-proof/5.log",
+      "log_sha256": "79d90a5c6b1c51609ac556c860addb86417d01294445692be2c27f7292a018e7",
+      "test_count": "1/1",
+      "playwright_reported_duration": "34.5s"
+    }
+  ],
+  "verdict": "PASS",
+  "target_128_p95_ms": 1391.5025000000005,
+  "performance_samples": 20
+}

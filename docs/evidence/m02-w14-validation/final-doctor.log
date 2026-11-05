@@ -1,0 +1,32 @@
+$ python3 scripts/doctor.py
+== environment doctor ==
+Host platform                                   PASS               macos; repository commands are platform-neutral (REQ-PLAT-025). Development-host support only — packaged product certification is later native work (docs/PLATFORM_SUPPORT.md)
+Canonical project-memory files                  PASS               24 files present
+Critical-gate ledger and reports                PASS               ledger + 4 gate reports + holdout log present
+Lockfiles for active ecosystems                 PASS               pnpm-lock.yaml, uv.lock, services/native-host/Cargo.lock, packages/contracts/test/contract/rust-harness/Cargo.lock
+Required root scripts                           PASS               14 canonical scripts present
+Git repository                                  PASS               branch 'codex/autofill-evaluation-hardening'
+Working tree state                              WARNING            uncommitted changes present
+                                                fix → commit or stash before relying on verification snapshots
+Node 24.18.0                                    PASS               v24.18.0
+pnpm 11.17.0                                    PASS               11.17.0
+uv 0.11.32                                      PASS               uv 0.11.32 (3010295ae 2026-07-23 aarch64-apple-darwin)
+Python 3.12.13 (uv-managed)                     PASS               Python 3.12.13 (main, Jul 18 2026, 16:55:18) [Clang 22.1.3 ]
+Cargo via pinned rustup toolchain 1.97.1        PASS               ~/.rustup/toolchains/1.97.1-aarch64-apple-darwin/bin/cargo
+cargo 1.97.1                                    PASS               cargo 1.97.1 (c980f4866 2026-06-30)
+rustc 1.97.1                                    PASS               rustc 1.97.1 (8bab26f4f 2026-07-14)
+rustfmt component                               PASS               rustfmt 1.9.0-stable (8bab26f4f6 2026-07-14)
+Clippy component                                PASS               clippy 0.1.97 (8bab26f4f6 2026-07-14)
+Writable temporary and artifact locations       PASS               system temp + repository root writable
+@playwright/test 1.62.0                         PASS               installed 1.62.0
+Pinned Chromium launch (controlled smoke test)  PASS               e2e/browser-smoke.spec.ts passed against inline content
+Project-status validation                       PASS               PASS: all checks passed (45 check groups)
+Suite state: contract-gen                       PASS               ACTIVE (runs inside pnpm verify)
+Suite state: fixture-corpus                     PASS               ACTIVE (runs inside pnpm verify)
+Suite state: evaluation-corpus                  PASS               ACTIVE (runs inside pnpm verify)
+Suite state: contract                           PASS               ACTIVE (runs inside pnpm verify)
+Suite state: build                              PASS               ACTIVE (runs inside pnpm verify)
+Suite state: w14-public-controlled              PASS               ACTIVE (runs inside pnpm verify)
+Suite state: w14-public-contact-controlled      PASS               ACTIVE (runs inside pnpm verify)
+Suite state: visual                             NOT_YET_APPLICABLE owned by M10-W06; not a passing suite — becomes REQUIRED_MISSING when the owner package begins
+summary: 26 pass, 1 warning, 0 fail, 1 not-yet-applicable

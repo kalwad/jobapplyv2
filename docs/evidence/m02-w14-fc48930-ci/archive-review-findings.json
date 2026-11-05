@@ -1,0 +1,405 @@
+{
+  "audit": "read-only independent retained evidence audit; no archived scripts executed",
+  "archive": "/tmp/japp-w14-fc48930-ci-retained/fc48930-ci-evidence.tar.gz",
+  "archive_sha256": "5f416858c4585067fbf656e350152475fc1bf342ec799aa1fbb03dfcf18f9434",
+  "archive_bytes": 814341,
+  "members": 85,
+  "regular_members": 85,
+  "payload_bytes": 4642709,
+  "outer_index_count": 85,
+  "embedded_index_count": 84,
+  "embedded_index_sha256": "1da33ace137c45d3521d57492f2cf217f0e65d2ed50deb9468ea97e498f19858",
+  "safe_paths_no_links_duplicate_members": true,
+  "run_id": 38979349323,
+  "run_attempt": 1,
+  "head": "fc48930fd880795f72972fd97e2e69d68e636855",
+  "tested_merge": "34477f17c8b97e2caf04fb4d716d352d7e7a8a32",
+  "tree": "cb787f46afec1281c87074a82fd31e23b37c865a",
+  "source_snapshots": [
+    {
+      "path": "scripts/tests/test_validate_status.py",
+      "bytes": 107434,
+      "sha256": "31c2f4a1f0ac3e557427de0441d8465b8bf88c09f1093cf0a19da439105d736a",
+      "git_blob": "2c54c8557ee5d47ef5dad9f4c42b669bba74087c"
+    },
+    {
+      "path": "scripts/tests/test_w14_contact_controlled_proof.py",
+      "bytes": 15750,
+      "sha256": "a771c1f1e7659e24927f5f5da013ebfc54078ebf1c27032ce3a3f3a355ae6537",
+      "git_blob": "93666fedc1c291a8cf566e980da65aec491bd87e"
+    },
+    {
+      "path": "scripts/verify.py",
+      "bytes": 145752,
+      "sha256": "aded3fda94d77462afb0d3351197a206b218d71f6e9cc744a899834463d72023",
+      "git_blob": "d7e909de37fe2cc9377a4c731c12e4840e20cd47"
+    },
+    {
+      "path": "packages/contracts/test/contract/infrastructure.test.ts",
+      "bytes": 8845,
+      "sha256": "27f8d2e1578bdcb2b236f0684cd083518252163480b366508ca8cd16053ecc00",
+      "git_blob": "f1955c6fabbfaac7828e05bbc3b752c0efc463f1"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "bytes": 12735,
+      "sha256": "e075198d837e7a9a05c401b6863e63200dcdb9817121d3060919676524cec6be",
+      "git_blob": "5f47703c43bdead561df817c1ddd812fc555fbae"
+    },
+    {
+      "path": "e2e/extension/extension-benchmark.spec.ts",
+      "bytes": 13174,
+      "sha256": "e129f819b41b22e7b05447e3a7d86d43c2c5ab1860f62724a4fa857db18904da",
+      "git_blob": "68eca07ff0f5d583cbe3a338f5eae007b36cc52f"
+    }
+  ],
+  "platforms": {
+    "macos": {
+      "raw_log": "macos-117236280670.raw.log",
+      "job_id": 117236280670,
+      "job_success": true,
+      "python_count": 1454,
+      "python_seconds": 539.73,
+      "python_summary_line": 7202,
+      "unique_collected_ids": 1454,
+      "status_ids": 201,
+      "contact_ids": 11,
+      "contracts_count": 2524,
+      "contracts_line": 1023,
+      "browser_count": 242,
+      "browser_line": 1596,
+      "infrastructure_8_test_lines": [
+        1006,
+        1191
+      ],
+      "active_suite_count": 19,
+      "active_suite_rows": [
+        [
+          8814,
+          "toolchain"
+        ],
+        [
+          8815,
+          "format"
+        ],
+        [
+          8816,
+          "lint"
+        ],
+        [
+          8817,
+          "typecheck"
+        ],
+        [
+          8818,
+          "unit-ts"
+        ],
+        [
+          8819,
+          "contract-gen"
+        ],
+        [
+          8820,
+          "fixture-corpus"
+        ],
+        [
+          8821,
+          "evaluation-corpus"
+        ],
+        [
+          8822,
+          "contract"
+        ],
+        [
+          8823,
+          "build"
+        ],
+        [
+          8824,
+          "e2e-browser"
+        ],
+        [
+          8825,
+          "w14-public-controlled"
+        ],
+        [
+          8826,
+          "w14-public-contact-controlled"
+        ],
+        [
+          8828,
+          "python"
+        ],
+        [
+          8829,
+          "rust"
+        ],
+        [
+          8830,
+          "portability"
+        ],
+        [
+          8831,
+          "traceability"
+        ],
+        [
+          8832,
+          "status"
+        ],
+        [
+          8833,
+          "integrity"
+        ]
+      ],
+      "exit_zero_line": 8837,
+      "tracked_clean_step": {
+        "name": "Assert verification left no tracked changes",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 24,
+        "started_at": "2026-10-16T23:39:09Z",
+        "completed_at": "2026-10-16T23:39:09Z"
+      },
+      "p95": {
+        "samples": 1,
+        "p95_ms": 1814.681916999998,
+        "threshold_ms": 1500,
+        "settle_budget_ms": 0,
+        "scope": "TARGET_MACHINE_LOWER_BOUND_HARNESS_VALIDATION"
+      }
+    },
+    "ubuntu": {
+      "raw_log": "ubuntu-117236280907.raw.log",
+      "job_id": 117236280907,
+      "job_success": true,
+      "python_count": 1454,
+      "python_seconds": 316.09,
+      "python_summary_line": 7340,
+      "unique_collected_ids": 1454,
+      "status_ids": 201,
+      "contact_ids": 11,
+      "contracts_count": 2524,
+      "contracts_line": 1171,
+      "browser_count": 242,
+      "browser_line": 1734,
+      "infrastructure_8_test_lines": [
+        1154,
+        1330
+      ],
+      "active_suite_count": 19,
+      "active_suite_rows": [
+        [
+          8952,
+          "toolchain"
+        ],
+        [
+          8953,
+          "format"
+        ],
+        [
+          8954,
+          "lint"
+        ],
+        [
+          8955,
+          "typecheck"
+        ],
+        [
+          8956,
+          "unit-ts"
+        ],
+        [
+          8957,
+          "contract-gen"
+        ],
+        [
+          8958,
+          "fixture-corpus"
+        ],
+        [
+          8959,
+          "evaluation-corpus"
+        ],
+        [
+          8960,
+          "contract"
+        ],
+        [
+          8961,
+          "build"
+        ],
+        [
+          8962,
+          "e2e-browser"
+        ],
+        [
+          8963,
+          "w14-public-controlled"
+        ],
+        [
+          8964,
+          "w14-public-contact-controlled"
+        ],
+        [
+          8966,
+          "python"
+        ],
+        [
+          8967,
+          "rust"
+        ],
+        [
+          8968,
+          "portability"
+        ],
+        [
+          8969,
+          "traceability"
+        ],
+        [
+          8970,
+          "status"
+        ],
+        [
+          8971,
+          "integrity"
+        ]
+      ],
+      "exit_zero_line": 8975,
+      "tracked_clean_step": {
+        "name": "Assert verification left no tracked changes",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 24,
+        "started_at": "2026-10-16T23:24:27Z",
+        "completed_at": "2026-10-16T23:24:28Z"
+      },
+      "p95": {
+        "samples": 1,
+        "p95_ms": 1047.209044000001,
+        "threshold_ms": 1500,
+        "settle_budget_ms": 0,
+        "scope": "TARGET_MACHINE_LOWER_BOUND_HARNESS_VALIDATION"
+      }
+    },
+    "windows": {
+      "raw_log": "windows-117236281022.raw.log",
+      "job_id": 117236281022,
+      "job_success": true,
+      "python_count": 1452,
+      "python_seconds": 673.22,
+      "python_summary_line": 7341,
+      "unique_collected_ids": 1452,
+      "status_ids": 201,
+      "contact_ids": 11,
+      "contracts_count": 2524,
+      "contracts_line": 1157,
+      "browser_count": 242,
+      "browser_line": 1737,
+      "infrastructure_8_test_lines": [
+        1141,
+        1333
+      ],
+      "active_suite_count": 19,
+      "active_suite_rows": [
+        [
+          8953,
+          "toolchain"
+        ],
+        [
+          8954,
+          "format"
+        ],
+        [
+          8955,
+          "lint"
+        ],
+        [
+          8956,
+          "typecheck"
+        ],
+        [
+          8957,
+          "unit-ts"
+        ],
+        [
+          8958,
+          "contract-gen"
+        ],
+        [
+          8959,
+          "fixture-corpus"
+        ],
+        [
+          8960,
+          "evaluation-corpus"
+        ],
+        [
+          8961,
+          "contract"
+        ],
+        [
+          8962,
+          "build"
+        ],
+        [
+          8963,
+          "e2e-browser"
+        ],
+        [
+          8964,
+          "w14-public-controlled"
+        ],
+        [
+          8965,
+          "w14-public-contact-controlled"
+        ],
+        [
+          8967,
+          "python"
+        ],
+        [
+          8968,
+          "rust"
+        ],
+        [
+          8969,
+          "portability"
+        ],
+        [
+          8970,
+          "traceability"
+        ],
+        [
+          8971,
+          "status"
+        ],
+        [
+          8972,
+          "integrity"
+        ]
+      ],
+      "exit_zero_line": 8976,
+      "tracked_clean_step": {
+        "name": "Assert verification left no tracked changes",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 24,
+        "started_at": "2026-10-16T23:37:45Z",
+        "completed_at": "2026-10-16T23:37:45Z"
+      },
+      "p95": {
+        "samples": 1,
+        "p95_ms": 1040.765199999998,
+        "threshold_ms": 1500,
+        "settle_budget_ms": 0,
+        "scope": "TARGET_MACHINE_LOWER_BOUND_HARNESS_VALIDATION"
+      }
+    }
+  },
+  "posix_extra_ids": [
+    "scripts/tests/test_v14_migration.py::test_atomic_adoption_rejects_non_regular_source[fifo]",
+    "scripts/tests/test_v14_migration.py::test_atomic_adoption_rejects_non_regular_source[socket]"
+  ],
+  "errors": []
+}

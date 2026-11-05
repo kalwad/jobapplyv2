@@ -1,0 +1,51 @@
+{
+  "actual_candidate_download_install_vm_gui_native_or_milestone_credit": false,
+  "add": 23,
+  "adoption_sha256": "e87114e435dc511b8c5f7942b1d49300446fd0f3578a6163010162c67ba8b572",
+  "canonical_source_adopted_at_packet_creation": true,
+  "created_utc": "2026-10-29T15:51:37.084231+00:00",
+  "different_review": {
+    "joins": 7382,
+    "manifest_sha256": "728c21af3b2bfdd0047d45bc018ee7a65963fa24ec096ae8e9774fdf0c015f9e",
+    "original_v3_hold_findings": 5,
+    "report_sha256": "181da1d7dbb84c5c44362b67607e714244a70db528962fe8e269f21d1c766095",
+    "state": "CLEAR_FOR_GUARDED_SOURCE_ADOPTION",
+    "v4_hold_findings": 2,
+    "v5_findings_remaining": 0
+  },
+  "modify": 8,
+  "prospective_paths": 31,
+  "qa": {
+    "actual_collection": 2477,
+    "all_prior_base_ids_retained": 2141,
+    "canonical_integrity": "PASS",
+    "common_added": 336,
+    "composed_indexed_source": 2210,
+    "final_owned_commands_closed_zero": 12,
+    "node24_whole_portability": "PASS",
+    "prettier_inputs": 7,
+    "scope": "Isolated exactGitarchive80e68plusfinaloverlays/privatecopieddeps; retained staged status neutrality, not clean canonical checkout; collection is not full2477execution.",
+    "selected_pure_ci_pass": 407,
+    "strict_python_files": 25,
+    "unchanged_posix_only": 2,
+    "windows_schema_catalog_count_not_execution": 2475
+  },
+  "root_canonical_focus": {
+    "bytes_full_modes_status_head_tree_endpoints_equal": true,
+    "canonical_integrity": "PASS",
+    "children_reaped_groups_absent_no_timeout_or_signals": true,
+    "outer_pytest_seconds": 6.1063576670130715,
+    "prettier_inputs": 7,
+    "pytest_seconds": 5.96,
+    "scope": "Actual canonical staged31path adoption atHEADb28; later documentary/evidence additions and freshfull/hosted/native results remain separate.",
+    "selected_pure_ci_cases_pass": 407,
+    "seven_commands_closed_zero": true,
+    "source_paths_adopted": 31,
+    "strict_python_files": 25,
+    "tracked_files_neutral": 2225,
+    "whole_portability": "PASS"
+  },
+  "source_base": "80e68ac9a24cd7ebf2874af625b866a055b9abe6",
+  "source_sha256": "d42eac5761a4d6295b5fca401021329504f5927912b5a5fd93d782bb066d8ba9",
+  "unchanged_reference_paths": 7
+}

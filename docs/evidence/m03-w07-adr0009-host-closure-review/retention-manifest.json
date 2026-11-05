@@ -1,0 +1,33 @@
+{
+  "scope": "Exact bytes of the ADR-0009 review packet: the four separate-context review workflow results, the mutant set and its final output, and this README.",
+  "files": {
+    "README.md": {
+      "bytes": 7513,
+      "sha256": "a7a546a599c20bcb1733d174bbc6c7dcd268fb7ae45481534ad34bf9bfba2a41"
+    },
+    "mutants-result.txt": {
+      "bytes": 4222,
+      "sha256": "faae273c5090e8c73bcf91e5d964e670af54efb8fa8702a17cd611245b1c1d47"
+    },
+    "mutants.py": {
+      "bytes": 12095,
+      "sha256": "f9fdf766de6d2fde1a8ec4045c899f39de5226e865bc72201c271bd8410abfc9"
+    },
+    "review-1-workflow-result.json": {
+      "bytes": 189730,
+      "sha256": "6672b0803e9bd73e9e5f12df06b24b9a96405939f722a291b1f9bd91290f5aaf"
+    },
+    "review-2-workflow-result.json": {
+      "bytes": 190807,
+      "sha256": "9465ab8d0dd3f511a4304a30c928f12c5c3238670bf09ec81ceceb19da01e07c"
+    },
+    "review-3-workflow-result.json": {
+      "bytes": 126334,
+      "sha256": "cc91dfe6e40cb3b7fcef06ec3c0296eb6daf05318d9f72ea135304e79acdb39f"
+    },
+    "review-4-workflow-result.json": {
+      "bytes": 118382,
+      "sha256": "994642b64bdfa121bb9b8c9a14b305f93a1a1ae6275c41dff1015c7241e50e65"
+    }
+  }
+}

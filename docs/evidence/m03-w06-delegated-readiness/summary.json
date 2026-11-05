@@ -1,0 +1,9 @@
+{
+  "recommendation": "READY_FOR_SCOPED_W06_VERIFIED_AFTER_REGISTRATION_AND_STATUS_TRACEABILITY_CHECKS",
+  "review_sha256": "083609112b5154d6ff0bc02e85cd812c827f23fef1620912fe208ce9780164df",
+  "checks_pass": 17,
+  "reference_commit": "9872acaf6191ce77fd1c077ef27ea972b71b8315",
+  "reference_tree": "f2d982dfe441ca6a98c2f9ae2862c3efd1e4373a",
+  "new_product_tests": 0,
+  "no_foreign_or_release_acceptance": true
+}

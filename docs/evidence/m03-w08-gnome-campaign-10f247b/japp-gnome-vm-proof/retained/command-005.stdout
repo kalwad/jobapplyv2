@@ -1,0 +1,1 @@
+Formatting '/home/runner/work/_temp/japp-gnome-owned-c8y57szz/guest.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=off compression_type=zlib size=25769803776 backing_file=/home/runner/work/_temp/japp-gnome-owned-c8y57szz/ubuntu-cloud.img backing_fmt=qcow2 lazy_refcounts=off refcount_bits=16

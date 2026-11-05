@@ -1,0 +1,15 @@
+$ uv run python scripts/verify.py --suite format
+$ pnpm exec prettier --check .
+Checking formatting...
+All matched files use Prettier code style!
+$ uv run ruff format --check services scripts/verify.py scripts/validate_status.py scripts/traceability.py scripts/doctor.py scripts/check_portability.py scripts/portability.py scripts/tests packages/contracts/test/contract/adapters/python_adapter.py
+32 files already formatted
+$ cargo fmt --manifest-path services/native-host/Cargo.toml --check
+$ cargo fmt --manifest-path packages/contracts/test/contract/rust-harness/Cargo.toml --check
+
+== verification summary ==
+suite          state                result             detail
+------------------------------------------------------------------------------
+format         ACTIVE               PASS               
+
+verification exit code: 0

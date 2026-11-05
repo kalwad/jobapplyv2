@@ -1,0 +1,36 @@
+{
+  "format_version": "W14_SHADOW_GUARD_SUPPLEMENT_1",
+  "scope": "DISPOSABLE_SOURCE_PROOFS_AND_RECONSTRUCTABLE_FINAL_PATCH_NOT_FINAL_ROOT_PERFORMANCE",
+  "files": [
+    {
+      "path": "archive-manifest.json",
+      "bytes": 61544,
+      "sha256": "97679775f27424ccb760c6e6698498d02fb33161dac4ce4825babaa19dc9204b"
+    },
+    {
+      "path": "archive-notes.json",
+      "bytes": 1079,
+      "sha256": "11d6c9a30c863172bc51e9f8cd1196228da094c8af72b60a9ac6bee42b8f76cb"
+    },
+    {
+      "path": "candidate.patch",
+      "bytes": 229946,
+      "sha256": "8579a82be6239376803395d517b2292b4692404947886e70b9a898282ce0600c"
+    },
+    {
+      "path": "proof-map.json",
+      "bytes": 7482,
+      "sha256": "4d102457f86775a623c90aa88f9fd7c8c1c6798d44c5f50fb019757927b3a4d1"
+    },
+    {
+      "path": "source-and-browser-evidence.tar.gz",
+      "bytes": 11970745,
+      "sha256": "37da6d6e36afd949dbe6a0e8139a891922aad629eab6579605807d88b1414839"
+    },
+    {
+      "path": "source-manifest.json",
+      "bytes": 4932,
+      "sha256": "86ae035ae1afde5ca4a7b1e3f06636b36018a5afd214c15ff75c1b1228a20603"
+    }
+  ]
+}

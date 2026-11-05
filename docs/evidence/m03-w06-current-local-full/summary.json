@@ -1,0 +1,51 @@
+{
+  "closure": "All1961 immutable Git blobs match before/after; physicalruntime40 unchanged; both command leaders reaped/groupsGONE/no cleanup signals; outside escaped descendants UNOBSERVED",
+  "doctor": {
+    "exit": 0,
+    "pass": 28,
+    "seconds": 7.41009575
+  },
+  "head": "660f9f1deea129ceccba48c9d560daf1791a95ff",
+  "history": "Olde0a501b18PASS2FAIL and localRust observerfooterFAIL remain unchanged separate records",
+  "independent_review": {
+    "checks": 49,
+    "decision": "PASS_DATA",
+    "sha256": "9bc34a105878d7986478beeeb449b8e79f3353f7f8f74756d5b99441bcee04da"
+  },
+  "observed": {
+    "browser_executions": [
+      262,
+      2,
+      62,
+      3
+    ],
+    "native_per_three_modes": [
+      232,
+      232,
+      232
+    ],
+    "python_POSIX_pass": 1801,
+    "python_common": 1799,
+    "python_seconds": 376.12,
+    "python_skip": 0,
+    "registered_rust_commands": 15,
+    "typescript_unit_pass": 4006
+  },
+  "performance_scope": "ordinary1sample0settle834.688417ms; separate200pages/75mssettle20msrerender printedp95 872.224708ms; no fresh20sampleGateA or independentrawcontactreplay",
+  "progress": {
+    "release": "NOT_READY",
+    "sole_in_progress": "M03-W06",
+    "total": 300,
+    "verified": 38
+  },
+  "scope": "CLOSED_CURRENT_LOCAL_FULL20_PASS; no milestone or GUI acceptance",
+  "source_files": 1961,
+  "tree": "be68bdb19d7de4948dba354a4f13543572c5b517",
+  "verify": {
+    "active_pass": 20,
+    "exit": 0,
+    "raw_bytes": 727914,
+    "raw_sha256": "fe315ba1080061c7cc7127b055483e64910d72245eb227e4ab8b93edb262cb11",
+    "seconds": 1155.8933473330108
+  }
+}

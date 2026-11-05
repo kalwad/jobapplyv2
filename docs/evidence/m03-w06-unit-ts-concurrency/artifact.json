@@ -1,0 +1,10 @@
+{
+  "archive": {
+    "bytes": 1232979,
+    "sha256": "d59931ffb09dfc778d8851ed35f7a756fc06d2f35d11fc1a765f32f5cf90d74d",
+    "safe_regular_members": 46
+  },
+  "review_sha256": "a107d2b90e8663a7aa7fdefb968600a38f43612c919601b279167713a10954ec",
+  "audit_sha256": "91946f20ca6c8456bf6b6645646d7473d129c17ff1b6d4e1ea39a1b57ca5d62c",
+  "scope": "INDEPENDENT_ACTUAL_UNIT_TS_DATA_REVIEW_NOT_FUTURE_CI_OR_MILESTONE_ACCEPTANCE"
+}

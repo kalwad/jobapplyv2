@@ -1,0 +1,866 @@
+﻿{
+    "routes":  [
+                   {
+                       "heading_unique":  true,
+                       "scale":  "baseline",
+                       "window_id":  "197062",
+                       "frame":  [
+                                     144,
+                                     1,
+                                     1136,
+                                     799
+                                 ],
+                       "heading_focused":  true,
+                       "skip_main":  true,
+                       "image_width":  1136,
+                       "tab_shift_tab":  true,
+                       "checked_before":  null,
+                       "checked_after":  null,
+                       "image_sha256":  "de4cd124285567c2a41cbd673bba82c5d18bd101cdff975c767d096e14f3cedf",
+                       "image_height":  799,
+                       "heading":  "Home",
+                       "navigation_unique":  true,
+                       "glyph":  {
+                                     "text":  "Home",
+                                     "rect":  [
+                                                  436,
+                                                  87,
+                                                  67,
+                                                  33
+                                              ],
+                                     "single_line":  true,
+                                     "visible":  true,
+                                     "showing":  true
+                                 },
+                       "app_pid":  1936,
+                       "backing":  {
+                                       "kind":  "WIN32_OWNED_HWND",
+                                       "dpi":  96,
+                                       "awareness":  2
+                                   },
+                       "route":  "home"
+                   },
+                   {
+                       "heading_unique":  true,
+                       "scale":  "baseline",
+                       "window_id":  "197062",
+                       "frame":  [
+                                     144,
+                                     1,
+                                     1136,
+                                     799
+                                 ],
+                       "heading_focused":  true,
+                       "skip_main":  true,
+                       "image_width":  1136,
+                       "tab_shift_tab":  true,
+                       "checked_before":  null,
+                       "checked_after":  null,
+                       "image_sha256":  "de60f1096906f0741f673cbe2db5f8f0a1b57a78947ec4b2851f8cb3e45819f9",
+                       "image_height":  799,
+                       "heading":  "Jobs",
+                       "navigation_unique":  true,
+                       "glyph":  {
+                                     "text":  "Jobs",
+                                     "rect":  [
+                                                  436,
+                                                  87,
+                                                  49,
+                                                  33
+                                              ],
+                                     "single_line":  true,
+                                     "visible":  true,
+                                     "showing":  true
+                                 },
+                       "app_pid":  1936,
+                       "backing":  {
+                                       "kind":  "WIN32_OWNED_HWND",
+                                       "dpi":  96,
+                                       "awareness":  2
+                                   },
+                       "route":  "jobs"
+                   },
+                   {
+                       "heading_unique":  true,
+                       "scale":  "baseline",
+                       "window_id":  "197062",
+                       "frame":  [
+                                     144,
+                                     1,
+                                     1136,
+                                     799
+                                 ],
+                       "heading_focused":  true,
+                       "skip_main":  true,
+                       "image_width":  1136,
+                       "tab_shift_tab":  true,
+                       "checked_before":  null,
+                       "checked_after":  null,
+                       "image_sha256":  "02ab9bdef37afb508c1175a3d1953ada9cdb05b49e26c3e950137588206005f1",
+                       "image_height":  799,
+                       "heading":  "Tracker",
+                       "navigation_unique":  true,
+                       "glyph":  {
+                                     "text":  "Trac",
+                                     "rect":  [
+                                                  436,
+                                                  87,
+                                                  45,
+                                                  33
+                                              ],
+                                     "single_line":  true,
+                                     "visible":  true,
+                                     "showing":  true
+                                 },
+                       "app_pid":  1936,
+                       "backing":  {
+                                       "kind":  "WIN32_OWNED_HWND",
+                                       "dpi":  96,
+                                       "awareness":  2
+                                   },
+                       "route":  "tracker"
+                   },
+                   {
+                       "heading_unique":  true,
+                       "scale":  "baseline",
+                       "window_id":  "197062",
+                       "frame":  [
+                                     144,
+                                     1,
+                                     1136,
+                                     799
+                                 ],
+                       "heading_focused":  true,
+                       "skip_main":  true,
+                       "image_width":  1136,
+                       "tab_shift_tab":  true,
+                       "checked_before":  null,
+                       "checked_after":  null,
+                       "image_sha256":  "f6a18075bf27cea0bbab3de94b7ce35b3fe2c61ddbcc2cb2a8bccb48ba7ecfde",
+                       "image_height":  799,
+                       "heading":  "Documents / Resumes",
+                       "navigation_unique":  true,
+                       "glyph":  {
+                                     "text":  "Docu",
+                                     "rect":  [
+                                                  436,
+                                                  87,
+                                                  57,
+                                                  33
+                                              ],
+                                     "single_line":  true,
+                                     "visible":  true,
+                                     "showing":  true
+                                 },
+                       "app_pid":  1936,
+                       "backing":  {
+                                       "kind":  "WIN32_OWNED_HWND",
+                                       "dpi":  96,
+                                       "awareness":  2
+                                   },
+                       "route":  "documents"
+                   },
+                   {
+                       "heading_unique":  true,
+                       "scale":  "baseline",
+                       "window_id":  "197062",
+                       "frame":  [
+                                     144,
+                                     1,
+                                     1136,
+                                     799
+                                 ],
+                       "heading_focused":  true,
+                       "skip_main":  true,
+                       "image_width":  1136,
+                       "tab_shift_tab":  true,
+                       "checked_before":  null,
+                       "checked_after":  null,
+                       "image_sha256":  "49c2a94d4446b5ce34ce0c3c73b1c4394c9b0e66bc80e5355dd1c6a3b96774a4",
+                       "image_height":  799,
+                       "heading":  "Profile",
+                       "navigation_unique":  true,
+                       "glyph":  {
+                                     "text":  "Prof",
+                                     "rect":  [
+                                                  436,
+                                                  87,
+                                                  46,
+                                                  33
+                                              ],
+                                     "single_line":  true,
+                                     "visible":  true,
+                                     "showing":  true
+                                 },
+                       "app_pid":  1936,
+                       "backing":  {
+                                       "kind":  "WIN32_OWNED_HWND",
+                                       "dpi":  96,
+                                       "awareness":  2
+                                   },
+                       "route":  "profile"
+                   },
+                   {
+                       "heading_unique":  true,
+                       "scale":  "baseline",
+                       "window_id":  "197062",
+                       "frame":  [
+                                     144,
+                                     1,
+                                     1136,
+                                     799
+                                 ],
+                       "heading_focused":  true,
+                       "skip_main":  true,
+                       "image_width":  1136,
+                       "tab_shift_tab":  true,
+                       "checked_before":  null,
+                       "checked_after":  null,
+                       "image_sha256":  "194621e87094c3a8b90c4a2c961705d0373fbe3579bd91cb12f9debcb573b889",
+                       "image_height":  799,
+                       "heading":  "Settings",
+                       "navigation_unique":  true,
+                       "glyph":  {
+                                     "text":  "Sett",
+                                     "rect":  [
+                                                  436,
+                                                  87,
+                                                  44,
+                                                  33
+                                              ],
+                                     "single_line":  true,
+                                     "visible":  true,
+                                     "showing":  true
+                                 },
+                       "app_pid":  1936,
+                       "backing":  {
+                                       "kind":  "WIN32_OWNED_HWND",
+                                       "dpi":  96,
+                                       "awareness":  2
+                                   },
+                       "route":  "settings"
+                   },
+                   {
+                       "heading_unique":  true,
+                       "scale":  "baseline",
+                       "window_id":  "197062",
+                       "frame":  [
+                                     144,
+                                     1,
+                                     1136,
+                                     799
+                                 ],
+                       "heading_focused":  true,
+                       "skip_main":  true,
+                       "image_width":  1136,
+                       "tab_shift_tab":  true,
+                       "checked_before":  "2026-11-04T09:18:40.3021796Z",
+                       "checked_after":  "2026-11-04T09:18:41.779247Z",
+                       "image_sha256":  "1316dfe94de707a219a985fa1ab05c43a89c478ae2231b928d15b10ac962deda",
+                       "image_height":  799,
+                       "heading":  "Diagnostics",
+                       "navigation_unique":  true,
+                       "glyph":  {
+                                     "text":  "Diag",
+                                     "rect":  [
+                                                  436,
+                                                  83,
+                                                  51,
+                                                  32
+                                              ],
+                                     "single_line":  true,
+                                     "visible":  true,
+                                     "showing":  true
+                                 },
+                       "app_pid":  1936,
+                       "backing":  {
+                                       "kind":  "WIN32_OWNED_HWND",
+                                       "dpi":  96,
+                                       "awareness":  2
+                                   },
+                       "route":  "diagnostics"
+                   },
+                   {
+                       "heading_unique":  true,
+                       "scale":  "enlarged",
+                       "window_id":  "197062",
+                       "frame":  [
+                                     144,
+                                     1,
+                                     1136,
+                                     799
+                                 ],
+                       "heading_focused":  true,
+                       "skip_main":  true,
+                       "image_width":  1136,
+                       "tab_shift_tab":  true,
+                       "checked_before":  null,
+                       "checked_after":  null,
+                       "image_sha256":  "e0aa1d38a61428b85ddde00b5a3f6491f8294b186efdce2567b4cbe1cf91f41c",
+                       "image_height":  799,
+                       "heading":  "Home",
+                       "navigation_unique":  true,
+                       "glyph":  {
+                                     "text":  "Home",
+                                     "rect":  [
+                                                  184,
+                                                  728,
+                                                  131,
+                                                  64
+                                              ],
+                                     "single_line":  true,
+                                     "visible":  true,
+                                     "showing":  true
+                                 },
+                       "app_pid":  1936,
+                       "backing":  {
+                                       "kind":  "WIN32_OWNED_HWND",
+                                       "dpi":  96,
+                                       "awareness":  2
+                                   },
+                       "route":  "home"
+                   },
+                   {
+                       "heading_unique":  true,
+                       "scale":  "enlarged",
+                       "window_id":  "197062",
+                       "frame":  [
+                                     144,
+                                     1,
+                                     1136,
+                                     799
+                                 ],
+                       "heading_focused":  true,
+                       "skip_main":  true,
+                       "image_width":  1136,
+                       "tab_shift_tab":  true,
+                       "checked_before":  null,
+                       "checked_after":  null,
+                       "image_sha256":  "6b166f003d42cc05e9f2a2b19e3c0b102f64008eb3950440350c14f25462909c",
+                       "image_height":  799,
+                       "heading":  "Jobs",
+                       "navigation_unique":  true,
+                       "glyph":  {
+                                     "text":  "Jobs",
+                                     "rect":  [
+                                                  184,
+                                                  728,
+                                                  97,
+                                                  64
+                                              ],
+                                     "single_line":  true,
+                                     "visible":  true,
+                                     "showing":  true
+                                 },
+                       "app_pid":  1936,
+                       "backing":  {
+                                       "kind":  "WIN32_OWNED_HWND",
+                                       "dpi":  96,
+                                       "awareness":  2
+                                   },
+                       "route":  "jobs"
+                   },
+                   {
+                       "heading_unique":  true,
+                       "scale":  "enlarged",
+                       "window_id":  "197062",
+                       "frame":  [
+                                     144,
+                                     1,
+                                     1136,
+                                     799
+                                 ],
+                       "heading_focused":  true,
+                       "skip_main":  true,
+                       "image_width":  1136,
+                       "tab_shift_tab":  true,
+                       "checked_before":  null,
+                       "checked_after":  null,
+                       "image_sha256":  "2780f80e1917e44bb45571528ddc1a3ac89c0d4710f4af483db1cc7f3586def2",
+                       "image_height":  799,
+                       "heading":  "Tracker",
+                       "navigation_unique":  true,
+                       "glyph":  {
+                                     "text":  "Trac",
+                                     "rect":  [
+                                                  184,
+                                                  728,
+                                                  88,
+                                                  64
+                                              ],
+                                     "single_line":  true,
+                                     "visible":  true,
+                                     "showing":  true
+                                 },
+                       "app_pid":  1936,
+                       "backing":  {
+                                       "kind":  "WIN32_OWNED_HWND",
+                                       "dpi":  96,
+                                       "awareness":  2
+                                   },
+                       "route":  "tracker"
+                   },
+                   {
+                       "heading_unique":  true,
+                       "scale":  "enlarged",
+                       "window_id":  "197062",
+                       "frame":  [
+                                     144,
+                                     1,
+                                     1136,
+                                     799
+                                 ],
+                       "heading_focused":  true,
+                       "skip_main":  true,
+                       "image_width":  1136,
+                       "tab_shift_tab":  true,
+                       "checked_before":  null,
+                       "checked_after":  null,
+                       "image_sha256":  "3e8698b9a4ee5e6917589741beec03e351b3aa541b04f77b78ecd29344a85236",
+                       "image_height":  799,
+                       "heading":  "Documents / Resumes",
+                       "navigation_unique":  true,
+                       "glyph":  {
+                                     "text":  "Docu",
+                                     "rect":  [
+                                                  184,
+                                                  728,
+                                                  112,
+                                                  64
+                                              ],
+                                     "single_line":  true,
+                                     "visible":  true,
+                                     "showing":  true
+                                 },
+                       "app_pid":  1936,
+                       "backing":  {
+                                       "kind":  "WIN32_OWNED_HWND",
+                                       "dpi":  96,
+                                       "awareness":  2
+                                   },
+                       "route":  "documents"
+                   },
+                   {
+                       "heading_unique":  true,
+                       "scale":  "enlarged",
+                       "window_id":  "197062",
+                       "frame":  [
+                                     144,
+                                     1,
+                                     1136,
+                                     799
+                                 ],
+                       "heading_focused":  true,
+                       "skip_main":  true,
+                       "image_width":  1136,
+                       "tab_shift_tab":  true,
+                       "checked_before":  null,
+                       "checked_after":  null,
+                       "image_sha256":  "225679ccde5e9a9fbf59415944ee3be7581ddb9069464fe28aa1f83024e8e7d9",
+                       "image_height":  799,
+                       "heading":  "Profile",
+                       "navigation_unique":  true,
+                       "glyph":  {
+                                     "text":  "Prof",
+                                     "rect":  [
+                                                  184,
+                                                  719,
+                                                  91,
+                                                  65
+                                              ],
+                                     "single_line":  true,
+                                     "visible":  true,
+                                     "showing":  true
+                                 },
+                       "app_pid":  1936,
+                       "backing":  {
+                                       "kind":  "WIN32_OWNED_HWND",
+                                       "dpi":  96,
+                                       "awareness":  2
+                                   },
+                       "route":  "profile"
+                   },
+                   {
+                       "heading_unique":  true,
+                       "scale":  "enlarged",
+                       "window_id":  "197062",
+                       "frame":  [
+                                     144,
+                                     1,
+                                     1136,
+                                     799
+                                 ],
+                       "heading_focused":  true,
+                       "skip_main":  true,
+                       "image_width":  1136,
+                       "tab_shift_tab":  true,
+                       "checked_before":  null,
+                       "checked_after":  null,
+                       "image_sha256":  "76468daf8419171d3d3bb8325f31d0f9978c9947f59b8dc3dad776847824233e",
+                       "image_height":  799,
+                       "heading":  "Settings",
+                       "navigation_unique":  true,
+                       "glyph":  {
+                                     "text":  "Sett",
+                                     "rect":  [
+                                                  184,
+                                                  719,
+                                                  85,
+                                                  65
+                                              ],
+                                     "single_line":  true,
+                                     "visible":  true,
+                                     "showing":  true
+                                 },
+                       "app_pid":  1936,
+                       "backing":  {
+                                       "kind":  "WIN32_OWNED_HWND",
+                                       "dpi":  96,
+                                       "awareness":  2
+                                   },
+                       "route":  "settings"
+                   },
+                   {
+                       "heading_unique":  true,
+                       "scale":  "enlarged",
+                       "window_id":  "197062",
+                       "frame":  [
+                                     144,
+                                     1,
+                                     1136,
+                                     799
+                                 ],
+                       "heading_focused":  true,
+                       "skip_main":  true,
+                       "image_width":  1136,
+                       "tab_shift_tab":  true,
+                       "checked_before":  "2026-11-04T09:18:59.6940232Z",
+                       "checked_after":  "2026-11-04T09:19:00.9222396Z",
+                       "image_sha256":  "3d8af9bd4aa7190ff98ffcb60cb7bd66d35cc81f4505c50091e7bc4ec069437f",
+                       "image_height":  799,
+                       "heading":  "Diagnostics",
+                       "navigation_unique":  true,
+                       "glyph":  {
+                                     "text":  "Diag",
+                                     "rect":  [
+                                                  184,
+                                                  292,
+                                                  100,
+                                                  65
+                                              ],
+                                     "single_line":  true,
+                                     "visible":  true,
+                                     "showing":  true
+                                 },
+                       "app_pid":  1936,
+                       "backing":  {
+                                       "kind":  "WIN32_OWNED_HWND",
+                                       "dpi":  96,
+                                       "awareness":  2
+                                   },
+                       "route":  "diagnostics"
+                   }
+               ],
+    "reset_image":  "c29cbea672e7c3accb6998c9e4880c0b8e0eebaa9911b065b0ebcc1db1813c0b",
+    "measurements":  [
+                         {
+                             "stage":  "baseline",
+                             "window_id":  "197062",
+                             "app_pid":  1936,
+                             "frame":  [
+                                           144,
+                                           1,
+                                           1136,
+                                           799
+                                       ],
+                             "backing":  {
+                                             "kind":  "WIN32_OWNED_HWND",
+                                             "dpi":  96,
+                                             "awareness":  2
+                                         },
+                             "anchors":  [
+                                             {
+                                                 "text":  "0.0.1",
+                                                 "rect":  [
+                                                              714,
+                                                              208,
+                                                              37,
+                                                              16
+                                                          ],
+                                                 "single_line":  true,
+                                                 "visible":  true,
+                                                 "showing":  true
+                                             },
+                                             {
+                                                 "text":  "2.12.4",
+                                                 "rect":  [
+                                                              714,
+                                                              255,
+                                                              44,
+                                                              16
+                                                          ],
+                                                 "single_line":  true,
+                                                 "visible":  true,
+                                                 "showing":  true
+                                             }
+                                         ]
+                         },
+                         {
+                             "stage":  "step1",
+                             "window_id":  "197062",
+                             "app_pid":  1936,
+                             "frame":  [
+                                           144,
+                                           1,
+                                           1136,
+                                           799
+                                       ],
+                             "backing":  {
+                                             "kind":  "WIN32_OWNED_HWND",
+                                             "dpi":  96,
+                                             "awareness":  2
+                                         },
+                             "anchors":  [
+                                             {
+                                                 "text":  "0.0.1",
+                                                 "rect":  [
+                                                              732,
+                                                              224,
+                                                              40,
+                                                              18
+                                                          ],
+                                                 "single_line":  true,
+                                                 "visible":  true,
+                                                 "showing":  true
+                                             },
+                                             {
+                                                 "text":  "2.12.4",
+                                                 "rect":  [
+                                                              732,
+                                                              275,
+                                                              48,
+                                                              18
+                                                          ],
+                                                 "single_line":  true,
+                                                 "visible":  true,
+                                                 "showing":  true
+                                             }
+                                         ]
+                         },
+                         {
+                             "stage":  "step2",
+                             "window_id":  "197062",
+                             "app_pid":  1936,
+                             "frame":  [
+                                           144,
+                                           1,
+                                           1136,
+                                           799
+                                       ],
+                             "backing":  {
+                                             "kind":  "WIN32_OWNED_HWND",
+                                             "dpi":  96,
+                                             "awareness":  2
+                                         },
+                             "anchors":  [
+                                             {
+                                                 "text":  "0.0.1",
+                                                 "rect":  [
+                                                              758,
+                                                              248,
+                                                              46,
+                                                              20
+                                                          ],
+                                                 "single_line":  true,
+                                                 "visible":  true,
+                                                 "showing":  true
+                                             },
+                                             {
+                                                 "text":  "2.12.4",
+                                                 "rect":  [
+                                                              758,
+                                                              306,
+                                                              55,
+                                                              20
+                                                          ],
+                                                 "single_line":  true,
+                                                 "visible":  true,
+                                                 "showing":  true
+                                             }
+                                         ]
+                         },
+                         {
+                             "stage":  "step3",
+                             "window_id":  "197062",
+                             "app_pid":  1936,
+                             "frame":  [
+                                           144,
+                                           1,
+                                           1136,
+                                           799
+                                       ],
+                             "backing":  {
+                                             "kind":  "WIN32_OWNED_HWND",
+                                             "dpi":  96,
+                                             "awareness":  2
+                                         },
+                             "anchors":  [
+                                             {
+                                                 "text":  "0.0.1",
+                                                 "rect":  [
+                                                              556,
+                                                              414,
+                                                              55,
+                                                              24
+                                                          ],
+                                                 "single_line":  true,
+                                                 "visible":  true,
+                                                 "showing":  true
+                                             },
+                                             {
+                                                 "text":  "2.12.4",
+                                                 "rect":  [
+                                                              556,
+                                                              483,
+                                                              65,
+                                                              24
+                                                          ],
+                                                 "single_line":  true,
+                                                 "visible":  true,
+                                                 "showing":  true
+                                             }
+                                         ]
+                         },
+                         {
+                             "stage":  "step4",
+                             "window_id":  "197062",
+                             "app_pid":  1936,
+                             "frame":  [
+                                           144,
+                                           1,
+                                           1136,
+                                           799
+                                       ],
+                             "backing":  {
+                                             "kind":  "WIN32_OWNED_HWND",
+                                             "dpi":  96,
+                                             "awareness":  2
+                                         },
+                             "anchors":  [
+                                             {
+                                                 "text":  "0.0.1",
+                                                 "rect":  [
+                                                              562,
+                                                              474,
+                                                              64,
+                                                              28
+                                                          ],
+                                                 "single_line":  true,
+                                                 "visible":  true,
+                                                 "showing":  true
+                                             },
+                                             {
+                                                 "text":  "2.12.4",
+                                                 "rect":  [
+                                                              562,
+                                                              555,
+                                                              76,
+                                                              27
+                                                          ],
+                                                 "single_line":  true,
+                                                 "visible":  true,
+                                                 "showing":  true
+                                             }
+                                         ]
+                         },
+                         {
+                             "stage":  "step5",
+                             "window_id":  "197062",
+                             "app_pid":  1936,
+                             "frame":  [
+                                           144,
+                                           1,
+                                           1136,
+                                           799
+                                       ],
+                             "backing":  {
+                                             "kind":  "WIN32_OWNED_HWND",
+                                             "dpi":  96,
+                                             "awareness":  2
+                                         },
+                             "anchors":  [
+                                             {
+                                                 "text":  "0.0.1",
+                                                 "rect":  [
+                                                              569,
+                                                              624,
+                                                              71,
+                                                              32
+                                                          ],
+                                                 "single_line":  true,
+                                                 "visible":  true,
+                                                 "showing":  true
+                                             },
+                                             {
+                                                 "text":  "2.12.4",
+                                                 "rect":  [
+                                                              569,
+                                                              718,
+                                                              86,
+                                                              32
+                                                          ],
+                                                 "single_line":  true,
+                                                 "visible":  true,
+                                                 "showing":  true
+                                             }
+                                         ]
+                         },
+                         {
+                             "stage":  "reset",
+                             "window_id":  "197062",
+                             "app_pid":  1936,
+                             "frame":  [
+                                           144,
+                                           1,
+                                           1136,
+                                           799
+                                       ],
+                             "backing":  {
+                                             "kind":  "WIN32_OWNED_HWND",
+                                             "dpi":  96,
+                                             "awareness":  2
+                                         },
+                             "anchors":  [
+                                             {
+                                                 "text":  "0.0.1",
+                                                 "rect":  [
+                                                              714,
+                                                              156,
+                                                              37,
+                                                              16
+                                                          ],
+                                                 "single_line":  true,
+                                                 "visible":  true,
+                                                 "showing":  true
+                                             },
+                                             {
+                                                 "text":  "2.12.4",
+                                                 "rect":  [
+                                                              714,
+                                                              203,
+                                                              44,
+                                                              16
+                                                          ],
+                                                 "single_line":  true,
+                                                 "visible":  true,
+                                                 "showing":  true
+                                             }
+                                         ]
+                         }
+                     ],
+    "schema":  "japp-native-shell-capture-v1",
+    "platform":  "WINDOWS_UIA",
+    "policy_sha256":  "7aaf7a099cf111661c9fd6e98497ebf97bbb4d6a1c72c8d6ec2d20f190735e88",
+    "reader_output":  "NOT_COLLECTED",
+    "subject_sha256":  "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2"
+}

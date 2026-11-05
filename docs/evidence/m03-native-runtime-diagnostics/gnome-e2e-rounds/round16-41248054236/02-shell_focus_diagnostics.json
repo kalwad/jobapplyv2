@@ -1,0 +1,7 @@
+{
+  "status": "FAIL",
+  "operation": "shell_focus_diagnostics",
+  "error_type": "ValueError",
+  "message": "One exact native actionable shell target required",
+  "elapsed_seconds": 0.3970278030000145
+}

@@ -1,0 +1,43 @@
+{
+  "archive_sha256": "87daa8d094c38e8ac94328df48549e63c1cceab362863bbbdfa87b4dd6ba5fe2",
+  "archive_bytes": 172731,
+  "regular_members": 7,
+  "files": [
+    {
+      "path": "after.json",
+      "bytes": 275596,
+      "sha256": "7cf7d1d8f390c48df1f8bf2d71158e5a5df482c3a7347e88560a7a57c4470c1c"
+    },
+    {
+      "path": "before.json",
+      "bytes": 275596,
+      "sha256": "59196c93bc750c20dd89d2bdd0da74ff9eafc4001ffa0d6f171ae1f346de4246"
+    },
+    {
+      "path": "command.json",
+      "bytes": 186,
+      "sha256": "3951718e63062fd2f29b63b68614bb9b8a0a940d6fc5867e57d8480f1ed93b25"
+    },
+    {
+      "path": "completion.json",
+      "bytes": 169,
+      "sha256": "3176d5b6e3d1de52cfecc3e16ff66e71a206092349588e47fa806f0a846f4a00"
+    },
+    {
+      "path": "python.log",
+      "bytes": 184531,
+      "sha256": "b61c756ebeed38d023d56f5d31c64f3ba5b41b165c7980aafbcab006d66176e6"
+    },
+    {
+      "path": "run-python.py",
+      "bytes": 1762,
+      "sha256": "93830d2ccec13b203d1f1a6a4a948c9ef740fbbfd8e8f5c64b0ba6d2d1ac4cfd"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 597,
+      "sha256": "fe65de4769ba9582edee262d660b46b7d2eb8337bba73387ee916d8a3d5666ed"
+    }
+  ],
+  "archive_path": "docs/evidence/m02-w14-python-918dedb/proof.tar.gz"
+}

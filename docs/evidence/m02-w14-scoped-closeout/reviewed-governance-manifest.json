@@ -1,0 +1,43 @@
+{
+  "format_version": "W14_SCOPED_CORRECTIVE_CLOSEOUT_PROPOSAL_FINAL_2",
+  "scope": "Four governance documents only; close KI0093/94/95/96 at exact nativefc/local730/actualR9 scopes; only KI0089 remains in current live release blockers. No fixture/source changes.",
+  "state": "COMPLETE_OUTSIDE_PROPOSAL_ROOT_SOLE_APPLY_AUTHORITY",
+  "previous_proposal": "history/pending-001/governance-pending.patch",
+  "previous_proposal_sha256": "ff5e54a85a43346a351576f77399af4f15b22d66a657e24bb1717907ba886453",
+  "paths": [
+    {
+      "path": "docs/KNOWN_ISSUES.md",
+      "preimage_sha256": "5594c584071748604930bc4649388b80259e29d567eb27026db1daf6618ca509",
+      "afterimage_sha256": "5e1ac6e0bbf66adf3ba3f23ad9916931e17c800bc4f7adc017a0c4b2f9eb1790",
+      "root_matches_preimage": true
+    },
+    {
+      "path": "docs/PROJECT_STATUS.md",
+      "preimage_sha256": "e1a35a80ef54276202ebd8a61b80a4fbc87cf634d55f40b5fc9a4674d10ff147",
+      "afterimage_sha256": "084bcab02e78fbad4a547d5fea63606e69a1b7c01a2b3b3aa2b42c5edff0d89a",
+      "root_matches_preimage": true
+    },
+    {
+      "path": "docs/TEST_EVIDENCE.md",
+      "preimage_sha256": "6b4a678c4d4de1f4e70d1cf145d0a1a8d9a6f56dc4e8eaa9fdc5c150325b343c",
+      "afterimage_sha256": "75fc41d1b5829bc0bea2d748981230ac5a5454486c82cf047b2576d4c6bf5dc2",
+      "root_matches_preimage": true
+    },
+    {
+      "path": "docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "preimage_sha256": "527ca5946bbc53743782740d6cde027a5a262f0f9c434a45cc8e794a56713dc1",
+      "afterimage_sha256": "379af813c63ce4f6ba1c780631ae981d0b17158eae6ce079c61a0d033fe69684",
+      "root_matches_preimage": true
+    }
+  ],
+  "patch_sha256": "f838d5da063adae22ade96c2b6b7edd2d5de03f122b5ca2d8aad179e785c0091",
+  "patch_bytes": 49263,
+  "pending_tokens": [],
+  "proof_binding_checks": "proof-binding-checks.json",
+  "proof_binding_checks_sha256": "0081647f1822f9d0a105766dc507296e72cc76ba64ff58c0e8586a1066af00b6",
+  "source_tests_assertions_fixtures_changed": false,
+  "root_mutations_tests_builds_browsers": 0,
+  "prior_final_proposal": "history/final-001/governance-final.patch",
+  "prior_final_proposal_sha256": "1f058666307c3a3305ea786ebf742da89cd922725cfa579031a3d58e5f829d11",
+  "attribution_correction": "One phrase in current Gate A closeout: full79 source/runtime/lock bindings; binary/version tool pre/post belongs R9. No result/state/source/threshold change."
+}

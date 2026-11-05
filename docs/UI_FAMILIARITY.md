@@ -32,7 +32,7 @@ reference observations, screenshots, hashes, results, or approvals.
 
 | Surface ID | Surface | Owning work package(s) | Matrix state | Reference provenance | Observation record | Comparison evidence | Owner decision |
 |---|---|---|---|---|---|---|---|
-| `DESKTOP_SHELL` | Desktop shell and global navigation | `M03-W01`, `M03-W11` | `NOT_YET_APPLICABLE` | — | — | — | `NOT_APPROVED` |
+| `DESKTOP_SHELL` | Desktop shell and global navigation | `M03-W01`, `M03-W11` | `IN_PROGRESS` | Public primary help documentation | docs/ui/SIMPLIFY_FAMILIARITY_MATRIX.md | Pending actual shell capture/review; no comparative task study | `NOT_APPROVED` |
 | `HOME_DASHBOARD` | Home/dashboard | `M03-W11`, `M33-W07` | `NOT_YET_APPLICABLE` | — | — | — | `NOT_APPROVED` |
 | `JOBS` | Job search, matches, and saved jobs | `M33-W07` | `NOT_YET_APPLICABLE` | — | — | — | `NOT_APPROVED` |
 | `TRACKER` | Application tracker | `M25-W08` | `NOT_YET_APPLICABLE` | — | — | — | `NOT_APPROVED` |
@@ -78,3 +78,14 @@ compatibility that does not exist.
 - Screenshots or fixtures: none
 - Familiarity study results: none
 - Owner-approved surfaces: none
+
+
+## M03-W01 implementation state — 2026-10-18
+
+The desktop shell is now IN_PROGRESS with repository-owned components/tokens and a recorded public task-reference log. The M00-W11 scaffold statements above remain historical. Other product surfaces/studies remain unimplemented and unapproved. OD-037 / ADR-0008 delegates actual later acceptance; it supplies no invented owner observation or future result.
+
+## Controlled shell evidence appendix — 2026-10-28
+
+Seven truthful shell destinations have14 actual1120/320px captures, complete dirty-source/PNG metadata,32 passing browser checks and different74-check/14-image review: docs/evidence/m03-w11-shell-catalog. All12 captured shipping UI/component/token source blobs equal35b, preserving the M03-W01 foundation; the isolated harness supplies synthetic scenarios. Public-reference provenance remains docs/ui/SIMPLIFY_FAMILIARITY_MATRIX.md. Direct Simplify comparison is waived and unexecuted. No comparative task success/time, reference parity, user study, affiliation or superiority is inferred. Source/images show original geometric icons and repository components/copy/tokens without third-party artwork/marks; this is not legal originality certification.
+
+All canonical familiarity and baseline state rows are preserved unchanged. The outside packet is review ready, but no future feature, owner/delegated visual acceptance, final familiarity/accessibility approval, platform certification or token freeze is recorded. W11 stays NOT_STARTED.

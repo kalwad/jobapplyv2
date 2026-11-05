@@ -1,0 +1,4 @@
+# Exact captured terminal/CI evidence retains CRLF and trailing whitespace.
+# These are raw artifacts; treating their Git diffs as binary preserves bytes
+# without disabling whitespace checks for source or governance prose.
+*.log -text -diff

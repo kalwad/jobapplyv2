@@ -1,0 +1,105 @@
+{
+  "format_version": "M02_W14_SIMPLIFY_READINESS_1",
+  "authority": "NONE",
+  "mode": "READ_ONLY_OFFICIAL_PUBLIC_AND_NORMAL_BROWSER_INSPECTION",
+  "client_date": "2026-10-16",
+  "client_timezone": "America/Detroit",
+  "actual_comparison_cases": 0,
+  "autofill_runs": 0,
+  "profile_writes": 0,
+  "uploads": 0,
+  "login_actions": 0,
+  "account_creations": 0,
+  "application_submissions": 0,
+  "sources": [
+    {
+      "url": "https://help.simplify.jobs/en/articles/1749022-installing-and-setting-up-copilot",
+      "source_type": "OFFICIAL_SIMPLIFY_HELP",
+      "finding": "Copilot uses the saved Simplify profile and requires signing in to the installed extension. The recommended test route is a supported application opened from Simplify jobs."
+    },
+    {
+      "url": "https://help.simplify.jobs/help/articles/2415391-using-copilot-to-autofill-applications",
+      "source_type": "OFFICIAL_SIMPLIFY_HELP",
+      "finding": "Normal operation opens a supported application, uses the Simplify panel, invokes Autofill This Page, and requires review before user submission."
+    },
+    {
+      "url": "https://help.simplify.jobs/articles/5600226-reporting-a-simplify-copilot-issue",
+      "source_type": "OFFICIAL_SIMPLIFY_HELP",
+      "finding": "The article links to simplify.jobs/demo as a pinning demonstration."
+    },
+    {
+      "url": "https://simplify.jobs/copilot",
+      "source_type": "OFFICIAL_SIMPLIFY_PUBLIC_PRODUCT_PAGE",
+      "finding": "Actual Chrome UI exposes extension installation and registration/login links; inspected DOM has zero forms and zero input/textarea/select nodes."
+    },
+    {
+      "url": "https://simplify.jobs/demo",
+      "source_type": "OFFICIAL_SIMPLIFY_PUBLIC_DEMO",
+      "finding": "Actual Chrome UI shows a four-step instructional walkthrough. Step3 describes profile-driven autofill and displays a screenshot. DOM has zero forms, zero input/textarea/select nodes, and zero iframes."
+    },
+    {
+      "url": "https://simplify.jobs/auth/login",
+      "source_type": "ACTUAL_NORMAL_CHROME_UI",
+      "finding": "The connected Chrome session rendered the login page with email/password, SSO actions, Sign in and a reCAPTCHA region. No credential or sign-in action was used."
+    }
+  ],
+  "browser_observations": {
+    "browser": "Existing connected Chrome, selected through CUA browser1",
+    "unrelated_tabs_or_personal_content_retained": false,
+    "copilot_public": {
+      "forms": 0,
+      "input_textarea_select_nodes": 0,
+      "iframes": 1,
+      "authenticated_profile_view_observed": false
+    },
+    "official_demo": {
+      "title": "Simplify Jobs | Demo",
+      "forms": 0,
+      "input_textarea_select_nodes": 0,
+      "iframes": 0,
+      "observed_image_alts": [
+        "Simplify Logo",
+        "Dashboard Screenshot"
+      ],
+      "observed_walkthrough_steps": 4,
+      "step3_selected": true,
+      "profile_entry_or_autofill_controls_observed": false
+    },
+    "login": {
+      "url": "https://simplify.jobs/auth/login",
+      "login_form_rendered": true,
+      "authenticated_redirect_observed": false,
+      "credential_values_read_or_retained": false
+    },
+    "installed_extension": {
+      "state": "UNKNOWN_BY_BROWSER_SECURITY_POLICY",
+      "attempt": "Read-only navigation to chrome://extensions/",
+      "outcome": "AUTOMATIC_APPROVAL_REVIEW_REJECTED",
+      "reason": "Only http and https protocols allowed. Tool explicitly forbids workaround, indirect execution, alternate browser surfaces and policy circumvention.",
+      "workaround_attempted": false
+    }
+  },
+  "permitted_actions_actually_taken": [
+    "Read official primary sources",
+    "Read normal browser inventory without retaining unrelated tab metadata",
+    "Navigate official public Copilot/demo/login routes",
+    "Dismiss demo pinning instruction notice",
+    "Select demo step3",
+    "Read public DOM structure"
+  ],
+  "practical_normal_user_route": [
+    "Use an owner-prepared Simplify evaluation account/profile containing exactly the approved synthetic comparison facts.",
+    "Have the owner authenticate through normal service and extension UI; credentials, MFA and CAPTCHA remain outside this agent task.",
+    "Confirm the installed Copilot version through a permitted normal UI or owner-provided observation.",
+    "Open the same supported public form and synthetic input used by the candidate comparison.",
+    "Use normal Copilot Autofill This Page interaction, manually record field-by-field writes, persistence, errors, uncertainty, required omissions, timing and corrections, and never activate final submit."
+  ],
+  "readiness": "AUTHENTICATED_SYNTHETIC_COMPARISON_NOT_READY_IN_CURRENT_READ_ONLY_SCOPE",
+  "limitations": [
+    "The inspected public demo is not an executable same-input autofill sandbox. This finding is limited to the official linked demo and product page, not proof that no other demonstration exists.",
+    "Rendering the web login page does not prove that no separate extension token exists. Installed extension and its authentication state remain unknown.",
+    "No real/private profile data was accessed, substituted for synthetic input, copied or written.",
+    "No private Simplify code, authenticated DOM/CSS, private API or extracted assets were copied.",
+    "Readiness observations are not competitor benchmark outcomes and do not satisfy Gate A comparison thresholds."
+  ]
+}

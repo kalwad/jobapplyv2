@@ -1,0 +1,7 @@
+Exact synthetic interactive fixture required; observed user: runnervmhao91\runneradmin
+At C:\ProgramData\JappHarness\machine-attestor.ps1:27 char:68
++ ... ixture')) { throw ('Exact synthetic interactive fixture required; obs ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Exact synthetic...o91\runneradmin:String) [], RuntimeException
+    + FullyQualifiedErrorId : Exact synthetic interactive fixture required; observed user: runnervmhao91\runneradmin
+ 

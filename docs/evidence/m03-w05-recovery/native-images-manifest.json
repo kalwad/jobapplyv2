@@ -1,0 +1,141 @@
+{
+  "scope": "Durable COW copies of twelve exact retained native executable images; no new execution, full toolchain/cache or package claim",
+  "created_utc": "2026-10-19T04:03:05.141557+00:00",
+  "input_manifests": [
+    {
+      "path": "/tmp/japp-m03-w05-current-native-execution-20261019/physical-binary-join.json",
+      "bytes": 3241,
+      "sha256": "5c6f1d61f2ff855307c4fcf1cc27097aa26e0d008cb836a0adba9c806938adc3"
+    },
+    {
+      "path": "/tmp/japp-m03-w05-actual-recovery-execution-20261019-retained/members/binary-images.json",
+      "bytes": 10023,
+      "sha256": "42fb53387e4791410afd371f764e28150e8f76b87fcb0fae23064bcb95df3ea6"
+    }
+  ],
+  "files": [
+    {
+      "cohort": "shipping183",
+      "build_mode": "default",
+      "original": "/private/tmp/japp-m03-w05-current-native-execution-20261019/binaries/default/japp_desktop-31d92378a0fb68ed",
+      "retained": "/Users/tanishkalwad/jobapplyv2-evidence/m03-w05-native-images-20261019/images/02c40c4a5dfac7d127d1e125d862a5d29ab97d3dc1dd27436c89dc49ab1a3e57",
+      "bytes": 46709936,
+      "sha256": "02c40c4a5dfac7d127d1e125d862a5d29ab97d3dc1dd27436c89dc49ab1a3e57",
+      "mode_octal": "0o755",
+      "original_unchanged": true
+    },
+    {
+      "cohort": "shipping183",
+      "build_mode": "default",
+      "original": "/private/tmp/japp-m03-w05-current-native-execution-20261019/binaries/default/japp_desktop-f077bfd1a99b4af5",
+      "retained": "/Users/tanishkalwad/jobapplyv2-evidence/m03-w05-native-images-20261019/images/ca30195c59e922a1eeef1818777d136e08ed7905e53b4e4367c81afdc9fd4a9b",
+      "bytes": 1084384,
+      "sha256": "ca30195c59e922a1eeef1818777d136e08ed7905e53b4e4367c81afdc9fd4a9b",
+      "mode_octal": "0o755",
+      "original_unchanged": true
+    },
+    {
+      "cohort": "shipping183",
+      "build_mode": "allfeatures",
+      "original": "/private/tmp/japp-m03-w05-current-native-execution-20261019/binaries/allfeatures/japp_desktop-27bd591b5f1aef8e",
+      "retained": "/Users/tanishkalwad/jobapplyv2-evidence/m03-w05-native-images-20261019/images/015bc3db887ae77c4a81cd0936ce48fe83f63754ac2e8cbd933d52d5f77a9de2",
+      "bytes": 46708064,
+      "sha256": "015bc3db887ae77c4a81cd0936ce48fe83f63754ac2e8cbd933d52d5f77a9de2",
+      "mode_octal": "0o755",
+      "original_unchanged": true
+    },
+    {
+      "cohort": "shipping183",
+      "build_mode": "allfeatures",
+      "original": "/private/tmp/japp-m03-w05-current-native-execution-20261019/binaries/allfeatures/japp_desktop-d5b70e7585edc2c5",
+      "retained": "/Users/tanishkalwad/jobapplyv2-evidence/m03-w05-native-images-20261019/images/126af5736433b6b8ba29cd613d66c5d48f0594b54d9ede23ce084032e033d7c6",
+      "bytes": 1083936,
+      "sha256": "126af5736433b6b8ba29cd613d66c5d48f0594b54d9ede23ce084032e033d7c6",
+      "mode_octal": "0o755",
+      "original_unchanged": true
+    },
+    {
+      "cohort": "shipping183",
+      "build_mode": "sdk-custom",
+      "original": "/private/tmp/japp-m03-w05-current-native-execution-20261019/binaries/sdk-custom/japp_desktop-97397816a8c6c1ce",
+      "retained": "/Users/tanishkalwad/jobapplyv2-evidence/m03-w05-native-images-20261019/images/3ebe39567e527b4738a8f4aaaf5449c4ea68e43274ef87ec40750bd21ec75886",
+      "bytes": 46708208,
+      "sha256": "3ebe39567e527b4738a8f4aaaf5449c4ea68e43274ef87ec40750bd21ec75886",
+      "mode_octal": "0o755",
+      "original_unchanged": true
+    },
+    {
+      "cohort": "shipping183",
+      "build_mode": "sdk-custom",
+      "original": "/private/tmp/japp-m03-w05-current-native-execution-20261019/binaries/sdk-custom/japp_desktop-e4bac7000b3b0427",
+      "retained": "/Users/tanishkalwad/jobapplyv2-evidence/m03-w05-native-images-20261019/images/64df40e6bffc03ce960668ffe3f4d3393596fcc0db5770f9bfc1633407889b67",
+      "bytes": 1083984,
+      "sha256": "64df40e6bffc03ce960668ffe3f4d3393596fcc0db5770f9bfc1633407889b67",
+      "mode_octal": "0o755",
+      "original_unchanged": true
+    },
+    {
+      "cohort": "recovery187",
+      "build_mode": "default",
+      "original": "/private/tmp/japp-m03-w05-actual-recovery-execution-v2-20261019/evidence-compile-v2/default-binary-0",
+      "retained": "/Users/tanishkalwad/jobapplyv2-evidence/m03-w05-native-images-20261019/images/898fb3b0cd3478b0697cac801ba7438f8cdf51a996e532509a56aba44c31633e",
+      "bytes": 47499712,
+      "sha256": "898fb3b0cd3478b0697cac801ba7438f8cdf51a996e532509a56aba44c31633e",
+      "mode_octal": "0o555",
+      "original_unchanged": true
+    },
+    {
+      "cohort": "recovery187",
+      "build_mode": "default",
+      "original": "/private/tmp/japp-m03-w05-actual-recovery-execution-v2-20261019/evidence-compile-v2/default-binary-1",
+      "retained": "/Users/tanishkalwad/jobapplyv2-evidence/m03-w05-native-images-20261019/images/b9dc478fcae11dc3503ce87c671dc9b436d86c9edd39e80b1b38ee1356457e32",
+      "bytes": 1085856,
+      "sha256": "b9dc478fcae11dc3503ce87c671dc9b436d86c9edd39e80b1b38ee1356457e32",
+      "mode_octal": "0o555",
+      "original_unchanged": true
+    },
+    {
+      "cohort": "recovery187",
+      "build_mode": "all-features",
+      "original": "/private/tmp/japp-m03-w05-actual-recovery-execution-v2-20261019/evidence-compile-v2/all-features-binary-0",
+      "retained": "/Users/tanishkalwad/jobapplyv2-evidence/m03-w05-native-images-20261019/images/d13f6ab0d9c66f8b71eee186dec71a2071fe4613a91fe27cb83b53d8812d100a",
+      "bytes": 1085392,
+      "sha256": "d13f6ab0d9c66f8b71eee186dec71a2071fe4613a91fe27cb83b53d8812d100a",
+      "mode_octal": "0o555",
+      "original_unchanged": true
+    },
+    {
+      "cohort": "recovery187",
+      "build_mode": "all-features",
+      "original": "/private/tmp/japp-m03-w05-actual-recovery-execution-v2-20261019/evidence-compile-v2/all-features-binary-1",
+      "retained": "/Users/tanishkalwad/jobapplyv2-evidence/m03-w05-native-images-20261019/images/e7255089665fa45e3332f7aba6ebad98045d85bc45a2ddaa22407d012826edab",
+      "bytes": 47497936,
+      "sha256": "e7255089665fa45e3332f7aba6ebad98045d85bc45a2ddaa22407d012826edab",
+      "mode_octal": "0o555",
+      "original_unchanged": true
+    },
+    {
+      "cohort": "recovery187",
+      "build_mode": "sdk-custom",
+      "original": "/private/tmp/japp-m03-w05-actual-recovery-execution-v2-20261019/evidence-compile-v2/sdk-custom-binary-0",
+      "retained": "/Users/tanishkalwad/jobapplyv2-evidence/m03-w05-native-images-20261019/images/c82422e9777b31629540301fef2c652d5c647e247e7ba3d609f74711a98b5db7",
+      "bytes": 47498032,
+      "sha256": "c82422e9777b31629540301fef2c652d5c647e247e7ba3d609f74711a98b5db7",
+      "mode_octal": "0o555",
+      "original_unchanged": true
+    },
+    {
+      "cohort": "recovery187",
+      "build_mode": "sdk-custom",
+      "original": "/private/tmp/japp-m03-w05-actual-recovery-execution-v2-20261019/evidence-compile-v2/sdk-custom-binary-1",
+      "retained": "/Users/tanishkalwad/jobapplyv2-evidence/m03-w05-native-images-20261019/images/0c3bd7506be56303625d69070fa5de2b7b4a4717cef8cbf9efcff573501ad281",
+      "bytes": 1085424,
+      "sha256": "0c3bd7506be56303625d69070fa5de2b7b4a4717cef8cbf9efcff573501ad281",
+      "mode_octal": "0o555",
+      "original_unchanged": true
+    }
+  ],
+  "count": 12,
+  "total_logical_bytes": 289130864,
+  "unique_images": 12
+}

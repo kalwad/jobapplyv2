@@ -16,6 +16,7 @@ import {
   type SemanticObservation,
 } from "../driver-evidence.ts";
 import { normalizeScannerText } from "../field-scanner.ts";
+import { semanticDigest } from "../semantic-identity.ts";
 import {
   activateElement,
   delay,
@@ -32,6 +33,7 @@ import type {
   DriverContext,
   PreconditionOutcome,
 } from "./driver-contract.ts";
+import { mutateCurrent } from "./mutation-guard.ts";
 
 function intendedDigest(intended: DriverIntendedValue): string {
   if (intended.kind !== "OPTION") {
@@ -79,6 +81,18 @@ function liveOptionElements(anchor: HTMLElement): HTMLElement[] {
   return [...new Set(options)];
 }
 
+function optionMeaningUnambiguous(
+  host: HTMLElement,
+  selected: HTMLElement | undefined,
+): boolean {
+  if (selected === undefined) return false;
+  const value = optionSemanticValue(selected);
+  const matches = liveOptionElements(host).filter(
+    (option) => optionSemanticValue(option) === value,
+  );
+  return matches.length === 1 && matches[0] === selected;
+}
+
 async function matchOptionElements(
   anchor: HTMLElement,
   digest: string,
@@ -90,6 +104,49 @@ async function matchOptionElements(
     }
   }
   return matches;
+}
+
+async function activateApprovedOption(
+  context: DriverContext,
+  host: HTMLElement,
+  option: HTMLElement,
+  digest: string,
+): Promise<void> {
+  const value = optionSemanticValue(option);
+  const label = normalizeScannerText(option.textContent);
+  const approval = [
+    context.approvedOption,
+    context.restorationOptionApproval,
+  ].find((candidate) => candidate?.valueDigest === digest);
+  const labelDigest = await semanticDigest(`untrusted-text-v1\0${label}`);
+  const rawLabel = normalizeScannerText(value);
+  const fieldLabel = context.target.descriptor.label.normalized_text ?? "";
+  const selfDescribing =
+    rawLabel !== "" &&
+    (label === rawLabel ||
+      (fieldLabel !== "" && label === `${fieldLabel} ${rawLabel}`));
+  if (
+    approval === undefined
+      ? !selfDescribing
+      : approval.labelDigest !== labelDigest || approval.disabled
+  )
+    throw new Error("widget driver invariant: approved option meaning changed");
+  if ((await optionValueDigest(value)) !== digest)
+    throw new Error("widget driver invariant: intended option changed");
+  await mutateCurrent(context, option, () => {
+    const matches = liveOptionElements(host).filter(
+      (candidate) => optionSemanticValue(candidate) === value,
+    );
+    if (
+      optionSemanticValue(option) !== value ||
+      normalizeScannerText(option.textContent) !== label ||
+      matches.length !== 1 ||
+      matches[0] !== option ||
+      optionDisabled(option)
+    )
+      throw new Error("widget driver invariant: intended option changed");
+    activateElement(option);
+  });
 }
 
 async function uniqueEnabledMatch(
@@ -208,24 +265,30 @@ async function observeCombobox(
 async function commitComboboxOption(
   host: HTMLInputElement,
   digest: string,
+  context: DriverContext,
 ): Promise<void> {
   if (host.getAttribute("aria-expanded") !== "true") {
     if (host.value !== "") {
       // A committed display value would act as filter text and narrow the
       // rendered inventory; clearing the text box is ordinary supported
       // widget behavior and re-opens the full list.
-      setNativeValue(host, "");
+      await mutateCurrent(context, host, () => {
+        setNativeValue(host, "");
+      });
     } else {
       // Open through the widget's own keyboard affordance; never type
       // filter text.
-      dispatchArrowDown(host);
+      await mutateCurrent(context, host, () => {
+        if (host.getAttribute("aria-expanded") !== "true")
+          dispatchArrowDown(host);
+      });
     }
   }
   const target = await pollForActionableMatch(host, digest);
   if (target === null) {
     throw new Error("combobox driver invariant: intended option vanished");
   }
-  activateElement(target);
+  await activateApprovedOption(context, host, target, digest);
 }
 
 export const ariaComboboxDriver: ControlDriver = {
@@ -262,10 +325,16 @@ export const ariaComboboxDriver: ControlDriver = {
       // value as its current filtered window. Probe the unfiltered inventory,
       // then restore the prior display and close without committing anything.
       const priorDisplay = host.value;
-      setNativeValue(host, "");
+      await mutateCurrent(context, host, () => {
+        setNativeValue(host, "");
+      });
       const expandedState = await matchState(host, digest);
-      setNativeValue(host, priorDisplay);
-      dispatchEscape(host);
+      await mutateCurrent(context, host, () => {
+        setNativeValue(host, priorDisplay);
+      });
+      await mutateCurrent(context, host, () => {
+        dispatchEscape(host);
+      });
       if (expandedState !== "UNIQUE_ENABLED") {
         return { ok: false };
       }
@@ -290,6 +359,7 @@ export const ariaComboboxDriver: ControlDriver = {
     await commitComboboxOption(
       requireComboboxHost(context),
       intendedDigest(context.intended),
+      context,
     );
   },
   observe(context: DriverContext): Promise<SemanticObservation> {
@@ -297,13 +367,27 @@ export const ariaComboboxDriver: ControlDriver = {
   },
   async applyUndo(context: DriverContext, payload: unknown): Promise<void> {
     if (payload === null) {
-      setNativeValue(requireComboboxHost(context), "");
+      const host = requireComboboxHost(context);
+      await mutateCurrent(context, host, () => {
+        setNativeValue(host, "");
+      });
       return;
     }
     if (typeof payload !== "string") {
       throw new Error("combobox driver invariant: undo payload malformed");
     }
-    await commitComboboxOption(requireComboboxHost(context), payload);
+    await commitComboboxOption(requireComboboxHost(context), payload, context);
+  },
+  captureObservationWitness(context: DriverContext): () => boolean {
+    const host = requireComboboxHost(context);
+    return () => {
+      const display = normalizeScannerText(host.value);
+      if (display === "") return true;
+      const matches = liveOptionElements(host).filter(
+        (option) => normalizeScannerText(option.textContent) === display,
+      );
+      return matches.length === 1 && optionMeaningUnambiguous(host, matches[0]);
+    };
   },
   acceptanceElements(context: DriverContext): readonly HTMLElement[] {
     const host = requireComboboxHost(context);
@@ -344,13 +428,19 @@ function scrollContainer(host: HTMLElement): HTMLElement {
   return host;
 }
 
-function scrollOptionIntoWindow(host: HTMLElement, option: HTMLElement): void {
+function scrollOptionIntoWindow(
+  host: HTMLElement,
+  option: HTMLElement,
+  context: DriverContext,
+): Promise<void> {
   const scroller = scrollContainer(host);
   if (scroller.scrollHeight <= scroller.clientHeight) {
-    return;
+    return Promise.resolve();
   }
   const offset = option.offsetTop - Math.floor(scroller.clientHeight / 2);
-  scroller.scrollTop = Math.max(0, Math.min(offset, scroller.scrollHeight));
+  return mutateCurrent(context, scroller, () => {
+    scroller.scrollTop = Math.max(0, Math.min(offset, scroller.scrollHeight));
+  });
 }
 
 const MAX_VIRTUAL_WINDOWS = 64;
@@ -359,6 +449,7 @@ const MAX_VIRTUAL_WINDOWS = 64;
 async function findWindowedOption(
   host: HTMLElement,
   digest: string,
+  context: DriverContext,
 ): Promise<HTMLElement | null> {
   const initial = await matchOptionElements(host, digest);
   const scroller = scrollContainer(host);
@@ -373,9 +464,11 @@ async function findWindowedOption(
   let winningTop: number | null = null;
   const semanticPositions = new Set<string>();
   for (let attempt = 0; attempt <= MAX_VIRTUAL_WINDOWS; attempt += 1) {
-    scroller.scrollTop = Math.round(
-      (maxScroll * attempt) / MAX_VIRTUAL_WINDOWS,
-    );
+    await mutateCurrent(context, scroller, () => {
+      scroller.scrollTop = Math.round(
+        (maxScroll * attempt) / MAX_VIRTUAL_WINDOWS,
+      );
+    });
     await delay(SETTLE_POLL_INTERVAL_MS);
     const matches = await matchOptionElements(host, digest);
     for (const match of matches) {
@@ -395,7 +488,10 @@ async function findWindowedOption(
   if (winningTop === null) {
     return null;
   }
-  scroller.scrollTop = winningTop;
+  const destination = winningTop;
+  await mutateCurrent(context, scroller, () => {
+    scroller.scrollTop = destination;
+  });
   await delay(SETTLE_POLL_INTERVAL_MS);
   return uniqueEnabledMatch(host, digest);
 }
@@ -403,14 +499,15 @@ async function findWindowedOption(
 async function commitListboxOption(
   host: HTMLElement,
   digest: string,
+  context: DriverContext,
 ): Promise<void> {
   const target =
     (await uniqueEnabledMatch(host, digest)) ??
-    (await findWindowedOption(host, digest));
+    (await findWindowedOption(host, digest, context));
   if (target === null) {
     throw new Error("listbox driver invariant: intended option vanished");
   }
-  scrollOptionIntoWindow(host, target);
+  await scrollOptionIntoWindow(host, target, context);
   // Confirm exact semantic identity again after the scroll before
   // committing; a re-rendered row that no longer carries the intended
   // semantics must not be clicked.
@@ -418,7 +515,7 @@ async function commitListboxOption(
   if (confirmed === null) {
     throw new Error("listbox driver invariant: option lost after scroll");
   }
-  activateElement(confirmed);
+  await activateApprovedOption(context, host, confirmed, digest);
 }
 
 export const scrollListboxDriver: ControlDriver = {
@@ -439,7 +536,7 @@ export const scrollListboxDriver: ControlDriver = {
   ): Promise<PreconditionOutcome> {
     const host = requireListboxHost(context);
     const digest = intendedDigest(context.intended);
-    if ((await findWindowedOption(host, digest)) === null) {
+    if ((await findWindowedOption(host, digest, context)) === null) {
       return { ok: false };
     }
     return {
@@ -460,6 +557,7 @@ export const scrollListboxDriver: ControlDriver = {
     await commitListboxOption(
       requireListboxHost(context),
       intendedDigest(context.intended),
+      context,
     );
   },
   async observe(context: DriverContext): Promise<SemanticObservation> {
@@ -474,13 +572,29 @@ export const scrollListboxDriver: ControlDriver = {
       if (clear === null) {
         throw new Error("listbox driver invariant: no clear affordance");
       }
-      activateElement(clear);
+      await mutateCurrent(context, clear, () => {
+        if (findClearControl(host) !== clear)
+          throw new Error("listbox driver invariant: clear control changed");
+        activateElement(clear);
+      });
       return;
     }
     if (typeof payload !== "string") {
       throw new Error("listbox driver invariant: undo payload malformed");
     }
-    await commitListboxOption(host, payload);
+    await commitListboxOption(host, payload, context);
+  },
+  captureObservationWitness(context: DriverContext): () => boolean {
+    const host = requireListboxHost(context);
+    return () => {
+      const selected = liveOptionElements(host).filter(
+        (option) => option.getAttribute("aria-selected") === "true",
+      );
+      return (
+        selected.length === 0 ||
+        (selected.length === 1 && optionMeaningUnambiguous(host, selected[0]))
+      );
+    };
   },
   acceptanceElements(context: DriverContext): readonly HTMLElement[] {
     return [requireListboxHost(context)];
@@ -522,9 +636,12 @@ async function observePrompt(host: HTMLElement): Promise<SemanticObservation> {
 async function commitPromptOption(
   host: HTMLElement,
   digest: string,
+  context: DriverContext,
 ): Promise<void> {
   if (host.getAttribute("aria-expanded") !== "true") {
-    activateElement(host);
+    await mutateCurrent(context, host, () => {
+      if (host.getAttribute("aria-expanded") !== "true") activateElement(host);
+    });
   }
   // Workday-like prompts reveal their popup after a bounded async delay:
   // poll for the exact intended option to become actionable, never for
@@ -533,7 +650,7 @@ async function commitPromptOption(
   if (option === null) {
     throw new Error("prompt driver invariant: intended option never mounted");
   }
-  activateElement(option);
+  await activateApprovedOption(context, host, option, digest);
 }
 
 export const workdayPromptResearchDriver: ControlDriver = {
@@ -583,6 +700,7 @@ export const workdayPromptResearchDriver: ControlDriver = {
     await commitPromptOption(
       requirePromptHost(context),
       intendedDigest(context.intended),
+      context,
     );
   },
   observe(context: DriverContext): Promise<SemanticObservation> {
@@ -595,13 +713,26 @@ export const workdayPromptResearchDriver: ControlDriver = {
       if (clear === null) {
         throw new Error("prompt driver invariant: no clear affordance");
       }
-      activateElement(clear);
+      await mutateCurrent(context, clear, () => {
+        if (findClearControl(host) !== clear)
+          throw new Error("prompt driver invariant: clear control changed");
+        activateElement(clear);
+      });
       return;
     }
     if (typeof payload !== "string") {
       throw new Error("prompt driver invariant: undo payload malformed");
     }
-    await commitPromptOption(host, payload);
+    await commitPromptOption(host, payload, context);
+  },
+  captureObservationWitness(context: DriverContext): () => boolean {
+    const host = requirePromptHost(context);
+    return () => {
+      const id = host.getAttribute("aria-activedescendant");
+      if (id === null || id === "") return true;
+      const selected = host.ownerDocument.getElementById(id);
+      return optionMeaningUnambiguous(host, selected ?? undefined);
+    };
   },
   acceptanceElements(context: DriverContext): readonly HTMLElement[] {
     return [requirePromptHost(context)];

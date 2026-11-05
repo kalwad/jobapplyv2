@@ -1,0 +1,451 @@
+{
+  "archive_path": "proof.tar.gz",
+  "archive_sha256": "0584744b75a3940f88d35fa842fd9386c66b9a9a8d12c5de278d957d0deb8c58",
+  "archive_bytes": 6867546,
+  "regular_members": 88,
+  "files": [
+    {
+      "path": "audit-preparation/PLAN.md",
+      "bytes": 1495,
+      "sha256": "c451e2273fee66283b6b2b740ab0b1b23f908cc297ea6863b490b4b8d8f2e566"
+    },
+    {
+      "path": "audit-preparation/audit-final.mjs",
+      "bytes": 34329,
+      "sha256": "a82c90c27b405da995c78627f14f2fb2c645c1e2cd40b461800fa0e62c1fb930"
+    },
+    {
+      "path": "audit-preparation/baseline-fc-corrected-audit-final-v2.mjs",
+      "bytes": 30659,
+      "sha256": "48b52c5f5db0a81c531d803aa15eea9844a392de8f420f373ebf2956b32dca7a"
+    },
+    {
+      "path": "audit-preparation/frozen-wrapper-source.py",
+      "bytes": 2756,
+      "sha256": "ae42e5bf466dff2a1df91deec4747fe6af47e73ee44ad49dca3e53453b67e72d"
+    },
+    {
+      "path": "audit-preparation/history/revision-1/PLAN.md",
+      "bytes": 1495,
+      "sha256": "c451e2273fee66283b6b2b740ab0b1b23f908cc297ea6863b490b4b8d8f2e566"
+    },
+    {
+      "path": "audit-preparation/history/revision-1/audit-final.mjs",
+      "bytes": 34329,
+      "sha256": "a82c90c27b405da995c78627f14f2fb2c645c1e2cd40b461800fa0e62c1fb930"
+    },
+    {
+      "path": "audit-preparation/history/revision-1/plan.json",
+      "bytes": 3491,
+      "sha256": "63ef62bff13e8fed0ffc58f2c1ed03176e22835ecd34ba2f44ee3f16b82b3677"
+    },
+    {
+      "path": "audit-preparation/history/revision-1/preparation-manifest.json",
+      "bytes": 1060,
+      "sha256": "3eb4f018c66c930267a59d3c9e0502e83702219643a47c8999e6b58572b38a24"
+    },
+    {
+      "path": "audit-preparation/history/revision-1/source-preparation.diff",
+      "bytes": 17009,
+      "sha256": "ba55806252a6e21ba610c83d01cd8ae146a14731e3134594852d02fab612d314"
+    },
+    {
+      "path": "audit-preparation/plan.json",
+      "bytes": 3650,
+      "sha256": "e5d157eb938694db21579900999460de1e3f5b9f7bcf5562acb61d5662bafbb2"
+    },
+    {
+      "path": "audit-preparation/preparation-manifest.json",
+      "bytes": 2387,
+      "sha256": "2927b06bacc54681cb97114122da176fe2eb237a64a145cf84aa22e88c23aa83"
+    },
+    {
+      "path": "audit-preparation/source-inspection-note.json",
+      "bytes": 640,
+      "sha256": "6e557c324bab82d09dabaa044ab11304b5c485f35ddfabdbf04f879dd42c5f9e"
+    },
+    {
+      "path": "audit-preparation/source-peer-review.md",
+      "bytes": 4171,
+      "sha256": "7285e81f51290f394470030b6f694fae06cdf546d51f5c65fbd3c50ddb3edc9d"
+    },
+    {
+      "path": "audit-preparation/source-preparation.diff",
+      "bytes": 17009,
+      "sha256": "ba55806252a6e21ba610c83d01cd8ae146a14731e3134594852d02fab612d314"
+    },
+    {
+      "path": "audit-preparation/source-review-status.json",
+      "bytes": 577,
+      "sha256": "f18441741fc0457ce2c4ed4439faf22db60d7e1d80863fa4afe1092f2f6db2ba"
+    },
+    {
+      "path": "frozen-full/after.json",
+      "bytes": 289816,
+      "sha256": "35824cecc834d0f1d07a2273d542810ab9527e8456791e069c81bac15c9d6100"
+    },
+    {
+      "path": "frozen-full/aggregate.log",
+      "bytes": 604581,
+      "sha256": "5260a9056fc95e00fae9d5b66fe980f451b306ae98da0fbfae04ae8ba6bd04af"
+    },
+    {
+      "path": "frozen-full/before.json",
+      "bytes": 289816,
+      "sha256": "64d3fb55b002ec58417c804cdb0d71984f2b6b5f5603218ea25c90b1d5559ce7"
+    },
+    {
+      "path": "frozen-full/command.json",
+      "bytes": 534,
+      "sha256": "314086c0b46bb9db0aed0e04eff642a08325a38e9f3318323ed0c86b88b185b7"
+    },
+    {
+      "path": "frozen-full/completion.json",
+      "bytes": 169,
+      "sha256": "ffcf7b59e83f32b431668daecc81531e11da717b8700b25576d7dfd46656624c"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/afterimages/docs/KNOWN_ISSUES.md",
+      "bytes": 263448,
+      "sha256": "5594c584071748604930bc4649388b80259e29d567eb27026db1daf6618ca509"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/afterimages/docs/PROJECT_STATUS.md",
+      "bytes": 42707,
+      "sha256": "e1a35a80ef54276202ebd8a61b80a4fbc87cf634d55f40b5fc9a4674d10ff147"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/afterimages/docs/TEST_EVIDENCE.md",
+      "bytes": 895388,
+      "sha256": "6b4a678c4d4de1f4e70d1cf145d0a1a8d9a6f56dc4e8eaa9fdc5c150325b343c"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "bytes": 28384,
+      "sha256": "527ca5946bbc53743782740d6cde027a5a262f0f9c434a45cc8e794a56713dc1"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/afterimages/scripts/tests/test_validate_status.py",
+      "bytes": 107627,
+      "sha256": "f10905b0a1a4d4fbdfabc87388d8024fdb9e0f6a7132fad40b9331c90b466930"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/finalize-proposal.py",
+      "bytes": 9780,
+      "sha256": "de120d60540e88295892d67312b577c5519982bb67b2de82e57377d9d9c37d97"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/governance-final.patch",
+      "bytes": 38696,
+      "sha256": "34a2a6b3035d120d91b3098f12f12a3908a1e6f978d4292c57a7ae4dfbd03828"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/governance-pending.patch",
+      "bytes": 37963,
+      "sha256": "c8f7b20d25fe556706f84070c358f2c23a517bba035fd2eccfa0f000ac13213c"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/history/pending-001/afterimages/docs/KNOWN_ISSUES.md",
+      "bytes": 263119,
+      "sha256": "7631c9fe143a7cec72849f0419911b4a03f26842117f89ee431d64ffc93b8a28"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/history/pending-001/afterimages/docs/PROJECT_STATUS.md",
+      "bytes": 42581,
+      "sha256": "d48684a58c966adc652d2c090f549872ececc8f0004123c5e9a683e0bf2fe4a3"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/history/pending-001/afterimages/docs/TEST_EVIDENCE.md",
+      "bytes": 893657,
+      "sha256": "da3e75aa962ee28719c1f4f1fb947cc559d277dfd237b5786299f5a4665853a6"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/history/pending-001/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "bytes": 27949,
+      "sha256": "553efa22b0393521da45fafec7e95f7203af58c579f3bdb11d509d5957673454"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/history/pending-001/afterimages/scripts/tests/test_validate_status.py",
+      "bytes": 107627,
+      "sha256": "f10905b0a1a4d4fbdfabc87388d8024fdb9e0f6a7132fad40b9331c90b466930"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/history/pending-001/governance-pending.patch",
+      "bytes": 36073,
+      "sha256": "53f59a9947bde9e7abe3c734137178625f16495e6e063438d0da7127b96b840a"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/history/pending-001/proposal-pending-manifest.json",
+      "bytes": 2117,
+      "sha256": "8b2689ed128d160cfa4796734618aaea681ad8156e0ff90007a9d2c711c96559"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/history/pending-002/afterimages/docs/KNOWN_ISSUES.md",
+      "bytes": 263387,
+      "sha256": "ebc1357b09e6b6bff4fc309cf15711031d127f4eda1d13c4aea2b01e56400bfe"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/history/pending-002/afterimages/docs/PROJECT_STATUS.md",
+      "bytes": 42627,
+      "sha256": "f7f8a3cfcba67773982f2e7bbd9f12beb850a3e779f895abc5f0f91426e8aaf1"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/history/pending-002/afterimages/docs/TEST_EVIDENCE.md",
+      "bytes": 895022,
+      "sha256": "abbfd48cb9ab413b85fca4dde118bc4181506289677b5cd90352c9e23d55824a"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/history/pending-002/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "bytes": 28158,
+      "sha256": "41ee83282e64e2b790d414f2bf21dfe4fec65ef6e2fb9ededf071d5ed9563332"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/history/pending-002/afterimages/scripts/tests/test_validate_status.py",
+      "bytes": 107627,
+      "sha256": "f10905b0a1a4d4fbdfabc87388d8024fdb9e0f6a7132fad40b9331c90b466930"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/history/pending-002/governance-pending.patch",
+      "bytes": 37963,
+      "sha256": "c8f7b20d25fe556706f84070c358f2c23a517bba035fd2eccfa0f000ac13213c"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/history/pending-002/proposal-pending-manifest.json",
+      "bytes": 2591,
+      "sha256": "f71c7f3a2ff029b8dbc7fd88db80843b4f5656293dd81183601f1929a89e3488"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/manifest-final-fill.diff",
+      "bytes": 4247,
+      "sha256": "d894a781c3cd295a64239e30e4acc7d6f1ae32d205ab7e9c51ceedd4d1aa25cb"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/preimages/docs/KNOWN_ISSUES.md",
+      "bytes": 259708,
+      "sha256": "f34fdff2910a8f478568589c70bb029d21f25a9b425940c2d54b7d9c4a2ea2cf"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/preimages/docs/PROJECT_STATUS.md",
+      "bytes": 42259,
+      "sha256": "aca150d8ab8bc89f3a78525a863cf9d9d09fa35265c31e778f80498191ebbed0"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/preimages/docs/TEST_EVIDENCE.md",
+      "bytes": 887855,
+      "sha256": "fb49d2b11726b027a141bf0abd09853be9a4628ad564a7605ece5afb33d96fd9"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/preimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "bytes": 25111,
+      "sha256": "dd4c0afb4cfb31cec4b216d64f120a7f04637a9b5bb0dd4865f47cc564c88111"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/preimages/scripts/tests/test_validate_status.py",
+      "bytes": 107434,
+      "sha256": "31c2f4a1f0ac3e557427de0441d8465b8bf88c09f1093cf0a19da439105d736a"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/proof-binding-checks.json",
+      "bytes": 2878,
+      "sha256": "59ec5392383e74ac0fee8de43e66e6d890daeb7b16eaedebbbab2d66a57262e2"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/proposal-final-manifest.json",
+      "bytes": 2503,
+      "sha256": "e46b92c3388c0038f132096f7dcd37b2a5451e0c82973650adbf25dc97e57328"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/proposal-pending-manifest.json",
+      "bytes": 2591,
+      "sha256": "f71c7f3a2ff029b8dbc7fd88db80843b4f5656293dd81183601f1929a89e3488"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/prose-final-fill.diff",
+      "bytes": 17265,
+      "sha256": "865861b469855f7c1fe0373af44b7f6caaec9b00f51146971a32003007346f11"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/regenerate-pending-proposal.py",
+      "bytes": 2963,
+      "sha256": "d2e8754fc6b7a74c58b3da190bdf089db23cf729fc15a12f4c60504b137d03ed"
+    },
+    {
+      "path": "frozen-full/prefreeze/governance-proposal-and-history/revise-pending-proposal.py",
+      "bytes": 13228,
+      "sha256": "cc87e76431e7f8676a0665de54a997d429a3fd51a39e8f83422e2d6a0edf70a6"
+    },
+    {
+      "path": "frozen-full/prefreeze/independent-integration-review/findings.json",
+      "bytes": 10401,
+      "sha256": "0a0e48617d8c790986ca6912be9d53b71fc30af79f14a2866da048e747aaece4"
+    },
+    {
+      "path": "frozen-full/prefreeze/independent-integration-review/initial-archive-ordering-assumption.json",
+      "bytes": 10142,
+      "sha256": "db3232859af918fe4327a7e1b6b1b138d732c11d6f14b6ea45ccd31b8c776e1d"
+    },
+    {
+      "path": "frozen-full/prefreeze/independent-integration-review/report.md",
+      "bytes": 2587,
+      "sha256": "f668b6835c85e9f65efbeb642160a25824dd39b3ba31b8b24b22e25ffb719469"
+    },
+    {
+      "path": "frozen-full/prefreeze/japp-w14-concurrency-prefreeze-archives.json",
+      "bytes": 6915,
+      "sha256": "51c074c456e4a82221dda7520ac4b5ba0c53c94246cacae2b8d7c5b861fe279c"
+    },
+    {
+      "path": "frozen-full/prefreeze/japp-w14-concurrency-prefreeze-ruff-format.log",
+      "bytes": 25,
+      "sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50"
+    },
+    {
+      "path": "frozen-full/prefreeze/japp-w14-concurrency-prefreeze-ruff.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "frozen-full/prefreeze/japp-w14-concurrency-prefreeze-status.log",
+      "bytes": 3563,
+      "sha256": "84b501d18c32b2526bf9e2b72d40d08aa9d87edda83d25ca2cc8bc69a445ec55"
+    },
+    {
+      "path": "frozen-full/prefreeze/japp-w14-concurrency-prefreeze-traceability.log",
+      "bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "path": "frozen-full/prefreeze/japp-w14-concurrency-prefreeze-whitespace.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "frozen-full/run-frozen.py",
+      "bytes": 2756,
+      "sha256": "ae42e5bf466dff2a1df91deec4747fe6af47e73ee44ad49dca3e53453b67e72d"
+    },
+    {
+      "path": "frozen-full/w14/assessment.json",
+      "bytes": 54498,
+      "sha256": "19045d65401c547725f1c304eb77b0ab4896cc59868786c4869c3c749f2c1963"
+    },
+    {
+      "path": "frozen-full/w14/canonical-autofill-run-manifest.json",
+      "bytes": 2528,
+      "sha256": "52e45f3f2ac6e797fef3a0f6bf53393cef416ef0d096944205e1dd1535c4cc69"
+    },
+    {
+      "path": "frozen-full/w14/canonical-execution.json",
+      "bytes": 2900882,
+      "sha256": "2c6fbb68c6d412d68e4c0f76c94ef130a78b4e9fd58a8e0f1e749cd40c718184"
+    },
+    {
+      "path": "frozen-full/w14/canonical-report-manifest.json",
+      "bytes": 624,
+      "sha256": "83b14c963f7e0e14d5c66a0f197f0f88b1776339f7e18fd5f453a68865ff7aa1"
+    },
+    {
+      "path": "frozen-full/w14/canonical-report.html",
+      "bytes": 297600,
+      "sha256": "38cc01cd4780c61b17134dcb011dec814ec6ce042a64b2f6a213d693fbedd0dc"
+    },
+    {
+      "path": "frozen-full/w14/canonical-report.json",
+      "bytes": 1997585,
+      "sha256": "18868c23a273dd6de771ea6adc7135758640a0db54ff48d91b0757ed72e94eaa"
+    },
+    {
+      "path": "frozen-full/w14/canonical-report.md",
+      "bytes": 181702,
+      "sha256": "33b975636dea0470c43d225bd8951c582d4b5cab69f1b907e0c6b0273315b0a9"
+    },
+    {
+      "path": "frozen-full/w14/development-run.json.gz",
+      "bytes": 4178268,
+      "sha256": "c644fb0ccf1ee16604f9d29a875551040ed9cf5d093b8ebb056466a45872323b"
+    },
+    {
+      "path": "frozen-full/w14/workday-en-us-contact.png",
+      "bytes": 108547,
+      "sha256": "8cbae9fe1ecf8469db1f01ec2a94992f0dd116b0dbd3b1ae841e34c2ea0c730b"
+    },
+    {
+      "path": "independent-audit/attempt-1/audit-final.mjs",
+      "bytes": 34329,
+      "sha256": "a82c90c27b405da995c78627f14f2fb2c645c1e2cd40b461800fa0e62c1fb930"
+    },
+    {
+      "path": "independent-audit/attempt-1/command.json",
+      "bytes": 693,
+      "sha256": "3832d7547e91eada80e0847197f069ef2bc939b33e82efe2710f889cde01659f"
+    },
+    {
+      "path": "independent-audit/attempt-1/completion.json",
+      "bytes": 923,
+      "sha256": "ac705057d25ae45b0844073e1493ea0fdd4cef694b8b0bf6031af863c532b390"
+    },
+    {
+      "path": "independent-audit/attempt-1/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "independent-audit/attempt-1/stdout.json",
+      "bytes": 34511,
+      "sha256": "4c50004f1141ad3cd38207c303832b3b4727b8c7457863bdd9d343a915b97733"
+    },
+    {
+      "path": "independent-audit/audit-member-manifest.json",
+      "bytes": 2245,
+      "sha256": "c991cf72894e62b96b88d11664d330dd9c2268d805caecd3a14329aa3d32da7f"
+    },
+    {
+      "path": "independent-audit/findings.json",
+      "bytes": 19991,
+      "sha256": "e82fe0baf72d7bfdab18e10588ff78e61eec343ce6880e5cc5cc7fe8489eba13"
+    },
+    {
+      "path": "independent-audit/immutable-git-closure.json",
+      "bytes": 557934,
+      "sha256": "34ca3401c62e2daa7b8a79da891af312be49cfa760c101f67ed91bca5d75d5dc"
+    },
+    {
+      "path": "independent-audit/immutable-ls-tree.raw.bin",
+      "bytes": 167534,
+      "sha256": "65861fb110f4f7ca17d68ca520bbf01917f397aaf91c864f09cc774a98008478"
+    },
+    {
+      "path": "independent-audit/input-inventory.json",
+      "bytes": 11785,
+      "sha256": "6814050e8914dd6265161bf983b72caf08dba8e6420f815d5fd35cc3cac219df"
+    },
+    {
+      "path": "independent-audit/native128.json",
+      "bytes": 59777,
+      "sha256": "bc8c1c325198d8d9d11c86b4c56506ec5a1629183dafc1367be53b9ec0f9f8f7"
+    },
+    {
+      "path": "independent-audit/report.md",
+      "bytes": 3910,
+      "sha256": "73a01689cbe6d835ed83bb535c0e43b06a99a828b834d6c7e9a05bbddd94d4c5"
+    },
+    {
+      "path": "independent-audit/summary.json",
+      "bytes": 7577,
+      "sha256": "cf104cff4a323eaac33b1a17bf3ce54048f4419e648bcc0484e2c03ba6d24f1a"
+    },
+    {
+      "path": "packaging/retention-builder.py",
+      "bytes": 7789,
+      "sha256": "f6b098fbe560ef627fd2c8ecba024ba281e554b9e3c35cabd8d33692ae8b89b6"
+    },
+    {
+      "path": "retained-members.json",
+      "bytes": 18502,
+      "sha256": "af298611e14ab9b0f9f129e1c982b45d7fcf67af27934745d7f8aaac5b7f99f1"
+    }
+  ],
+  "embedded_inventory": "retained-members.json",
+  "scope": "Historical closed local full pnpm verify at clean730c641a9855fc3e95620636314a28d0eee8439a/tree7402873a081286dbddce5b93ed4db997fea4f24d; exit0/all19ACTIVE PASS, ended2026-10-16T23:41:30Z, immutable1504tracked-file closure. Preserve all58raw frozen outputs including prefreeze history, original command/wrapper/source flags/snapshots, raw benchmark/contact rows/reports and sealed79check independent audit/checker/source-preparation history. Native12820 nearest-rank(rank19)p95=1447.4198340000003ms is the existing zero-settle lower-bound scope; separate contact200p95=873.2555000000284ms/90preserved values does not erase90canonical incorrect abstentions. Earlier frozenfc failure remains historical, unchanged. No R9 actor outcome is part of this full proof; public scored/Simplify/native-platform aggregate/formalW15/ownerGateA remain separate and no blanket gate approval or threshold waiver is claimed.",
+  "authority": "NONE"
+}

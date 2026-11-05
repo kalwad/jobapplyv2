@@ -1,0 +1,5 @@
+packages/contracts/test/contract/breaking.test.ts 81ms
+packages/contracts/test/generated/typescript-models.test.ts 8ms (unchanged)
+packages/contracts/test/generated/generator.test.ts 21ms (unchanged)
+packages/contracts/README.md 57ms (unchanged)
+scripts/python-test-inventory.v1.json 11ms (unchanged)

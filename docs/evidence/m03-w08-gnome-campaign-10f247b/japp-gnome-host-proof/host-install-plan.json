@@ -1,0 +1,27 @@
+{
+  "schema": "japp-host-install-plan-v1",
+  "newly_installed": [
+    "genisoimage=9:1.1.11-3.5",
+    "liburing2=2.5-1build1",
+    "qemu-utils=1:8.2.2+ds-0ubuntu1.18",
+    "cloud-image-utils=0.33-1",
+    "ipxe-qemu=1.21.1+git-20220113.fbbdc3926-0ubuntu2",
+    "libbrlapi0.8=6.6-4ubuntu5",
+    "libpcsclite1=2.0.3-1build1",
+    "libcacard0=1:2.8.0-3build4",
+    "libdaxctl1=77-2ubuntu2",
+    "libfdt1=1.7.0-2build1",
+    "libndctl6=77-2ubuntu2",
+    "libpmem1=1.13.1-1.1ubuntu2",
+    "librdmacm1t64=50.0-2ubuntu0.2",
+    "libusbredirparser1t64=0.13.0-2.1build1",
+    "qemu-system-common=1:8.2.2+ds-0ubuntu1.18",
+    "qemu-system-data=1:8.2.2+ds-0ubuntu1.18",
+    "seabios=1.16.3-2",
+    "qemu-system-x86=1:8.2.2+ds-0ubuntu1.18",
+    "ubuntu-cloudimage-keyring=2023.11.28.1"
+  ],
+  "upgraded": 0,
+  "removed": 0,
+  "scope": "SIMULATED_LOCAL_ONLY_APT_AGAINST_ACTUAL_RUNNER_DPKG_STATUS"
+}

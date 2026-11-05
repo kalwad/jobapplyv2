@@ -1,0 +1,10 @@
+{
+  "archive": {
+    "bytes": 340925,
+    "sha256": "e87cc17e9bf8bafab6e2261dbbc6e6220abded75db9d1e2225c970069ff1ca1b",
+    "safe_regular_members": 37
+  },
+  "review_sha256": "cab6b55580de33d7b556c8652d08f14266a11d2d05113f4b7a5e6f79e5a6ae8d",
+  "physical_app_retained_outside_git": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/mac-package-current/launch space \u5e94\u7528/Desktop App.app",
+  "scope": "CLEAR_SCOPED_ACTUAL_OBSERVATIONS_NOT_PACKAGE_ACCEPTANCE"
+}

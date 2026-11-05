@@ -1,0 +1,75 @@
+runner python 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)] SystemRoot C:\Windows
+== py-environ-empty exit=0
+stdout: []
+stderr: 
+== py-socket-empty exit=1
+stdout: 
+stderr: Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\socket.py", line 233, in __init__
+
+    _socket.socket.__init__(self, family, type, proto, fileno)
+
+OSError: [WinError 10106] The requested service provider could not be loaded or initialized
+== py-socket-systemroot exit=0
+stdout: ok
+stderr: 
+== py-asyncio-empty exit=1
+stdout: 
+stderr: Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\__init__.py", line 43, in <module>
+
+    from .windows_events import *
+
+  File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\windows_events.py", line 8, in <module>
+
+    import _overlapped
+
+OSError: [WinError 10106] The requested service provider could not be loaded or initialized
+== service-empty exit=1 ack_after=2.25s
+ack: None
+stderr: Traceback (most recent call last):
+
+  File "service_entry.py", line 1, in <module>
+
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+
+  File "pyimod02_importers.py", line 457, in exec_module
+
+  File "orchestrator\runner.py", line 5, in <module>
+
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+
+  File "pyimod02_importers.py", line 457, in exec_module
+
+  File "asyncio\__init__.py", line 43, in <module>
+
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+
+  File "pyimod02_importers.py", line 457, in exec_module
+
+  File "asyncio\windows_events.py", line 8, in <module>
+
+OSError: [WinError 10106] The requested service provider could not be loaded or initialized
+
+[PYI-3416:ERROR] Failed to execute script 'service_entry' due to unhandled exception!
+== service-systemroot exit=0 ack_after=0.97s
+ack: {"protocol":"JAPP_SERVICE_STATUS_V1","schema_version":"1.0.0","status":"READY","bind_host":"127.0.0.1","bind_port":59240,"instance_id":"svc_00000000000000000000000001","generation":1}
+stderr: (empty)

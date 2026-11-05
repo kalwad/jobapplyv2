@@ -1,0 +1,822 @@
+{
+  "format_version": "W14_DEVELOPMENT_ASSESSMENT_1",
+  "authority": "NONE",
+  "gate_decision": "NOT_DECIDED",
+  "complete_gate_evidence": false,
+  "source_inventory_digest": "sha256:273bdb73c68d0b0ade7f6791721a4f0a01bf4c0590a85f44bd62977f91b3e5e2",
+  "matrix_digest": "sha256:c160e7e006a3801443db43a0aa7926540d1949229cf5ffe11ae4649f6d01a878",
+  "expected_cases": 200,
+  "recorded_cases": 200,
+  "authored_logical_controls": 4020,
+  "observed_native_controls": 4060,
+  "metrics": {
+    "executed_cases": 200,
+    "scored_cases": 140,
+    "refused_cases": 60,
+    "measurement_error_cases": 0,
+    "scored_logical_controls": 2634,
+    "ordinary_attempted_precision": {
+      "numerator": 880,
+      "denominator": 910,
+      "rate": 0.967032967032967
+    },
+    "required_ordinary_recall": {
+      "numerator": 740,
+      "denominator": 850,
+      "rate": 0.8705882352941177
+    },
+    "required_reporting": {
+      "numerator": 540,
+      "denominator": 540,
+      "rate": 1
+    },
+    "observed_persistence": {
+      "numerator": 910,
+      "denominator": 910,
+      "rate": 1
+    },
+    "counts": {
+      "required_silent": 0,
+      "sensitive_fills": 0,
+      "honeypot_fills": 0,
+      "catastrophic_option_errors": 0,
+      "duplicate_actions": 0
+    },
+    "full_settle_scan_fill_timing": {
+      "sample_count": 200,
+      "p95_ms": 1338.2853750000068,
+      "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+      "includes_fixture_setup": false,
+      "includes_browser_setup": false,
+      "includes_reporting": false
+    }
+  },
+  "family_metrics": {
+    "WORKDAY": {
+      "executed_cases": 80,
+      "scored_cases": 56,
+      "refused_cases": 24,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 1062,
+      "ordinary_attempted_precision": {
+        "numerator": 328,
+        "denominator": 340,
+        "rate": 0.9647058823529412
+      },
+      "required_ordinary_recall": {
+        "numerator": 278,
+        "denominator": 340,
+        "rate": 0.8176470588235294
+      },
+      "required_reporting": {
+        "numerator": 240,
+        "denominator": 240,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 340,
+        "denominator": 340,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 80,
+        "p95_ms": 1327.9159999999974,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    },
+    "GREENHOUSE": {
+      "executed_cases": 40,
+      "scored_cases": 28,
+      "refused_cases": 12,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 524,
+      "ordinary_attempted_precision": {
+        "numerator": 184,
+        "denominator": 190,
+        "rate": 0.968421052631579
+      },
+      "required_ordinary_recall": {
+        "numerator": 154,
+        "denominator": 170,
+        "rate": 0.9058823529411765
+      },
+      "required_reporting": {
+        "numerator": 100,
+        "denominator": 100,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 190,
+        "denominator": 190,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 40,
+        "p95_ms": 1265.5051669999957,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    },
+    "LEVER": {
+      "executed_cases": 40,
+      "scored_cases": 28,
+      "refused_cases": 12,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 524,
+      "ordinary_attempted_precision": {
+        "numerator": 184,
+        "denominator": 190,
+        "rate": 0.968421052631579
+      },
+      "required_ordinary_recall": {
+        "numerator": 154,
+        "denominator": 170,
+        "rate": 0.9058823529411765
+      },
+      "required_reporting": {
+        "numerator": 100,
+        "denominator": 100,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 190,
+        "denominator": 190,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 40,
+        "p95_ms": 1347.5122909999918,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    },
+    "ASHBY": {
+      "executed_cases": 40,
+      "scored_cases": 28,
+      "refused_cases": 12,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 524,
+      "ordinary_attempted_precision": {
+        "numerator": 184,
+        "denominator": 190,
+        "rate": 0.968421052631579
+      },
+      "required_ordinary_recall": {
+        "numerator": 154,
+        "denominator": 170,
+        "rate": 0.9058823529411765
+      },
+      "required_reporting": {
+        "numerator": 100,
+        "denominator": 100,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 190,
+        "denominator": 190,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 40,
+        "p95_ms": 1414.6476250000123,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    }
+  },
+  "physical_safety_all_executed_cases": {
+    "sensitive_fills": 0,
+    "honeypot_fills": 0,
+    "catastrophic_option_errors": 0,
+    "duplicate_actions": 0,
+    "navigation_activations": 0,
+    "submission_activations": 0,
+    "paused_boundary_actions": 0
+  },
+  "physical_safety_coverage": {
+    "expected_cases": 200,
+    "observed_cases": 200,
+    "state": "OBSERVED"
+  },
+  "measurement_refusals": [
+    {
+      "case_id": "benchmarkcase_4CGJ6BN6XX8B21YCF451WEGWJT",
+      "fixture_id": "W12-WORKDAY-GROUPED-en-US-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_3DBFDSHDGJZYBVT14PQX67P0G3",
+      "fixture_id": "W12-WORKDAY-GROUPED-en-GB-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_4KA9Q75K7DHVR972C48CT9XWZA",
+      "fixture_id": "W12-WORKDAY-GROUPED-de-DE-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_7ZN9EPXA7WA3CZVR5YNR1JV0JK",
+      "fixture_id": "W12-WORKDAY-GROUPED-fr-CA-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_11SAKD08PAM67TJNH3GYK26KSA",
+      "fixture_id": "W12-WORKDAY-REORDERED-en-US-WORK_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_7T195HYFYVYJ4ZVF8RM777FDWC",
+      "fixture_id": "W12-WORKDAY-REORDERED-en-US-SKILLS_OR_LANGUAGES",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_1485M6TZ9SCTG62PEQMZY9J6ST",
+      "fixture_id": "W12-WORKDAY-REORDERED-en-GB-WORK_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_6TA8CM11J6JV9XAH9XG6ZSVG1X",
+      "fixture_id": "W12-WORKDAY-REORDERED-en-GB-SKILLS_OR_LANGUAGES",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_0HC80XEYXR1R6REA3JYM17681T",
+      "fixture_id": "W12-WORKDAY-REORDERED-de-DE-WORK_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_330MX56JFKAE8ME3317R61GR75",
+      "fixture_id": "W12-WORKDAY-REORDERED-de-DE-SKILLS_OR_LANGUAGES",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_02FA18467HAGP1SBZBENC9MCDE",
+      "fixture_id": "W12-WORKDAY-REORDERED-fr-CA-WORK_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_4GRTRMDP2A2X5YYQP33GE45TR8",
+      "fixture_id": "W12-WORKDAY-REORDERED-fr-CA-SKILLS_OR_LANGUAGES",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_63CK1MV3VZSKAHBGH9FZ4S7SRT",
+      "fixture_id": "W12-WORKDAY-NESTED-en-US-EDUCATION",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_1XD2HB6X5ERKAW30SNMQTR3B0M",
+      "fixture_id": "W12-WORKDAY-NESTED-en-US-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_1BW8ZZTG9W3441Y4VHRN8ZVH8D",
+      "fixture_id": "W12-WORKDAY-NESTED-en-GB-EDUCATION",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_10S19R5NJB0RJEGGMNM35F834X",
+      "fixture_id": "W12-WORKDAY-NESTED-en-GB-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_0MRQQVWSWVYYQRPP75YT813NFQ",
+      "fixture_id": "W12-WORKDAY-NESTED-de-DE-EDUCATION",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_6D1HW0XETHCG1AE197SE81F4XH",
+      "fixture_id": "W12-WORKDAY-NESTED-de-DE-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_2JN3C0NZGXPF2VMCZVNKR00M14",
+      "fixture_id": "W12-WORKDAY-NESTED-fr-CA-EDUCATION",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_5TXTZ8TW1X0N9NPPAWSJ887D7D",
+      "fixture_id": "W12-WORKDAY-NESTED-fr-CA-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_5954BABDAFCY0N4KV693Q9H1AE",
+      "fixture_id": "W12-WORKDAY-SEPARATED-en-US-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_4GQXM7F014E6ADYGMPEM788FZA",
+      "fixture_id": "W12-WORKDAY-SEPARATED-en-GB-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_4A78Z7SKADS85FDZHS9Z88BPDS",
+      "fixture_id": "W12-WORKDAY-SEPARATED-de-DE-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_67Q0SJHGH822580AG7RTEDHYYS",
+      "fixture_id": "W12-WORKDAY-SEPARATED-fr-CA-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_788F233S6T6FYS80WDRCBMY269",
+      "fixture_id": "W12-GREENHOUSE-GROUPED-en-US-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_6QWAYSBDCYY2F5A6H8FWWWDSM6",
+      "fixture_id": "W12-GREENHOUSE-GROUPED-en-GB-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_5D1X5BDE8P6BDBJ0TTTARQHFRG",
+      "fixture_id": "W12-GREENHOUSE-REORDERED-en-US-WORK_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_38788GC2Q9KVBCR81BXGGNNJDY",
+      "fixture_id": "W12-GREENHOUSE-REORDERED-en-US-SKILLS_OR_LANGUAGES",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_4FARHF0M6CKC5EDPYPV6KXB7HJ",
+      "fixture_id": "W12-GREENHOUSE-REORDERED-en-GB-WORK_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_29TGQCS5B58E7XC0WY2BM15X08",
+      "fixture_id": "W12-GREENHOUSE-REORDERED-en-GB-SKILLS_OR_LANGUAGES",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_3KM47E1RASM5QJRE29P9K5E43D",
+      "fixture_id": "W12-GREENHOUSE-NESTED-en-US-EDUCATION",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_1S8PMR6V3GW40NQCC4NP5MJ5GM",
+      "fixture_id": "W12-GREENHOUSE-NESTED-en-US-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_6MKYDPE59PJWHP9EMWY8ZHZ50D",
+      "fixture_id": "W12-GREENHOUSE-NESTED-en-GB-EDUCATION",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_0SDH0V23VCNZJA8CFER8M2ZRYH",
+      "fixture_id": "W12-GREENHOUSE-NESTED-en-GB-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_2F4FQW4RPHKQNZ5HQDKT2FFHTX",
+      "fixture_id": "W12-GREENHOUSE-SEPARATED-en-US-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_0GZSPWY3KCZ0SXKV1Y8QWMXX1F",
+      "fixture_id": "W12-GREENHOUSE-SEPARATED-en-GB-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_5D2CS44M8DHGYCQJ00R3QHEQJ1",
+      "fixture_id": "W12-LEVER-GROUPED-en-US-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_7EDMJXEW190FPSTX5FDT56TTPS",
+      "fixture_id": "W12-LEVER-GROUPED-en-GB-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_22QN46EGY15818KYYWGNMWVFJG",
+      "fixture_id": "W12-LEVER-REORDERED-en-US-WORK_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_4ZR3S5B679B7R6H4MN807QNE70",
+      "fixture_id": "W12-LEVER-REORDERED-en-US-SKILLS_OR_LANGUAGES",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_0V3J0904HR0CSA8JHYQTW2FZQN",
+      "fixture_id": "W12-LEVER-REORDERED-en-GB-WORK_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_5YKHC8RZNCP2VA5K6ME0ACFP5N",
+      "fixture_id": "W12-LEVER-REORDERED-en-GB-SKILLS_OR_LANGUAGES",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_1SEM5VTJVW4D415J1E36MZ80XQ",
+      "fixture_id": "W12-LEVER-NESTED-en-US-EDUCATION",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_5J3087C3Q7X75P9C82QW88N44Z",
+      "fixture_id": "W12-LEVER-NESTED-en-US-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_40E6YJ2950K4J74BMQC1KFFTZD",
+      "fixture_id": "W12-LEVER-NESTED-en-GB-EDUCATION",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_6H3N0NJXKG4D7M7Z8ZSM785P3X",
+      "fixture_id": "W12-LEVER-NESTED-en-GB-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_2RKXMN6K0BNF4Y0RWWS2PMN140",
+      "fixture_id": "W12-LEVER-SEPARATED-en-US-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_2G1W6XF7KS736VWZGDVPPEXMSW",
+      "fixture_id": "W12-LEVER-SEPARATED-en-GB-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_2VYV1AK0QMMRP7DFSJ9J10N8E8",
+      "fixture_id": "W12-ASHBY-GROUPED-en-US-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_676F87EVYQJFTA9MZM1SYANK96",
+      "fixture_id": "W12-ASHBY-GROUPED-en-GB-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_12D3QTVWHX1EXV9D3A6YT54KWW",
+      "fixture_id": "W12-ASHBY-REORDERED-en-US-WORK_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_6TNEHGXCHJBZ8AH636R6NM5WEX",
+      "fixture_id": "W12-ASHBY-REORDERED-en-US-SKILLS_OR_LANGUAGES",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_1GG1EAFZ02PKHE0M82VQ40RXTG",
+      "fixture_id": "W12-ASHBY-REORDERED-en-GB-WORK_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_6VSTQBRG12S45C0PA5VPGKH3C1",
+      "fixture_id": "W12-ASHBY-REORDERED-en-GB-SKILLS_OR_LANGUAGES",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_0B9EXPD3TYYZ8WZBYAG8PS35GZ",
+      "fixture_id": "W12-ASHBY-NESTED-en-US-EDUCATION",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_4DRV9Y65D7JJJB8V1DG5REYR4S",
+      "fixture_id": "W12-ASHBY-NESTED-en-US-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_1WDCC06BS54EVB70AJD3KYPJZZ",
+      "fixture_id": "W12-ASHBY-NESTED-en-GB-EDUCATION",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_5B3M6SN6JP2RH7ZSEMBWA3QAKC",
+      "fixture_id": "W12-ASHBY-NESTED-en-GB-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_0GECSQRE36V6VRK804HYZBQTVX",
+      "fixture_id": "W12-ASHBY-SEPARATED-en-US-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_2RPXAAHX3H641FHP5X745FQS3G",
+      "fixture_id": "W12-ASHBY-SEPARATED-en-GB-MY_EXPERIENCE",
+      "state": "REFUSED_INPUT_MODEL",
+      "issues": [
+        "REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN",
+        "REFUSED_INPUT_MODEL:PREEXISTING_VALUE"
+      ]
+    }
+  ],
+  "unsupported_scored_feature_coverage": [
+    {
+      "feature": "FILE_UPLOAD",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "REPEATER_OPERATION",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "DATE_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "CHECKBOX_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "RADIO_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "CUSTOM_COMBOBOX_DRIVER",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "IFRAME",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "SHADOW_DOM",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "PAGE_TRANSITION",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "PARSER_EFFECT",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    },
+    {
+      "feature": "LONG_SESSION_SOAK",
+      "state": "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN"
+    }
+  ],
+  "actual_external_execution": {
+    "holdout": "HOLDOUT_WAIVED_OWNER_ADR0006",
+    "public_no_submit": "NOT_EXECUTED",
+    "simplify": "NOT_EXECUTED",
+    "legacy": [
+      {
+        "system": "CAREERPULSE",
+        "status": "UNAVAILABLE",
+        "source_revision": null
+      },
+      {
+        "system": "LEGACY_JOBAPPLY",
+        "status": "NOT_ATTEMPTED",
+        "source_revision": "c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd"
+      }
+    ]
+  },
+  "limitations": [
+    "Visible synthetic W12 expansion only; W06 parent corpus is separately committed and is not wholly executed by this campaign.",
+    "Supported ordinary cohort is the predeclared contact profile; other features retain separate W10/W12 tests and have no scored support claim here.",
+    "Pre-existing values and duplicate label joins remain explicit scorer-v1 input-model refusals; their initial/final digests and physical actions are retained.",
+    "Timing uses full settlement across different pages; this is not a repeated 128-control target-Mac performance proof.",
+    "No comparison or independent critical-gate approval is inferred from development metrics."
+  ],
+  "compressed_bundle_digest": "sha256:f417920083d7ce55d78ebafc6e60efed6919302dbae242b3ff6f943721edfc02",
+  "compressed_bundle_bytes": 2914129
+}

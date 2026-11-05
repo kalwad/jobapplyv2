@@ -1,0 +1,1231 @@
+{
+ "workflow": "review-native-candidates-10f247b",
+ "run_id": "wf_e21fb658-815",
+ "agent_count": 19,
+ "result": {
+  "gnome": {
+   "verdict": {
+    "decision": "RELEASE_ONE_BOUND_CAMPAIGN",
+    "blocking_reasons": [],
+    "bound_hashes": {
+     "bundle_sha256": "ac34c8969aa7b0fbd5b955e25c01707bf3fdf25bfdf1b0d5963616683a69e14c",
+     "guest_closure_sha256": "193416ec73e4ea05e70a463ff6bfc7a5ddadc00aa7709fd9e4d3480acbfbd41e",
+     "host_tools_sha256": "4c3552e228f806afae9b4dc794e2b6ca37fc65190ef6e45fbd10ea9d9ceda447",
+     "keyring_sha256": "c2d40d925557dbe9a0745c12ca0dc98bed593ce9a6652f1b2faa1ff0858dbf2f"
+    },
+    "conditions_and_notes": [
+     "Hash agreement: all four lenses report the same four bound hashes. I also recomputed them myself with shasum -a 256, read-only, over /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/inputs, and got the same values. I also confirmed the candidate ZIP review3/gnome.zip is ac3e3f9118bb0170dcc019fefb42bae3f569d86f7c802a97bbf83b97b31a7ff3. Apart from that recomputation, this decision rests on the four lens reports.",
+     "Release receipt artifact binding (condition): release_receipt() requires the receipt's 'artifact' object to equal the request's, and the campaign checks package/export.json and the artifact ZIP digest outside the four VM hashes. So the receipt must carry exactly these values: artifact_id 13106829926, run_id 41367416097, run_attempt 1, run_head_sha 4938c1137e9f2a402bfd75c77a429f4db1754928, digest_sha256 ac3e3f9118bb0170dcc019fefb42bae3f569d86f7c802a97bbf83b97b31a7ff3, export_sha256 56f18b2614e9337728b5e2e866622eb288a3ac356c72cb83eedc19a11b9e02c6. The original package artifact is 13107582320, with ZIP sha256 f85b648b786b0ef0652cfbb22c1a0be89b22983b20dd60fa6cf436cf0f58d71b. Its export has expected_head M = c25742ef0af8421bc4bfc7a3a6533506dbf8be10 and build tree bb8fb0d4677f5d1726a9fe9902748bcf299cf7d7.",
+     "Scope: this release authorizes one bound campaign only, for source S 10f247bc441036233963004d1d663cd80e3a0212 and these exact hashes. Any change to scripts, the workflow, or any bound file requires a new candidate and a new independent review.",
+     "NON_BLOCKING, survived adversarial verification; both skeptics would lower it to NOTE: retain_releases in ubuntu_gnome_signed_indexes.py at S accepts gpgv exit 0 without pinning the signer (no --status-fd VALIDSIG check). The archive keyring is copied unpinned from the runner and holds three Canonical keys: Archive 2012 790BC727..., CD Image 2012 843938DF..., and Archive 2018 F6ECB3762474EDA9D21B7022871920D1991BC93C. This candidate is unaffected. All six retained InRelease signatures were verified independently in pure Python against the 2018 key only. The keyring is byte-identical to the one inside ubuntu-keyring_2023.11.28.1_all.deb, sha256 80a36b0a6de2f69f49d2df75ef473ccde121e9e190b9ea01d20a4f63778d5c31. Recommended hardening for later candidates, not required for this release: pin VALIDSIG F6ECB376...C93C in retain_releases and record the signer in the lock, the same way prepare_image already pins the UEC fingerprint.",
+     "NOTE: the campaign never re-checks the signed apt chain. validate_closure checks only the lock hash, schema, architecture, a non-empty signed_metadata, and each deb's bytes and sha256. Guest and host provenance therefore rests on this review plus the hash binding. The lock embeds pins for every InRelease, Release, Packages and deb, so binding guest_closure_sha256 and host_tools_sha256 freezes the reviewed chain.",
+     "NOTE: review_state still reads UNREVIEWED in the bound files: UNREVIEWED_REQUIRES_DIFFERENT_REVIEW_AND_EXPLICIT_SHA in reviewed-inputs.json and UNREVIEWED_CANDIDATE_NOT_AUTHORIZED_FOR_ACTOR in both locks. No consumer reads it. Authorization exists only in the external release receipt. Later readers of the campaign evidence should not take these labels as current state.",
+     "NOTE: the cloud-image keyring (keyring_sha256 c2d40d92...) holds two keys. One is the UEC key D2EB44626FDDC30B513D5BB71A5D6C4C7DB87C81, which matches the fingerprint the task supplied from knowledge. The other is the Ubuntu Cloud Image Builder key 4A3CE3CD565D7EB5C810E2B97FF3F408476CF100. Trust is not widened, because prepare_image at S requires VALIDSIG D2EB... and the exact IMAGE_SHA 04e8f2461a16a44e78a370284471f29616cdd9baf1893df25807b71f985b6c94. The keyring comes from ubuntu-keyring; ubuntu-cloudimage-keyring is an empty transitional package. The cloud image is not in the candidate. The campaign downloads it and must match the pinned digest. No reviewer could check Canonical's live SHA256SUMS, since there was no network access.",
+     "NOTE (operational): host-tools-lock.json pins runner_image_version 20261026.354.1, taken from the ImageVersion env. The job-log banner shows 20261025.353.1, a known discrepancy also seen in the earlier a5ec1e3 review. If the runner image rotates, both the host step and the VM step stop before any install or VM start. That limits the release window. Diagnose such a stop from the env value, not the banner.",
+     "NOTE: the host install runs as root only the maintainer scripts and triggers of the 19 newly installed Ubuntu-signed debs. qemu-system-common's postinst starts qemu-kvm.service, qemu-system-x86 uses dpkg-maintscript-helper, and there are ldconfig triggers. The other 112 locked host packages are already present at identical versions and are only marked manually installed. The runner's own apt.conf.d hooks stay active. No OVMF is included; it is only a Recommends. The VM boots with q35's default SeaBIOS, and seabios and ipxe-qemu are in the closure.",
+     "NOTE: Release files have no Valid-Until, so freshness rests on the Date field. noble-updates is dated 2026-11-01 14:20:46 UTC and noble-security 2026-11-01 05:30:08 UTC. The prepare run was created 2026-11-02T00:29:24Z. Every locked guest version is the newest amd64/all version across the three retained suites.",
+     "NOTE: install_vm_product_actors: 0 in preparation-proof/closure.json is a hard-coded literal, not a measured count. For this run it is independently true: none of the 2026 command records installs, starts a VM, or runs the product. Inferred: if the field is meant as evidence, it should be derived from the command list.",
+     "NOTE: the claim that only official Ubuntu endpoints (archive.ubuntu.com and security.ubuntu.com) were contacted is inferred from the retained sources.list files, the private APT_CONFIG design, the scrubbed environment and the indextargets output. The command records do not capture network endpoints.",
+     "NOTE: guest lock.json roots contains a runner-absolute path, /home/runner/work/_temp/japp-original-package-export/package.deb. validate_closure does not read it, so it has no functional effect. The product deb is bound separately through inputs/package/export.json, and its dependencies libwebkit2gtk-4.1-0 and libgtk-3-0 (provided by libgtk-3-0t64) are in the closure.",
+     "NOTE: guest-closure/signed-metadata (20 files), host-signed-metadata (20 files), host-candidate/ and preparation-proof/ are not consumed at campaign time. They are covered by bundle_sha256 or the artifact ZIP digest and exist for review. The VM step does not re-run audit_bundle; the host step runs it before and after the install. 236 guest rows appear identically in both noble-updates and noble-security, which is normal Ubuntu practice, and no index entries conflict.",
+     "NOTE: the host package set is byte-identical to the previously bound a5ec1e3 GNOME host lock (131 rows), apart from one added setfacl tool pin. keyring_sha256 is unchanged from that release. Process-group absence in the command records covers only each child's own group, as the record's stated scope says."
+    ],
+    "summary": "Final GNOME reviewer decision: RELEASE_ONE_BOUND_CAMPAIGN. Four lenses ran: bundle, guest-closure, host-tools/keyring and preparation. Each set review_failed=false and returned CLEAR_WITH_NOTES, and none reported a BLOCKING finding. One finding went through adversarial verification: the prepare-time gpgv check does not pin which key signed. It survived as NON_BLOCKING, and both verifiers would lower it to NOTE, because all six InRelease signatures were verified independently in pure Python against the Ubuntu Archive 2018 key F6ECB3762474EDA9D21B7022871920D1991BC93C. All lenses agree on the four bound hashes, and I recomputed them myself with shasum -a 256: bundle_sha256 ac34c896...e14c, guest_closure_sha256 193416ec...d41e, host_tools_sha256 4c3552e2...a447, keyring_sha256 c2d40d92...bf2f. I also re-confirmed the candidate ZIP digest ac3e3f91...7ff3. The lenses report that the bundle passes the real audit_bundle at S (991 members). inputs/package is byte-identical to the original package artifact, with export.json 56f18b26.... The 808-package guest closure and the 131-package host closure join exactly to Release-pinned Packages indexes signed by the 2018 key. All 2026 preparation commands exited cleanly and none installed anything, started a VM or ran the product. The source tree equals S before and after. The release receipt must also carry the exact artifact object: artifact_id 13106829926, run 41367416097 attempt 1, head 4938c11, digest ac3e3f91..., export 56f18b26.... This release authorizes only one campaign bound to these hashes. To your question about what is taking so long: the work is a multi-lens independent review of roughly 940 packages, their signed index chains, and 2026 command records, plus adversarial verification of findings. That step is now complete for GNOME."
+   },
+   "lenses": [
+    {
+     "lens": "gnome-bundle",
+     "review_failed": false,
+     "verdict": "CLEAR_WITH_NOTES",
+     "checks": [
+      "Confirmed that the working tree's scripts/ and .github/ are identical to S (git diff --quiet 10f247b HEAD), and read audit_bundle, install_tools and main in ubuntu_gnome_host.py at S",
+      "Read ubuntu_gnome_vm.py sha/validate_closure/prepare_inputs/prepare_guest/main, ubuntu_gnome_request.py parse_request/release_receipt/artifact_metadata, the candidate_manifest/package copy in ubuntu_gnome_prepare.py, and .github/workflows/ubuntu-gnome-lifecycle.yml",
+      "Computed sha256 of the candidate ZIP review3/gnome.zip (ac3e3f91…, matches the stated value and the gh api digest) and the original req3/gnome/artifact.zip (f85b648b…, matches the stated value and the gh api digest)",
+      "Ran a faithful replica of audit_bundle over review3/gnome/inputs (rglob, lstat, regular-only, row-shape, bytes+sha, missing/extra, MAX_FILES/MAX_TOTAL/ARCHIVE_CAP/MANIFEST_CAP), with stricter type and path-safety checks added: PASS",
+      "Imported the actual S audit_bundle (from git show 10f247b copies in my work dir, run with -I -B) on the tree using the computed digest: PASS with 991 members; with a wrong digest it refused",
+      "ZIP-level check of every inputs/ member read from the candidate ZIP: set equals the inventory, per-member sha and bytes match, all mode 0644, no links, duplicates or unsafe names; the ZIP manifest equals the extracted manifest",
+      "Compared the 9 members of the original package ZIP byte for byte (in memory) with inputs/package: identical, same file set, every member matches its inventory row; sha256(export.json) = 56f18b26…; export.files pins match; expected_head = M; build_git_binding tree = tree of S; target x86_64-unknown-linux-gnu",
+      "Cross-checked guest lock.json (808 pkgs) and host-tools-lock.json (131 pkgs) against the on-disk debs and the inventory rows, and their signed_metadata Release/InRelease pins against the inventory",
+      "Checked consumer caps against observed sizes (DOCUMENT_CAP 8 MiB, lock 2 MiB, keyring 1 MiB, guest deb 256 MiB, LOCK_PACKAGE_CAP 2048)",
+      "Grepped for review_state consumers and for references to host-candidate/preparation-proof in the host/VM scripts and the lifecycle workflow",
+      "Read-only gh api: artifacts 13106829926 and 13107582320 (name, digest, size, run, head_sha, expired=false) and run 41367416097 (attempt 1, success, prepare workflow, head 4938c11)",
+      "All scripts were written to and run from review3-work/gnome-bundle-integrity with -I -B; candidate files were never executed or imported, and no candidate or repository file was modified"
+     ],
+     "hashes": [
+      {
+       "file": "inputs/reviewed-inputs.json (bundle_sha256)",
+       "sha256": "ac34c8969aa7b0fbd5b955e25c01707bf3fdf25bfdf1b0d5963616683a69e14c"
+      },
+      {
+       "file": "inputs/guest-closure/lock.json (guest_closure_sha256)",
+       "sha256": "193416ec73e4ea05e70a463ff6bfc7a5ddadc00aa7709fd9e4d3480acbfbd41e"
+      },
+      {
+       "file": "inputs/host-tools-lock.json (host_tools_sha256)",
+       "sha256": "4c3552e228f806afae9b4dc794e2b6ca37fc65190ef6e45fbd10ea9d9ceda447"
+      },
+      {
+       "file": "inputs/ubuntu-cloudimage-keyring.gpg (keyring_sha256)",
+       "sha256": "c2d40d925557dbe9a0745c12ca0dc98bed593ce9a6652f1b2faa1ff0858dbf2f"
+      },
+      {
+       "file": "inputs/package/export.json (artifact.export_sha256)",
+       "sha256": "56f18b2614e9337728b5e2e866622eb288a3ac356c72cb83eedc19a11b9e02c6"
+      },
+      {
+       "file": "inputs/package/package.deb",
+       "sha256": "25675a83d0b37fafa9425c3fcb34c8078050dbffd02eafa1766959fb795514d1"
+      },
+      {
+       "file": "review3/gnome.zip (candidate artifact 13106829926, artifact.digest_sha256)",
+       "sha256": "ac3e3f9118bb0170dcc019fefb42bae3f569d86f7c802a97bbf83b97b31a7ff3"
+      },
+      {
+       "file": "req3/gnome/artifact.zip (original package artifact 13107582320)",
+       "sha256": "f85b648b786b0ef0652cfbb22c1a0be89b22983b20dd60fa6cf436cf0f58d71b"
+      }
+     ],
+     "notes": [
+      {
+       "title": "Every inventory member matches the files exactly, with no missing or extra members and no links",
+       "severity": "NOTE",
+       "location": "review3/gnome/inputs/reviewed-inputs.json; scripts/linux_gnome/ubuntu_gnome_host.py:65-100 (audit_bundle at S)",
+       "claim": "The bundle passes audit_bundle exactly as written at S. It also passes a stricter independent replica, both on the extracted tree and member by member from the candidate ZIP.",
+       "evidence": "The inventory has 991 rows, plus reviewed-inputs.json outside the inventory. 991 regular files were observed, with no missing, no extra and no non-regular entries. Total size is 807,230,414 bytes against the MAX_TOTAL cap of 8 GiB. The largest member is package/package.deb at 85,743,292 bytes against the ARCHIVE_CAP of 512 MiB. The manifest is 177,665 bytes against the MANIFEST_CAP of 4 MiB. Every row has exactly the keys bytes and sha256, with an int byte count and a lowercase 64-hex digest. No keys are unsafe and no names collide case-insensitively. I copied the real audit_bundle from git show 10f247b into my work dir and imported it from there. It returned PASS (members=991) and refused an all-zero digest. Reading straight from the candidate ZIP: 992 regular inputs/ entries, all mode 0644, no duplicate names, no unsafe names, no links. Every per-member sha and byte count matches the inventory."
+      },
+      {
+       "title": "inputs/package is byte-identical to the original CI package artifact, and export.json is 56f18b26…",
+       "severity": "NOTE",
+       "location": "review3/gnome/inputs/package/* vs req3/gnome/artifact.zip (artifact 13107582320)",
+       "claim": "The candidate's package/ directory is an exact copy of the original package export from run 41356786386.",
+       "evidence": "The original ZIP's sha256 is f85b648b…71b, which matches its GitHub API digest. Its size is 85,540,195 bytes. It has 9 flat regular members, and they are exactly the 9 files in inputs/package. I compared all 9 byte for byte (zf.read against the file read), and every one is identical and matches its inventory row. sha256(export.json) is 56f18b2614e9337728b5e2e866622eb288a3ac356c72cb83eedc19a11b9e02c6 (393,742 bytes). export.files lists exactly the 8 other members, and each sha pin matches. export.expected_head is c25742ef0af8421bc4bfc7a3a6533506dbf8be10 (M). export.build_git_binding is {head M, tree bb8fb0d4…} (tree of S). export.target is x86_64-unknown-linux-gnu. package.deb sha is 25675a83…14d1."
+      },
+      {
+       "title": "review_state still says UNREVIEWED in the bound manifest and both locks, and no consumer reads it",
+       "severity": "NOTE",
+       "location": "inputs/reviewed-inputs.json, inputs/guest-closure/lock.json, inputs/host-tools-lock.json; scripts/linux_gnome/ubuntu_gnome_prepare.py:216,282,318",
+       "claim": "The review_state fields cannot change without changing the bound hashes, and nothing at campaign time checks them. Authorization comes only from the release receipt binding exact hashes.",
+       "evidence": "reviewed-inputs.json has review_state=UNREVIEWED_REQUIRES_DIFFERENT_REVIEW_AND_EXPLICIT_SHA. lock.json and host-tools-lock.json both have review_state=UNREVIEWED_CANDIDATE_NOT_AUTHORIZED_FOR_ACTOR. A grep over scripts/linux_gnome/*.py found review_state only where ubuntu_gnome_prepare.py writes it. The host, VM and request scripts never read it. This is consistent with the design, but anyone reading the campaign evidence later should know these labels stay UNREVIEWED after release."
+      },
+      {
+       "title": "The campaign also relies on export_sha256 and the artifact ZIP digest, which are outside the four VM_HASHES",
+       "severity": "NOTE",
+       "location": "scripts/linux_gnome/ubuntu_gnome_request.py:69-82,421-461; ubuntu_gnome_vm.py:751; .github/workflows/ubuntu-gnome-lifecycle.yml",
+       "claim": "Besides the four bound hashes, the VM step checks package/export.json against PACKAGE_EXPORT_SHA256, which the request reads from artifact.export_sha256. The download step also checks the artifact ZIP digest against artifact.digest_sha256. The release receipt binds both through its 'artifact' object, which must equal the request.",
+       "evidence": "ARTIFACT_FIELDS contains run_id, run_attempt, run_head_sha, artifact_id, digest_sha256 and export_sha256. release_receipt() requires value['artifact'] == request['artifact']. The values the release should carry, all observed: artifact_id 13106829926, run_id 41367416097, run_attempt 1, run_head_sha 4938c1137e9f2a402bfd75c77a429f4db1754928, digest_sha256 ac3e3f9118bb0170dcc019fefb42bae3f569d86f7c802a97bbf83b97b31a7ff3 and export_sha256 56f18b2614e9337728b5e2e866622eb288a3ac356c72cb83eedc19a11b9e02c6. I confirmed the local ZIP sha and the gh api digest/size/name/run/head for artifact 13106829926. The run concluded success on .github/workflows/ubuntu-gnome-prepare.yml with event pull_request."
+      },
+      {
+       "title": "Everything the campaign consumes is covered by bundle_sha256, and two signed-metadata sets are not consumed at all",
+       "severity": "NOTE",
+       "location": "ubuntu_gnome_host.py install_tools; ubuntu_gnome_vm.py validate_closure/prepare_inputs/prepare_guest",
+       "claim": "Each consumed file is pinned by a row in the bound manifest, and the VM step re-checks it against a narrower bound hash. guest-closure/signed-metadata/ (20 files) and host-signed-metadata/ (20 files) are covered only by bundle_sha256. Neither the host nor the VM step reads them; validate_closure only requires lock.signed_metadata to be non-empty.",
+       "evidence": "Coverage of consumed files, inferred from reading the S code and checked against the data. package/* is checked against export.json, which is checked against export_sha256. guest-closure/debs is 808 files: 808 lock rows, all present, none extra, every lock row equal to its inventory row, largest 40,189,796 bytes against the 256 MiB cap. host-debs is 131 files: 131 host_packages rows, none extra, every row equal to its inventory row. host-tools-lock.json (161,109 bytes, under the 2 MiB cap) is checked against host_tools_sha256 in the VM step. install_tools reads it, though, relying only on the audit_bundle that ran just before. The keyring (2,444 bytes, under the 1 MiB cap) is checked against keyring_sha256. lock.json (933,442 bytes, under the 2 MiB cap) is checked against guest_closure_sha256. The Release/InRelease pins in both locks equal their inventory rows (6 of 6 each). The VM step does not re-run audit_bundle. The host step runs it before and again after the install. host-candidate/ (152 files) and preparation-proof/ sit outside the bundle path and are bound only by the ZIP digest; no host or VM script or the lifecycle workflow references them (grep)."
+      }
+     ],
+     "verified": []
+    },
+    {
+     "lens": "gnome-guest-closure",
+     "review_failed": false,
+     "verdict": "CLEAR_WITH_NOTES",
+     "checks": [
+      "Computed sha256 of the candidate ZIP review3/gnome.zip: ac3e3f91... It matches the GitHub artifact 13106829926 digest (read via gh api). All 829 guest-closure members in the ZIP are byte-identical to the unzipped tree. The ZIP has no absolute or '..' member names and no symlink members.",
+      "(a) lock.json: 933442 bytes (under the 2 MiB cap). schema japp-reviewed-noble-closure-v1, architecture amd64, signed_metadata non-empty and equal to signed_index_chain.releases. 808 rows (cap is 2048). Filenames and package names are unique (the guest's locked_closure requires both). Every architecture is all or amd64.",
+      "(a) debs/ holds exactly the 808 listed files: none missing, none unlisted, all regular files. Each file's size and sha256 equal its lock row. package_bytes 392501252 equals the sum of sizes. Each filename equals apt's archive name pkg_ver_arch.deb, with ':' encoded as %3a in 91 files. The top level of guest-closure contains exactly debs, lock.json and signed-metadata, and signed-metadata contains exactly the expected 20 files.",
+      "(a) For all 808 debs I parsed the ar archive and control.tar (zst/xz/gz) in memory, in pure Python, and confirmed Package/Version/Architecture match the lock row. Nothing was extracted to disk and nothing was executed.",
+      "(b) Parsed all 12 retained Packages indexes and joined every lock row on the pool Filename basename (epoch stripped) plus Package, Version, Architecture, Size and SHA256. All 808 rows join. No index holds a duplicate or conflicting entry. Each row has a single pool path, and its pool component matches the index component. My join exactly equals the lock's signed_index_chain.packages[*].signed_index_records, and chain.packages identity rows equal lock.packages.",
+      "(b) Checked the CI records command-005..1620 (808 pairs of dpkg-deb -f and apt-cache show, all exit 0): every pair agrees with its lock row on Package, Version, Architecture, SHA256 and Size.",
+      "(c) Each of packages-001..012 has a size and sha256 equal to its lock record and equal to the SHA256 entry for its metakey in the signed Release of the same suite. No index also matches a different Release. There are 12 indexes: 3 suites x {main, restricted, universe, multiverse} binary-amd64.",
+      "(c) Each release-0N.Release is byte-identical to the dash-unescaped cleartext body of release-0N.InRelease. No body line has trailing whitespace, so no bytes fall outside the signature. Armor CRC24 is valid. There are no bytes after END. Each file has exactly one v4 signature packet with sigtype 0x01 and SHA512, and no unknown critical subpackets.",
+      "(d) The Release headers say Origin Ubuntu, Label Ubuntu, Codename noble, Version 24.04, with suites noble, noble-updates and noble-security, Components main restricted universe multiverse, and amd64 in Architectures. The identity recorded in the lock equals these fields.",
+      "(d) sources.list has exactly 3 lines: https://archive.ubuntu.com/ubuntu for noble and noble-updates, and https://security.ubuntu.com/ubuntu for noble-security, all arch=amd64 and signed-by the private guest-apt keyring (the same path used in the gpgv argv). The CI apt-get indextargets record (command-1624) matches the retained index records in order on site, suite, metakey, Trusted yes, amd64 and Ubuntu.",
+      "(e) Parsed OpenPGP packets in ubuntu-archive-keyring.gpg (3607 bytes) and computed v4 fingerprints. It contains F6ECB3762474EDA9D21B7022871920D1991BC93C (RSA 4096, UID 'Ubuntu Archive Automatic Signing Key (2018) <ftpmaster@ubuntu.com>', self-certification verified in pure Python, no key expiration subpacket), plus the 2012 archive key and the 2012 CD Image key. The comparison fingerprints come from my own knowledge, not from a file.",
+      "(f) Read the CI gpgv records command-1621/1622/1623: each exited 0 with no signals, and each stderr reads 'using RSA key F6ECB3762474EDA9D21B7022871920D1991BC93C' and 'Good signature from \"Ubuntu Archive Automatic Signing Key (2018)\"'. The signature times in those records match the creation times I parsed from the packets.",
+      "(f) Independent check: I verified all three InRelease signatures myself in pure Python against the 2018 key whose fingerprint I computed. For each, I canonicalized the cleartext (CRLF line endings, trailing whitespace stripped, no final newline), appended the v4 hashed trailer and 0x04 0xFF length, hashed with SHA512, checked the left-16 bits, and checked RSA with PKCS#1 v1.5 and the SHA512 DigestInfo. All three verified.",
+      "Freshness: implemented Debian version comparison in pure Python. Every locked version is the highest amd64/all version for its package across the 3 retained suites. Signed Dates are about 10h (noble-updates) and 19h (noble-security) before the prepare run started.",
+      "Inventory: the 829 guest-closure entries in reviewed-inputs.json equal the actual tree in path, bytes and sha256. I did not review the other inventory entries; that is out of this lens.",
+      "Source binding: preparation-proof/source-before.json shows head 10f247b and tree bb8fb0d. Its recorded hashes for the 5 linux_gnome scripts equal sha256 of git show 10f247b:<path>. All 2026 command records exited 0, with no signals, cap overruns or errors.",
+      "I did not run gpg/gpgv, any .deb maintainer script, or anything from the candidates. I wrote no files outside /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3-work/gnome-guest-closure/ (verify_closure.py, extra_checks.py, product_ctrl.py, report.json, cmdsummary.py)."
+     ],
+     "hashes": [
+      {
+       "file": "review3/gnome/inputs/guest-closure/lock.json (guest_closure_sha256)",
+       "sha256": "193416ec73e4ea05e70a463ff6bfc7a5ddadc00aa7709fd9e4d3480acbfbd41e"
+      },
+      {
+       "file": "review3/gnome/inputs/reviewed-inputs.json (bundle_sha256; only guest-closure entries reviewed under this lens)",
+       "sha256": "ac34c8969aa7b0fbd5b955e25c01707bf3fdf25bfdf1b0d5963616683a69e14c"
+      },
+      {
+       "file": "review3/gnome/inputs/host-tools-lock.json (host_tools_sha256; hash only, not reviewed under this lens)",
+       "sha256": "4c3552e228f806afae9b4dc794e2b6ca37fc65190ef6e45fbd10ea9d9ceda447"
+      },
+      {
+       "file": "review3/gnome/inputs/ubuntu-cloudimage-keyring.gpg (keyring_sha256; hash only, not reviewed under this lens)",
+       "sha256": "c2d40d925557dbe9a0745c12ca0dc98bed593ce9a6652f1b2faa1ff0858dbf2f"
+      },
+      {
+       "file": "review3/gnome.zip (candidate artifact 13106829926)",
+       "sha256": "ac3e3f9118bb0170dcc019fefb42bae3f569d86f7c802a97bbf83b97b31a7ff3"
+      },
+      {
+       "file": "review3/gnome/inputs/guest-closure/signed-metadata/ubuntu-archive-keyring.gpg",
+       "sha256": "80a36b0a6de2f69f49d2df75ef473ccde121e9e190b9ea01d20a4f63778d5c31"
+      },
+      {
+       "file": "review3/gnome/inputs/guest-closure/signed-metadata/release-01.InRelease (noble-updates)",
+       "sha256": "a4fcbfd2666690c2f420400466055da72cd4ab08216795cf3f45cf0826bfb7b6"
+      },
+      {
+       "file": "review3/gnome/inputs/guest-closure/signed-metadata/release-02.InRelease (noble)",
+       "sha256": "cdb2f31d809f589719a53c6ad15f255b27569c4059542ada282aaa21b8e164b0"
+      },
+      {
+       "file": "review3/gnome/inputs/guest-closure/signed-metadata/release-03.InRelease (noble-security)",
+       "sha256": "95faf2ecd2aed029a4065bbaf17017259d2e4510417c04ea85b65ba405c0f88b"
+      }
+     ],
+     "notes": [
+      {
+       "title": "The VM campaign does not re-check the signed chain, so this review is the only provenance gate",
+       "severity": "NOTE",
+       "location": "scripts/linux_gnome/ubuntu_gnome_vm.py validate_closure / prepare_guest; ubuntu_gnome_provision.py locked_closure (at S)",
+       "claim": "At campaign time, validate_closure checks only these things: the lock SHA256, schema and architecture, that signed_metadata is non-empty, and the bytes and sha256 of each listed deb. It never runs gpgv again and never re-joins Release, index and archive. Provenance therefore depends on this review plus the release receipt binding guest_closure_sha256. The lock embeds byte and sha256 pins for every InRelease, Release and Packages file and for every deb, so binding the lock hash freezes the whole chain this review checked. Unlisted files in debs/ would not reach the guest anyway, because prepare_guest copies only the listed rows.",
+       "evidence": "I read validate_closure (lines 562-589), prepare_guest (lines 828-845) and provision.locked_closure (lines 336-382) at 10f247b. The script hashes recorded in preparation-proof/source-before.json match git show 10f247b for ubuntu_gnome_prepare.py, ubuntu_gnome_signed_indexes.py, ubuntu_gnome_vm.py, ubuntu_gnome_host.py and ubuntu_gnome_provision.py."
+      },
+      {
+       "title": "236 rows match identical entries in both noble-updates and noble-security",
+       "severity": "NOTE",
+       "location": "inputs/guest-closure/lock.json signed_index_chain.packages",
+       "claim": "Every lock row matches exactly one entry within each index it appears in. 572 rows appear in only one index. 236 rows appear in both noble-updates/main (packages-005) and noble-security/main (packages-009), with the same pool path, Size and SHA256 in both. This is normal: Ubuntu copies security updates into -updates. No index has a conflicting entry, meaning the same identity or basename with different size or hash.",
+       "evidence": "My independent join counts: noble/main 420, noble-updates/main 388, noble-security/main 236 (also in -updates). That totals 808 rows, all in the main component. My join exactly reproduces the lock's own signed_index_records for all 808 rows."
+      },
+      {
+       "title": "Release files have no Valid-Until, so freshness rests on the Date field",
+       "severity": "NOTE",
+       "location": "inputs/guest-closure/signed-metadata/release-0{1,2,3}.Release",
+       "claim": "Ubuntu does not set Valid-Until, so the apt setting Check-Valid-Until has no effect here. A replay of old but validly signed metadata would therefore only show up in the Date field. The signed dates are recent relative to the prepare run, and every locked version is the newest one published for its package across the three retained suites.",
+       "evidence": "noble-updates is dated 2026-11-01 14:20:46 UTC, signed 14:21:27. noble-security is dated 2026-11-01 05:30:08, signed 05:30:48. noble is dated 2024-04-25 15:10:33, signed 15:11:21. Prepare run 41367416097 was created 2026-11-02T00:29:24Z (gh api). A Debian version-ordering check in pure Python found no newer amd64/all version of any locked package. The guest and host signed-metadata (InRelease, Packages, keyring) are byte-identical, so both come from the same snapshot."
+      },
+      {
+       "title": "The bound lock permanently labels itself UNREVIEWED and records a runner-local root path",
+       "severity": "NOTE",
+       "location": "inputs/guest-closure/lock.json review_state / roots",
+       "claim": "review_state is 'UNREVIEWED_CANDIDATE_NOT_AUTHORIZED_FOR_ACTOR' inside the file whose hash gets bound, and no consumer reads it. Authorization exists only in the external release receipt. roots also lists the runner path /home/runner/work/_temp/japp-original-package-export/package.deb, the product deb. It is not part of the closure and comes in separately through package/. Its dependencies are covered: libwebkit2gtk-4.1-0 is present, and libgtk-3-0 is provided by the locked libgtk-3-0t64 3.24.41-4ubuntu1.3 through its Provides field.",
+       "evidence": "lock.json keys; the product deb's control fields parsed in pure Python (desktop-app 0.0.1 amd64, Depends: libwebkit2gtk-4.1-0, libgtk-3-0); the Provides line for libgtk-3-0t64 in packages-005."
+      }
+     ],
+     "verified": [
+      {
+       "title": "Prepare-time signature check accepts any key in the runner keyring, without pinning the signer",
+       "severity": "NON_BLOCKING",
+       "location": "scripts/linux_gnome/ubuntu_gnome_signed_indexes.py retain_releases (at S 10f247b); inputs/guest-closure/signed-metadata/ubuntu-archive-keyring.gpg",
+       "claim": "retain_releases treats gpgv exit 0 as proof and never checks which key signed. The keyring is copied unpinned from the runner's /usr/share/keyrings/ubuntu-archive-keyring.gpg. It holds three keys: the 2018 and 2012 archive keys and the 2012 CD Image key. So a signature from the CD Image key, or the older 2012 archive key, would also have passed. prepare_image in ubuntu_gnome_vm.py already pins VALIDSIG <fingerprint> via --status-fd for the cloud image, but this path does not.",
+       "survives": true,
+       "votes": [
+        {
+         "refuted": false,
+         "corrected_severity": "NOTE",
+         "reasoning": "I could not refute the facts in the finding. I am lowering its severity from NON_BLOCKING to NOTE.\n\nChecked against S 10f247b (git show):\n- retain_releases in scripts/linux_gnome/ubuntu_gnome_signed_indexes.py (def at line 172, gpgv argv at 188) runs `/usr/bin/gpgv --keyring <root>/ubuntu-archive-keyring.gpg --output ... <InRelease>` with no --status-fd and no check of the signing fingerprint. Only the exit status counts.\n- apt_config in ubuntu_gnome_prepare.py (line 70) copies the runner's /usr/share/keyrings/ubuntu-archive-keyring.gpg. Nothing compares it to an expected hash.\n- The lock records required_verification = \"GPGV_EXIT_ZERO_THEN_RELEASE_INDEX_ARCHIVE_HASH_JOINS\".\n- prepare_image in ubuntu_gnome_vm.py (lines 773-795) does require `[GNUPG:] VALIDSIG D2EB4462...` through --status-fd 1, as the finding says.\n- Neither validate_closure (vm.py 562) nor audit_bundle/install_tools (host.py) checks a signature again. They rely only on the hashes bound at review.\n\nChecked against the candidate, with my own pure-Python OpenPGP parser (review3-work/skeptic1-keyring-pin/pgp.py, run with -I -B):\n- The keyring (3607 bytes, sha256 80a36b0a6de2f69f49d2df75ef473ccde121e9e190b9ea01d20a4f63778d5c31) is identical in guest-closure/signed-metadata and host-signed-metadata.\n- It holds three RSA-4096 primary keys:\n  - 790BC7277767219C42C86F933B4FE6ACC0B21F32, Archive 2012 (self-signature hash is SHA-1)\n  - 843938DF228D22F7B3742BC0D94AA3F0EFE21092, CD Image 2012\n  - F6ECB3762474EDA9D21B7022871920D1991BC93C, Archive 2018\n- All three self-certifications verify. Each has key flags 0x03 (certify+sign) and no expiration subpacket, so gpgv would accept a valid signature from any of them.\n- All six retained InRelease files (3 guest, 3 host) carry exactly one type-0x01 SHA-512 signature with issuer fingerprint F6ECB376...C93C. The RSA PKCS#1 v1.5 check passes for each in pure Python.\n- Each retained .Release equals the dash-unescaped text plus a trailing LF.\n- The gpgv records command-1621..1623 and 1889..1891 have exit_code 0 and stderr \"Good signature from Ubuntu Archive Automatic Signing Key (2018)\".\n- That the 2018 fingerprint, and the identities of the two 2012 keys, are genuine Ubuntu keys is my own knowledge, not something I read from a file.\n\nSo every factual claim in the finding holds, and this candidate is unaffected.\n\nWhy I rate it NOTE rather than NON_BLOCKING:\n1. The keyring is byte-identical to ./usr/share/keyrings/ubuntu-archive-keyring.gpg inside ubuntu-keyring_2023.11.28.1_all.deb in both host-debs and guest-closure/debs. I extracted it in memory from data.tar.zst; it has the same sha256. So the accepted signer set is exactly the trust set every stock Noble APT uses.\n2. The same InRelease files were first authenticated by the private `apt-get update`, using signed-by set to this same keyring. The gpgv call is a re-check, not the primary trust decision.\n3. The prepare-time gpgv result does not authorize anything. The candidate is UNREVIEWED_CANDIDATE_NOT_AUTHORIZED_FOR_ACTOR. Authorization is the independent review plus hash binding: lock.json embeds keyring sha256 80a36b0a... and the InRelease sha256s. The real signer can be checked from the retained bytes, and the reviewer did that.\n4. Pinning would only add protection if a Canonical-held 2012 private key were compromised. The retain path also checks content: release_entries requires Origin Ubuntu, Suite noble/noble-updates/noble-security and Codename noble. That makes replaying genuine older 2012-signed Release files or CD-image SHA256SUMS signatures useless.\n5. The VALIDSIG pin in prepare_image covers a different situation: the image is downloaded fresh at campaign time and has no prior review, so its signature check is the only one. Inference: that asymmetry explains why the two paths differ.\n6. The earlier independent review of candidate a5ec1e3 already recorded this same observation as NOTE (docs/evidence/m03-native-candidates-a5ec1e3-review/review-workflow-result.json, around line 274: \"The retained archive keyring trusts three Ubuntu keys, but only the 2018 key signed anything\").\n\nPinning VALIDSIG to F6ECB3762474EDA9D21B7022871920D1991BC93C in retain_releases, and recording the signer in the lock, is still a sensible defense-in-depth hardening. It is not a defect in this candidate."
+        },
+        {
+         "refuted": false,
+         "corrected_severity": "NOTE",
+         "reasoning": "I could not refute the facts in the finding. I am downgrading it from NON_BLOCKING to NOTE.\n\nWhat I checked:\n\n1. Code at S. `git diff --stat 10f247b HEAD -- scripts/` is empty, so the working-tree scripts equal S. In ubuntu_gnome_signed_indexes.py, retain_releases runs `/usr/bin/gpgv --keyring <root>/ubuntu-archive-keyring.gpg --output ...` with no --status-fd and no fingerprint check. Its only proof is exit 0. In ubuntu_gnome_prepare.py, apt_config (lines 69-70) copies the runner's /usr/share/keyrings/ubuntu-archive-keyring.gpg and uses that file as `signed-by=<path>` with no fingerprint restriction. So APT's own `apt-get update` check trusts the same three keys. The same file also confirms prepare_image pins VALIDSIG D2EB4462... for the cloud image only.\n\n2. Keyring contents. I parsed it with my own pure-Python OpenPGP script: review3-work/skeptic2-signer-pin/pgp_check.py, run with python3 -I -B. The guest and host copies are byte-identical (sha256 80a36b0a...5c31, 3607 bytes). Each holds three RSA-4096 primary keys:\n   - 790BC7277767219C42C86F933B4FE6ACC0B21F32, Archive 2012, SHA-1 self-certification\n   - 843938DF228D22F7B3742BC0D94AA3F0EFE21092, CD Image 2012, key flags certify+sign\n   - F6ECB3762474EDA9D21B7022871920D1991BC93C, Archive 2018\n   All self-certifications verify, and none has a key expiry. The 2018 and 2012-archive fingerprints match my own knowledge; the CD-key fingerprint matches what the finding reports.\n\n3. Signatures on this candidate. I checked all six InRelease files: three in guest-closure/signed-metadata and three in host-signed-metadata. Each has exactly one signature packet, type 0x01 (canonical text), SHA-512, with issuer fingerprint F6ECB376.... Each verifies in pure Python (RFC 4880 cleartext canonicalisation, v4 trailer, modexp, PKCS#1 v1.5 DigestInfo), and only under that key. The gpgv stderr in preparation-proof command-1621..1623 and 1889..1891 agrees: exit 0, \"Good signature\" from the 2018 key.\n\nSo the claim is accurate: a signature by either 2012 key would also have passed, both at prepare time and in APT's own update.\n\nWhy NOTE and not NON_BLOCKING (this part is my reasoning, not something I ran):\n\n(a) The campaign never relies on the prepare-time gpgv result. validate_closure (vm.py lines 562-589), audit_bundle and install_tools (host.py) check only sizes and SHA-256 values bound by the external review. Authority to run comes from the release receipt. The keyring itself is pinned by bytes and sha256 in lock.json and host-tools-lock.json (signed_index_chain.keyring) and in reviewed-inputs.json, so all four bound hashes cover it. The signer is therefore fully checkable at review time from retained files, as I just did. The finding's word \"unpinned\" holds only at copy time.\n\n(b) The accepted key set is exactly stock Ubuntu APT's archive trust (the same file), and all three keys belong to Canonical. Exploiting the gap would need a Canonical private key. release_entries requires Origin Ubuntu, a noble suite and Codename noble, so material signed for another purpose (for example CD SHA256SUMS) cannot pass as an InRelease. A pin would not stop replay of older dual-signed metadata either.\n\n(c) The chain states honestly what it checks: required_verification is GPGV_EXIT_ZERO_THEN_RELEASE_INDEX_ARCHIVE_HASH_JOINS. It makes no false pinning claim.\n\n(d) This candidate is unaffected.\n\n(e) The previous independent review (docs/evidence/m03-native-candidates-a5ec1e3-review/review-workflow-result.json) recorded the same observation as a NOTE.\n\nPinning VALIDSIG F6ECB376... in retain_releases, and in APT via signed-by fingerprints, remains a reasonable hardening item for consistency with prepare_image. It should not block this candidate."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "lens": "gnome-host-keyring",
+     "review_failed": false,
+     "verdict": "CLEAR_WITH_NOTES",
+     "checks": [
+      "Hashed the bound files: host-tools-lock.json, ubuntu-cloudimage-keyring.gpg, reviewed-inputs.json and guest-closure/lock.json. reviewed-inputs.json has 991 rows and matches the files on disk exactly: no missing or extra members, no non-regular files, no mismatched bytes or sha256. It includes 131 host-debs, 20 host-signed-metadata files, and rows for host-tools-lock.json and the keyring that equal the observed hashes.",
+      "Checked the host-tools-lock.json structure: 7 top-level keys, runner_image_version 20261026.354.1, 9 tool pins (qemu, qemu_img, seed, ssh, scp, keygen, gpgv, dpkg_query, setfacl), and 131 host_packages. The tool key set equals TOOLS in ubuntu_gnome_vm.py at S.",
+      "The 131 files in inputs/host-debs equal the lock filenames exactly. Each deb's size and sha256 match its lock row. Each deb's control Package/Version/Architecture match the lock, and every filename is the canonical apt archive name. There are no duplicate package names.",
+      "host-candidate/lock.json packages and signed chain equal the lock's. host-candidate/debs and signed-metadata are byte-equal to the inputs copies. Roots match HOST_ROOTS, and empty_status_resolution is true.",
+      "Parsed the archive keyring host-signed-metadata/ubuntu-archive-keyring.gpg in pure Python. It has 3 keys: 2012 archive 790BC727..., 2012 CD image 843938DF..., and 2018 archive F6ECB3762474EDA9D21B7022871920D1991BC93C, which matches the fingerprint supplied from my own knowledge. All self-signatures verify. The file is byte-equal to the ubuntu-archive-keyring.gpg member of the locked ubuntu-keyring deb (80a36b0a...).",
+      "Verified all three InRelease cleartext signatures in pure Python (canonical CRLF text, v4 trailer, SHA-512, RSA PKCS#1 v1.5 DigestInfo). Each verifies under F6ECB3762474EDA9D21B7022871920D1991BC93C. Each retained .Release equals the dash-unescaped signed text. Negative tests: a one-byte change and a wrong keyring both fail verification.",
+      "Parsed the Release files: Origin/Label Ubuntu, suites noble, noble-updates and noble-security, codename noble, with dates recorded. sources.list and index sites are https://archive.ubuntu.com/ubuntu (noble, noble-updates) and https://security.ubuntu.com/ubuntu (noble-security), the official Ubuntu archives.",
+      "Each of the 12 packages-NNN files matches its lock pin and the SHA256/size entry for its metakey in the signed Release of its suite. The on-disk index set equals the lock.",
+      "Joined every one of the 131 debs independently to at least one stanza in a signed Packages index with equal Package, Version, Architecture, SHA256 and Size. I found no conflicting same-version stanzas. Pool paths are pool/main (130) or pool/universe (ubuntu-cloudimage-keyring), and every pool basename equals the epoch-stripped canonical name. My joins equal the lock's signed_index_records.",
+      "Extracted the 9 tool binaries in memory from the debs' data.tar.zst (never written to disk or executed) and hashed them. All 9 equal the lock pins, and a scan of all 131 debs shows each tool path, and the cloud-image keyring path, shipped by exactly one deb as a regular file.",
+      "Confirmed the keyring is byte-identical to the ubuntu-keyring deb member /usr/share/keyrings/ubuntu-cloudimage-keyring.gpg. The ubuntu-cloudimage-keyring deb is an empty transitional package. Parsed the keyring packets (2 keys, 2 UIDs, valid SHA-1 self-signatures, 7 trust packets, no subkeys, expiry or revocation) and compared them with the UEC key D2EB44626FDDC30B513D5BB71A5D6C4C7DB87C81.",
+      "Read install_tools, audit_bundle, closed_install_plan, simulate_install and local_only_apt at S, and the ubuntu-gnome-lifecycle.yml host and VM steps (unchanged from S). Read the retained simulated plan, command-1893.stdout: 19 new packages and 112 already present at identical versions. Read the maintainer scripts, triggers and qemu-kvm.service text of the new debs. Checked the new debs for setuid/setgid, /etc, systemd and udev content.",
+      "Read ubuntu_gnome_vm.py prepare_inputs, prepare_image, official_url, download and the prepare_guest qemu argv. The image URL, digest and UEC fingerprint are pinned in S, the gpgv VALIDSIG fingerprint is checked, the SUMS line must match exactly, and the image sha256 must equal the pin. There is no OVMF, pflash or bios use. cloud-localds needs only genisoimage for iso9660, and genisoimage is in the closure.",
+      "Checked that the preparation-proof host-phase command records 1625 to 2024 (apt update, download-only, dpkg-deb -f and -x, apt-cache show, gpgv x3, indextargets, apt-get -s) all exited 0 with no cap overrun and no signals. gpgv stderr names F6EC...C93C as a good signature for all three Release files.",
+      "Read-only gh api: prepare run 41367416097 has conclusion success, head 4938c11 and attempt 1. Both job logs show the runner banner 20261025.353.1, while the lock records 20261026.354.1.",
+      "Compared with the previously bound a5ec1e3 GNOME host lock in docs/evidence: identical host_packages, one new setfacl tool pin, and the same keyring sha256.",
+      "Not done: no network check of Canonical's live SHA256SUMS or SHA256SUMS.gpg, and nothing run on a Linux runner. All Python ran as python3 -I -B from /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3-work/gnome-hosttools-keyring/, which holds the scripts pgpcheck.py, hostchain.py, followup.py, inventory.py, scanall.py, clds.py and unit.py and the data-only extracted keyring copies under data/."
+     ],
+     "hashes": [
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/inputs/host-tools-lock.json (host_tools_sha256)",
+       "sha256": "4c3552e228f806afae9b4dc794e2b6ca37fc65190ef6e45fbd10ea9d9ceda447"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/inputs/ubuntu-cloudimage-keyring.gpg (keyring_sha256)",
+       "sha256": "c2d40d925557dbe9a0745c12ca0dc98bed593ce9a6652f1b2faa1ff0858dbf2f"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/inputs/reviewed-inputs.json (bundle_sha256, observed only)",
+       "sha256": "ac34c8969aa7b0fbd5b955e25c01707bf3fdf25bfdf1b0d5963616683a69e14c"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/inputs/guest-closure/lock.json (guest_closure_sha256, observed only)",
+       "sha256": "193416ec73e4ea05e70a463ff6bfc7a5ddadc00aa7709fd9e4d3480acbfbd41e"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/inputs/host-signed-metadata/ubuntu-archive-keyring.gpg",
+       "sha256": "80a36b0a6de2f69f49d2df75ef473ccde121e9e190b9ea01d20a4f63778d5c31"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/inputs/host-signed-metadata/release-01.InRelease (noble-updates)",
+       "sha256": "a4fcbfd2666690c2f420400466055da72cd4ab08216795cf3f45cf0826bfb7b6"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/inputs/host-signed-metadata/release-02.InRelease (noble)",
+       "sha256": "cdb2f31d809f589719a53c6ad15f255b27569c4059542ada282aaa21b8e164b0"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/inputs/host-signed-metadata/release-03.InRelease (noble-security)",
+       "sha256": "95faf2ecd2aed029a4065bbaf17017259d2e4510417c04ea85b65ba405c0f88b"
+      }
+     ],
+     "notes": [
+      {
+       "title": "Cloud-image keyring holds a second key besides the UEC key",
+       "severity": "NOTE",
+       "location": "inputs/ubuntu-cloudimage-keyring.gpg; scripts/linux_gnome/ubuntu_gnome_vm.py:100 and 780-795 (prepare_image)",
+       "claim": "The keyring contains two RSA-4096 primary keys. The first is the expected UEC key, D2EB44626FDDC30B513D5BB71A5D6C4C7DB87C81 'UEC Image Automatic Signing Key <cdimage@ubuntu.com>' (created 2009-09-15). The second is 4A3CE3CD565D7EB5C810E2B97FF3F408476CF100 'Ubuntu Cloud Image Builder (Canonical Internal Cloud Image Builder) <ubuntu-cloudbuilder-noreply@canonical.com>' (created 2012-10-27). gpgv would accept a SHA256SUMS signature from either key. The campaign still requires a '[GNUPG:] VALIDSIG D2EB...7C81 ' status line and the exact IMAGE_SHA, so the second key cannot authorize a different image.",
+       "evidence": "I parsed the keyring with my own pure-Python OpenPGP parser. It has 2 PUBKEY, 2 UID, 2 SIG and 7 TRUST packets, and no subkeys, revocations or expiry. Both self-signatures (type 0x13, SHA-1, made in 2009 and 2012) verified under RSA. The file (sha256 c2d40d92...) is byte-identical to /usr/share/keyrings/ubuntu-cloudimage-keyring.gpg inside ubuntu-keyring_2023.11.28.1_all.deb. That deb is joined to the signed noble main Packages index. The same deb's ubuntu-cloudimage-removed-keys.gpg is empty (0 bytes). The UEC fingerprint matches the one supplied from my own knowledge."
+      },
+      {
+       "title": "ubuntu-cloudimage-keyring host root is an empty transitional package",
+       "severity": "NOTE",
+       "location": "scripts/linux_gnome/ubuntu_gnome_prepare.py:52-60 HOST_ROOTS; extract_host_tools line 269",
+       "claim": "The ubuntu-cloudimage-keyring 2023.11.28.1 deb ships only a copyright file and a changelog symlink. The keyring that gets extracted and retained comes from ubuntu-keyring 2023.11.28.1, which is in the closure as a dependency and is already on the runner at the same version. This is harmless: exactly one deb in the closure ships that path.",
+       "evidence": "I read the control field 'dummy transitional package ... cloudimage keyring is now shipped in the ubuntu-keyring package' and listed its data.tar members. A scan of all 131 debs found exactly one regular-file provider of /usr/share/keyrings/ubuntu-cloudimage-keyring.gpg, and it is ubuntu-keyring."
+      },
+      {
+       "title": "Runner image binding: ImageVersion env differs from the job-log banner (known); fails closed when the image rotates",
+       "severity": "NOTE",
+       "location": "inputs/host-tools-lock.json runner_image_version; ubuntu_gnome_host.install_tools line 169; ubuntu_gnome_vm.prepare_inputs line 724",
+       "claim": "The lock pins runner_image_version 20261026.354.1, read from the ImageVersion env var. The job-log 'Runner Image' banner of the download-only job in prepare run 41367416097 shows 20261025.353.1. An earlier review recorded the same gap (docs/evidence/m03-native-candidates-a5ec1e3-review). Both campaign steps compare the env value with the lock, so a rotated runner image stops the campaign before any install or VM. That only limits the release window; diagnose a stop from the env value, not the banner.",
+       "evidence": "I read the job logs with read-only gh api (jobs 125030424967 and 125030593755). Both show banner 'Version: 20261025.353.1', and the lock value is 20261026.354.1. The repo docs record ImageVersion=20261026.354.1 alongside the same banner on earlier ubuntu-24.04 jobs."
+      },
+      {
+       "title": "Host install runs only Ubuntu-signed maintainer scripts; runner apt.conf.d hooks stay active",
+       "severity": "NOTE",
+       "location": "scripts/linux_gnome/ubuntu_gnome_host.py:167-227 (install_tools); ubuntu_gnome_process.local_only_apt",
+       "claim": "install_tools passes 131 hash-checked local .deb paths to 'sudo -n apt-get' with no repository configured (SourceList=/dev/null, empty SourceParts and Lists, no pkgcache). It runs an apt-get -s plan check first, then installs with --no-remove. The retained plan adds 19 packages; the other 112 are already installed at identical versions and are only marked manually installed. Root-executed code from the candidate is limited to maintainer scripts and triggers of those 19 Ubuntu packages. qemu-system-common's postinst runs systemctl daemon-reload and 'deb-systemd-invoke start qemu-kvm.service', whose ExecStart is /usr/share/qemu/init/qemu-kvm-init (KSM/hugepages prep). qemu-system-x86's scripts call dpkg-maintscript-helper dir_to_symlink, and 11 libraries carry 'activate-noawait ldconfig' triggers. The runner's own /etc/apt/apt.conf.d hooks are not overridden; they come from the runner, not the candidate. Nothing else in the bundle is executed by the host step. host-signed-metadata is never read at campaign time; it exists for this review.",
+       "evidence": "I read install_tools, closed_install_plan, simulate_install and local_only_apt at S, and the workflow's host step. I read command-1893.stdout ('0 upgraded, 19 newly installed, 0 to remove', 19 Inst lines all '(ver local-deb [arch])') and host-install-plan.json. I read the control.tar maintainer scripts of the 19 new debs as text: only qemu-system-common and qemu-system-x86 have pre/post scripts, and the rest have none or only triggers. The new debs contain no setuid/setgid files and no udev rules. qemu-system-common ships /etc/default/qemu-kvm, /etc/qemu-ifup, /etc/qemu-ifdown and qemu-kvm.service. A grep confirms that only scripts/windows11 and tests reference host-signed-metadata or signed_index_chain."
+      },
+      {
+       "title": "No OVMF in the closure; the VM uses default SeaBIOS",
+       "severity": "NOTE",
+       "location": "scripts/linux_gnome/ubuntu_gnome_vm.py:935-972 (qemu argv)",
+       "claim": "OVMF is only a Recommends of qemu-system-x86 and is left out by --no-install-recommends. The QEMU argv (-machine q35, no -bios or -pflash) boots with q35's default SeaBIOS. seabios 1.16.3-2 and ipxe-qemu are in the closure and the plan, so the missing OVMF matches how the VM is launched.",
+       "evidence": "A grep for ovmf, pflash, bios, edk2 and romfile in ubuntu_gnome_vm.py, ubuntu_gnome_prepare.py and ubuntu_gnome_host.py found nothing. The plan's 'Recommended packages' line lists ovmf, and 'NEW packages' includes seabios and ipxe-qemu."
+      },
+      {
+       "title": "Cloud image is not in the candidate; source S pins it by digest and the campaign also checks the signature",
+       "severity": "NOTE",
+       "location": "scripts/linux_gnome/ubuntu_gnome_vm.py:98-100, 150-166, 340-357, 763-764, 773-813",
+       "claim": "At campaign time the VM job checks sha256(keyring) == keyring_sha256. It downloads SHA256SUMS and SHA256SUMS.gpg from https://cloud-images.ubuntu.com/releases/noble/release-20261017/, with the host, path and redirect allow-listed and caps of 1 MiB and 64 KiB. It runs '/usr/bin/gpgv --status-fd 1 --keyring <bundle keyring> SHA256SUMS.gpg SHA256SUMS', which must exit 0 and emit 'VALIDSIG D2EB44626FDDC30B513D5BB71A5D6C4C7DB87C81 '. SHA256SUMS must contain the exact line '04e8f2461a16a44e78a370284471f29616cdd9baf1893df25807b71f985b6c94 *ubuntu-24.04-server-cloudimg-amd64.img'. The image is downloaded (1 GiB cap, 900 s) and its sha256 must equal IMAGE_SHA. The image is therefore pinned by an exact digest in S, not only signature-checked. No network is available here, so I could not check Canonical's live SHA256SUMS or signature. Earlier hosted rounds' image-receipt.json files (round12, round16, round28) record the same digest, 621,284,352 bytes, and signing fingerprint D2EB....",
+       "evidence": "git show 10f247b:scripts/linux_gnome/ubuntu_gnome_vm.py shows IMAGE, IMAGE_SHA and FINGERPRINT at lines 98-100, and the working-tree scripts equal S (git diff 10f247b HEAD -- scripts/ is empty). I read docs/evidence/m03-native-runtime-diagnostics/gnome-e2e-rounds/round28-41250875399/image-receipt.json. No SHA256SUMS file is retained in the repo."
+      },
+      {
+       "title": "Signed Release files have no Valid-Until; the chain is checked only now, at review",
+       "severity": "NOTE",
+       "location": "inputs/host-signed-metadata/release-0{1,2,3}.Release; ubuntu_gnome_host.install_tools",
+       "claim": "Ubuntu's noble Release files carry no Valid-Until, so their freshness rests on Date alone: noble-updates 2026-11-01 14:20:46 UTC, noble-security 2026-11-01 05:30:08 UTC, noble 2024-04-25. The prepare run started 2026-11-02T00:29:24Z. The campaign does not re-check the signed chain; it trusts the deb sha256 values in the hash-bound lock. That is by design and is why this review re-verified the chain.",
+       "evidence": "I parsed each Release stanza: origin and label Ubuntu, codename noble, version 24.04, valid-until absent. gh api reports run 41367416097 created_at 2026-11-02T00:29:24Z with conclusion success."
+      },
+      {
+       "title": "Host package set is byte-identical to the previously bound a5ec1e3 GNOME host lock",
+       "severity": "NOTE",
+       "location": "inputs/host-tools-lock.json vs docs/evidence/m03-native-candidates-a5ec1e3-review/bound/gnome/host-tools-lock.json",
+       "claim": "All 131 host_packages rows (name, version, filename, bytes, sha256) equal those in the earlier reviewed and bound lock (host_tools_sha256 23e9cdcb...). This lock adds one tool pin, setfacl from acl, which was already in the closure, and carries fresher signed metadata. keyring_sha256 is unchanged at c2d40d92....",
+       "evidence": "I diffed the two lock files' host_packages and tools in Python. host_packages are identical; the tools key sets differ only by 'setfacl'."
+      }
+     ],
+     "verified": []
+    },
+    {
+     "lens": "gnome-preparation",
+     "review_failed": false,
+     "verdict": "CLEAR_WITH_NOTES",
+     "checks": [
+      "Hashed the candidate ZIP /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome.zip: ac3e3f91…7ff3, equal to the digest GitHub reports for artifact 13106829926 (gh api, read-only). Compared all 7227 ZIP members with the unzipped tree: 0 missing, 0 mismatched, 0 extra, no links.",
+      "gh api run 41367416097: event pull_request, head_sha 4938c1137e9f2a402bfd75c77a429f4db1754928, conclusion success, attempt 1. Jobs: authorize and download-only, every step success. The steps are checkout(S), download-artifact, the prepare script, and upload-artifact; there is no other install step.",
+      "git diff 10f247b..4938c11 touches only .github/gnome/requests/download-only.json, docs/KNOWN_ISSUES.md and docs/TEST_EVIDENCE.md, so the workflow and scripts executed equal S. Read .github/workflows/ubuntu-gnome-prepare.yml at 4938c11: prepare runs as runner without sudo, actions are SHA-pinned, persist-credentials is false. The request file binds S, M, T, artifact 13107582320 and digest f85b648b…, export 56f18b26….",
+      "(a) Parsed all 2026 command-*.json files: numbering contiguous 001..2026, uniform key set, and every json has its .stdout and .stderr. Grouped argv by program and listed every argv that is not apt-cache or dpkg-deb in full. Scanned all argv for sudo, dpkg install verbs, qemu/ssh/scp binaries, curl/wget/nc, interpreters, URLs and credential patterns. The credential-pattern hits were only the package filenames libsecret* and passwd; the stdout hits were package descriptions. Secret-shaped scan of all proof files: 0 hits.",
+      "(a) Command order matches the script exactly: git x2 (bind_source); guest apt-get update and download-only install; 808 interleaved dpkg-deb -f / apt-cache show pairs over sorted archives; gpgv x3; indextargets; then the same for host with 131 pairs; apt-get -s (simulate_host_install); dpkg-deb -x x131 in host-lock order into work/host-extraction; git x2 (final_source_guard).",
+      "(a) Cross-checked every dpkg-deb -f / apt-cache show pair against inputs/guest-closure/lock.json (808) and host-candidate/lock.json (131): package, version and architecture agree; published SHA256 and Size equal the lock; the archive sets equal the lock exactly; 0 errors. host-tools-lock host_packages and signed chain equal host-candidate/lock.json. host-candidate/debs and signed-metadata are byte-equal to inputs/host-debs and inputs/host-signed-metadata.",
+      "(a) gpgv stderr: all 6 report Good signature by F6ECB3762474EDA9D21B7022871920D1991BC93C. Computed the retained archive keyring fingerprints in pure Python and showed the keyring equals the ubuntu-keyring deb content. Read the retained sources.list files and the indextargets output: only archive.ubuntu.com and security.ubuntu.com, noble, noble-updates and noble-security, all Trusted: yes.",
+      "(b) All 2026 records: exit_code 0, signals [], direct_child_reaped true, group_authority_verified true, group_after_reap ABSENT, primary_error_type null, cleanup_error_type null, retained_unreaped_custody false, output_cap_exceeded false. raw_bytes equals stdout+stderr bytes. Non-empty stderr only on the 6 gpgv runs. Total command time is 214.5 s; the per-class maxima are within each command's seconds bound.",
+      "(c) closure.json: status UNREVIEWED_DOWNLOAD_ONLY_CANDIDATE_COMPLETE, install_vm_product_actors 0 (a literal in the code), closure {vm_started false, pending_commands []}, source_guard {2777 files, unchanged true, no whole-filesystem claim}, no error_type or closure_error.",
+      "(d) source-before.files equals source-after.files (2777 entries). Head and tree equal S and T, status_hex is empty, unchanged is true. git -C rev-parse output in command-001 and command-2025 equals S and T; git status output in command-002 and command-2026 is empty. source-build-binding.json equals {S, T, M, T}. The original export.json (sha 56f18b26…, read from the original artifact ZIP f85b648b…) has expected_head M and build_git_binding {M, T}, and shipping_source_projection equals the source-before sha256 map. All 2777 entries match git blobs at S for sha256, size and mode (0 mismatches), and they cover every file tracked at S.",
+      "(e) Read ubuntu_gnome_prepare.py, ubuntu_gnome_host.py, ubuntu_gnome_vm.py (Owner, close, bind_source, package_source_binding, final_source_guard, validate_closure, prepare_image), ubuntu_gnome_signed_indexes.py and ubuntu_gnome_process.py at 10f247b, and compared them step by step with the record. No deviations found.",
+      "(e) Checked the extract_host_tools outputs by parsing all 131 host debs in pure Python. The 9 TOOLS paths are each a single regular file whose sha256 equals host-tools-lock.json tools; the cloud-image keyring equals inputs/ubuntu-cloudimage-keyring.gpg; there are no symlink or overwrite collisions. Computed the cloud keyring fingerprints: D2EB44626FDDC30B513D5BB71A5D6C4C7DB87C81 plus 4A3CE3CD565D7EB5C810E2B97FF3F408476CF100. host-tools-lock runner_image_version is 20261026.354.1.",
+      "(e) copy_package: inputs/package holds exactly export.json plus export.files and is byte-equal to the original artifact ZIP members and its pins. candidate_manifest: inputs/reviewed-inputs.json lists 991 rows, equal to the 991 regular files under inputs/ (excluding itself), with every bytes and sha256 matching; no links or special files.",
+      "Read-only throughout: Python ran with -I -B from /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3-work/gnome-prep-record/; candidate content was never executed or imported; the debs were parsed in memory and not extracted to disk; no state-changing git; the only network calls were read-only gh api requests to repos/kalwad/jobapplyv2."
+     ],
+     "hashes": [
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/inputs/reviewed-inputs.json (bundle_sha256)",
+       "sha256": "ac34c8969aa7b0fbd5b955e25c01707bf3fdf25bfdf1b0d5963616683a69e14c"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/inputs/guest-closure/lock.json (guest_closure_sha256)",
+       "sha256": "193416ec73e4ea05e70a463ff6bfc7a5ddadc00aa7709fd9e4d3480acbfbd41e"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/inputs/host-tools-lock.json (host_tools_sha256)",
+       "sha256": "4c3552e228f806afae9b4dc794e2b6ca37fc65190ef6e45fbd10ea9d9ceda447"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/inputs/ubuntu-cloudimage-keyring.gpg (keyring_sha256)",
+       "sha256": "c2d40d925557dbe9a0745c12ca0dc98bed593ce9a6652f1b2faa1ff0858dbf2f"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome.zip (candidate artifact 13106829926 ZIP)",
+       "sha256": "ac3e3f9118bb0170dcc019fefb42bae3f569d86f7c802a97bbf83b97b31a7ff3"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/preparation-proof/closure.json",
+       "sha256": "7cb553e448142f1bcf7dda4db5f7582e26eb7c750e6a83d2d0718a9e5a35607c"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/preparation-proof/host-install-plan.json",
+       "sha256": "8c59916d6f4a057150af2d38bade9e2782cbba1dd07c44c451cf92587f1139aa"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/preparation-proof/source-before.json",
+       "sha256": "db49c0e1eeacd64a457bad4756c403a1d16e6f0ec73181ccca984fa71cbf1d84"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/preparation-proof/source-after.json",
+       "sha256": "67cab8f5a726f7db0a971a929fb6ac28a9564b17c6d3504c2f4132c51a056834"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/preparation-proof/source-build-binding.json",
+       "sha256": "650c8ca348886c03dbb3731cd3a890b306de4d15f1e097a600d2f21fd73aaaf5"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/host-candidate/lock.json",
+       "sha256": "1af413a05ebddb982846b8a6f09096be638c8bcb9b2823ec198fde0af4b4326d"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/inputs/guest-closure/signed-metadata/ubuntu-archive-keyring.gpg (also identical in inputs/host-signed-metadata/)",
+       "sha256": "80a36b0a6de2f69f49d2df75ef473ccde121e9e190b9ea01d20a4f63778d5c31"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/req3/gnome/artifact.zip (original GNOME package artifact 13107582320)",
+       "sha256": "f85b648b786b0ef0652cfbb22c1a0be89b22983b20dd60fa6cf436cf0f58d71b"
+      },
+      {
+       "file": "export.json inside /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/req3/gnome/artifact.zip (and its copy inputs/package/export.json)",
+       "sha256": "56f18b2614e9337728b5e2e866622eb288a3ac356c72cb83eedc19a11b9e02c6"
+      }
+     ],
+     "notes": [
+      {
+       "title": "install_vm_product_actors is a hard-coded literal, not a measured count",
+       "severity": "NOTE",
+       "location": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/gnome/preparation-proof/closure.json; scripts/linux_gnome/ubuntu_gnome_prepare.py@10f247b line 402",
+       "claim": "closure.json reports install_vm_product_actors: 0. The script never computes this value: main() starts with result = {\"status\": \"FAILED\", \"install_vm_product_actors\": 0} and nothing changes it. For this run the value is still true, because I enumerated all 2026 argv independently and none of them installs anything, starts a VM or runs the product. If the field is meant as evidence it should be derived from the command list, or labelled as a design constant.",
+       "evidence": "All 2026 command-*.json files, numbered contiguously 001..2026. Programs: dpkg-deb x1070 (939 '-f' field reads, 131 '-x' extractions into a private work dir), apt-cache show x939, apt-get x7, gpgv x6, git x4. No sudo, dpkg -i/--unpack/--configure, qemu binary, ssh/scp, curl/wget, shell or interpreter. Every 'install' argv carries --download-only (commands 4 and 1626) or -s (command 1893). closure.vm_started=false and pending_commands=[] come from Owner.close(), where child is None because launch_vm was never called."
+      },
+      {
+       "title": "Command records do not capture network endpoints; 'official Ubuntu only' rests on the retained config",
+       "severity": "NOTE",
+       "location": "preparation-proof command-003/004/1625/1626; inputs/guest-closure/signed-metadata/sources.list; inputs/host-signed-metadata/sources.list",
+       "claim": "The record does not show actual network connections. The claim that only https://archive.ubuntu.com/ubuntu (noble, noble-updates) and https://security.ubuntu.com/ubuntu (noble-security) were contacted is INFERRED from what the record does show: (1) the retained sources.list files; (2) the private apt.conf design at S, which sets Dir::Etc::parts to an empty directory and Dir::Etc::main to a missing file and is passed via APT_CONFIG, so the runner's apt.conf.d proxy and mirror settings are not loaded; (3) Owner.command's scrubbed environment (PATH/HOME/LC_ALL only, so no proxy variables); (4) apt-get indextargets output listing only those 12 targets, all Trusted: yes. The workflow's actions/checkout, download-artifact and upload-artifact steps contact GitHub and are outside the Owner record, as expected.",
+       "evidence": "command-1624.stdout and command-1892.stdout: the URI/Site lines name only archive.ubuntu.com and security.ubuntu.com, with Sourcesentry under the private guest-apt/host-apt sources.list. Both retained sources.list files contain only those three deb lines, each signed-by the private copied keyring. The prepare path at S has no urllib use: Owner.download is only reached from prepare_image in the VM path."
+      },
+      {
+       "title": "Archive keyring was copied from the runner filesystem (unpinned), but it matches the official ubuntu-keyring deb byte for byte",
+       "severity": "NOTE",
+       "location": "ubuntu_gnome_prepare.py@10f247b line 70; inputs/guest-closure/signed-metadata/ubuntu-archive-keyring.gpg; inputs/host-signed-metadata/ubuntu-archive-keyring.gpg",
+       "claim": "apt_config() copies /usr/share/keyrings/ubuntu-archive-keyring.gpg from the runner, so no source pin fixes it in advance. The retained copy (sha256 80a36b0a…5c31) is byte-identical to that file inside the host-closure ubuntu-keyring_2023.11.28.1_all.deb, which I parsed in pure Python. It holds three primary keys: 790BC7277767219C42C86F933B4FE6ACC0B21F32 (Archive 2012), 843938DF228D22F7B3742BC0D94AA3F0EFE21092 (CD Image 2012) and F6ECB3762474EDA9D21B7022871920D1991BC93C (Archive 2018). All six recorded gpgv verifications report 'Good signature' using F6ECB3762474EDA9D21B7022871920D1991BC93C. That matches the 2018 archive key fingerprint I know from my own knowledge; it is not taken from a file.",
+       "evidence": "stderr of command-1621/1622/1623/1889/1890/1891, each with exit 0. I computed the v4 fingerprints in pure Python as SHA-1 over 0x99 || length || public-key packet body."
+      },
+      {
+       "title": "Bound cloud-image keyring comes from ubuntu-keyring (ubuntu-cloudimage-keyring is transitional) and holds two primary keys",
+       "severity": "NOTE",
+       "location": "inputs/ubuntu-cloudimage-keyring.gpg (sha256 c2d40d92…dbf2f); ubuntu_gnome_prepare.py extract_host_tools",
+       "claim": "ubuntu-cloudimage-keyring_2023.11.28.1_all.deb ships only a copyright file and a changelog symlink. /usr/share/keyrings/ubuntu-cloudimage-keyring.gpg is a regular file in exactly one host deb, ubuntu-keyring, so extracting all 131 debs into one directory overwrites nothing for this file. The keyring contains D2EB44626FDDC30B513D5BB71A5D6C4C7DB87C81 (UEC Image Automatic Signing Key, which matches the fingerprint I know) and also 4A3CE3CD565D7EB5C810E2B97FF3F408476CF100 (Ubuntu Cloud Image Builder). Trust is not widened at the consumer: prepare_image at S requires '[GNUPG:] VALIDSIG D2EB4462…' and the fixed IMAGE_SHA. The keyring sha equals keyring_sha256 in the earlier .github/gnome/releases/vm-campaign.json.",
+       "evidence": "Pure-Python ar+tar.zst parse of all 131 inputs/host-debs. vm_S.py lines 780-797 (VALIDSIG FINGERPRINT check) and line 99 (IMAGE_SHA)."
+      },
+      {
+       "title": "Guest lock 'roots' records a runner-absolute path for the product package",
+       "severity": "NOTE",
+       "location": "inputs/guest-closure/lock.json roots[9]",
+       "claim": "roots ends with '/home/runner/work/_temp/japp-original-package-export/package.deb'. That is a runner path, not a content pin. As designed, the product package (desktop-app 0.0.1) is not among the 808 locked guest archives, and the package itself is bound separately through inputs/package/export.json and package.deb. Those files are byte-identical to the original artifact 13107582320 and match the export pins. validate_closure at S does not read roots, so this has no functional effect.",
+       "evidence": "pairs.py: 808 guest archives, and desktop-app is not in the lock packages. copies.py: inputs/package equals export.json plus export.files, byte-equal to /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/req3/gnome/artifact.zip members."
+      },
+      {
+       "title": "Simulated host plan marks 112 runner packages 'set to manually installed'; closed_install_plan ignores those lines",
+       "severity": "NOTE",
+       "location": "preparation-proof/command-1893.stdout; host-install-plan.json; ubuntu_gnome_host.py closed_install_plan",
+       "claim": "The simulation is a clean add-only plan: 0 upgraded, 19 newly installed, 0 to remove, and every Inst line is a locked package=version. 112 of the 131 locked host packages are already on runner image 20261026.354.1 at the same version. The real lifecycle install would mark them manually installed on the disposable runner. That changes apt auto/manual state but replaces and removes no packages, and the parser does not record it.",
+       "evidence": "The raw plan in command-1893.stdout matches host-install-plan.json newly_installed (19 entries). The argv equals local_only_apt(owner.work) plus --no-install-recommends -y -s install followed by the 131 host debs in lock order. There is no sudo: require_host() at S rejects euid 0 and the workflow step runs python3 without sudo."
+      },
+      {
+       "title": "InRelease files carry no Valid-Until; freshness rests on the Date field only",
+       "severity": "NOTE",
+       "location": "guest-closure/lock.json and host-candidate/lock.json signed_metadata identity",
+       "claim": "The identity objects have origin, suite, codename and date but no valid-until, so Acquire::Check-Valid-Until \"true\" has nothing to enforce. Dates: noble-updates 2026-11-01 14:20:46, noble 2024-04-25, noble-security 2026-11-01 05:30:08 UTC. These are consistent with a run created at 2026-11-02 00:29Z.",
+       "evidence": "Signature timestamps in the gpgv stderr match the Release dates. gh api run 41367416097 created_at is 2026-11-02T00:29:24Z."
+      },
+      {
+       "title": "Process-group absence covers only each child's own group (as the record's scope says)",
+       "severity": "NOTE",
+       "location": "all preparation-proof/command-*.json",
+       "claim": "group_after_reap=ABSENT comes from killpg(pgid,0) on the child's own new session/group. A descendant that called setsid would not be seen. The record makes no universal claim (scope EXACT_OWN_CHILD_NO_SIGNAL_AFTER_REAP), and apt-get, apt-cache, dpkg-deb, gpgv and git are not expected to daemonize.",
+       "evidence": "ubuntu_gnome_vm.py@10f247b Owner.command lines 232-338; ubuntu_gnome_process.py ChildCustody."
+      }
+     ],
+     "verified": []
+    }
+   ]
+  },
+  "windows11": {
+   "verdict": {
+    "decision": "RELEASE_ONE_BOUND_CAMPAIGN",
+    "blocking_reasons": [],
+    "bound_hashes": {
+     "bundle_sha256": "902c783d23abc9c7d64900a154a6268b4763559e670695332da0c6759bf7b2ed",
+     "media_lock_sha256": "c18dc337b3073a7ef28fcc7b24611c9c714dfa36822d490785c732a1ab36c19c",
+     "host_tools_sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06",
+     "guest_driver_sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+    },
+    "conditions_and_notes": [
+     "How the hashes were confirmed: all five lenses reported the same four bound hashes. I also recomputed them myself with shasum -a 256 on review3/win11/retained/inputs/{reviewed-inputs.json, media-lock.json, host-tools-lock.json, guest-driver.json}, and on review3/win11.zip (71bae73b85dd137903053d59086ed872a985ed52992594adb3189d43cd89545c, which equals the API digest of artifact 13109055698). My results match the lenses exactly.",
+     "CONDITION, release window: dispatch the one bound campaign before the earliest expiry. Candidate artifact 13109055698 expires 2026-11-09T00:52:09Z and original package artifact 13107428378 expires 2026-11-09T00:26:34Z. I am conservatively using 2026-11-09T00:26:34Z. I did not check whether VM mode re-checks the original package artifact's expiry. The campaign runner's ImageVersion must equal 20261026.354.1; any other value makes install_tools fail closed. The job-log banner shows 20261025.353.1 on both prepare runs, so diagnose a stop from the ImageVersion env variable, not the banner. (Surviving NON_BLOCKING finding from win-preparation; both skeptics corrected it to NOTE.)",
+     "CONDITION, one campaign attempt: S's SUPPORTED_HOST_CPUS accepts only AMD EPYC 7763 (AuthenticAMD, family 25, model 1). A hosted runner with another CPU (EPYC 9V45 and 9V74 have been observed before) fails closed before the ISO download. Reruns above attempt 1 are refused, so that case needs a new request and a new release. Windows 11 26H2 support for this CPU is inferred from Microsoft's 24H2/25H2 processor lists.",
+     "Surviving NON_BLOCKING finding (win-guest-driver; both skeptics kept NON_BLOCKING): windows11_source_check.ps1 parses only the outer bootstrap file. The 49-line SYSTEM attestor inside the single-quoted here-string (windows11_bootstrap.ps1:32-82) has never been parsed as PowerShell and has never run anywhere since fff3408. A syntax error would fail closed in the VM ('Protected current-boot machine attestation missing or unreadable') and would waste one campaign. Skeptics' tokenizer checks and manual reading found no defect; that is heuristic evidence, not a parse. Suggested follow-up in a later source change: ParseInput on the extracted body. The .cmd sub-claim is weak.",
+     "Surviving NON_BLOCKING finding (win-host-tools; both skeptics corrected it to NOTE): wimtools, libwim15t64 and swtpm-tools are in HOST_ROOTS and are installed as root, but the campaign never executes them. The swtpm-tools postinst adds a swtpm system user and group and creates /var/lib/swtpm-localca. wimtools and libwim15t64 are the closure's only universe packages. This is recorded only in docs/evidence/m03-native-candidates-a5ec1e3-review, not in KNOWN_ISSUES. Record it there or trim in a later source change; it does not affect this release.",
+     "NOTE, ISO re-download time budget (fail-closed, inferred): the 8,225,329,152-byte ISO took 1162.5 s in this prepare run and 214 s in the a5ec1e3 run. At this run's speed it would use about 35% of WORK_SECONDS=3300 before Windows Setup starts. That raises the risk of a deadline timeout but cannot admit unverified media.",
+     "NOTE, ISO identity: the ISO is not retained, and no reviewer hashed its bytes. Its digest bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38 rests on four things: S's streaming-hash receipt; the Microsoft publisher page's single EN-US x64 Enterprise Eval entry (publisher.html matches its lock pin); the matching earlier a5ec1e3 download; and the campaign-time re-download, which must match MEDIA_SHA256 and the locked byte count before seed() or QEMU use it. The URL is bound to the publisher entry only through the SHA-256. Build 26300 and KB 5130867 are past the reviewers' knowledge cutoff. authenticated_account_used=false is a hard-coded literal, but the code has no auth or cookie handler and refuses every redirect.",
+     "NOTE, OD-038 scope: the answer file also sets ProtectYourPC=1 on the OOBE privacy page, which OD-038's licence-only authorization does not explicitly cover. The impact is nil because of -nic none and a disposable VM. The owner may want to record this choice. AcceptEula and HideEULAPage apply only to the pinned Windows 11 Enterprise Evaluation image, and MEDIA and MEDIA_SHA256 predate OD-038 and have not changed since.",
+     "NOTE, host install trust: install_tools verifies the lock pin and each deb's bytes and sha256, then runs sudo apt-get with local_only_apt. It does not re-check signatures itself. Root maintainer scripts enable qemu-kvm.service, reload the swtpm AppArmor profile and add the swtpm user. No setuid or setgid files are present. Exact per-file pins cover only 10 tools and firmware files; other libraries are bound by dpkg-query version identity. 90 of 117 packages are already on the runner image at the locked versions. The host-tools lens verified all 3 InRelease signatures in pure Python, made by key F6ECB3762474EDA9D21B7022871920D1991BC93C (fingerprint compared against model knowledge). The keyring also contains the 2012 archive key and the 2012 CD key. The Release files have no Valid-Until. The host closure is identical to the earlier reviewed a5ec1e3 lock.",
+     "NOTE, swtpm AppArmor: the profile allows owner @{HOME}/**. The campaign's TPM state and socket sit under $RUNNER_TEMP, which is under /home/runner. That this works is inferred from earlier diagnostics and was not re-measured; if it fails, the campaign fails closed.",
+     "NOTE, guest binding: windows11_vm.py checks guest-driver.json against guest_driver_sha256 but does not compare guest-driver/* with that file's per-file entries. The bytes that actually execute, including windows11_bootstrap.ps1, which runs as SYSTEM and is outside the in-guest seed-manifest check, are bound through audit_bundle's exact-inventory check against bundle_sha256. All three records agree in this candidate.",
+     "NOTE, guest behaviour (code reading only): ShellKeys('enter') re-checks the foreground window and keyboard layout before sending Enter, but not the focused element. The risk is theoretical, and the VM is offline. The bootstrap leaves a SYSTEM logon task and a Startup entry in the Default profile; both exist only in the disposable VM. Retained evidence includes the full dxdiag.xml (which records the runner CPU model) and screen captures bounded to the owned window. Privacy impact is inferred to be neutral.",
+     "NOTE, preparation record: all 367 owned commands exited 0 with no sudo, no real install, no VM start and no execution of downloaded binaries. The private apt.conf and the removal of private-work are shown only indirectly, through apt_config() at S, the retained sources.list and indextargets, and closure.json reporting COMPLETE. Source mode strings differ: the original Windows checkout records 0o666 and the candidate's Linux checkout records 0o100644. This is harmless because the bytes and sha256 match for all 2777 files and git tree bb8fb0d pins the modes.",
+     "NOTE, KI-0146 and KI-0147: the win-bundle lens confirmed both are fixed at S. The lifecycle --bundle path is $RUNNER_TEMP/japp-reviewed-win11-inputs/retained/inputs, which matches the ZIP's retained/ prefix. windows_package.py inspect runs without the Windows-only stage guard, and every other host step uses Linux facilities or locked Linux tools.",
+     "Scope of this decision: it covers exactly one VM campaign bound to the four hashes above, source S 10f247bc441036233963004d1d663cd80e3a0212, package merge M c25742ef0af8421bc4bfc7a3a6533506dbf8be10, and candidate artifact 13109055698 from prepare run 41367514098. It does not cover the GNOME candidate."
+    ],
+    "summary": "I am releasing the Windows 11 candidate for exactly one bound VM campaign. All five lenses ran to completion: win-bundle, win-media, win-host-tools, win-guest-driver and win-preparation. Every lens returned CLEAR_WITH_NOTES and no BLOCKING finding survived. Three findings survived adversarial verification, all as NON_BLOCKING or downgraded to NOTE: the attestor here-string is never parsed before a campaign, unused root-installed host packages (wimtools and swtpm-tools), and the limited window set by the runner-image pin and artifact expiry. I recomputed the four bound hashes and the candidate ZIP hash myself, and they equal what every lens reported. Conditions for the campaign: dispatch before 2026-11-09T00:26:34Z (the earlier of the two artifact expiries, chosen conservatively); the runner's ImageVersion must be 20261026.354.1 and its CPU must be the EPYC 7763 identity, otherwise the campaign fails closed and needs a new request and release. Regarding \"what's taking so long\": the five lens reviews and their skeptic checks are complete, and this final Windows 11 decision is now recorded."
+   },
+   "lenses": [
+    {
+     "lens": "win-bundle",
+     "review_failed": false,
+     "verdict": "CLEAR_WITH_NOTES",
+     "checks": [
+      "Confirmed that the repo scripts/ and .github/ match S: git diff 10f247b HEAD only changes the two request JSONs. Exported S with git archive 10f247b into my work dir and imported only from that export.",
+      "Hashed the candidate ZIP (71bae73b…) and the original Windows package ZIP (31d0d26b…). Both equal the GitHub API digests of artifacts 13109055698 and 13107428378, fetched with read-only gh api. Checked artifact names, source runs, head SHAs and expiry.",
+      "zip_vs_tree.py: all 1534 candidate ZIP members (all under retained/, no dir entries, no special modes, no duplicates or casefold duplicates) match the extracted tree byte for byte.",
+      "zip_vs_tree.py: all 279 members of the original package ZIP match inputs/original-native-artifact byte for byte, with nothing extra either way.",
+      "independent_audit.py: re-implemented audit_bundle (METADATA_CAP, schema, row count, member() safety, regular files, FILE_CAP, 2 GiB total, exact map equality) on retained/inputs. Result: exact_equal, 424/424.",
+      "replay_s_consumers.py: ran S's own audit_bundle, the subject/release-arg equality, the media-lock and guest-driver pins, the media identity check, and original_package on the candidate. All PASS; portable_sha256 6324240c….",
+      "retention_check.py: retention.json lists exactly the 1533 non-self retained files with matching bytes and sha256. No ISO, disk, private-work or retained entries; no retention-failure.json.",
+      "Traced the provenance of packages/windows-portable.zip: manifest row and origin path; curator script hash equals S's native_package_retention.py, which zips pipeline/portable; pipeline/portable-inspection.json PASS with inspector source equal to S's windows_package.py; runtime/manifest.json in the ZIP equals the closure runtime_manifest_sha256.",
+      "Replayed seed(): S's unpack() of windows-portable.zip into my work dir (64 files, required layout present), then S's windows_package.py inspect CLI on Darwin arm64. Result: PASS/INVENTORY_VERIFIED.",
+      "cross_checks.py: guest-driver/* equal S's sources and guest-driver.json rows; guest-source-check.json rows equal S's four sources; host-debs/ equals the host-tools-lock package rows (117); publisher.html matches its media-lock row, and S's publisher_digest() returns MEDIA_SHA256.",
+      "Checked source-before, source-after and source-finally in the candidate: all three are equal and bind [S, bb8fb0d] over 2777 files, which matches git ls-tree of S.",
+      "KI-0146: read the lifecycle and prepare workflows at S. Fetched hosted log of prepare job 125031052345 (upload LCA root, 1534 files, flat single-ID download for the same action pin). Ran S's test_native_vm_artifact_layout.py from my export (3 passed). Confirmed hosted Ubuntu verify ran it (3168 passed). Read VM-mode artifact_metadata name/run/digest binding.",
+      "KI-0147: read windows_package.main at S (guard only on stage). Enumerated every owner.command/Popen/TOOLS use in windows11_vm.py. import_closure.py found a stdlib-only import closure with only POSIX-specific modules. Read ensure_capacity, require_host, source_binding, install_tools, the Owner.command env, and the ubuntu_gnome_shell imports. Confirmed hosted Ubuntu verify passed the Linux-inspect and stage-guard tests.",
+      "Re-verified after all work: the candidate tree still matches its ZIP, both ZIP hashes are unchanged, and the repo git status is clean. All scratch output is under review3-work/win11-bundle-integrity/."
+     ],
+     "hashes": [
+      {
+       "file": "review3/win11/retained/inputs/reviewed-inputs.json (bundle_sha256)",
+       "sha256": "902c783d23abc9c7d64900a154a6268b4763559e670695332da0c6759bf7b2ed"
+      },
+      {
+       "file": "review3/win11/retained/inputs/media-lock.json (media_lock_sha256)",
+       "sha256": "c18dc337b3073a7ef28fcc7b24611c9c714dfa36822d490785c732a1ab36c19c"
+      },
+      {
+       "file": "review3/win11/retained/inputs/host-tools-lock.json (host_tools_sha256)",
+       "sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06"
+      },
+      {
+       "file": "review3/win11/retained/inputs/guest-driver.json (guest_driver_sha256)",
+       "sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+      },
+      {
+       "file": "review3/win11/retained/inputs/original-native-artifact/manifest.json (package manifest)",
+       "sha256": "6fe7ec97c1c6bcd06f23ed3d21bb1440895516d10e39348c0735c365cdd9a2b5"
+      },
+      {
+       "file": "review3/win11/retained/inputs/original-native-artifact/packages/windows-portable.zip",
+       "sha256": "6324240c67b373dad404ced271e28aec59a4f7064ee7ef387e2d87f07902c458"
+      },
+      {
+       "file": "review3/win11.zip (candidate artifact 13109055698)",
+       "sha256": "71bae73b85dd137903053d59086ed872a985ed52992594adb3189d43cd89545c"
+      },
+      {
+       "file": "req3/win/artifact.zip (original Windows package artifact 13107428378)",
+       "sha256": "31d0d26b10a54edd7a502ed61d3c51620fcf8442a92803f36a2eb80643b717bb"
+      },
+      {
+       "file": "windows-portable.zip member runtime/manifest.json",
+       "sha256": "ef4d91b35235d1f55ea930f989c17ee391577d7c513bfbc602b54119bb2284aa"
+      },
+      {
+       "file": "scripts/windows_package.py at S (= pipeline/portable-inspection.inspector.py)",
+       "sha256": "67d667d6d98b598c1301d1b4e7453c53fb94659f4922286b1883326a2b237922"
+      },
+      {
+       "file": "scripts/native_package_retention.py at S (= original manifest curator)",
+       "sha256": "8f36a9b94b550c4c7759b93096b3eead67cc17bbd34948415504b3bfa9f5d94d"
+      }
+     ],
+     "notes": [
+      {
+       "title": "Bundle audit replays PASS: 424 rows equal the 424 on-disk members",
+       "severity": "NOTE",
+       "location": "review3/win11/retained/inputs/reviewed-inputs.json; scripts/windows11/windows11_vm.py audit_bundle (S)",
+       "claim": "The bundle passes the check windows11_vm.audit_bundle runs at S. The manifest digest is under METADATA_CAP 8 MiB and the schema is japp-win11-reviewed-inputs-v1. There are 424 rows, within 1..6000. Every on-disk name passes member(); there are no links, special nodes or casefold collisions. The largest file is 113,407,488 bytes, under FILE_CAP 512 MiB. The total is 689,690,189 bytes, under the 2 GiB cap. The {name:{bytes,sha256}} map matches exactly in both directions. The subject fields match S, M, tree bb8fb0d and package manifest 6fe7ec97.",
+       "evidence": "I wrote my own re-implementation (independent_audit.py) and also imported S's own audit_bundle from a git-archive export of 10f247b. Both ran with -I -B on the extracted subtree retained/inputs: exact_equal=true, with no rows missing, extra or different. S's media-lock and guest-driver pins also passed, and so did the MEDIA/MEDIA_SHA256/iso_retained_in_artifact=false identity check. Per top-level path: original-native-artifact 279, host-debs 117, host-signed-metadata 20, guest-driver 3, plus 5 root JSON/HTML files."
+      },
+      {
+       "title": "original-native-artifact equals the original Windows package artifact byte for byte, and its portable ZIP is the curated, inspected package",
+       "severity": "NOTE",
+       "location": "review3/win11/retained/inputs/original-native-artifact; req3/win/artifact.zip; windows11_inputs.original_package (S)",
+       "claim": "The consumer, original_package(), requires the exact member set (manifest files plus manifest.json). All 279 ZIP members equal the retained copy, with nothing extra on either side. sha256(manifest.json) is 6fe7ec97…, as expected. packages/windows-portable.zip is the package the curator built from the inspected pipeline/portable folder.",
+       "evidence": "My zip_vs_tree.py compared req3/win/artifact.zip (sha256 31d0d26b…, which equals the GitHub API digest of artifact 13107428378 from run 41356786386, head 10f247b) with the copy: 279/279 identical. S's original_package() PASSES with merge c25742e and tree bb8fb0d. The manifest row for packages/windows-portable.zip has sha256 6324240c…, origin D:\\a\\_temp\\japp-development-package-proof\\windows-portable.zip. The curator sha256 8f36a9b9… equals scripts/native_package_retention.py at S, which zips pipeline/portable. pipeline/portable-inspection.json shows PASS/INVENTORY_VERIFIED, and its source_sha256 67d667d6… equals S's windows_package.py and the retained .inspector.py. Inside the portable ZIP, runtime/manifest.json hashes to ef4d91b3…, which equals runtime_manifest_sha256 in pipeline/closure.json. I replayed seed() using S's unpack(): 64 files, 56,569,392 bytes, all four required paths present. Running S's windows_package.py inspect on that extraction gave PASS/INVENTORY_VERIFIED."
+      },
+      {
+       "title": "retention.json lists every retained file exactly; nothing private is retained",
+       "severity": "NOTE",
+       "location": "review3/win11/retained/retention.json",
+       "claim": "retention.json (schema japp-win11-retention-v1, private_ISO_disks_passwords_excluded=true) lists 1533 files. That is exactly every regular file in retained/ except retention.json itself, and every bytes/sha256 matches. There are no private-work/ or retained/ entries, no ISO/qcow2/img/fd files, and no retention-failure.json.",
+       "evidence": "My retention_check.py found exact_equal=true and no files only on one side. 1533 listed plus retention.json gives the 1534 members of the candidate ZIP. The ZIP's sha256 71bae73b… equals the API digest of artifact 13109055698, and its 1534 members match the extracted tree byte for byte (zip_vs_tree.py identical=true). Listed total is 692,550,277 bytes, under the 2 GiB inputs cap."
+      },
+      {
+       "title": "KI-0146 is fixed at S: the lifecycle --bundle path matches where this artifact's inputs/ will land",
+       "severity": "NOTE",
+       "location": ".github/workflows/windows11-native-lifecycle.yml (S, lines ~128-153); .github/workflows/windows11-native-prepare.yml upload step",
+       "claim": "After the lifecycle download step, the bundle sits at $RUNNER_TEMP/japp-reviewed-win11-inputs/retained/inputs. The workflow at S passes exactly that path as --bundle.",
+       "evidence": "From the hosted log of prepare job 125031052345 (gh api): upload-artifact reported 'Multiple search paths detected… least common ancestor is /home/runner/work/_temp/japp-unreviewed-win11-candidate… 1534 files'. All candidate ZIP members start with retained/ (the only top-level entry), and retained/inputs/reviewed-inputs.json is present. In the same job, download-artifact@9000827 with a single artifact-ids printed 'Starting download of artifact to: /home/runner/work/_temp/japp-original-windows-artifact', and windows11_candidate.py then read manifest.json at that root. So this pin extracts flat, with no artifact-name folder. The lifecycle at S uses the same pin, a single artifact-ids, path ${{ runner.temp }}/japp-reviewed-win11-inputs, and --bundle \"$RUNNER_TEMP/japp-reviewed-win11-inputs/retained/inputs\", with no relocating step in between. The worktree copy of the lifecycle workflow equals S. S's scripts/tests/test_native_vm_artifact_layout.py passed 3/3 when I ran it from my export, and it also passed in hosted Ubuntu verify (run 41356786386 attempt 2: 3168 passed). VM-mode artifact_metadata accepts only the name 'unreviewed-windows11-inputs-<S>-<run>' from a successful windows11-native-prepare.yml run. The API reports exactly that name for 13109055698, from run 41367514098 attempt 1, conclusion success."
+      },
+      {
+       "title": "KI-0147 is fixed at S: every host-side step windows11_vm.py runs works on the Linux runner",
+       "severity": "NOTE",
+       "location": "scripts/windows_package.py main() (S); scripts/windows11/windows11_vm.py main()/seed()/install_tools()",
+       "claim": "seed() runs `sys.executable -B scripts/windows_package.py inspect`. At S, the native Windows x64 guard in windows_package.main() applies only to 'stage'; 'inspect' goes straight to inspect_with_receipt, which only reads bytes. Every other host step uses Linux facilities or locked Linux tools.",
+       "evidence": "I read windows_package.py at S (lines 321-347): the guard is inside `if args.operation == \"stage\"`. inventory, regular and pe use only stdlib and getattr(st_file_attributes, 0). I ran S's inspect CLI on the real extracted portable on this Darwin arm64 host and got PASS (I did not run it on Linux). Hosted Ubuntu verify passed test_static_inspection_cli_runs_on_the_linux_vm_host and test_staging_cli_still_requires_native_windows_x64. My import_closure.py static closure of windows11_vm.py covers 15 local modules with no non-stdlib imports; the only platform-specific imports are fcntl and select, which are POSIX. The other host steps are: require_linux/require_host, /proc/cpuinfo, /proc/meminfo, /usr/bin/git source binding, sudo rm, sudo apt-get with local_only_apt, dpkg-query, /dev/kvm ioctl, setfacl, urllib download, and xorriso/qemu-img/mformat/swtpm/qemu/mcopy. All of these binaries are pinned in host-tools-lock.json tools: qemu, qemu_img, swtpm, xorriso, mformat, mcopy, wimlib, setfacl, code, vars."
+      },
+      {
+       "title": "The candidate and the original package artifacts expire on 2026-11-09",
+       "severity": "NOTE",
+       "location": "GitHub artifacts 13109055698 and 13107428378",
+       "claim": "In VM mode, artifact_metadata refuses an expired artifact. The VM campaign must therefore be dispatched before the candidate expires, or this review cannot be used.",
+       "evidence": "From gh api: 13109055698 expires_at 2026-11-09T00:52:09Z; 13107428378 expires_at 2026-11-09T00:26:34Z. windows11_request.py artifact_metadata requires artifact[\"expired\"] is False."
+      },
+      {
+       "title": "Host tool lock binds runner image 20261026.354.1 (outside my lens)",
+       "severity": "NOTE",
+       "location": "inputs/host-tools-lock.json; windows11_vm.install_tools",
+       "claim": "install_tools refuses the campaign unless the lifecycle runner's ImageVersion equals the locked runner_image_version. If GitHub rolls the ubuntu-24.04 image before the campaign, it fails closed, with no integrity exposure. I did not check this against the current runner image.",
+       "evidence": "host-tools-lock.json has runner_image_version '20261026.354.1'. install_tools compares lock['runner_image_version'] with os.environ['ImageVersion']. Within my lens I checked only that host-debs/ equals the lock's 117 package rows (set, bytes and sha256 all match) and that the lock holds every TOOLS/FIRMWARE key install_tools reads."
+      },
+      {
+       "title": "The ISO re-download may use much of the campaign's work budget (inferred, outside my lens)",
+       "severity": "NOTE",
+       "location": "inputs/media-lock.json; windows11_vm.py WORK_SECONDS",
+       "claim": "The prepare runner took 1162.5 s to download the 8,225,329,152-byte ISO. The campaign re-downloads it inside WORK_SECONDS=3300, along with tool install, Windows Setup/OOBE and all 13 lifecycle phases. A similar download time would leave roughly 2100 s for the rest. This only affects whether a campaign succeeds, not integrity. It is an inference from one observation; I measured nothing.",
+       "evidence": "media-lock.json media.seconds = 1162.51320563. In windows11_vm.py, work_deadline = started + 3300, and download(MEDIA, …, owner.work_deadline) runs after install_tools and before seed()."
+      }
+     ],
+     "verified": []
+    },
+    {
+     "lens": "win-media",
+     "review_failed": false,
+     "verdict": "CLEAR_WITH_NOTES",
+     "checks": [
+      "Hashed the bound files in the unzipped candidate (inputs/media-lock.json, reviewed-inputs.json, host-tools-lock.json, guest-driver.json, publisher.html, media-download.json, closure.json, retention.json).",
+      "Hashed review3/win11.zip (71bae73b…545c). Confirmed with read-only gh api that artifact 13109055698 has digest sha256:71bae73b…545c, belongs to run 41367514098 (head 060882c, conclusion success, attempt 1) and is not expired; listed that run's jobs and step timings.",
+      "Compared every one of the 1534 ZIP members, read in memory without extracting, to the unzipped retained tree: no missing files, no extra files, no digest mismatches.",
+      "Recomputed the reviewed-inputs.json inventory against the actual inputs/ tree: 424 rows, exact equality. Recomputed retention.json against the retained tree: 1533 rows, no mismatch, missing or extra files, and no .iso/.wim/.esd members.",
+      "Compared media-lock.json with media-download.json (identical media block). Checked the URL scheme, host and path, the absence of query, fragment and userinfo, bytes, sha256 and authenticated_account_used. Checked the lock against S's MEDIA, MEDIA_SHA256 and PUBLISHER constants.",
+      "Checked publisher.html size and sha256 against the lock's publisher block. Re-implemented S's publisher_digest regex in my own script (run with python3 -I -B) and confirmed a single EN-US x64 match equal to the locked digest. Checked the canonical link, the title and Applies To, the full list of hash labels, the absence of meta refresh, and the absence of non-ASCII or control characters near the hash.",
+      "Diffed this publisher.html against the earlier a5ec1e3-review candidate's copy (from scratchpad/review-candidates/win11.zip, read in memory): only per-request flighting and datacenter metadata differ, and the hash lists are identical.",
+      "Compared this media lock with docs/evidence/m03-native-candidates-a5ec1e3-review/bound/windows11/media-lock.json: same ISO URL, bytes and sha256, and the same CPU identity.",
+      "Read windows11_inputs.py in full, windows11_candidate.py in full, windows11_deployment.py in full, and the windows11_vm.py header, audit_bundle, install_tools prologue, seed, qemu_argv, installation_media_started and main through the QEMU launch.",
+      "Confirmed that source-before, source-after and source-finally.json record git 10f247b/bb8fb0d, and that their sha256 values for windows11_inputs.py, windows11_candidate.py, windows11_vm.py and windows11_deployment.py equal git show 10f247b:<path>. Confirmed the working tree differs from S only in two .github request JSON files.",
+      "Read OD-038 in docs/DECISIONS.md. Used git log -L to confirm MEDIA and MEDIA_SHA256 have not changed since bd4cffd (2026-10-29), and git merge-base to confirm the OD-038 commit 17c22cc is an ancestor of S.",
+      "Grepped the guest scripts (bootstrap/guest ps1, owned.cs) and the deployment code for license, EULA, activation, product-key, external-URL and alternate-ISO handling.",
+      "Read windows11-native-lifecycle.yml and windows11-native-prepare.yml at S for the bundle path, how hashes are passed and the timeouts. Read the windows11 request template for the media_lock_sha256 binding.",
+      "Compared the recorded host CPU with S's SUPPORTED_HOST_CPUS on the four matched keys. Assessed the Microsoft processor-list basis from my own knowledge, labeled as such.",
+      "Did not execute anything from the candidate and made no network calls other than read-only gh api; all scratch files are in review3-work/win11-media/."
+     ],
+     "hashes": [
+      {
+       "file": "review3/win11/retained/inputs/media-lock.json (media_lock_sha256)",
+       "sha256": "c18dc337b3073a7ef28fcc7b24611c9c714dfa36822d490785c732a1ab36c19c"
+      },
+      {
+       "file": "review3/win11/retained/inputs/reviewed-inputs.json (bundle_sha256)",
+       "sha256": "902c783d23abc9c7d64900a154a6268b4763559e670695332da0c6759bf7b2ed"
+      },
+      {
+       "file": "review3/win11/retained/inputs/host-tools-lock.json (host_tools_sha256)",
+       "sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06"
+      },
+      {
+       "file": "review3/win11/retained/inputs/guest-driver.json (guest_driver_sha256)",
+       "sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+      },
+      {
+       "file": "review3/win11/retained/inputs/publisher.html (105775 bytes; equals lock publisher.sha256)",
+       "sha256": "37cf66fb602e99404a691ea1a5eb9970bb3b76e8dd479d7348f853076f1bd10a"
+      },
+      {
+       "file": "review3/win11/retained/media-download.json",
+       "sha256": "0c797913acbe2d44a9f20345c6b7e86624dcf6b1160f70dab17fa407d8168a52"
+      },
+      {
+       "file": "review3/win11/retained/closure.json",
+       "sha256": "6482b2dca89c9966b5a66dc67f005b28520baf755ab813843c14123fe393e054"
+      },
+      {
+       "file": "review3/win11/retained/retention.json",
+       "sha256": "9d442810b884b568c0d8836a61576dc79aa6d6468df6ad34fc6d8653d70b68de"
+      },
+      {
+       "file": "review3/win11.zip (equals GitHub artifact 13109055698 digest)",
+       "sha256": "71bae73b85dd137903053d59086ed872a985ed52992594adb3189d43cd89545c"
+      },
+      {
+       "file": "Windows 11 ISO (recorded in lock and media-download.json, equal to publisher EN-US x64 entry; ISO not retained, not hashed by me)",
+       "sha256": "bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38"
+      },
+      {
+       "file": "S:scripts/windows11/windows11_inputs.py",
+       "sha256": "15939a41b27889f92085b121df43bca02053be36cde1ebd0a91d5fbd3b278652"
+      },
+      {
+       "file": "S:scripts/windows11/windows11_candidate.py",
+       "sha256": "535327f71f9917fb97422938f4d4ea5f967eb34f97fc8d21520e1bcab04b7550"
+      },
+      {
+       "file": "S:scripts/windows11/windows11_vm.py",
+       "sha256": "49552a48e48afba3af0cfc85deb5f13a210862f348c8657319eb21195a56fcdf"
+      },
+      {
+       "file": "S:scripts/windows11/windows11_deployment.py",
+       "sha256": "4cc850e8e6094062aa72ba49ffad037a32bc45b9d8e22442fb5e69664ab0758d"
+      }
+     ],
+     "notes": [
+      {
+       "title": "The Microsoft publisher page lists the locked digest for exactly this edition, language and architecture",
+       "severity": "NOTE",
+       "location": "inputs/publisher.html line 640; inputs/media-lock.json; scripts/windows11/windows11_inputs.py:185-195 (publisher_digest)",
+       "claim": "The retained page lists the SHA-256 for exactly the EN-US x64 Enterprise Eval image, and it equals the locked ISO digest and MEDIA_SHA256 at S.",
+       "evidence": "The page title reads 'How to verify the authenticity of a Windows 11, version 26H2 Evaluation ISO file'. Its canonical link equals the URL in the lock. Under the heading 'Windows 11 Enterprise, version 26H2 Evaluation hash values', the label \"Enterprise Eval x64 Eval EN-US DVD9 (SHA256)\" is followed directly by BC3F24086EBADC94489066B5AD78089E2CF5C3491E90E790BB81A2B199C10E38. I re-implemented S's regex in my own script. It finds exactly one match, and the lowercased value equals bc3f24086ebadc94489066b5ad78089e2cf5c3491e90e790bb81a2b199c10e38. The digest occurs once in the page. The 11 labels on the page are all x64 Enterprise Eval, one per language; no ARM64 entry exists. The page is pure ASCII with no meta refresh and no unusual characters near the hash. publisher.html is 105775 bytes with sha256 37cf66fb…0a; both values equal the lock's publisher.bytes and publisher.sha256. I also compared it with the publisher.html from the earlier a5ec1e3-review candidate (sha256 0657f056…, which matches docs/evidence/m03-native-candidates-a5ec1e3-review/bound/windows11/media-lock.json). The two copies differ only in per-request flighting IDs and the origin datacenter (West US vs East US), and both list the same 11 hashes."
+      },
+      {
+       "title": "I could not hash the ISO myself; its digest rests on S-code receipts, three matching downloads and the campaign-time re-check",
+       "severity": "NOTE",
+       "location": "media-download.json; inputs/media-lock.json; windows11_candidate.py:299-303; windows11_vm.py:910-919",
+       "claim": "The ISO is not retained, so I could not hash the media bytes. The recorded digest comes from S's streaming hash. The campaign re-downloads the ISO and refuses it before use unless the digest and byte count match.",
+       "evidence": "media-download.json and the lock's media block are identical: the URL is https://software-static.download.prss.microsoft.com/dbazure/26300.9457.260913-1737.26h2_ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso, with no query, fragment or userinfo; bytes 8225329152; sha256 bc3f…0e38. The candidate code raises an error unless the streamed hash equals MEDIA_SHA256, and closure.json reports DOWNLOAD_ONLY_UNREVIEWED_CANDIDATE_COMPLETE with no error. The earlier a5ec1e3 lock recorded the same bytes and sha256 from a different download that took 214 s. No .iso, .wim or .esd member exists in the ZIP or in retention.json, and retention.json sets private_ISO_disks_passwords_excluded true."
+      },
+      {
+       "title": "The download URL is bound to the publisher entry only through the SHA-256",
+       "severity": "NOTE",
+       "location": "windows11_inputs.py:19-21 (MEDIA, PUBLISHER)",
+       "claim": "The publisher page names no file name, URL or size, and the Evaluation Center page that links the ISO was not retained. The URL path also lacks the pseudo-GUID segment I recall in earlier Microsoft eval links (knowledge only). Because the SHA-256 equals Microsoft's published EN-US x64 value, this does not weaken the identity.",
+       "evidence": "publisher.html contains no '26300', no 'CLIENTENTERPRISEEVAL' and no ISO URL. It links only to https://www.microsoft.com/evalcenter/evaluate-windows-11-enterprise. The ISO file name tokens (CLIENTENTERPRISEEVAL, x64FRE, en-us, 26h2) agree with the page's 26H2 / Enterprise Eval / x64 / EN-US entry. Build 26300 and the page's KB 5130867 (Sept 29, 2026) are past my knowledge cutoff, so I could not verify them from knowledge."
+      },
+      {
+       "title": "The ISO is the Windows 11 Enterprise Evaluation x64 en-US image that OD-038 covers",
+       "severity": "NOTE",
+       "location": "docs/DECISIONS.md OD-038; windows11_inputs.py:19-20; windows11_deployment.py:24-25,97,128",
+       "claim": "OD-038 covers this image. Its scope is the pinned MEDIA/MEDIA_SHA256, and those values were set before OD-038 was recorded and have not changed since.",
+       "evidence": "git log -L shows MEDIA and MEDIA_SHA256 were introduced in bd4cffd (2026-10-29) and not changed through S. The OD-038 commit 17c22cc (2026-10-30) is an ancestor of S, and DECISIONS.md at S contains OD-038 with status ACCEPTED. The lock's URL and sha equal those constants. The answer file sets AcceptEula and HideEULAPage only for image_name 'Windows 11 Enterprise Evaluation' and has no ProductKey. The guest attestation requires the caption 'Microsoft Windows 11 Enterprise Evaluation', X64, build 26300 and UBR 9457, which matches the file name 26300.9457. A grep of the guest ps1/cs files for slmgr, ProductKey, /ipk, rearm, licen, eula, activation and external URLs found nothing beyond 127.0.0.1."
+      },
+      {
+       "title": "At campaign time the ISO is re-downloaded from the same constant URL and checked before use; I found no path to other media",
+       "severity": "NOTE",
+       "location": "windows11_vm.py:868-919, 462-544, 588-593; windows11_candidate.py:68-111",
+       "claim": "The campaign cannot boot media other than the digest-verified ISO, and it accepts no license beyond the evaluation EULA.",
+       "evidence": "main() checks these in order: the bundle hash; the media-lock.json sha against --media-lock-sha256; media.url == MEDIA, media.sha256 == MEDIA_SHA256 and iso_retained false; the CPU fail-fast check. It then calls download(MEDIA, …) and requires sha256 == MEDIA_SHA256 and bytes == lock bytes before seed() or qemu_argv use the file. download() accepts only the exact MEDIA or PUBLISHER URL over https with no userinfo, query or fragment. It refuses every redirect (NoRedirect, plus a geturl equality check), requires HTTP 200, opens the destination with 'xb', and hashes the same blocks it writes. QEMU attaches the ISO readonly on ide.1 with -nic none and -boot once=d. The firmware-console check requires the loader to start from Sata(0x1,…), which is the reviewed media. The seed ISO is built by xorriso without boot options. The lifecycle workflow passes --bundle …/retained/inputs, which matches the ZIP's retained/ prefix, and runs windows11_vm.py from the checked-out S."
+      },
+      {
+       "title": "The recorded CPU is the one reviewed identity; the Microsoft list basis is plausible but cites 24H2/25H2 lists for a 26H2 image",
+       "severity": "NOTE",
+       "location": "inputs/media-lock.json host_cpu_requires_different_official_support_review; windows11_inputs.py:494-539; windows11_vm.py:882-891",
+       "claim": "The prepare runner's CPU (AMD EPYC 7763 64-Core Processor, AuthenticAMD, family 25, model 1, stepping 1) matches the only SUPPORTED_HOST_CPUS identity on all four matched keys. The campaign checks the live runner CPU with host_cpu_support before the ISO download and before any VM starts, and records host-cpu.json either way.",
+       "evidence": "My script compared the four identity keys exactly and all match; stepping is recorded but not matched. From knowledge, not verified against a file: the EPYC 7763 is a Zen 3 Milan EPYC 7003-series part, CPUID family 19h model 01h, consistent with family 25 / model 1. Microsoft's Windows 11 supported AMD processor lists have included EPYC 7003-series models such as the 7763 (moderate confidence). The cited learn.microsoft.com URLs follow Microsoft's naming pattern for those lists. I could not verify offline the list dates (2025-08-08, 2025-10-16) or the 25H2 entry text 'AMD EPYC 7003 Series'. S's own comment says no 26H2 list exists, so 26H2 support is inferred from the 24H2/25H2 lists. Inferred from the evidence: GitHub-hosted runner CPUs vary. The repository records EPYC 9V45 in run 41147235484, and the code comment cites EPYC 9V74 in run 41165269919. A campaign runner with another CPU fails closed before downloading anything, but reruns above attempt 1 are refused, so that would cost a new request and release."
+      },
+      {
+       "title": "The ISO download can use a large share of the campaign work budget",
+       "severity": "NOTE",
+       "location": "windows11_vm.py:99 (WORK_SECONDS=3300), 911; .github/workflows/windows11-native-lifecycle.yml timeout-minutes 70",
+       "claim": "Inferred and fail-closed only: the same 8,225,329,152-byte download took 1162.5 s in this prepare run and 214 s in the earlier a5ec1e3 candidate run. If the campaign download is as slow as this run, about 35% of WORK_SECONDS is spent before Windows Setup starts. That would raise the risk of a deadline TimeoutError but would not let unverified media through.",
+       "evidence": "media-download.json seconds 1162.51320563. Prior bound lock seconds 214.00577305099998. The prepare step 'Download official publisher media…' ran from 00:32:03 to 00:52:09 per gh api jobs for run 41367514098."
+      },
+      {
+       "title": "The 'authenticated_account_used: false' value is a hard-coded literal, backed by how the code is built",
+       "severity": "NOTE",
+       "location": "windows11_candidate.py:88-111",
+       "claim": "The field is not a runtime observation. The code still cannot authenticate: it adds no auth or cookie handler, the URL carries no userinfo, and every redirect (including one to a sign-in page) is refused.",
+       "evidence": "build_opener(NoRedirect()) adds only the default handlers, which include no auth handler with credentials and no cookie processor. official_url() refuses username, password, query and fragment. NoRedirect.redirect_request raises an error. TLS certificate verification is the Python 3.12 default; the runner's python3 is /usr/bin/python3.12 per closure.json."
+      }
+     ],
+     "verified": []
+    },
+    {
+     "lens": "win-host-tools",
+     "review_failed": false,
+     "verdict": "CLEAR_WITH_NOTES",
+     "checks": [
+      "Confirmed scripts/ at HEAD 060882c equals S 10f247b (git diff --quiet 10f247b HEAD -- scripts). Read windows11_candidate.py, windows11_resources.py, windows11_vm.py (install_tools, kvm, seed, qemu_argv, main), windows11_inputs.py (digest, member, bounded), ubuntu_gnome_prepare.py (apt_config, resolve, simulate_host_install), ubuntu_gnome_signed_indexes.py, ubuntu_gnome_host.py (closed_install_plan, simulate_install), ubuntu_gnome_process.local_only_apt, and the lifecycle workflow at S.",
+      "sha256 of win11.zip = 71bae73b…545c, which equals the upload digest in prepare job log 125031052345. All 1534 ZIP members are byte-equal to the unzipped tree, the sets match, and there are no symlinks.",
+      "host-tools-lock.json: schema japp-win11-host-tools-v1; tool keys and paths exactly equal the campaign's TOOLS+FIRMWARE (qemu, qemu_img, swtpm, xorriso, mformat/mcopy->mtools, wimlib, setfacl, OVMF_CODE_4M.secboot.fd, OVMF_VARS_4M.ms.fd); 117 packages; packages equal signed_index_chain.packages minus the records.",
+      "host-debs/ holds exactly the 117 lock filenames. Each matches the lock's bytes and sha256, has a canonical name (epoch encoded as %3a), and its in-memory control.tar Package/Version/Architecture equals the lock. All 138 host rows in reviewed-inputs.json match disk.",
+      "Pure-Python OpenPGP: parsed the keyring, computed v4 fingerprints, and verified the UID self-signatures. Parsed each InRelease cleartext (dash-unescape, trailing-whitespace strip, CRLF canonicalisation, armor CRC24). Verified each signature by RSA modexp plus the PKCS#1 v1.5 SHA-512 DigestInfo check: all 3 are VALID, type 0x01, from F6ECB3762474EDA9D21B7022871920D1991BC93C, created 2026-11-01T14:21:27Z, 2024-04-25T15:11:21Z and 2026-11-01T05:30:48Z. Negative controls: tampered text and the two wrong keys fail for all 3.",
+      "Each release-NN.Release equals the dash-unescaped cleartext of its InRelease. Origin/Label are Ubuntu and Codename noble, with suites noble, noble-updates and noble-security. Lock InRelease, Release and keyring pins equal the file hashes.",
+      "All 12 retained Packages indexes (3 suites x main/restricted/universe/multiverse; archive.ubuntu.com, or security.ubuntu.com for noble-security) match their suite's signed Release SHA256 entry in size and sha256. host-signed-metadata has no extra members.",
+      "Independently scanned 119,814 stanzas. Every deb joins at least one stanza with equal sha256 and Size, and its pool basename matches. The lock's signed_index_records equal my scan exactly. Joins: noble-updates/main 77, noble-security/main 45, noble/main 38, noble/universe 2. Depends, Pre-Depends, Provides, Conflicts, Breaks and Replaces in each deb's control equal the index stanza.",
+      "Using a Debian version comparator: every selected version is the newest amd64/all version across the retained indexes. Depends and Pre-Depends are fully satisfied within the 117-package set (0 unsatisfied).",
+      "Reproduced all 10 tool and firmware pins byte-for-byte from in-memory data.tar members (211 MB decompressed). Each path has exactly one provider. mformat and mcopy are symlinks to mtools, and the mtools target hash matches.",
+      "OVMF (ovmf 2024.02-2ubuntu0.10): CODE_4M.secboot.fd (3,653,632 B) and VARS_4M.ms.fd (540,672 B) match their pins. VARS holds 'Ubuntu OVMF Secure Boot (PK/KEK key)'; Microsoft KEK CA 2011 and KEK 2K CA 2023; Windows Production PCA 2011, UEFI CA 2011, Windows UEFI CA 2023, Microsoft UEFI CA 2023 and Option ROM UEFI CA 2023; 9 X509 and 1 SHA256 signature lists. qemu_argv uses q35 smm=on, secure pflash, a read-only CODE drive and a private VARS copy.",
+      "CI records: all 367 command records have exit 0, no signals, no cap exceeded and no unreaped custody. Executables used: git, apt-get, env (apt via APT_CONFIG), dpkg-deb (-f and -x only) and gpgv. The 3 gpgv stderr outputs report 'Good signature' from the 2018 key. All 117 apt-cache show records match the lock's SHA256, Size and Architecture, and all 117 dpkg-deb -f records name locked packages. No unexpected stderr.",
+      "Retained host-install-plan.json and the command-244 apt-get -s output: 27 NEW packages, all at locked versions; 0 upgraded and 0 removed; 90 packages already the newest version on the runner.",
+      "Read in memory, as text only, the maintainer scripts, triggers and conffiles of the 27 new packages, plus the swtpm AppArmor profile. Scanned for setuid/setgid files (none).",
+      "Imported the repository's own source S (not candidate code) and ran the campaign's audit_bundle against inputs/ with bundle sha 902c783d…: PASS, 424 members. Replicated install_tools' pre-install checks: the lock digest equals the pin under METADATA_CAP, the schema is correct, and all 117 archive name/size/sha checks pass. The repo working tree is still clean afterwards.",
+      "Diffed against docs/evidence/m03-native-candidates-a5ec1e3-review/bound/windows11/host-tools-lock.json: the packages and tool pins are identical.",
+      "Read-only gh api calls: prepare run 41367514098 metadata (success, head 060882c) and the download-only job log, for the runner image header and the artifact digest."
+     ],
+     "hashes": [
+      {
+       "file": "review3/win11/retained/inputs/host-tools-lock.json (host_tools_sha256)",
+       "sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06"
+      },
+      {
+       "file": "review3/win11/retained/inputs/reviewed-inputs.json (bundle_sha256)",
+       "sha256": "902c783d23abc9c7d64900a154a6268b4763559e670695332da0c6759bf7b2ed"
+      },
+      {
+       "file": "review3/win11/retained/inputs/media-lock.json (media_lock_sha256)",
+       "sha256": "c18dc337b3073a7ef28fcc7b24611c9c714dfa36822d490785c732a1ab36c19c"
+      },
+      {
+       "file": "review3/win11/retained/inputs/guest-driver.json (guest_driver_sha256)",
+       "sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+      },
+      {
+       "file": "review3/win11.zip (artifact 13109055698)",
+       "sha256": "71bae73b85dd137903053d59086ed872a985ed52992594adb3189d43cd89545c"
+      },
+      {
+       "file": "inputs/host-signed-metadata/ubuntu-archive-keyring.gpg",
+       "sha256": "80a36b0a6de2f69f49d2df75ef473ccde121e9e190b9ea01d20a4f63778d5c31"
+      },
+      {
+       "file": "inputs/host-signed-metadata/release-01.InRelease (noble-updates)",
+       "sha256": "a4fcbfd2666690c2f420400466055da72cd4ab08216795cf3f45cf0826bfb7b6"
+      },
+      {
+       "file": "inputs/host-signed-metadata/release-02.InRelease (noble)",
+       "sha256": "cdb2f31d809f589719a53c6ad15f255b27569c4059542ada282aaa21b8e164b0"
+      },
+      {
+       "file": "inputs/host-signed-metadata/release-03.InRelease (noble-security)",
+       "sha256": "95faf2ecd2aed029a4065bbaf17017259d2e4510417c04ea85b65ba405c0f88b"
+      },
+      {
+       "file": "ovmf deb /usr/share/OVMF/OVMF_CODE_4M.secboot.fd",
+       "sha256": "1286f2a3217d09b374d05951355d7a561c8bacecd74845c8a1fbb71a48c0de8d"
+      },
+      {
+       "file": "ovmf deb /usr/share/OVMF/OVMF_VARS_4M.ms.fd",
+       "sha256": "a9b2b13aba3d4629593913471af7545bd8eef1d414f33cab4c86fff7d5bc09b9"
+      },
+      {
+       "file": "qemu-system-x86 deb /usr/bin/qemu-system-x86_64",
+       "sha256": "8a35ccba41582fc6c38b9df85fc9e35fa1d42f414d2d7d8090ee9b2f5e7c0854"
+      },
+      {
+       "file": "swtpm deb /usr/bin/swtpm",
+       "sha256": "5e9e073fc569588b9fa87dff6785233a714a27c234d23da940e708f44e25368d"
+      }
+     ],
+     "notes": [
+      {
+       "title": "Campaign install runs Ubuntu-signed maintainer scripts as root; trust comes from this review plus host_tools_sha256, not a signature re-check",
+       "severity": "NOTE",
+       "location": "scripts/windows11/windows11_vm.py install_tools (lines 264-325)",
+       "claim": "install_tools checks that sha256(host-tools-lock.json) equals the released pin and that each deb matches the lock's bytes and sha256. It then runs sudo apt-get with local_only_apt and --no-remove: an empty source list and empty lists, so an unprovided dependency fails instead of downloading. It verifies no signatures itself. During install, the root-run maintainer scripts of the 27 new packages: (1) enable and start qemu-kvm.service (qemu-system-common postinst), (2) reload the swtpm AppArmor profile (swtpm postinst), (3) add the swtpm user (swtpm-tools postinst). The remaining 13 of those 16 packages had no maintainer scripts or only a 'triggers' file (activate-noawait ldconfig). None of the 27 new packages ships a setuid or setgid file. This matches the design. I found no path where the campaign executes any other candidate content on the host.",
+       "evidence": "I read the maintainer scripts and conffiles of all 27 newly installed debs as text, in memory. qemu-system-x86 has only dpkg-maintscript-helper dir_to_symlink lines. A scan of data.tar for mode & 0o6000 found nothing. local_only_apt in ubuntu_gnome_process.py sets Dir::Etc::SourceList=/dev/null, an empty SourceParts and empty Lists."
+      },
+      {
+       "title": "Only 10 per-file pins; everything else QEMU loads is bound by package version identity, and 90 of 117 packages come from the runner image",
+       "severity": "NOTE",
+       "location": "inputs/host-tools-lock.json tools; scripts/windows11/windows11_vm.py install_tools dpkg-query check",
+       "claim": "Exact bytes are pinned for 10 paths: qemu-system-x86_64, qemu-img, swtpm, xorriso, mtools (via the mformat/mcopy symlinks), wimlib-imagex, setfacl, OVMF_CODE_4M.secboot.fd and OVMF_VARS_4M.ms.fd. Everything else QEMU loads is bound only through the dpkg-query Package/Version/Architecture equality check. That covers shared libraries, the VGA option ROM from seabios and the qemu-system-data files. The retained apt-get -s plan shows that 90 of the 117 locked packages are already on runner image 20261026.354.1 at identical versions ('already the newest version'). For those packages the installed bytes come from the runner image, not the reviewed debs. This includes python3/python3.12, so the running interpreter is not upgraded. Ubuntu archive versions are immutable, so this is acceptable.",
+       "evidence": "command-244.stdout reports '0 upgraded, 27 newly installed, 0 to remove'. Every Inst line names a locked package and version."
+      },
+      {
+       "title": "Runner image pin comes from the ImageVersion env (20261026.354.1); the job-log header says 20261025.353.1",
+       "severity": "NOTE",
+       "location": "inputs/host-tools-lock.json runner_image_version; windows11_vm.py install_tools",
+       "claim": "The lock pins runner_image_version 20261026.354.1, read from the ImageVersion environment variable. The campaign compares it with the same variable, so the check is internally consistent. The job-log 'Runner Image' header of prepare job 125031052345 shows 'Version: 20261025.353.1', and so does the GNOME prepare job 125030593755. This known discrepancy is already recorded in docs/evidence/m03-gnome-campaign-a5ec1e3-apt diagnostics. If GitHub rolls the ubuntu-24.04 image before the campaign runs, install_tools fails closed before any install. By then source binding and the possible SDK-root cleanup have already run.",
+       "evidence": "gh api repos/kalwad/jobapplyv2/actions/jobs/125031052345/logs, lines 16-20. The same log line 377 shows 'SHA256 digest of uploaded artifact is 71bae73b…', which matches the candidate ZIP."
+      },
+      {
+       "title": "Archive keyring also trusts the 2012 archive and CD keys; only the 2018 key signed the retained Releases",
+       "severity": "NOTE",
+       "location": "inputs/host-signed-metadata/ubuntu-archive-keyring.gpg",
+       "claim": "The retained keyring (sha256 80a36b0a…, the same bytes as both GNOME keyrings in review3/gnome) holds three RSA-4096 primary keys: 790BC7277767219C42C86F933B4FE6ACC0B21F32 'Ubuntu Archive Automatic Signing Key (2012)', 843938DF228D22F7B3742BC0D94AA3F0EFE21092 'Ubuntu CD Image Automatic Signing Key (2012)', and F6ECB3762474EDA9D21B7022871920D1991BC93C 'Ubuntu Archive Automatic Signing Key (2018)'. The 2018 fingerprint matches the value I hold from my own knowledge (not from a file). All three UID self-signatures verify; none has a key-expiration subpacket. Each InRelease carries exactly one signature, and each is from the 2018 key.",
+       "evidence": "Pure-Python OpenPGP parse with SHA-1 v4 fingerprints and RSA self-signature verification."
+      },
+      {
+       "title": "Host closure is byte-identical to the previously reviewed a5ec1e3 lock; only signed metadata advanced",
+       "severity": "NOTE",
+       "location": "inputs/host-tools-lock.json vs docs/evidence/m03-native-candidates-a5ec1e3-review/bound/windows11/host-tools-lock.json",
+       "claim": "The packages rows (all 117 filenames, versions, sizes and sha256s), the 10 tool pins, the keyring pin and runner_image_version are identical to the earlier bound lock. Only the Release dates (noble-updates 2026-11-01 14:20:46 UTC, noble-security 2026-11-01 05:30:08 UTC) and two Packages index pins changed. The Releases carry no Valid-Until field; freshness rests on these Dates and on the pinned bytes.",
+       "evidence": "JSON diff of the two locks: packages rows identical True, tool pin changes {}, keyring same True."
+      },
+      {
+       "title": "swtpm AppArmor confinement permits the campaign's socket and state paths (inferred from recorded diagnostics)",
+       "severity": "NOTE",
+       "location": "swtpm deb /etc/apparmor.d/usr.bin.swtpm; .github/workflows/windows11-native-lifecycle.yml --proof $RUNNER_TEMP/...",
+       "claim": "The shipped profile allows 'owner @{HOME}/** rwk'. The campaign's tpm-state dir and tpm.sock are under $RUNNER_TEMP/japp-win11-vm-proof/private-work, which is under /home/runner. docs/evidence/m03-native-runtime-diagnostics/README.md records that swtpm failed outside home in round 1 and ran from $RUNNER_TEMP in round 3. I did not re-measure this. If it fails, the campaign fails closed ('Owned TPM control socket unavailable').",
+       "evidence": "I read the profile text from the in-memory swtpm data.tar. Lifecycle workflow at 10f247b, lines 139-152."
+      }
+     ],
+     "verified": [
+      {
+       "title": "Unused host packages are installed as root: wimtools (wimlib) and swtpm-tools",
+       "severity": "NON_BLOCKING",
+       "location": "scripts/windows11/windows11_candidate.py HOST_ROOTS/TOOLS (lines 40-61); scripts/windows11/windows11_vm.py (no TOOLS['wimlib'] call, no swtpm-tools binary call)",
+       "claim": "wimtools (from noble/universe, with libwim15t64) and swtpm-tools are in the closure, pinned, and installed as root by the campaign. windows11_vm.py never invokes wimlib-imagex or any swtpm-tools binary; it only runs /usr/bin/swtpm. The swtpm-tools postinst runs as root during install: it adds a 'swtpm' system group and user and creates /var/lib/swtpm-localca. This is extra privileged install surface with no use. The a5ec1e3 review flagged it, but docs/KNOWN_ISSUES.md, DECISIONS.md and PROJECT_STATUS.md do not record it. Release can proceed. It should be recorded or trimmed.",
+       "survives": true,
+       "votes": [
+        {
+         "refuted": false,
+         "corrected_severity": "NOTE",
+         "reasoning": "I could not refute the finding. Its facts check out against S and the retained candidate, but I would grade it NOTE rather than NON_BLOCKING.\n\nWhat I checked:\n\n1. Both packages are listed and installed as root.\n   - At 10f247b, scripts/windows11/windows11_candidate.py HOST_ROOTS lists \"swtpm-tools\" and \"wimtools\".\n   - TOOLS maps \"wimlib\" to /usr/bin/wimlib-imagex. The retained inputs/host-tools-lock.json carries a wimlib pin (sha256 89a80fe9...).\n   - windows11_vm.install_tools runs `sudo -n apt-get ... --no-remove install` on every locked archive. Its only use of wimlib is hashing the file through tool_pin; nothing executes it.\n\n2. Nothing invokes these binaries.\n   - `git grep -i` at 10f247b and at HEAD, over scripts/ and .github/, finds no wimlib, wimtools, swtpm_setup, swtpm-tools or swtpm-localca outside windows11_candidate.py. That covers the tests and the .ps1 guest scripts.\n   - windows11_vm.py runs only TOOLS[\"swtpm\"] as `swtpm socket --tpm2 --tpmstate dir=... --ctrl type=unixio,...`. It stops the TPM with signals through ChildCustody, never with swtpm_ioctl.\n\n3. Neither package is pulled in by another dependency. I parsed the retained Packages stanzas, matching the 117 locked packages by version and SHA256.\n   - swtpm Depends only on libc6, libseccomp2, libssl3t64 and libtpms0. swtpm-tools Depends on swtpm, not the reverse, and no locked package Depends on swtpm-tools.\n   - Only wimtools depends on libwim15t64, and nothing depends on wimtools.\n   - wimtools and libwim15t64 come from pool/universe (Section universe/*).\n   - So trimming the two roots would really remove them from the closure.\n\n4. The install plan matches the finding. host-install-plan.json and command-244.stdout show \"27 newly installed\", including libwim15t64, swtpm, swtpm-tools and wimtools. libntfs-3g89t64 is not new on the runner.\n\n5. Maintainer scripts. I read the control archives in memory with my own pure-Python ar/tar reader and executed nothing.\n   - The swtpm-tools postinst does `addgroup --system swtpm`, `adduser --system ... swtpm` and creates /var/lib/swtpm-localca as swtpm:root 0750.\n   - wimtools has no maintainer scripts. libwim15t64 has only an ldconfig trigger.\n\n6. Where it is recorded. The finding is right that docs/KNOWN_ISSUES.md, DECISIONS.md and PROJECT_STATUS.md do not mention it. It is recorded in the repo, though: docs/evidence/m03-native-candidates-a5ec1e3-review/review-workflow-result.json carries the same observation, graded NOTE (\"anti-bloat and extra install surface, not a safety issue\").\n\nWhy NOTE and not NON_BLOCKING:\n- The extra packages are signed Ubuntu archives with pinned versions and hashes.\n- They are installed on a disposable GitHub runner where the job already has passwordless sudo.\n- Nothing executes them. swtpm runs as the runner user, so the swtpm system user is never needed.\n- The only extra privileged action is a standard dh-style postinst that creates a user and a directory.\n- No safety boundary, threshold or functional path depends on them.\n\nInferred from my own knowledge, not checked in files: swtpm socket mode creates fresh TPM 2.0 state without swtpm_setup, and swtpm does not read the swtpm-tools conffiles. So removing swtpm-tools should not change runtime behaviour.\n\nThis is hygiene worth trimming in a later source commit or parking in KNOWN_ISSUES. It does not affect this release.\n\nScratch scripts: /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3-work/skeptic1-win-host-tools/rdeps.py and /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3-work/skeptic1-win-host-tools/debctl.py."
+        },
+        {
+         "refuted": false,
+         "corrected_severity": "NOTE",
+         "reasoning": "I could not refute the facts in the finding. Its \"not recorded\" part is overstated, and the issue has no effect on safety or evidence, so I downgrade it from NON_BLOCKING to NOTE.\n\nWhat I checked:\n\n1. Code at S (`git show 10f247b`). `windows11_candidate.py` HOST_ROOTS includes `swtpm-tools` and `wimtools`, and TOOLS includes `\"wimlib\": \"/usr/bin/wimlib-imagex\"`.\n   - `windows11_vm.py` uses `TOOLS[\"wimlib\"]` only through the `{**TOOLS, **FIRMWARE}` loop in `install_tools()`. That loop calls `tool_pin()`, which only resolves the path and runs `digest()` on it. The binary is never executed.\n   - A `git grep` of the whole repository at S (scripts, `.github` workflows, guest PowerShell) finds no `wimlib`, `wimlib-imagex`, `install.wim` or swtpm-tools binary (`swtpm_setup`, `swtpm_ioctl`, `swtpm_cert`, `swtpm_bios`) outside HOST_ROOTS/TOOLS and evidence JSON. No test pins either package.\n   - The only swtpm argv is `/usr/bin/swtpm socket --tpm2 --tpmstate dir=<fresh 0700 dir> --ctrl type=unixio,...`. There is no `swtpm_setup` step.\n   - Inferred, not tested: swtpm manufactures TPM2 state on first start, so swtpm-tools is not needed for this campaign to work.\n\n2. Dependencies, from the retained Packages indexes and each .deb's control file (read in memory, not executed).\n   - `swtpm` 0.7.3-0ubuntu5.24.04.1 depends only on libc6, libseccomp2, libssl3t64 and libtpms0, not on swtpm-tools. So swtpm-tools is in the closure only because HOST_ROOTS names it.\n   - `wimtools` depends on libwim15t64; libwim15t64 depends on libfuse3-3 and libntfs-3g89t64. Nothing else in the closure needs either package.\n\n3. Install plan. `host-install-plan.json` and `command-244.stdout` show \"0 upgraded, 27 newly installed\". `libwim15t64`, `swtpm`, `swtpm-tools` and `wimtools` are all among the new local-deb installs.\n   - `install_tools()` runs `/usr/bin/sudo -n /usr/bin/apt-get ... install`, so the maintainer scripts run as root.\n\n4. The swtpm-tools postinst, read as text, does exactly what the finding says:\n   - `addgroup --system swtpm`\n   - `adduser --system --ingroup swtpm ... swtpm`\n   - `mkdir /var/lib/swtpm-localca`, owned `swtpm:root`, mode 0750\n\n   The wimtools control.tar has no maintainer scripts. libwim15t64 has only an ldconfig trigger.\n\n5. Additional point I found that supports the finding: the signed index chain in `host-tools-lock.json` shows `wimtools` and `libwim15t64` are the only closure packages from `pool/universe`. Trimming wimtools would remove the closure's only dependence on universe.\n\nWhere the finding is overstated:\n\n- **It is recorded.** `KNOWN_ISSUES.md`, `DECISIONS.md` and `PROJECT_STATUS.md` do not name it, as claimed. But the a5ec1e3 review already recorded this exact point as a NOTE in `docs/evidence/m03-native-candidates-a5ec1e3-review/review-workflow-result.json`. That file is in the repository at S, and `KNOWN_ISSUES.md` line 37 links the whole evidence directory as \"Exact docs/evidence/m03-native-candidates-a5ec1e3-review\".\n- **It adds no real privilege.**\n  - The extra root-run code comes from Ubuntu archive packages whose Packages→Release→InRelease chain the candidate binds.\n  - It runs on a disposable GitHub-hosted runner where the campaign already holds passwordless sudo for apt, setfacl and the rest.\n  - The postinst only creates an unused system user and group and a 0750 directory. It cannot affect VM evidence, receipt binding, or any external action.\n- **The candidate is consistent with its code.** It reflects S's HOST_ROOTS/TOOLS faithfully. Trimming requires a source change and a new candidate, which is not a reason to hold this one.\n\nConclusion: the facts are correct and this is a valid anti-bloat observation, with no safety or correctness impact on the release, so its severity is NOTE. Recording it as its own KNOWN_ISSUES entry, or trimming `wimtools`/`swtpm-tools` (together with `TOOLS[\"wimlib\"]`) in a later source change, is reasonable hygiene but does not need to happen before release."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "lens": "win-guest-driver",
+     "review_failed": false,
+     "verdict": "CLEAR_WITH_NOTES",
+     "checks": [
+      "Created the lens work directory /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3-work/windows11-guest-controller and extracted the S versions with `git show 10f247b:<path>`: the 3 guest files, windows11_source_check.ps1, check_portability.py, windows11_vm.py and windows11_deployment.py.",
+      "Ran sha256 and cmp on each retained guest-driver file against its S version: all IDENTICAL. HEAD 060882c equals S for scripts (git diff --stat 10f247b 060882c touches only .github/*/requests and docs).",
+      "Compared against WINDOWS11_NATIVE_PINS in check_portability.py at S: all 4 pins (including windows11_source_check.ps1) match.",
+      "Cross-checked guest-driver.json entries, reviewed-inputs.json rows, retention.json rows and source-before/after/finally.json rows for the guest files: all consistent. source-before.json equals source-after.json byte for byte.",
+      "Hashed the guest members straight from /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/win11.zip with Python zipfile (python3 -I -B, script in my work directory). The ZIP sha256 is 71bae73b..., equal to the gh api digest of artifact 13109055698.",
+      "Byte-scanned the 3 guest files for non-ASCII and control characters, BOM and CRLF: pure ASCII, LF-only, none found. lstat shows regular files.",
+      "Read windows11_candidate.py at S, covering how the receipt is validated and how guest-driver is copied and hashed.",
+      "Read the prepare workflow at S (guest-source-checks job on windows-2025 runs the source check at the source SHA).",
+      "Ran read-only gh api calls: run 41367514098 (success, head 060882c), its jobs (guest-source-checks and download-only, all steps success), its artifacts (source-check 13107339798 digest cd58635a...), and job logs 125030880598 and 125031052345, which confirm the checkout at 10f247b, the upload and download digest match cd58635a..., and the runner image windows-2025-vs2026 20261030.294.1.",
+      "Read guest-source-check.json and windows11_source_check.ps1: PS 5.1 Desktop ParseFile on the .ps1 files plus an Add-Type compile with no instance and no native call.",
+      "Line-by-line review of windows11_bootstrap.ps1 (including the embedded attestor), windows11_guest.ps1 (486 lines) and windows11_owned.cs (639 lines) for network use, credentials, licence/consent actions, persistent security changes, process and input injection, and evidence contents.",
+      "Grep sweep of the three files for network, credential, security-setting, registry, consent and service patterns.",
+      "Ran a heuristic bracket/quote-balance check over the attestor here-string with my own Python tokenizer: balanced. This is not a PowerShell parse; no pwsh, dotnet or mono is available locally.",
+      "Read the vm.py consumer paths at S: audit_bundle exact-inventory binding, guest_driver_sha256 pin check, seed() copying guest-driver from the bundle and building seed-manifest and guest-config (no password in guest-config), and qemu_argv with '-nic none'.",
+      "Read windows11_deployment.py at S for context: EULA acceptance and OOBE answers.",
+      "Read OD-038 in docs/DECISIONS.md at S.",
+      "Checked the git history of the three guest files: last changed in fff3408; reviewed that diff for the guest and bootstrap.",
+      "Did not modify, move or delete any repository or candidate file; executed nothing from the candidates; installed no software; made no network calls other than read-only gh api against kalwad/jobapplyv2."
+     ],
+     "hashes": [
+      {
+       "file": "inputs/guest-driver.json (guest_driver_sha256)",
+       "sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+      },
+      {
+       "file": "inputs/guest-driver/windows11_guest.ps1 (= S scripts/windows11/windows11_guest.ps1, 36681 bytes)",
+       "sha256": "63323c705313540a47e8d86a54957a9f0cb6b9ebc73d275eb447b4869a792edb"
+      },
+      {
+       "file": "inputs/guest-driver/windows11_owned.cs (= S scripts/windows11/windows11_owned.cs, 53069 bytes)",
+       "sha256": "5b2e50706692e1814087362f56cf3abeb8b92e4ca0bb8266903bfb25faf7f540"
+      },
+      {
+       "file": "inputs/guest-driver/windows11_bootstrap.ps1 (= S scripts/windows11/windows11_bootstrap.ps1, 7242 bytes)",
+       "sha256": "e6df96a0141419ced3e61522d434a7a05b8877c770e1a365db190d4dd9a062dd"
+      },
+      {
+       "file": "S scripts/windows11/windows11_source_check.ps1 (2487 bytes; listed in guest-source-check.json and WINDOWS11_NATIVE_PINS)",
+       "sha256": "8fe860dee981b6392ee291fd63c4d057b4174b3673926e5e385a4f55bed7e822"
+      },
+      {
+       "file": "inputs/guest-source-check.json",
+       "sha256": "8760c47eb91b7684aab0edc0705ec88e3378c8141c49d2f63c82bc01944cfd51"
+      },
+      {
+       "file": "inputs/reviewed-inputs.json (bundle_sha256; observed only, other lenses review its full content)",
+       "sha256": "902c783d23abc9c7d64900a154a6268b4763559e670695332da0c6759bf7b2ed"
+      },
+      {
+       "file": "inputs/media-lock.json (media_lock_sha256; observed only, not reviewed in this lens)",
+       "sha256": "c18dc337b3073a7ef28fcc7b24611c9c714dfa36822d490785c732a1ab36c19c"
+      },
+      {
+       "file": "inputs/host-tools-lock.json (host_tools_sha256; observed only, not reviewed in this lens)",
+       "sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06"
+      },
+      {
+       "file": "retention.json",
+       "sha256": "9d442810b884b568c0d8836a61576dc79aa6d6468df6ad34fc6d8653d70b68de"
+      },
+      {
+       "file": "/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3/win11.zip (artifact 13109055698; equals the gh api digest)",
+       "sha256": "71bae73b85dd137903053d59086ed872a985ed52992594adb3189d43cd89545c"
+      },
+      {
+       "file": "source-check artifact 13107339798 ZIP (per gh api and both job logs; not downloaded)",
+       "sha256": "cd58635a252086993576a0b841756a95a87af7dea4e160788ae16639c71d1b18"
+      }
+     ],
+     "notes": [
+      {
+       "title": "Retained guest-driver files are byte-identical to S, to the portability pins and to every binding record",
+       "severity": "NOTE",
+       "location": "inputs/guest-driver/{windows11_guest.ps1,windows11_owned.cs,windows11_bootstrap.ps1}; inputs/guest-driver.json; scripts/check_portability.py:2466 (WINDOWS11_NATIVE_PINS at 10f247b)",
+       "claim": "All three retained guest files match S exactly. Each matches its hash in guest-driver.json, reviewed-inputs.json, retention.json, guest-source-check.json, source-before/after.json and WINDOWS11_NATIVE_PINS. The ZIP members carry the same hashes as the unzipped copy.",
+       "evidence": "cmp against `git show 10f247b:scripts/windows11/<name>` reported IDENTICAL for all three. guest.ps1 is 36681 bytes, 63323c70...; owned.cs is 53069 bytes, 5b2e5070...; bootstrap.ps1 is 7242 bytes, e6df96a0.... WINDOWS11_NATIVE_PINS at S has these same three values plus windows11_source_check.ps1 = 8fe860de..., which equals S. Hashing the members straight from win11.zip (sha256 71bae73b..., equal to the gh api artifact digest of 13109055698) gives the same values. All three files are regular files (mode 100644), pure ASCII and LF-only, with no BOM, control characters or bidi/homoglyph characters. guest-driver.json has only the keys schema and files, and its 'files' lists exactly these 3 entries. HEAD 060882c changes only request JSON and docs relative to S."
+      },
+      {
+       "title": "Guest source check: PowerShell 5.1 parse and C# compile passed on windows-2025 at S, with a narrow honest claim",
+       "severity": "NOTE",
+       "location": "inputs/guest-source-check.json; scripts/windows11/windows11_source_check.ps1; .github/workflows/windows11-native-prepare.yml job guest-source-checks",
+       "claim": "The receipt shows that Windows PowerShell 5.1 Desktop's Parser.ParseFile accepted all 3 .ps1 files with zero errors. It also shows that Add-Type compiled windows11_owned.cs against System, System.Core, System.Drawing and the WPF UIAutomationClient, UIAutomationTypes and WindowsBase references, which are the same references guest.ps1 uses, and that the compiled type JobApplyValidation.OwnedApp resolved. No OwnedApp instance was constructed and no native call was made. File hashes were rechecked after the check. The receipt claims no VM, no product launch and no Windows 11 acceptance.",
+       "evidence": "Receipt: status WINDOWS_POWERSHELL51_PARSE_AND_CS_COMPILE_PASS, PowerShell 5.1.26100.33648, native_API_calls 0, VMs 0, product_launches 0, Windows11_acceptance false. It lists all 4 files with hashes equal to S. Job 125030880598 on image windows-2025-vs2026 20261030.294.1 checked out 10f247bc... (HEAD is now at 10f247b) and ran powershell.exe -ExecutionPolicy RemoteSigned -File windows11_source_check.ps1; every step concluded success. It uploaded artifact 13107339798 with digest cd58635a.... Download-only job 125031052345 downloaded that same artifact and logged 'SHA256 digest of downloaded artifact is cd58635a...'. windows11_candidate.py at S checks the schema, status, zero counters and per-file bytes/sha against its own source files before copying the receipt to inputs/guest-source-check.json (sha256 8760c47e...). reviewed-inputs.json binds that file."
+      },
+      {
+       "title": "Guest review: no exfiltration, no external network, no real credentials, no licence or consent acceptance, no persistent security weakening",
+       "severity": "NOTE",
+       "location": "windows11_guest.ps1, windows11_owned.cs, windows11_bootstrap.ps1 (all at S)",
+       "claim": "The guest contacts nothing outside the VM. The only transports are the COM2 serial line to the host owner and loopback 127.0.0.1. The guest never reads the fixture password. Its only credential-like strings are synthetic invalid headers sent to the product's own loopback API to check for 401 refusals. It accepts no licence and clicks no submit or consent control. It disables no security feature. Its only persistent system changes reduce exposure.",
+       "evidence": "Network: SerialPort('COM2'); HttpClient to 'http://127.0.0.1:'+port with UseProxy=$false and AllowAutoRedirect=$false; Socket.BeginConnect([IPAddress]::Loopback); TcpListener on Loopback; Get-NetTCPConnection is a local query. vm.py qemu_argv at S passes '-nic none'. A grep for Invoke-WebRequest, WebClient, BITS, netsh, MpPreference, Defender, Firewall, EnableLUA, bcdedit, Set-ExecutionPolicy, New-LocalUser, Get-Credential and SecureString found no hits. Credentials: the headers are null, 'Bearer', 'Bearer synthetic-invalid-fixture' and 'Basic synthetic-invalid-fixture'. Autounattend.xml is not in the bootstrap's allowed seed set. The attestor sets AutoLogonCount=0 and AutoAdminLogon='0' and removes Winlogon DefaultPassword. UI actions: UIA Invoke on the uniquely owned 'Diagnostics' and 'Check again' controls; focus plus Enter on 'Check again', on the 7 closed route links (Home, Jobs, Tracker, Documents / Resumes, Profile, Settings, Diagnostics) and on 'Skip to main content'; Tab, Shift+Tab, Ctrl+0 and Ctrl+Shift+=; File>Quit; Ctrl+Q; WindowPattern.Close. No text is typed and no product form is submitted. owned.cs P/Invokes are limited to job objects, CreateProcess (CREATE_SUSPENDED, no shell, no alternate token, inherit=false), OpenProcess/TerminateProcess on job members only, file identity, window, foreground and DPI queries, SendInput with fixed key codes, and UIA. It has no registry, network, privilege or token APIs. ExecutionPolicy RemoteSigned is set per process on the command line, never persisted. UAC is unchanged and the fixture is a member of Users only. The harness directory ACL is protected (SYSTEM and Administrators full control, Users read and execute). dxdiag runs with /whql:off /x, so it shows no signature-check prompt. The Enterprise Evaluation EULA (AcceptEula, HideEULAPage) appears only in windows11_deployment.py, consistent with OD-038, and in none of the three guest files."
+      },
+      {
+       "title": "The bootstrap leaves a SYSTEM logon task and a Default-profile Startup entry in the guest",
+       "severity": "NOTE",
+       "location": "windows11_bootstrap.ps1:84-92",
+       "claim": "Register-ScheduledTask 'JappOwnedMachineAttestation' runs at every logon as SYSTEM with RunLevel Highest and a 1-minute limit. JappFixture.cmd is placed in C:\\Users\\Default\\...\\Startup, so it is copied into every new profile. Both persist only inside the disposable VM. The task's script lives in the protected harness directory, which the standard fixture user cannot modify.",
+       "evidence": "The ACL is built with SetAccessRuleProtection($true,$false) and grants Users only ReadAndExecute. These are harness-design facts, not a security weakening of a real system. The VM is ephemeral, with fresh qcow2/vars/TPM state, per vm.py at S."
+      },
+      {
+       "title": "An Enter key can be sent after a focus check without re-checking focus",
+       "severity": "NOTE",
+       "location": "windows11_owned.cs:503-522 (ShellKeys); windows11_guest.ps1:206,225,242",
+       "claim": "ShellKeys('enter') re-checks only the foreground HWND and the en-US layout immediately before SendInput, not the focused element. Focus was proved by the preceding ShellFocusRoute/Settles or ShellWait. If focus moved in between, Enter would reach whatever control holds focus in the fresh, offline product profile. This is theoretical and has no external effect because the VM has no NIC. KeyboardCheckAgain, by contrast, verifies the focused element's name and owner right before the key.",
+       "evidence": "Code reading only; I did not observe this at runtime."
+      },
+      {
+       "title": "Retained evidence includes the full dxdiag.xml and screen-region captures",
+       "severity": "NOTE",
+       "location": "windows11_guest.ps1:382-399 (dxdiag), windows11_owned.cs:594-604 (Capture)",
+       "claim": "The guest copies the complete dxdiag XML to the proof. That XML holds VM and driver details and, with -cpu host, the hosted runner's CPU model. Capture uses CopyFromScreen over the owned window's rectangle, so any VM-local overlay (toast, system UI) in that rectangle would also be captured. The disposable VM holds no user or secret data, so this is privacy-neutral (inferred). I list it so the retention reviewer knows what leaves the guest.",
+       "evidence": "Copy-Item $dxPath -> proof/dxdiag.xml (capped at 4 MB). Graphics.CopyFromScreen(r.X, r.Y, ...) is bounded to 640x480 through 1920x1200. machine.json and environment.json also record cpu_name."
+      },
+      {
+       "title": "The executed guest bytes are bound by bundle_sha256; guest_driver_sha256 is a consistent second pin",
+       "severity": "NOTE",
+       "location": "scripts/windows11/windows11_vm.py:216-243 (audit_bundle), :407-412 (seed), :868-873",
+       "claim": "vm.py checks guest-driver.json against guest_driver_sha256 but never compares guest-driver/* against the hashes inside guest-driver.json. The bytes copied to the seed ISO are bound through audit_bundle's exact-inventory match against reviewed-inputs.json, i.e. bundle_sha256. windows11_bootstrap.ps1 runs as SYSTEM from the seed and is not in the in-guest seed-manifest check, so its integrity likewise rests on bundle_sha256. In this candidate all three records agree, so releasing both pins is sound.",
+       "evidence": "reviewed-inputs.json (sha256 902c783d...) lists guest-driver/windows11_bootstrap.ps1 e6df96a0..., guest-driver/windows11_guest.ps1 63323c70..., guest-driver/windows11_owned.cs 5b2e5070..., guest-driver.json 1a31fd23... and guest-source-check.json 8760c47e.... These equal the actual file hashes and guest-driver.json's own entries."
+      },
+      {
+       "title": "Out of lens: the deployment answer file also answers the OOBE privacy page with ProtectYourPC=1",
+       "severity": "NOTE",
+       "location": "scripts/windows11/windows11_deployment.py:133 (at S)",
+       "claim": "This is outside the three guest files and is reported for the deployment or OD-038 reviewer. Besides AcceptEula and HideEULAPage, which OD-038 covers, the answer file sets ProtectYourPC=1. From my own knowledge, not verified against this ISO, that selects Microsoft's recommended (opt-in) privacy and update settings on the OOBE privacy page. OD-038 authorizes only the licence. With '-nic none' and a destroyed VM, no data can leave, so impact is nil in practice. The owner may still want to record or confirm this choice.",
+       "evidence": "Line 133: element(settings, \"ProtectYourPC\", \"1\"). The ProtectYourPC value semantics come from my general knowledge (inferred). qemu_argv at S contains '-nic', 'none'."
+      }
+     ],
+     "verified": [
+      {
+       "title": "The source check does not parse the 49-line SYSTEM attestor script inside the bootstrap here-string",
+       "severity": "NON_BLOCKING",
+       "location": "scripts/windows11/windows11_bootstrap.ps1:32-82 ($attestor = @'...'@) and :92 (JappFixture.cmd); windows11_source_check.ps1:11-14",
+       "claim": "ParseFile treats the single-quoted here-string as a string literal, so the machine-attestor.ps1 body is never parsed as PowerShell before a campaign. That body runs as SYSTEM at every logon and was rewritten in fff3408. The same applies to the Startup .cmd line. A syntax error would surface only inside the VM, as 'Protected current-boot machine attestation missing or unreadable'. That outcome fails closed but would waste a campaign. Repository tests (scripts/tests/test_windows11_guest_driver.py) inspect the attestor only as text.",
+       "survives": true,
+       "votes": [
+        {
+         "refuted": false,
+         "corrected_severity": "NON_BLOCKING",
+         "reasoning": "I could not refute the finding. Its factual core holds against the code at S (10f247b) and against the candidate.\n\nWhat I checked:\n(1) Scope of the source check. `windows11_source_check.ps1` at S calls `[Parser]::ParseFile` only on the four named file paths. There is no `ParseInput` anywhere in scripts/ or .github/. I grepped for attestor, ParseInput, ParseFile and source_check.\n(2) How the attestor is held. In `windows11_bootstrap.ps1` at S, lines 32-82 hold the attestor as a single-quoted here-string (`@'...'@`). Line 83 writes it to `machine-attestor.ps1` with Set-Content. Line 84 registers it as a SYSTEM AtLogOn task. PowerShell parses a single-quoted here-string as a verbatim literal, so ParseFile never parses the body as code. ParseFile only proves the here-string terminates correctly.\n(3) The candidate's evidence. `inputs/guest-source-check.json` covers exactly those four files. It binds bootstrap sha256 e6df96a0…, which equals `git show 10f247b:scripts/windows11/windows11_bootstrap.ps1` (7242 bytes) and the `WINDOWS11_NATIVE_PINS` value in `check_portability.py`. Its status is `WINDOWS_POWERSHELL51_PARSE_AND_CS_COMPILE_PASS`. Nothing else parse-checks the attestor before a campaign.\n(4) Repository tests. `scripts/tests/test_windows11_guest_driver.py` extracts the attestor with a regex and checks it with the `block()` and `statements()` text helpers. Those helpers balance braces and quotes. They are not a PowerShell parse. The module docstring says a hosted Windows runner \"parses the PowerShell 5.1 sources\". That is true per file but does not cover this embedded script.\n(5) The attestor has never run anywhere. `docs/evidence/m03-native-runtime-diagnostics/README.md` says that no bootstrap or attestation ran in any hosted round. fff3408 rewrote the attestor almost completely: try/catch, step names and machine-error.json.\n(6) What happens on failure. I read `windows11_guest.ps1` at S, lines 335-370. If the attestor has a parse error, it never executes, so it writes neither `machine.json` nor `machine-error.json`. The guest waits 30 s and then throws 'Protected current-boot machine attestation missing or unreadable'. So the failure is closed but costs a full campaign, as the finding says.\n\nMy own checks:\n- I extracted the body with `python3 -I -B` from my own directory. It is 49 lines and pure ASCII.\n- A PowerShell-aware scan (comments, '' escapes, backtick escapes, bracket stack) found no unclosed or mismatched brackets.\n- Every variable the body uses is assigned or automatic ($_, $env:, $null). This matters because StrictMode Latest throws on unassigned variables.\n- I read the body manually and found no syntax error. The least common form is a statement starting with `[ordered]@{...}|ConvertTo-Json`. The same form is on line 28 of `windows11_source_check.ps1`, which PS 5.1 actually parsed and ran to produce this receipt.\nThese are inferences, not a parse; pwsh is not installed here. So there is currently no evidence of a syntax defect, only an unclosed verification gap.\n\nSeverity: I keep NON_BLOCKING.\n- There is no safety, integrity or candidate-binding impact. The receipt does not overclaim at file level, and the failure is fail-closed.\n- The cost is operational: one ~70-minute campaign could be wasted.\n- The fix is cheap: run `ParseInput` on the extracted here-string inside the source check. However, it changes `source_check.ps1` and its pin, so it would need a new S and a new candidate. That is not worth blocking this release over, given that manual inspection finds no defect.\n\nThe `.cmd` sub-claim is weak. cmd has no parser for the suggested `ParseInput` fix to use. The line is a single fixed command. Its `-Configuration` argument matches the mandatory param on line 1 of `windows11_guest.ps1` at S, which I verified. That part is NOTE-level.\n\nMy scan script and the extracted bootstrap are under /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3-work/skeptic1-attestor-parse/."
+        },
+        {
+         "refuted": false,
+         "corrected_severity": "NON_BLOCKING",
+         "reasoning": "I could not refute the core claim. I checked it against S (10f247b) and the candidate.\n\nWhat I confirmed:\n1. In windows11_source_check.ps1 at S, ParseFile runs only on the three .ps1 paths (lines 6 and 11-14). There is exactly one Parser call in the whole repository at S (git grep for ParseInput, ParseFile, Parser], PSScriptAnalyzer and ScriptBlock]::Create). The attestor sits at windows11_bootstrap.ps1 lines 33-81, which is 49 lines inside `$attestor = @'` ... `'@`. Line 83 writes it out at runtime as machine-attestor.ps1. A single-quoted here-string is one verbatim string token to the parser, so the receipt's PASS says nothing about whether the attestor's PowerShell is valid.\n2. The candidate's inputs/guest-source-check.json binds bootstrap sha256 e6df96a0…62dd. I extracted bootstrap.ps1 from S and it hashes to the same value. That receipt proves the outer file parses. It does not prove the inner script parses.\n3. No other pre-campaign path parses or runs the attestor:\n   - The `pwsh` steps in ci.yml do other work.\n   - The prepare workflow runs only the source check.\n   - docs/evidence/m03-native-runtime-diagnostics/README.md says the rounds did not run \"machine attestation and its error retention\". It also says \"no Windows 11 setup, answer file, bootstrap, attestation or QMP frame ran\".\n   - fff3408 rewrote the attestor (added try/catch, step tracking and machine-error.json). So the current body has never run anywhere.\n4. scripts/tests/test_windows11_guest_driver.py says it reads the sources \"as source text only\". Lines 454 and 1151 pull the attestor out with a regex and check it with block() and statements() substring tests. None of that is a PowerShell parse.\n5. The failure mode is as the finding describes. A parse error in the attestor would stop it before line 39 and before the catch, so neither machine.json nor machine-error.json would be written. The guest (windows11_guest.ps1:362-366) would then throw 'Protected current-boot machine attestation missing or unreadable' after its 30 s wait. That fails closed, but it costs a campaign and points to no cause.\n\nWhy NON_BLOCKING and not higher:\n- I ran my own tokenizer that understands PowerShell strings and comments. It handles `''` escapes, backtick escapes inside double quotes, and `#` comments. On the extracted body it found no unterminated strings, no unclosed or mismatched brackets, and no early `'@` terminator. The file is pure ASCII with LF line endings. This is still a heuristic, not a parse; no pwsh, powershell or dotnet is available here.\n- I also read every statement against what I know of PowerShell 5.1 syntax and found nothing invalid. The least common construct is a statement that starts `[ordered]@{...}|ConvertTo-Json ...|Set-Content`. The same pattern ends source_check.ps1 line 28, which both parsed and ran under Windows PowerShell 5.1.26100 (it wrote this receipt). That is inferred support, not a parse of the attestor.\n- Nothing about safety or the binding is affected. The gap only risks wasting a campaign.\n- Fixing it changes source_check.ps1, and therefore S, so the candidate would have to be prepared again.\n\nCorrection to the finding: the Startup .cmd sub-claim is weak. JappFixture.cmd is cmd.exe syntax, so PowerShell's Parser::ParseInput could not check it either. It is a single, plainly valid line that runs windows11_guest.ps1, which ParseFile does check. Its `-Configuration` argument matches the guest's `param([Parameter(Mandatory=$true)][string]$Configuration)`. The finding holds only for the attestor body.\n\nScratch work: /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3-work/skeptic2-attestor-parse/ (bootstrap.ps1 extracted from S, pstok.py)."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "lens": "win-preparation",
+     "review_failed": false,
+     "verdict": "CLEAR_WITH_NOTES",
+     "checks": [
+      "Checked that the candidate ZIP review3/win11.zip has sha256 71bae73b85dd137903053d59086ed872a985ed52992594adb3189d43cd89545c, equal to the expected value, to the upload log line and to the gh api artifact digest. All 1534 ZIP members match the unzipped tree byte for byte, with no extra files, links or special nodes.",
+      "Parsed all 367 command-NNN.json records with a duplicate-key-rejecting parser. Numbering is contiguous 001..367, every record has the same key set, and raw_bytes equals the stdout+stderr size for each.",
+      "Listed every argv by program: /usr/bin/git rev-parse/status/ls-files (3 each: 001-003, 362-364, 365-367); env APT_CONFIG=<private> apt-get -qq update (004); apt-get --download-only --reinstall --no-install-recommends install of the 10 HOST_ROOTS (005); 117 pairs of dpkg-deb -f and apt-cache show --no-all-versions (006-239); gpgv --keyring <private copy> verifying 3 InRelease files (240-242); apt-get indextargets (243); unprivileged apt-get -s install of 117 local debs with local_only_apt options (244); 117 dpkg-deb -x into private-work/host-extracted (245-361). No sudo, dpkg -i/--unpack, real install, qemu/swtpm/VM start, or execution of any extracted or downloaded binary. Every program is a runner /usr/bin binary. Every path argument is under private-work, the S checkout, /usr/bin or /dev/null.",
+      "Checked that the simulate output (command-244) states 'apt-get needs root privileges for real execution'. Re-implemented closed_install_plan from S (regexes copied, nothing imported) on command-244 stdout: 27 newly installed, 0 upgraded, 0 removed, no refused lines, and the result equals host-install-plan.json.",
+      "Checked the network hosts: apt sources and indextargets show only https://archive.ubuntu.com and https://security.ubuntu.com. The Python downloads go only to support.microsoft.com (the publisher page) and software-static.download.prss.microsoft.com (the ISO), with exact URLs. Every other URL in the command output is a Homepage or Bugs field in package metadata.",
+      "Exit codes and reaping: all 367 commands have exit_code 0, direct_child_reaped true, group_authority_verified true, group_after_reap ABSENT, signals [], no primary or cleanup error, retained_unreaped_custody false, output_cap_exceeded false. stderr is empty except gpgv 240-242, which report 'Good signature' by F6ECB3762474EDA9D21B7022871920D1991BC93C.",
+      "Computed OpenPGP v4 fingerprints of host-signed-metadata/ubuntu-archive-keyring.gpg in pure Python: 790BC727...C0B21F32 (Archive 2012), 843938DF...EFE21092 (CD Image 2012), F6ECB3762474EDA9D21B7022871920D1991BC93C (Archive 2018). The 2018 key matches the fingerprint I know (from my own knowledge, not from a file). I did not cryptographically verify the signatures myself.",
+      "Checked closure.json: status DOWNLOAD_ONLY_UNREVIEWED_CANDIDATE_COMPLETE, install_vm_product_actors 0, closure {vm_started: false, pending_commands: []}, no error fields. resource_preflight equals host-resource-cleanup.json exactly.",
+      "Checked host-resource-cleanup.json: status CAPACITY_OBSERVED, removed [], free_before = free_after = 90,027,343,872 bytes (at least 48 GiB), tools_before equals tools_after for 7 base tools. This is consistent with no sudo rm command in the records.",
+      "Checked source-before, source-after and source-finally: byte-identical (sha256 c4abd144...), git = [10f247bc..., bb8fb0d4...]. The 2777 file rows match git ls-tree -r at S for set, bytes, sha256 and mode, and match the original artifact's worker/original-source-before.json for set and sha256 (head c25742ef, tree bb8fb0d4, before==after). Git rev-parse output is byte-identical in 001/362/365, ls-files output is byte-identical in 003/364/367 and equals the tree set, and git status output is empty in 002/363/366.",
+      "Compared the command sequence with windows11_candidate.py and its dependencies at S (ubuntu_gnome_prepare.resolve/simulate_host_install, ubuntu_gnome_signed_indexes, ubuntu_gnome_host, windows11_resources.ensure_capacity, Owner.command/close). The expected count 3+2+234+3+1+1+117+3+3 = 367 matches. The dpkg-deb -f, apt-cache show and dpkg-deb -x order and arguments match host-tools-lock.json packages exactly, and the apt-cache show SHA256, Size, Package and Version match the lock rows. A grep of the preparer modules at S found no process spawning outside Owner.command and no network access other than download() and apt.",
+      "Checked retention.json: it lists 1533 files (everything except itself) with matching bytes and sha256, no private-work entries, and private_ISO_disks_passwords_excluded true. Checked reviewed-inputs.json: 424 rows match the inputs/ tree exactly; source_sha=S, package_build_sha=M, source_tree_sha=bb8fb0d4, package_manifest_sha256=6fe7ec97...",
+      "Cross-checked the inputs used by the prep record: guest-driver files and guest-source-check rows equal the blobs at S. The publisher.html sha256 and bytes equal the media-lock receipt, and the publisher regex yields exactly one digest, BC3F2408...0E38, equal to MEDIA_SHA256. media-download.json equals media-lock.media. original-native-artifact/ (279 files) is byte-identical to req3/win/artifact.zip, whose ZIP sha256 is 31d0d26b... and whose manifest.json sha256 is 6fe7ec97...",
+      "Read-only gh api checks of the CI metadata: run 41367514098 is event pull_request on head 060882c, path .github/workflows/windows11-native-prepare.yml, conclusion success, and jobs authorize, guest-source-checks and download-only all succeeded. The job log shows the checkout of 10f247bc, the original artifact downloaded with digest 31d0d26b, the source-check artifact with digest cd58635a, and the upload of 1534 files with digest 71bae73b as artifact 13109055698. The request file at 060882c binds S, M, the tree, run 41356786386 attempt 2, artifact 13107428378, digest 31d0d26b and manifest 6fe7ec97. git diff 10f247b..060882c touches only the request JSONs and docs, so the executing workflow equals the one at S.",
+      "Ran no code from the candidate. All scripts were in review3-work/win11-prep-record and run with .venv python -I -B. Nothing in the repo or the candidate trees was modified."
+     ],
+     "hashes": [
+      {
+       "file": "retained/inputs/reviewed-inputs.json (bundle_sha256)",
+       "sha256": "902c783d23abc9c7d64900a154a6268b4763559e670695332da0c6759bf7b2ed"
+      },
+      {
+       "file": "retained/inputs/media-lock.json (media_lock_sha256)",
+       "sha256": "c18dc337b3073a7ef28fcc7b24611c9c714dfa36822d490785c732a1ab36c19c"
+      },
+      {
+       "file": "retained/inputs/host-tools-lock.json (host_tools_sha256)",
+       "sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06"
+      },
+      {
+       "file": "retained/inputs/guest-driver.json (guest_driver_sha256)",
+       "sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+      },
+      {
+       "file": "review3/win11.zip (candidate artifact 13109055698)",
+       "sha256": "71bae73b85dd137903053d59086ed872a985ed52992594adb3189d43cd89545c"
+      },
+      {
+       "file": "retained/closure.json",
+       "sha256": "6482b2dca89c9966b5a66dc67f005b28520baf755ab813843c14123fe393e054"
+      },
+      {
+       "file": "retained/retention.json",
+       "sha256": "9d442810b884b568c0d8836a61576dc79aa6d6468df6ad34fc6d8653d70b68de"
+      },
+      {
+       "file": "retained/host-install-plan.json",
+       "sha256": "6fcf8e58e31f00b72cbde8c290c0d35be37eb9569b562d62f6394708679cbe44"
+      },
+      {
+       "file": "retained/host-resource-cleanup.json",
+       "sha256": "e9f2f375adb8ac6b735578801ad4e59bdfbde5da6d4e3b631183688718211866"
+      },
+      {
+       "file": "retained/media-download.json",
+       "sha256": "0c797913acbe2d44a9f20345c6b7e86624dcf6b1160f70dab17fa407d8168a52"
+      },
+      {
+       "file": "retained/source-before.json (= source-after.json = source-finally.json)",
+       "sha256": "c4abd1442a6b731dd9414fb6e4993bde3f968cba418aa7a8b6ab5e6f800d60b4"
+      },
+      {
+       "file": "retained/inputs/guest-source-check.json",
+       "sha256": "8760c47eb91b7684aab0edc0705ec88e3378c8141c49d2f63c82bc01944cfd51"
+      },
+      {
+       "file": "retained/inputs/publisher.html",
+       "sha256": "37cf66fb602e99404a691ea1a5eb9970bb3b76e8dd479d7348f853076f1bd10a"
+      },
+      {
+       "file": "retained/inputs/host-signed-metadata/ubuntu-archive-keyring.gpg",
+       "sha256": "80a36b0a6de2f69f49d2df75ef473ccde121e9e190b9ea01d20a4f63778d5c31"
+      },
+      {
+       "file": "retained/inputs/original-native-artifact/manifest.json",
+       "sha256": "6fe7ec97c1c6bcd06f23ed3d21bb1440895516d10e39348c0735c365cdd9a2b5"
+      },
+      {
+       "file": "req3/win/artifact.zip (original Windows package artifact 13107428378)",
+       "sha256": "31d0d26b10a54edd7a502ed61d3c51620fcf8442a92803f36a2eb80643b717bb"
+      }
+     ],
+     "notes": [
+      {
+       "title": "The ISO download took most of the prepare time; the campaign re-downloads it inside its own work budget",
+       "severity": "NOTE",
+       "location": "retained/media-download.json; retained/inputs/media-lock.json; scripts/windows11/windows11_vm.py@10f247b WORK_SECONDS=3300, download at line ~911",
+       "claim": "The 8,225,329,152-byte evaluation ISO took 1162.5 s (about 7.1 MB/s). That is about 19.4 of the 20.1 minutes of the candidate step. All 367 owned commands together took 30.8 s. The VM campaign re-downloads the ISO under the same owner.work_deadline (WORK_SECONDS 3300). At a similar speed, that download would use about 35% of the campaign's work authority before host install, Windows setup and the lifecycle phases. This is an inferred feasibility risk, not a defect in this candidate. It also explains why the prepare run was slow.",
+       "evidence": "media-download.json seconds 1162.51320563, bytes 8225329152. The step 'Download official publisher media and signed host-tool candidate only' ran 00:32:03 to 00:52:09Z. The sum of elapsed_seconds over command-001..367 is 30.79 s; the longest command was 4.82 s (command-004, apt-get update)."
+      },
+      {
+       "title": "authenticated_account_used=false is fixed in the code, not measured",
+       "severity": "NOTE",
+       "location": "scripts/windows11/windows11_candidate.py@10f247b download(); retained/inputs/media-lock.json",
+       "claim": "The download() function always writes the receipt field authenticated_account_used: false. It is not observed at runtime. Reading the code shows there is no way for credentials to be used: no auth headers, cookies or tokens; a NoRedirect handler refuses any redirect (including login); official_url() allows only the exact MEDIA and PUBLISHER URLs (https, no userinfo, query or fragment); and response.geturl() must equal the URL with HTTP 200. The environment of the python step shows no tokens.",
+       "evidence": "Code at S: 'authenticated_account_used': False is a literal in download(). NoRedirect.redirect_request raises ValueError. The job log env block for the python step lists only EXPECTED_HEAD, PACKAGE_BUILD_HEAD, SOURCE_TREE, MANIFEST_SHA256, PACKAGE_MANIFEST_SHA256 and empty BUNDLE/MEDIA_LOCK/HOST_TOOLS/GUEST_DRIVER values. Checkout used persist-credentials: false. Grepping all records for token or Authorization patterns found nothing; the 'password' hits are only Debian package descriptions."
+      },
+      {
+       "title": "The private apt.conf and the work-directory removal are not retained explicitly",
+       "severity": "NOTE",
+       "location": "retained/closure.json; ubuntu_gnome_prepare.py@10f247b apt_config()",
+       "claim": "The private apt.conf used for commands 004/005/007/243 lived in private-work, which was removed, so it is not in the candidate. Its content is fixed by apt_config() at S. The retained host-signed-metadata/sources.list and the indextargets output (command-243) show only https://archive.ubuntu.com/ubuntu (noble, noble-updates) and https://security.ubuntu.com/ubuntu (noble-security). The removal of private-work, which held the 8.2 GB ISO, is shown only indirectly: closure.json was written after shutil.rmtree(work) and still says COMPLETE rather than OWNED_WORK_CLEANUP_FAILURE. No ISO or private-work path appears in retention.json.",
+       "evidence": "retention.json lists 1533 files; none start with private-work and none end in .iso/.img/.qcow2/.fd. sources.list contains 3 deb lines on the two Ubuntu hosts. command-243 shows Site/Repo-URI values only on those two hosts with Trusted: yes."
+      },
+      {
+       "title": "Source file-mode format differs between the original Windows package binding and the candidate binding (harmless)",
+       "severity": "NOTE",
+       "location": "retained/source-before.json vs original artifact worker/original-source-before.json",
+       "claim": "The original Windows package recorded every source file mode as '0o666', a Windows checkout. The candidate's Linux checkout records '0o100644'. source_binding compares only bytes and sha256 against the package, not mode. Git tree bb8fb0d4 at S has all 2777 entries at mode 100644 and no symlinks or gitlinks, so no executable-bit information is lost and the git tree identity pins the modes.",
+       "evidence": "Counter of (original mode, candidate mode) is {('0o666','0o100644'): 2777}. sha256 and bytes match for all 2777 files between the original source-before and the candidate source-before. git ls-tree -r at S shows 2777 blobs, all 100644."
+      }
+     ],
+     "verified": [
+      {
+       "title": "Candidate can only be used for a limited time: exact runner ImageVersion pin and a 7-day artifact expiry",
+       "severity": "NON_BLOCKING",
+       "location": "retained/inputs/host-tools-lock.json (runner_image_version); scripts/windows11/windows11_vm.py@10f247b install_tools lines ~266-272; artifact 13109055698",
+       "claim": "The host-tools lock pins runner_image_version = 20261026.354.1. The VM campaign's install_tools refuses to run unless the campaign runner's ImageVersion environment variable is exactly that value. The candidate artifact expires at 2026-11-09T00:52:09Z. A runner-image rollout or the expiry will make the campaign fail closed. This is not a safety problem, but the release should be timed and the window recorded. Separately, the download-only job log header reports image 'Version: 20261025.353.1', not the 20261026.354.1 in the environment variable. The GNOME prepare run 41367416097 shows the same split, so this looks like a GitHub-side labeling difference (inferred). The preparer and the campaign both read the same environment variable.",
+       "survives": true,
+       "votes": [
+        {
+         "refuted": false,
+         "corrected_severity": "NOTE",
+         "reasoning": "I could not refute any of the finding's factual claims. I checked each one myself.\n\nChecked facts:\n- The pin is in the lock: `retained/inputs/host-tools-lock.json` has runner_image_version \"20261026.354.1\".\n- The campaign enforces it exactly: `windows11_vm.py` at 10f247b, lines 265-272, raises \"Exact reviewed disposable runner image required\" when lock[\"runner_image_version\"] != os.environ.get(\"ImageVersion\").\n- The preparer reads the same variable: `windows11_candidate.py` at 10f247b, line 214, writes os.environ.get(\"ImageVersion\") into the lock.\n- Nothing in .github sets ImageVersion (git grep at 10f247b). The value therefore comes from the runner itself in both the preparer and the campaign.\n- The GNOME scripts use the same exact pin: `ubuntu_gnome_host.py:169` and `ubuntu_gnome_vm.py:724`. The GNOME lock also records 20261026.354.1.\n- The artifact expires at 2026-11-09T00:52:09Z. `gh api artifacts/13109055698` returns created_at 2026-11-02T00:52:29Z, expires_at 2026-11-09T00:52:09Z and expired=false. This follows from `retention-days: 7` in `windows11-native-prepare.yml`.\n- The expiry is fatal to a late campaign in two places:\n  - `windows11_request.py:546` requires artifact[\"expired\"] is False.\n  - `windows11-native-lifecycle.yml` downloads the candidate by artifact-ids/run-id from the prepare run. It never uses a re-uploaded copy.\n- The log header split is real. I fetched job 125031052345's log: lines 16-19 read \"Image: ubuntu-24.04 / Version: 20261025.353.1\". The GNOME prepare job 125030593755 shows the same header, and so does the CI Ubuntu package job 125028259313.\n- The split does not occur on Windows. The Windows package job 125028259337 header shows 20261021.278.1, which matches the ImageVersion recorded in `original-native-artifact/worker/host.json`.\n- The header/env difference therefore seems specific to the ubuntu-24.04 image. That it comes from GitHub's labeling is inferred, not verified.\n\nWhy I lower the severity to NOTE:\n- This is not a defect in the candidate or the code. The exact image pin is a deliberate fail-closed custody check.\n- The 7-day retention is set explicitly in the workflow, and the request step deliberately refuses expired artifacts.\n- Neither can cause a wrong result or weaken safety. Both only make a late or image-drifted campaign fail closed, and the fix is a fresh prepare run and a fresh review.\n- GitHub-hosted runners cannot be pinned to an exact image version through runs-on. Some limit on how long a candidate stays usable is inherent to this design (inferred from my general knowledge of GitHub Actions).\n- The practical advice stands as an operational note: dispatch the VM campaign before 2026-11-09T00:52:09Z, and record that a runner-image rollout may close the window earlier.\n- Provenance note: the reviewer cannot match 20261026.354.1 to the runner-images release tag shown in the job header (20261025.353), because the two differ. This does not affect safety, since the campaign compares against the same runner-reported variable."
+        },
+        {
+         "refuted": false,
+         "corrected_severity": "NOTE",
+         "reasoning": "I could not refute any factual claim. Every one held when I checked it read-only. I am lowering the severity to NOTE because nothing in the candidate or the code at S is wrong. Both limits are deliberate and fail closed, and the only action needed is to record the release window.\n\nWhat I checked (scratch files are in /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review3-work/skeptic2-runner-pin/):\n\n1. **The lock value.** win11 retained/inputs/host-tools-lock.json has \"runner_image_version\": \"20261026.354.1\". In the Windows candidate tree, that file is the only one containing 20261026 or 20261025. The GNOME inputs/host-tools-lock.json has the same value.\n\n2. **The producer and the consumer read the same variable.**\n   - The producer, windows11_candidate.py@10f247b line 214 (stage_host), writes os.environ.get(\"ImageVersion\").\n   - The consumer, windows11_vm.py@10f247b lines 266-272 (install_tools), raises \"Exact reviewed disposable runner image required\" when lock['runner_image_version'] != os.environ.get(\"ImageVersion\"). This check runs after the lock-digest check and before any apt install.\n   - No workflow at S overrides ImageVersion. The scripts and .github differ between S and HEAD only in the two request JSON files.\n\n3. **The job-log banner.**\n   - Windows download-only job 125031052345, log lines 16-20, reads \"Image: ubuntu-24.04\" / \"Version: 20261025.353.1\", release tag ubuntu24/20261025.353.\n   - GNOME download-only job 125030593755 shows the same banner.\n   - The finding's description of the gap between the banner and the env value is accurate. Its cause is on GitHub's side and is inferred, not verified.\n\n4. **The expiry.**\n   - `gh api` artifacts/13109055698 returns expires_at 2026-11-09T00:52:09Z with expired=false. The digest equals the stated ZIP sha256.\n   - The 7 days come from an explicit setting: windows11-native-prepare.yml@S line 175 sets `retention-days: 7`.\n   - In VM mode, windows11_request.artifact_metadata accepts only this candidate artifact, and only if artifact['expired'] is False.\n   - The lifecycle fetches the candidate with download-artifact using that run-id and artifact-id.\n   - So once the artifact expires, authorization fails and the campaign never starts.\n   - The GNOME candidate 13106829926 expires 2026-11-09T00:34:06Z.\n\nWhy NOTE rather than NON_BLOCKING:\n- The pin is intended and consistent with itself. The env value is the right string to pin, because pinning the banner value would make every campaign fail.\n- Integrity does not rest on this label. The deb sha256/size pins, the simulate-then-install step, the dpkg-query version check and the after-install tool/firmware sha256 pins enforce it.\n- Expiry and an image rotation can only stop a campaign. Neither can let unreviewed inputs through.\n- The previous review cycle already settled this exact image-pin item as a NOTE. Both skeptics downgraded it there; see docs/evidence/m03-native-candidates-a5ec1e3-review/review-workflow-result.json at S.\n- The image env value has stayed 20261026.354.1 from run 41154763996 (2026-10-31) through run 41367514098 (2026-11-02).\n\nRecommended record: the release window ends at the earlier of two events:\n- 2026-11-09T00:52:09Z (Windows) or 2026-11-09T00:34:06Z (GNOME);\n- ubuntu-24.04 runners no longer reporting ImageVersion=20261026.354.1.\n\nDiagnose any stop from the env value, not the log banner.\n\nInferred, not verified:\n- GitHub's image rotation schedule.\n- Whether a gradual rollout could put a single campaign attempt on a runner with a newer image. That would fail closed and need a new attempt or request."
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

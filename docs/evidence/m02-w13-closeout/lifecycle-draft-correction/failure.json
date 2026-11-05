@@ -1,0 +1,10 @@
+{
+  "classification": "DIRECT_REGRESSION",
+  "scope": "temporary lifecycle/governance draft only; not implementation",
+  "command": "python3 scripts/validate_status.py",
+  "exit_code": 1,
+  "cause": "Current work package M02-W14 is illegal when no work package is IN_PROGRESS; header must be NONE",
+  "correction": "temporary helper writes NONE; preserves original ASCII escaping in traceability; new fresh exact-SHA lifecycle clone",
+  "authoritative_main_untouched": true,
+  "requires_implementation_test_change": false
+}

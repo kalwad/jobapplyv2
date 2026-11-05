@@ -1,0 +1,10 @@
+{
+  "archive": {
+    "bytes": 1470895,
+    "sha256": "be57be099a18cd6f5e8dc0eff1f04c30ef707f63be2bb70e7eb0286fc44dd97d",
+    "safe_regular_members": 46
+  },
+  "review_sha256": "1e44584f48fdc96ecb7b458e703a3e7535ad4cf7adcb7820f5b4bff408d02cd3",
+  "audit_sha256": "bd130c1057a74dcd1e5498d82573b6729859d99b2c82b2a6f8f521922fe44525",
+  "scope": "INDEPENDENT_RETAINED_FAILED_LOCAL_AGGREGATE_DATA_REVIEW_NO_RETROACTIVE_PYTHON_OR_FULL_PASS"
+}

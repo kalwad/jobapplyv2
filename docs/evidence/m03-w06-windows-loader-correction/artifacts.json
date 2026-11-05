@@ -1,0 +1,60 @@
+{
+  "base_head": "19762e2e6a1780d736cb265cb47d19fdb74e7744",
+  "base_tree": "f7196be0a92f871079de48d71e3e443d40ab2e54",
+  "source_postimages": {
+    ".github/workflows/ci.yml": {
+      "bytes": 14408,
+      "sha256": "efaab531c89060d0751b5c8f77f64fb24aa3d31a534535e8b592b2dc9d76242b"
+    },
+    "apps/desktop/src-tauri/build.rs": {
+      "bytes": 2040,
+      "sha256": "bc17ee57b90f334b80df7c1db1122c6c78382bec4429c1af8052b2445e760ec1"
+    },
+    "apps/desktop/src-tauri/windows-common-controls.manifest": {
+      "bytes": 392,
+      "sha256": "4636f3ba46080315ac3277d473d433b79c00863c9cdca1c93c0c83554c6a3d43"
+    },
+    "scripts/check_portability.py": {
+      "bytes": 60407,
+      "sha256": "850cf437d3af6e71ff19e61fcec47ba5e07491757b8cec46e3d3012a947cf9c0"
+    },
+    "scripts/python-test-inventory.v1.json": {
+      "bytes": 220443,
+      "sha256": "1c14438f3129b6041a5b23353bb99853f295a00631851c29825afae3d86a3e3d"
+    },
+    "scripts/tests/test_ci_workflow.py": {
+      "bytes": 34339,
+      "sha256": "bc20c1199b512d4de24235ad87fe38201c5068b8bc9eeb041e3b52f6975f3255"
+    },
+    "scripts/tests/test_portability.py": {
+      "bytes": 194722,
+      "sha256": "b63b1496f8751d82eb5df47fe3c014d004abd6ac37aaae7c89043154db9efe69"
+    },
+    "scripts/windows-native-loader-diagnostics.ps1": {
+      "bytes": 14597,
+      "sha256": "003aa4d7eda3c2eeb2b063a858ed80b9e615f457e58b65d5bce505a88dae3f59"
+    }
+  },
+  "proof": {
+    "path": "proof.tar.gz",
+    "bytes": 705557,
+    "sha256": "dc548064e56a2183878c48ec00672db87fd50258db92a15a1b63d393857d6c04",
+    "regular_members": 94
+  },
+  "members_manifest": {
+    "path": "members.json",
+    "sha256": "94b89ec3dc8ef4dfe7d877ed140ef8133a8efa7e7b9a724c00ba391754370293"
+  },
+  "scope": "Actual macOS affected components only. Windows/PowerShell execution, loader cause/fix and normal-app manifest resource merging remain UNVERIFIED. W06 remains IN_PROGRESS; no milestone/gate/requirement acceptance.",
+  "actual_independent_review": {
+    "verdict": "CLEAR50/50",
+    "review_sha256": "3eed7c8ef9be1f44000e17d25951a4fff0b62a4484ad3b6e90dcb6cab5970a59",
+    "archive": {
+      "path": "actual-review-and-record-checks.tar.gz",
+      "bytes": 65115,
+      "sha256": "f9486e78fce62af4910eeb97cc3d2c2a73f1d29be7acd0f7527b342a4d66a8a7",
+      "regular_members": 29
+    },
+    "scope": "Actual source/focused/inventory/packet/record checks only. Preserves initial32/33 working-path timing observation. No Windows/PowerShell/cause/fix or acceptance credit."
+  }
+}

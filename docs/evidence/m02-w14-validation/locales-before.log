@@ -1,0 +1,141 @@
+
+ RUN  v4.1.10 /Users/tanishkalwad/jobapplyv2/packages/form-engine
+
+ ❯ test/m02-w14-locales.test.ts (11 tests | 9 failed) 162ms
+     × recognizes Street without deriving a value 154ms
+     × recognizes Straße without deriving a value 3ms
+     × recognizes Adresse without deriving a value 1ms
+     × recognizes Postleitzahl without deriving a value 1ms
+     × recognizes Code postal without deriving a value 0ms
+     × abstains from other-party contact evidence: Employer Straße 0ms
+     × abstains from other-party contact evidence: Arbeitgeber Straße 0ms
+     × abstains from other-party contact evidence: Adresse employeur 0ms
+     × retains Unicode letters and does not collapse distinct spellings 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/m02-w14-locales.test.ts > W14 independently authored W12 address labels > recognizes Street without deriving a value
+ FAIL  test/m02-w14-locales.test.ts > W14 independently authored W12 address labels > recognizes Adresse without deriving a value
+AssertionError: expected { status: 'ABSTAINED', …(3) } to match object { status: 'CLASSIFIED', …(2) }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "band": "DETERMINISTIC",
+-   "concept": "ADDRESS_LINE_1",
+-   "status": "CLASSIFIED",
++   "status": "ABSTAINED",
+  }
+
+ ❯ test/m02-w14-locales.test.ts:18:41
+     16|     it(`recognizes ${label} without deriving a value`, async () => {
+     17|       const descriptor = await buildDescriptor({ label, sectionContext…
+     18|       expect(classifyField(descriptor)).toMatchObject({ status: "CLASS…
+       |                                         ^
+     19|     });
+     20|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  test/m02-w14-locales.test.ts > W14 independently authored W12 address labels > recognizes Straße without deriving a value
+Error: test descriptor is not canonical: /label/normalized_text must match pattern "^[A-Za-z0-9][A-Za-z0-9 .,:!?()'&+/@_-]{0,511}$"
+ ❯ buildDescriptor test/support/build-descriptor.ts:127:11
+    125|   const outcome = validateFormFieldDescriptorV1(descriptor);
+    126|   if (!outcome.valid) {
+    127|     throw new Error(
+       |           ^
+    128|       `test descriptor is not canonical: ${outcome.errors.join("; ")}`,
+    129|     );
+ ❯ test/m02-w14-locales.test.ts:17:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  test/m02-w14-locales.test.ts > W14 independently authored W12 address labels > recognizes Postleitzahl without deriving a value
+ FAIL  test/m02-w14-locales.test.ts > W14 independently authored W12 address labels > recognizes Code postal without deriving a value
+AssertionError: expected { status: 'ABSTAINED', …(3) } to match object { status: 'CLASSIFIED', …(2) }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "band": "DETERMINISTIC",
+-   "concept": "ADDRESS_POSTAL_CODE",
+-   "status": "CLASSIFIED",
++   "status": "ABSTAINED",
+  }
+
+ ❯ test/m02-w14-locales.test.ts:18:41
+     16|     it(`recognizes ${label} without deriving a value`, async () => {
+     17|       const descriptor = await buildDescriptor({ label, sectionContext…
+     18|       expect(classifyField(descriptor)).toMatchObject({ status: "CLASS…
+       |                                         ^
+     19|     });
+     20|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  test/m02-w14-locales.test.ts > W14 independently authored W12 address labels > abstains from other-party contact evidence: Employer Straße
+ FAIL  test/m02-w14-locales.test.ts > W14 independently authored W12 address labels > abstains from other-party contact evidence: Arbeitgeber Straße
+Error: test descriptor is not canonical: /label/normalized_text must match pattern "^[A-Za-z0-9][A-Za-z0-9 .,:!?()'&+/@_-]{0,511}$"
+ ❯ buildDescriptor test/support/build-descriptor.ts:127:11
+    125|   const outcome = validateFormFieldDescriptorV1(descriptor);
+    126|   if (!outcome.valid) {
+    127|     throw new Error(
+       |           ^
+    128|       `test descriptor is not canonical: ${outcome.errors.join("; ")}`,
+    129|     );
+ ❯ test/m02-w14-locales.test.ts:23:28
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  test/m02-w14-locales.test.ts > W14 independently authored W12 address labels > abstains from other-party contact evidence: Adresse employeur
+AssertionError: expected { status: 'ABSTAINED', …(3) } to match object { status: 'ABSTAINED', …(1) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "reason": "NEGATIVE_EVIDENCE_CONFLICT",
++   "reason": "NO_MATCHING_CONCEPT",
+    "status": "ABSTAINED",
+  }
+
+ ❯ test/m02-w14-locales.test.ts:23:92
+     21|   for (const label of ["Employer Straße", "Arbeitgeber Straße", "Adres…
+     22|     it(`abstains from other-party contact evidence: ${label}`, async (…
+     23|       expect(classifyField(await buildDescriptor({ label, sectionConte…
+       |                                                                                            ^
+     24|     });
+     25|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  test/m02-w14-locales.test.ts > W14 independently authored W12 address labels > retains Unicode letters and does not collapse distinct spellings
+AssertionError: expected 'stra e' to be 'straße' // Object.is equality
+
+Expected: "straße"
+Received: "stra e"
+
+ ❯ test/m02-w14-locales.test.ts:27:41
+     25|   }
+     26|   it("retains Unicode letters and does not collapse distinct spellings…
+     27|     expect(normalizeEvidence("Straße")).toBe("straße");
+       |                                         ^
+     28|     expect(normalizeEvidence("Stråße")).not.toBe(normalizeEvidence("St…
+     29|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  9 failed | 2 passed (11)
+   Start at  11:31:39
+   Duration  369ms (transform 88ms, setup 0ms, import 118ms, tests 162ms, environment 0ms)
+
+undefined
+/Users/tanishkalwad/jobapplyv2/packages/form-engine:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/m02-w14-locales.test.ts

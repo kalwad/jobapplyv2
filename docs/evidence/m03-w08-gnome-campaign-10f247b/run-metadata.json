@@ -1,0 +1,49 @@
+{
+  "retrieved_with": "gh api (2026-11-02UTC); selected fields only",
+  "runs": [
+    {
+      "id": 41371114075,
+      "name": "reviewed Ubuntu GNOME package lifecycle",
+      "event": "pull_request",
+      "head_branch": "codex/autofill-evaluation-hardening",
+      "head_sha": "0e241ba288efae0c078db0fd3340b747de6a2959",
+      "path": ".github/workflows/ubuntu-gnome-lifecycle.yml",
+      "run_attempt": 1,
+      "conclusion": "success",
+      "created_at": "2026-11-02T01:11:06Z",
+      "updated_at": "2026-11-02T01:18:09Z",
+      "jobs": [
+        {
+          "id": 125041586898,
+          "name": "authorize",
+          "conclusion": "success",
+          "started_at": "2026-11-02T01:11:09Z",
+          "completed_at": "2026-11-02T01:11:34Z",
+          "runner_name": "GitHub Actions 1000001023"
+        },
+        {
+          "id": 125041708167,
+          "name": "gnome",
+          "conclusion": "success",
+          "started_at": "2026-11-02T01:11:36Z",
+          "completed_at": "2026-11-02T01:18:09Z",
+          "runner_name": "GitHub Actions 1000001030"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13109411960,
+          "name": "gnome-lifecycle-10f247bc441036233963004d1d663cd80e3a0212-41371114075",
+          "size_in_bytes": 2911786,
+          "digest": "sha256:4f5cfe4127e138562fa393308ae99cf2d227d4b9dcfb052d8a8f313b7f67a706"
+        },
+        {
+          "id": 13108999237,
+          "name": "gnome-vm-request-41371114075",
+          "size_in_bytes": 23268,
+          "digest": "sha256:712efb2b6070e5bad1b34f8a36ed7f158bec0fce79d6e682c25c3b531a9778cf"
+        }
+      ]
+    }
+  ]
+}

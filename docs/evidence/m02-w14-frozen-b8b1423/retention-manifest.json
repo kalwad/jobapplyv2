@@ -1,0 +1,72 @@
+{
+  "archive_sha256": "1c6f71f5e809c8a05129c17c93d59611bceabd3de2875b4ce5a9a028bca966c2",
+  "archive_bytes": 4750208,
+  "regular_members": 14,
+  "files": [
+    {
+      "path": "aggregate.log",
+      "bytes": 590294,
+      "sha256": "5a82a0a28850bd4c8e7c3ecdd3243be6fc5c51c4f998f72f2121ff75866e505d"
+    },
+    {
+      "path": "start-commit.txt",
+      "bytes": 41,
+      "sha256": "4fab6b33edb488626cc8a2a35c23b24c962856b27057fc9949feb5b05c0b77bc"
+    },
+    {
+      "path": "start-status.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 1971,
+      "sha256": "697c0ee820b1736c36099b6f77b65a3b193ca836d3ec5e4aa2bc886ed57fd587"
+    },
+    {
+      "path": "w14/assessment.json",
+      "bytes": 54499,
+      "sha256": "92a46ad9ca01dd56283a2add8cffd754708ff3d8c52e2765b098f47b0831a356"
+    },
+    {
+      "path": "w14/canonical-autofill-run-manifest.json",
+      "bytes": 2528,
+      "sha256": "fb2787fe8a2cf085a809d12aed007a7ac98e5ef65839312dedee14f4411e2cda"
+    },
+    {
+      "path": "w14/canonical-execution.json",
+      "bytes": 2900880,
+      "sha256": "6f9129c43fc531064145315a561ec499b7eaa2994191e236b8fd1a2aac497246"
+    },
+    {
+      "path": "w14/canonical-report-manifest.json",
+      "bytes": 624,
+      "sha256": "6d741da2a1378cc1bf4d560ee64cbb3bfd362ceac3c0c38cba52705838c20097"
+    },
+    {
+      "path": "w14/canonical-report.html",
+      "bytes": 297600,
+      "sha256": "ce8854f9fce137c3d7bcf6f578920e0cfb12dd9d5f0892eac5f0f6797b71f0f4"
+    },
+    {
+      "path": "w14/canonical-report.json",
+      "bytes": 1997583,
+      "sha256": "0eb83a1259e85ef3c10ab0842dbe94e058116afd6e376b98f21438646d623c5c"
+    },
+    {
+      "path": "w14/canonical-report.md",
+      "bytes": 181702,
+      "sha256": "4b4563b01934d73bf704a3688d39c826dc053af3129ad58e280e7f111fa22474"
+    },
+    {
+      "path": "w14/development-run.json.gz",
+      "bytes": 4176996,
+      "sha256": "49e66edf3b9d714d731faabece268911e4b89eceda425934f735dce44a8519cc"
+    },
+    {
+      "path": "w14/workday-en-us-contact.png",
+      "bytes": 108547,
+      "sha256": "8cbae9fe1ecf8469db1f01ec2a94992f0dd116b0dbd3b1ae841e34c2ea0c730b"
+    }
+  ]
+}

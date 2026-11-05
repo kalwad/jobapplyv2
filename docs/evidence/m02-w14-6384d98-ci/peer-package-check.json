@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "archive_sha256": "e5bc01a5ae87654465d400cca7fce5ba594bdb06eabd3af10c7653194e2a097e",
+  "archive_bytes": 1013892,
+  "safe_unique_regular_members": 144,
+  "indexed_actual_source_files": 143,
+  "generated_index_members": 1,
+  "independent_all_member_bytes_hashes_and_source_equal": true,
+  "terminal_ci_conclusion": "success",
+  "full_three_platform_success": true,
+  "report_sha256": "16a52df0b94acd343213f809155e4163cc4043a3fecd7ab7d5abad17bd4335da",
+  "native_seal_sha256": "6c600068a2ed6858278c45b6b0909bc04a95d7def11a42f373cac55d993a5574",
+  "source_root_writes_product_runs_CI_mutations": 0
+}

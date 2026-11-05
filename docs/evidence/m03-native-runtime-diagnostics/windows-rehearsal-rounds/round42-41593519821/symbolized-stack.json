@@ -1,0 +1,241 @@
+{
+ "scope": "DIAGNOSTIC_ONLY: public Microsoft symbols resolved against the round 42 pmuoff-conhost kernel minidump triage summary",
+ "dump": "110326-16890-01.dmp, not retained (artifact diag42-raw-dumps-and-logs-pmuoff-conhost, 3-day retention)",
+ "image": {
+  "name": "ntoskrnl.exe",
+  "url": "https://msdl.microsoft.com/download/symbols/ntoskrnl.exe/FDA9ED741450000/ntoskrnl.exe",
+  "bytes": 13104632,
+  "sha256": "d90c69cfa925d42037ef1cdba3ff5b3f13cc14e16060938073b97e396fdde2f2",
+  "time_date_stamp": "0xfda9ed74",
+  "size_of_image": "0x1450000"
+ },
+ "pdb": {
+  "name": "ntkrnlmp.pdb",
+  "url": "https://msdl.microsoft.com/download/symbols/ntkrnlmp.pdb/C29EBFB06B78B3C020DCA66D99713F9E1/ntkrnlmp.pdb",
+  "bytes": 11497472,
+  "sha256": "2f2408d5c6b19264970814b2e9175aa2434cabd09ecbbf9b8d0c335e2b380e6a"
+ },
+ "tool": "symbolic 13.9.0 (Python 3.11 venv)",
+ "faulting_address": {
+  "rva": "0x4c7f61",
+  "function": "HalpAllocatePmcCounterSetEx",
+  "image_bytes_from_rva_minus_16": "0c83f9017515418b0f0f32eb05418b0f0f3348c1e220480bc2eb0233c0488b4c2470ff442440488944cb18488d14cd3c",
+  "dump_bytes_from_address_minus_16": "0c83f9017515418b0f0f32eb05418b0f0f3348c1e220480bc2eb0233c0488b4c2470ff442440488944cb18488d14cd3c",
+  "decoded": "cmp ecx,1; jne +0x15; mov ecx,[r15]; rdmsr; jmp +5; mov ecx,[r15]; rdpmc (0f 33 at the faulting address)"
+ },
+ "process": {
+  "image_file_name": "svchost.exe",
+  "process_id_from_eprocess_0x1d0": 5980,
+  "thread_cid": [
+   5980,
+   8488
+  ]
+ },
+ "stack_heuristic_return_addresses": [
+  {
+   "slot": "0xfffff80077ca0fa8",
+   "rva": "0x6c26e9",
+   "function": "KiBugCheckDispatch"
+  },
+  {
+   "slot": "0xfffff80077ca0fc0",
+   "rva": "0x4c7f61",
+   "function": "HalpAllocatePmcCounterSetEx"
+  },
+  {
+   "slot": "0xfffff80077ca1088",
+   "rva": "0x6c1d55",
+   "function": "KiSystemServiceCopyEnd"
+  },
+  {
+   "slot": "0xfffff80077ca1098",
+   "rva": "0x2b7ad6",
+   "function": "RtlpxVirtualUnwind"
+  },
+  {
+   "slot": "0xfffff80077ca10a8",
+   "rva": "0x6c1d55",
+   "function": "KiSystemServiceCopyEnd"
+  },
+  {
+   "slot": "0xfffff80077ca10e0",
+   "rva": "0x6c1d55",
+   "function": "KiSystemServiceCopyEnd"
+  },
+  {
+   "slot": "0xfffff80077ca10e8",
+   "rva": "0x6c173c",
+   "function": "KiSystemServiceHandler"
+  },
+  {
+   "slot": "0xfffff80077ca1100",
+   "rva": "0xd418c",
+   "function": null
+  },
+  {
+   "slot": "0xfffff80077ca1108",
+   "rva": "0x6c16c0",
+   "function": "KiSystemServiceHandler"
+  },
+  {
+   "slot": "0xfffff80077ca1120",
+   "rva": "0x6c1d55",
+   "function": "KiSystemServiceCopyEnd"
+  },
+  {
+   "slot": "0xfffff80077ca1128",
+   "rva": "0x6b7ccf",
+   "function": "RtlpExecuteHandlerForException"
+  },
+  {
+   "slot": "0xfffff80077ca1158",
+   "rva": "0x2b4e67",
+   "function": "RtlDispatchException"
+  },
+  {
+   "slot": "0xfffff80077ca1170",
+   "rva": "0x6c1d55",
+   "function": "KiSystemServiceCopyEnd"
+  },
+  {
+   "slot": "0xfffff80077ca1178",
+   "rva": "0x1184a8",
+   "function": null
+  },
+  {
+   "slot": "0xfffff80077ca1370",
+   "rva": "0xe0000",
+   "function": null
+  },
+  {
+   "slot": "0xfffff80077ca15c8",
+   "rva": "0x2ba87c",
+   "function": "KeQueryCurrentStackInformationEx"
+  },
+  {
+   "slot": "0xfffff80077ca1608",
+   "rva": "0x45d685",
+   "function": "RtlpGetStackLimitsEx"
+  },
+  {
+   "slot": "0xfffff80077ca1658",
+   "rva": "0x2b4c8c",
+   "function": "RtlDispatchException"
+  },
+  {
+   "slot": "0xfffff80077ca1688",
+   "rva": "0x401f3d",
+   "function": "HalRequestSoftwareInterrupt"
+  },
+  {
+   "slot": "0xfffff80077ca16f0",
+   "rva": "0xe10f80",
+   "function": "??_C@_03GDMIGCCC@Ver@EKOMKFNL@"
+  },
+  {
+   "slot": "0xfffff80077ca1700",
+   "rva": "0x6c16c0",
+   "function": "KiSystemServiceHandler"
+  },
+  {
+   "slot": "0xfffff80077ca1708",
+   "rva": "0xc29f8",
+   "function": null
+  },
+  {
+   "slot": "0xfffff80077ca1720",
+   "rva": "0x1184a8",
+   "function": null
+  },
+  {
+   "slot": "0xfffff80077ca1728",
+   "rva": "0x6b08ab",
+   "function": "KiInterruptDispatch"
+  },
+  {
+   "slot": "0xfffff80077ca1730",
+   "rva": "0x6c1d55",
+   "function": "KiSystemServiceCopyEnd"
+  },
+  {
+   "slot": "0xfffff80077ca1740",
+   "rva": "0x1184a8",
+   "function": null
+  },
+  {
+   "slot": "0xfffff80077ca1760",
+   "rva": "0x6c16c0",
+   "function": "KiSystemServiceHandler"
+  },
+  {
+   "slot": "0xfffff80077ca1768",
+   "rva": "0xc29f8",
+   "function": null
+  },
+  {
+   "slot": "0xfffff80077ca17a8",
+   "rva": "0x4c7da0",
+   "function": "HalpAllocatePmcCounterSetEx"
+  },
+  {
+   "slot": "0xfffff80077ca17b0",
+   "rva": "0xb3be46",
+   "function": "EtwpEnableStackCaching"
+  },
+  {
+   "slot": "0xfffff80077ca17c0",
+   "rva": "0xff8fc",
+   "function": null
+  },
+  {
+   "slot": "0xfffff80077ca17d0",
+   "rva": "0x13e8fc",
+   "function": null
+  },
+  {
+   "slot": "0xfffff80077ca17e0",
+   "rva": "0x1447dc",
+   "function": null
+  },
+  {
+   "slot": "0xfffff80077ca17f0",
+   "rva": "0x140138",
+   "function": null
+  },
+  {
+   "slot": "0xfffff80077ca1800",
+   "rva": "0x1184a8",
+   "function": null
+  },
+  {
+   "slot": "0xfffff80077ca1888",
+   "rva": "0x437204",
+   "function": "KdTrap"
+  },
+  {
+   "slot": "0xfffff80077ca18c8",
+   "rva": "0x3eb132",
+   "function": "KiDispatchException"
+  },
+  {
+   "slot": "0xfffff80077ca19f8",
+   "rva": "0x4c7f61",
+   "function": "HalpAllocatePmcCounterSetEx"
+  },
+  {
+   "slot": "0xfffff80077ca1d78",
+   "rva": "0x4ee8b7",
+   "function": "RtlGetExtendedContextLength3"
+  },
+  {
+   "slot": "0xfffff80077ca1fa8",
+   "rva": "0x6ae8f2",
+   "function": "KyExceptionDispatchOnExceptionStack"
+  },
+  {
+   "slot": "0xfffff80077ca1fd8",
+   "rva": "0x6ae8c0",
+   "function": "KiExceptionDispatchOnExceptionStackContinue"
+  }
+ ]
+}

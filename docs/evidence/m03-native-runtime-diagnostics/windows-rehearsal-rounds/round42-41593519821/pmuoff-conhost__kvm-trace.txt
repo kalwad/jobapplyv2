@@ -1,0 +1,14 @@
+# tracer: nop
+#
+# entries-in-buffer/entries-written: 2/2   #P:4
+#
+#                                _-----=> irqs-off/BH-disabled
+#                               / _----=> need-resched
+#                              | / _---=> hardirq/softirq
+#                              || / _--=> preempt-depth
+#                              ||| / _-=> migrate-disable
+#                              |||| /     delay
+#           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
+#              | |         |   |||||     |         |
+ qemu-system-x86-2916    [003] d..1.  1099.513552: kvm_exit: vcpu 0 reason rdpmc rip 0xfffff800e54c7f61 info1 0x0000000000000000 info2 0x0000000000000000 intr_info 0x00000000 error_code 0x00000000 requests 0x0000000000000000
+ qemu-system-x86-2916    [003] .....  1099.513556: kvm_inj_exception: #GP (0x0)

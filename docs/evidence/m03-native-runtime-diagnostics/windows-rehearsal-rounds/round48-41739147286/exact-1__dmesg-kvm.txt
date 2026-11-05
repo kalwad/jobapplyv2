@@ -1,0 +1,19 @@
+[    0.000000] Hypervisor detected: KVM
+[    0.000000] kvm-clock: Using msrs 4b564d01 and 4b564d00
+[    0.000000] kvm-clock: using sched offset of 9285539139 cycles
+[    0.000002] clocksource: kvm-clock: mask: 0xffffffffffffffff max_cycles: 0x1cd42e4dffb, max_idle_ns: 881590591483 ns
+[    0.006613] kvm-guest: APIC: eoi() replaced with kvm_guest_apic_eoi_write()
+[    0.006638] Booting paravirtualized kernel on KVM
+[    0.029039] kvm-guest: PV spinlocks disabled, no host support
+[    0.220561] kvm-guest: APIC: send_IPI_mask() replaced with kvm_send_ipi_mask()
+[    0.221508] kvm-guest: APIC: send_IPI_mask_allbutself() replaced with kvm_send_ipi_mask_allbutself()
+[    0.222700] kvm-guest: setup PV IPIs
+[    0.447472] clocksource: Switched to clocksource kvm-clock
+[ 3550.133456] nbd0: detected capacity change from 0 to 167772160
+[ 3550.134502]  nbd0: p1 p2 p3
+[ 3553.169817]  nbd0: p1 p2 p3
+[ 3555.190560] ntfs3: Enabled Linux POSIX ACLs support
+[ 3555.190569] ntfs3: Read-only LZX/Xpress compression included
+[ 3555.216474] block nbd0: NBD_DISCONNECT
+[ 3555.216488] block nbd0: Disconnected due to user request.
+[ 3555.216489] block nbd0: shutting down sockets

@@ -1,0 +1,388 @@
+{
+  "created_utc": "2026-10-29T21:58:16.284783+00:00",
+  "actual_result": "SCOPED_CORRECTION_ADOPTION_AND_FOCUS_PASS",
+  "source_preparation_sha256": "471d5e158acd818506ab65dbcd920bcf9029a7c4b888450c8ead6c4a5ac67466",
+  "before_client_sha256": "661328686b629ea247bb5ab32b370074568ff68510b1f943eaf8ade0886c6b8e",
+  "after_client_sha256": "977e075952198cd3344ab61bb6a2dbd8f0625a8f175016371263832266c46a1e",
+  "new_test_sha256": "795feee8175943f4375dcea0d6c2c0caac5f241d48696535e5fcf9de1864cb0b",
+  "source_review": {
+    "report_sha256": "fc5387674a4575516ba93f46ce2f85a116858ccea799e654729694b64669e175",
+    "checks": 1265,
+    "fresh_generation_passes": 165,
+    "prior_reader_failure_scope": "v1 wrongly required initial lint/format expected_exit match despite documented preserved failures; v1 retained. v2 checks both historical actual1 explicitly and final five exit0.",
+    "initial_actual_exit_history": {
+      "quality/strict-new-format-initial/receipt.json": {
+        "expected": 0,
+        "actual": 1
+      },
+      "quality/strict-new-ruff-initial/receipt.json": {
+        "expected": 0,
+        "actual": 1
+      }
+    }
+  },
+  "author_controls": {
+    "no_expired_guard": {
+      "failed": 9,
+      "passed": 156
+    },
+    "no_raw_expired_admission": {
+      "failed": 3,
+      "passed": 162
+    },
+    "no_timeout_close_priority": {
+      "failed": 3,
+      "passed": 162
+    },
+    "old_source": {
+      "failed": 9,
+      "passed": 156
+    }
+  },
+  "adoption": {
+    "end_utc": "2026-10-29T21:43:02.463990+00:00",
+    "selected_existing_deltas": [
+      "scripts/python-test-inventory.v1.json",
+      "services/orchestrator/src/orchestrator/generation/client.py"
+    ],
+    "added_test": "services/orchestrator/tests/test_generation_early_idle_timeout.py",
+    "source_count_before": 2348,
+    "source_count_after": 2349,
+    "unselected_2346_existing_sources_full_modes_unchanged": true,
+    "runtime40_bytes_full_modes_unchanged": true,
+    "head_tree_index_unchanged": true,
+    "catalog_common_count": 2815,
+    "catalog_posix_total": 2817,
+    "all_2788_old_ids_retained": true,
+    "new_ids": 29,
+    "manual_cache_mutations": 0,
+    "scope": "Guarded source/catalog adoption only, after full-f3 phase closed. Independent correction review and165 fresh synthetic cases do not transfer a full current-source or Windows PASS. No native/model/default/VM actor or formal acceptance. Tool exit observed separately; no independently retained outer Popen custody claimed."
+  },
+  "focus": {
+    "end_utc": "2026-10-29T21:44:12.887558+00:00",
+    "logical_source": 2349,
+    "runtime": 40,
+    "all_source_runtime_bytes_fullmodes_status_head_tree_equal": true,
+    "commands": 10,
+    "all_ten_commands_closed_zero": true
+  },
+  "actual_commands": [
+    {
+      "name": "ruff",
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "ruff",
+        "check",
+        "--config",
+        "pyproject.toml",
+        "services/orchestrator/src/orchestrator/generation",
+        "services/orchestrator/tests/test_generation_boundary.py",
+        "services/orchestrator/tests/test_generation_cancellation_deadline.py",
+        "services/orchestrator/tests/test_generation_early_idle_timeout.py",
+        "services/orchestrator/tests/test_generation_header_whitespace.py",
+        "services/orchestrator/tests/test_generation_idle_deadline.py",
+        "services/orchestrator/tests/test_generation_loopback.py",
+        "services/orchestrator/tests/test_generation_sticky_cancellation.py",
+        "services/orchestrator/tests/test_generation_transport.py"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "pid": 79816,
+      "pgid": 79816,
+      "start_utc": "2026-10-29T21:43:59.609922+00:00",
+      "end_utc": "2026-10-29T21:43:59.752483+00:00",
+      "seconds": 0.14258320804219693,
+      "exit_code": 0,
+      "timeout": false,
+      "reaped": true,
+      "group": "ABSENT",
+      "signals": []
+    },
+    {
+      "name": "format",
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "ruff",
+        "format",
+        "--check",
+        "--config",
+        "pyproject.toml",
+        "services/orchestrator/src/orchestrator/generation",
+        "services/orchestrator/tests/test_generation_boundary.py",
+        "services/orchestrator/tests/test_generation_cancellation_deadline.py",
+        "services/orchestrator/tests/test_generation_early_idle_timeout.py",
+        "services/orchestrator/tests/test_generation_header_whitespace.py",
+        "services/orchestrator/tests/test_generation_idle_deadline.py",
+        "services/orchestrator/tests/test_generation_loopback.py",
+        "services/orchestrator/tests/test_generation_sticky_cancellation.py",
+        "services/orchestrator/tests/test_generation_transport.py"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "pid": 79818,
+      "pgid": 79818,
+      "start_utc": "2026-10-29T21:43:59.752786+00:00",
+      "end_utc": "2026-10-29T21:43:59.775740+00:00",
+      "seconds": 0.02296954207122326,
+      "exit_code": 0,
+      "timeout": false,
+      "reaped": true,
+      "group": "ABSENT",
+      "signals": []
+    },
+    {
+      "name": "mypy-services",
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "mypy",
+        "--config-file",
+        "pyproject.toml",
+        "services"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "pid": 79820,
+      "pgid": 79820,
+      "start_utc": "2026-10-29T21:43:59.776035+00:00",
+      "end_utc": "2026-10-29T21:44:00.500835+00:00",
+      "seconds": 0.7248171670362353,
+      "exit_code": 0,
+      "timeout": false,
+      "reaped": true,
+      "group": "ABSENT",
+      "signals": []
+    },
+    {
+      "name": "mypy-win32",
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "mypy",
+        "--config-file",
+        "pyproject.toml",
+        "--platform",
+        "win32",
+        "services/orchestrator/src/orchestrator/generation",
+        "services/orchestrator/tests/test_generation_boundary.py",
+        "services/orchestrator/tests/test_generation_cancellation_deadline.py",
+        "services/orchestrator/tests/test_generation_early_idle_timeout.py",
+        "services/orchestrator/tests/test_generation_header_whitespace.py",
+        "services/orchestrator/tests/test_generation_idle_deadline.py",
+        "services/orchestrator/tests/test_generation_loopback.py",
+        "services/orchestrator/tests/test_generation_sticky_cancellation.py",
+        "services/orchestrator/tests/test_generation_transport.py"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "pid": 79822,
+      "pgid": 79822,
+      "start_utc": "2026-10-29T21:44:00.501147+00:00",
+      "end_utc": "2026-10-29T21:44:01.667117+00:00",
+      "seconds": 1.1659817500039935,
+      "exit_code": 0,
+      "timeout": false,
+      "reaped": true,
+      "group": "ABSENT",
+      "signals": []
+    },
+    {
+      "name": "prettier",
+      "argv": [
+        "pnpm",
+        "exec",
+        "prettier",
+        "--check",
+        "scripts/python-test-inventory.v1.json"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "pid": 79831,
+      "pgid": 79831,
+      "start_utc": "2026-10-29T21:44:01.667482+00:00",
+      "end_utc": "2026-10-29T21:44:02.090107+00:00",
+      "seconds": 0.4226444170344621,
+      "exit_code": 0,
+      "timeout": false,
+      "reaped": true,
+      "group": "ABSENT",
+      "signals": []
+    },
+    {
+      "name": "focused-python",
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "pytest",
+        "-c",
+        "pyproject.toml",
+        "--rootdir=.",
+        "--confcutdir=.",
+        "-o",
+        "addopts=",
+        "--strict-config",
+        "--strict-markers",
+        "--disable-plugin-autoload",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp",
+        "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/pytest-temp",
+        "-q",
+        "services/orchestrator/tests/test_generation_boundary.py",
+        "services/orchestrator/tests/test_generation_cancellation_deadline.py",
+        "services/orchestrator/tests/test_generation_early_idle_timeout.py",
+        "services/orchestrator/tests/test_generation_header_whitespace.py",
+        "services/orchestrator/tests/test_generation_idle_deadline.py",
+        "services/orchestrator/tests/test_generation_loopback.py",
+        "services/orchestrator/tests/test_generation_sticky_cancellation.py",
+        "services/orchestrator/tests/test_generation_transport.py"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "pid": 79838,
+      "pgid": 79838,
+      "start_utc": "2026-10-29T21:44:02.090487+00:00",
+      "end_utc": "2026-10-29T21:44:02.463774+00:00",
+      "seconds": 0.3733002500375733,
+      "exit_code": 0,
+      "timeout": false,
+      "reaped": true,
+      "group": "ABSENT",
+      "signals": []
+    },
+    {
+      "name": "collection",
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "pytest",
+        "-c",
+        "pyproject.toml",
+        "--rootdir=.",
+        "--confcutdir=.",
+        "-o",
+        "addopts=",
+        "--strict-config",
+        "--strict-markers",
+        "--disable-plugin-autoload",
+        "-p",
+        "no:cacheprovider",
+        "--collect-only",
+        "-q",
+        "services/orchestrator/tests",
+        "scripts/tests"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "pid": 79840,
+      "pgid": 79840,
+      "start_utc": "2026-10-29T21:44:02.464108+00:00",
+      "end_utc": "2026-10-29T21:44:03.008472+00:00",
+      "seconds": 0.5443806250113994,
+      "exit_code": 0,
+      "timeout": false,
+      "reaped": true,
+      "group": "ABSENT",
+      "signals": []
+    },
+    {
+      "name": "portability",
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "python",
+        "scripts/check_portability.py",
+        "--quiet"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "pid": 79844,
+      "pgid": 79844,
+      "start_utc": "2026-10-29T21:44:03.008827+00:00",
+      "end_utc": "2026-10-29T21:44:04.395813+00:00",
+      "seconds": 1.387000040966086,
+      "exit_code": 0,
+      "timeout": false,
+      "reaped": true,
+      "group": "ABSENT",
+      "signals": []
+    },
+    {
+      "name": "integrity",
+      "argv": [
+        "uv",
+        "run",
+        "--no-sync",
+        "--offline",
+        "python",
+        "scripts/verify.py",
+        "--suite",
+        "integrity"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "pid": 79850,
+      "pgid": 79850,
+      "start_utc": "2026-10-29T21:44:04.396160+00:00",
+      "end_utc": "2026-10-29T21:44:12.519935+00:00",
+      "seconds": 8.123774457955733,
+      "exit_code": 0,
+      "timeout": false,
+      "reaped": true,
+      "group": "ABSENT",
+      "signals": []
+    },
+    {
+      "name": "diff-check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "pid": 79876,
+      "pgid": 79876,
+      "start_utc": "2026-10-29T21:44:12.520288+00:00",
+      "end_utc": "2026-10-29T21:44:12.532057+00:00",
+      "seconds": 0.011796875041909516,
+      "exit_code": 0,
+      "timeout": false,
+      "reaped": true,
+      "group": "ABSENT",
+      "signals": []
+    }
+  ],
+  "python": {
+    "passed": 165,
+    "seconds": 0.24
+  },
+  "collection": {
+    "old_ids_preserved": 2788,
+    "additions": 29,
+    "POSIX": 2817,
+    "Windows_common": 2815
+  },
+  "typing": {
+    "services": "default Mac host platform,35files; no explicit Linux target",
+    "generation_and_tests": "explicit Win32 static,13files"
+  },
+  "different_actual_review": {
+    "report_sha256": "ab4339dff469f6f17d3af2234f77d0255d8d40dbb04418ad99b7fd27b5d67a6d",
+    "data_joins": 4832,
+    "verdict": "CLEAR_FINITE_CANONICAL_ADOPTION_AND_FOCUS"
+  },
+  "root_source_reader_v1_available_files_scope": "The two available v1 source/before files are retained directly; v2 original sealed report discloses the prior wrong expected-exit assertion. No missing child receipt/log is invented.",
+  "old_f3_full_or_CI_PASS_transferred": false,
+  "formal_progress": "39/300; active M03-W07; unchanged",
+  "formal_progress_change": false,
+  "milestone_or_gate_or_release_credit": false,
+  "native_or_model_qualification": false,
+  "new_f3_CI_included": false
+}

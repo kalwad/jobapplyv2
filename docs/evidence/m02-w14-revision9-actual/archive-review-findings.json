@@ -1,0 +1,149 @@
+{
+  "format": "INDEPENDENT_ACTUAL_R9_ARCHIVE_PEER_1",
+  "authority": "NONE",
+  "archive": "/tmp/japp-w14-revision9-actual-retained/proof.tar.gz",
+  "archive_sha256": "72bf11df63cad7b036d1c08e005430d6c8a87b757e0868336087cd14adb817b8",
+  "archive_bytes": 1058673,
+  "regular_members": 102,
+  "checks": [
+    {
+      "name": "exact_archive_hash_size_count",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "outer_unique_none_authority",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "safe_regular_no_links_duplicates_or_traversal",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "outer_exhaustive_every102_hash_bytes",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "embedded_index_exhaustive_excludes_only_self",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "exact_original_paths_actual-run",
+      "passed": true,
+      "observed": 62
+    },
+    {
+      "name": "every_original_byte_actual-run",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "exact_original_paths_coordinator-proposal",
+      "passed": true,
+      "observed": 10
+    },
+    {
+      "name": "every_original_byte_coordinator-proposal",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "exact_original_paths_coordinator-source-review",
+      "passed": true,
+      "observed": 3
+    },
+    {
+      "name": "every_original_byte_coordinator-source-review",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "exact_original_paths_executor-inputs",
+      "passed": true,
+      "observed": 4
+    },
+    {
+      "name": "every_original_byte_executor-inputs",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "exact_original_paths_independent-actual-audit",
+      "passed": true,
+      "observed": 21
+    },
+    {
+      "name": "every_original_byte_independent-actual-audit",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "exact_group_counts",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "sealed_actual_audit_hashes",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "corrected200_pass_original199_preserved",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "correction_source_and_note_retained",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "source730_runtime_lock_and_four_forty_scope",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "exact_vs_digits_metrics_kept_separate",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_unexpected_native0_vs4_not_erased",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_join_hash_and_complete_neutrality",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "sourcepeer32_and_actual_derivation_distinct",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "r8r2_unexecuted_history_exact",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "cleanup_limits_and_no_gate_overclaim",
+      "passed": true,
+      "observed": null
+    }
+  ],
+  "all_checks_pass": true,
+  "material_findings": [],
+  "gate_pass": false,
+  "limits": [
+    "Archive member/original-byte/scope peer audit only; corrected raw200check independent audit separately sealed.",
+    "Four related synthetic cases and separately disclosed phone digits do not establish broad/public/Simplify/nativeCI/formalW15/Gate A or performance superiority.",
+    "Normal context/profile/directchild closure only; OS descendants UNOBSERVED; no actual abort-path proof inferred.",
+    "No archive/raw/root/source mutation or product rerun/build/browser."
+  ]
+}

@@ -1,0 +1,289 @@
+{
+  "archive_path": "proof.tar.gz",
+  "archive_sha256": "42b5590fa105571e7cc7125aa6e961f1591c8319b0931ab30a56ef955c8d0539",
+  "archive_bytes": 1326406,
+  "regular_members": 56,
+  "files": [
+    {
+      "path": "governance-peer/findings.json",
+      "bytes": 5504,
+      "sha256": "86e9e9ce45fc06e62b1d8389da8801d5699927bceff4a13487d0b70aaa6d1e11"
+    },
+    {
+      "path": "governance-peer/report.md",
+      "bytes": 1913,
+      "sha256": "fee6eae4823d0dafcb8441271a2500c3b29aede181138c3fc8fb19d1103ae178"
+    },
+    {
+      "path": "governance-proposal/accepted-adr-0007.md",
+      "bytes": 4972,
+      "sha256": "7e2f0623d7a129d1ea958c729fd6c798d9e045d629ae7e3cc0600ccaed8c9fa2"
+    },
+    {
+      "path": "governance-proposal/accepted-owner-record.preimage.bin",
+      "bytes": 5293,
+      "sha256": "fc1529b286c358c36557e810e105d63a4cca6366b3fad913dee38dba4395df02"
+    },
+    {
+      "path": "governance-proposal/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "bytes": 12548,
+      "sha256": "49757e4284cef3eea9ee22e2bf4df0939dab1b42189533736f4560bf99acd3a9"
+    },
+    {
+      "path": "governance-proposal/afterimages/docs/CRITICAL_GATES.md",
+      "bytes": 14695,
+      "sha256": "de2288a2ea4a9025b1c83845ca3b1c8089b8da07a0b3cfcbfe0777aee5d6396a"
+    },
+    {
+      "path": "governance-proposal/afterimages/docs/DECISIONS.md",
+      "bytes": 45230,
+      "sha256": "805b5ea2f7fa17c6007b991cc0dca3a228c7d4baf7cc6a9b1953f5635ef88413"
+    },
+    {
+      "path": "governance-proposal/afterimages/docs/KNOWN_ISSUES.md",
+      "bytes": 269336,
+      "sha256": "6932364930b2469d6288a690884e0dbd86a843af4fa9606a53aa0296489d7fef"
+    },
+    {
+      "path": "governance-proposal/afterimages/docs/PROJECT_STATUS.md",
+      "bytes": 42650,
+      "sha256": "5e392bfaee56b25cc189ecdff50ae9550d3386512b12f09583195b392c4fd41c"
+    },
+    {
+      "path": "governance-proposal/afterimages/docs/TEST_EVIDENCE.md",
+      "bytes": 906633,
+      "sha256": "6ddd7dd457413afac427236afabd5ebeb43a8dff9a063a9d1da4d2c16e14baeb"
+    },
+    {
+      "path": "governance-proposal/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "bytes": 33507,
+      "sha256": "d90ec355ed39e59a3e79521cb8f6d408a6b0db25b8cc538a8d174c11929230e8"
+    },
+    {
+      "path": "governance-proposal/afterimages/docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md",
+      "bytes": 3383,
+      "sha256": "d71e232905a2568ff5fe7caa0ce930ba9e1a06a9064c2c728d7bd525e8403dd5"
+    },
+    {
+      "path": "governance-proposal/afterimages/docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md",
+      "bytes": 3999,
+      "sha256": "24ac56bf03306af8a46be274b18bd12a82231172cadca1344fbe2176996c7fc5"
+    },
+    {
+      "path": "governance-proposal/check-proposal-source.py",
+      "bytes": 4984,
+      "sha256": "18192ae446214640ebbf13946dc023b812122b1cd5e643e80bd7354592252c9c"
+    },
+    {
+      "path": "governance-proposal/governance-proposal.patch",
+      "bytes": 41033,
+      "sha256": "a9c9a959a983491ce7b08a9f7748b24e6baa2e14a0d84bb3fcb9b9b0cade79f3"
+    },
+    {
+      "path": "governance-proposal/history/proposal-001/accepted-adr-0007.md",
+      "bytes": 4972,
+      "sha256": "7e2f0623d7a129d1ea958c729fd6c798d9e045d629ae7e3cc0600ccaed8c9fa2"
+    },
+    {
+      "path": "governance-proposal/history/proposal-001/accepted-owner-record.preimage.bin",
+      "bytes": 5293,
+      "sha256": "fc1529b286c358c36557e810e105d63a4cca6366b3fad913dee38dba4395df02"
+    },
+    {
+      "path": "governance-proposal/history/proposal-001/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "bytes": 12548,
+      "sha256": "49757e4284cef3eea9ee22e2bf4df0939dab1b42189533736f4560bf99acd3a9"
+    },
+    {
+      "path": "governance-proposal/history/proposal-001/afterimages/docs/CRITICAL_GATES.md",
+      "bytes": 14695,
+      "sha256": "de2288a2ea4a9025b1c83845ca3b1c8089b8da07a0b3cfcbfe0777aee5d6396a"
+    },
+    {
+      "path": "governance-proposal/history/proposal-001/afterimages/docs/DECISIONS.md",
+      "bytes": 45232,
+      "sha256": "70b1501d40a755701d16db6035183ab19690df3dc84732ac0f1626fc7f0145b1"
+    },
+    {
+      "path": "governance-proposal/history/proposal-001/afterimages/docs/KNOWN_ISSUES.md",
+      "bytes": 269336,
+      "sha256": "6932364930b2469d6288a690884e0dbd86a843af4fa9606a53aa0296489d7fef"
+    },
+    {
+      "path": "governance-proposal/history/proposal-001/afterimages/docs/PROJECT_STATUS.md",
+      "bytes": 42650,
+      "sha256": "5e392bfaee56b25cc189ecdff50ae9550d3386512b12f09583195b392c4fd41c"
+    },
+    {
+      "path": "governance-proposal/history/proposal-001/afterimages/docs/TEST_EVIDENCE.md",
+      "bytes": 906637,
+      "sha256": "d3fd1aeff46c1c05480275e2a5966d3e7bfd6deefa9f78a2f040648a4d9b6979"
+    },
+    {
+      "path": "governance-proposal/history/proposal-001/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "bytes": 33507,
+      "sha256": "d90ec355ed39e59a3e79521cb8f6d408a6b0db25b8cc538a8d174c11929230e8"
+    },
+    {
+      "path": "governance-proposal/history/proposal-001/afterimages/docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md",
+      "bytes": 3383,
+      "sha256": "d71e232905a2568ff5fe7caa0ce930ba9e1a06a9064c2c728d7bd525e8403dd5"
+    },
+    {
+      "path": "governance-proposal/history/proposal-001/afterimages/docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md",
+      "bytes": 3999,
+      "sha256": "24ac56bf03306af8a46be274b18bd12a82231172cadca1344fbe2176996c7fc5"
+    },
+    {
+      "path": "governance-proposal/history/proposal-001/governance-proposal.patch",
+      "bytes": 40813,
+      "sha256": "46b9d8b2a6758a8bc6c183a4c1e4c962df1e11f22084d587c8e1317df22cd3d6"
+    },
+    {
+      "path": "governance-proposal/history/proposal-001/owner-authority-lines.json",
+      "bytes": 1955,
+      "sha256": "ef863c321dff8c0c222b9b4f376e7d841124b36768e955ff0bb9aa20bb5e5d54"
+    },
+    {
+      "path": "governance-proposal/history/proposal-001/owner-authority-record.json",
+      "bytes": 2458,
+      "sha256": "710693764635be99e1189a7e3954294853a916f22326897cc5b22b43ef6384fb"
+    },
+    {
+      "path": "governance-proposal/history/proposal-001/proposal-manifest.json",
+      "bytes": 2966,
+      "sha256": "84e936c890958ab6fe926c761765afc0c1e60d7a33504d4f37b2ca917b75bb01"
+    },
+    {
+      "path": "governance-proposal/narrow-contract-validation-plan.md",
+      "bytes": 3506,
+      "sha256": "71f403914d41f859b157930af940ac20c695fb45c13745a014b2b71042b0d133"
+    },
+    {
+      "path": "governance-proposal/owner-authority-lines.json",
+      "bytes": 1955,
+      "sha256": "ef863c321dff8c0c222b9b4f376e7d841124b36768e955ff0bb9aa20bb5e5d54"
+    },
+    {
+      "path": "governance-proposal/owner-authority-record.json",
+      "bytes": 2458,
+      "sha256": "710693764635be99e1189a7e3954294853a916f22326897cc5b22b43ef6384fb"
+    },
+    {
+      "path": "governance-proposal/preimages/docs/COMPATIBILITY_MATRIX.md",
+      "bytes": 11863,
+      "sha256": "f964a29f475684ee38a2869e6e1175827e88a75e305893b81449643c6a17cbbb"
+    },
+    {
+      "path": "governance-proposal/preimages/docs/CRITICAL_GATES.md",
+      "bytes": 13942,
+      "sha256": "c74841a187d2c3a271821155614d9fb38894ef32864eb146a18b677a7d0cca3a"
+    },
+    {
+      "path": "governance-proposal/preimages/docs/DECISIONS.md",
+      "bytes": 39735,
+      "sha256": "6658ba3b0a1d2151ae6d1cccb25bfbf874643fd109fa83fff1b1df70d21ea4b2"
+    },
+    {
+      "path": "governance-proposal/preimages/docs/KNOWN_ISSUES.md",
+      "bytes": 267714,
+      "sha256": "5e1ac6e0bbf66adf3ba3f23ad9916931e17c800bc4f7adc017a0c4b2f9eb1790"
+    },
+    {
+      "path": "governance-proposal/preimages/docs/PROJECT_STATUS.md",
+      "bytes": 42271,
+      "sha256": "084bcab02e78fbad4a547d5fea63606e69a1b7c01a2b3b3aa2b42c5edff0d89a"
+    },
+    {
+      "path": "governance-proposal/preimages/docs/TEST_EVIDENCE.md",
+      "bytes": 904153,
+      "sha256": "1702d864550b7f86b874178a4c953518ed8ff39c4275e288a1c074c1aeb6837f"
+    },
+    {
+      "path": "governance-proposal/preimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "bytes": 32289,
+      "sha256": "379af813c63ce4f6ba1c780631ae981d0b17158eae6ce079c61a0d033fe69684"
+    },
+    {
+      "path": "governance-proposal/preimages/docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md",
+      "bytes": 2577,
+      "sha256": "fb7ce0e80e61bd5f7298ee243fcdc60d23db6edf69c52964136b5e6aaf19a247"
+    },
+    {
+      "path": "governance-proposal/preimages/docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md",
+      "bytes": 3032,
+      "sha256": "e1f8889c9fab0ac2c9973d960785ed99995f0f33fe79d07248df2f4fcee10cfd"
+    },
+    {
+      "path": "governance-proposal/prepare-governance.py",
+      "bytes": 25879,
+      "sha256": "e86e15e59fd90125674c0774310e012ef9197e059f106f53387877429f8ae5c5"
+    },
+    {
+      "path": "governance-proposal/proposal-manifest.json",
+      "bytes": 3137,
+      "sha256": "f579049d83225c90d528093d79ec80f00f1ab45e00c3f361e7e416f2dc6f175f"
+    },
+    {
+      "path": "governance-proposal/proposal-source-checks.json",
+      "bytes": 1830,
+      "sha256": "b11f301f7c81477dad6cf9eb1a5f31c03f95c5c721aee2e85abe12640dce9f7d"
+    },
+    {
+      "path": "governance-proposal/refine-proposal.py",
+      "bytes": 2348,
+      "sha256": "65692e361682067cd11a71a05f3aac88dc4aea2054fd43712c474135362c0afe"
+    },
+    {
+      "path": "retained-members.json",
+      "bytes": 10488,
+      "sha256": "fc36b0576f751b0356e7d9c36398f4e861999ae3076c50ca72585923bd397cfa"
+    },
+    {
+      "path": "root-integration/commands.json",
+      "bytes": 2496,
+      "sha256": "fc6c1eab8b07564a1860d237351beea26520272d19d27c5b13ab35626e0d5dbc"
+    },
+    {
+      "path": "root-integration/diff-check.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "root-integration/mypy.log",
+      "bytes": 43,
+      "sha256": "f9b031e5c45aa702cd4fef028d465551cb20a2c4698e0913c7b00766b20ac4d8"
+    },
+    {
+      "path": "root-integration/ruff-format.log",
+      "bytes": 26,
+      "sha256": "3bc53bf3e981a98a34a852e175bf9b77af841edea74fca595d9aedcbaf9a4938"
+    },
+    {
+      "path": "root-integration/ruff.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "root-integration/status-tests.log",
+      "bytes": 633,
+      "sha256": "dc223fb16149d5653a1444049f0378542324a57eb0eac32df9778d3b068a6c8b"
+    },
+    {
+      "path": "root-integration/status.log",
+      "bytes": 3563,
+      "sha256": "84b501d18c32b2526bf9e2b72d40d08aa9d87edda83d25ca2cc8bc69a445ec55"
+    },
+    {
+      "path": "root-integration/traceability.log",
+      "bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "path": "source/retention-builder.py",
+      "bytes": 2437,
+      "sha256": "ef505fce953ace9d8afc792999998efe9c7b27a69eab7463fcb4b86920bb7c44"
+    }
+  ],
+  "scope": "Exact owner ADR7 governance proposal/preimages/afterimages/history/authority plus independent governance review and actual root seven-command integration; no gate verdict or owner gate approval."
+}

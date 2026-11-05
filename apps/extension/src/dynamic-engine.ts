@@ -1,3 +1,10 @@
+import {
+  captureOpenTree,
+  currentOpenTopology,
+  openRootsWithin,
+  composedContains,
+  sameOpenRoots,
+} from "./open-dom.ts";
 // M02-W11 frame-local dynamic reconciliation engine (REQ-FORM-018 and
 // REQ-FORM-024 feasibility portions; spec §5.11 M02-W11).
 //
@@ -20,7 +27,10 @@
 // or disabled controls are never actionable and never become unresolved
 // requirements. When the page is idle the engine is fully event-driven: no
 // polling loop, no periodic rescan, no timer without a queued batch.
-import type { FormReconciliationInventoryV1InventoryItem } from "@japp/contracts/generated";
+import type {
+  FormFieldAddressV1,
+  FormReconciliationInventoryV1InventoryItem,
+} from "@japp/contracts/generated";
 
 import {
   BATCH_DEBOUNCE_MS,
@@ -47,6 +57,7 @@ import {
   classifyField,
   computeInventoryCounts,
   computeReadiness,
+  reconciliationItemIdentity,
   type CurrentValueComparison,
   type ReconcileFieldEvidence,
 } from "./dynamic-reconcile.ts";
@@ -61,13 +72,22 @@ import {
   defaultControlDrivers,
   intendedSemanticObservation,
   matchingControlDrivers,
+  captureDriverObservationWitness,
   type DriverExecution,
+  type ValidationDescriptionClearingEvidence,
 } from "./driver-engine.ts";
 import type { DriverTransactionRequest } from "./driver-protocol.ts";
 import { readSiteAcceptance } from "./drivers/driver-dom.ts";
+import { optionMeaningApprovalMatches } from "./drivers/choice-drivers.ts";
+import type { OptionMeaningApproval } from "./drivers/driver-contract.ts";
+import { validationDescriptionMatches } from "./validation-description.ts";
 import {
   advanceDomGeneration,
   currentDomGeneration,
+  currentDomEvidenceRevision,
+  descriptionApprovalMatches,
+  recordedDomEvidenceRevision,
+  targetIsCurrent,
   detectApplicationRoot,
   resolveFieldTarget,
   scanCandidatePairs,
@@ -85,6 +105,8 @@ const OBSERVED_ATTRIBUTES = [
   "aria-invalid",
   "aria-label",
   "aria-labelledby",
+  "aria-describedby",
+  "title",
   "aria-required",
   "class",
   "disabled",
@@ -94,16 +116,33 @@ const OBSERVED_ATTRIBUTES = [
   "style",
   "type",
   "value",
+  "slot",
 ] as const;
 
 interface InventoryEntry {
   readonly fieldId: string;
-  readonly addressDigest: string;
+  addressDigest: string;
   descriptor: ScannedFieldPair["descriptor"];
   anchor: HTMLElement;
 }
 
+/** Read-only verification may survive a changed mounted option window. All
+ * other address evidence, including the own-description observation, stays
+ * bound to the verified transaction (or its proven validation clearing). */
+function verificationAddressBinding(address: FormFieldAddressV1): string {
+  const rest = { ...address };
+  delete rest.option_fingerprint;
+  return canonicalJson({
+    ...rest,
+    resolution_hints: address.resolution_hints.filter(
+      (hint) => hint.kind !== "OPTION_DIGEST",
+    ),
+  });
+}
+
 interface RegistryEntry {
+  readonly descriptionClearing?: ValidationDescriptionClearingEvidence;
+  readonly optionMeaningApproval?: OptionMeaningApproval;
   readonly transaction: DriverTransactionRequest;
   readonly outcome:
     | "BLOCKED_SENSITIVE"
@@ -128,6 +167,7 @@ type CurrentObservation =
       readonly status: "OBSERVED";
       readonly evidence: SemanticValueEvidence;
       readonly validationRejected: boolean;
+      readonly propertyWitness: () => boolean;
     }
   | { readonly status: "UNRESOLVED"; readonly resolution: "MISSING" | "STALE" }
   | { readonly status: "AMBIGUOUS" };
@@ -274,13 +314,16 @@ export class DynamicFrameEngine {
   readonly #driverEngine: DriverTransactionEngine;
   readonly #drivers = defaultControlDrivers();
   readonly #queue = new BoundedRecordQueue<MutationRecord>();
-  readonly #inventory = new Map<string, InventoryEntry>();
+  // Element references identify current physical observations only. They never
+  // enter a FieldAddress, transaction, resolver, or duplicate-action key.
+  readonly #inventory = new Map<HTMLElement, InventoryEntry>();
   readonly #registry = new Map<string, RegistryEntry>();
   readonly #ledger = new Map<string, LedgerEntry>();
   readonly #inFlight = new Set<string>();
   readonly #counters = freshCounters();
   #observer: MutationObserver | null = null;
   #observedRoot: HTMLElement | null = null;
+  #shadowRoots: readonly ShadowRoot[] = [];
   #routeSeed: string | null = null;
   #state: ObservationState = "IDLE";
   #routeGeneration = 0;
@@ -292,6 +335,7 @@ export class DynamicFrameEngine {
   #processing: Promise<void> = Promise.resolve();
   #observedDocument: Document | null = null;
   #capacityExceeded = false;
+  #proofUnstable = false;
 
   constructor(driverEngine: DriverTransactionEngine) {
     this.#driverEngine = driverEngine;
@@ -344,6 +388,12 @@ export class DynamicFrameEngine {
       addressDigest,
       {
         transaction,
+        ...(execution.descriptionClearing === undefined
+          ? {}
+          : { descriptionClearing: execution.descriptionClearing }),
+        ...(execution.optionMeaningApproval === undefined
+          ? {}
+          : { optionMeaningApproval: execution.optionMeaningApproval }),
         outcome: execution.result.outcome,
         settledEvidence: {
           semantic_digest:
@@ -360,6 +410,10 @@ export class DynamicFrameEngine {
   // Observation lifecycle
   // -------------------------------------------------------------------
 
+  #hasUnstableProof(): boolean {
+    return this.#proofUnstable;
+  }
+
   #hasCapacityRefusal(): boolean {
     // Re-read after awaits; another observed batch may have set the latch.
     return this.#capacityExceeded;
@@ -372,6 +426,14 @@ export class DynamicFrameEngine {
     if (this.#state === "OBSERVING") {
       return {
         status: "ALREADY_OBSERVING",
+        snapshot: this.snapshot(document),
+      };
+    }
+    if (currentOpenTopology(document).status === "CAPACITY_EXCEEDED") {
+      this.#capacityExceeded = true;
+      return {
+        status: "ROOT_UNRESOLVED",
+        candidate_count: 0,
         snapshot: this.snapshot(document),
       };
     }
@@ -442,13 +504,19 @@ export class DynamicFrameEngine {
         }, BATCH_DEBOUNCE_MS);
       }
     });
-    observer.observe(root, {
+    const capture = openRootsWithin(root);
+    const options = {
       childList: true,
       subtree: true,
       attributes: true,
       attributeFilter: [...OBSERVED_ATTRIBUTES],
       characterData: true,
-    });
+    };
+    observer.observe(root, options);
+    this.#shadowRoots =
+      capture.status === "COMPLETE" ? capture.shadowRoots : [];
+    for (const shadow of this.#shadowRoots) observer.observe(shadow, options);
+    if (capture.status === "CAPACITY_EXCEEDED") this.#capacityExceeded = true;
     this.#observer = observer;
     this.#observedRoot = root;
   }
@@ -457,6 +525,28 @@ export class DynamicFrameEngine {
     this.#observer?.disconnect();
     this.#observer = null;
     this.#observedRoot = null;
+    this.#shadowRoots = [];
+  }
+
+  /** Fresh topology discovery is request driven. Attaching an open root to
+   * an existing host creates no light-DOM observer record. Only a changed
+   * root set requires a bounded inventory refresh; idle pages never poll. */
+  async #syncShadowRoots(
+    document: Document,
+    frameContext: FrameContext,
+  ): Promise<void> {
+    const root = this.#observedRoot;
+    if (root === null) return;
+    const capture = openRootsWithin(root);
+    if (capture.status === "CAPACITY_EXCEEDED") {
+      this.#capacityExceeded = true;
+      this.#inventory.clear();
+      return;
+    }
+    if (!sameOpenRoots(this.#shadowRoots, capture.shadowRoots)) {
+      this.#attachObserver(document, frameContext, root);
+      await this.#rootScan(document, frameContext, root, "OVERFLOW");
+    }
   }
 
   /** Flush any queued batch deterministically before a synchronous read. */
@@ -464,6 +554,7 @@ export class DynamicFrameEngine {
     document: Document,
     frameContext: FrameContext,
   ): Promise<void> {
+    await this.#syncShadowRoots(document, frameContext);
     if (this.#batchTimer !== null) {
       clearTimeout(this.#batchTimer);
       this.#batchTimer = null;
@@ -550,6 +641,7 @@ export class DynamicFrameEngine {
     root: HTMLElement,
     reason: RootScanReason,
   ): Promise<void> {
+    const startingEvidenceRevision = currentDomEvidenceRevision(document);
     const started = performance.now();
     this.#counters.root_rescans += 1;
     switch (reason) {
@@ -566,7 +658,9 @@ export class DynamicFrameEngine {
         this.#counters.root_rescans_observation_start += 1;
         break;
     }
-    this.#counters.nodes_considered += 1 + root.querySelectorAll("*").length;
+    const counted = captureOpenTree(root);
+    this.#counters.nodes_considered +=
+      counted.status === "COMPLETE" ? counted.elements.length : 0;
     if (scanCapacityExceeded(root)) {
       this.#capacityExceeded = true;
       this.#inventory.clear();
@@ -584,34 +678,26 @@ export class DynamicFrameEngine {
     }
     const pairs = scan.pairs;
     this.#counters.descriptors_produced += pairs.length;
-    const previousIds = new Set(this.#inventory.keys());
-    const seed = reason === "OBSERVATION_START";
-    this.#inventory.clear();
+    const entries: InventoryEntry[] = [];
     for (const pair of pairs) {
-      if (this.#inventory.size >= MAX_INVENTORY_ITEMS) {
-        break;
-      }
-      const fieldId = pair.descriptor.field_id;
-      if (!seed && !previousIds.has(fieldId)) {
-        this.#counters.conditional_fields_discovered += 1;
-      }
-      this.#inventory.set(fieldId, {
-        fieldId,
+      entries.push({
+        fieldId: pair.descriptor.field_id,
         addressDigest: await fieldAddressDigest(pair.descriptor.address),
         descriptor: pair.descriptor,
         anchor: pair.candidate.anchor,
       });
     }
-    if (!seed) {
-      for (const previousId of previousIds) {
-        if (!this.#inventory.has(previousId)) {
-          this.#counters.conditional_fields_removed += 1;
-        }
-      }
+    if (!this.#replaceInventory(entries, reason !== "OBSERVATION_START")) {
+      this.#counters.total_scan_duration_ms += boundedMs(started);
+      this.#domObservationGeneration += 1;
+      return;
     }
     // Only a complete current root scan can clear a prior capacity refusal.
     this.#capacityExceeded = scanCapacityExceeded(root);
     if (this.#capacityExceeded) this.#inventory.clear();
+    this.#proofUnstable =
+      currentDomEvidenceRevision(document) !== startingEvidenceRevision;
+    if (this.#proofUnstable) this.#inventory.clear();
     this.#counters.total_scan_duration_ms += boundedMs(started);
     this.#domObservationGeneration += 1;
   }
@@ -620,6 +706,7 @@ export class DynamicFrameEngine {
     document: Document,
     frameContext: FrameContext,
   ): Promise<void> {
+    const startingEvidenceRevision = currentDomEvidenceRevision(document);
     const started = performance.now();
     const { records, overflowed } = this.#queue.drain();
     const actionOrigin = this.#batchHadActionOrigin;
@@ -648,19 +735,23 @@ export class DynamicFrameEngine {
     const regionCandidates: Element[] = [];
     for (const mutationRecord of records) {
       const target = mutationRecord.target;
-      const region = target instanceof Element ? target : target.parentElement;
+      const region =
+        target instanceof Element
+          ? target
+          : target instanceof ShadowRoot
+            ? target.host
+            : target.parentElement;
       if (
         region === null ||
         !region.isConnected ||
-        (region !== root && !root.contains(region))
+        (region !== root && !composedContains(root, region))
       ) {
         continue;
       }
       regionCandidates.push(region);
     }
-    const plan = planAffectedRegions(
-      regionCandidates,
-      (parent, child) => parent === child || parent.contains(child),
+    const plan = planAffectedRegions(regionCandidates, (parent, child) =>
+      composedContains(parent, child),
     );
     if (overflowed || plan.escalateToRoot) {
       await this.#rootScan(document, frameContext, root, "OVERFLOW");
@@ -668,8 +759,9 @@ export class DynamicFrameEngine {
       let relevant = false;
       for (const region of plan.regions) {
         this.#counters.affected_subtree_scans += 1;
+        const counted = captureOpenTree(region);
         this.#counters.nodes_considered +=
-          1 + region.querySelectorAll("*").length;
+          counted.status === "COMPLETE" ? counted.elements.length : 0;
         const scan = await scanCandidatePairs(
           document,
           root,
@@ -685,12 +777,20 @@ export class DynamicFrameEngine {
         const pairs = scan.pairs;
         this.#counters.descriptors_produced += pairs.length;
         this.#mergeRegion(region, pairs, await this.#digestsFor(pairs));
+        if (this.#hasCapacityRefusal()) {
+          this.#counters.last_batch_duration_ms = boundedMs(started);
+          return;
+        }
         relevant = true;
       }
       this.#pruneDisconnectedInventory(root);
       if (relevant) {
         this.#domObservationGeneration += 1;
       }
+    }
+    if (currentDomEvidenceRevision(document) !== startingEvidenceRevision) {
+      this.#proofUnstable = true;
+      this.#inventory.clear();
     }
     const elapsed = boundedMs(started);
     this.#counters.last_batch_duration_ms = elapsed;
@@ -699,62 +799,93 @@ export class DynamicFrameEngine {
 
   async #digestsFor(
     pairs: readonly ScannedFieldPair[],
-  ): Promise<ReadonlyMap<string, string>> {
-    const digests = new Map<string, string>();
+  ): Promise<ReadonlyMap<HTMLElement, string>> {
+    const digests = new Map<HTMLElement, string>();
     for (const pair of pairs) {
       digests.set(
-        pair.descriptor.field_id,
+        pair.candidate.anchor,
         await fieldAddressDigest(pair.descriptor.address),
       );
     }
     return digests;
   }
 
+  /** Count semantic observations without collapsing physical collisions. */
+  #inventoryMultiplicities(
+    entries: Iterable<InventoryEntry>,
+  ): Map<string, number> {
+    const counts = new Map<string, number>();
+    for (const entry of entries)
+      counts.set(entry.fieldId, (counts.get(entry.fieldId) ?? 0) + 1);
+    return counts;
+  }
+
+  /** Atomic bounded replacement; conditional counts survive equivalent rerenders. */
+  #replaceInventory(
+    entries: readonly InventoryEntry[],
+    trackConditionals: boolean,
+  ): boolean {
+    if (entries.length > MAX_INVENTORY_ITEMS) {
+      this.#capacityExceeded = true;
+      this.#inventory.clear();
+      return false;
+    }
+    const previous = this.#inventoryMultiplicities(this.#inventory.values());
+    const current = this.#inventoryMultiplicities(entries);
+    if (trackConditionals) {
+      for (const [fieldId, count] of current)
+        this.#counters.conditional_fields_discovered += Math.max(
+          0,
+          count - (previous.get(fieldId) ?? 0),
+        );
+      for (const [fieldId, count] of previous)
+        this.#counters.conditional_fields_removed += Math.max(
+          0,
+          count - (current.get(fieldId) ?? 0),
+        );
+    }
+    this.#inventory.clear();
+    for (const entry of entries) this.#inventory.set(entry.anchor, entry);
+    return true;
+  }
+
   #mergeRegion(
     region: Element,
     pairs: readonly ScannedFieldPair[],
-    digests: ReadonlyMap<string, string>,
+    digests: ReadonlyMap<HTMLElement, string>,
   ): void {
-    const currentIds = new Set(pairs.map((pair) => pair.descriptor.field_id));
-    for (const [fieldId, entry] of [...this.#inventory]) {
-      const inRegion = region === entry.anchor || region.contains(entry.anchor);
-      if (inRegion && !currentIds.has(fieldId)) {
-        this.#inventory.delete(fieldId);
-        this.#counters.conditional_fields_removed += 1;
-      }
+    const root = this.#observedRoot;
+    const merged = new Map<HTMLElement, InventoryEntry>();
+    for (const entry of this.#inventory.values()) {
+      if (
+        entry.anchor.isConnected &&
+        root !== null &&
+        composedContains(root, entry.anchor) &&
+        !composedContains(region, entry.anchor)
+      )
+        merged.set(entry.anchor, entry);
     }
     for (const pair of pairs) {
-      const fieldId = pair.descriptor.field_id;
-      const existing = this.#inventory.get(fieldId);
-      if (existing !== undefined) {
-        existing.descriptor = pair.descriptor;
-        existing.anchor = pair.candidate.anchor;
-        continue;
-      }
-      if (this.#inventory.size >= MAX_INVENTORY_ITEMS) {
-        continue;
-      }
-      const addressDigest = digests.get(fieldId);
-      if (addressDigest === undefined) {
-        continue;
-      }
-      this.#inventory.set(fieldId, {
-        fieldId,
+      const addressDigest = digests.get(pair.candidate.anchor);
+      if (addressDigest === undefined) continue;
+      merged.set(pair.candidate.anchor, {
+        fieldId: pair.descriptor.field_id,
         addressDigest,
         descriptor: pair.descriptor,
         anchor: pair.candidate.anchor,
       });
-      this.#counters.conditional_fields_discovered += 1;
     }
+    this.#replaceInventory([...merged.values()], true);
   }
 
   #pruneDisconnectedInventory(root: HTMLElement): void {
-    for (const [fieldId, entry] of [...this.#inventory]) {
-      if (!entry.anchor.isConnected || !root.contains(entry.anchor)) {
-        this.#inventory.delete(fieldId);
-        this.#counters.conditional_fields_removed += 1;
-      }
-    }
+    this.#replaceInventory(
+      [...this.#inventory.values()].filter(
+        (entry) =>
+          entry.anchor.isConnected && composedContains(root, entry.anchor),
+      ),
+      true,
+    );
   }
 
   // -------------------------------------------------------------------
@@ -769,8 +900,8 @@ export class DynamicFrameEngine {
     this.#observedDocument = document;
     const currentRoot = detectApplicationRoot(document);
     if (
-      currentRoot.status === "FOUND" &&
-      scanCapacityExceeded(currentRoot.root)
+      currentOpenTopology(document).status === "CAPACITY_EXCEEDED" ||
+      (currentRoot.status === "FOUND" && scanCapacityExceeded(currentRoot.root))
     ) {
       this.#capacityExceeded = true;
       return items
@@ -847,10 +978,14 @@ export class DynamicFrameEngine {
         this.#counters.actions_suppressed_duplicate += 1;
         return { status: "PRIOR_ATTEMPT_EXISTS", prior_outcome: prior.outcome };
       }
+      const addressDigest = await fieldAddressDigest(transaction.address);
+      const registryEntry = this.#registry.get(addressDigest);
       const observation = await this.#observeCurrent(
         document,
         frameContext,
         transaction,
+        undefined,
+        registryEntry?.optionMeaningApproval,
       );
       if (observation.status === "AMBIGUOUS") {
         return { status: "STALE_EVIDENCE", resolution: "AMBIGUOUS" };
@@ -858,8 +993,7 @@ export class DynamicFrameEngine {
       if (observation.status === "UNRESOLVED") {
         return { status: "STALE_EVIDENCE", resolution: observation.resolution };
       }
-      const addressDigest = await fieldAddressDigest(transaction.address);
-      const settled = this.#registry.get(addressDigest)?.settledEvidence;
+      const settled = registryEntry?.settledEvidence;
       if (
         settled?.semantic_digest === observation.evidence.semantic_digest &&
         settled.presence === observation.evidence.presence
@@ -909,6 +1043,8 @@ export class DynamicFrameEngine {
     document: Document,
     frameContext: FrameContext,
     transaction: DriverTransactionRequest,
+    clearedDescription?: ValidationDescriptionClearingEvidence,
+    approvedOption?: OptionMeaningApproval,
   ): Promise<CurrentObservation> {
     const resolved = await resolveFieldTarget(
       document,
@@ -926,6 +1062,28 @@ export class DynamicFrameEngine {
       };
     }
     const target = resolved.target;
+    const observationRevision = recordedDomEvidenceRevision(document);
+    const descriptionCurrent =
+      descriptionApprovalMatches(
+        transaction.address,
+        target.descriptor.address,
+      ) ||
+      (clearedDescription !== undefined &&
+        descriptionApprovalMatches(
+          clearedDescription.settledAddress,
+          target.descriptor.address,
+        ) &&
+        validationDescriptionMatches(
+          clearedDescription.settledDescription,
+          target.anchor,
+        ));
+    if (
+      !descriptionCurrent ||
+      (transaction.intended.kind === "OPTION" &&
+        (approvedOption === undefined ||
+          !optionMeaningApprovalMatches(approvedOption, target.descriptor)))
+    )
+      return { status: "UNRESOLVED", resolution: "STALE" };
     const candidates = matchingControlDrivers(
       this.#drivers,
       target.descriptor,
@@ -936,7 +1094,16 @@ export class DynamicFrameEngine {
     if (candidates.length !== 1 || driver === undefined) {
       return { status: "UNRESOLVED", resolution: "STALE" };
     }
-    const context = { document, target, intended: transaction.intended };
+    const context = {
+      document,
+      target,
+      intended: transaction.intended,
+      mutate: (): Promise<void> =>
+        Promise.reject(
+          new Error("read-only observation has no mutation authority"),
+        ),
+    };
+    const propertyWitness = captureDriverObservationWitness(driver, context);
     const observation = await driver.observe(context);
     const acceptance = await readSiteAcceptance(
       driver.acceptanceElements?.(context) ?? [
@@ -944,9 +1111,17 @@ export class DynamicFrameEngine {
         ...target.members,
       ],
     );
+    const evidence = await evidenceFromObservation(observation);
+    if (
+      !propertyWitness() ||
+      ((approvedOption !== undefined || clearedDescription !== undefined) &&
+        !targetIsCurrent(document, target, observationRevision))
+    )
+      return { status: "UNRESOLVED", resolution: "STALE" };
     return {
       status: "OBSERVED",
-      evidence: await evidenceFromObservation(observation),
+      evidence,
+      propertyWitness,
       validationRejected: acceptance.acceptance === "REJECTED",
     };
   }
@@ -965,8 +1140,9 @@ export class DynamicFrameEngine {
     this.#counters.reconciliation_passes += 1;
     const capacityRoot = detectApplicationRoot(document);
     if (
-      capacityRoot.status === "FOUND" &&
-      scanCapacityExceeded(capacityRoot.root)
+      currentOpenTopology(document).status === "CAPACITY_EXCEEDED" ||
+      (capacityRoot.status === "FOUND" &&
+        scanCapacityExceeded(capacityRoot.root))
     ) {
       this.#capacityExceeded = true;
       this.#inventory.clear();
@@ -1016,16 +1192,63 @@ export class DynamicFrameEngine {
         "OBSERVATION_START",
       );
     }
+    if (this.#proofUnstable && this.#observedRoot !== null) {
+      await this.#rootScan(
+        document,
+        frameContext,
+        this.#observedRoot,
+        "OVERFLOW",
+      );
+      if (this.#hasUnstableProof())
+        return {
+          status: "ROOT_UNRESOLVED",
+          candidate_count: 0,
+          snapshot: this.snapshot(document),
+        };
+    }
+    const proofEvidenceRevision = currentDomEvidenceRevision(document);
+    const proofRoot = this.#observedRoot;
+    const proofTree =
+      this.#observedRoot === null ? null : openRootsWithin(this.#observedRoot);
     const proofGeneration = currentDomGeneration(document);
     const evidenceList: ReconcileFieldEvidence[] = [];
+    const propertyWitnesses: (() => boolean)[] = [];
+    const multiplicities = this.#inventoryMultiplicities(
+      this.#inventory.values(),
+    );
     for (const entry of this.#inventory.values()) {
       evidenceList.push(
-        await this.#evidenceFor(document, frameContext, entry, proofGeneration),
+        await this.#evidenceFor(
+          document,
+          frameContext,
+          entry,
+          proofGeneration,
+          propertyWitnesses,
+          (multiplicities.get(entry.fieldId) ?? 0) > 1,
+        ),
       );
     }
     evidenceList.sort(canonicalEvidenceOrder);
     const pageGeneration = currentDomGeneration(document);
     const settledRoot = detectApplicationRoot(document);
+    const settledOpenTree =
+      this.#observedRoot === null ? null : openRootsWithin(this.#observedRoot);
+    // Required controls attached during async evidence construction must not
+    // disappear from a complete readiness proof. Refuse this pass and latch
+    // a bounded refresh for the next request; never report a partial prefix.
+    const rootsChangedDuringProof =
+      proofTree?.status !== "COMPLETE" ||
+      settledOpenTree?.status !== "COMPLETE" ||
+      !sameOpenRoots(proofTree.shadowRoots, settledOpenTree.shadowRoots);
+    if (rootsChangedDuringProof) {
+      this.#capacityExceeded = true;
+      this.#inventory.clear();
+      return {
+        status: "ROOT_UNRESOLVED",
+        candidate_count: 0,
+        snapshot: this.snapshot(document),
+      };
+    }
     if (
       this.#capacityExceeded ||
       (settledRoot.status === "FOUND" && scanCapacityExceeded(settledRoot.root))
@@ -1035,7 +1258,17 @@ export class DynamicFrameEngine {
       return { status: "CAPACITY_EXCEEDED", snapshot: this.snapshot(document) };
     }
     const items: FormReconciliationInventoryV1InventoryItem[] = [];
+    const itemOccurrences = new Map<string, number>();
     for (const evidence of evidenceList.slice(0, MAX_INVENTORY_ITEMS)) {
+      const itemSeed = [
+        "w11-item-v1",
+        frameContext.document_id,
+        String(pageGeneration),
+        evidence.fieldAddressDigest,
+        evidence.fieldId,
+      ].join("\0");
+      const occurrence = itemOccurrences.get(itemSeed) ?? 0;
+      itemOccurrences.set(itemSeed, occurrence + 1);
       const classified = classifyField(evidence);
       if (classified.pageChangedDetected) {
         this.#counters.page_changed_detected += 1;
@@ -1043,13 +1276,7 @@ export class DynamicFrameEngine {
       items.push({
         item_id: await stableSemanticId(
           "item",
-          [
-            "w11-item-v1",
-            frameContext.document_id,
-            String(pageGeneration),
-            evidence.fieldAddressDigest,
-            evidence.fieldId,
-          ].join("\0"),
+          reconciliationItemIdentity(itemSeed, occurrence),
         ),
         field_id: evidence.fieldId,
         field_address_digest: evidence.fieldAddressDigest,
@@ -1101,10 +1328,33 @@ export class DynamicFrameEngine {
     // Item IDs/evidence digests await hashing after the earlier capacity
     // check; incomplete coverage must never be published as canonical READY.
     const publicationRoot = detectApplicationRoot(document);
+    const publicationTree =
+      proofRoot === null ? null : openRootsWithin(proofRoot);
+    if (
+      publicationRoot.status !== "FOUND" ||
+      publicationRoot.root !== proofRoot ||
+      publicationTree?.status !== "COMPLETE" ||
+      !sameOpenRoots(proofTree.shadowRoots, publicationTree.shadowRoots) ||
+      currentDomEvidenceRevision(document) !== proofEvidenceRevision ||
+      !propertyWitnesses.every((witness) => witness())
+    ) {
+      this.#proofUnstable = true;
+      this.#inventory.clear();
+      return {
+        status:
+          publicationRoot.status === "AMBIGUOUS"
+            ? "ROOT_AMBIGUOUS"
+            : "ROOT_UNRESOLVED",
+        candidate_count:
+          publicationRoot.status === "AMBIGUOUS"
+            ? publicationRoot.candidateCount
+            : 0,
+        snapshot: this.snapshot(document),
+      };
+    }
     if (
       this.#hasCapacityRefusal() ||
-      (publicationRoot.status === "FOUND" &&
-        scanCapacityExceeded(publicationRoot.root))
+      scanCapacityExceeded(publicationRoot.root)
     ) {
       this.#capacityExceeded = true;
       this.#inventory.clear();
@@ -1123,6 +1373,8 @@ export class DynamicFrameEngine {
     frameContext: FrameContext,
     entry: InventoryEntry,
     pageGeneration: number,
+    propertyWitnesses: (() => boolean)[],
+    identityAmbiguous = false,
   ): Promise<ReconcileFieldEvidence> {
     const descriptor = entry.descriptor;
     const base = {
@@ -1131,8 +1383,39 @@ export class DynamicFrameEngine {
       required: descriptor.required,
       visible: descriptor.visible,
       enabled: descriptor.enabled,
+      ...(identityAmbiguous ? { identityAmbiguous: true } : {}),
     };
-    const registryEntry = this.#registry.get(entry.addressDigest);
+    // A duplicate semantic field has multiple current physical observations.
+    // Preserve every member as uncertainty; no recorded VERIFIED transaction
+    // can select a member or grant it fill credit.
+    if (identityAmbiguous) return { ...base, validationRejected: false };
+    let registryEntry = this.#registry.get(entry.addressDigest);
+    if (registryEntry === undefined) {
+      // Only option observations may drift for an otherwise identical
+      // verification address. Validation clearing additionally requires the
+      // kernel's independently proven settled description address.
+      const binding = verificationAddressBinding(descriptor.address);
+      const matching = [...this.#registry.values()].filter((record) => {
+        if (
+          record.outcome !== "VERIFIED" ||
+          record.pageGeneration !== pageGeneration ||
+          record.transaction.decision.field_id !== entry.fieldId
+        )
+          return false;
+        return (
+          verificationAddressBinding(record.transaction.address) === binding ||
+          (record.descriptionClearing !== undefined &&
+            verificationAddressBinding(
+              record.descriptionClearing.settledAddress,
+            ) === binding &&
+            validationDescriptionMatches(
+              record.descriptionClearing.settledDescription,
+              entry.anchor,
+            ))
+        );
+      });
+      if (matching.length === 1) registryEntry = matching[0];
+    }
     if (registryEntry === undefined) {
       return { ...base, validationRejected: false };
     }
@@ -1144,8 +1427,11 @@ export class DynamicFrameEngine {
         document,
         frameContext,
         registryEntry.transaction,
+        registryEntry.descriptionClearing,
+        registryEntry.optionMeaningApproval,
       );
       if (observation.status === "OBSERVED") {
+        propertyWitnesses.push(observation.propertyWitness);
         validationRejected = observation.validationRejected;
         const settled = registryEntry.settledEvidence;
         currentValue =

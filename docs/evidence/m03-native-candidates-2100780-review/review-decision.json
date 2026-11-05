@@ -1,0 +1,32 @@
+{
+ "schema": "japp-native-candidate-review-decision-v1",
+ "reviewed_at_utc": "2026-11-03",
+ "review_process": "Separate-context multi-agent workflow wf_3d706db2-168 launched by the implementing session (32 read-only agents; not owner-independent): eight lenses, two adversarial refuters per actionable finding, one completeness critic, one final reviewer; the implementer only launched it and recorded its output (review-workflow-result.json).",
+ "source": {
+  "expected_source_sha": "2100780385817ca71a3be892f7d250deefb1b79c",
+  "source_tree_sha": "e111a16865487d18ff62e80c0e43579cd22b374c",
+  "package_build_sha": "fdba3c3d3c52d130681e047359f7103b7225a504",
+  "package_run": 41538198385,
+  "package_run_attempt": 2
+ },
+ "windows11": {
+  "decision": "DO_NOT_RELEASE",
+  "candidate": {
+   "prepare_run": 41554286753,
+   "run_attempt": 1,
+   "run_head_sha": "b802f8fb0d92eb21b3d9bcb7d6d55a022e100122",
+   "artifact_id": 13193836341,
+   "digest_sha256": "a8f47613c53dadf31d613905a0fb71b7abe7b1ff670b18121922e5b2ebf396d0",
+   "package_manifest_sha256": "0396ddf437aa100e9e75ffec032ee432165bb8a01958e652690965b62d4299d4"
+  },
+  "reviewed_hashes_not_released": {
+   "bundle_sha256": "a75deebcad89bba5427db42546b14a3ce8ee640f279a0b92256f737e2989eb49",
+   "media_lock_sha256": "1f4350a5d549f3081988522365e318aaf389aa559baeaee20cfe69629de749a0",
+   "host_tools_sha256": "54f89a44f670d9dd3dfbd7e6c9384b3ca95dc48db1fd6e46c287f88be44a59e8",
+   "guest_driver_sha256": "9659a2952d15bedf1395f6bc81f458c56012655b0dfe699d23316734a81a9fdf"
+  },
+  "blocking_reasons": [
+   "KI-0177: the Windows 11 first-logon Start menu opens by itself and holds the foreground for the whole guest window (diagnostic rounds 34 and 35, and the a03aadf campaign failure frame); the guest's first foreground assertion (Capture in Snapshot 'ready') has no retry or mitigation, so the campaign would very likely fail closed at 'ready' for a harness reason."
+  ]
+ }
+}

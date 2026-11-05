@@ -1,0 +1,30 @@
+{
+ "schema": "japp-native-candidate-review-decision-v1",
+ "reviewed_at_utc": "2026-11-02",
+ "review_process": "Independent multi-agent workflow wf_4950a2f8-86c (11 separate-context read-only agents): six lenses, two adversarial refuters per actionable finding, one final reviewer; resumed once after an interruption with completed agents replayed from cache; the implementer only launched it and recorded its output (review-workflow-result.json).",
+ "source": {
+  "expected_source_sha": "a03aadf22ab83c9b39bc03f5387eaa0a702ebf27",
+  "source_tree_sha": "7a96092b2b7738d3dce8f27b5ddb004b1a2ff81a",
+  "package_build_sha": "d9412fd07ce7088ea2a5df5515230bd778567cd7",
+  "package_run": 41384168159,
+  "package_run_attempt": 2
+ },
+ "windows11": {
+  "decision": "RELEASE_ONE_BOUND_CAMPAIGN",
+  "candidate": {
+   "prepare_run": 41395340494,
+   "run_attempt": 1,
+   "run_head_sha": "e5aa210c345c0d3956f17cfffe11495778e3ef4e",
+   "artifact_id": 13119257518,
+   "digest_sha256": "1940176ffa079820a8422bcac0d9e2aa223d8033584dd8005b0b9c9bb84b56d4",
+   "package_manifest_sha256": "b7697ee47f0e0df7e38d9185929da943f23362c7c61b632f774bec3e91f1298b"
+  },
+  "bound_hashes": {
+   "bundle_sha256": "ce73edddbfdb0f8fb46e9adedf25aa5c31f1b450a6757ac14928bfe07e2b2a2e",
+   "media_lock_sha256": "d1aa8e327b90e292cb309ba1dc7ba448ba7981f2b4fdbd2829c6c083ad804533",
+   "host_tools_sha256": "b6f70b318c55771c9531fe327211b5d322fb5c5a009e5bad61872d34d773ba06",
+   "guest_driver_sha256": "1a31fd2312c9478758ff331d7f1a8df33bcf7778e2c2b6eaf7eafc01f0ca7b35"
+  },
+  "blocking_reasons": []
+ }
+}

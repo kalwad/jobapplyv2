@@ -1,0 +1,9 @@
+﻿{
+    "terminal":  "FAIL",
+    "phase":  "ready",
+    "nonce":  "aad6af63f6c24593928f3fd306f3243ea8c7920780ec4724bc5760e3fe0e9475",
+    "package_sha256":  "5700fefcf439cf3d2c2c6db46cc0024c6420d7883365cc966cf910dc914ad4f2",
+    "elapsed_ms":  187260,
+    "error_type":  "System.Management.Automation.RuntimeException",
+    "message":  "Actual owned Diagnostics Ready/version UI not observed"
+}

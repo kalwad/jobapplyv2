@@ -1,0 +1,57 @@
+[
+ {
+  "t": 1.157,
+  "bytes": 20,
+  "head": "\u001b[2J\u001b[01;01H\u001b[=3h\u001b[2"
+ },
+ {
+  "t": 1.177,
+  "bytes": 38,
+  "head": "J\u001b[01;01H\u001b[2J\u001b[01;01H\u001b[=3h\u001b[2J\u001b[01;01H"
+ },
+ {
+  "t": 1.274,
+  "bytes": 29,
+  "head": "\u001b[2J\u001b[01;01H\u001b[=3h\u001b[2J\u001b[01;01H"
+ },
+ {
+  "t": 2.276,
+  "bytes": 136,
+  "head": "BdsDxe: failed to load Boot0001 \"UEFI QEMU QEMU USB HARDDRIVE 1-0000:00:01.0-1\" from PciRoot(0x0)/Pci(0x1,0x0)/USB(0x0,0x0): Not Found\r\n"
+ },
+ {
+  "t": 2.296,
+  "bytes": 108,
+  "head": "BdsDxe: loading Boot0002 \"UEFI QEMU DVD-ROM QM00003 \" from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x1,0xFFFF,0x0)\r\n"
+ },
+ {
+  "t": 2.336,
+  "bytes": 109,
+  "head": "BdsDxe: starting Boot0002 \"UEFI QEMU DVD-ROM QM00003 \" from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x1,0xFFFF,0x0)\r\n"
+ },
+ {
+  "t": 5.472,
+  "bytes": 126,
+  "head": "BdsDxe: failed to start Boot0002 \"UEFI QEMU DVD-ROM QM00003 \" from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x1,0xFFFF,0x0): Time out\r\n"
+ },
+ {
+  "t": 5.492,
+  "bytes": 126,
+  "head": "BdsDxe: failed to load Boot0003 \"UEFI QEMU DVD-ROM QM00005 \" from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x2,0xFFFF,0x0): Not Found\r\n"
+ },
+ {
+  "t": 5.512,
+  "bytes": 127,
+  "head": "BdsDxe: failed to load Boot0004 \"UEFI QEMU HARDDISK QM00001 \" from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0): Not Found\r\n"
+ },
+ {
+  "t": 9.376,
+  "bytes": 69,
+  "head": "BdsDxe: No bootable option or device was found.\r\nBdsDxe: Press any ke"
+ },
+ {
+  "t": 9.396,
+  "bytes": 35,
+  "head": "y to enter the Boot Manager Menu.\r\n"
+ }
+]

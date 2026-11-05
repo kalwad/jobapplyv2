@@ -2,12 +2,18 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from copy import deepcopy
 from typing import Any, cast
 
 from conftest import REPO_ROOT
-from japp_contracts import SEMANTIC_RULES_V1, validate_semantic_contract_v1
+from japp_contracts import (
+    SEMANTIC_RULES_V1,
+    SEMANTIC_RULES_V2,
+    validate_semantic_contract_v1,
+    validate_semantic_contract_v2,
+)
 
 SEMANTIC_CATALOG = (
     REPO_ROOT / "packages" / "contracts" / "catalog" / "semantic-rules.v1.json"
@@ -141,3 +147,25 @@ def test_generated_python_semantics_enforce_audited_evidence_invariants() -> Non
         "urn:japp:schema:rendering:layout-measurement:v1",
         renderer_failure,
     ).valid
+
+
+def test_generated_python_v2_semantics_extend_frozen_v1_without_rebinding() -> None:
+    v2_path = SEMANTIC_CATALOG.with_name("semantic-rules.v2.json")
+    document = json.loads(v2_path.read_text(encoding="utf-8"))
+    assert document["catalog_version"] == "1.2.0"
+    assert len(SEMANTIC_RULES_V2) == 114
+    assert [entry._asdict() for entry in SEMANTIC_RULES_V2] == document["entries"]
+    assert hashlib.sha256(SEMANTIC_CATALOG.read_bytes()).hexdigest() == (
+        "31722639c611cc94bfd9cc31a6e631433c6b145d2b2d8c9d5446aac31d3db1c3"
+    )
+    current = {entry.rule_id: entry for entry in SEMANTIC_RULES_V2}
+    for inherited in SEMANTIC_RULES_V1:
+        assert current[inherited.rule_id]._asdict() == inherited._asdict()
+    values = json.loads(
+        (CORPUS_VALUES.parent.parent / "gate-waiver-corpus/values.v1.json").read_text()
+    )
+    bundle = values["values"]["gate-v2.evidence.waived"]
+    schema = "urn:japp:schema:gate:evidence-bundle:v2"
+    assert validate_semantic_contract_v2(schema, bundle).valid
+    bundle["completeness_inventory"]["holdout_valid"] = True
+    assert not validate_semantic_contract_v2(schema, bundle).valid

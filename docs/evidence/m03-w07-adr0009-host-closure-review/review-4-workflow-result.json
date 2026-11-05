@@ -1,0 +1,713 @@
+{
+  "summary": "Final separate-context check of the review-3 fixes and every changed record before commit",
+  "agentCount": 21,
+  "logs": [
+    "8 findings, 8 survive at least one refuter"
+  ],
+  "result": {
+    "lenses": [
+      {
+        "lens": "review3-fixes",
+        "checks": [
+          "Read all 9 review-3 items (5 findings + 4 critic, with verdicts) from review-3-workflow-result.json and the full current diff of the four changed sources, both test files, KI-0189, ADR-0009, PROJECT_STATUS, the new TEST_EVIDENCE entry and both evidence READMEs",
+          "Finding 0/4 (empty placeholder): fixed. retain_runner_status keeps work/apt/status only when it is byte-identical to DPKG_STATUS. The test fixture patches the candidate's own DPKG_STATUS binding, and the refusal-before-copy test kills c_placeholder_retained (confirmed with -rf: only ...[refusal-before-copy] fails)",
+          "retain_runner_status cannot mask the original exception: Path.is_file swallows ignorable errors; stat, read_bytes and copyfile (including shutil.SameFileError) raise only OSError, which is caught; no ValueError path, since there are no NUL bytes in the paths. A partial copy differs from DPKG_STATUS, so it is not retained",
+          "Success path: digest() lstat raises FileNotFoundError when nothing was retained, so the run is CANDIDATE_FAILED (fails closed). Output is required fresh, so no stale runner-dpkg-status can pre-exist",
+          "Probe with the real resolve()/runner_provided() under the real candidate main() and a live status change after the copy: the copy is not retained for the 'differs from its copied status' refusal (finding 1)",
+          "Finding 1 (ImageVersion): fixed. ADR note, KI-0189 and TEST_EVIDENCE now say the failing prepare's ImageVersion was not recorded and give the banner/env basis. The round 51-53 extracts show the banner/ImageVersion pairs as stated",
+          "Finding 2 (mypy line): fixed, six files listed. Ran mypy --config-file pyproject.toml on each of the six files in my copy: Success on each",
+          "Finding 3 / critic 3 (only what the image lacks): KI and module docstring now say every root is downloaded. The new closed_install_plan docstring introduces a false 'only its roots' claim (finding 3)",
+          "Critic 0 (multi-provider virtual name): fixed. The mail-transport fixture case kills p_first_virtual_provider_only (test_runner_provided_walks_every_alternative_and_provider fails)",
+          "Critic 1 (Essential): the fix's 'not walked/not recorded' wording is false for dpkg and tar in all three real locks (finding 2)",
+          "Critic 2 (python3 reason): fixed. KI and ADR now say python3 carries no pinned file; checked TOOLS/FIRMWARE",
+          "Ran the focused tests in my rsync copy: 130 passed. Collected IDs 92+38=130 match the inventory's per-file IDs; inventory common count 3238",
+          "ruff check over scripts: All checks passed; ruff format --check on the five changed .py files: already formatted",
+          "Ran the packet's mutants.py (65 mutants) in a separate copy: 65/65 KILLED, failure/pass counts identical to mutants-result.txt; copy restored byte-identically",
+          "Ran 4 extra mutants on retain_runner_status/digest check (finding 4)",
+          "Review-3 verdict accounting in TEST_EVIDENCE and the packet README (22 agents, 5+4 findings, two verifiers each, all surviving, none blocking) matches the JSON. The packet retention-manifest's 6 entries match bytes and sha256",
+          "Confirmed git status in /Users/tanishkalwad/jobapplyv2 is unchanged; all work and probes are under scratchpad/review4-work/retain-lens"
+        ]
+      },
+      {
+        "lens": "records",
+        "checks": [
+          "Read the full uncommitted diff of DECISIONS (ADR-0009 registry row, status, approval, implementation note), KNOWN_ISSUES KI-0189, PROJECT_STATUS, the last TEST_EVIDENCE entry, the diagnostics README rows 51-53, run-metadata.json, retention-manifest.json and the review packet README/manifest/mutants-result.",
+          "Verified the owner approval text against the session transcript: an AskUserQuestion with options Accept ADR-0009 (Recommended) / Wait for a new runner image / Reject both for now; answer 'Accept ADR-0009 (Recommended)' at 2026-11-04T20:37Z.",
+          "Mapped jobs 126845113737/126861862443/126885577264/126923497380 to runs 41907004859/41912040314/41918821956/41929794476 via gh api, then checked head SHAs (3387425, 4d21844, 022cbe8), conclusions, timestamps, runner names and artifact ids/sizes/digests against run-metadata.json and each sources.json: all match.",
+          "Re-fetched all four job logs read-only with gh api; they are byte-identical to the scratchpad copies and to the recorded bytes/sha256. Each runner-step-log-extract.txt equals the stated line ranges, and the banners/ImageVersion values match the records (20261025.353.1 banner = ImageVersion 20261026.354.1 for round 51; 20261101.360.1 for rounds 52-53).",
+          "Verified the 2100780 prepare (job 125649800943, run 41554286753) banner 20261025.353.1 and its bound lock's runner_image_version 20261026.354.1, with locked libpcre2-8-0 10.42-4ubuntu2.1 and libsqlite3-0 3.45.1-1ubuntu2.8.",
+          "Recomputed from the three artifacts: empty-status 117 packages, refused with a message identical to the failing prepare's closure.json; runner-status 29 downloads including all ten Windows HOST_ROOTS; 88 runner-provided rows, disjoint, with a union of exactly the 117; identical across rounds (status rows all 'install ok installed' in 52/53); pcre2/sqlite at the runner's versions; runner status 1213 paragraphs, about 1.2 MB, sha equal to dpkg_status_sha256; 926 members and 921 command records (apt-get, apt-cache, gpgv, dpkg-deb, dpkg-query); retained files byte-identical; install plan 27 new, 0 upgraded, 0 removed.",
+          "Fetched the branch-commit sources for rounds 51-53 via gh api: all sources_at_branch_commit hashes match. The compare against HEAD 5eb856c shows only the listed scripts differ. Diffed the round-53 sources against the working tree: prepare/host differ only in docstrings; windows11_candidate.py adds retain_runner_status plus the DPKG_STATUS import and comments; the other files are identical.",
+          "Recomputed the review-packet retention manifest (6 files match) and the diagnostics retention manifest (1438 entries, all bytes/sha256 match, only the manifest itself is unlisted, keys sorted); run-metadata lists 59 unique runs.",
+          "Checked the review JSON counts: review 1 has 37 agents, 16 findings, 15 surviving, 1 refuted by both verifiers, 4 blocking survivors and 4 unverified critic findings (1 blocking); review 2 has 38 agents, 16 all surviving, 1 blocking, 5 lenses and 3 critic findings; review 3 has 22 agents, 3 lenses, 5 findings and 4 verified critic findings, all surviving, none blocking. Workflow ids match the session workflow records, whose results equal the packet copies. The 1213-paragraph and 88-row replay is confirmed in review-2's lens checks.",
+          "Ran the 130 focused tests in my own copy (130 passed), ruff (All checks passed!), mypy on each of the six changed files (all Success), validate_status read-only (PASS, 45 check groups). Inventory is 3238 common + 2 POSIX (3189 before, 49 added, 0 removed), and the two files' collection equals the inventory. The test diffs remove no assertions: the signed-index chain test keeps every assert and gains more.",
+          "Ran the packet's mutants.py on a fresh rsync copy: 65/65 KILLED with failed/passed counts identical to mutants-result.txt. Mutant split 52 + 11 + 2 confirmed; the earlier 50/52 result (survivors w_any_status, w_row_type_unchecked) confirmed in adr9b-mutants.txt.",
+          "Checked code behind the record claims: copy-before-apt, every-root requirement, dpkg-query live agreement, retain only when byte-identical to DPKG_STATUS, v2 lock with named image on both sides, campaign re-check before the simulated install and after the real one, GNOME call without runner_status. Checked Essential packages and acl/python3 exact-version dependencies against the round-53 runner status and dpkg-deb records.",
+          "Confirmed git status in /Users/tanishkalwad/jobapplyv2 is unchanged after all work; all files written only under scratchpad/review4-work/records-truth."
+        ]
+      }
+    ],
+    "findings": [
+      {
+        "title": "retain_runner_status checks against the live runner status, so the copy is dropped when the runner's status changed after the copy, including for the 'Runner dpkg database differs from its copied status' refusal",
+        "file": "scripts/windows11/windows11_candidate.py",
+        "line": 200,
+        "severity": "nonblocking",
+        "description": "retain_runner_status() keeps work/apt/status only when it is byte-identical to the live DPKG_STATUS at the moment the finally block runs. That is after apt-get update and the download, which can take up to about 18 minutes. The rule does exclude apt_config's empty placeholder. It also drops the private copy that apt and the walk really used whenever /var/lib/dpkg/status changed after the copy. That is exactly the case the refusal 'Runner dpkg database differs from its copied status' exists to catch. So for that refusal the candidate retains no runner-dpkg-status. Two records are then false. TEST_EVIDENCE.md:12722 says 'The candidate retains the status it used, also when resolution refuses after the runner's status was copied.' The code comment at windows11_candidate.py:354-355 says 'Retained even when resolution refuses, so a refusal can be traced to the runner package that caused it.' There is also a second effect, which still fails closed. A resolution can succeed because every recorded row agreed with dpkg-query, yet be refused anyway if any unrelated byte of the live status changed. The refusal is an unnamed FileNotFoundError carrying an absolute path, not the named 'Retained runner dpkg status differs from the resolution'. Possible fixes: decide on retention from the digest taken at copy time, or a flag set after the copy, not from the live file; or reword the two records. The trigger is unlikely on a hosted runner, so this is a records and diagnosability defect only.",
+        "evidence": "Probe in my own copy (review4-work/retain-lens/probes/test_review4_probe.py). It ran it from copy/scripts/tests, then I moved it out. It drives the real windows11_candidate.main() through the test module's run_candidate(), with the REAL ubuntu_gnome_prepare.resolve() and runner_provided(). The candidate's resolve is wrapped to use resolve_fixture-style fakes for apt_config and the owner. The live runner status is rewritten to LIVE_AFTER_COPY at apt-get time, as in resolve_fixture. Output: `PROBE 2.39-0ubuntu8.7 1 CANDIDATE_FAILED 'Runner dpkg database differs from its copied status: libc6' error_type ValueError | runner-dpkg-status retained: False | retain() called: True | dpkg-query ran: True`. With dpkg-query agreeing with the copy: `PROBE 2.39-0ubuntu8.6 1 CANDIDATE_FAILED \"[Errno 2] No such file or directory: '.../output/runner-dpkg-status'\" error_type FileNotFoundError | runner-dpkg-status retained: False`. Code: windows11_candidate.py:200-205 compares `private.read_bytes() == DPKG_STATUS.read_bytes()` at finally time; ubuntu_gnome_prepare.py:324-325 copies once, before apt runs.",
+        "lens": "review3-fixes",
+        "verdicts": [
+          {
+            "refuted": false,
+            "reasoning": "I could not refute this finding. It reproduces, nothing already handles it, and the false record sentences are real defects under the \"every record sentence exactly true\" standard. It still fails closed, so nonblocking is the right severity.\n\nCode facts, read in the uncommitted tree:\n- In scripts/linux_gnome/ubuntu_gnome_prepare.py, resolve() runs apt_config first, which writes the empty placeholder. It then copies DPKG_STATUS to root/status once, at lines 325-328, before `apt-get update` (180 s) and the download (900 s).\n- runner_provided() runs last. It raises \"Runner dpkg database differs from its copied status\" when dpkg-query's live rows disagree with the copy.\n- In scripts/windows11/windows11_candidate.py, retain_runner_status() at lines 191-208 runs in the finally at lines 351-356, after resolve returns or raises. It copies the private status only if it is byte-identical to the live DPKG_STATUS at that moment.\n- So whenever the live /var/lib/dpkg/status changed after the copy, the status that apt and the walk used is dropped. That is the usual cause of the \"differs\" refusal: dpkg rewrites status when it changes a package.\n- On the success path the same change makes `digest(args.output / \"runner-dpkg-status\")` at line 357 raise an unnamed FileNotFoundError with an absolute path. The named \"Retained runner dpkg status differs from the resolution\" refusal never fires. This still fails closed.\n\nIndependent reproduction in my own copy, review4-work/refute-retain/copy/scripts/tests/test_refute_probe.py:\n- The probe wraps the harness's resolve through run_candidate() and rewrites the live DPKG_STATUS after the copy.\n- Raising the \"differs\" refusal gave `1 CANDIDATE_FAILED ValueError 'Runner dpkg database differs from its copied status: libpcre2-8-0' retained: False in retained/: False`.\n- With no refusal it gave `1 CANDIDATE_FAILED FileNotFoundError \"[Errno 2] No such file or directory: '.../output/runner-dpkg-status'\" retained: False`.\n\nNot already handled:\n- No test or mutant covers a live status that changes after the copy. The candidate tests only cover a refusal before the copy and a refusal after it, both with the live status unchanged. The mutants only remove the retain call or the digest check.\n\nThe records make an unqualified claim:\n- TEST_EVIDENCE.md: \"The candidate retains the status it used, also when resolution refuses after the runner's status was copied.\"\n- TEST_EVIDENCE.md and the review README line 65: \"the candidate keeps the runner status when resolution refuses.\"\n- The code comment at windows11_candidate.py:354-355: \"Retained even when resolution refuses, so a refusal can be traced to the runner package that caused it.\"\n- Only the retain_runner_status docstring (\"Only a status byte-identical to the runner's own is retained\") and README line 72 state the byte-identity condition, and neither mentions the case where the live status changes.\n\nEdge cases that do not save the claim:\n- The \"differs\" refusal can fire with the status file unchanged, when dpkg's updates journal holds pending entries. In that case the copy is retained.\n- That refusal's message also names up to 10 changed packages, which partly covers traceability.\n- Neither makes the universal record sentences true. A trigger on a hosted runner is unlikely, so this is a records and diagnosability defect. It is not a safety defect."
+          },
+          {
+            "refuted": false,
+            "reasoning": "I could not refute this. I reproduced it in my own copy (/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/refute-retain-live/copy). The repository tree is unchanged: still 16 entries in `git status --short`.\n\nHow the code behaves:\n- resolve(..., runner_status=True) in scripts/linux_gnome/ubuntu_gnome_prepare.py:325-328 copies /var/lib/dpkg/status once, before apt-get update (180 s budget) and the download (900 s budget).\n- runner_provided raises \"Runner dpkg database differs from its copied status\" when live dpkg-query rows disagree with that copy. dpkg-query reads the live dpkg database.\n- retain_runner_status (scripts/windows11/windows11_candidate.py:191-208) runs in the finally block at line 353. It copies work/apt/status to runner-dpkg-status only when the copy is byte-identical to the live DPKG_STATUS at that moment.\n- So a change to the live status file at any point after the copy drops the retention. That change is also the usual cause of the \"differs\" refusal.\n\nProbe 1, test_probe_refute_retain_live.py, drives the real main() through the test module's run_candidate:\n- \"differs\" refusal, live status unchanged: runner-dpkg-status retained: True.\n- Same refusal, live status changed after the copy: retained: False.\n- Successful resolution, unrelated live bytes changed: CANDIDATE_FAILED with FileNotFoundError \"[Errno 2] No such file or directory: '<abs>/output/runner-dpkg-status'\", not the named \"Retained runner dpkg status differs from the resolution\".\n\nProbe 2, test_probe_refute_retain_real.py, uses the REAL prepare.resolve() and runner_provided(), with a fake dpkg-query that reads the live status file:\n- A recorded row (libc6) changed during apt: \"Runner dpkg database differs from its copied status: libc6\", retained: False.\n- An unrelated row changed: resolution succeeds, then FileNotFoundError, retained: False.\n- No change: resolution passes and the status is retained. The run then fails at the simulated install only because the fixture's plan lists qemu-utils, which my lock lacks; that is irrelevant here.\n\nRecords that are not exactly true:\n- docs/TEST_EVIDENCE.md:12722 says \"The candidate retains the status it used, also when resolution refuses after the runner's status was copied.\" This is false whenever the live status changed after the copy, which is the main trigger of the \"differs\" refusal.\n- The comment at windows11_candidate.py:354-355 says \"Retained even when resolution refuses, so a refusal can be traced to the runner package that caused it.\" It is false for the same case.\n- No record says retention depends on the live status being unchanged. grep finds only \"byte-identical to the runner's own\", in the review README and TEST_EVIDENCE:12742.\n\nOne small overstatement in the finding: if dpkg has pending entries in its updates/ journal that are not yet written to the status file, dpkg-query can differ while the status bytes are unchanged. The copy would then be retained, so \"for that refusal the candidate retains no runner-dpkg-status\" holds in the usual case rather than always. This does not change the defect.\n\nThe finding's own assessment stands. Every path fails closed: the unrelated-change case refuses, though with an unnamed FileNotFoundError. The trigger is unlikely on a hosted runner. This is a nonblocking defect in the records and in how easy a refusal is to diagnose. It is real and has not been dealt with."
+          }
+        ],
+        "survives": true
+      },
+      {
+        "title": "Review-3 critic-1 fix says Essential packages are 'not walked' / 'not recorded', but dpkg and tar are Essential and are walked, recorded and re-checked",
+        "file": "scripts/linux_gnome/ubuntu_gnome_prepare.py",
+        "line": 231,
+        "severity": "nonblocking",
+        "description": "The fix for review 3's Essential-package finding added a categorical sentence in several places, and it is false:\n- runner_provided docstring: 'Essential packages, which packages need not declare, are not walked; like everything else on the image, they are bound only through the runner image version.'\n- KI-0189 (KNOWN_ISSUES.md:72): 'Essential packages need not be declared, so they are not walked; as before, they are bound only through the runner image version.'\n- ADR-0009 implementation note (DECISIONS.md:484): 'Essential packages need not be declared, so they are not recorded and stay bound only through the image version.'\n- TEST_EVIDENCE.md:12744 and the packet README:73 say the records now state that Essential packages are bound only through the image version.\n\nThe walk follows declared relations and does not special-case Essential packages. So an Essential package that a walked package declares is walked, recorded in runner_provided_packages, and re-checked by the campaign's require_runner_packages, not bound only by ImageVersion. One of review 3's own refuters already noted this ('dpkg and tar are walked, recorded and re-checked'). The accurate statement is narrower: Essential packages that no walked package declares are not recorded.",
+        "evidence": "Parsed round 53's real runner status (scratchpad/hostclosure-41929794476/art/runner-dpkg-status) against docs/evidence/m03-native-runtime-diagnostics/windows-host-closure/round53-41929794476/runner-status-lock.json. It has 23 installed Essential packages, and two of them are in runner_provided_packages: `dpkg {'version': '1.22.6ubuntu6.6', 'architecture': 'amd64', 'status': 'install ok installed'}` and `tar {'version': '1.35+dfsg-3ubuntu0.4', ...}`, both 'Essential: yes'. dpkg is declared by python3-minimal (Pre-Depends), and tar is declared by dpkg (Depends). The round 51, 52 and 53 locks each hold 88 rows, and dpkg and tar are in all three.",
+        "lens": "review3-fixes",
+        "verdicts": [
+          {
+            "refuted": false,
+            "reasoning": "I could not refute this finding. I checked everything read-only and created no files.\n\n1. The code does not exempt Essential packages. In scripts/linux_gnome/ubuntu_gnome_prepare.py, runner_provided (lines 224-283) walks the Pre-Depends and Depends groups of every downloaded control and of every installed package it reaches. Every runner package that provides a name in a group is added to `provided` and then walked itself. Nothing checks the Essential field, so an Essential package is walked like any other once a walked package declares it.\n\n2. The real runner data agrees.\n   - round53's real status (hostclosure-41929794476/art/runner-dpkg-status) has 23 installed packages with 'Essential: yes'. dpkg (1.22.6ubuntu6.6) and tar (1.35+dfsg-3ubuntu0.4) are both 'Essential: yes' and 'install ok installed'.\n   - On the runner, dpkg's own control has `Depends: tar (>= 1.28-1)`.\n   - The runner-status-lock.json for rounds 51, 52 and 53 each holds 88 runner_provided_packages, and dpkg and tar are in all three. Only the walk adds rows, so both were walked and recorded.\n\n3. The recorded rows are re-checked at the campaign. In windows11_vm.py, install_tools calls require_runner_packages(owner, reviewed, ...), and that compares runner_packages(owner, sorted(reviewed)) with the reviewed rows. So dpkg and tar are bound by an exact live dpkg check as well as by the image version, not only by the image version.\n\n4. These record sentences are categorical and false for dpkg and tar:\n   - ubuntu_gnome_prepare.py:231-233: \"Essential packages, which packages need not declare, are not walked\". The commas make the clause non-restrictive, so the sentence covers all Essential packages.\n   - KNOWN_ISSUES.md:72: \"Essential packages need not be declared, so they are not walked\".\n   - DECISIONS.md:484: \"so they are not recorded and stay bound only through the image version\". The locks directly contradict this.\n   - TEST_EVIDENCE.md:12744 and the review README:73 repeat that Essential packages are bound only through the image version.\n\n5. Review 3's own evidence says the same: \"only dpkg and tar are among the 88 rows\".\n\nThe accurate statement is narrower: Essential packages that no walked package declares are not recorded, and only the image version binds them. The finding is real. It is a record-accuracy defect rather than a code defect, so its nonblocking severity is fair. It still fails the standard that every record sentence is exactly true."
+          },
+          {
+            "refuted": false,
+            "reasoning": "I could not refute this. The finding is true and reproducible.\n\nCode: runner_provided() in scripts/linux_gnome/ubuntu_gnome_prepare.py (lines 223-280) walks Pre-Depends and Depends through runner.get(name, []) for every name in a group. It never checks the Essential field. Any installed package that some walked package declares, Essential or not, is added to `provided`, pushed onto `pending` and walked in turn. It then becomes a lock row. In windows11_vm.py, reviewed_runner_packages() takes every row, and require_runner_packages() re-checks them against live dpkg before and after install. So the docstring's sentence is literally false for declared Essential packages: \"Essential packages, which packages need not declare, are not walked; like everything else on the image, they are bound only through the runner image version\". The comma-delimited, non-restrictive clause makes it a statement about all Essential packages.\n\nReal-runner data: I parsed scratchpad/hostclosure-41929794476/art/runner-dpkg-status. It has 23 installed Essential packages. Two of them, dpkg (1.22.6ubuntu6.6) and tar (1.35+dfsg-3ubuntu0.4), appear in runner_provided_packages in all three committed locks (round51, round52 and round53 runner-status-lock.json, 88 rows each). python3-minimal declares `Depends: dpkg (>= 1.13.20)`, and dpkg declares `Depends: tar (>= 1.28-1)`. No Essential package is in the downloaded `packages`. (On the dependency type the finding is slightly off: python3-minimal declares dpkg in Depends, not Pre-Depends. That does not change the conclusion.)\n\nSynthetic check in my own copy: I ran runner_provided() with a stubbed installed_rows on a status holding python3-minimal -> dpkg (Essential) -> tar (Essential), plus an undeclared Essential sed. The result was ['dpkg', 'python3-minimal', 'tar']. The declared Essential packages are walked and recorded; only the undeclared one (sed) is left out. Script: /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/essential-refuter/check/walk.py\n\nRecords that carry the false categorical claim:\n- docs/KNOWN_ISSUES.md:72: \"Essential packages need not be declared, so they are not walked\"\n- docs/DECISIONS.md:484: \"so they are not recorded and stay bound only through the image version\"\n- docs/evidence/m03-w07-adr0009-host-closure-review/README.md:73: \"since Essential packages are bound only through the image version\"\n- docs/TEST_EVIDENCE.md:12744 correctly reports what the records say, but it endorses a false statement as a fix.\n\nThe accurate statement is narrower: Essential packages that no walked package declares are not recorded and are bound only through ImageVersion; declared ones, such as dpkg and tar, are recorded and re-checked. The defect is in the records and docstring only; behavior fails closed. That fits a nonblocking severity, but it breaks the \"every record sentence exactly true\" standard."
+          }
+        ],
+        "survives": true
+      },
+      {
+        "title": "closed_install_plan docstring: 'only its roots can be such a package' is false; acl and python3 pin exact-version dependencies that the image carries",
+        "file": "scripts/linux_gnome/ubuntu_gnome_host.py",
+        "line": 123,
+        "severity": "nonblocking",
+        "description": "The rewritten docstring, the fix for review 3's critic-3, says: 'The Windows host lock is resolved against the runner's own status (ADR-0009), so only its roots can be such a package [a version of a package the runner image already carries]: a root the image carries (acl, python3) at the locked version is left as installed, and one the archive has updated would replace it'. The scenario it describes is an archive update to acl or python3, which is the KI-0189 limit. In that scenario, non-root packages the image carries also enter the lock at new versions, because these roots depend on exact versions:\n- acl depends on `libacl1 (= <its version>)`;\n- python3 Pre-Depends on `python3-minimal (=)` and depends on `libpython3-stdlib (=)`.\n\nAll three dependencies are installed on the runner. Resolving the updated root against the runner's status therefore makes apt upgrade and download them too. More generally, any updated root with a raised versioned dependency on a runner library does the same. KI-0189:71's 'It downloads every root, and only those dependencies that the runner image lacks' and the module docstring at ubuntu_gnome_prepare.py:7-8 make the same overstatement for this scenario, unless 'lacks' is read as 'lacks at the required version'. The prepare still fails closed, because closed_install_plan refuses the upgrade lines. Only the docstring is untrue.",
+        "evidence": "dpkg-deb -f command records in round 53's runner-status artifact (scratchpad/hostclosure-41929794476/art/runner-status): command-003 gives `Package: acl / Version: 2.3.2-1build1.1 / Depends: libacl1 (= 2.3.2-1build1.1), libc6 (>= 2.38)`. command-041 gives `Package: python3 / Version: 3.12.3-0ubuntu2.1 / Pre-Depends: python3-minimal (= 3.12.3-0ubuntu2.1) / Depends: python3.12 (>= 3.12.3-0~), libpython3-stdlib (= 3.12.3-0ubuntu2.1)`. The same job's runner-dpkg-status lists libacl1 2.3.2-1build1.1, python3-minimal 3.12.3-0ubuntu2.1 and libpython3-stdlib 3.12.3-0ubuntu2.1 as 'install ok installed'.",
+        "lens": "review3-fixes",
+        "verdicts": [
+          {
+            "refuted": false,
+            "reasoning": "The finding holds: the docstring makes a false claim, and the code still fails closed.\n\n1. The quoted text is at the cited line. Lines 119-125 of scripts/linux_gnome/ubuntu_gnome_host.py (uncommitted diff) say: \"The Windows host lock is resolved against the runner's own status (ADR-0009), so only its roots can be such a package ... one the archive has updated would replace it\". In context, \"such a package\" means a version, held in the lock, of a package the runner image already carries.\n\n2. The evidence cited in the finding is exact. In hostclosure-41929794476/art/runner-status:\n   - command-003.stdout: acl 2.3.2-1build1.1 has `Depends: libacl1 (= 2.3.2-1build1.1), libc6 (>= 2.38)`.\n   - command-041.stdout: python3 3.12.3-0ubuntu2.1 has `Pre-Depends: python3-minimal (= 3.12.3-0ubuntu2.1)` and `Depends: python3.12 (>= 3.12.3-0~), libpython3-stdlib (= 3.12.3-0ubuntu2.1)`.\n   - runner-dpkg-status lists libacl1 2.3.2-1build1.1, python3-minimal 3.12.3-0ubuntu2.1 and libpython3-stdlib 3.12.3-0ubuntu2.1, each amd64 and \"install ok installed\".\n\n3. Apt would download the dependencies too. resolve(..., runner_status=True) runs `apt-get --download-only --reinstall install <roots>` against the copied runner status. The retained apt source, scratchpad/private-install.cc lines 1083-1099, shows how a root with a newer candidate is handled:\n   - MarkInstall marks the candidate for upgrade, so State.Install() is true and the reinstall branch is skipped.\n   - The root then goes into doAutoInstallLater, which resolves its dependencies.\n   - An exact `(=)` dependency on an installed library at the old version is not satisfied, so apt upgrades that library to its candidate, and download-only fetches it.\n   - So an archive update to acl puts libacl1 in the lock at a new version. An update to python3 does the same for python3-minimal and libpython3-stdlib. None of these is a root.\n   - More generally, any newly resolved package with a raised versioned dependency on an installed runner library has the same effect.\n   - Review 1 (review-1-workflow-result.json) already stated this for a python3-defaults update: \"python3-minimal, libpython3-stdlib and python3-dev would be upgraded too\".\n\n4. Nothing in the code prevents this:\n   - resolve() has no check that refuses downloaded non-roots already on the runner.\n   - runner_provided() skips packages that are in `controls`.\n   - reviewed_runner_packages only refuses a package that is both locked and runner-provided.\n\n5. It still fails closed. The plan lines for these upgrades take the form \"Inst libacl1 [old] (new ...)\", which PLAN_ADD cannot match because the bracket comes before the parenthesis. closed_install_plan therefore refuses them, and simulate_host_install refuses the candidate before stage_host. Only the sentence is untrue.\n\n6. The related records:\n   - KI-0189 line 71 and the module docstring of ubuntu_gnome_prepare.py (lines 7-8) say it downloads \"only those dependencies the runner image lacks\". In the same scenario libacl1 is downloaded although the image carries it, so these overstate unless \"lacks\" means \"lacks at a satisfying version\", as the finding notes.\n   - ADR-0009's implementation note limits its claim to the two roots, so it is accurate.\n\nSeverity is nonblocking (a docstring), but it breaks the standard that every record sentence must be exactly true."
+          },
+          {
+            "refuted": false,
+            "reasoning": "I could not refute this finding. Every claim in it checks out, and the sentence in question is false.\n\n1. The quotes and line numbers are accurate. Line 123 of scripts/linux_gnome/ubuntu_gnome_host.py, which is new in the uncommitted diff, reads \"(ADR-0009), so only its roots can be such a package\". In context, \"such a package\" means a locked version of a package the runner image already carries, and installing it would replace that package. Line 71 of KNOWN_ISSUES and lines 7-8 of ubuntu_gnome_prepare.py have the \"only those dependencies the runner image lacks\" wording.\n\n2. The evidence matches the real-runner artifacts (round 53, scratchpad/hostclosure-41929794476/art).\n   - runner-status/command-003.stdout: acl 2.3.2-1build1.1 has `Depends: libacl1 (= 2.3.2-1build1.1), libc6 (>= 2.38)`.\n   - command-041.stdout: python3 3.12.3-0ubuntu2.1 has `Pre-Depends: python3-minimal (= 3.12.3-0ubuntu2.1)` and `Depends: python3.12 (>= 3.12.3-0~), libpython3-stdlib (= 3.12.3-0ubuntu2.1)`.\n   - In runner-dpkg-status, libacl1, python3-minimal and libpython3-stdlib are all at those versions, 'install ok installed', amd64.\n   - The committed round53 summary.json records exactly these three under runner_provided, not under downloaded.\n\n3. Why the sentence is false. The private apt config has no pinning and no --no-upgrade, and resolve() runs `apt-get --download-only --reinstall -y install <roots>`. So when the archive carries a newer acl, apt takes it as the candidate. acl's exact `(=)` dependency cannot be met by the installed libacl1, so apt must also upgrade libacl1, and the download-only run fetches it. The same holds for python3, which pulls in python3-minimal and libpython3-stdlib. The upload that updates the acl or python3-defaults source carries those binaries at the same version. Nothing in the code stops a non-root runner-carried package from entering the lock:\n   - runner_provided() skips any package that is in `controls`, so libacl1 would be downloaded rather than recorded.\n   - lock.json is written before the simulated install.\n   The lock would therefore hold libacl1, a non-root at a new version of a package the image carries. The same happens whenever any downloaded package raises a versioned dependency above the runner's installed version, so the claim is false beyond the roots-update case too.\n\n4. The prepare still fails closed, as the finding says. In my own copy (scratchpad/review4-work/review3-fixes-docstring-roots/copy), I ran closed_install_plan on an acl+libacl1 upgrade plan. It returned \"REFUSED: Simulated host install would replace or remove runner packages: Inst libacl1 [2.3.2-1build1.1] (...); Inst acl [...]\". PLAN_ADD does not match an `Inst name [old] (new ...)` line, so the upgrade lines are refused, and the refusal names libacl1, a non-root.\n\n5. No earlier review dealt with this. Review 3 flagged the previous wording, \"so it should hold no such package\". The fix replaced it with \"only its roots can be such a package\", which is a narrower overclaim and is still untrue.\n\nThe defect is in records and docstrings only, and refusal behaviour is unaffected, so nonblocking is the right severity. I made no changes in /Users/tanishkalwad/jobapplyv2."
+          }
+        ],
+        "survives": true
+      },
+      {
+        "title": "No test pins the new code's fail-closed and never-raise properties: three single-edit mutants of the retention and digest check survive",
+        "file": "scripts/tests/test_windows11_host_runtime.py",
+        "line": 925,
+        "severity": "nonblocking",
+        "description": "The two new tests are non-vacuous: the placeholder test kills c_placeholder_retained, and the mail-transport case kills p_first_virtual_provider_only. Three properties of retain_runner_status() and the success-path digest check are still unpinned:\n(1) On success, the digest check fails closed when nothing was retained. Guarding the check on existence passes every test, so a regression could release a candidate whose v2 lock names runner_dpkg_status_sha256 while no runner-dpkg-status is retained. The first finding shows a real path to 'nothing retained' on a resolution that otherwise succeeds.\n(2) 'Only a status byte-identical to the runner's own is retained'. This is claimed in the docstring, the packet README:72 and TEST_EVIDENCE:12742. Removing the byte comparison and keeping only the size check survives.\n(3) 'This runs in a finally block, so it never raises'. Narrowing the `except OSError` survives.\nThe current code is correct on all three. Only the regression guard is missing.",
+        "evidence": "tools/extra_mutants.py in my copy (review4-work/retain-lens/xcopy) uses the packet's runner and the same test file, test_windows11_host_runtime.py. Each line below gives the mutant, its edit and the result:\n- `x_digest_guarded_on_exists`: `if digest(args.output / \"runner-dpkg-status\") != ...` became `if (args.output / \"runner-dpkg-status\").exists() and digest(...) != ...`. Result: SURVIVED | 92 passed.\n- `x_size_only_no_bytes_compare`: dropped `and private.read_bytes() == DPKG_STATUS.read_bytes()`. Result: SURVIVED | 92 passed.\n- `x_no_oserror_guard`: `except OSError` became `except ZeroDivisionError`. Result: SURVIVED | 92 passed.\n\nFor comparison, the packet's 65 mutants were all KILLED in my copy, with failure counts identical to mutants-result.txt.",
+        "lens": "review3-fixes",
+        "verdicts": [
+          {
+            "refuted": false,
+            "reasoning": "I could not refute the finding. It reproduces exactly, and it is a real gap in the tests, though not a blocking one.\n\n**How I checked.** I made my own copy at /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/refute-testgap-lens/copy. It uses the rsync recipe from the task. Before testing, I confirmed that windows11_candidate.py and test_windows11_host_runtime.py are byte-identical to the working tree. My runner is tools/mut3.py in that directory, and it restores the exact bytes after each mutant.\n\n**Result 1: all three mutants survive the repository's tests.** Each run below used scripts/tests/test_windows11_host_runtime.py:\n- The unmutated baseline: 92 passed.\n- `x_digest_guarded_on_exists` (the digest check runs only if the file exists): SURVIVED, 92 passed.\n- `x_size_only_no_bytes_compare` (the byte comparison is dropped, the size check kept): SURVIVED, 92 passed.\n- `x_no_oserror_guard` (`except OSError` changed to `except ZeroDivisionError`): SURVIVED, 92 passed.\n- I also tried dropping the size check and keeping the byte comparison. It survives as well, but it is equivalent, because the byte comparison alone gives the same result.\n\n**Result 2: no other test covers this code.** test_windows11_host_runtime.py is the only test file that references windows11_candidate. The packet's mutants.py removes the size and byte checks together (`c_placeholder_retained`), never just one. Its `c_status_not_retained` mutant is killed only by the success test's assertion that the file was retained, not by any fail-closed check.\n\n**Result 3: the mutants change behaviour, so this is a real gap.** I added a probe test file to my copy only (scripts/tests/test_probe_retain_gap.py) and re-ran the mutants against it with tools/mut3b.py:\n- **First probe, `x_digest_guarded_on_exists`:** the probe makes `shutil.copyfile` raise OSError only when the destination is `runner-dpkg-status`, then runs the candidate to success. The unmutated code fails closed with FileNotFoundError, giving CANDIDATE_FAILED. The mutant lets the candidate complete with nothing retained, so the probe kills it.\n- **Second probe, `x_no_oserror_guard`:** the same injected OSError on the refusal path. The unmutated code keeps the original refusal message. Under the mutant, the closure records `[Errno 28]` instead, so the probe kills it.\n- **Third probe, `x_size_only_no_bytes_compare`:** a direct call with a private status of the same size as the runner's but different bytes. The unmutated code retains nothing; the mutant retains it, so the probe kills it.\n\nAll three probes pass on the unmutated code. That confirms the finding's statement that \"the current code is correct on all three\".\n\n**The fail-open risk in the first mutant reaches the campaign.** Nothing downstream re-checks the retained file. A search for `runner_dpkg_status_sha256` and `runner-dpkg-status` in scripts/ and .github/ outside tests finds only the candidate. So under the first mutant, a released candidate could carry a v2 lock naming a status digest with no retained status. The success path with nothing retained can actually happen in two ways:\n- The live /var/lib/dpkg/status changes outside the runner-provided rows between the copy and the retention.\n- The copy into the output fails.\n\n**The records stay true, so this is not blocking.** No record claims that tests pin these three properties. The README, TEST_EVIDENCE, KI-0189 and ADR-0009 describe the code's behaviour, which is correct. \"Killed all 65 mutants\" is accurate for the 65 listed. Severity stays nonblocking, because only the regression guard is missing."
+          },
+          {
+            "refuted": false,
+            "reasoning": "I could not refute this finding. I reproduced it in my own copy: /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/refute-r3fix-mutants (made with rsync of scripts, pyproject.toml, .github and package.json). My runner is tools/run3.py in that directory. It applied each single-edit mutant to scripts/windows11/windows11_candidate.py, ran the tests and restored the exact bytes.\n\n1. All three mutants survive every test that touches the Windows 11 sources, not only the file the finder used.\n   - Against test_windows11_host_runtime.py plus test_ubuntu_gnome_review_regressions.py: baseline 130 passed, and each of the three mutants also gave 130 passed.\n   - The same holds for every other test file that references scripts/windows11: test_native_vm_artifact_layout, test_ubuntu_gnome_local_apt, test_native_timestamp, test_windows11_request and test_windows11_isolation. Once package.json was present, baseline and each mutant gave 122 passed.\n   - Only test_windows11_host_runtime.py calls the candidate's main() or retain_runner_status(). Nothing downstream reads runner-dpkg-status: windows11_vm.py does not, and reviewed-inputs.json covers only inputs/. So the digest check in main() is the only thing enforcing retention.\n\n2. None of the three mutants is equivalent: each changes behavior on a path the real code can reach. I wrote a temporary probe (since deleted; the copy is byte-identical to the repo again). It changes the live DPKG_STATUS after resolve() has copied it, which models the runner's dpkg status changing during the prepare. resolve() compares the live database only for the recorded rows, so a change to any other package lets resolution succeed.\n   - Current code: all three probes pass.\n     - The live status changes size: CANDIDATE_FAILED, FileNotFoundError, nothing retained.\n     - The live status changes in place at the same size: CANDIDATE_FAILED, nothing retained.\n     - The private status is unreadable while resolution refuses: the closure message is still the primary refusal.\n   - x_digest_guarded_on_exists is killed by both live-change probes: the candidate completes with no runner-dpkg-status retained.\n   - x_size_only_no_bytes_compare is killed by the same-size probe: a status that is not byte-identical to the runner's is retained.\n   - x_no_oserror_guard is killed by the unreadable-status probe: the PermissionError replaces the primary refusal in the closure.\n\n3. The finding describes itself accurately, including its nonblocking severity.\n   - The current code is correct on all three properties.\n   - The records claim the code's behavior, for example \"Only a status byte-identical to the runner's own is retained now\" in the packet README line 72 and TEST_EVIDENCE. They also claim \"killed all 65 mutants\". Both are true. No record claims that tests pin these properties, so no record sentence is false.\n   - Mutant 3 only masks the primary refusal and still fails closed. Mutant 1 would let a regression produce a complete candidate whose v2 lock names runner_dpkg_status_sha256 while no runner-dpkg-status is retained.\n   - The real defect is a missing regression guard for three behaviors that the docstring and records describe.\n\nI edited nothing in /Users/tanishkalwad/jobapplyv2, and git status is unchanged."
+          }
+        ],
+        "survives": true
+      },
+      {
+        "title": "Records say Essential packages are not walked/recorded and are bound only through the image version, but the real locks record and re-check the Essential packages dpkg and tar",
+        "file": "docs/DECISIONS.md",
+        "line": 484,
+        "severity": "nonblocking",
+        "description": "The review-3 correction overshoots. ADR-0009's implementation note says \"Essential packages need not be declared, so they are not recorded and stay bound only through the image version.\" The same categorical claim appears in four more places. KI-0189 (docs/KNOWN_ISSUES.md:72) says \"Essential packages need not be declared, so they are not walked; as before, they are bound only through the runner image version.\" The runner_provided docstring (scripts/linux_gnome/ubuntu_gnome_prepare.py:231) says Essential packages \"are not walked\". TEST_EVIDENCE.md:12744 says \"the records now say they are bound only through the image version\". The packet README:73 says \"since Essential packages are bound only through the image version\". The walk does follow every declared relation, whether or not its target is Essential, and two Essential packages are declared and recorded in every real round: dpkg and tar. The campaign re-checks every lock row (windows11_vm.reviewed_runner_packages/require_runner_packages), so these two are bound by an exact version, architecture and status re-check, not only through the image version. Exact wording: Essential packages that no walked relation declares (21 of the 23 on the round-53 runner) are not recorded and are bound only through the image version.",
+        "evidence": "Round-53 runner status (hostclosure-41929794476/art/runner-dpkg-status, sha256 221d4b20…, equal to the lock's dpkg_status_sha256) has 23 installed 'Essential: yes' packages. dpkg ('Essential: yes', 1.22.6ubuntu6.6, 'Depends: tar (>= 1.28-1)') and tar ('Essential: yes', 1.35+dfsg-3ubuntu0.4) are both in runner_provided_packages of round53-41929794476/runner-status-lock.json. They are also in the round-51 and round-52 summary.json runner_provided lists, e.g. {'package': 'dpkg', 'version': '1.22.6ubuntu6.6', 'architecture': 'amd64', 'status': 'install ok installed'} and the same for tar. Review 3's own critic evidence noted 'only dpkg and tar are among the 88 rows'.",
+        "lens": "records",
+        "verdicts": [
+          {
+            "refuted": false,
+            "reasoning": "I could not refute this finding. The categorical Essential-package sentences in the current working tree are false for dpkg and tar.\n\n1. **The sentences exist as quoted.** I read them in the live tree:\n   - ADR-0009's implementation note (docs/DECISIONS.md:484) says \"Essential packages need not be declared, so they are not recorded and stay bound only through the image version.\"\n   - KI-0189 (docs/KNOWN_ISSUES.md:72) says \"Essential packages need not be declared, so they are not walked; as before, they are bound only through the runner image version.\"\n   - The runner_provided docstring (scripts/linux_gnome/ubuntu_gnome_prepare.py:231) says Essential packages \"are not walked\".\n   - TEST_EVIDENCE.md:12744 says \"the records now say they are bound only through the image version.\"\n   - The review README (docs/evidence/m03-w07-adr0009-host-closure-review/README.md:73) says \"since Essential packages are bound only through the image version\".\n\n2. **The code walks Essential packages like any others.** runner_provided() never checks Essential. Any installed package that a walked Pre-Depends or Depends group names, by name or through Provides, goes into `provided` and `pending`, and its own relations are then walked. In the runner status, dpkg declares \"Depends: tar (>= 1.28-1)\", so tar is reached through dpkg. The only \"Essential\" text in the code is the docstring.\n\n3. **dpkg and tar are recorded in the real locks.** I parsed hostclosure-41929794476/art/runner-dpkg-status. Its SHA-256 is 221d4b20…, which equals dpkg_status_sha256 in round53-41929794476/runner-status-lock.json.\n   - The status has 23 installed packages marked \"Essential: yes\".\n   - dpkg (1.22.6ubuntu6.6) and tar (1.35+dfsg-3ubuntu0.4) are in the lock's runner_provided_packages, at indexes 2 and 85, with status \"install ok installed\".\n   - The round-51, round-52 and round-53 locks and summary.json files all record both. Round 51's rows lack the status field.\n\n4. **The campaign re-checks both.** In scripts/windows11/windows11_vm.py, reviewed_runner_packages() turns every lock row into an exact (version, architecture, status) entry. require_runner_packages() compares those entries with dpkg-query before the simulated install and again after the real one. dpkg and tar are therefore bound by an exact re-check, not \"only through the image version\".\n\n5. **This repeats a known mistake.** A verifier in review 3 (review-3-workflow-result.json) already said that \"no Essential package is walked or re-checked\" was literally false, because dpkg and tar are walked, recorded and re-checked. It recommended saying that the *remaining* Essential packages are bound only by the image version. The correction made after review 3 dropped that qualifier and repeated the categorical claim.\n\nThe finding stands as a nonblocking record-precision defect. Correct wording: \"Essential packages that no walked relation declares (21 of the 23 on the round-53 runner) are not recorded and are bound only through the image version.\""
+          },
+          {
+            "refuted": false,
+            "reasoning": "I could not refute this finding. Every factual part checks out, and the record sentences it quotes are false as written for dpkg and tar. I worked read-only and wrote only under /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/essential-walk/.\n\n1. Quotes. All five quotes are present in the working tree:\n   - docs/DECISIONS.md:484: \"Essential packages need not be declared, so they are not recorded and stay bound only through the image version.\"\n   - docs/KNOWN_ISSUES.md:72: \"Essential packages need not be declared, so they are not walked; as before, they are bound only through the runner image version.\"\n   - scripts/linux_gnome/ubuntu_gnome_prepare.py:231 (runner_provided docstring): Essential packages \"are not walked; like everything else on the image, they are bound only through the runner image version\".\n   - docs/TEST_EVIDENCE.md:12744: \"Essential packages: the records now say they are bound only through the image version.\"\n   - docs/evidence/m03-w07-adr0009-host-closure-review/README.md:73: \"since Essential packages are bound only through the image version\".\n   All are categorical, with no \"undeclared\" qualifier.\n\n2. Code. runner_provided never checks Essential. Every runner package that a walked Pre-Depends or Depends group reaches, by name or Provides, is added to `provided` and pushed back onto `pending`, so its own relations are walked too. An Essential package that any walked relation declares is therefore walked, recorded and recursed into.\n\n3. Real locks. runner_provided_packages contains dpkg 1.22.6ubuntu6.6 and tar 1.35+dfsg-3ubuntu0.4 (amd64) in all three retained locks:\n   - round51-41912040314/runner-status-lock.json: rows have no status field, which is pre-review code.\n   - round52-41918821956 and round53-41929794476: status \"install ok installed\".\n   - Each lock has 88 rows.\n\n4. Essential count. The round-53 status (hostclosure-41929794476/art/runner-dpkg-status) has sha256 221d4b20…5bd9512, equal to the lock's dpkg_status_sha256. It holds 23 installed \"Essential: yes\" packages. Exactly dpkg and tar are in the lock. The other 21 (base-files through util-linux) are not.\n\n5. Replay of the current code. The working-tree ubuntu_gnome_prepare.py (sha256 9a29459a…) differs from round 53's (e870091e…). I copied it and replayed runner_provided over the round-53 status and its 29 dpkg-deb control records. It gives 88 rows, identical to round 53's summary.json. \"essential recorded\" is ['dpkg', 'tar']; the same 21 are not recorded. The post-review-3 code still walks and records these two Essential packages.\n\n6. Campaign re-check. In windows11_vm.install_tools, reviewed_runner_packages takes every lock row, and require_runner_packages re-checks them all with dpkg-query, comparing version, architecture and status, before the simulated install. The ImageVersion check is in addition to this. So dpkg and tar are bound by an exact per-row re-check, not \"only through the image version\".\n\n7. History. Review 3's own second verifier wrote that \"no Essential package is walked or re-checked\" is \"literally false: dpkg and tar are walked, recorded and re-checked\". The review-3 correction still carried the same categorical overstatement into the ADR note, KI-0189, the docstring, TEST_EVIDENCE and the README.\n\nSeverity: nonblocking. The behaviour is correct and fails closed. Only the record precision is wrong. Accurate wording would be: Essential packages that no walked relation declares (21 of the 23 on the round-53 runner) are not recorded and are bound only through the image version; declared ones such as dpkg and tar are recorded and re-checked like any other row."
+          }
+        ],
+        "survives": true
+      },
+      {
+        "title": "KI-0189 says round 53 ran the final sources, but the final windows11_candidate.py has code added after round 53",
+        "file": "docs/KNOWN_ISSUES.md",
+        "line": 77,
+        "severity": "nonblocking",
+        "description": "KI-0189's resolution paragraph says \"Rounds 52 and 53 ran on the newer 20261101.360.1, and round 53 ran the final sources.\" After review 3, the implementer added retain_runner_status() and the DPKG_STATUS import to windows11_candidate.py and rewrote docstrings in ubuntu_gnome_prepare.py and ubuntu_gnome_host.py. So round 53's branch sources are no longer the final sources. The diagnostics README round-53 row and the packet README state this correctly ('differs ... only in docstrings and comments ... and in windows11_candidate.py's status retention'), but the KI-0189 sentence was not updated and is now false.",
+        "evidence": "round53-41929794476/sources.json records windows11_candidate.py at 022cbe8 as 16219 bytes, sha256 da0bed4a…. I fetched it read-only with gh api contents?ref=022cbe859cab… and it matches. The working tree's file is 16954 bytes, sha256 cfd01024…. diff -u shows the added retain_runner_status function and `from ubuntu_gnome_prepare import DPKG_STATUS, resolve, simulate_host_install`. ubuntu_gnome_prepare.py (e870091e… vs 9a29459a…) and ubuntu_gnome_host.py (570ecc69… vs c09b8246…) differ only in docstrings. windows11_vm.py, ubuntu_gnome_vm.py and ubuntu_gnome_signed_indexes.py are byte-identical.",
+        "lens": "records",
+        "verdicts": [
+          {
+            "refuted": false,
+            "reasoning": "The finding holds. KI-0189 in the working tree (docs/KNOWN_ISSUES.md line 77) still says \"Rounds 52 and 53 ran on the newer 20261101.360.1, and round 53 ran the final sources.\"\n\nI checked the code behind it with read-only `git show 022cbe859cab:<path>`, which is round 53's branch commit as recorded in windows-host-closure/round53-41929794476/sources.json. I wrote the outputs only to /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/refute-ki0189-final-sources/.\n\nHash comparison:\n- At 022cbe8, windows11_candidate.py, ubuntu_gnome_prepare.py and ubuntu_gnome_host.py match the hashes in sources.json (da0bed4a…, e870091e…, 570ecc69…).\n- In the working tree those three files are 16954 B (cfd01024…), 23078 B (9a29459a…) and 11170 B (c09b8246…).\n- windows11_vm.py, ubuntu_gnome_vm.py and ubuntu_gnome_signed_indexes.py are byte-identical.\n\nWhat changed after round 53:\n- windows11_candidate.py: the diff adds `retain_runner_status()` and changes the import to `from ubuntu_gnome_prepare import DPKG_STATUS, resolve, simulate_host_install`. The inline `if (work / \"apt\" / \"status\").is_file(): shutil.copyfile(...)` in main()'s finally block is replaced by a call to `retain_runner_status`. This is a real behavior change: a placeholder status is no longer retained.\n- ubuntu_gnome_prepare.py and ubuntu_gnome_host.py: the changes are docstrings only.\n\nSo the final sources differ from round 53's, and the KI sentence is false as written.\n\nPossible mitigations I checked:\n- Round 53's driver (round53-41929794476/host_closure.py) imports only `resolve`, `simulate_host_install`, `Owner` and `HOST_ROOTS`. It never runs the retention code. The code it actually ran therefore matches the final code apart from docstrings, so the error does not change round 53's results.\n- But the sentence makes an unqualified claim about the sources, not the results. Under the stated standard that every record sentence must be exactly true, it is false.\n\nEvery other record states this correctly, which makes KI-0189 the stale outlier:\n- The diagnostics README round-53 row says the record's commit \"differs from them only in docstrings and comments … and in windows11_candidate.py's status retention\".\n- The packet README (line 89) says \"Round 53 ran the sources as they stood after review 2. After review 3, only docstrings, comments, tests and the candidate's status retention changed.\"\n- TEST_EVIDENCE (line 12748) labels round 53 \"after review 2\".\n\nThe sentence is new in the uncommitted diff, so nothing else in the change already handles it. Nonblocking severity is appropriate: the wording is false, but the conclusions the round supports are unaffected."
+          },
+          {
+            "refuted": false,
+            "reasoning": "I could not refute this finding. The defect is real and I reproduced it.\n\n1. **The sentence is new and says what the finding claims.** docs/KNOWN_ISSUES.md line 77 is part of the uncommitted diff (`git diff HEAD`). It says \"Rounds 52 and 53 ran on the newer 20261101.360.1, and round 53 ran the final sources.\"\n\n2. **Round 53's recorded sources are not the final sources.** docs/evidence/m03-native-runtime-diagnostics/windows-host-closure/round53-41929794476/sources.json records branch commit 022cbe859cab934770024e971a60554706e56795, with these files:\n   - windows11_candidate.py: 16219 bytes, sha256 da0bed4a…\n   - ubuntu_gnome_prepare.py: sha256 e870091e…\n   - ubuntu_gnome_host.py: sha256 570ecc69…\n\n   The working tree has:\n   - windows11_candidate.py: 16954 bytes, sha256 cfd01024…\n   - ubuntu_gnome_prepare.py: sha256 9a29459a…\n   - ubuntu_gnome_host.py: sha256 c09b8246…\n\n   windows11_vm.py matches (87422f38…).\n\n3. **The candidate file changed in code, not only in docstrings.** I fetched the 022cbe8 copy read-only with `gh api contents?ref=022cbe8…` into /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/ki0189-final-sources/cand-022cbe8.py. Its sha256 matches the record (da0bed4a…). Diffing it against the working tree shows real code changes:\n   - the import changed to `from ubuntu_gnome_prepare import DPKG_STATUS, resolve, simulate_host_install`;\n   - a new `retain_runner_status()` function was added;\n   - the inline `shutil.copyfile` in the finally block was replaced by a call to that function.\n\n4. **The other records are precise; KI-0189 alone is not.** The diagnostics README's round-53 row calls it \"The resolver after its second review\" and says the record's commit differs from those sources in docstrings, comments and the status retention. The packet README says \"Round 53 ran the sources as they stood after review 2\". TEST_EVIDENCE line 12748 says round 53 was \"after review 2\". KI-0189's \"round 53 ran the final sources\" contradicts all three.\n\nA lenient reading would take \"final sources\" to mean only the resolver code that the scratch driver runs (resolve and simulate_host_install, unchanged apart from docstrings). Even then, the file bytes differ, and the task's standard requires every record sentence to be exactly true.\n\n**Severity:** nonblocking is right. This is a records-accuracy error and does not affect behaviour; the fix is to reword the clause, for example \"round 53 ran the sources as they stood after review 2.\""
+          }
+        ],
+        "survives": true
+      },
+      {
+        "title": "closed_install_plan docstring says only Windows roots can replace a runner package, but acl/python3 exact-version dependencies would be downloaded and refused too",
+        "file": "scripts/linux_gnome/ubuntu_gnome_host.py",
+        "line": 123,
+        "severity": "nonblocking",
+        "description": "The rewritten docstring says the Windows host lock \"is resolved against the runner's own status (ADR-0009), so only its roots can be such a package\", meaning a locked version of a package the image already carries. That is false. The installed roots carry exact-version dependencies on non-root runner packages: acl needs libacl1 (= 2.3.2-1build1.1), and python3 needs python3-minimal (= 3.12.3-0ubuntu2.1) and libpython3-stdlib (= 3.12.3-0ubuntu2.1). If the archive updates acl or python3 ahead of the image (the KI-0189 limit scenario), the runner-status `--reinstall` resolution must also download the matching newer libacl1, python3-minimal or libpython3-stdlib. These are non-root packages the image carries, and closed_install_plan refuses them as well. The prepare still fails closed, so behavior is safe; the sentence is not. The same scenario makes the KI-0189:71 bullet and the prepare module docstring ('every root, and only those dependencies that the runner image lacks') inexact: the image carries libacl1 and the others, only at the older version.",
+        "evidence": "Round-53 artifact runner-status command-003.stdout (dpkg-deb -f acl): 'Depends: libacl1 (= 2.3.2-1build1.1), libc6 (>= 2.38)'. command-041.stdout (python3): 'Pre-Depends: python3-minimal (= 3.12.3-0ubuntu2.1)' and 'Depends: python3.12 (>= 3.12.3-0~), libpython3-stdlib (= 3.12.3-0ubuntu2.1)'. round53 runner-status-lock.json runner_provided_packages lists libacl1 2.3.2-1build1.1, python3-minimal 3.12.3-0ubuntu2.1 and libpython3-stdlib 3.12.3-0ubuntu2.1 as installed runner packages.",
+        "lens": "records",
+        "verdicts": [
+          {
+            "refuted": false,
+            "reasoning": "I could not refute the finding.\n\n1. **The docstring claim.** The closed_install_plan docstring in scripts/linux_gnome/ubuntu_gnome_host.py (lines 119-125) says the Windows lock is resolved against the runner's status, \"so only its roots can be such a package.\" \"Such a package\" means a locked version of a package the image already carries, which installing would replace.\n\n2. **The resolution can pull in non-root packages.** resolve(..., runner_status=True) runs `apt-get --download-only --reinstall --no-install-recommends install <roots>` against a copy of /var/lib/dpkg/status. `--reinstall` only matters when the installed version equals the candidate. When the archive holds a newer root, apt upgrades it. It must then also upgrade any installed dependency whose version no longer satisfies a versioned relation, and it downloads that dependency into the lock.\n\n3. **The round-53 artifacts confirm the exact-version relations.** Run 41929794476, runner-status/command-003.stdout: acl 2.3.2-1build1.1 has \"Depends: libacl1 (= 2.3.2-1build1.1), libc6 (>= 2.38)\". command-041.stdout: python3 3.12.3-0ubuntu2.1 has \"Pre-Depends: python3-minimal (= 3.12.3-0ubuntu2.1)\" and \"Depends: python3.12 (>= 3.12.3-0~), libpython3-stdlib (= 3.12.3-0ubuntu2.1)\". runner-status/lock.json lists libacl1, python3-minimal and libpython3-stdlib at those versions as runner_provided_packages, and none of them is among the 29 downloaded packages.\n\n4. **What happens when acl updates.** acl and libacl1 come from one source package and move together. An archive update of acl ahead of the image therefore makes the lock contain a newer libacl1. That is a non-root package the image carries, only at the older version.\n\n5. **The plan check refuses it.** In my own copy (scratchpad/review4-work/refute-docstring-roots/copy) I fed closed_install_plan an upgrade plan with lines \"Inst libacl1 [2.3.2-1build1.1] (2.3.2-1build1.2 ...)\" and \"Inst acl [...] (...)\". It refused both lines and named them. So the prepare fails closed and the behaviour is safe, but the sentence \"only its roots can be such a package\" is false.\n\n6. **More general than the finding states.** The same applies whenever a downloaded package's `>=` relation outruns an installed library version, not only for the roots' exact-version dependencies.\n\n7. **Nothing else already corrects it.** ADR-0009's implementation note (DECISIONS.md:483) and the second KI-0189 limit only say that an update to acl or python3 still fails the prepare. That statement is true, but neither of them, nor any test, corrects the docstring's claim.\n\n8. **The companion records are looser for the same reason.** The prepare module docstring and the KI-0189 bullet say \"only those dependencies the runner image lacks\", which is inexact in the same scenario: the image has libacl1, at an older version.\n\nThe finding is real and nonblocking, as it states."
+          },
+          {
+            "refuted": false,
+            "reasoning": "I could not refute this. The finding holds; it is a nonblocking error in the wording of the records.\n\n**1. The sentence exists as quoted.** The `closed_install_plan` docstring in `/Users/tanishkalwad/jobapplyv2/scripts/linux_gnome/ubuntu_gnome_host.py` (lines 116-128) says: \"The Windows host lock is resolved against the runner's own status (ADR-0009), so only its roots can be such a package\". \"Such a package\" means a locked version of a package the runner image already carries. The same docstring then says that a root the archive has updated \"would replace it, which this check refuses\". So the docstring itself raises the case where the archive is ahead of the image.\n\n**2. The cited evidence is accurate.** In `/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/hostclosure-41929794476/art/runner-status/`:\n- `command-003.stdout` (`dpkg-deb -f` on acl) shows `Depends: libacl1 (= 2.3.2-1build1.1), libc6 (>= 2.38)`.\n- `command-041.stdout` (python3) shows `Pre-Depends: python3-minimal (= 3.12.3-0ubuntu2.1)` and `Depends: python3.12 (>= 3.12.3-0~), libpython3-stdlib (= 3.12.3-0ubuntu2.1)`.\n- `lock.json` `runner_provided_packages` lists libacl1, python3-minimal and libpython3-stdlib at those exact versions, each `install ok installed`.\n\n**3. Nothing in the code stops apt from upgrading those packages.**\n- `resolve(..., runner_status=True)` runs `apt-get --download-only --reinstall --no-install-recommends -y install <roots>` against a copy of the runner's status.\n- `apt_config` sets no `--no-upgrade` and no option that holds packages back.\n- When the archive carries a newer acl (always rebuilt together with libacl1 from the same source package), the new acl requires `libacl1 (= new)`. The installed libacl1 does not satisfy that, so apt marks it for upgrade and downloads it. python3 with python3-minimal and libpython3-stdlib behaves the same way.\n- `runner_provided()` skips downloaded packages (`package not in controls`), and nothing at resolve time refuses a downloaded non-root that the image carries.\n- Only `closed_install_plan` catches it. The line `Inst libacl1 [old] (new ...)` fails `PLAN_ADD`, because a bracketed current version does not match, so the line is refused. The prepare therefore fails closed, as the finding says, but the docstring's \"only its roots can be\" is false.\n- The claim fails more widely than the finding says. Any newly downloaded root, such as a qemu update, whose `>=` dependency needs a newer installed library would also download and replace a non-root runner package.\n\n**4. The observed rounds do not contradict this.** In rounds 51-53, the only downloaded packages the image also carries are acl and python3, at the image's own versions. These were the matching-version cases, not the archive-ahead case the docstring describes.\n\n**5. It is not already handled.** Searching the records, the docstrings, ADR-0009, TEST_EVIDENCE and both evidence READMEs found no mention of exact-version dependencies forcing non-root downloads. `TEST_EVIDENCE.md:12743` corrected only the over-statement that acl and python3 are not downloaded. KI-0189's first bullet (line 71, \"only those dependencies that the runner image lacks\") and the module docstring of `ubuntu_gnome_prepare.py` (lines 7-8) are, as the finding says, inexact in this scenario: the image carries libacl1 and the others, only at the older version. KI-0189's \"Limits\" bullet is still true, since an update to acl or python3 fails the prepare.\n\nBehavior is safe because it fails closed, so nonblocking is the right severity. But the sentence is not exactly true, which breaks the records standard."
+          }
+        ],
+        "survives": true
+      },
+      {
+        "title": "Packet README: 'neither' for three reviews, and 'one source edit each' although four mutants make 2-3 edits",
+        "file": "docs/evidence/m03-w07-adr0009-host-closure-review/README.md",
+        "line": 20,
+        "severity": "nonblocking",
+        "description": "Two phrases in the packet README are stale or inexact. Line 20 says \"Each review is a separate-context workflow that the implementing session launched, so neither is an owner-independent review\". The packet covers three reviews, so 'neither' is left over from the two-review text. Line 79 says mutants.py applies 65 mutants with \"one source edit each\". Four mutants apply several replacements: p_status_copied_after_apt (2), w_status_not_compared (3), w_arch_not_compared (2) and c_placeholder_retained (2). mutants.py's own docstring says correctly that each mutant may make several exact edits in one source.",
+        "evidence": "README.md:20 and :79. In mutants.py, the add() calls for p_status_copied_after_apt, w_status_not_compared, w_arch_not_compared and c_placeholder_retained pass 2, 3, 2 and 2 edit tuples. The packet holds review-1, review-2 and review-3 workflow results.",
+        "lens": "records",
+        "verdicts": [
+          {
+            "refuted": false,
+            "reasoning": "I could not refute this finding; I checked both parts.\n\n(1) README.md:20 reads \"Each review is a separate-context workflow that the implementing session launched, so neither is an owner-independent review.\" The packet holds three reviews: review-1, review-2 and review-3-workflow-result.json, each with its own section. \"Neither\" fits only two. The sentence matches, word for word apart from the opening, the two-review wording in docs/evidence/m03-w07-win11-rehearsal-correction-review/README.md:21 (\"Both reviews are separate-context workflows ... so neither is an owner-independent review\"). So it is a leftover from text written for two reviews. What it means (no review is owner-independent) is still true, but the word is wrong for three reviews.\n\n(2) README.md:79 says mutants.py applies 65 mutants with \"one source edit each\". I parsed mutants.py with ast. There are exactly 65 add() calls. Four of them pass more than one edit tuple:\n- p_status_copied_after_apt: 2\n- w_status_not_compared: 3\n- w_arch_not_compared: 2\n- c_placeholder_retained: 2\n\nThe runner loop applies each tuple as a separate exact replacement, each required to occur once. The script's own docstring describes this correctly (\"Each mutant replaces exact text (each edit must occur once) in one source of the copy\"). One could read \"one source edit each\" loosely as \"each mutant edits one source file\", and every mutant does edit only one file. But the plain reading is a single edit, and that is false for four mutants. Under the \"every record sentence exactly true\" standard, the wording is inexact.\n\nBoth claims are accurate and reproducible, and nothing has handled them yet. The severity is rightly nonblocking: no count or result is wrong (65 mutants, mutants-result.txt has 65 lines, all KILLED). Only the wording is inexact."
+          },
+          {
+            "refuted": false,
+            "reasoning": "I could not refute this finding. Both phrases are where the finding says, and both are inexact. I checked the README, mutants.py, mutants-result.txt and TEST_EVIDENCE, read-only.\n\n1. **README.md:20, \"neither\".** The line reads \"Each review is a separate-context workflow that the implementing session launched, so neither is an owner-independent review.\" The packet covers three reviews: three Review sections (lines 22, 45 and 67) and three workflow-result files. \"Neither\" refers to two, so the word is left over from the two-review text. The matching TEST_EVIDENCE entry (line 12735) already says \"so none is owner-independent\", so the two records also disagree. The meaning is still true, since no review is owner-independent. Only the wording is wrong.\n\n2. **README.md:79, \"one source edit each\".** In mutants.py, these mutants pass more than one edit tuple to add():\n   - p_status_copied_after_apt: 2 (line 24)\n   - w_status_not_compared: 3 (line 58)\n   - w_arch_not_compared: 2 (line 87)\n   - c_placeholder_retained: 2 (line 90)\n\n   The script's own docstring calls each tuple an \"edit\" (\"each edit must occur once\"). So in the packet's own terms these mutants make several edits, and \"one source edit each\" is false for them.\n\n   The best counter-argument does not hold up:\n   - Each of the four edits only one file (P, V, V and C), so one could read \"one source edit\" as \"an edit to one source\".\n   - Each also makes one logical change, such as moving the copy after apt.\n\n   The most natural reading is still one edit per mutant, and it conflicts with the docstring's wording. The sentence is inexact under the \"every record sentence exactly true\" standard.\n\nThe finding is correctly rated nonblocking. Neither phrase hides a code defect, and mutants-result.txt shows all 65 mutants killed (65 lines, all KILLED)."
+          }
+        ],
+        "survives": true
+      }
+    ],
+    "critic": [
+      {
+        "title": "No test makes the walk follow a runner package's Pre-Depends. A regression would silently drop two real runner-provided rows (libmd0, libpam-modules-bin) that the campaign then never re-checks",
+        "file": "scripts/tests/test_ubuntu_gnome_review_regressions.py",
+        "line": 245,
+        "severity": "nonblocking",
+        "description": "runner_provided() (scripts/linux_gnome/ubuntu_gnome_prepare.py:248) walks Pre-Depends and Depends of every package it reaches, and that includes installed runner packages. KI-0189 and the docstring describe this walk, and the campaign re-checks only the rows it records. In the test fixture, the only Pre-Depends is on a downloaded control: libfdt1 -> zlib1g (comment at line 323). None of the RUNNER_STATUS paragraphs (line 245) has a Pre-Depends. The recorded mutant p_pre_depends_ignored is killed only because it also drops the downloaded control's Pre-Depends. So a walk that follows Pre-Depends only for downloaded packages, and only Depends for runner packages, passes every test. On the real runner image that changes the lock. dpkg Pre-Depends on libmd0, and libpam-modules Pre-Depends on libpam-modules-bin (= 1.5.3-5ubuntu5.7). Both are reached only through those runner Pre-Depends, so such a regression would drop them from runner_provided_packages without any failure. windows11_vm.require_runner_packages would then never re-check them, which is a fail-open drop of rows ADR-0009 says are recorded and re-checked. None of the three lenses or earlier reviews covers this: review 3's critic covered only the multi-provider virtual-name path.",
+        "evidence": "Extra mutant, applied in my own copy (review4-work/critic/mycopy; tool review4-work/critic/tools/my_mutants.py plus an inline run). In ubuntu_gnome_prepare.py line 248, `for field in (\"Pre-Depends\", \"Depends\"):` became `for field in ((\"Pre-Depends\", \"Depends\") if meta in controls.values() else (\"Depends\",)):`. Running all three test files that reach the walk (test_ubuntu_gnome_boundaries.py, test_ubuntu_gnome_review_regressions.py, test_windows11_host_runtime.py) gave `166 passed in 23.57s`: SURVIVED. Offline replay (review4-work/critic/tools/replay.py) of the unmodified walk over round 53's retained runner-dpkg-status (sha256 221d4b20...) and its 29 dpkg-deb -f records gave `rows 88 equal_to_lock True`. The same replay with the mutant gave `rows 86 equal_to_lock False; missing: ['libmd0', 'libpam-modules-bin']` on round 53 (41929794476) and on round 52 (41918821956). The real status has these runner-provided paragraphs: `dpkg | Pre-Depends: libbz2-1.0, libc6 (>= 2.38), liblzma5 (>= 5.4.0), libmd0 (>= 0.0.0), ...` and `libpam-modules | Pre-Depends: ..., libpam-modules-bin (= 1.5.3-5ubuntu5.7)`. For comparison, two other runner-only variants have no silent effect: walking only the first alternative of a runner package gave the same 88 rows, and ignoring runner Provides failed closed. The Pre-Depends gap is the one that silently loses real rows.",
+        "lens": "critic",
+        "verdicts": [
+          {
+            "refuted": false,
+            "reasoning": "I could not refute the finding. Every factual claim held up when I checked it. I worked only in /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/refute-runner-predepends/ (copy/, mut/, ctl/ and tools/replay.py) and touched nothing in /Users/tanishkalwad/jobapplyv2.\n\n1. **The code walks runner Pre-Depends.** scripts/linux_gnome/ubuntu_gnome_prepare.py:248 is `for field in (\"Pre-Depends\", \"Depends\"):`. It runs for every meta popped from `pending`, and installed runner packages are pushed onto `pending` too. KI-0189 and the docstring say the same thing, so the records describe the code correctly. The defect is in the tests, not the records.\n\n2. **No fixture has a runner Pre-Depends.**\n   - `grep -rn Pre-Depends scripts/tests` finds one fixture relation only: `\"libfdt1\": {\"Pre-Depends\": \"zlib1g ...\"}` at test_ubuntu_gnome_review_regressions.py:324. That is a downloaded control. The comment is at :323.\n   - None of the RUNNER_STATUS paragraphs starting at :245 has a Pre-Depends.\n   - The other hit, test_windows11_host_runtime.py:199, is about apt plan text, not the walk.\n   - Only three test files reach `runner_provided`: the two regression files and test_ubuntu_gnome_boundaries.py. windows11_request.py only lists the source path.\n\n3. **The mutant survives.** In my copy I changed only line 248, to `for field in ((\"Pre-Depends\", \"Depends\") if meta in controls.values() else (\"Depends\",)):`, and checked that `diff` showed one line. I ran test_ubuntu_gnome_boundaries.py, test_ubuntu_gnome_review_regressions.py and test_windows11_host_runtime.py with the repo venv, using -I -B and no cacheprovider.\n   - Unmodified copy: `166 passed in 23.64s`.\n   - Mutant: `166 passed in 23.62s`.\n   - Sanity control: the recorded p_pre_depends_ignored edit on a separate copy gave `2 failed, 36 passed`, from test_runner_provided_walks_every_alternative_and_provider and test_runner_provided_is_finite[package-count]. So the copies really load the mutated code, and the recorded mutant is killed only through the downloaded libfdt1->zlib1g edge.\n   - The 65 recorded mutants (mutants.py / mutants-result.txt, all KILLED) include no runner-only Pre-Depends variant.\n\n4. **The real-runner effect is confirmed.** I wrote my own replay over each round's retained runner-dpkg-status and its 29 `dpkg-deb -f` records. Round 53's status has sha256 221d4b20…, equal to the lock's dpkg_status_sha256.\n   - Unmodified walk on rounds 52 (41918821956) and 53 (41929794476): 88 rows, equal to runner-status/lock.json.\n   - Mutant on both rounds: 86 rows, missing `['libmd0', 'libpam-modules-bin']`. Round 51 also loses those same two, though its older lock has a different row schema.\n   - The real status has dpkg `Pre-Depends: ... libmd0 (>= 0.0.0) ...` and libpam-modules `Pre-Depends: ... libpam-modules-bin (= 1.5.3-5ubuntu5.7)`.\n   - Among the reached runner packages and the 29 controls, libmd0 is named only by dpkg's Pre-Depends, and libpam-modules-bin only by libpam-modules' Pre-Depends.\n\n5. **The drop would pass silently.** windows11_vm.reviewed_runner_packages / require_runner_packages, and the live dpkg-query agreement inside runner_provided, query only the recorded names. A dropped row would leave those two packages bound only through ImageVersion, with no failure anywhere.\n\n6. **Earlier reviews do not cover it.** The three retained review results never mention libmd0 or libpam-modules-bin. Review 3's test-gap finding was the multi-provider path (p_first_virtual_provider_only).\n\n**Severity.** \"Nonblocking\" is right. Nothing is mis-recorded today, ImageVersion still binds both packages, and libpam-modules-bin is partly constrained by libpam-modules' exact-version relation, which is recorded and re-checked. Still, this is the same class of gap as review 3's accepted virtual-name finding: a plausible regression that silently shrinks the re-checked set while every test passes.\n\n**Fix.** Give a RUNNER_STATUS paragraph that the walk reaches a Pre-Depends on a package that nothing else names, add it to RUNNER_ROWS, and record this mutant."
+          },
+          {
+            "refuted": false,
+            "reasoning": "I could not refute the finding. Every factual claim checked out. I worked only in /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/refuter-predep/ and changed nothing in /Users/tanishkalwad/jobapplyv2 (git status afterwards was the same as at the start).\n\n1. Code. In scripts/linux_gnome/ubuntu_gnome_prepare.py, line 248 of runner_provided() is `for field in (\"Pre-Depends\", \"Depends\"):`. The loop runs for every meta popped from `pending`, and `pending` takes `installed[package]` for every runner package it reaches. So the current walk does follow runner packages' Pre-Depends, and the code is correct today.\n\n2. Fixture. In scripts/tests/test_ubuntu_gnome_review_regressions.py, RUNNER_STATUS starts at line 244, on the line after INSTALLED_OK. None of its paragraphs has a Pre-Depends field: the only relation fields are libc6's Depends and libpcre2-8-0's Depends. A grep of scripts/ for \"Pre-Depends\" in .py files finds only:\n   - the libfdt1 control in DOWNLOADED_CONTROLS (line 324, comment at line 323);\n   - an unrelated apt plan string in test_windows11_host_runtime.py:199;\n   - the source itself.\n   Repo-wide, the only tests that reach runner_provided or resolve(runner_status=True) are in the three files the critic named. So the recorded mutant p_pre_depends_ignored (mutants.py:41, \"KILLED | 2 failed\") can be killed only through the downloaded control's Pre-Depends on zlib1g.\n\n3. Mutant reproduced. In my own rsync copy, the three files pass at baseline (`166 passed in 23.46s`). I then changed line 248 so that runner packages are walked through Depends only. I used an identity test, `any(meta is c for c in controls.values())`, rather than the critic's equality test, so the variant cannot misclassify a paragraph. The three files gave `166 passed in 23.54s`, so the mutant SURVIVED. No other test file references the walk.\n\n4. Real-runner effect, from my own replay script (tools/myreplay.py). It reads the retained runner-dpkg-status and the dpkg-deb -f stdout records, and compares the result with runner-status/lock.json's runner_provided_packages.\n   - Round 53 (41929794476), status sha256 221d4b20...: the original walk gives 29 controls, 88 rows, equal to the lock. The mutant gives 86 rows; missing ['libmd0', 'libpam-modules-bin'].\n   - Round 52 (41918821956): the same result.\n   - Round 51 is not equal to the lock even with the original walk, likely because it was produced by older code, but its mutant run is also missing the same two packages. The critic cited only rounds 52 and 53.\n\n   The real status confirms both paragraphs:\n   - `dpkg` 1.22.6ubuntu6.6 has `Pre-Depends: libbz2-1.0, libc6 (>= 2.38), liblzma5 (>= 5.4.0), libmd0 (>= 0.0.0), ...`.\n   - `libpam-modules` 1.5.3-5ubuntu5.7 has `Pre-Depends: ..., libpam-modules-bin (= 1.5.3-5ubuntu5.7)`.\n\n5. Peripheral claims also hold on round 53:\n   - Walking only the first alternative of runner packages gives the same 88 rows, equal to the lock.\n   - Ignoring runner Provides fails closed with \"satisfied by neither the lock nor the runner: libglib2.0-0\".\n\n6. Downstream effect. windows11_vm.require_runner_packages (line 332, called at lines 356 and 401) re-checks only the rows in the lock. A dropped row would therefore never be re-checked. That contradicts ADR-0009's implementation note, which says the lock records \"every installed package the downloaded closure declares a dependency on\".\n\n7. Novelty. None of the finding titles in review-1/2/3-workflow-result.json concerns runner-package Pre-Depends coverage. Review 2 checked on the whole image that every Pre-Depends group is satisfiable, but that is a one-off analysis, not a test.\n\nThe records do not overclaim: TEST_EVIDENCE says only that all 65 mutants were killed, which is true. The finding is therefore correct as a nonblocking test gap. The current code is right, but a plausible regression would silently drop two real recorded and re-checked rows and still pass every test."
+          }
+        ],
+        "survives": true
+      }
+    ]
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Review"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 2,
+      "title": "Verify"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 3,
+      "title": "Critic"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "review4:review3-fixes",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "aa81a4b78a2a61ec7",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793836807785,
+      "queuedAt": 1793836807774,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837678457,
+      "tokens": 202545,
+      "toolCalls": 54,
+      "durationMs": 870671,
+      "resultPreview": "{\"findings\":[{\"title\":\"retain_runner_status checks against the live runner status, so the copy is dropped when the runner's status changed after the copy, including for the 'Runner dpkg database differs from its copied status' refusal\",\"file\":\"scripts/windows11/windows11_candidate.py\",\"line\":200,\"severity\":\"nonblocking\",\"description\":\"retain_runner_status() keeps work/apt/status only when it is by…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "review4:records",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "aa67bc770becbd58d",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793836807785,
+      "queuedAt": 1793836807774,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837657862,
+      "tokens": 250947,
+      "toolCalls": 101,
+      "durationMs": 849136,
+      "resultPreview": "{\"findings\":[{\"title\":\"Records say Essential packages are not walked/recorded and are bound only through the image version, but the real locks record and re-check the Essential packages dpkg and tar\",\"file\":\"docs/DECISIONS.md\",\"line\":484,\"severity\":\"nonblocking\",\"description\":\"The review-3 correction overshoots. ADR-0009's implementation note says \\\"Essential packages need not be declared, so they…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "verify4:records:0:0",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a60f4d56e4a71e037",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837657883,
+      "queuedAt": 1793837657871,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute this finding. The categorical Essential-…",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837727738,
+      "tokens": 90511,
+      "toolCalls": 13,
+      "durationMs": 69855,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute this finding. The categorical Essential-package sentences in the current working tree are false for dpkg and tar.\\n\\n1. **The sentences exist as quoted.** I read them in the live tree:\\n   - ADR-0009's implementation note (docs/DECISIONS.md:484) says \\\"Essential packages need not be declared, so they are not recorded and stay bound only through the …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 4,
+      "label": "verify4:records:0:1",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a4837006e6963971a",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837657883,
+      "queuedAt": 1793837657871,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute this finding. Every factual part checks …",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837718549,
+      "tokens": 82150,
+      "toolCalls": 11,
+      "durationMs": 59681,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute this finding. Every factual part checks out, and the record sentences it quotes are false as written for dpkg and tar. I worked read-only and wrote only under /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/essential-walk/.\\n\\n1. Quotes. All five quotes are present in the working tr…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 5,
+      "label": "verify4:records:1:0",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "adf50d2f20d00f5a8",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837657892,
+      "queuedAt": 1793837657890,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "The finding holds. KI-0189 in the working tree (docs/KNOWN_…",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837712327,
+      "tokens": 83887,
+      "toolCalls": 10,
+      "durationMs": 53458,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"The finding holds. KI-0189 in the working tree (docs/KNOWN_ISSUES.md line 77) still says \\\"Rounds 52 and 53 ran on the newer 20261101.360.1, and round 53 ran the final sources.\\\"\\n\\nI checked the code behind it with read-only `git show 022cbe859cab:<path>`, which is round 53's branch commit as recorded in windows-host-closure/round53-41929794476/sources.json. I wrote …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 6,
+      "label": "verify4:records:1:1",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a85412df58eb6628e",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837657892,
+      "queuedAt": 1793837657890,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute this finding. The defect is real and I r…",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837693306,
+      "tokens": 71663,
+      "toolCalls": 7,
+      "durationMs": 34436,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute this finding. The defect is real and I reproduced it.\\n\\n1. **The sentence is new and says what the finding claims.** docs/KNOWN_ISSUES.md line 77 is part of the uncommitted diff (`git diff HEAD`). It says \\\"Rounds 52 and 53 ran on the newer 20261101.360.1, and round 53 ran the final sources.\\\"\\n\\n2. **Round 53's recorded sources are not the final s…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 7,
+      "label": "verify4:records:2:0",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "ab15dd5d62e31c950",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837657893,
+      "queuedAt": 1793837657892,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute the finding. 1. **The docstring claim.**…",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837755379,
+      "tokens": 98244,
+      "toolCalls": 14,
+      "durationMs": 96509,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute the finding.\\n\\n1. **The docstring claim.** The closed_install_plan docstring in scripts/linux_gnome/ubuntu_gnome_host.py (lines 119-125) says the Windows lock is resolved against the runner's status, \\\"so only its roots can be such a package.\\\" \\\"Such a package\\\" means a locked version of a package the image already carries, which installing would …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 8,
+      "label": "verify4:records:2:1",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a6d2007b0dabab430",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837657893,
+      "queuedAt": 1793837657892,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute this. The finding holds; it is a nonbloc…",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837762478,
+      "tokens": 111695,
+      "toolCalls": 15,
+      "durationMs": 103608,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute this. The finding holds; it is a nonblocking error in the wording of the records.\\n\\n**1. The sentence exists as quoted.** The `closed_install_plan` docstring in `/Users/tanishkalwad/jobapplyv2/scripts/linux_gnome/ubuntu_gnome_host.py` (lines 116-128) says: \\\"The Windows host lock is resolved against the runner's own status (ADR-0009), so only its r…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 9,
+      "label": "verify4:records:3:0",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "adcd6003788c80afe",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837657894,
+      "queuedAt": 1793837657893,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute this finding; I checked both parts. (1) …",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837686925,
+      "tokens": 73459,
+      "toolCalls": 5,
+      "durationMs": 28054,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute this finding; I checked both parts.\\n\\n(1) README.md:20 reads \\\"Each review is a separate-context workflow that the implementing session launched, so neither is an owner-independent review.\\\" The packet holds three reviews: review-1, review-2 and review-3-workflow-result.json, each with its own section. \\\"Neither\\\" fits only two. The sentence matche…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 10,
+      "label": "verify4:records:3:1",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a7edc9a267ddc93f6",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837678459,
+      "queuedAt": 1793837657893,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute this finding. Both phrases are where the…",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837708317,
+      "tokens": 77256,
+      "toolCalls": 5,
+      "durationMs": 29858,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute this finding. Both phrases are where the finding says, and both are inexact. I checked the README, mutants.py, mutants-result.txt and TEST_EVIDENCE, read-only.\\n\\n1. **README.md:20, \\\"neither\\\".** The line reads \\\"Each review is a separate-context workflow that the implementing session launched, so neither is an owner-independent review.\\\" The packe…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 11,
+      "label": "verify4:review3-fixes:0:0",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a41e772d7e3d19b12",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837686926,
+      "queuedAt": 1793837678465,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute this finding. It reproduces, nothing alr…",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837802757,
+      "tokens": 107526,
+      "toolCalls": 21,
+      "durationMs": 115831,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute this finding. It reproduces, nothing already handles it, and the false record sentences are real defects under the \\\"every record sentence exactly true\\\" standard. It still fails closed, so nonblocking is the right severity.\\n\\nCode facts, read in the uncommitted tree:\\n- In scripts/linux_gnome/ubuntu_gnome_prepare.py, resolve() runs apt_config firs…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 12,
+      "label": "verify4:review3-fixes:0:1",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a8f9ff404d6bc1624",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837693308,
+      "queuedAt": 1793837678465,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute this. I reproduced it in my own copy (/p…",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837848614,
+      "tokens": 116442,
+      "toolCalls": 21,
+      "durationMs": 155306,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute this. I reproduced it in my own copy (/private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/refute-retain-live/copy). The repository tree is unchanged: still 16 entries in `git status --short`.\\n\\nHow the code behaves:\\n- resolve(..., runner_status=True) in scripts/linux_gnome/ubuntu_gnom…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 13,
+      "label": "verify4:review3-fixes:1:0",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a57ef296fe9dbf743",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837708319,
+      "queuedAt": 1793837678465,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute this finding. I checked everything read-…",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837751386,
+      "tokens": 73081,
+      "toolCalls": 7,
+      "durationMs": 43067,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute this finding. I checked everything read-only and created no files.\\n\\n1. The code does not exempt Essential packages. In scripts/linux_gnome/ubuntu_gnome_prepare.py, runner_provided (lines 224-283) walks the Pre-Depends and Depends groups of every downloaded control and of every installed package it reaches. Every runner package that provides a name…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 14,
+      "label": "verify4:review3-fixes:1:1",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "aee92cff990589b55",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837712330,
+      "queuedAt": 1793837678465,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute this. The finding is true and reproducib…",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837758881,
+      "tokens": 72891,
+      "toolCalls": 8,
+      "durationMs": 46551,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute this. The finding is true and reproducible.\\n\\nCode: runner_provided() in scripts/linux_gnome/ubuntu_gnome_prepare.py (lines 223-280) walks Pre-Depends and Depends through runner.get(name, []) for every name in a group. It never checks the Essential field. Any installed package that some walked package declares, Essential or not, is added to `provid…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 15,
+      "label": "verify4:review3-fixes:2:0",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a12b927aeb986ab8d",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837718552,
+      "queuedAt": 1793837678465,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "The finding holds: the docstring makes a false claim, and t…",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837850410,
+      "tokens": 108724,
+      "toolCalls": 19,
+      "durationMs": 131858,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"The finding holds: the docstring makes a false claim, and the code still fails closed.\\n\\n1. The quoted text is at the cited line. Lines 119-125 of scripts/linux_gnome/ubuntu_gnome_host.py (uncommitted diff) say: \\\"The Windows host lock is resolved against the runner's own status (ADR-0009), so only its roots can be such a package ... one the archive has updated would…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 16,
+      "label": "verify4:review3-fixes:2:1",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "aa4e0550f1dc67539",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837727740,
+      "queuedAt": 1793837678465,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute this finding. Every claim in it checks o…",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793837859126,
+      "tokens": 105135,
+      "toolCalls": 18,
+      "durationMs": 131386,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute this finding. Every claim in it checks out, and the sentence in question is false.\\n\\n1. The quotes and line numbers are accurate. Line 123 of scripts/linux_gnome/ubuntu_gnome_host.py, which is new in the uncommitted diff, reads \\\"(ADR-0009), so only its roots can be such a package\\\". In context, \\\"such a package\\\" means a locked version of a packag…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 17,
+      "label": "verify4:review3-fixes:3:0",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a198cf2ff89b967e4",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837751388,
+      "queuedAt": 1793837678465,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute the finding. It reproduces exactly, and …",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793838033342,
+      "tokens": 105888,
+      "toolCalls": 19,
+      "durationMs": 281954,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute the finding. It reproduces exactly, and it is a real gap in the tests, though not a blocking one.\\n\\n**How I checked.** I made my own copy at /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/refute-testgap-lens/copy. It uses the rsync recipe from the task. Before testing, I confirmed…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 18,
+      "label": "verify4:review3-fixes:3:1",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a96155163b2fb1f6c",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793837755382,
+      "queuedAt": 1793837678465,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute this finding. I reproduced it in my own …",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793838076475,
+      "tokens": 117716,
+      "toolCalls": 31,
+      "durationMs": 321093,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute this finding. I reproduced it in my own copy: /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/refute-r3fix-mutants (made with rsync of scripts, pyproject.toml, .github and package.json). My runner is tools/run3.py in that directory. It applied each single-edit mutant to scripts/wind…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 19,
+      "label": "critic4",
+      "phaseIndex": 3,
+      "phaseTitle": "Critic",
+      "agentId": "a58eafa90579e1fad",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793838076478,
+      "queuedAt": 1793838076476,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793839006405,
+      "tokens": 257787,
+      "toolCalls": 96,
+      "durationMs": 929926,
+      "resultPreview": "{\"findings\":[{\"title\":\"No test makes the walk follow a runner package's Pre-Depends. A regression would silently drop two real runner-provided rows (libmd0, libpam-modules-bin) that the campaign then never re-checks\",\"file\":\"scripts/tests/test_ubuntu_gnome_review_regressions.py\",\"line\":245,\"severity\":\"nonblocking\",\"description\":\"runner_provided() (scripts/linux_gnome/ubuntu_gnome_prepare.py:248) w…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 20,
+      "label": "verify4:critic:0:0",
+      "phaseIndex": 3,
+      "phaseTitle": "Critic",
+      "agentId": "a899f45da2175c4a3",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793839006416,
+      "queuedAt": 1793839006412,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute the finding. Every factual claim held up…",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793839204499,
+      "tokens": 120880,
+      "toolCalls": 26,
+      "durationMs": 198083,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute the finding. Every factual claim held up when I checked it. I worked only in /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/refute-runner-predepends/ (copy/, mut/, ctl/ and tools/replay.py) and touched nothing in /Users/tanishkalwad/jobapplyv2.\\n\\n1. **The code walks runner Pre-Dep…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 21,
+      "label": "verify4:critic:0:1",
+      "phaseIndex": 3,
+      "phaseTitle": "Critic",
+      "agentId": "ab56d3292088e3367",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1793839006416,
+      "queuedAt": 1793839006412,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "I could not refute the finding. Every factual claim checked…",
+      "promptPreview": "You are a separate-context reviewer launched by the implementing session (not owner-independent). The UNCOMMITTED change in /Users/tanishkalwad/jobapplyv2 (git diff plus untracked files in `git status --short`) implements owner-ACCEPTED ADR-0009 (docs/DECISIONS.md) for KI-0189: the Windows 11 host-tool closure resolves against a copy of the runner's dpkg status. Three earlier separate-context revi…",
+      "promptFramed": true,
+      "lastProgressAt": 1793839336493,
+      "tokens": 114386,
+      "toolCalls": 30,
+      "durationMs": 329075,
+      "resultPreview": "{\"refuted\":false,\"reasoning\":\"I could not refute the finding. Every factual claim checked out. I worked only in /private/tmp/claude-501/-Users-tanishkalwad-jobapplyv2/17ee071f-b2d5-4e6f-a57e-209b35ae06c1/scratchpad/review4-work/refuter-predep/ and changed nothing in /Users/tanishkalwad/jobapplyv2 (git status afterwards was the same as at the start).\\n\\n1. Code. In scripts/linux_gnome/ubuntu_gnome_…"
+    }
+  ],
+  "totalTokens": 2442813,
+  "totalToolCalls": 531
+}

@@ -1,0 +1,31 @@
+{
+  "format_version": "W14_W06_MOUNTED_CONTACT_ASSESSMENT_1",
+  "authority": "NONE",
+  "gate_decision": "NOT_DECIDED",
+  "complete_development_gate_evidence": false,
+  "expected_catalog_cases": 32,
+  "recorded_catalog_cases": 32,
+  "expected_contact_controls": 43,
+  "correct_contact_controls": 40,
+  "unreported_required_controls": 1,
+  "scanner_gaps": 1,
+  "errors": 0,
+  "safety": {
+    "unsupported_writes": 0,
+    "unsupported_value_changes": 0,
+    "duplicate_primary_events": 0,
+    "button_clicks": 0,
+    "submissions": 0
+  },
+  "source_unchanged": true,
+  "build_unchanged": true,
+  "limitations": [
+    "All 32 frozen catalog cases are accounted for, not 32 successful fill scenarios.",
+    "67 frozen W03 scenario transitions remain separately NOT_EXERCISED; no transition, upload, non-contact widget, receipt or navigation certification follows.",
+    "This supplementary 11-fact contact profile is not byte-identical to the W12 10-fact input.",
+    "Open-shadow scanner gaps and missing required reports are failures, never safe abstention credit.",
+    "125ms settle and single mounted-route executions are not Gate A p95 performance proof.",
+    "W06 baseline/fixture/schema record checks remain a separate required evidence slice."
+  ],
+  "compressed_bundle_digest": "sha256:84f6cc4705a6aa7893e61dcca1875529e8a0875df1e86221ba32296817637f1d"
+}

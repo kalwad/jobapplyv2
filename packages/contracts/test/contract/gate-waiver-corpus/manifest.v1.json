@@ -1,0 +1,35 @@
+{
+  "corpus_format_version": "1.0.0",
+  "files": [
+    {
+      "path": "cases.v1.json",
+      "bytes": 63220,
+      "sha256": "ee4a2ab31c7a8b65d8f604d5e194aa07ea251606f34b1f6621b61f2c8adcd236"
+    },
+    {
+      "path": "raw-wire.v1.json",
+      "bytes": 52,
+      "sha256": "53143de81efefc4db608ff714c3a8967f415cbc9e5bdf96a578f45e834ffc315"
+    },
+    {
+      "path": "values.v1.json",
+      "bytes": 12519,
+      "sha256": "cd1c76303d8d2d8b94cab896679784b93252614d8c4b12214455eb100bf1553c"
+    }
+  ],
+  "case_count": 79,
+  "category_counts": {
+    "gate-v2-owner-waiver": 79
+  },
+  "language_counts": {
+    "python": 79,
+    "rust": 79,
+    "typescript": 79
+  },
+  "operation_counts": {
+    "ROUND_TRIP": 27,
+    "VALIDATE": 52
+  },
+  "synthetic_only": true,
+  "manifest_sha256": "6bf14c6cc3292706c66d715162b79b278011b838e53f81211bce3d8d6552f902"
+}

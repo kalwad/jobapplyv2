@@ -1,0 +1,10 @@
+{
+  "label": "version",
+  "endpoint": "http://127.0.0.1:11434",
+  "received_bytes": 20,
+  "received_sha256": "2657f6fff8018900025e47485e719c930017826b790e73ae28087cdcd93fe50e",
+  "retention": "PUBLIC_ALLOWLIST_PROJECTION",
+  "public": {
+    "version": "0.40.2"
+  }
+}

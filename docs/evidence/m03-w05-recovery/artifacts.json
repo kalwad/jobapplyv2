@@ -1,0 +1,109 @@
+{
+  "scope": "M03-W05 IN_PROGRESS implementation/component/recovery evidence; no current full or acceptance claim",
+  "created_utc": "2026-10-19T04:07:30.868246+00:00",
+  "base_commit": "5b9396c0d9487738da66eb3f80b9c676c357e727",
+  "joined_shipping_manifest": "ee091e710086c6149d019c9ac58aed68f6b8b8dedee31b572dfabedba36f4f47",
+  "archives": [
+    {
+      "path": "serial-native-and-review.tar.gz",
+      "source": "/tmp/japp-m03-w05-native-data-independent-review-20261019-retained/proof.tar.gz",
+      "scope": "Outside serial183 each3, actual raw data and different review; not actual recovery proof",
+      "sha256": "3c591d1e9826b01956993e53cc4bc2e3baa75b81201ff50bb046204ce3812b23",
+      "bytes": 2389052,
+      "regular_members": 789,
+      "uncompressed_bytes": 17611924
+    },
+    {
+      "path": "canonical-adoption-and-focus.tar.gz",
+      "source": "/tmp/japp-m03-w05-adoption-independent-review-20261019-retained/proof.tar.gz",
+      "scope": "Exact nine canonical postimages, ordinary-parallel183 each3 and all15 registered Rust commands; bounded different review",
+      "sha256": "c5707a0e5bb5de865755fb84ada35032b3c70ab5a18a9ee7c40c2a7aa3f57169",
+      "bytes": 667705,
+      "regular_members": 76,
+      "uncompressed_bytes": 2439414
+    },
+    {
+      "path": "actual-recovery.tar.gz",
+      "source": "/tmp/japp-m03-w05-actual-recovery-execution-20261019-retained/proof.tar.gz",
+      "scope": "Three187 catalogs and strict statics; exactly four selected real recovery cases each3 modes, not187 executions",
+      "sha256": "af789d21466b2411b0d7190c8a98ebec0546b7cc4388043dec4e52b724345cf7",
+      "bytes": 18222376,
+      "regular_members": 761,
+      "uncompressed_bytes": 80229740
+    },
+    {
+      "path": "actual-recovery-data-review.tar.gz",
+      "source": "/tmp/japp-m03-w05-actual-recovery-data-independent-review-20261019-retained/proof.tar.gz",
+      "scope": "Different actual-data review of the finite actual recovery proof; exact limits in report",
+      "sha256": "e4c3362d2554819e3524d901c3cb246477ebea0a1dbb093d45ebbb9a31741ccc",
+      "bytes": 146497,
+      "regular_members": 9,
+      "uncompressed_bytes": 893150
+    },
+    {
+      "path": "semantic-correction-review.tar.gz",
+      "source": "/tmp/japp-m03-w05-ip-records-20261019/semantic-correction-review.tar.gz",
+      "scope": "Earlier different source/counterproof review closing W05-PHASE-001 and W05-REVOKE-002; separate original execution identity",
+      "sha256": "d48dd5e7c157a960045b5106f6b28c807d83febbca67d91c1d358667c4abdf90",
+      "bytes": 14976,
+      "regular_members": 8,
+      "uncompressed_bytes": 48113
+    }
+  ],
+  "files": {
+    "README.md": {
+      "bytes": 2296,
+      "sha256": "2c654e8e0064057aa2635b8575db63cd31b40b2231a104d56eaa450854189518"
+    },
+    "actual-recovery-data-review.md": {
+      "bytes": 4340,
+      "sha256": "17dc1c0a5503b374301abcd93759b3a393ef9dbd0fae7896df1736281cb0bab3"
+    },
+    "actual-recovery-retention-manifest.json": {
+      "bytes": 155562,
+      "sha256": "6ab0c898d6590f5209856dcec6a71f33d62e46f21f27f46c34d7fcf0d4c10107"
+    },
+    "native-images-manifest.json": {
+      "bytes": 7224,
+      "sha256": "182382c95b7cffac91b30ff1a55f578f9d6af47c0aa8d060eb5a45914594ede2"
+    }
+  },
+  "canonical_nine_postimages": {
+    "apps/desktop/src-tauri/src/diagnostics/core.rs": {
+      "bytes": 19232,
+      "sha256": "6fc040d8709f0ce18cfcc2883c327ceef2c471c37bceee27c6d57b6c1495e682"
+    },
+    "apps/desktop/src-tauri/src/diagnostics/engine.rs": {
+      "bytes": 9983,
+      "sha256": "9f7e01a9bfa65783b837868fee372bde6fcf3bc83dcd12022caea1eeb6b75b47"
+    },
+    "apps/desktop/src-tauri/src/diagnostics/mod.rs": {
+      "bytes": 435,
+      "sha256": "0576ed4a07434dfb0a2142ce28aa10fe21d89cdd8cf0669c743ddc3a2dd9fc6a"
+    },
+    "apps/desktop/src-tauri/src/diagnostics/owner.rs": {
+      "bytes": 6180,
+      "sha256": "131d58474a9678855c2a5afef85e360e3561b9993dbf94f0b85793743cd14a37"
+    },
+    "apps/desktop/src-tauri/src/service/authority_hub.rs": {
+      "bytes": 6777,
+      "sha256": "9d05be4324795af06ebdb66d331a6bcdfb4407bf6bb0d8d357fdf54eaad0263d"
+    },
+    "apps/desktop/src-tauri/src/service/mod.rs": {
+      "bytes": 592,
+      "sha256": "b4021e85352b1608d95c01bce5b9f903c2716cda26248e94685964fcd84b4df9"
+    },
+    "apps/desktop/src-tauri/src/service/restart.rs": {
+      "bytes": 52720,
+      "sha256": "f8d358377a7bffe76291ad7bc8e4e2a802e18e683bc977993a4394d3e0ba3fcc"
+    },
+    "apps/desktop/src-tauri/src/service/supervisor.rs": {
+      "bytes": 46646,
+      "sha256": "a8422c60330f21a3424c11750a2b7c00115b07b45f7ec2d1c7c5236fe2950126"
+    },
+    "apps/desktop/src-tauri/src/service/tauri_lifecycle.rs": {
+      "bytes": 24118,
+      "sha256": "1f6ad4d216c5c0768e89e099f2153406a2e97a79620d2d51b470312b0dd225d1"
+    }
+  }
+}

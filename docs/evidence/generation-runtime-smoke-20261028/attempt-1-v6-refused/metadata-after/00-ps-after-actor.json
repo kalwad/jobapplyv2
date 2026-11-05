@@ -1,0 +1,26 @@
+{
+  "label": "ps-after-actor",
+  "endpoint": "http://127.0.0.1:11434",
+  "received_bytes": 518,
+  "received_sha256": "2bbb2c764c624e0e0661eb878753d8b36045ab20cf93989f5205168b2c9ef503",
+  "retention": "PUBLIC_ALLOWLIST_PROJECTION",
+  "public": {
+    "loaded_model_count": 1,
+    "prescribed_candidate_models": [
+      {
+        "digest": "ded7a27350032202d9e9b2a6071e8aa89959ab156771b5228f30863c741c4970",
+        "size": 7831994308,
+        "size_vram": 7831994308,
+        "context_length": 8192,
+        "details": {
+          "format": "safetensors",
+          "family": null,
+          "parameter_size": null,
+          "quantization_level": null,
+          "runner": null
+        }
+      }
+    ],
+    "other_loaded_model_count": 0
+  }
+}

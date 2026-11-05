@@ -1,0 +1,583 @@
+{
+  "archive": "/tmp/japp-w14-native-validity-proof.tar.gz",
+  "archive_bytes": 4714382,
+  "archive_sha256": "c10dec4ebfe565dde09425a73a38c647f9e8e51105e15163ae96eb4cb602596f",
+  "regular_members": 115,
+  "files": [
+    {
+      "path": "NATIVE-VALIDITY-DELTA.patch",
+      "bytes": 2635,
+      "sha256": "56382908665d5fd4c8543df701b67498b3f222bafc768164a15607755b0d21e8"
+    },
+    {
+      "path": "SCOPE.md",
+      "bytes": 4200,
+      "sha256": "896dfcacaf9f7d956f4a389d7208d7756e9c19fcdc5cadbe216c38c73f178d87"
+    },
+    {
+      "path": "after-source/apps/extension/src/driver-engine.ts",
+      "bytes": 60000,
+      "sha256": "749b00ac70478f94d8e78779e39f973475ba8d6ee003cb9a68ad1e3b623f2382"
+    },
+    {
+      "path": "after-source/apps/extension/src/drivers/driver-dom.ts",
+      "bytes": 13233,
+      "sha256": "8256c4ec3893d3f3e9671715c3f5f5b736f59f6600cdbaeb9d520d2068d695bc"
+    },
+    {
+      "path": "after-source/e2e/extension/extension-w14-native-validity.spec.ts",
+      "bytes": 9431,
+      "sha256": "b0c3bcb6b93eee78ad1a45f001f1b33cead19e2c703093b515f9f34f037fed33"
+    },
+    {
+      "path": "before-source/apps/extension/src/driver-engine.ts",
+      "bytes": 59956,
+      "sha256": "f0620c2f4b05162f92365ba09fb6523eea76a89dc93ce6e1683f3b41694035b6"
+    },
+    {
+      "path": "before-source/apps/extension/src/drivers/driver-dom.ts",
+      "bytes": 12276,
+      "sha256": "1c3b436c0be62413ee190bf658c9d5240a2daea242a75802fdfb53269fab8d4b"
+    },
+    {
+      "path": "before-source/e2e/extension/extension-w14-native-validity-fresh.spec.ts",
+      "bytes": 9322,
+      "sha256": "65f51576a891624843b7eb443150496814af46610c4810e754ab7050be0e3dbe"
+    },
+    {
+      "path": "invocation-annotation.json",
+      "bytes": 5341,
+      "sha256": "e70e060c63e48cc205304bab1fc74f1e4a6c12b31bc378395cfebacd077d442b"
+    },
+    {
+      "path": "japp-w14-fresh-public-source-review.md",
+      "bytes": 4142,
+      "sha256": "4198c3a9e6254821375098545591cb31d482c5aa26503529366a04af95585e9a"
+    },
+    {
+      "path": "japp-w14-fresh-safety-review.md",
+      "bytes": 15246,
+      "sha256": "87167f041ab53be7cdcc849f5639ac0c47424a3e354953c46e9ad397a89d8b37"
+    },
+    {
+      "path": "japp-w14-validity-adjacent-results.json",
+      "bytes": 851116,
+      "sha256": "d97447851526b8bd53d3fbfa371562cba9e8531f3bfe35bd9f99aabe5d74d1c3"
+    },
+    {
+      "path": "japp-w14-validity-adjacent.log",
+      "bytes": 6644,
+      "sha256": "8d2f7de64c471cfbdaf7b85c9c64370758c80d3513db50bcd955aab46be8de2e"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/.last-run.json",
+      "bytes": 194,
+      "sha256": "2a58626b1e09b50aef17d06d041113e7b8f96a2d982ec7cd8db9ec79cb07aa92"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-510a9-validity-W11-late-rejection-chromium/error-context.md",
+      "bytes": 6225,
+      "sha256": "640918eac52f6d9e1803d0d5baac34c04858fe11f8aebf2ec4a6b3ca9ef9fbec"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-510a9-validity-W11-late-rejection-chromium/native-fresh-native-validity-W11-true.json",
+      "bytes": 29035,
+      "sha256": "4c7a2fbbdc1ee9ca94443d7ae34300d404b33633946f84973866a50d1ad811af"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-510a9-validity-W11-late-rejection-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-510a9-validity-W11-late-rejection-chromium/trace.zip",
+      "bytes": 179605,
+      "sha256": "deb5953cd08818de9e010042f73a565748da47bd8325c17d97d22759a6c1cda7"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-6c012-dity-W11-unchanged-positive-chromium/native-fresh-native-validity-W11-false.json",
+      "bytes": 28993,
+      "sha256": "23f63bb3422ab77a400d379c0557927c49938c79cc29e0f0579430b7b43c4a25"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-6c012-dity-W11-unchanged-positive-chromium/trace.zip",
+      "bytes": 175358,
+      "sha256": "4c07c2dd49b7be926fe7865007955aa80c9d2b560571fbfabc4da8fa469c12bc"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-95067-dity-EXECUTE-late-rejection-chromium/error-context.md",
+      "bytes": 7641,
+      "sha256": "cb8966391ad115e9bb02fbf260bb4c223f2b86865cad24708a4528c8e37862bc"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-95067-dity-EXECUTE-late-rejection-chromium/native-fresh-native-validity-EXECUTE-true.json",
+      "bytes": 15315,
+      "sha256": "3f81bff4a79685d2674adeeba02e81228f5e54bacce8880726896dfb14c4fe00"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-95067-dity-EXECUTE-late-rejection-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-95067-dity-EXECUTE-late-rejection-chromium/trace.zip",
+      "bytes": 176707,
+      "sha256": "90d741580e02818aa064cf75911590f9b314c25ef4d7e841f2c6c6970555b3e3"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-a19bd-ity-UNDO-unchanged-positive-chromium/native-fresh-native-validity-UNDO-false.json",
+      "bytes": 20209,
+      "sha256": "273cdfc09a1c513af45ae3c2914370d6662c009e75fc14278667e3e064b33ddf"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-a19bd-ity-UNDO-unchanged-positive-chromium/trace.zip",
+      "bytes": 176040,
+      "sha256": "75445076dff9ee00b3069a9848528db0ee1df232e5fcbbd6df7b8a546ed0e9be"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-ac996--EXECUTE-unchanged-positive-chromium/native-fresh-native-validity-EXECUTE-false.json",
+      "bytes": 15290,
+      "sha256": "b5e68375e9971a92f80cd134d0927b445d80ab67646835978f1d596f7e312e28"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-ac996--EXECUTE-unchanged-positive-chromium/trace.zip",
+      "bytes": 161104,
+      "sha256": "d4385f179782db5d0f5c4efb31ab98a828bb7be77f6d99c497f4cd4943dd53fd"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-fa609-alidity-UNDO-late-rejection-chromium/error-context.md",
+      "bytes": 6823,
+      "sha256": "cd7d06e45eb6a06bbf8d531f0e7b5fd692b776aa52e2b1cad2c16dd6155eb69d"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-fa609-alidity-UNDO-late-rejection-chromium/native-fresh-native-validity-UNDO-true.json",
+      "bytes": 20242,
+      "sha256": "da57fbcdb5aa168be60cc489aa9d05e5bc106c1bc5ca5b984b4fc1ec6540a32f"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-fa609-alidity-UNDO-late-rejection-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "japp-w14-validity-before-artifacts/extension-extension-w14-na-fa609-alidity-UNDO-late-rejection-chromium/trace.zip",
+      "bytes": 178689,
+      "sha256": "a2d093bdd5b5138b6d331749b76540c0e7ec146ca5a48125a7d09ae7f5ad6731"
+    },
+    {
+      "path": "japp-w14-validity-before-results.json",
+      "bytes": 195079,
+      "sha256": "ee3d2c288fc57ad8450f8cf9c549ccc5eab66c0d85cb9f8488f7a03874783a4a"
+    },
+    {
+      "path": "japp-w14-validity-before-source.json",
+      "bytes": 32642,
+      "sha256": "ced5543a7950dc71495cac7e90462c1c66f5a4e1b586bf61c14bb02f350d33f3"
+    },
+    {
+      "path": "japp-w14-validity-before-summary.json",
+      "bytes": 7207,
+      "sha256": "409f805e3620017ad4d2f0d80e819f1b492c87b8fb126456bd2089e48ee64179"
+    },
+    {
+      "path": "japp-w14-validity-before.log",
+      "bytes": 10786,
+      "sha256": "8412fd025a01d6f7e2fea8cd6399c3ef008b41d5713efb09455022cb22930cb5"
+    },
+    {
+      "path": "japp-w14-validity-capture.mjs",
+      "bytes": 2248,
+      "sha256": "a8979a7037e861f4e533006cac070d934f86ac438b4951555f1230b9b27a178c"
+    },
+    {
+      "path": "japp-w14-validity-green-build.log",
+      "bytes": 827,
+      "sha256": "3ecd2aafb9f93c1531949d6a9feb35794f6dd39bffb1d08a53699d31fbc574ce"
+    },
+    {
+      "path": "japp-w14-validity-install.log",
+      "bytes": 573,
+      "sha256": "b198adcdd0e53a5d6d14527eac505334903e1f9df8bb8ec1e781213fade21ea2"
+    },
+    {
+      "path": "japp-w14-validity-integration-after.json",
+      "bytes": 74531,
+      "sha256": "5b51ab6a951fae122e21198cb5c16787a336c6aa9ab73b24c2836f18322f7990"
+    },
+    {
+      "path": "japp-w14-validity-integration-artifacts/.last-run.json",
+      "bytes": 45,
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "japp-w14-validity-integration-artifacts/extension-extension-w14-na-61e25-alidity-UNDO-late-rejection-chromium/native-fresh-native-validity-UNDO-true.json",
+      "bytes": 20280,
+      "sha256": "3b3bbaa3ae2bc36448cf3e06195de7a92a81daacd91d3db80331cb00b326f62d"
+    },
+    {
+      "path": "japp-w14-validity-integration-artifacts/extension-extension-w14-na-61e25-alidity-UNDO-late-rejection-chromium/trace.zip",
+      "bytes": 176214,
+      "sha256": "13fd336219d3194c26aa9dc3bb010d0ca72b6901dddb187a402268f27cc03b41"
+    },
+    {
+      "path": "japp-w14-validity-integration-artifacts/extension-extension-w14-na-61e50-ity-UNDO-unchanged-positive-chromium/native-fresh-native-validity-UNDO-false.json",
+      "bytes": 20216,
+      "sha256": "677e206c09e737483e74b403ae675d8b1046654b549d0410718b7964ffca946a"
+    },
+    {
+      "path": "japp-w14-validity-integration-artifacts/extension-extension-w14-na-61e50-ity-UNDO-unchanged-positive-chromium/trace.zip",
+      "bytes": 176081,
+      "sha256": "1fac4623f19e93953928a3a6eecbcbe5d93ca404a21c87907f2b37f5400f3539"
+    },
+    {
+      "path": "japp-w14-validity-integration-artifacts/extension-extension-w14-na-8e336--EXECUTE-unchanged-positive-chromium/native-fresh-native-validity-EXECUTE-false.json",
+      "bytes": 15286,
+      "sha256": "2a17aca18f71dbd4138770a929f0ad12926713cf5af3103a9de6e987ae1e3c67"
+    },
+    {
+      "path": "japp-w14-validity-integration-artifacts/extension-extension-w14-na-8e336--EXECUTE-unchanged-positive-chromium/trace.zip",
+      "bytes": 173083,
+      "sha256": "f3fe97c50bd12e2d8a9b9f512ee43ed17239c25668c0f5c8e4ad85214050c3e7"
+    },
+    {
+      "path": "japp-w14-validity-integration-artifacts/extension-extension-w14-na-a458b-validity-W11-late-rejection-chromium/native-fresh-native-validity-W11-true.json",
+      "bytes": 27686,
+      "sha256": "c647ff29a14d8d69dd753e76bf327d625349eccafde80f8f84a087bcea693963"
+    },
+    {
+      "path": "japp-w14-validity-integration-artifacts/extension-extension-w14-na-a458b-validity-W11-late-rejection-chromium/trace.zip",
+      "bytes": 176369,
+      "sha256": "af894444e7f2a3bbec7a913b73df5ab44f2de3e351d75a85b3c649713949b7ac"
+    },
+    {
+      "path": "japp-w14-validity-integration-artifacts/extension-extension-w14-na-c2c31-dity-EXECUTE-late-rejection-chromium/native-fresh-native-validity-EXECUTE-true.json",
+      "bytes": 15357,
+      "sha256": "31f35a3d76af7a4cd081a9aa31a2bdd8cd8b492d3eb2394d1706c94cc9523350"
+    },
+    {
+      "path": "japp-w14-validity-integration-artifacts/extension-extension-w14-na-c2c31-dity-EXECUTE-late-rejection-chromium/trace.zip",
+      "bytes": 161446,
+      "sha256": "585460d6b97d406fe30c37eadcbdfc85c040d7d3be017b4edf76ab96cd80f972"
+    },
+    {
+      "path": "japp-w14-validity-integration-artifacts/extension-extension-w14-na-f7767-dity-W11-unchanged-positive-chromium/native-fresh-native-validity-W11-false.json",
+      "bytes": 29005,
+      "sha256": "efbad0678160bfdbf24d7ee5f51b7b05b73a8d869c1ffc76fc6720a5b5df4b2f"
+    },
+    {
+      "path": "japp-w14-validity-integration-artifacts/extension-extension-w14-na-f7767-dity-W11-unchanged-positive-chromium/trace.zip",
+      "bytes": 164701,
+      "sha256": "b5f3c3a45298aac6e2f8290f74f5423212bc8654a62298bdabab91ab438f69d2"
+    },
+    {
+      "path": "japp-w14-validity-integration-before.json",
+      "bytes": 74532,
+      "sha256": "2638697b26ccf5c55a86d96018d7b946d4e12f496136ccfe9beac2c3fc1df549"
+    },
+    {
+      "path": "japp-w14-validity-integration-binding.json",
+      "bytes": 664,
+      "sha256": "8e99ccc6ad459d54a3649a251f901df6004709dd05b4306765889f1facb45c61"
+    },
+    {
+      "path": "japp-w14-validity-integration-format.log",
+      "bytes": 57,
+      "sha256": "c7469eb278941e96b8c8cda937339203c75d5208134a7b619c839847177a7cb0"
+    },
+    {
+      "path": "japp-w14-validity-integration-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "japp-w14-validity-integration-probe.diff",
+      "bytes": 1091,
+      "sha256": "13bb12cc139eec86e9e2ec033a89126378bc3df8d1aab1f4756c42071e8a8176"
+    },
+    {
+      "path": "japp-w14-validity-integration-results.json",
+      "bytes": 182524,
+      "sha256": "ff6c3fccd02b607a705dddd2f411dc792a38443421426204959f9f7b88688659"
+    },
+    {
+      "path": "japp-w14-validity-integration-typecheck.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "japp-w14-validity-integration.log",
+      "bytes": 2568,
+      "sha256": "3f73c9fff040bfdbe55f6855c67cab17e5d359ec7739d6a4db4200c2188014e4"
+    },
+    {
+      "path": "japp-w14-validity-probe-format.log",
+      "bytes": 63,
+      "sha256": "95c19216ffb8ea2b33f15bd25a37b9d5010433daf617a2bdd2e2016d86fbb2b5"
+    },
+    {
+      "path": "japp-w14-validity-probe-lint.log",
+      "bytes": 642,
+      "sha256": "505e4b467e18dbe35a90569534205bcc0f58d50ba6c754ba50e488d98f0f1b1c"
+    },
+    {
+      "path": "japp-w14-validity-probe-typecheck.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "japp-w14-validity-red-green-summary.json",
+      "bytes": 10363,
+      "sha256": "446808db0724c112d1ed50804f1a61ab23140af60a7d6fafde2cc7a609d6bafe"
+    },
+    {
+      "path": "japp-w14-validity-review-preimages.json",
+      "bytes": 475,
+      "sha256": "1c5d5f3971a35093d7fb9f4346853cf9d1b7ade4c9328727df7658b6e5e76939"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-after.json",
+      "bytes": 74299,
+      "sha256": "9798071c4bca43256fc1b27f5cf95615bbc2ce4e2938f7948c46bd06a7dfe0a5"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-artifacts/.last-run.json",
+      "bytes": 45,
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-artifacts/extension-extension-w14-na-510a9-validity-W11-late-rejection-chromium/native-fresh-native-validity-W11-true.json",
+      "bytes": 27680,
+      "sha256": "7cd9422bd25fee60c5e848eade6bfa7d157110560820e038d6d8250ccde9a654"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-artifacts/extension-extension-w14-na-510a9-validity-W11-late-rejection-chromium/trace.zip",
+      "bytes": 176298,
+      "sha256": "cba85cb42e782222c935529658ac912e3f9f9e13e0d05e6a2a77172e34d4c29e"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-artifacts/extension-extension-w14-na-6c012-dity-W11-unchanged-positive-chromium/native-fresh-native-validity-W11-false.json",
+      "bytes": 29002,
+      "sha256": "37087b6b799b383df74ea07cab298bf2b020f20258e21211842179ba509b1c1d"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-artifacts/extension-extension-w14-na-6c012-dity-W11-unchanged-positive-chromium/trace.zip",
+      "bytes": 164141,
+      "sha256": "d2f49320b2a01a390a9ccbfef20a92110e04e6800709eb3f8338c1e70a0200da"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-artifacts/extension-extension-w14-na-95067-dity-EXECUTE-late-rejection-chromium/native-fresh-native-validity-EXECUTE-true.json",
+      "bytes": 15353,
+      "sha256": "8d35c7d288ac1f9a54da08e41c46d5853ec85ee02f127a8c60db99cb66fca67d"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-artifacts/extension-extension-w14-na-95067-dity-EXECUTE-late-rejection-chromium/trace.zip",
+      "bytes": 173076,
+      "sha256": "f30d1aa8839f5cd9a0b79b26980e08e894a743cd5528bebeeceadc97b90b6eeb"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-artifacts/extension-extension-w14-na-a19bd-ity-UNDO-unchanged-positive-chromium/native-fresh-native-validity-UNDO-false.json",
+      "bytes": 20218,
+      "sha256": "ed75175f7365fbd60a6a521ac0102c1f487dc1f0ddb5cab8496849593ef816bb"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-artifacts/extension-extension-w14-na-a19bd-ity-UNDO-unchanged-positive-chromium/trace.zip",
+      "bytes": 176063,
+      "sha256": "458000a3dee9266126d8eed21b005d062e64065a31776f00aa99c6495d4466dc"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-artifacts/extension-extension-w14-na-ac996--EXECUTE-unchanged-positive-chromium/native-fresh-native-validity-EXECUTE-false.json",
+      "bytes": 15288,
+      "sha256": "ff551e59367749f4ecabb0fcfffcf48f1ecdf5ac9b9728a398b27a98bbaf1442"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-artifacts/extension-extension-w14-na-ac996--EXECUTE-unchanged-positive-chromium/trace.zip",
+      "bytes": 172380,
+      "sha256": "56c43aa2f49fbdd2a6b1a4fb411744f1f165e516ab549c4537390f07ba7031b0"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-artifacts/extension-extension-w14-na-fa609-alidity-UNDO-late-rejection-chromium/native-fresh-native-validity-UNDO-true.json",
+      "bytes": 20282,
+      "sha256": "46000d56a90fe6729100ce2d62ad044aebea01687efcd0a3c888293f7b8d2188"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-artifacts/extension-extension-w14-na-fa609-alidity-UNDO-late-rejection-chromium/trace.zip",
+      "bytes": 176191,
+      "sha256": "6dcba4f9533e28ecdfc8df41dcc856bc7e1bb748bcd6dcd5a91665149bc5ae44"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-before.json",
+      "bytes": 74300,
+      "sha256": "86491b39a81dd448c88a0182f395d52645af7856914ac7bcde5a9a6cef487de9"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-binding.json",
+      "bytes": 510,
+      "sha256": "18328e503ff992ad475540e65a884edd9eecfc5260e6bbe676876065ec417cb9"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green-results.json",
+      "bytes": 182578,
+      "sha256": "bbef756f2b66f68a858701cad84956bb1e3cab4cd71f56f668fcbe7d039673fd"
+    },
+    {
+      "path": "japp-w14-validity-sealed-green.log",
+      "bytes": 2604,
+      "sha256": "c46af8f6d5b5f80c1506d1912e545110c1af770b7b9c03ad2e3cf4127c1050e8"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-after.json",
+      "bytes": 74210,
+      "sha256": "03eccbf999cffe84515a283438751fc21f9ca587c37f5303cff5a459a21eec6f"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/.last-run.json",
+      "bytes": 194,
+      "sha256": "2a58626b1e09b50aef17d06d041113e7b8f96a2d982ec7cd8db9ec79cb07aa92"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-510a9-validity-W11-late-rejection-chromium/error-context.md",
+      "bytes": 6225,
+      "sha256": "640918eac52f6d9e1803d0d5baac34c04858fe11f8aebf2ec4a6b3ca9ef9fbec"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-510a9-validity-W11-late-rejection-chromium/native-fresh-native-validity-W11-true.json",
+      "bytes": 29029,
+      "sha256": "0831c3cc2fa4f05debd164bc2898d85a5385d167b5465512bad4927538fb45b9"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-510a9-validity-W11-late-rejection-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-510a9-validity-W11-late-rejection-chromium/trace.zip",
+      "bytes": 179771,
+      "sha256": "aea4de5d65d261a398d1f5b7438fb0edf7da0313570c4920b3070bfd214b1628"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-6c012-dity-W11-unchanged-positive-chromium/native-fresh-native-validity-W11-false.json",
+      "bytes": 29003,
+      "sha256": "a204c648292e172281cdf252277a6c6ce408fc04c8927553d7ba64e1c62922b7"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-6c012-dity-W11-unchanged-positive-chromium/trace.zip",
+      "bytes": 176662,
+      "sha256": "0baac50e661e5724570b099a070464b707cc61ab0a0f60cd1c6d23b1b5088eae"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-95067-dity-EXECUTE-late-rejection-chromium/error-context.md",
+      "bytes": 7641,
+      "sha256": "cb8966391ad115e9bb02fbf260bb4c223f2b86865cad24708a4528c8e37862bc"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-95067-dity-EXECUTE-late-rejection-chromium/native-fresh-native-validity-EXECUTE-true.json",
+      "bytes": 15316,
+      "sha256": "64069cc656da2dc3cf05ff8fa3447e3961badf684018578b1acd465b4568d4c1"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-95067-dity-EXECUTE-late-rejection-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-95067-dity-EXECUTE-late-rejection-chromium/trace.zip",
+      "bytes": 176834,
+      "sha256": "293450a5f24f063134bf3e266c4ef3d8ce28b1b4901fee9e1b953fdffe1ab063"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-a19bd-ity-UNDO-unchanged-positive-chromium/native-fresh-native-validity-UNDO-false.json",
+      "bytes": 20215,
+      "sha256": "c9bde3658bc228ecb476180063eb2e3b8cb803e864f03ceb9fffb93b6e691eaa"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-a19bd-ity-UNDO-unchanged-positive-chromium/trace.zip",
+      "bytes": 176063,
+      "sha256": "44f20c4e61b7b1dbed723a2a6a5342e17ebf28a648bc92f35ce5eb8bf03a574a"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-ac996--EXECUTE-unchanged-positive-chromium/native-fresh-native-validity-EXECUTE-false.json",
+      "bytes": 15290,
+      "sha256": "9a29aa3df4bb4c4590424ecea0ad78351cd4f8b592c1559ef921c3d989d908d1"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-ac996--EXECUTE-unchanged-positive-chromium/trace.zip",
+      "bytes": 161145,
+      "sha256": "b6353e772b054d5adbca14a08e67b6d2aecfdd3ebee8ce9c2dad01fbad948f41"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-fa609-alidity-UNDO-late-rejection-chromium/error-context.md",
+      "bytes": 6823,
+      "sha256": "cd7d06e45eb6a06bbf8d531f0e7b5fd692b776aa52e2b1cad2c16dd6155eb69d"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-fa609-alidity-UNDO-late-rejection-chromium/native-fresh-native-validity-UNDO-true.json",
+      "bytes": 20242,
+      "sha256": "1cc681bd96fe0a22af846d4e3c5ab23d23e70baf53424b612e7d82c3cea40270"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-fa609-alidity-UNDO-late-rejection-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-artifacts/extension-extension-w14-na-fa609-alidity-UNDO-late-rejection-chromium/trace.zip",
+      "bytes": 167086,
+      "sha256": "e4e1cb667a55983ff3310f8ab30b5441860020ebec677cdc30bee47e0881bf07"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-before.json",
+      "bytes": 74211,
+      "sha256": "f68fff91e69c0c898368020fb9cb9f842f9114b978dcd8a1a7fd260421ab54af"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-binding.json",
+      "bytes": 510,
+      "sha256": "712e9877b4d90e1731c7f8a1e9d4e6f7c57b3af1f45c15c2e6ec87ac2ef82b14"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red-results.json",
+      "bytes": 195151,
+      "sha256": "df798ae4863fa7d0b6852072f3d594539edd99bee3a150439ded33039565708e"
+    },
+    {
+      "path": "japp-w14-validity-sealed-red.log",
+      "bytes": 10834,
+      "sha256": "d676ad0453e65de78812b3e8c499651c63d476a143d8ef86f6f4cb50de846131"
+    },
+    {
+      "path": "source-inventory-comparison.json",
+      "bytes": 563,
+      "sha256": "0a9529993bc9f5c61defa6a1bc511a696ee17207a9cfe28adfa471fa0eb0764c"
+    },
+    {
+      "path": "source-manifest.json",
+      "bytes": 871,
+      "sha256": "0105b97ceefd5e9fd1493653be4ab27a5b7c3a9a9cf753c2e3241e02ec229e62"
+    },
+    {
+      "path": "static-format-check.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "static-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "static-typecheck-final.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "static-typecheck.log",
+      "bytes": 798,
+      "sha256": "196947402e87676450dd11b15cf64263790aace3571901e9f98e6d9cae015bc9"
+    },
+    {
+      "path": "retained-files.json",
+      "bytes": 25705,
+      "sha256": "aac85d88c7a71ab4f17195620b34193148f3b79008773f4819b7c5dbe1d4ac0a"
+    }
+  ]
+}

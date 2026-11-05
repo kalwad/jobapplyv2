@@ -1,0 +1,548 @@
+{
+  "members": [
+    {
+      "path": "actual-adoption/after.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-adoption/v1/after.json",
+      "bytes": 489553,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "3af040351bccbfd159acff494baa84f587181f3df0650ce4b31b654844709f50"
+    },
+    {
+      "path": "actual-adoption/before.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-adoption/v1/before.json",
+      "bytes": 489167,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "714cbdcd64708c1968daf5d8a3b008e86a5ac4e99ad98b9a2fd35b1df6be266e"
+    },
+    {
+      "path": "actual-adoption/closure.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-adoption/v1/closure.json",
+      "bytes": 979,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "b93cc41f91c4e42341e124efbabafb94a449c8523c86fda5406687d7c9b4de8a"
+    },
+    {
+      "path": "actual-adoption/executed-adoption.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-adoption/v1/executed-adoption.py",
+      "bytes": 5659,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "3ebe88c1e3b7998387d9bac8fe76cdec974207b585b7c2f27091a4fb2b5653a9"
+    },
+    {
+      "path": "actual-focus/after.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/after.json",
+      "bytes": 489409,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "c65a841f69524c5b05a8d8ec7f16d1c9ff435e8c79972bea5349ec702e71f33a"
+    },
+    {
+      "path": "actual-focus/before.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/before.json",
+      "bytes": 489409,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "c65a841f69524c5b05a8d8ec7f16d1c9ff435e8c79972bea5349ec702e71f33a"
+    },
+    {
+      "path": "actual-focus/closure.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/closure.json",
+      "bytes": 222,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "f47fa5164c8e6ca0ac5085b4bb129d8c2e55ce6c3d0c90a3aa2167f65cdf4542"
+    },
+    {
+      "path": "actual-focus/collection.log",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/collection.log",
+      "bytes": 349896,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "785163d30ed9a86042f246d169c5e6cd9d99d7127b271d61064837e7a9a87e7d"
+    },
+    {
+      "path": "actual-focus/diff-check.log",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/diff-check.log",
+      "bytes": 0,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual-focus/driver-executed.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/driver-executed.py",
+      "bytes": 4433,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "2e4cc85d4534b128184d5dbbd7b812eaaad5ab8203b9ca60600358b81cf216b8"
+    },
+    {
+      "path": "actual-focus/focused-python.log",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/focused-python.log",
+      "bytes": 260,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "60371e33957bc6fe67a7fe9ab7fd49bc5a6c221ee6a0e37c8cb67ed2e56052a2"
+    },
+    {
+      "path": "actual-focus/format.log",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/format.log",
+      "bytes": 27,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "04eb0d6e6734823dcd2b2b704729e976f683df7a8f334da7216520ef1cb319bf"
+    },
+    {
+      "path": "actual-focus/integrity.log",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/integrity.log",
+      "bytes": 137513,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "1daf89948e946f521434f9951779883459f149c7ad21b03a3960a913c48a88bb"
+    },
+    {
+      "path": "actual-focus/mypy-services.log",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/mypy-services.log",
+      "bytes": 44,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "32c1f154f636757bc9df6843701b18b495673a7cf2e0f68b592d2055d6ae6c07"
+    },
+    {
+      "path": "actual-focus/mypy-win32.log",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/mypy-win32.log",
+      "bytes": 44,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "8f3f4c0ebcb835e848682f2c6610a1bf32c86a993bdb626d9ff36e3a49408398"
+    },
+    {
+      "path": "actual-focus/portability.log",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/portability.log",
+      "bytes": 35,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "b2369f3d044bc4c808b5aa346434aa52316f5d38268cf433815a465cbafca415"
+    },
+    {
+      "path": "actual-focus/prettier.log",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/prettier.log",
+      "bytes": 66,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "actual-focus/results.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/results.json",
+      "bytes": 8142,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "f601852fd66892e57a9139a393e10feb2433496f4c33ca7de2e4612e61177a7f"
+    },
+    {
+      "path": "actual-focus/ruff.log",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-focus/v1/ruff.log",
+      "bytes": 19,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "different-actual-review-top/DATA.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-independent-review/v1/DATA.json",
+      "bytes": 670051,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "25c0ae7cea168e27b2bfaa34b32fee757c71fba4a669e153f42794610ccca29a"
+    },
+    {
+      "path": "different-actual-review-top/PREDECLARED.md",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-independent-review/v1/PREDECLARED.md",
+      "bytes": 733,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "5f566f5a13ceaaf334b8cf37ddcafd641e04d45c87ddb6f39c4095fde4a4873f"
+    },
+    {
+      "path": "different-actual-review-top/REVIEW.md",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-independent-review/v1/REVIEW.md",
+      "bytes": 4547,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "ab4339dff469f6f17d3af2234f77d0255d8d40dbb04418ad99b7fd27b5d67a6d"
+    },
+    {
+      "path": "different-actual-review-top/SEAL.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-independent-review/v1/SEAL.json",
+      "bytes": 999,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "5af12284de7fdb554435ceddf23d41bfbc6ac52d7eb9599c6ee27da922d4b96d"
+    },
+    {
+      "path": "different-actual-review-top/audit_actual.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-independent-review/v1/audit_actual.py",
+      "bytes": 13560,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "0e5556dac5ea169883a8768af11f4bba71eb05e5375d09c29c6cb11c47bcb2e3"
+    },
+    {
+      "path": "different-actual-review-top/findings.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-independent-review/v1/findings.json",
+      "bytes": 745,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "91093f3c017e4072b01af40b67a65e87e289ce0c350f8666bf9c4ce064b3d4b6"
+    },
+    {
+      "path": "different-actual-review-top/manifest.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-independent-review/v1/manifest.json",
+      "bytes": 8647,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "1befd578fe95c5fa554d35b88bac4fe17e2d8bc2bd18e8ac86d116857479780b"
+    },
+    {
+      "path": "different-actual-review-top/proof.tar.gz",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-independent-review/v1/proof.tar.gz",
+      "bytes": 1058670,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "b888b2a16ecdab11a6278fb41c1c33dad5b17676502dcc25b59ce0869f0c66e2"
+    },
+    {
+      "path": "different-actual-review-top/retained-members.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-independent-review/v1/retained-members.json",
+      "bytes": 11836,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "4483800e61f4a229ddf481ff5558605539cc17e4ea14ad83d7420f7b3ae13b57"
+    },
+    {
+      "path": "different-actual-review-top/run_owned.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-independent-review/v1/run_owned.py",
+      "bytes": 1515,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "72a2a9d020c71992baef4d2588988f2aa362ec0f6dd6d33dd2dce64e0e92f999"
+    },
+    {
+      "path": "different-actual-review-top/seal.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-independent-review/v1/seal.py",
+      "bytes": 2228,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "c22db8813be835022a1d33e8653348c5e2d332c96bcdcb35ec05a7a1ba01ddb5"
+    },
+    {
+      "path": "different-source-review-top/REVIEW.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v2-corrected/REVIEW.json",
+      "bytes": 96892,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "fc5387674a4575516ba93f46ce2f85a116858ccea799e654729694b64669e175"
+    },
+    {
+      "path": "different-source-review-top/SOURCE.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v2-corrected/SOURCE.json",
+      "bytes": 5228,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "e13ea54f4cb63334c29a53788d127f0fe141f7156311276be54af6b31d35360a"
+    },
+    {
+      "path": "different-source-review-top/canonical-after.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v2-corrected/canonical-after.json",
+      "bytes": 11686,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "6e18ff54d5c8794aad8f9fbc06db60dc29fb3e03373a52476ce2bddb2fc3c12e"
+    },
+    {
+      "path": "different-source-review-top/canonical-before.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v2-corrected/canonical-before.json",
+      "bytes": 11686,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "6e18ff54d5c8794aad8f9fbc06db60dc29fb3e03373a52476ce2bddb2fc3c12e"
+    },
+    {
+      "path": "different-source-review-top/executed-review.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v2-corrected/executed-review.py",
+      "bytes": 12786,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "d15d90f8e4360ede333c8a6c37fe6bc0c1e1fb012b39362320a98853fbb61228"
+    },
+    {
+      "path": "different-source-review-top/generation-collection.stderr",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v2-corrected/generation-collection.stderr",
+      "bytes": 0,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "different-source-review-top/generation-collection.stdout",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v2-corrected/generation-collection.stdout",
+      "bytes": 33701,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "3dd5b0fd1c24cbc92a6c1cf8061ecbc41245bb58d592e4b9eb130b7cfbff9ba1"
+    },
+    {
+      "path": "different-source-review-top/generation-tests.stderr",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v2-corrected/generation-tests.stderr",
+      "bytes": 0,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "different-source-review-top/generation-tests.stdout",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v2-corrected/generation-tests.stdout",
+      "bytes": 316,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "b3ea4c2305ba9ca7f54838c37351172933c92063c59f82b5b7e0c3e1d2bd0953"
+    },
+    {
+      "path": "different-source-review-top/manifest.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v2-corrected/manifest.json",
+      "bytes": 509,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "aa3c06c28274e0bb792f18a9e1a1a3b27236b9af3999a3f2b204ef5d344b1e17"
+    },
+    {
+      "path": "different-source-review-top/proof.tar.gz",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v2-corrected/proof.tar.gz",
+      "bytes": 47608,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "68c2fe0ab78750e0c1f765d74e22c4e8dd477ccc3c85accd7642e818b42cf005"
+    },
+    {
+      "path": "different-source-review-top/receipts.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v2-corrected/receipts.json",
+      "bytes": 2058,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "9ff33b6eb072e43b49666413bb9919ced27b12139d6fb1ea93362ba67a424fb7"
+    },
+    {
+      "path": "different-source-review-top/run-tests.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v2-corrected/run-tests.py",
+      "bytes": 1784,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "c66801edf0028980d1c2139c6de27aa2c170aba22e409e2e2eb212de5c4c3306"
+    },
+    {
+      "path": "history/root-source-reader-v1/canonical-before.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v1/canonical-before.json",
+      "bytes": 11686,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "6e18ff54d5c8794aad8f9fbc06db60dc29fb3e03373a52476ce2bddb2fc3c12e"
+    },
+    {
+      "path": "history/root-source-reader-v1/executed-review.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v1/executed-review.py",
+      "bytes": 12041,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "8ff42b757951a85c67dbd7ee390f19b9bf2c3bd10244eb6c29b4a5769f2f3b28"
+    },
+    {
+      "path": "source-preparation-top/ADOPTION.md",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/ADOPTION.md",
+      "bytes": 1024,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "df41712bd9ca82f7b0daa7097517abbae9b14047c0a6214937a23b62d291adcc"
+    },
+    {
+      "path": "source-preparation-top/DESIGN.md",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/DESIGN.md",
+      "bytes": 4702,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "a0a09940b47f9328dbb14f62f4430577645c140c8a25a30823bef12f2e3fc81c"
+    },
+    {
+      "path": "source-preparation-top/HANDOFF.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/HANDOFF.json",
+      "bytes": 6827,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "99f1567338f5afe3aa4da4223f2326a993d3be26da9bc51310c7ba91eac0a217"
+    },
+    {
+      "path": "source-preparation-top/SEAL.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/SEAL.json",
+      "bytes": 670,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "5ed5b5dc346d73378cd20f31a333653ea9d0d2a629b8a0de49653768e4f64687"
+    },
+    {
+      "path": "source-preparation-top/SOURCE.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/SOURCE.json",
+      "bytes": 55656,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "471d5e158acd818506ab65dbcd920bcf9029a7c4b888450c8ead6c4a5ac67466"
+    },
+    {
+      "path": "source-preparation-top/afterimages.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/afterimages.json",
+      "bytes": 1123,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "669edd8cc3d7878f026a5e43ce20b1688bf47df323bec948e7ab03546d8d6bfb"
+    },
+    {
+      "path": "source-preparation-top/audit.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/audit.py",
+      "bytes": 8705,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "b22930497a11f3c7af20ba4ee0748804105f84a53580597a5a2f013075e81f76"
+    },
+    {
+      "path": "source-preparation-top/canonical-inputs.after.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/canonical-inputs.after.json",
+      "bytes": 2887,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "7f184d005af5308712d259b7d9a1fc8baba6285da5ef5c24e96c6f5092880134"
+    },
+    {
+      "path": "source-preparation-top/canonical-inputs.before.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/canonical-inputs.before.json",
+      "bytes": 2887,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "7f184d005af5308712d259b7d9a1fc8baba6285da5ef5c24e96c6f5092880134"
+    },
+    {
+      "path": "source-preparation-top/control-source-bindings.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/control-source-bindings.json",
+      "bytes": 5256,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "31a59e4c453518815bff5d6841f134fca1587be081db8c1c93749bb4f263769c"
+    },
+    {
+      "path": "source-preparation-top/data-review.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/data-review.json",
+      "bytes": 26422,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "544f4810642c449b5f3b0dc9f06bc499972f27263d02be0586a1bc82f6bb7cf0"
+    },
+    {
+      "path": "source-preparation-top/delta.patch",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/delta.patch",
+      "bytes": 3403,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "3cba93fd521fc6c3def165b8dfd87e75c7023cb8b463205c2809f3216a9b3923"
+    },
+    {
+      "path": "source-preparation-top/manifest.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/manifest.json",
+      "bytes": 801,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "ca4acc7c753234d75b7e83d9067a0190a98d29dc0cde7149d322228f20eb4d20"
+    },
+    {
+      "path": "source-preparation-top/new-test-node-ids.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/new-test-node-ids.json",
+      "bytes": 4721,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "f5421b079dacf64e54576550b417ea09e79e051e6657eb13ef171f6f01fb0a88"
+    },
+    {
+      "path": "source-preparation-top/proof.tar.gz",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/proof.tar.gz",
+      "bytes": 288035,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "9fbc0ca20f55e555f3722690d2c3c86a0d4746cfa587e5b4d4d334333f4fcbbd"
+    },
+    {
+      "path": "source-preparation-top/quality-summary.json",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/quality-summary.json",
+      "bytes": 45805,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "cb6441ab48bb08ba3b6cfec128ef473562148d393f568f5539d0b43c7b28b424"
+    },
+    {
+      "path": "source-preparation-top/run_phase.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/run_phase.py",
+      "bytes": 3707,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "a3cd4bf05b0e3daad95d89e8ae12aabd12d82d8349bf9c33d4cd8ac425c3e9b2"
+    },
+    {
+      "path": "source-preparation-top/seal.py",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/seal.py",
+      "bytes": 2085,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "4f3530f2fba4b65556a434f35427546b63bd6a398f56909a9aa8aa3c10cb5fde"
+    }
+  ],
+  "regular_members": 63,
+  "all_original_archive_bytes_full_modes_verified": true,
+  "nested_original_sealed_proofs": [
+    {
+      "source": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-correction/v1/proof.tar.gz",
+      "bytes": 288035,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "9fbc0ca20f55e555f3722690d2c3c86a0d4746cfa587e5b4d4d334333f4fcbbd",
+      "safe_regular_members": 274,
+      "expanded_bytes": 1936417,
+      "all_original_member_bytes_fullmodes_join": true
+    },
+    {
+      "source": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-independent-review/v2-corrected/proof.tar.gz",
+      "bytes": 47608,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "68c2fe0ab78750e0c1f765d74e22c4e8dd477ccc3c85accd7642e818b42cf005",
+      "safe_regular_members": 27,
+      "expanded_bytes": 301700,
+      "all_original_member_bytes_fullmodes_join": true
+    },
+    {
+      "source": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/generation-idle-timeout-state-canonical-independent-review/v1/proof.tar.gz",
+      "bytes": 1058670,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "b888b2a16ecdab11a6278fb41c1c33dad5b17676502dcc25b59ce0869f0c66e2",
+      "safe_regular_members": 47,
+      "expanded_bytes": 5427511,
+      "all_original_member_bytes_fullmodes_join": true
+    }
+  ],
+  "omissions": [
+    "Expanded duplicate candidate/control/pytest/cache trees are omitted; complete original sealed source and both review proof archives retain source, QA and historical failures.",
+    "Two available initial root-reader-v1 files are retained; no absent stdout/receipt is fabricated.",
+    "Large original full source/runtime bodies remain outside; actual closed endpoints and immutable old-source joins are retained.",
+    "No new full or originalf3 pendingCI result transfers onto this client correction."
+  ]
+}

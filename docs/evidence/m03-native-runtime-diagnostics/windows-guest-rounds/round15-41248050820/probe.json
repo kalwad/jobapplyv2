@@ -1,0 +1,81 @@
+[
+    {
+        "at":  "2026-10-31T22:25:16.9757504+00:00",
+        "key":  "parse",
+        "value":  {
+                      "errors":  [
+
+                                 ]
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:25:19.1163408+00:00",
+        "key":  "package",
+        "value":  {
+                      "files":  64,
+                      "root":  "C:\\Users\\runneradmin\\AppData\\Local\\JobApply Ω space aaaaaaaaaaaa"
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:25:19.1442108+00:00",
+        "key":  "phase-body",
+        "value":  {
+                      "bytes":  3727,
+                      "sha256":  "FE805E1D84CC02738A940F2D2D7974197FE7063EFCE6AFA733DE0D89407C7F02"
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:25:27.2639817+00:00",
+        "key":  "receipt-ready",
+        "value":  {
+                      "elapsed_s":  8.67,
+                      "details":  {
+                                      "api_version":  "1.0.0",
+                                      "pid":  4380,
+                                      "unicode_spaces_path":  true,
+                                      "service":  {
+                                                      "port":  59769,
+                                                      "pid":  9760,
+                                                      "creation_time":  134379591227348726
+                                                  },
+                                      "version":  "0.0.1"
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:25:27.4640245+00:00",
+        "key":  "receipt-unauthorized12",
+        "value":  {
+                      "elapsed_s":  8.87,
+                      "details":  {
+                                      "statuses":  [
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401,
+                                                       401
+                                                   ]
+                                  }
+                  }
+    },
+    {
+        "at":  "2026-10-31T22:25:39.6388073+00:00",
+        "key":  "terminal",
+        "value":  {
+                      "position":  "At line:9 char:5\r\n+     throw (\u0027Actual bounded native shell focus or geometry did not set ...\r\n+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+                      "message":  "Actual bounded native shell focus or geometry did not settle",
+                      "inner":  null,
+                      "error_type":  "System.Management.Automation.RuntimeException",
+                      "elapsed_s":  21.04,
+                      "phase":  "keyboard",
+                      "terminal":  "FAIL"
+                  }
+    }
+]

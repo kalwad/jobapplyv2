@@ -1,0 +1,3531 @@
+{
+  "archive": "/tmp/japp-m03-w03-native-retained-20261019/native-cac56-selected.tar.gz",
+  "bytes": 66751841,
+  "durable_local_store": "/Users/tanishkalwad/jobapplyv2-evidence/m03-w03-cac56-native-20261019",
+  "durable_retention_manifest_sha256": "6beddb56e8c883df5ea1061f2a7debe3039a4c7d27924c3816c048018667d54f",
+  "members": {
+    "README.md": {
+      "bytes": 849,
+      "sha256": "918932ef3bc8d05c2a8897d63502eaeff35d38698b098bfa2b1f98e2b4aa633a"
+    },
+    "blobs/2a55ef6f11ce1c255f899980f38e00eefdd78417fbbd77a4af9ccdb2578683e2": {
+      "bytes": 6261920,
+      "sha256": "2a55ef6f11ce1c255f899980f38e00eefdd78417fbbd77a4af9ccdb2578683e2"
+    },
+    "blobs/3af10587d2f65f6bc4cdb55cef0b7fcf66f7adbc14c71702c7513b9e94b36d04": {
+      "bytes": 6273024,
+      "sha256": "3af10587d2f65f6bc4cdb55cef0b7fcf66f7adbc14c71702c7513b9e94b36d04"
+    },
+    "blobs/66e54574b692088c67d1a8507a42e006416b369892a297ec7a29abdce9362ef1": {
+      "bytes": 31579744,
+      "sha256": "66e54574b692088c67d1a8507a42e006416b369892a297ec7a29abdce9362ef1"
+    },
+    "blobs/9b312007e22841156262175d5ad82d0db85da84e785d5b45aa78cd18d4d9d974": {
+      "bytes": 31575312,
+      "sha256": "9b312007e22841156262175d5ad82d0db85da84e785d5b45aa78cd18d4d9d974"
+    },
+    "blobs/bb8241d2b28b24ebcbf3f637d7800f5877e166cbd4cb2f15a36159dabba60aad": {
+      "bytes": 4195408,
+      "sha256": "bb8241d2b28b24ebcbf3f637d7800f5877e166cbd4cb2f15a36159dabba60aad"
+    },
+    "blobs/bec6d37f62b116f1fd321076763ded56a1418d0770611224bd9ad620acd7524a": {
+      "bytes": 6273024,
+      "sha256": "bec6d37f62b116f1fd321076763ded56a1418d0770611224bd9ad620acd7524a"
+    },
+    "blobs/c3eaf960595da3fccb4ed16d208e5290968377b3dd147507559159ff87490a95": {
+      "bytes": 17952160,
+      "sha256": "c3eaf960595da3fccb4ed16d208e5290968377b3dd147507559159ff87490a95"
+    },
+    "blobs/d484086d9ad3a6cd24b0e0e6c8abeb17136142c2b1c8e4befdbc8cfbdc414ae2": {
+      "bytes": 31553552,
+      "sha256": "d484086d9ad3a6cd24b0e0e6c8abeb17136142c2b1c8e4befdbc8cfbdc414ae2"
+    },
+    "blobs/f1c4ad59c4adf1e5dfb5e9f558f7b95e4d7a62387d4bb4572fcf84f42648fee3": {
+      "bytes": 18057168,
+      "sha256": "f1c4ad59c4adf1e5dfb5e9f558f7b95e4d7a62387d4bb4572fcf84f42648fee3"
+    },
+    "collection-result.json": {
+      "bytes": 197,
+      "sha256": "56eb05e7f7ebab6d61280a4958b2624dfc76c127d0398ad6291b197e16860b63"
+    },
+    "collector.py": {
+      "bytes": 11560,
+      "sha256": "1bd863e9da7f0b535584fcb3395802fdfebb5543a415dc0b4db880f2f3a9cdc4"
+    },
+    "invocation.json": {
+      "bytes": 314,
+      "sha256": "099061d46c319dd2392f68e8f1e682a655c88be13181815bceb0448bca2f90dc"
+    },
+    "records/actual-apps/canonical-close/Contents/Info.plist": {
+      "bytes": 919,
+      "sha256": "e604f0bec3eae7e6db7e6430b24c72077d44f1e2ce0ad723336629e7cf7d10a6"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/.gitignore": {
+      "bytes": 14,
+      "sha256": "240a3e0d37d2e86b614063f5347eb02d4f99ca6c254de6b82871ff8d95532a7d"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/base_library.zip": {
+      "bytes": 1333490,
+      "sha256": "c626708ea19b0ef9135ce22241099fb98be037fb1e21b28f2eb8b3804c0ed338"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/METADATA": {
+      "bytes": 2567,
+      "sha256": "e87bce0bd194de70dfb8e708e0a6b0483009f25611804eaf87bfeb63e6c20501"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/RECORD": {
+      "bytes": 1810,
+      "sha256": "924078ec3a47b97192425dbc0c3693085af7a7b863afcf6b4e110cf0bd97dea4"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/WHEEL": {
+      "bytes": 82,
+      "sha256": "1b68144734c4b66791f27add5d425f3620775585718a03d0f9b110ba3a4d88db"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/licenses/LICENSE.txt": {
+      "bytes": 1475,
+      "sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/METADATA": {
+      "bytes": 185,
+      "sha256": "cae9410c18feb8a8a5bb76aa5dbd6007d41a7f7455fa4df218bf47da2da51c1b"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/RECORD": {
+      "bytes": 11009,
+      "sha256": "140a152c82e654c8e8f4c955712534ea728854a998eb22c307c5aa2b66c61303"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/direct_url.json": {
+      "bytes": 127,
+      "sha256": "70e7439cdee4eb52894a3203cf0d8d78949f854d4ce1117372fca8838d213c0f"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/uv_cache.json": {
+      "bytes": 126,
+      "sha256": "c14b19701b49a237c5a104a59685af5c99b361d51db0d1722fadf47c499c23ee"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/METADATA": {
+      "bytes": 1411,
+      "sha256": "5bc71e90cb421be92a43bf5ad5b0f25dccfa2a24ddceaa2877779879962a4c9e"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/RECORD": {
+      "bytes": 4470,
+      "sha256": "d520e7cb82b3b9a151e8957337f167ea73f139a710b9d681bd1e1a7189049cdd"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/entry_points.txt": {
+      "bytes": 573,
+      "sha256": "7713ead1845b4034b097c42447e23d037f2b6db7ca406e61dae3458e9bd4e95e"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/licenses/LICENSE": {
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/METADATA": {
+      "bytes": 352,
+      "sha256": "4352508f6a0bfb95be9a0d6f7b25747a8431c26c637b7ff419b1ef8ef5c655a6"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/RECORD": {
+      "bytes": 1316,
+      "sha256": "ad021387fc54ba75ac8b11ba2ca3aba6bf84eb36e2515b2d1b10669f27cd9913"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/direct_url.json": {
+      "bytes": 125,
+      "sha256": "471d95f7ddd3e68085703517a5e6b522825654c57a030a27679ac01c291124b9"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/uv_cache.json": {
+      "bytes": 126,
+      "sha256": "1b8ec5e22f9c2b811255df6eb3f8b355b8a5cfd135bcf1c30f969f258a938923"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/METADATA": {
+      "bytes": 90587,
+      "sha256": "a3ba23e895191fed69b8323cbcbcdc82984ca0b6a3cdc62c48a2341886a9c08d"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/RECORD": {
+      "bytes": 9516,
+      "sha256": "2ab80676388a6e636b16d377f7754d674e3418ce28dca0416ab80c34fa7d7ace"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "aad0b0a12256807936d52d4a6f88a1773236ae527564a688bab4e3fe780e8724"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/licenses/LICENSE": {
+      "bytes": 1129,
+      "sha256": "a9e186f3ca16b5eef84318e7a701721351a00cb7b8ae3a4394b67b49e3529ef3"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/japp-orchestrator/_internal/setuptools/_vendor/jaraco/text/Lorem ipsum.txt": {
+      "bytes": 1335,
+      "sha256": "37fedcffbf73c4eb9f058f47677cb33203a436ff9390e4d38a8e01c9dad28e0b"
+    },
+    "records/actual-apps/canonical-close/Contents/Resources/runtime/manifest.json": {
+      "bytes": 8274,
+      "sha256": "af0cbd87c719f322287efaf91e07f5529056b47d4fcd776d88f0ae461b0e97e3"
+    },
+    "records/actual-apps/contained-close/Contents/Info.plist": {
+      "bytes": 919,
+      "sha256": "e604f0bec3eae7e6db7e6430b24c72077d44f1e2ce0ad723336629e7cf7d10a6"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/.gitignore": {
+      "bytes": 14,
+      "sha256": "240a3e0d37d2e86b614063f5347eb02d4f99ca6c254de6b82871ff8d95532a7d"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/base_library.zip": {
+      "bytes": 1333490,
+      "sha256": "c626708ea19b0ef9135ce22241099fb98be037fb1e21b28f2eb8b3804c0ed338"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/METADATA": {
+      "bytes": 2567,
+      "sha256": "e87bce0bd194de70dfb8e708e0a6b0483009f25611804eaf87bfeb63e6c20501"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/RECORD": {
+      "bytes": 1810,
+      "sha256": "924078ec3a47b97192425dbc0c3693085af7a7b863afcf6b4e110cf0bd97dea4"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/WHEEL": {
+      "bytes": 82,
+      "sha256": "1b68144734c4b66791f27add5d425f3620775585718a03d0f9b110ba3a4d88db"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/licenses/LICENSE.txt": {
+      "bytes": 1475,
+      "sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/METADATA": {
+      "bytes": 185,
+      "sha256": "cae9410c18feb8a8a5bb76aa5dbd6007d41a7f7455fa4df218bf47da2da51c1b"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/RECORD": {
+      "bytes": 11009,
+      "sha256": "dcba364ae06dedbdd152d30194ef5cd6bb621da256b04e7e8d618ed006906903"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/direct_url.json": {
+      "bytes": 158,
+      "sha256": "2f9a2fa7a83685dd5a09321e4913a53dd34c2413de459d1d0b23f0731635e462"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/uv_cache.json": {
+      "bytes": 127,
+      "sha256": "9c4f5d370a36bd16da2ebba0b00d460179e92ca95fcc430e654be5a8a087b4e7"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/METADATA": {
+      "bytes": 1411,
+      "sha256": "5bc71e90cb421be92a43bf5ad5b0f25dccfa2a24ddceaa2877779879962a4c9e"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/RECORD": {
+      "bytes": 4470,
+      "sha256": "d520e7cb82b3b9a151e8957337f167ea73f139a710b9d681bd1e1a7189049cdd"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/entry_points.txt": {
+      "bytes": 573,
+      "sha256": "7713ead1845b4034b097c42447e23d037f2b6db7ca406e61dae3458e9bd4e95e"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/licenses/LICENSE": {
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/METADATA": {
+      "bytes": 352,
+      "sha256": "4352508f6a0bfb95be9a0d6f7b25747a8431c26c637b7ff419b1ef8ef5c655a6"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/RECORD": {
+      "bytes": 1316,
+      "sha256": "0046f8e8cf584fa52b07e6c90ee8968913b32fa405e88be229c1114311591316"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/direct_url.json": {
+      "bytes": 156,
+      "sha256": "93419d7ee9acc35f49b51555ec315bc7e07ef8bcd709e65a018fc01d754e9e6e"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/uv_cache.json": {
+      "bytes": 127,
+      "sha256": "aac1801cc92d32f938cbc3a2e08949431625e2d4565b7a7d1304c2f59df4b9e8"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/METADATA": {
+      "bytes": 90587,
+      "sha256": "a3ba23e895191fed69b8323cbcbcdc82984ca0b6a3cdc62c48a2341886a9c08d"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/RECORD": {
+      "bytes": 9516,
+      "sha256": "2ab80676388a6e636b16d377f7754d674e3418ce28dca0416ab80c34fa7d7ace"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "aad0b0a12256807936d52d4a6f88a1773236ae527564a688bab4e3fe780e8724"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/licenses/LICENSE": {
+      "bytes": 1129,
+      "sha256": "a9e186f3ca16b5eef84318e7a701721351a00cb7b8ae3a4394b67b49e3529ef3"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/japp-orchestrator/_internal/setuptools/_vendor/jaraco/text/Lorem ipsum.txt": {
+      "bytes": 1335,
+      "sha256": "37fedcffbf73c4eb9f058f47677cb33203a436ff9390e4d38a8e01c9dad28e0b"
+    },
+    "records/actual-apps/contained-close/Contents/Resources/runtime/manifest.json": {
+      "bytes": 8274,
+      "sha256": "f74db1cf0288a81315d47dbe6a05cc23371e80ddb511279293977b2b040ab973"
+    },
+    "records/actual-apps/escaped-retry/Contents/Info.plist": {
+      "bytes": 919,
+      "sha256": "e604f0bec3eae7e6db7e6430b24c72077d44f1e2ce0ad723336629e7cf7d10a6"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/.gitignore": {
+      "bytes": 14,
+      "sha256": "240a3e0d37d2e86b614063f5347eb02d4f99ca6c254de6b82871ff8d95532a7d"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/base_library.zip": {
+      "bytes": 1333490,
+      "sha256": "c626708ea19b0ef9135ce22241099fb98be037fb1e21b28f2eb8b3804c0ed338"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/METADATA": {
+      "bytes": 2567,
+      "sha256": "e87bce0bd194de70dfb8e708e0a6b0483009f25611804eaf87bfeb63e6c20501"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/RECORD": {
+      "bytes": 1810,
+      "sha256": "924078ec3a47b97192425dbc0c3693085af7a7b863afcf6b4e110cf0bd97dea4"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/WHEEL": {
+      "bytes": 82,
+      "sha256": "1b68144734c4b66791f27add5d425f3620775585718a03d0f9b110ba3a4d88db"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/licenses/LICENSE.txt": {
+      "bytes": 1475,
+      "sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/METADATA": {
+      "bytes": 185,
+      "sha256": "cae9410c18feb8a8a5bb76aa5dbd6007d41a7f7455fa4df218bf47da2da51c1b"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/RECORD": {
+      "bytes": 11009,
+      "sha256": "2f7091bcee295ee73ec2c35b4040eaebb0ff91a06101aa24069d150000592c9e"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/direct_url.json": {
+      "bytes": 163,
+      "sha256": "3af7fc08705b8c66be8b045b29b6bc7deb2eeafc71d4b3fc516a8ebf1097de37"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/uv_cache.json": {
+      "bytes": 127,
+      "sha256": "b02fcba3d220f02c19e0e831dcb291c647c7cb174359e0741b00ecb2f1245826"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/METADATA": {
+      "bytes": 1411,
+      "sha256": "5bc71e90cb421be92a43bf5ad5b0f25dccfa2a24ddceaa2877779879962a4c9e"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/RECORD": {
+      "bytes": 4470,
+      "sha256": "d520e7cb82b3b9a151e8957337f167ea73f139a710b9d681bd1e1a7189049cdd"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/entry_points.txt": {
+      "bytes": 573,
+      "sha256": "7713ead1845b4034b097c42447e23d037f2b6db7ca406e61dae3458e9bd4e95e"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/licenses/LICENSE": {
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/METADATA": {
+      "bytes": 352,
+      "sha256": "4352508f6a0bfb95be9a0d6f7b25747a8431c26c637b7ff419b1ef8ef5c655a6"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/RECORD": {
+      "bytes": 1316,
+      "sha256": "9c4f07c8450ba2f8577e4fc07d61e57b203ecdeb3c7b0039b6dcb70685a19a48"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/direct_url.json": {
+      "bytes": 161,
+      "sha256": "6e3fe37e3c6abb640a7d66443826d69aeb59e25ad1034fb3dc543ec9bcfde0c0"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/uv_cache.json": {
+      "bytes": 127,
+      "sha256": "53d3729eff10f3cc322617c22819c80f8d3c9cdb564ff546acae755478e62c73"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/METADATA": {
+      "bytes": 90587,
+      "sha256": "a3ba23e895191fed69b8323cbcbcdc82984ca0b6a3cdc62c48a2341886a9c08d"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/RECORD": {
+      "bytes": 9516,
+      "sha256": "2ab80676388a6e636b16d377f7754d674e3418ce28dca0416ab80c34fa7d7ace"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "aad0b0a12256807936d52d4a6f88a1773236ae527564a688bab4e3fe780e8724"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/licenses/LICENSE": {
+      "bytes": 1129,
+      "sha256": "a9e186f3ca16b5eef84318e7a701721351a00cb7b8ae3a4394b67b49e3529ef3"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/japp-orchestrator/_internal/setuptools/_vendor/jaraco/text/Lorem ipsum.txt": {
+      "bytes": 1335,
+      "sha256": "37fedcffbf73c4eb9f058f47677cb33203a436ff9390e4d38a8e01c9dad28e0b"
+    },
+    "records/actual-apps/escaped-retry/Contents/Resources/runtime/manifest.json": {
+      "bytes": 8274,
+      "sha256": "b120f92403ed5847dac683500e16da5f5f37e329adca6e4c68d33944f9489a7a"
+    },
+    "records/canonical-build/app-tree.json": {
+      "bytes": 9172,
+      "sha256": "3a003c09e6868d35b38f86620a2042ede1fb657701429e01b792b3ed48bd2f3a"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Info.plist": {
+      "bytes": 919,
+      "sha256": "e604f0bec3eae7e6db7e6430b24c72077d44f1e2ce0ad723336629e7cf7d10a6"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/.gitignore": {
+      "bytes": 14,
+      "sha256": "240a3e0d37d2e86b614063f5347eb02d4f99ca6c254de6b82871ff8d95532a7d"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/base_library.zip": {
+      "bytes": 1333490,
+      "sha256": "c626708ea19b0ef9135ce22241099fb98be037fb1e21b28f2eb8b3804c0ed338"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/METADATA": {
+      "bytes": 2567,
+      "sha256": "e87bce0bd194de70dfb8e708e0a6b0483009f25611804eaf87bfeb63e6c20501"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/RECORD": {
+      "bytes": 1810,
+      "sha256": "924078ec3a47b97192425dbc0c3693085af7a7b863afcf6b4e110cf0bd97dea4"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/WHEEL": {
+      "bytes": 82,
+      "sha256": "1b68144734c4b66791f27add5d425f3620775585718a03d0f9b110ba3a4d88db"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/licenses/LICENSE.txt": {
+      "bytes": 1475,
+      "sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/METADATA": {
+      "bytes": 185,
+      "sha256": "cae9410c18feb8a8a5bb76aa5dbd6007d41a7f7455fa4df218bf47da2da51c1b"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/RECORD": {
+      "bytes": 11009,
+      "sha256": "140a152c82e654c8e8f4c955712534ea728854a998eb22c307c5aa2b66c61303"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/direct_url.json": {
+      "bytes": 127,
+      "sha256": "70e7439cdee4eb52894a3203cf0d8d78949f854d4ce1117372fca8838d213c0f"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/uv_cache.json": {
+      "bytes": 126,
+      "sha256": "c14b19701b49a237c5a104a59685af5c99b361d51db0d1722fadf47c499c23ee"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/METADATA": {
+      "bytes": 1411,
+      "sha256": "5bc71e90cb421be92a43bf5ad5b0f25dccfa2a24ddceaa2877779879962a4c9e"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/RECORD": {
+      "bytes": 4470,
+      "sha256": "d520e7cb82b3b9a151e8957337f167ea73f139a710b9d681bd1e1a7189049cdd"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/entry_points.txt": {
+      "bytes": 573,
+      "sha256": "7713ead1845b4034b097c42447e23d037f2b6db7ca406e61dae3458e9bd4e95e"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/licenses/LICENSE": {
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/METADATA": {
+      "bytes": 352,
+      "sha256": "4352508f6a0bfb95be9a0d6f7b25747a8431c26c637b7ff419b1ef8ef5c655a6"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/RECORD": {
+      "bytes": 1316,
+      "sha256": "ad021387fc54ba75ac8b11ba2ca3aba6bf84eb36e2515b2d1b10669f27cd9913"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/direct_url.json": {
+      "bytes": 125,
+      "sha256": "471d95f7ddd3e68085703517a5e6b522825654c57a030a27679ac01c291124b9"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/uv_cache.json": {
+      "bytes": 126,
+      "sha256": "1b8ec5e22f9c2b811255df6eb3f8b355b8a5cfd135bcf1c30f969f258a938923"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/METADATA": {
+      "bytes": 90587,
+      "sha256": "a3ba23e895191fed69b8323cbcbcdc82984ca0b6a3cdc62c48a2341886a9c08d"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/RECORD": {
+      "bytes": 9516,
+      "sha256": "2ab80676388a6e636b16d377f7754d674e3418ce28dca0416ab80c34fa7d7ace"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "aad0b0a12256807936d52d4a6f88a1773236ae527564a688bab4e3fe780e8724"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/licenses/LICENSE": {
+      "bytes": 1129,
+      "sha256": "a9e186f3ca16b5eef84318e7a701721351a00cb7b8ae3a4394b67b49e3529ef3"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/setuptools/_vendor/jaraco/text/Lorem ipsum.txt": {
+      "bytes": 1335,
+      "sha256": "37fedcffbf73c4eb9f058f47677cb33203a436ff9390e4d38a8e01c9dad28e0b"
+    },
+    "records/canonical-build/app-upfront/Desktop App.app/Contents/Resources/runtime/manifest.json": {
+      "bytes": 8274,
+      "sha256": "af0cbd87c719f322287efaf91e07f5529056b47d4fcd776d88f0ae461b0e97e3"
+    },
+    "records/canonical-build/app.json": {
+      "bytes": 345,
+      "sha256": "d966b845e8c2bf8182f29718e3cf227ca7ad22d1f8f5a0b6c1788ef8a597a4c9"
+    },
+    "records/canonical-build/canonical-prepare-commands.json": {
+      "bytes": 2062,
+      "sha256": "da6c7e5d823a00bd212581abd8a2ab8f30455fe7132b549eeb0b3a27d9259cc0"
+    },
+    "records/canonical-build/close-input.json": {
+      "bytes": 1629,
+      "sha256": "93b1f7f8eab22526def91786ed670df7b0b98581ee4afe2cbfebca0c2da96f1e"
+    },
+    "records/canonical-build/close-prepare.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/canonical-build/close-prepare.stdout": {
+      "bytes": 327,
+      "sha256": "910b7a0dbfce630448da172c27a165fda95e84785d911749eb43b070d36fd71b"
+    },
+    "records/canonical-build/descriptors/japp-desktop-592bf3f82b601a5f/runtime_descriptor.rs": {
+      "bytes": 591,
+      "sha256": "c3269980c5ecdca21bde3b283dfda02e33f27ae8ac5109a1489da9c303469c3a"
+    },
+    "records/canonical-build/descriptors/japp-desktop-7e72ae49dcad393a/runtime_descriptor.rs": {
+      "bytes": 595,
+      "sha256": "17ff318a7e2884f021749ecbef3a0cbdde19a2a70390441bd229f8288cdf8b41"
+    },
+    "records/canonical-build/descriptors/japp-desktop-9f50cbba0266f81b/runtime_descriptor.rs": {
+      "bytes": 591,
+      "sha256": "c3269980c5ecdca21bde3b283dfda02e33f27ae8ac5109a1489da9c303469c3a"
+    },
+    "records/canonical-build/descriptors/japp-desktop-9f99f4ed707daf42/runtime_descriptor.rs": {
+      "bytes": 591,
+      "sha256": "c3269980c5ecdca21bde3b283dfda02e33f27ae8ac5109a1489da9c303469c3a"
+    },
+    "records/canonical-build/executed-wrapper.py": {
+      "bytes": 4149,
+      "sha256": "2f9657c796467e1af4d1d0e86ab2e3aa4997ea118239dee482a2e3624b153812"
+    },
+    "records/canonical-build/forced-input.json": {
+      "bytes": 1633,
+      "sha256": "905ef3f5a08e7a67b5abc8c29bac30f986a5186cbe3a33902ff46c60740e25c4"
+    },
+    "records/canonical-build/forced-prepare.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/canonical-build/forced-prepare.stdout": {
+      "bytes": 330,
+      "sha256": "351805905d66f05566a0569a5e36dda9424b2c81806bbd33e83d210d16b653f1"
+    },
+    "records/canonical-build/generated-descriptors.json": {
+      "bytes": 1459,
+      "sha256": "9beda37493c2e1774a48d1913654ecf25f3eb852ba76d20a303321cd5dfb8067"
+    },
+    "records/canonical-build/invocation.json": {
+      "bytes": 2418,
+      "sha256": "e96163a4a072e73ba4a3fb149cc607ccf22ae8373ed3a3726e574afad1676160"
+    },
+    "records/canonical-build/local-app-build.json": {
+      "bytes": 41,
+      "sha256": "6c27d89e1d5746f4cb181e76632001b7d4734d41ece2b8322cbedc823e9d45f2"
+    },
+    "records/canonical-build/neutrality.json": {
+      "bytes": 79,
+      "sha256": "2bf990e30aac62e4e38d510738eb601eb82747f27784d74b8aec5f4c840d013c"
+    },
+    "records/canonical-build/quit-input.json": {
+      "bytes": 1629,
+      "sha256": "93b1f7f8eab22526def91786ed670df7b0b98581ee4afe2cbfebca0c2da96f1e"
+    },
+    "records/canonical-build/quit-prepare.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/canonical-build/quit-prepare.stdout": {
+      "bytes": 324,
+      "sha256": "472bf3f3dde59fdcf2cd8a7f2d78074138ad0a7c76509bb1e888e37e9dc75cb5"
+    },
+    "records/canonical-build/runtime-stage-after.json": {
+      "bytes": 7777,
+      "sha256": "f9df3e07e4134fc786870aac25f2eb2c09f352daa03c94112755124c72f68b0f"
+    },
+    "records/canonical-build/runtime-stage-before.json": {
+      "bytes": 7777,
+      "sha256": "f9df3e07e4134fc786870aac25f2eb2c09f352daa03c94112755124c72f68b0f"
+    },
+    "records/canonical-build/stdout-stderr.log": {
+      "bytes": 1643,
+      "sha256": "34a7bb17517df82c7e85eacf3155bd7021ddbb970aa8fbe5f114d05dc6097b2f"
+    },
+    "records/canonical-build/tracked-after.json": {
+      "bytes": 234816,
+      "sha256": "cfe9c7d895f579af3f69ee66a7cb10401511e5732d8cee91d270f6d73f0a08bd"
+    },
+    "records/canonical-build/tracked-before.json": {
+      "bytes": 234816,
+      "sha256": "cfe9c7d895f579af3f69ee66a7cb10401511e5732d8cee91d270f6d73f0a08bd"
+    },
+    "records/canonical-build/upfront-app-source-binding.json": {
+      "bytes": 861,
+      "sha256": "e6c760499f189b76019f4b1ac81fb1aa9102f15fae77c7d4d4bf432c8802febe"
+    },
+    "records/cases/canonical-close/case-input.json": {
+      "bytes": 1766,
+      "sha256": "4979eaf3544c1f7c99e79f091ff7b2f540804bbe2ba8e926c368460e31c97aa7"
+    },
+    "records/cases/canonical-close/observer-console.txt": {
+      "bytes": 3049,
+      "sha256": "3b1572512893e9f0281e6bef551b0a964dde548de4c9ef48ad795c7982742c72"
+    },
+    "records/cases/canonical-close/observer-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "records/cases/canonical-close/proof/case-result.json": {
+      "bytes": 425,
+      "sha256": "cdb31789da0a411a73c695efc8295b21a91799d17e43275f4fe3d5d9bbfdc944"
+    },
+    "records/cases/canonical-close/proof/events.jsonl": {
+      "bytes": 3049,
+      "sha256": "3b1572512893e9f0281e6bef551b0a964dde548de4c9ef48ad795c7982742c72"
+    },
+    "records/cases/canonical-close/proof/listener-1.command.json": {
+      "bytes": 163,
+      "sha256": "0b8aed16a4f574b2d1e9348dd828e2a6a678742de78b29a5c7f1409ef12e4a2a"
+    },
+    "records/cases/canonical-close/proof/listener-1.command.result.json": {
+      "bytes": 86,
+      "sha256": "843c501d0a506e92d6aaf5ca40ba92d64b441fad1b0b18788466269a8614a346"
+    },
+    "records/cases/canonical-close/proof/listener-1.stdout": {
+      "bytes": 27,
+      "sha256": "1f2946c380bdc9d0fab5d3177e06d37181d8083348f46045b58c42e2cf2c1547"
+    },
+    "records/cases/canonical-close/proof/listener-1.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/canonical-close/retained/contracts_wheel.executed-or-input-bytes": {
+      "bytes": 211326,
+      "sha256": "fa9000c752b74e06fb88f08bf568f7e865c201b9579a267177721c726d8b7d7d"
+    },
+    "records/cases/canonical-close/retained/lsof.executed-bytes": {
+      "bytes": 470608,
+      "sha256": "42fff127fca70793fe3d83cacb5b677604723433227930546afcfe5a096f626b"
+    },
+    "records/cases/canonical-close/retained/orchestrator_wheel.executed-or-input-bytes": {
+      "bytes": 10602,
+      "sha256": "ff54572c0d3eb65f72e3c8a25a89969bf731979bfa4fe6c5357912d3e1df3bc1"
+    },
+    "records/cases/canonical-close/retained/runtime_manifest.executed-or-input-bytes": {
+      "bytes": 8274,
+      "sha256": "af0cbd87c719f322287efaf91e07f5529056b47d4fcd776d88f0ae461b0e97e3"
+    },
+    "records/cases/canonical-close/retained/source/build-test-fixture-runtime.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/cases/canonical-close/retained/source/japp_lifecycle_probe.py": {
+      "bytes": 23423,
+      "sha256": "ecdcb57e6ced18840a132f171da0d54def919150a626c7531cbe2e86d7932489"
+    },
+    "records/cases/canonical-close/retained/source/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/cases/canonical-close/retained/source/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/cases/canonical-close/retained/source/prepare_fixture.py": {
+      "bytes": 2049,
+      "sha256": "c5caef0641eb766efb1d34bea2bbd0ebe179c1e0e25a3c05b65f4a7561f95169"
+    },
+    "records/cases/canonical-close/retained/source/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/cases/canonical-close/root-baseline-ax.txt": {
+      "bytes": 435,
+      "sha256": "f56614303b81ed28fc6ff572e3e5cc039534117672a986ee745b45e366a7ee0d"
+    },
+    "records/cases/canonical-close/root-baseline.png": {
+      "bytes": 184448,
+      "sha256": "e8f8ca709c8fc97627d537bdd81c2cd67b0c18a8dae9714f779bcf6a93b6f6ef"
+    },
+    "records/cases/canonical-close/root-close-action-result.json": {
+      "bytes": 396,
+      "sha256": "84951d2ef5802e3835836ba45d8c370077a0a60da1ca1919bf6237653eaa32c3"
+    },
+    "records/cases/canonical-close/root-close-action-upfront.json": {
+      "bytes": 246,
+      "sha256": "40e4d4e9bd734050aeeb176d4d5719841d81c98e817fa5aca1ce1e68d83329e5"
+    },
+    "records/cases/canonical-close/root-file-menu-ax.txt": {
+      "bytes": 180,
+      "sha256": "6d1219004d17d5f506f2f554783a3308912fc7522ff3c22b48c274c264d5e7af"
+    },
+    "records/cases/canonical-close/root-gui-blocked.json": {
+      "bytes": 497,
+      "sha256": "34ce742ed4d7b61bcf2f93526efa96e02718d773fb864f1031c8163918e3282c"
+    },
+    "records/cases/canonical-close/root-gui-launch.json": {
+      "bytes": 235,
+      "sha256": "8bc7f5ab318a1273e374b84bac820d32c148377e5b4b0ed307d66e77a66f9844"
+    },
+    "records/cases/canonical-close/upfront-retention.json": {
+      "bytes": 5316,
+      "sha256": "b19b659f6d4921e2a4e5ff9727abe877329662339276ce693fbe168464e18353"
+    },
+    "records/cases/canonical-forced/case-input.json": {
+      "bytes": 1770,
+      "sha256": "32157b7a6d4fe9317cfce7d9d7ef0cafe9dd76b424362df71accb567ac9226d2"
+    },
+    "records/cases/canonical-forced/observer-console.txt": {
+      "bytes": 4223,
+      "sha256": "bc99ca9b2a449b16f618abe716435a5e10b1c77351db9bd8b2fb0d1f59c10752"
+    },
+    "records/cases/canonical-forced/observer-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "records/cases/canonical-forced/proof/app.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/canonical-forced/proof/app.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/canonical-forced/proof/case-result.json": {
+      "bytes": 2048,
+      "sha256": "b5918f85ccc9785eddca9c99c0a5a498422508eece07ea7bf3447b625dae8893"
+    },
+    "records/cases/canonical-forced/proof/events.jsonl": {
+      "bytes": 4223,
+      "sha256": "bc99ca9b2a449b16f618abe716435a5e10b1c77351db9bd8b2fb0d1f59c10752"
+    },
+    "records/cases/canonical-forced/proof/listener-1.command.json": {
+      "bytes": 163,
+      "sha256": "f68acc82afc5e747bb2bd98ed756b5f1524956b5c09d0a974a61bb769e2e30e0"
+    },
+    "records/cases/canonical-forced/proof/listener-1.command.result.json": {
+      "bytes": 86,
+      "sha256": "984658aa20c07ae0907ab8dcc08ad95dd588d8cc963bb4e211aa00e49ac88e4a"
+    },
+    "records/cases/canonical-forced/proof/listener-1.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/canonical-forced/proof/listener-1.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/canonical-forced/proof/listener-2.command.json": {
+      "bytes": 163,
+      "sha256": "3e53f7242c3fc6d61f0aa90365addd35b3a68817795b7d2a36fa26c4f57d6abf"
+    },
+    "records/cases/canonical-forced/proof/listener-2.command.result.json": {
+      "bytes": 86,
+      "sha256": "7386f7fe3caebf68e24d4aa4a78da6dc1a7d582100c8c1963f53946105d978d9"
+    },
+    "records/cases/canonical-forced/proof/listener-2.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/canonical-forced/proof/listener-2.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/canonical-forced/proof/listener-3.command.json": {
+      "bytes": 163,
+      "sha256": "9001bfbd9b0a2610365c9f5ec4156aac4fe2007fafe688eb9aea9aa9c6b73347"
+    },
+    "records/cases/canonical-forced/proof/listener-3.command.result.json": {
+      "bytes": 84,
+      "sha256": "71d104bd578d6ced0c65e074f3991349ba81e6da250ca0c0ebb5b7452719d5f6"
+    },
+    "records/cases/canonical-forced/proof/listener-3.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/canonical-forced/proof/listener-3.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/canonical-forced/proof/listener-4.command.json": {
+      "bytes": 163,
+      "sha256": "89d053ab5528793d32f658e8225f697278c3c737c62a9db6bc53edc6090fc4f7"
+    },
+    "records/cases/canonical-forced/proof/listener-4.command.result.json": {
+      "bytes": 86,
+      "sha256": "b2f0bc31f0ac8fc0003f3ecf52b9f8d7a482ad12460008cff7b2465f57e6e840"
+    },
+    "records/cases/canonical-forced/proof/listener-4.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/canonical-forced/proof/listener-4.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/canonical-forced/proof/listener-5.command.json": {
+      "bytes": 163,
+      "sha256": "8f9877affd1ad87a986b1e3a5f73f560ed5cf43225725d01f909507ddecf2858"
+    },
+    "records/cases/canonical-forced/proof/listener-5.command.result.json": {
+      "bytes": 86,
+      "sha256": "efd65120843c2a9426c5005aba22098b4e2ccaa014af675af92d45600b9358b3"
+    },
+    "records/cases/canonical-forced/proof/listener-5.stdout": {
+      "bytes": 27,
+      "sha256": "f1cb4f6758134562be491ae516b4632aceaf26a22efa266002cebb9403d68584"
+    },
+    "records/cases/canonical-forced/proof/listener-5.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/canonical-forced/retained/contracts_wheel.executed-or-input-bytes": {
+      "bytes": 211326,
+      "sha256": "fa9000c752b74e06fb88f08bf568f7e865c201b9579a267177721c726d8b7d7d"
+    },
+    "records/cases/canonical-forced/retained/lsof.executed-bytes": {
+      "bytes": 470608,
+      "sha256": "42fff127fca70793fe3d83cacb5b677604723433227930546afcfe5a096f626b"
+    },
+    "records/cases/canonical-forced/retained/orchestrator_wheel.executed-or-input-bytes": {
+      "bytes": 10602,
+      "sha256": "ff54572c0d3eb65f72e3c8a25a89969bf731979bfa4fe6c5357912d3e1df3bc1"
+    },
+    "records/cases/canonical-forced/retained/runtime_manifest.executed-or-input-bytes": {
+      "bytes": 8274,
+      "sha256": "af0cbd87c719f322287efaf91e07f5529056b47d4fcd776d88f0ae461b0e97e3"
+    },
+    "records/cases/canonical-forced/retained/source/build-test-fixture-runtime.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/cases/canonical-forced/retained/source/japp_lifecycle_probe.py": {
+      "bytes": 23423,
+      "sha256": "ecdcb57e6ced18840a132f171da0d54def919150a626c7531cbe2e86d7932489"
+    },
+    "records/cases/canonical-forced/retained/source/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/cases/canonical-forced/retained/source/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/cases/canonical-forced/retained/source/prepare_fixture.py": {
+      "bytes": 2049,
+      "sha256": "c5caef0641eb766efb1d34bea2bbd0ebe179c1e0e25a3c05b65f4a7561f95169"
+    },
+    "records/cases/canonical-forced/retained/source/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/cases/canonical-forced/root-baseline-ax.txt": {
+      "bytes": 1792,
+      "sha256": "126db5e69a8eec1e2083deffe8f7628cee2d3de41fcaebe4bfb8ff31fb9c65cf"
+    },
+    "records/cases/canonical-forced/root-baseline.png": {
+      "bytes": 183966,
+      "sha256": "5a9eda7712b81a101c499932173d0006d6810a6529446a3423574e7e7d0ed6e7"
+    },
+    "records/cases/canonical-forced/upfront-retention.json": {
+      "bytes": 5332,
+      "sha256": "0e3e4bdb11d47e6c397a85eecf40db20f35e76f5a5764bb6b4e9ba49b1e33559"
+    },
+    "records/cases/canonical-quit/case-input.json": {
+      "bytes": 1766,
+      "sha256": "4979eaf3544c1f7c99e79f091ff7b2f540804bbe2ba8e926c368460e31c97aa7"
+    },
+    "records/cases/canonical-quit/observer-console.txt": {
+      "bytes": 3039,
+      "sha256": "1058427d9a893e7dbe4eb1716db40efec8e3cac84e3a08ec99048c36d01d7581"
+    },
+    "records/cases/canonical-quit/observer-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "records/cases/canonical-quit/proof/case-result.json": {
+      "bytes": 425,
+      "sha256": "c6306af07872a46a1418b2cefa7552cdb7dc876591703089c7875cc90ae20bb5"
+    },
+    "records/cases/canonical-quit/proof/events.jsonl": {
+      "bytes": 3039,
+      "sha256": "1058427d9a893e7dbe4eb1716db40efec8e3cac84e3a08ec99048c36d01d7581"
+    },
+    "records/cases/canonical-quit/proof/listener-1.command.json": {
+      "bytes": 163,
+      "sha256": "5f3909bc0afceb4c90400805dd327e3db752e2fa2426e3327bb7bc933bb31268"
+    },
+    "records/cases/canonical-quit/proof/listener-1.command.result.json": {
+      "bytes": 86,
+      "sha256": "6e2a0d6591260fefd5099e98608103473161d4894f10430ba4d7cb0411993a87"
+    },
+    "records/cases/canonical-quit/proof/listener-1.stdout": {
+      "bytes": 27,
+      "sha256": "63e63c24d7a1741a73b1236a547f5af4d93202f285fcbee97796bada602b6a9b"
+    },
+    "records/cases/canonical-quit/proof/listener-1.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/canonical-quit/proof/unauthorized/executed-source.py": {
+      "bytes": 2458,
+      "sha256": "62dd01068340c9ed2a399677eb992e090ab0c850a1a3f9bb98df8f4b8ddf224b"
+    },
+    "records/cases/canonical-quit/proof/unauthorized/invocation.json": {
+      "bytes": 890,
+      "sha256": "8816f71cddccd2653328f945e682d6942ec01126d5c160eda0c16c5a72588c3d"
+    },
+    "records/cases/canonical-quit/proof/unauthorized/response.body": {
+      "bytes": 429,
+      "sha256": "c1a92ba5281aa45f9ef5148347ba90bcf992aad97d5ffa1adbb89dc102b7c44d"
+    },
+    "records/cases/canonical-quit/proof/unauthorized/result.json": {
+      "bytes": 1667,
+      "sha256": "6a3c2a9f5bc5adf1aa509dceac0f64f7770e27035dabce29268b44415c086079"
+    },
+    "records/cases/canonical-quit/retained/contracts_wheel.executed-or-input-bytes": {
+      "bytes": 211326,
+      "sha256": "fa9000c752b74e06fb88f08bf568f7e865c201b9579a267177721c726d8b7d7d"
+    },
+    "records/cases/canonical-quit/retained/lsof.executed-bytes": {
+      "bytes": 470608,
+      "sha256": "42fff127fca70793fe3d83cacb5b677604723433227930546afcfe5a096f626b"
+    },
+    "records/cases/canonical-quit/retained/orchestrator_wheel.executed-or-input-bytes": {
+      "bytes": 10602,
+      "sha256": "ff54572c0d3eb65f72e3c8a25a89969bf731979bfa4fe6c5357912d3e1df3bc1"
+    },
+    "records/cases/canonical-quit/retained/runtime_manifest.executed-or-input-bytes": {
+      "bytes": 8274,
+      "sha256": "af0cbd87c719f322287efaf91e07f5529056b47d4fcd776d88f0ae461b0e97e3"
+    },
+    "records/cases/canonical-quit/retained/source/build-test-fixture-runtime.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/cases/canonical-quit/retained/source/japp_lifecycle_probe.py": {
+      "bytes": 23423,
+      "sha256": "ecdcb57e6ced18840a132f171da0d54def919150a626c7531cbe2e86d7932489"
+    },
+    "records/cases/canonical-quit/retained/source/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/cases/canonical-quit/retained/source/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/cases/canonical-quit/retained/source/prepare_fixture.py": {
+      "bytes": 2049,
+      "sha256": "c5caef0641eb766efb1d34bea2bbd0ebe179c1e0e25a3c05b65f4a7561f95169"
+    },
+    "records/cases/canonical-quit/retained/source/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/cases/canonical-quit/root-baseline-ax.txt": {
+      "bytes": 1573,
+      "sha256": "8d6212e3d208efc6365255f1db0d93ee38b2976e4de50eab074d963d3c414113"
+    },
+    "records/cases/canonical-quit/root-baseline.png": {
+      "bytes": 183641,
+      "sha256": "08f76994400b65655ceede2317a16f24c9bc1c9437440581727049b3ef0f2227"
+    },
+    "records/cases/canonical-quit/root-quit-action-result.json": {
+      "bytes": 888,
+      "sha256": "1e22d8b5ad978f83c4a294e146c167a877f223a8fcd3da794d44fb6884de1fc6"
+    },
+    "records/cases/canonical-quit/root-quit-action-upfront.json": {
+      "bytes": 258,
+      "sha256": "cf5efc112c063320bd2afd4e62365261dde6b7d555cf36c17fbc701c0641e3b0"
+    },
+    "records/cases/canonical-quit/root-quit-menu-ax.txt": {
+      "bytes": 699,
+      "sha256": "36fcf686c8161387e12d65ee68f1a7027ad1c699d4cbfaefa78f0706d9910ac5"
+    },
+    "records/cases/canonical-quit/unauthorized-outer-result.json": {
+      "bytes": 858,
+      "sha256": "3e7f6e4a629f4a5fec081af8abd30caba25d96dd0839e04198461531d2b96a9a"
+    },
+    "records/cases/canonical-quit/unauthorized-outer-upfront.json": {
+      "bytes": 534,
+      "sha256": "b52e8d1c641429d177b33b667f55d79d184a1b6c5d0a8d2ed020f9fabd23d1fe"
+    },
+    "records/cases/canonical-quit/unauthorized-proof-source.py": {
+      "bytes": 2458,
+      "sha256": "62dd01068340c9ed2a399677eb992e090ab0c850a1a3f9bb98df8f4b8ddf224b"
+    },
+    "records/cases/canonical-quit/unauthorized.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/canonical-quit/unauthorized.stdout": {
+      "bytes": 1403,
+      "sha256": "efc4606cd0cc179ada2c1b2e1545183608af0c0d4a92c82e42289462303b5550"
+    },
+    "records/cases/canonical-quit/upfront-retention.json": {
+      "bytes": 5300,
+      "sha256": "b346fde1dc4f4343391cb066535a6a6b347d1915c89e13ff11ad46b2c61e19db"
+    },
+    "records/cases/contained-close/case-input.json": {
+      "bytes": 2136,
+      "sha256": "f7e2fa938e9a5d5529729b7a1ab731abf9de3bcf54515f8c8e7e484c99c6b15c"
+    },
+    "records/cases/contained-close/observer-console.txt": {
+      "bytes": 3391,
+      "sha256": "dcb7173948854550f35bb28dd3920917994d9d64949d720a20cc6708a2f1bffa"
+    },
+    "records/cases/contained-close/observer-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "records/cases/contained-close/proof/case-result.json": {
+      "bytes": 425,
+      "sha256": "9401a252555dba7fd85cecf862b71610560add1713b414631bbcb18e1ac486e8"
+    },
+    "records/cases/contained-close/proof/events.jsonl": {
+      "bytes": 3391,
+      "sha256": "dcb7173948854550f35bb28dd3920917994d9d64949d720a20cc6708a2f1bffa"
+    },
+    "records/cases/contained-close/proof/listener-1.command.json": {
+      "bytes": 163,
+      "sha256": "d5bb992c424901f2eed4a8dbf63f609190815c1d7dd91fef9bd699bf96cefb8e"
+    },
+    "records/cases/contained-close/proof/listener-1.command.result.json": {
+      "bytes": 86,
+      "sha256": "f3cc39709936caedd60338c4a59ca2d2a174952fd992414cc843ebc5addcc851"
+    },
+    "records/cases/contained-close/proof/listener-1.stdout": {
+      "bytes": 27,
+      "sha256": "e42686d6f44ed0619a48e96051e0b83e303d0a47911bbf266301cd2b01b5da83"
+    },
+    "records/cases/contained-close/proof/listener-1.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/contained-close/retained/contracts_wheel.executed-or-input-bytes": {
+      "bytes": 211326,
+      "sha256": "fa9000c752b74e06fb88f08bf568f7e865c201b9579a267177721c726d8b7d7d"
+    },
+    "records/cases/contained-close/retained/lsof.executed-bytes": {
+      "bytes": 470608,
+      "sha256": "42fff127fca70793fe3d83cacb5b677604723433227930546afcfe5a096f626b"
+    },
+    "records/cases/contained-close/retained/orchestrator_wheel.executed-or-input-bytes": {
+      "bytes": 10602,
+      "sha256": "ff54572c0d3eb65f72e3c8a25a89969bf731979bfa4fe6c5357912d3e1df3bc1"
+    },
+    "records/cases/contained-close/retained/runtime_manifest.executed-or-input-bytes": {
+      "bytes": 8274,
+      "sha256": "f74db1cf0288a81315d47dbe6a05cc23371e80ddb511279293977b2b040ab973"
+    },
+    "records/cases/contained-close/retained/source/build-test-fixture-runtime.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/cases/contained-close/retained/source/japp_lifecycle_probe.py": {
+      "bytes": 23423,
+      "sha256": "ecdcb57e6ced18840a132f171da0d54def919150a626c7531cbe2e86d7932489"
+    },
+    "records/cases/contained-close/retained/source/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/cases/contained-close/retained/source/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/cases/contained-close/retained/source/prepare_fixture.py": {
+      "bytes": 2049,
+      "sha256": "c5caef0641eb766efb1d34bea2bbd0ebe179c1e0e25a3c05b65f4a7561f95169"
+    },
+    "records/cases/contained-close/retained/source/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/cases/contained-close/root-baseline-ax.txt": {
+      "bytes": 1671,
+      "sha256": "7452be38d2882f20209e447c3b5f1db1d74297dc75631f79fb4cbce09a276b11"
+    },
+    "records/cases/contained-close/root-baseline.png": {
+      "bytes": 184448,
+      "sha256": "e8f8ca709c8fc97627d537bdd81c2cd67b0c18a8dae9714f779bcf6a93b6f6ef"
+    },
+    "records/cases/contained-close/root-close-action-result.json": {
+      "bytes": 308,
+      "sha256": "662459cca4e1e36f3ef54417c79fefa18c7f68923f29152aa6672869b2f8a0ff"
+    },
+    "records/cases/contained-close/root-close-action-upfront.json": {
+      "bytes": 158,
+      "sha256": "8a73cdad66fea4b826343aff9f06270edbd4ee27789afa6f0e517e0ebd36fb4f"
+    },
+    "records/cases/contained-close/root-close-menu-ax.txt": {
+      "bytes": 180,
+      "sha256": "6d1219004d17d5f506f2f554783a3308912fc7522ff3c22b48c274c264d5e7af"
+    },
+    "records/cases/contained-close/upfront-retention.json": {
+      "bytes": 5431,
+      "sha256": "0eec2adb2013ab2c646e3877a898f39324e3bd1e26059b2990266ed7e7b5d723"
+    },
+    "records/cases/escaped-retry/case-input.json": {
+      "bytes": 2175,
+      "sha256": "70a55d65f99a7058da60d598fc66d797c5cca8cb5a6050a3ce072ea9cf9e4738"
+    },
+    "records/cases/escaped-retry/observer-console.txt": {
+      "bytes": 5018,
+      "sha256": "2788144c5a1bebf4067a77768380b150beb7e6f1747ef06ba43b238ac1a89796"
+    },
+    "records/cases/escaped-retry/observer-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "records/cases/escaped-retry/proof/case-result.json": {
+      "bytes": 422,
+      "sha256": "947e153d4ad4dfc0645c8269f9b93c849f880c075fc45004067c671f887322d3"
+    },
+    "records/cases/escaped-retry/proof/events.jsonl": {
+      "bytes": 5018,
+      "sha256": "2788144c5a1bebf4067a77768380b150beb7e6f1747ef06ba43b238ac1a89796"
+    },
+    "records/cases/escaped-retry/proof/listener-1.command.json": {
+      "bytes": 160,
+      "sha256": "d96567c562a86e5a30bd86e26a3b1aaa3fc4e9f06a210166667dc1cf3616c8a3"
+    },
+    "records/cases/escaped-retry/proof/listener-1.command.result.json": {
+      "bytes": 86,
+      "sha256": "121484cc3a2a21b785ec91d75d7c00e43c8747e9a5fec1b6521bebfb589a413c"
+    },
+    "records/cases/escaped-retry/proof/listener-1.stdout": {
+      "bytes": 27,
+      "sha256": "109d3507b3881fbfe7aaa500ab00ea92700a11267e0214ba1dc419307008fa3f"
+    },
+    "records/cases/escaped-retry/proof/listener-1.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/cases/escaped-retry/retained/contracts_wheel.executed-or-input-bytes": {
+      "bytes": 211326,
+      "sha256": "fa9000c752b74e06fb88f08bf568f7e865c201b9579a267177721c726d8b7d7d"
+    },
+    "records/cases/escaped-retry/retained/lsof.executed-bytes": {
+      "bytes": 470608,
+      "sha256": "42fff127fca70793fe3d83cacb5b677604723433227930546afcfe5a096f626b"
+    },
+    "records/cases/escaped-retry/retained/orchestrator_wheel.executed-or-input-bytes": {
+      "bytes": 10602,
+      "sha256": "ff54572c0d3eb65f72e3c8a25a89969bf731979bfa4fe6c5357912d3e1df3bc1"
+    },
+    "records/cases/escaped-retry/retained/runtime_manifest.executed-or-input-bytes": {
+      "bytes": 8274,
+      "sha256": "b120f92403ed5847dac683500e16da5f5f37e329adca6e4c68d33944f9489a7a"
+    },
+    "records/cases/escaped-retry/retained/source/build-test-fixture-runtime.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/cases/escaped-retry/retained/source/japp_lifecycle_probe.py": {
+      "bytes": 23423,
+      "sha256": "ecdcb57e6ced18840a132f171da0d54def919150a626c7531cbe2e86d7932489"
+    },
+    "records/cases/escaped-retry/retained/source/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/cases/escaped-retry/retained/source/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/cases/escaped-retry/retained/source/prepare_fixture.py": {
+      "bytes": 2049,
+      "sha256": "c5caef0641eb766efb1d34bea2bbd0ebe179c1e0e25a3c05b65f4a7561f95169"
+    },
+    "records/cases/escaped-retry/retained/source/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/cases/escaped-retry/root-baseline-ax.txt": {
+      "bytes": 1671,
+      "sha256": "7452be38d2882f20209e447c3b5f1db1d74297dc75631f79fb4cbce09a276b11"
+    },
+    "records/cases/escaped-retry/root-baseline.png": {
+      "bytes": 184448,
+      "sha256": "e8f8ca709c8fc97627d537bdd81c2cd67b0c18a8dae9714f779bcf6a93b6f6ef"
+    },
+    "records/cases/escaped-retry/root-cleanup-failure-ax.txt": {
+      "bytes": 1806,
+      "sha256": "655553532764c1f9684133e2b1e0a9e8872f64d6fd57b0878d1c3c846bc85026"
+    },
+    "records/cases/escaped-retry/root-cleanup-failure.png": {
+      "bytes": 192176,
+      "sha256": "5db511300f409a0ec4b994b9c1c7634ded48ba6759a537503848356c0769a9e4"
+    },
+    "records/cases/escaped-retry/root-close-action-result.json": {
+      "bytes": 2212,
+      "sha256": "7229c39a8d241351adc893edb157e74684f9720a4544518cb443ec69a3533228"
+    },
+    "records/cases/escaped-retry/root-close-action-upfront.json": {
+      "bytes": 156,
+      "sha256": "7dd46680cc987d2b7db4544f4db82f599ef60b923a6830692fc13934b2841b13"
+    },
+    "records/cases/escaped-retry/root-close-menu-ax.txt": {
+      "bytes": 180,
+      "sha256": "6d1219004d17d5f506f2f554783a3308912fc7522ff3c22b48c274c264d5e7af"
+    },
+    "records/cases/escaped-retry/root-retry-action-result.json": {
+      "bytes": 824,
+      "sha256": "694050d33e088ea3d40d9603f06e9c8c2e405a5b5f8f709cd428ecda53fdb01a"
+    },
+    "records/cases/escaped-retry/root-retry-action-upfront.json": {
+      "bytes": 179,
+      "sha256": "e2b6e20063f5a57209bdb8f58808df387c9f6e4372dd267a19ab55996a5f4814"
+    },
+    "records/cases/escaped-retry/root-retry-menu-ax.txt": {
+      "bytes": 744,
+      "sha256": "99ab93efa7d3f6f1316787475306c6cfa770009cfe438e0f9044eba034739260"
+    },
+    "records/cases/escaped-retry/upfront-retention.json": {
+      "bytes": 5435,
+      "sha256": "6eae2428c93edc06cef832e551ad8a5226f33215e22b4352f97b2247fa6a4c30"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Info.plist": {
+      "bytes": 919,
+      "sha256": "e604f0bec3eae7e6db7e6430b24c72077d44f1e2ce0ad723336629e7cf7d10a6"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/.gitignore": {
+      "bytes": 14,
+      "sha256": "240a3e0d37d2e86b614063f5347eb02d4f99ca6c254de6b82871ff8d95532a7d"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/base_library.zip": {
+      "bytes": 1333490,
+      "sha256": "c626708ea19b0ef9135ce22241099fb98be037fb1e21b28f2eb8b3804c0ed338"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/METADATA": {
+      "bytes": 2567,
+      "sha256": "e87bce0bd194de70dfb8e708e0a6b0483009f25611804eaf87bfeb63e6c20501"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/RECORD": {
+      "bytes": 1810,
+      "sha256": "924078ec3a47b97192425dbc0c3693085af7a7b863afcf6b4e110cf0bd97dea4"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/WHEEL": {
+      "bytes": 82,
+      "sha256": "1b68144734c4b66791f27add5d425f3620775585718a03d0f9b110ba3a4d88db"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/licenses/LICENSE.txt": {
+      "bytes": 1475,
+      "sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/METADATA": {
+      "bytes": 185,
+      "sha256": "cae9410c18feb8a8a5bb76aa5dbd6007d41a7f7455fa4df218bf47da2da51c1b"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/RECORD": {
+      "bytes": 11009,
+      "sha256": "dcba364ae06dedbdd152d30194ef5cd6bb621da256b04e7e8d618ed006906903"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/direct_url.json": {
+      "bytes": 158,
+      "sha256": "2f9a2fa7a83685dd5a09321e4913a53dd34c2413de459d1d0b23f0731635e462"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/uv_cache.json": {
+      "bytes": 127,
+      "sha256": "9c4f5d370a36bd16da2ebba0b00d460179e92ca95fcc430e654be5a8a087b4e7"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/METADATA": {
+      "bytes": 1411,
+      "sha256": "5bc71e90cb421be92a43bf5ad5b0f25dccfa2a24ddceaa2877779879962a4c9e"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/RECORD": {
+      "bytes": 4470,
+      "sha256": "d520e7cb82b3b9a151e8957337f167ea73f139a710b9d681bd1e1a7189049cdd"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/entry_points.txt": {
+      "bytes": 573,
+      "sha256": "7713ead1845b4034b097c42447e23d037f2b6db7ca406e61dae3458e9bd4e95e"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/licenses/LICENSE": {
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/METADATA": {
+      "bytes": 352,
+      "sha256": "4352508f6a0bfb95be9a0d6f7b25747a8431c26c637b7ff419b1ef8ef5c655a6"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/RECORD": {
+      "bytes": 1316,
+      "sha256": "0046f8e8cf584fa52b07e6c90ee8968913b32fa405e88be229c1114311591316"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/direct_url.json": {
+      "bytes": 156,
+      "sha256": "93419d7ee9acc35f49b51555ec315bc7e07ef8bcd709e65a018fc01d754e9e6e"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/uv_cache.json": {
+      "bytes": 127,
+      "sha256": "aac1801cc92d32f938cbc3a2e08949431625e2d4565b7a7d1304c2f59df4b9e8"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/METADATA": {
+      "bytes": 90587,
+      "sha256": "a3ba23e895191fed69b8323cbcbcdc82984ca0b6a3cdc62c48a2341886a9c08d"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/RECORD": {
+      "bytes": 9516,
+      "sha256": "2ab80676388a6e636b16d377f7754d674e3418ce28dca0416ab80c34fa7d7ace"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "aad0b0a12256807936d52d4a6f88a1773236ae527564a688bab4e3fe780e8724"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/licenses/LICENSE": {
+      "bytes": 1129,
+      "sha256": "a9e186f3ca16b5eef84318e7a701721351a00cb7b8ae3a4394b67b49e3529ef3"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/setuptools/_vendor/jaraco/text/Lorem ipsum.txt": {
+      "bytes": 1335,
+      "sha256": "37fedcffbf73c4eb9f058f47677cb33203a436ff9390e4d38a8e01c9dad28e0b"
+    },
+    "records/fixture-builds/contained/app-upfront/Desktop App.app/Contents/Resources/runtime/manifest.json": {
+      "bytes": 8274,
+      "sha256": "f74db1cf0288a81315d47dbe6a05cc23371e80ddb511279293977b2b040ab973"
+    },
+    "records/fixture-builds/contained/fixture-input/fixture-recipe.json": {
+      "bytes": 1117,
+      "sha256": "62a00dd541e4adba20a001191e74f3e18b255b12435bce3c875583e9055da889"
+    },
+    "records/fixture-builds/contained/fixture-input/fixture_entry.py": {
+      "bytes": 235,
+      "sha256": "404e9fa2aa55fbf1117d2936c7c717bc9924ad457a2fda77b6eebb3888c0199b"
+    },
+    "records/fixture-builds/contained/fixture-input/owned-writer.json": {
+      "bytes": 420,
+      "sha256": "17f4f1fa56dfb6f7a039ff2f02235451cdb12e6f17822dcb03c87bfe1204511d"
+    },
+    "records/fixture-builds/contained/fixture-input/owned-writer.release": {
+      "bytes": 33,
+      "sha256": "bc1a1d7bea0e80be733d23c1c28123a27b605372aaa9e2f9761ae398e5c47fd1"
+    },
+    "records/fixture-builds/contained/native-build-top/01-venv.stderr": {
+      "bytes": 174,
+      "sha256": "7411a2bdb5c2894f3caf0771fdef21510796f7a5143ad81befeb26ca7ce5e0c9"
+    },
+    "records/fixture-builds/contained/native-build-top/01-venv.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/native-build-top/02-runtime-install.stderr": {
+      "bytes": 499,
+      "sha256": "dad9672974d6444fde99509dcc714f4cb5b445afa2afa9ed5b6fc64a868a7ff6"
+    },
+    "records/fixture-builds/contained/native-build-top/02-runtime-install.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/native-build-top/03-build-install.stderr": {
+      "bytes": 332,
+      "sha256": "35caaef821fc773d47363c8b660dc0b82d0aba694c35aa677aa6f0002c68d25a"
+    },
+    "records/fixture-builds/contained/native-build-top/03-build-install.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/native-build-top/04-wheels-install.stderr": {
+      "bytes": 454,
+      "sha256": "05fc4c115e2736a29d7e6859f41dcc44e77494939d6f72a13c9b7e3966743d44"
+    },
+    "records/fixture-builds/contained/native-build-top/04-wheels-install.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/native-build-top/05-resolved-pins.stderr": {
+      "bytes": 47,
+      "sha256": "735cd7adde933dad7d9d56f92461f0a2291d0a6110ab323896f3d978b8dee454"
+    },
+    "records/fixture-builds/contained/native-build-top/05-resolved-pins.stdout": {
+      "bytes": 675,
+      "sha256": "e2c410ca2ecdd58aedc38406a80312e7db6153fb359563fd6a06366fb67530ad"
+    },
+    "records/fixture-builds/contained/native-build-top/06-native-build.stderr": {
+      "bytes": 12309,
+      "sha256": "0a4b9256cf66f3de0138caf66bd82987cbd85586b3c09264b2696ee9474b09fa"
+    },
+    "records/fixture-builds/contained/native-build-top/06-native-build.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/native-build-top/build-proof.json": {
+      "bytes": 7872,
+      "sha256": "b5053cb9027a779d35583eee0c3331c2e18bdb0773d34f2af47a8b3aca28a26c"
+    },
+    "records/fixture-builds/contained/native-build-top/builder-executed.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/fixture-builds/contained/native-build-top/fixture-build-inputs.json": {
+      "bytes": 889,
+      "sha256": "e4604b10e8edf03c7ee053f3891be7a0008417746ca7ee5468a7eb7e1e4c80d9"
+    },
+    "records/fixture-builds/contained/native-build-top/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/fixture-builds/contained/native-build-top/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/fixture-builds/contained/native-build-top/service_entry.py": {
+      "bytes": 235,
+      "sha256": "404e9fa2aa55fbf1117d2936c7c717bc9924ad457a2fda77b6eebb3888c0199b"
+    },
+    "records/fixture-builds/contained/native-build-top/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/fixture-builds/contained/native-build-top/staging-result.json": {
+      "bytes": 328,
+      "sha256": "7542e9b50c017cf1516f7c548c325640de45ce3d86050b64e25cf44afbd56f54"
+    },
+    "records/fixture-builds/contained/top/00-isolated-dependencies.invocation.json": {
+      "bytes": 1319,
+      "sha256": "3ec994b1ac882719e31f46338094d588cf4b697adf10417ca62632cab1f21a3f"
+    },
+    "records/fixture-builds/contained/top/00-isolated-dependencies.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/top/00-isolated-dependencies.stdout": {
+      "bytes": 668,
+      "sha256": "0210d73a0b1bd18bb080b8daaf6bb6b326a06ea5da6969bdfb6a92dd89318690"
+    },
+    "records/fixture-builds/contained/top/01-fixture-entry.invocation.json": {
+      "bytes": 1879,
+      "sha256": "e0f45eb7ea2f77560189859f2a7e6e6f3e9e71a09d5faf9f547e407edc39afc1"
+    },
+    "records/fixture-builds/contained/top/01-fixture-entry.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/top/01-fixture-entry.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/top/02-native-runtime.invocation.json": {
+      "bytes": 2789,
+      "sha256": "16e3835b8c60649e79a2b0446021e96126342521ad85e94724d9b7cd52e5505b"
+    },
+    "records/fixture-builds/contained/top/02-native-runtime.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/top/02-native-runtime.stdout": {
+      "bytes": 245,
+      "sha256": "a14b5b002c8dafc716c52c6a5276effb7427026fd83610ef6671cbe9457146cb"
+    },
+    "records/fixture-builds/contained/top/03-cache-copy.invocation.json": {
+      "bytes": 1426,
+      "sha256": "aec00ef6b1b58e702300551c45bfee2ff255428bff5de0273b0e221edf2c84b1"
+    },
+    "records/fixture-builds/contained/top/03-cache-copy.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/top/03-cache-copy.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/contained/top/04-tauri-app.invocation.json": {
+      "bytes": 1546,
+      "sha256": "0b323a16c8e3e24ef5552a590050e9529c86ec227ead379d58c560724c18892b"
+    },
+    "records/fixture-builds/contained/top/04-tauri-app.stderr": {
+      "bytes": 805,
+      "sha256": "9d2fbbb85ba02e4d9bd587d0a1d57b49c0b4f87d37370fd8f58a054d93840e81"
+    },
+    "records/fixture-builds/contained/top/04-tauri-app.stdout": {
+      "bytes": 675,
+      "sha256": "0e278535977c59d4042a77a44423191717c804053ae32a4233df6be0fde95c3a"
+    },
+    "records/fixture-builds/contained/top/app-upfront-tree.json": {
+      "bytes": 8332,
+      "sha256": "c3e62b986d2a16f3d6a3883df04d44ae83841b0c44461557a8637b26dff5087d"
+    },
+    "records/fixture-builds/contained/top/build-result.json": {
+      "bytes": 1863,
+      "sha256": "a03a9d773a7cb10c30abe67564fca29640064f7661a0973ef3589155f6a2112b"
+    },
+    "records/fixture-builds/contained/top/canonical-source-after.json": {
+      "bytes": 234816,
+      "sha256": "cfe9c7d895f579af3f69ee66a7cb10401511e5732d8cee91d270f6d73f0a08bd"
+    },
+    "records/fixture-builds/contained/top/canonical-source-before.json": {
+      "bytes": 234816,
+      "sha256": "cfe9c7d895f579af3f69ee66a7cb10401511e5732d8cee91d270f6d73f0a08bd"
+    },
+    "records/fixture-builds/contained/top/case-config.json": {
+      "bytes": 2023,
+      "sha256": "c78e595b2e0a15465f14fea107ab58c6de34c577196484b9bdc2287392212576"
+    },
+    "records/fixture-builds/contained/top/dependency-binding.json": {
+      "bytes": 358,
+      "sha256": "0ace1f7b8b2cabd5afcdd874ac52ec402a94f4cbbe935af4132ea2e4c3d3415c"
+    },
+    "records/fixture-builds/contained/top/generated-descriptors.json": {
+      "bytes": 3452,
+      "sha256": "394801e68c8950752306fffbe7f7f35d4fa5f938e1c78c8299477dd9b3885088"
+    },
+    "records/fixture-builds/contained/top/local-app-build.json": {
+      "bytes": 41,
+      "sha256": "6c27d89e1d5746f4cb181e76632001b7d4734d41ece2b8322cbedc823e9d45f2"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Info.plist": {
+      "bytes": 919,
+      "sha256": "e604f0bec3eae7e6db7e6430b24c72077d44f1e2ce0ad723336629e7cf7d10a6"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/.gitignore": {
+      "bytes": 14,
+      "sha256": "240a3e0d37d2e86b614063f5347eb02d4f99ca6c254de6b82871ff8d95532a7d"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/base_library.zip": {
+      "bytes": 1333490,
+      "sha256": "c626708ea19b0ef9135ce22241099fb98be037fb1e21b28f2eb8b3804c0ed338"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/METADATA": {
+      "bytes": 2567,
+      "sha256": "e87bce0bd194de70dfb8e708e0a6b0483009f25611804eaf87bfeb63e6c20501"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/RECORD": {
+      "bytes": 1810,
+      "sha256": "924078ec3a47b97192425dbc0c3693085af7a7b863afcf6b4e110cf0bd97dea4"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/WHEEL": {
+      "bytes": 82,
+      "sha256": "1b68144734c4b66791f27add5d425f3620775585718a03d0f9b110ba3a4d88db"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/click-8.5.0.dist-info/licenses/LICENSE.txt": {
+      "bytes": 1475,
+      "sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/METADATA": {
+      "bytes": 185,
+      "sha256": "cae9410c18feb8a8a5bb76aa5dbd6007d41a7f7455fa4df218bf47da2da51c1b"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/RECORD": {
+      "bytes": 11009,
+      "sha256": "2f7091bcee295ee73ec2c35b4040eaebb0ff91a06101aa24069d150000592c9e"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/direct_url.json": {
+      "bytes": 163,
+      "sha256": "3af7fc08705b8c66be8b045b29b6bc7deb2eeafc71d4b3fc516a8ebf1097de37"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/japp_contracts-0.0.1.dist-info/uv_cache.json": {
+      "bytes": 127,
+      "sha256": "b02fcba3d220f02c19e0e831dcb291c647c7cb174359e0741b00ecb2f1245826"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/METADATA": {
+      "bytes": 1411,
+      "sha256": "5bc71e90cb421be92a43bf5ad5b0f25dccfa2a24ddceaa2877779879962a4c9e"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/RECORD": {
+      "bytes": 4470,
+      "sha256": "d520e7cb82b3b9a151e8957337f167ea73f139a710b9d681bd1e1a7189049cdd"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/entry_points.txt": {
+      "bytes": 573,
+      "sha256": "7713ead1845b4034b097c42447e23d037f2b6db7ca406e61dae3458e9bd4e95e"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/opentelemetry_api-1.45.1.dist-info/licenses/LICENSE": {
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/METADATA": {
+      "bytes": 352,
+      "sha256": "4352508f6a0bfb95be9a0d6f7b25747a8431c26c637b7ff419b1ef8ef5c655a6"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/RECORD": {
+      "bytes": 1316,
+      "sha256": "9c4f07c8450ba2f8577e4fc07d61e57b203ecdeb3c7b0039b6dcb70685a19a48"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "5b77e4a649bbfb07fdbc123967eeecd1e5a478cfaca6eefc23c35e6fdf037848"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/direct_url.json": {
+      "bytes": 161,
+      "sha256": "6e3fe37e3c6abb640a7d66443826d69aeb59e25ad1034fb3dc543ec9bcfde0c0"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/orchestrator-0.0.1.dist-info/uv_cache.json": {
+      "bytes": 127,
+      "sha256": "53d3729eff10f3cc322617c22819c80f8d3c9cdb564ff546acae755478e62c73"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/INSTALLER": {
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/METADATA": {
+      "bytes": 90587,
+      "sha256": "a3ba23e895191fed69b8323cbcbcdc82984ca0b6a3cdc62c48a2341886a9c08d"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/RECORD": {
+      "bytes": 9516,
+      "sha256": "2ab80676388a6e636b16d377f7754d674e3418ce28dca0416ab80c34fa7d7ace"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/REQUESTED": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/WHEEL": {
+      "bytes": 87,
+      "sha256": "aad0b0a12256807936d52d4a6f88a1773236ae527564a688bab4e3fe780e8724"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/pydantic-2.12.5.dist-info/licenses/LICENSE": {
+      "bytes": 1129,
+      "sha256": "a9e186f3ca16b5eef84318e7a701721351a00cb7b8ae3a4394b67b49e3529ef3"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/japp-orchestrator/_internal/setuptools/_vendor/jaraco/text/Lorem ipsum.txt": {
+      "bytes": 1335,
+      "sha256": "37fedcffbf73c4eb9f058f47677cb33203a436ff9390e4d38a8e01c9dad28e0b"
+    },
+    "records/fixture-builds/escaped/app-upfront/Desktop App.app/Contents/Resources/runtime/manifest.json": {
+      "bytes": 8274,
+      "sha256": "b120f92403ed5847dac683500e16da5f5f37e329adca6e4c68d33944f9489a7a"
+    },
+    "records/fixture-builds/escaped/fixture-input/fixture-recipe.json": {
+      "bytes": 1139,
+      "sha256": "3b569c5402c73aacc932e1a0a8d7f3499af101dc876a373c6e716529481469e5"
+    },
+    "records/fixture-builds/escaped/fixture-input/fixture_entry.py": {
+      "bytes": 238,
+      "sha256": "69e4c8ac2b0f23703c535e4ad2467be8ad244e3f323e64b2f70a0f29b7bbcb2b"
+    },
+    "records/fixture-builds/escaped/fixture-input/owned-writer.exit.json": {
+      "bytes": 156,
+      "sha256": "7904b9354607d7afe7ee83ddfed527ed496cc6c976ca8d8c5044d3fc6f8a4cd2"
+    },
+    "records/fixture-builds/escaped/fixture-input/owned-writer.json": {
+      "bytes": 423,
+      "sha256": "ab28578f8ac9310596a070386588be86171e33c18a900044afe1160852a6e2b3"
+    },
+    "records/fixture-builds/escaped/fixture-input/owned-writer.release": {
+      "bytes": 33,
+      "sha256": "f623fe3083d6d9f9a8252928edeaad6c574c500ac209977a3d04338182754004"
+    },
+    "records/fixture-builds/escaped/native-build-top/01-venv.stderr": {
+      "bytes": 174,
+      "sha256": "7411a2bdb5c2894f3caf0771fdef21510796f7a5143ad81befeb26ca7ce5e0c9"
+    },
+    "records/fixture-builds/escaped/native-build-top/01-venv.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/native-build-top/02-runtime-install.stderr": {
+      "bytes": 499,
+      "sha256": "90aae716a2fee9a658e426296597c018d1e96fb59959a69fa6f9f377b9718bae"
+    },
+    "records/fixture-builds/escaped/native-build-top/02-runtime-install.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/native-build-top/03-build-install.stderr": {
+      "bytes": 332,
+      "sha256": "755d504fd603627578b14a7ce14b90e54a18a11fdade6e08634191bc819123c5"
+    },
+    "records/fixture-builds/escaped/native-build-top/03-build-install.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/native-build-top/04-wheels-install.stderr": {
+      "bytes": 464,
+      "sha256": "6e61f7cec25d7b825d87515b3a408bf18bb818a7c9735fdf9e6bfc81607c4545"
+    },
+    "records/fixture-builds/escaped/native-build-top/04-wheels-install.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/native-build-top/05-resolved-pins.stderr": {
+      "bytes": 47,
+      "sha256": "735cd7adde933dad7d9d56f92461f0a2291d0a6110ab323896f3d978b8dee454"
+    },
+    "records/fixture-builds/escaped/native-build-top/05-resolved-pins.stdout": {
+      "bytes": 685,
+      "sha256": "5c43aaed6797c70e6523cd87d6bad66f5cd1a6ede07a6a0b8c54dd2ebacb4d24"
+    },
+    "records/fixture-builds/escaped/native-build-top/06-native-build.stderr": {
+      "bytes": 12533,
+      "sha256": "fa5f7b1a922721e68e55fe782f7be9d077a0587f34480e6b59fececa916acee8"
+    },
+    "records/fixture-builds/escaped/native-build-top/06-native-build.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/native-build-top/build-proof.json": {
+      "bytes": 8000,
+      "sha256": "bbd890993b418e22488c80ba8c480eea4a6c8b52dc7b007d37d6aca791d31fa6"
+    },
+    "records/fixture-builds/escaped/native-build-top/builder-executed.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/fixture-builds/escaped/native-build-top/fixture-build-inputs.json": {
+      "bytes": 889,
+      "sha256": "046cde0a1c831259e2ec985b6a277353f6d4f1d27ebd01f6c99e5b216e0ace1d"
+    },
+    "records/fixture-builds/escaped/native-build-top/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/fixture-builds/escaped/native-build-top/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/fixture-builds/escaped/native-build-top/service_entry.py": {
+      "bytes": 238,
+      "sha256": "69e4c8ac2b0f23703c535e4ad2467be8ad244e3f323e64b2f70a0f29b7bbcb2b"
+    },
+    "records/fixture-builds/escaped/native-build-top/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/fixture-builds/escaped/native-build-top/staging-result.json": {
+      "bytes": 333,
+      "sha256": "92a0d62b70038edf7606d135851b2c06b176e66a2da7953587b750a77caaac96"
+    },
+    "records/fixture-builds/escaped/top/00-isolated-dependencies.invocation.json": {
+      "bytes": 1330,
+      "sha256": "d97d1d36050397f24ba50a1343438e0b41a59517143a382401adffea896b7d64"
+    },
+    "records/fixture-builds/escaped/top/00-isolated-dependencies.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/top/00-isolated-dependencies.stdout": {
+      "bytes": 606,
+      "sha256": "cdc3d946d6fcee36bb879e87abe33c15a1026eb2aac9e8811f4e6f982edba0cd"
+    },
+    "records/fixture-builds/escaped/top/01-fixture-entry.invocation.json": {
+      "bytes": 1913,
+      "sha256": "1ab12993f1630d826eec13647c345a6b53507c28a85b3c5a8d4d815ff31ada56"
+    },
+    "records/fixture-builds/escaped/top/01-fixture-entry.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/top/01-fixture-entry.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/top/02-native-runtime.invocation.json": {
+      "bytes": 2849,
+      "sha256": "77eb77ff4350de8afa0c971cb5f0d9405dcd3b2ed5f471af8d27e3d2000395e2"
+    },
+    "records/fixture-builds/escaped/top/02-native-runtime.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/top/02-native-runtime.stdout": {
+      "bytes": 250,
+      "sha256": "b9c1dc54aacfc39530c3f42ebefcf44d314e6fa8eb8e45dc8fe6dbe36a0cbd4e"
+    },
+    "records/fixture-builds/escaped/top/03-cache-copy.invocation.json": {
+      "bytes": 1441,
+      "sha256": "3cc05e5ef53f8cf4d11169caaa91e003610e2baaead3c2811514612a26438560"
+    },
+    "records/fixture-builds/escaped/top/03-cache-copy.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/top/03-cache-copy.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/fixture-builds/escaped/top/04-tauri-app.invocation.json": {
+      "bytes": 1560,
+      "sha256": "fa14b5561c40d94b17ccbacb15cfb799b97640a81c487308a32979ce8436e82f"
+    },
+    "records/fixture-builds/escaped/top/04-tauri-app.stderr": {
+      "bytes": 825,
+      "sha256": "ff066fd7a3e941555ea2bf475b42fe5cfdf6b9068f6d30950a8ac7360cb2713f"
+    },
+    "records/fixture-builds/escaped/top/04-tauri-app.stdout": {
+      "bytes": 675,
+      "sha256": "e36feffad274f4f5bcec24c2e6655b3c4b334805c41c57dc4a25c8533388efe6"
+    },
+    "records/fixture-builds/escaped/top/app-upfront-tree.json": {
+      "bytes": 8332,
+      "sha256": "c33da6f73df7e1ac733d90bfd2e6b4792cc8a2ccadb9341de98645c1018b627d"
+    },
+    "records/fixture-builds/escaped/top/build-result.json": {
+      "bytes": 1904,
+      "sha256": "b2a5d6abe867da2c4f158c05efc12e6a46f1e829d6261fc1c109531be53202c7"
+    },
+    "records/fixture-builds/escaped/top/canonical-source-after.json": {
+      "bytes": 234816,
+      "sha256": "cfe9c7d895f579af3f69ee66a7cb10401511e5732d8cee91d270f6d73f0a08bd"
+    },
+    "records/fixture-builds/escaped/top/canonical-source-before.json": {
+      "bytes": 234816,
+      "sha256": "cfe9c7d895f579af3f69ee66a7cb10401511e5732d8cee91d270f6d73f0a08bd"
+    },
+    "records/fixture-builds/escaped/top/case-config.json": {
+      "bytes": 2062,
+      "sha256": "6cb5c8d17959c908d6981b5dc16aea173b306bdcc7ca714d3fd1e07eccc7cef6"
+    },
+    "records/fixture-builds/escaped/top/dependency-binding.json": {
+      "bytes": 358,
+      "sha256": "0ace1f7b8b2cabd5afcdd874ac52ec402a94f4cbbe935af4132ea2e4c3d3415c"
+    },
+    "records/fixture-builds/escaped/top/generated-descriptors.json": {
+      "bytes": 3475,
+      "sha256": "0961e6778ed54a8e5bb8f3fdaf71e9e2cdc4d9119a4f7fe405dc2856930d2067"
+    },
+    "records/fixture-builds/escaped/top/local-app-build.json": {
+      "bytes": 41,
+      "sha256": "6c27d89e1d5746f4cb181e76632001b7d4734d41ece2b8322cbedc823e9d45f2"
+    },
+    "records/full-v3-independent-review/REVIEW.md": {
+      "bytes": 721,
+      "sha256": "50c0cf6e9a7ebeec7a761ff5dd1bb7663a7696982fe907117950ddb941eac4c3"
+    },
+    "records/full-v3-independent-review/actual-metrics.json": {
+      "bytes": 25753,
+      "sha256": "b0944ba3cf6643adb9ad0fc43ef368f4ddbf7925721cf050d3d551d43714fe77"
+    },
+    "records/full-v3-independent-review/findings.json": {
+      "bytes": 35663,
+      "sha256": "87fcf52a29ccc4720d0e5a9e86f5e20077a7e35291457f2c80708b9670d6880a"
+    },
+    "records/full-v3-independent-review/input-retention-manifest.json": {
+      "bytes": 2720,
+      "sha256": "dacbe2d58b9ee9a4ca49a32389712744f820225cf9ae6d9dda5393addb0935ed"
+    },
+    "records/full-v3-independent-review/inputs/after.json": {
+      "bytes": 389180,
+      "sha256": "af0ec1a86ecbcafddce09556c7c0433c6a155bb17b839254a0596331500d3011"
+    },
+    "records/full-v3-independent-review/inputs/before.json": {
+      "bytes": 389180,
+      "sha256": "af0ec1a86ecbcafddce09556c7c0433c6a155bb17b839254a0596331500d3011"
+    },
+    "records/full-v3-independent-review/inputs/canonical/python-test-inventory.v1.json": {
+      "bytes": 215530,
+      "sha256": "d08b43502859a2152d87b15e084c9289cfe54b58769f87258572b42e85716167"
+    },
+    "records/full-v3-independent-review/inputs/canonical/verification-suites.json": {
+      "bytes": 31141,
+      "sha256": "93016458fdf16ff141529cd4bf944a37b8c7faced960be7d08601234324e86d8"
+    },
+    "records/full-v3-independent-review/inputs/canonical/verify.py": {
+      "bytes": 145793,
+      "sha256": "eca614e1cd32ffa63f7f02f93e992b718c61ed757bec8c702bde315b2a66aae0"
+    },
+    "records/full-v3-independent-review/inputs/closure.json": {
+      "bytes": 153,
+      "sha256": "14d14f3b8e3be8a81a7a15704bb3631f52b989452285bf386195e5af041d7855"
+    },
+    "records/full-v3-independent-review/inputs/commands.json": {
+      "bytes": 821,
+      "sha256": "0eb0542da73c005be8bd80d3c95666e62f756ffd83ad245f473fe8b836bdcd81"
+    },
+    "records/full-v3-independent-review/inputs/doctor.log": {
+      "bytes": 3222,
+      "sha256": "0b114d3112efd5f0bc52af6b57282085bda1a3c0272edf6774b3952cdbca8cc8"
+    },
+    "records/full-v3-independent-review/inputs/environment.json": {
+      "bytes": 1437,
+      "sha256": "ad4e6d262192fba70cd044449489aba443407f918ec034def92e3305bb62283a"
+    },
+    "records/full-v3-independent-review/inputs/executed-wrapper.py": {
+      "bytes": 3348,
+      "sha256": "63433b03896ddd9addec09323daf045bbadf738cd373d8a1c14ce2a507fc277d"
+    },
+    "records/full-v3-independent-review/inputs/verify.log": {
+      "bytes": 650011,
+      "sha256": "b2b645d1f1dad4bf8e683898c99fc6dd270e9165deb5669e60996b0013fe0ef5"
+    },
+    "records/hosted-ci-cac56/actual-checkout-commit.json": {
+      "bytes": 2600,
+      "sha256": "896f19883c0996ed114a1fefb66d222920a3e92fcc315a6bf69c78d351dd588d"
+    },
+    "records/hosted-ci-cac56/failed-log.txt": {
+      "bytes": 446212,
+      "sha256": "1a05df995e7b0a1d75618ce0d6f421ebd6af6959132091228371e038ce87f938"
+    },
+    "records/hosted-ci-cac56/jobs.json": {
+      "bytes": 21210,
+      "sha256": "600bfab1f851e7ced681d834f80fa5a1b0ac1658fb7f3835ad261ec12023213c"
+    },
+    "records/hosted-ci-cac56/logs.zip": {
+      "bytes": 683847,
+      "sha256": "bf47756e7f9027a6ad7e77278c53cc5f1221261b6d8fcdcded194035e18c4a07"
+    },
+    "records/hosted-ci-cac56/run-view.json": {
+      "bytes": 19315,
+      "sha256": "bf1a69dd5108bbf233cd1bb6081911106513474bd7568284ceba4aeafc7a8888"
+    },
+    "records/hosted-ci-cac56/run.json": {
+      "bytes": 12360,
+      "sha256": "7a8bde76e73ca944c49c3ca543ec2ae50d7e45ccbc0eb83b497e11718801f1b8"
+    },
+    "records/hosted-ci-cac56/windows-complete-raw.txt": {
+      "bytes": 1222127,
+      "sha256": "b07d95e48026821c87f11cfd6d05cc8550c5145676f76b96eae3243973c166d3"
+    },
+    "records/hosted-ci-cac56/zip-members.json": {
+      "bytes": 490,
+      "sha256": "4106e716e1c3d6956463cf0392a3afe3093093cbf7e2da2089c589059e7ae392"
+    },
+    "records/local-full-v3-pack/full-verification-cac56.tar.gz": {
+      "bytes": 623576,
+      "sha256": "9ce8abcf1b7bdae36075f2e625f3eccef76f814c48d3e0c11173f8adef9d1ba9"
+    },
+    "records/local-full-v3-pack/manifest.json": {
+      "bytes": 4246,
+      "sha256": "94aee570c7dfbe4b4cbed0f4d568ef3a4368ac1fe7ea91086dad2336144f4894"
+    },
+    "records/native-independent-review/REVIEW.md": {
+      "bytes": 6604,
+      "sha256": "00f6cf28f9fa5392d5d41af735ff476693721f256c7522b233329ce1d168a037"
+    },
+    "records/native-independent-review/audit.py": {
+      "bytes": 15813,
+      "sha256": "11f43f3cb006ef9abea314b995b1e77238eebc4a9c35d9138a9adcc96710537a"
+    },
+    "records/native-independent-review/canonical-actual-app-tree.json": {
+      "bytes": 8332,
+      "sha256": "30b35b5bbba0da9230afb005a350c5fd1abb5a1c65ea0e50ae3b659c84425a8b"
+    },
+    "records/native-independent-review/case-summary.json": {
+      "bytes": 22027,
+      "sha256": "3edfcadf757b9190aa01a47b83796321db0144131f40fe5d65b8a585df2fdfab"
+    },
+    "records/native-independent-review/checks.json": {
+      "bytes": 35798,
+      "sha256": "62559b6df9e6d98628469c7cc3d25e687a90b55f7e5d847307e12845d25a3c5f"
+    },
+    "records/native-independent-review/contained-actual-app-tree.json": {
+      "bytes": 8332,
+      "sha256": "c3e62b986d2a16f3d6a3883df04d44ae83841b0c44461557a8637b26dff5087d"
+    },
+    "records/native-independent-review/escaped-actual-app-tree.json": {
+      "bytes": 8332,
+      "sha256": "c33da6f73df7e1ac733d90bfd2e6b4792cc8a2ccadb9341de98645c1018b627d"
+    },
+    "records/native-independent-review/findings.json": {
+      "bytes": 1516,
+      "sha256": "b48a1b5efa8a0dd1ba7c059a0993d92e66625e2b48e61084cb7d2951890511d4"
+    },
+    "records/native-independent-review/input-retention.json": {
+      "bytes": 63700,
+      "sha256": "d36b6290201d923b0c8531ccc540a256710766309de5f99cf359e135e5dd410b"
+    },
+    "records/native-independent-review/inputs/Users/tanishkalwad/jobapplyv2/apps/desktop/src-tauri/runtime-payload/manifest.json": {
+      "bytes": 8274,
+      "sha256": "af0cbd87c719f322287efaf91e07f5529056b47d4fcd776d88f0ae461b0e97e3"
+    },
+    "records/native-independent-review/inputs/private/tmp/japp-m03-w03-root-fixture-apps-v3-20261018/contained/fixture-input/fixture-recipe.json": {
+      "bytes": 1117,
+      "sha256": "62a00dd541e4adba20a001191e74f3e18b255b12435bce3c875583e9055da889"
+    },
+    "records/native-independent-review/inputs/private/tmp/japp-m03-w03-root-fixture-apps-v3-20261018/contained/fixture-input/owned-writer.json": {
+      "bytes": 420,
+      "sha256": "17f4f1fa56dfb6f7a039ff2f02235451cdb12e6f17822dcb03c87bfe1204511d"
+    },
+    "records/native-independent-review/inputs/private/tmp/japp-m03-w03-root-fixture-apps-v3-20261018/contained/fixture-input/owned-writer.release": {
+      "bytes": 33,
+      "sha256": "bc1a1d7bea0e80be733d23c1c28123a27b605372aaa9e2f9761ae398e5c47fd1"
+    },
+    "records/native-independent-review/inputs/private/tmp/japp-m03-w03-root-fixture-apps-v3-serial-20261018/escaped/fixture-input/fixture-recipe.json": {
+      "bytes": 1139,
+      "sha256": "3b569c5402c73aacc932e1a0a8d7f3499af101dc876a373c6e716529481469e5"
+    },
+    "records/native-independent-review/inputs/private/tmp/japp-m03-w03-root-fixture-apps-v3-serial-20261018/escaped/fixture-input/owned-writer.exit.json": {
+      "bytes": 156,
+      "sha256": "7904b9354607d7afe7ee83ddfed527ed496cc6c976ca8d8c5044d3fc6f8a4cd2"
+    },
+    "records/native-independent-review/inputs/private/tmp/japp-m03-w03-root-fixture-apps-v3-serial-20261018/escaped/fixture-input/owned-writer.json": {
+      "bytes": 423,
+      "sha256": "ab28578f8ac9310596a070386588be86171e33c18a900044afe1160852a6e2b3"
+    },
+    "records/native-independent-review/inputs/private/tmp/japp-m03-w03-root-fixture-apps-v3-serial-20261018/escaped/fixture-input/owned-writer.release": {
+      "bytes": 33,
+      "sha256": "f623fe3083d6d9f9a8252928edeaad6c574c500ac209977a3d04338182754004"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/case-input.json": {
+      "bytes": 1766,
+      "sha256": "4979eaf3544c1f7c99e79f091ff7b2f540804bbe2ba8e926c368460e31c97aa7"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/observer-console.txt": {
+      "bytes": 3049,
+      "sha256": "3b1572512893e9f0281e6bef551b0a964dde548de4c9ef48ad795c7982742c72"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/observer-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/proof/case-result.json": {
+      "bytes": 425,
+      "sha256": "cdb31789da0a411a73c695efc8295b21a91799d17e43275f4fe3d5d9bbfdc944"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/proof/events.jsonl": {
+      "bytes": 3049,
+      "sha256": "3b1572512893e9f0281e6bef551b0a964dde548de4c9ef48ad795c7982742c72"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/proof/listener-1.command.json": {
+      "bytes": 163,
+      "sha256": "0b8aed16a4f574b2d1e9348dd828e2a6a678742de78b29a5c7f1409ef12e4a2a"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/proof/listener-1.command.result.json": {
+      "bytes": 86,
+      "sha256": "843c501d0a506e92d6aaf5ca40ba92d64b441fad1b0b18788466269a8614a346"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/proof/listener-1.stdout": {
+      "bytes": 27,
+      "sha256": "1f2946c380bdc9d0fab5d3177e06d37181d8083348f46045b58c42e2cf2c1547"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/proof/listener-1.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/retained/source/build-test-fixture-runtime.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/retained/source/japp_lifecycle_probe.py": {
+      "bytes": 23423,
+      "sha256": "ecdcb57e6ced18840a132f171da0d54def919150a626c7531cbe2e86d7932489"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/retained/source/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/retained/source/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/retained/source/prepare_fixture.py": {
+      "bytes": 2049,
+      "sha256": "c5caef0641eb766efb1d34bea2bbd0ebe179c1e0e25a3c05b65f4a7561f95169"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/retained/source/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/root-baseline-ax.txt": {
+      "bytes": 435,
+      "sha256": "f56614303b81ed28fc6ff572e3e5cc039534117672a986ee745b45e366a7ee0d"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/root-baseline.png": {
+      "bytes": 184448,
+      "sha256": "e8f8ca709c8fc97627d537bdd81c2cd67b0c18a8dae9714f779bcf6a93b6f6ef"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/root-close-action-result.json": {
+      "bytes": 396,
+      "sha256": "84951d2ef5802e3835836ba45d8c370077a0a60da1ca1919bf6237653eaa32c3"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/root-close-action-upfront.json": {
+      "bytes": 246,
+      "sha256": "40e4d4e9bd734050aeeb176d4d5719841d81c98e817fa5aca1ce1e68d83329e5"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/root-file-menu-ax.txt": {
+      "bytes": 180,
+      "sha256": "6d1219004d17d5f506f2f554783a3308912fc7522ff3c22b48c274c264d5e7af"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/root-gui-blocked.json": {
+      "bytes": 497,
+      "sha256": "34ce742ed4d7b61bcf2f93526efa96e02718d773fb864f1031c8163918e3282c"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/root-gui-launch.json": {
+      "bytes": 235,
+      "sha256": "8bc7f5ab318a1273e374b84bac820d32c148377e5b4b0ed307d66e77a66f9844"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/upfront-retention.json": {
+      "bytes": 5316,
+      "sha256": "b19b659f6d4921e2a4e5ff9727abe877329662339276ce693fbe168464e18353"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/case-input.json": {
+      "bytes": 1770,
+      "sha256": "32157b7a6d4fe9317cfce7d9d7ef0cafe9dd76b424362df71accb567ac9226d2"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/observer-console.txt": {
+      "bytes": 4223,
+      "sha256": "bc99ca9b2a449b16f618abe716435a5e10b1c77351db9bd8b2fb0d1f59c10752"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/observer-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/app.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/app.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/case-result.json": {
+      "bytes": 2048,
+      "sha256": "b5918f85ccc9785eddca9c99c0a5a498422508eece07ea7bf3447b625dae8893"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/events.jsonl": {
+      "bytes": 4223,
+      "sha256": "bc99ca9b2a449b16f618abe716435a5e10b1c77351db9bd8b2fb0d1f59c10752"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-1.command.json": {
+      "bytes": 163,
+      "sha256": "f68acc82afc5e747bb2bd98ed756b5f1524956b5c09d0a974a61bb769e2e30e0"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-1.command.result.json": {
+      "bytes": 86,
+      "sha256": "984658aa20c07ae0907ab8dcc08ad95dd588d8cc963bb4e211aa00e49ac88e4a"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-1.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-1.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-2.command.json": {
+      "bytes": 163,
+      "sha256": "3e53f7242c3fc6d61f0aa90365addd35b3a68817795b7d2a36fa26c4f57d6abf"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-2.command.result.json": {
+      "bytes": 86,
+      "sha256": "7386f7fe3caebf68e24d4aa4a78da6dc1a7d582100c8c1963f53946105d978d9"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-2.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-2.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-3.command.json": {
+      "bytes": 163,
+      "sha256": "9001bfbd9b0a2610365c9f5ec4156aac4fe2007fafe688eb9aea9aa9c6b73347"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-3.command.result.json": {
+      "bytes": 84,
+      "sha256": "71d104bd578d6ced0c65e074f3991349ba81e6da250ca0c0ebb5b7452719d5f6"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-3.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-3.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-4.command.json": {
+      "bytes": 163,
+      "sha256": "89d053ab5528793d32f658e8225f697278c3c737c62a9db6bc53edc6090fc4f7"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-4.command.result.json": {
+      "bytes": 86,
+      "sha256": "b2f0bc31f0ac8fc0003f3ecf52b9f8d7a482ad12460008cff7b2465f57e6e840"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-4.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-4.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-5.command.json": {
+      "bytes": 163,
+      "sha256": "8f9877affd1ad87a986b1e3a5f73f560ed5cf43225725d01f909507ddecf2858"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-5.command.result.json": {
+      "bytes": 86,
+      "sha256": "efd65120843c2a9426c5005aba22098b4e2ccaa014af675af92d45600b9358b3"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-5.stdout": {
+      "bytes": 27,
+      "sha256": "f1cb4f6758134562be491ae516b4632aceaf26a22efa266002cebb9403d68584"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-5.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/retained/source/build-test-fixture-runtime.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/retained/source/japp_lifecycle_probe.py": {
+      "bytes": 23423,
+      "sha256": "ecdcb57e6ced18840a132f171da0d54def919150a626c7531cbe2e86d7932489"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/retained/source/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/retained/source/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/retained/source/prepare_fixture.py": {
+      "bytes": 2049,
+      "sha256": "c5caef0641eb766efb1d34bea2bbd0ebe179c1e0e25a3c05b65f4a7561f95169"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/retained/source/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/root-baseline-ax.txt": {
+      "bytes": 1792,
+      "sha256": "126db5e69a8eec1e2083deffe8f7628cee2d3de41fcaebe4bfb8ff31fb9c65cf"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/root-baseline.png": {
+      "bytes": 183966,
+      "sha256": "5a9eda7712b81a101c499932173d0006d6810a6529446a3423574e7e7d0ed6e7"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/upfront-retention.json": {
+      "bytes": 5332,
+      "sha256": "0e3e4bdb11d47e6c397a85eecf40db20f35e76f5a5764bb6b4e9ba49b1e33559"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/case-input.json": {
+      "bytes": 1766,
+      "sha256": "4979eaf3544c1f7c99e79f091ff7b2f540804bbe2ba8e926c368460e31c97aa7"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/observer-console.txt": {
+      "bytes": 3039,
+      "sha256": "1058427d9a893e7dbe4eb1716db40efec8e3cac84e3a08ec99048c36d01d7581"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/observer-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/case-result.json": {
+      "bytes": 425,
+      "sha256": "c6306af07872a46a1418b2cefa7552cdb7dc876591703089c7875cc90ae20bb5"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/events.jsonl": {
+      "bytes": 3039,
+      "sha256": "1058427d9a893e7dbe4eb1716db40efec8e3cac84e3a08ec99048c36d01d7581"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/listener-1.command.json": {
+      "bytes": 163,
+      "sha256": "5f3909bc0afceb4c90400805dd327e3db752e2fa2426e3327bb7bc933bb31268"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/listener-1.command.result.json": {
+      "bytes": 86,
+      "sha256": "6e2a0d6591260fefd5099e98608103473161d4894f10430ba4d7cb0411993a87"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/listener-1.stdout": {
+      "bytes": 27,
+      "sha256": "63e63c24d7a1741a73b1236a547f5af4d93202f285fcbee97796bada602b6a9b"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/listener-1.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/unauthorized/executed-source.py": {
+      "bytes": 2458,
+      "sha256": "62dd01068340c9ed2a399677eb992e090ab0c850a1a3f9bb98df8f4b8ddf224b"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/unauthorized/invocation.json": {
+      "bytes": 890,
+      "sha256": "8816f71cddccd2653328f945e682d6942ec01126d5c160eda0c16c5a72588c3d"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/unauthorized/response.body": {
+      "bytes": 429,
+      "sha256": "c1a92ba5281aa45f9ef5148347ba90bcf992aad97d5ffa1adbb89dc102b7c44d"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/unauthorized/result.json": {
+      "bytes": 1667,
+      "sha256": "6a3c2a9f5bc5adf1aa509dceac0f64f7770e27035dabce29268b44415c086079"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/retained/source/build-test-fixture-runtime.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/retained/source/japp_lifecycle_probe.py": {
+      "bytes": 23423,
+      "sha256": "ecdcb57e6ced18840a132f171da0d54def919150a626c7531cbe2e86d7932489"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/retained/source/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/retained/source/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/retained/source/prepare_fixture.py": {
+      "bytes": 2049,
+      "sha256": "c5caef0641eb766efb1d34bea2bbd0ebe179c1e0e25a3c05b65f4a7561f95169"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/retained/source/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/root-baseline-ax.txt": {
+      "bytes": 1573,
+      "sha256": "8d6212e3d208efc6365255f1db0d93ee38b2976e4de50eab074d963d3c414113"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/root-baseline.png": {
+      "bytes": 183641,
+      "sha256": "08f76994400b65655ceede2317a16f24c9bc1c9437440581727049b3ef0f2227"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/root-quit-action-result.json": {
+      "bytes": 888,
+      "sha256": "1e22d8b5ad978f83c4a294e146c167a877f223a8fcd3da794d44fb6884de1fc6"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/root-quit-action-upfront.json": {
+      "bytes": 258,
+      "sha256": "cf5efc112c063320bd2afd4e62365261dde6b7d555cf36c17fbc701c0641e3b0"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/root-quit-menu-ax.txt": {
+      "bytes": 699,
+      "sha256": "36fcf686c8161387e12d65ee68f1a7027ad1c699d4cbfaefa78f0706d9910ac5"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/unauthorized-outer-result.json": {
+      "bytes": 858,
+      "sha256": "3e7f6e4a629f4a5fec081af8abd30caba25d96dd0839e04198461531d2b96a9a"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/unauthorized-outer-upfront.json": {
+      "bytes": 534,
+      "sha256": "b52e8d1c641429d177b33b667f55d79d184a1b6c5d0a8d2ed020f9fabd23d1fe"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/unauthorized-proof-source.py": {
+      "bytes": 2458,
+      "sha256": "62dd01068340c9ed2a399677eb992e090ab0c850a1a3f9bb98df8f4b8ddf224b"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/unauthorized.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/unauthorized.stdout": {
+      "bytes": 1403,
+      "sha256": "efc4606cd0cc179ada2c1b2e1545183608af0c0d4a92c82e42289462303b5550"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/upfront-retention.json": {
+      "bytes": 5300,
+      "sha256": "b346fde1dc4f4343391cb066535a6a6b347d1915c89e13ff11ad46b2c61e19db"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/case-input.json": {
+      "bytes": 2136,
+      "sha256": "f7e2fa938e9a5d5529729b7a1ab731abf9de3bcf54515f8c8e7e484c99c6b15c"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/observer-console.txt": {
+      "bytes": 3391,
+      "sha256": "dcb7173948854550f35bb28dd3920917994d9d64949d720a20cc6708a2f1bffa"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/observer-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/proof/case-result.json": {
+      "bytes": 425,
+      "sha256": "9401a252555dba7fd85cecf862b71610560add1713b414631bbcb18e1ac486e8"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/proof/events.jsonl": {
+      "bytes": 3391,
+      "sha256": "dcb7173948854550f35bb28dd3920917994d9d64949d720a20cc6708a2f1bffa"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/proof/listener-1.command.json": {
+      "bytes": 163,
+      "sha256": "d5bb992c424901f2eed4a8dbf63f609190815c1d7dd91fef9bd699bf96cefb8e"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/proof/listener-1.command.result.json": {
+      "bytes": 86,
+      "sha256": "f3cc39709936caedd60338c4a59ca2d2a174952fd992414cc843ebc5addcc851"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/proof/listener-1.stdout": {
+      "bytes": 27,
+      "sha256": "e42686d6f44ed0619a48e96051e0b83e303d0a47911bbf266301cd2b01b5da83"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/proof/listener-1.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/retained/source/build-test-fixture-runtime.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/retained/source/japp_lifecycle_probe.py": {
+      "bytes": 23423,
+      "sha256": "ecdcb57e6ced18840a132f171da0d54def919150a626c7531cbe2e86d7932489"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/retained/source/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/retained/source/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/retained/source/prepare_fixture.py": {
+      "bytes": 2049,
+      "sha256": "c5caef0641eb766efb1d34bea2bbd0ebe179c1e0e25a3c05b65f4a7561f95169"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/retained/source/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/root-baseline-ax.txt": {
+      "bytes": 1671,
+      "sha256": "7452be38d2882f20209e447c3b5f1db1d74297dc75631f79fb4cbce09a276b11"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/root-baseline.png": {
+      "bytes": 184448,
+      "sha256": "e8f8ca709c8fc97627d537bdd81c2cd67b0c18a8dae9714f779bcf6a93b6f6ef"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/root-close-action-result.json": {
+      "bytes": 308,
+      "sha256": "662459cca4e1e36f3ef54417c79fefa18c7f68923f29152aa6672869b2f8a0ff"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/root-close-action-upfront.json": {
+      "bytes": 158,
+      "sha256": "8a73cdad66fea4b826343aff9f06270edbd4ee27789afa6f0e517e0ebd36fb4f"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/root-close-menu-ax.txt": {
+      "bytes": 180,
+      "sha256": "6d1219004d17d5f506f2f554783a3308912fc7522ff3c22b48c274c264d5e7af"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/upfront-retention.json": {
+      "bytes": 5431,
+      "sha256": "0eec2adb2013ab2c646e3877a898f39324e3bd1e26059b2990266ed7e7b5d723"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/case-input.json": {
+      "bytes": 2175,
+      "sha256": "70a55d65f99a7058da60d598fc66d797c5cca8cb5a6050a3ce072ea9cf9e4738"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/observer-console.txt": {
+      "bytes": 5018,
+      "sha256": "2788144c5a1bebf4067a77768380b150beb7e6f1747ef06ba43b238ac1a89796"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/observer-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/proof/case-result.json": {
+      "bytes": 422,
+      "sha256": "947e153d4ad4dfc0645c8269f9b93c849f880c075fc45004067c671f887322d3"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/proof/events.jsonl": {
+      "bytes": 5018,
+      "sha256": "2788144c5a1bebf4067a77768380b150beb7e6f1747ef06ba43b238ac1a89796"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/proof/listener-1.command.json": {
+      "bytes": 160,
+      "sha256": "d96567c562a86e5a30bd86e26a3b1aaa3fc4e9f06a210166667dc1cf3616c8a3"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/proof/listener-1.command.result.json": {
+      "bytes": 86,
+      "sha256": "121484cc3a2a21b785ec91d75d7c00e43c8747e9a5fec1b6521bebfb589a413c"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/proof/listener-1.stdout": {
+      "bytes": 27,
+      "sha256": "109d3507b3881fbfe7aaa500ab00ea92700a11267e0214ba1dc419307008fa3f"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/proof/listener-1.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/retained/source/build-test-fixture-runtime.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/retained/source/japp_lifecycle_probe.py": {
+      "bytes": 23423,
+      "sha256": "ecdcb57e6ced18840a132f171da0d54def919150a626c7531cbe2e86d7932489"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/retained/source/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/retained/source/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/retained/source/prepare_fixture.py": {
+      "bytes": 2049,
+      "sha256": "c5caef0641eb766efb1d34bea2bbd0ebe179c1e0e25a3c05b65f4a7561f95169"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/retained/source/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-baseline-ax.txt": {
+      "bytes": 1671,
+      "sha256": "7452be38d2882f20209e447c3b5f1db1d74297dc75631f79fb4cbce09a276b11"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-baseline.png": {
+      "bytes": 184448,
+      "sha256": "e8f8ca709c8fc97627d537bdd81c2cd67b0c18a8dae9714f779bcf6a93b6f6ef"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-cleanup-failure-ax.txt": {
+      "bytes": 1806,
+      "sha256": "655553532764c1f9684133e2b1e0a9e8872f64d6fd57b0878d1c3c846bc85026"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-cleanup-failure.png": {
+      "bytes": 192176,
+      "sha256": "5db511300f409a0ec4b994b9c1c7634ded48ba6759a537503848356c0769a9e4"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-close-action-result.json": {
+      "bytes": 2212,
+      "sha256": "7229c39a8d241351adc893edb157e74684f9720a4544518cb443ec69a3533228"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-close-action-upfront.json": {
+      "bytes": 156,
+      "sha256": "7dd46680cc987d2b7db4544f4db82f599ef60b923a6830692fc13934b2841b13"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-close-menu-ax.txt": {
+      "bytes": 180,
+      "sha256": "6d1219004d17d5f506f2f554783a3308912fc7522ff3c22b48c274c264d5e7af"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-retry-action-result.json": {
+      "bytes": 824,
+      "sha256": "694050d33e088ea3d40d9603f06e9c8c2e405a5b5f8f709cd428ecda53fdb01a"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-retry-action-upfront.json": {
+      "bytes": 179,
+      "sha256": "e2b6e20063f5a57209bdb8f58808df387c9f6e4372dd267a19ab55996a5f4814"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-retry-menu-ax.txt": {
+      "bytes": 744,
+      "sha256": "99ab93efa7d3f6f1316787475306c6cfa770009cfe438e0f9044eba034739260"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/upfront-retention.json": {
+      "bytes": 5435,
+      "sha256": "6eae2428c93edc06cef832e551ad8a5226f33215e22b4352f97b2247fa6a4c30"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-hosted-ci-cac56-20261018/actual-checkout-commit.json": {
+      "bytes": 2600,
+      "sha256": "896f19883c0996ed114a1fefb66d222920a3e92fcc315a6bf69c78d351dd588d"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-hosted-ci-cac56-20261018/jobs.json": {
+      "bytes": 21210,
+      "sha256": "600bfab1f851e7ced681d834f80fa5a1b0ac1658fb7f3835ad261ec12023213c"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-hosted-ci-cac56-20261018/run.json": {
+      "bytes": 12360,
+      "sha256": "7a8bde76e73ca944c49c3ca543ec2ae50d7e45ccbc0eb83b497e11718801f1b8"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-hosted-ci-cac56-20261018/windows-complete-raw.txt": {
+      "bytes": 1222127,
+      "sha256": "b07d95e48026821c87f11cfd6d05cc8550c5145676f76b96eae3243973c166d3"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-root-app-build-v3-20261018/app-tree.json": {
+      "bytes": 9172,
+      "sha256": "3a003c09e6868d35b38f86620a2042ede1fb657701429e01b792b3ed48bd2f3a"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-root-app-build-v3-20261018/app.json": {
+      "bytes": 345,
+      "sha256": "d966b845e8c2bf8182f29718e3cf227ca7ad22d1f8f5a0b6c1788ef8a597a4c9"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-root-app-build-v3-20261018/tracked-after.json": {
+      "bytes": 234816,
+      "sha256": "cfe9c7d895f579af3f69ee66a7cb10401511e5732d8cee91d270f6d73f0a08bd"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-root-app-build-v3-20261018/tracked-before.json": {
+      "bytes": 234816,
+      "sha256": "cfe9c7d895f579af3f69ee66a7cb10401511e5732d8cee91d270f6d73f0a08bd"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-root-fixture-apps-v3-20261018/contained/app-upfront-tree.json": {
+      "bytes": 8332,
+      "sha256": "c3e62b986d2a16f3d6a3883df04d44ae83841b0c44461557a8637b26dff5087d"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-root-fixture-apps-v3-20261018/contained/native-build/runtime-stage/manifest.json": {
+      "bytes": 8274,
+      "sha256": "f74db1cf0288a81315d47dbe6a05cc23371e80ddb511279293977b2b040ab973"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-root-fixture-apps-v3-serial-20261018/escaped/app-upfront-tree.json": {
+      "bytes": 8332,
+      "sha256": "c33da6f73df7e1ac733d90bfd2e6b4792cc8a2ccadb9341de98645c1018b627d"
+    },
+    "records/native-independent-review/inputs/tmp/japp-m03-w03-root-fixture-apps-v3-serial-20261018/escaped/native-build/runtime-stage/manifest.json": {
+      "bytes": 8274,
+      "sha256": "b120f92403ed5847dac683500e16da5f5f37e329adca6e4c68d33944f9489a7a"
+    },
+    "records/native-independent-review/premise-v1/audit.py": {
+      "bytes": 15644,
+      "sha256": "db88fbf692659f3a2ed6a6e529753f44b1270b5accd6a6267f3190ed3408f3c9"
+    },
+    "records/native-independent-review/premise-v1/canonical-actual-app-tree.json": {
+      "bytes": 8332,
+      "sha256": "30b35b5bbba0da9230afb005a350c5fd1abb5a1c65ea0e50ae3b659c84425a8b"
+    },
+    "records/native-independent-review/premise-v1/case-summary.json": {
+      "bytes": 22027,
+      "sha256": "3edfcadf757b9190aa01a47b83796321db0144131f40fe5d65b8a585df2fdfab"
+    },
+    "records/native-independent-review/premise-v1/checks.json": {
+      "bytes": 35803,
+      "sha256": "2145eb3eb205ef919efcc372ff1aa7410008318bf23dfeceda376b4d93558bd7"
+    },
+    "records/native-independent-review/premise-v1/contained-actual-app-tree.json": {
+      "bytes": 8332,
+      "sha256": "c3e62b986d2a16f3d6a3883df04d44ae83841b0c44461557a8637b26dff5087d"
+    },
+    "records/native-independent-review/premise-v1/escaped-actual-app-tree.json": {
+      "bytes": 8332,
+      "sha256": "c33da6f73df7e1ac733d90bfd2e6b4792cc8a2ccadb9341de98645c1018b627d"
+    },
+    "records/native-independent-review/premise-v1/input-retention.json": {
+      "bytes": 63700,
+      "sha256": "d36b6290201d923b0c8531ccc540a256710766309de5f99cf359e135e5dd410b"
+    },
+    "records/native-independent-review/premise-v1/inputs/Users/tanishkalwad/jobapplyv2/apps/desktop/src-tauri/runtime-payload/manifest.json": {
+      "bytes": 8274,
+      "sha256": "af0cbd87c719f322287efaf91e07f5529056b47d4fcd776d88f0ae461b0e97e3"
+    },
+    "records/native-independent-review/premise-v1/inputs/private/tmp/japp-m03-w03-root-fixture-apps-v3-20261018/contained/fixture-input/fixture-recipe.json": {
+      "bytes": 1117,
+      "sha256": "62a00dd541e4adba20a001191e74f3e18b255b12435bce3c875583e9055da889"
+    },
+    "records/native-independent-review/premise-v1/inputs/private/tmp/japp-m03-w03-root-fixture-apps-v3-20261018/contained/fixture-input/owned-writer.json": {
+      "bytes": 420,
+      "sha256": "17f4f1fa56dfb6f7a039ff2f02235451cdb12e6f17822dcb03c87bfe1204511d"
+    },
+    "records/native-independent-review/premise-v1/inputs/private/tmp/japp-m03-w03-root-fixture-apps-v3-20261018/contained/fixture-input/owned-writer.release": {
+      "bytes": 33,
+      "sha256": "bc1a1d7bea0e80be733d23c1c28123a27b605372aaa9e2f9761ae398e5c47fd1"
+    },
+    "records/native-independent-review/premise-v1/inputs/private/tmp/japp-m03-w03-root-fixture-apps-v3-serial-20261018/escaped/fixture-input/fixture-recipe.json": {
+      "bytes": 1139,
+      "sha256": "3b569c5402c73aacc932e1a0a8d7f3499af101dc876a373c6e716529481469e5"
+    },
+    "records/native-independent-review/premise-v1/inputs/private/tmp/japp-m03-w03-root-fixture-apps-v3-serial-20261018/escaped/fixture-input/owned-writer.exit.json": {
+      "bytes": 156,
+      "sha256": "7904b9354607d7afe7ee83ddfed527ed496cc6c976ca8d8c5044d3fc6f8a4cd2"
+    },
+    "records/native-independent-review/premise-v1/inputs/private/tmp/japp-m03-w03-root-fixture-apps-v3-serial-20261018/escaped/fixture-input/owned-writer.json": {
+      "bytes": 423,
+      "sha256": "ab28578f8ac9310596a070386588be86171e33c18a900044afe1160852a6e2b3"
+    },
+    "records/native-independent-review/premise-v1/inputs/private/tmp/japp-m03-w03-root-fixture-apps-v3-serial-20261018/escaped/fixture-input/owned-writer.release": {
+      "bytes": 33,
+      "sha256": "f623fe3083d6d9f9a8252928edeaad6c574c500ac209977a3d04338182754004"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/case-input.json": {
+      "bytes": 1766,
+      "sha256": "4979eaf3544c1f7c99e79f091ff7b2f540804bbe2ba8e926c368460e31c97aa7"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/observer-console.txt": {
+      "bytes": 3049,
+      "sha256": "3b1572512893e9f0281e6bef551b0a964dde548de4c9ef48ad795c7982742c72"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/observer-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/proof/case-result.json": {
+      "bytes": 425,
+      "sha256": "cdb31789da0a411a73c695efc8295b21a91799d17e43275f4fe3d5d9bbfdc944"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/proof/events.jsonl": {
+      "bytes": 3049,
+      "sha256": "3b1572512893e9f0281e6bef551b0a964dde548de4c9ef48ad795c7982742c72"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/proof/listener-1.command.json": {
+      "bytes": 163,
+      "sha256": "0b8aed16a4f574b2d1e9348dd828e2a6a678742de78b29a5c7f1409ef12e4a2a"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/proof/listener-1.command.result.json": {
+      "bytes": 86,
+      "sha256": "843c501d0a506e92d6aaf5ca40ba92d64b441fad1b0b18788466269a8614a346"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/proof/listener-1.stdout": {
+      "bytes": 27,
+      "sha256": "1f2946c380bdc9d0fab5d3177e06d37181d8083348f46045b58c42e2cf2c1547"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/proof/listener-1.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/retained/source/build-test-fixture-runtime.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/retained/source/japp_lifecycle_probe.py": {
+      "bytes": 23423,
+      "sha256": "ecdcb57e6ced18840a132f171da0d54def919150a626c7531cbe2e86d7932489"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/retained/source/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/retained/source/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/retained/source/prepare_fixture.py": {
+      "bytes": 2049,
+      "sha256": "c5caef0641eb766efb1d34bea2bbd0ebe179c1e0e25a3c05b65f4a7561f95169"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/retained/source/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/root-baseline-ax.txt": {
+      "bytes": 435,
+      "sha256": "f56614303b81ed28fc6ff572e3e5cc039534117672a986ee745b45e366a7ee0d"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/root-baseline.png": {
+      "bytes": 184448,
+      "sha256": "e8f8ca709c8fc97627d537bdd81c2cd67b0c18a8dae9714f779bcf6a93b6f6ef"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/root-close-action-result.json": {
+      "bytes": 396,
+      "sha256": "84951d2ef5802e3835836ba45d8c370077a0a60da1ca1919bf6237653eaa32c3"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/root-close-action-upfront.json": {
+      "bytes": 246,
+      "sha256": "40e4d4e9bd734050aeeb176d4d5719841d81c98e817fa5aca1ce1e68d83329e5"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/root-file-menu-ax.txt": {
+      "bytes": 180,
+      "sha256": "6d1219004d17d5f506f2f554783a3308912fc7522ff3c22b48c274c264d5e7af"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/root-gui-blocked.json": {
+      "bytes": 497,
+      "sha256": "34ce742ed4d7b61bcf2f93526efa96e02718d773fb864f1031c8163918e3282c"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/root-gui-launch.json": {
+      "bytes": 235,
+      "sha256": "8bc7f5ab318a1273e374b84bac820d32c148377e5b4b0ed307d66e77a66f9844"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-close-v3-20261018/upfront-retention.json": {
+      "bytes": 5316,
+      "sha256": "b19b659f6d4921e2a4e5ff9727abe877329662339276ce693fbe168464e18353"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/case-input.json": {
+      "bytes": 1770,
+      "sha256": "32157b7a6d4fe9317cfce7d9d7ef0cafe9dd76b424362df71accb567ac9226d2"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/observer-console.txt": {
+      "bytes": 4223,
+      "sha256": "bc99ca9b2a449b16f618abe716435a5e10b1c77351db9bd8b2fb0d1f59c10752"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/observer-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/app.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/app.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/case-result.json": {
+      "bytes": 2048,
+      "sha256": "b5918f85ccc9785eddca9c99c0a5a498422508eece07ea7bf3447b625dae8893"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/events.jsonl": {
+      "bytes": 4223,
+      "sha256": "bc99ca9b2a449b16f618abe716435a5e10b1c77351db9bd8b2fb0d1f59c10752"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-1.command.json": {
+      "bytes": 163,
+      "sha256": "f68acc82afc5e747bb2bd98ed756b5f1524956b5c09d0a974a61bb769e2e30e0"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-1.command.result.json": {
+      "bytes": 86,
+      "sha256": "984658aa20c07ae0907ab8dcc08ad95dd588d8cc963bb4e211aa00e49ac88e4a"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-1.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-1.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-2.command.json": {
+      "bytes": 163,
+      "sha256": "3e53f7242c3fc6d61f0aa90365addd35b3a68817795b7d2a36fa26c4f57d6abf"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-2.command.result.json": {
+      "bytes": 86,
+      "sha256": "7386f7fe3caebf68e24d4aa4a78da6dc1a7d582100c8c1963f53946105d978d9"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-2.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-2.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-3.command.json": {
+      "bytes": 163,
+      "sha256": "9001bfbd9b0a2610365c9f5ec4156aac4fe2007fafe688eb9aea9aa9c6b73347"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-3.command.result.json": {
+      "bytes": 84,
+      "sha256": "71d104bd578d6ced0c65e074f3991349ba81e6da250ca0c0ebb5b7452719d5f6"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-3.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-3.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-4.command.json": {
+      "bytes": 163,
+      "sha256": "89d053ab5528793d32f658e8225f697278c3c737c62a9db6bc53edc6090fc4f7"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-4.command.result.json": {
+      "bytes": 86,
+      "sha256": "b2f0bc31f0ac8fc0003f3ecf52b9f8d7a482ad12460008cff7b2465f57e6e840"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-4.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-4.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-5.command.json": {
+      "bytes": 163,
+      "sha256": "8f9877affd1ad87a986b1e3a5f73f560ed5cf43225725d01f909507ddecf2858"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-5.command.result.json": {
+      "bytes": 86,
+      "sha256": "efd65120843c2a9426c5005aba22098b4e2ccaa014af675af92d45600b9358b3"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-5.stdout": {
+      "bytes": 27,
+      "sha256": "f1cb4f6758134562be491ae516b4632aceaf26a22efa266002cebb9403d68584"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/proof/listener-5.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/retained/source/build-test-fixture-runtime.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/retained/source/japp_lifecycle_probe.py": {
+      "bytes": 23423,
+      "sha256": "ecdcb57e6ced18840a132f171da0d54def919150a626c7531cbe2e86d7932489"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/retained/source/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/retained/source/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/retained/source/prepare_fixture.py": {
+      "bytes": 2049,
+      "sha256": "c5caef0641eb766efb1d34bea2bbd0ebe179c1e0e25a3c05b65f4a7561f95169"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/retained/source/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/root-baseline-ax.txt": {
+      "bytes": 1792,
+      "sha256": "126db5e69a8eec1e2083deffe8f7628cee2d3de41fcaebe4bfb8ff31fb9c65cf"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/root-baseline.png": {
+      "bytes": 183966,
+      "sha256": "5a9eda7712b81a101c499932173d0006d6810a6529446a3423574e7e7d0ed6e7"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-forced-v3-20261018/upfront-retention.json": {
+      "bytes": 5332,
+      "sha256": "0e3e4bdb11d47e6c397a85eecf40db20f35e76f5a5764bb6b4e9ba49b1e33559"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/case-input.json": {
+      "bytes": 1766,
+      "sha256": "4979eaf3544c1f7c99e79f091ff7b2f540804bbe2ba8e926c368460e31c97aa7"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/observer-console.txt": {
+      "bytes": 3039,
+      "sha256": "1058427d9a893e7dbe4eb1716db40efec8e3cac84e3a08ec99048c36d01d7581"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/observer-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/case-result.json": {
+      "bytes": 425,
+      "sha256": "c6306af07872a46a1418b2cefa7552cdb7dc876591703089c7875cc90ae20bb5"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/events.jsonl": {
+      "bytes": 3039,
+      "sha256": "1058427d9a893e7dbe4eb1716db40efec8e3cac84e3a08ec99048c36d01d7581"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/listener-1.command.json": {
+      "bytes": 163,
+      "sha256": "5f3909bc0afceb4c90400805dd327e3db752e2fa2426e3327bb7bc933bb31268"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/listener-1.command.result.json": {
+      "bytes": 86,
+      "sha256": "6e2a0d6591260fefd5099e98608103473161d4894f10430ba4d7cb0411993a87"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/listener-1.stdout": {
+      "bytes": 27,
+      "sha256": "63e63c24d7a1741a73b1236a547f5af4d93202f285fcbee97796bada602b6a9b"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/listener-1.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/unauthorized/executed-source.py": {
+      "bytes": 2458,
+      "sha256": "62dd01068340c9ed2a399677eb992e090ab0c850a1a3f9bb98df8f4b8ddf224b"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/unauthorized/invocation.json": {
+      "bytes": 890,
+      "sha256": "8816f71cddccd2653328f945e682d6942ec01126d5c160eda0c16c5a72588c3d"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/unauthorized/response.body": {
+      "bytes": 429,
+      "sha256": "c1a92ba5281aa45f9ef5148347ba90bcf992aad97d5ffa1adbb89dc102b7c44d"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/proof/unauthorized/result.json": {
+      "bytes": 1667,
+      "sha256": "6a3c2a9f5bc5adf1aa509dceac0f64f7770e27035dabce29268b44415c086079"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/retained/source/build-test-fixture-runtime.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/retained/source/japp_lifecycle_probe.py": {
+      "bytes": 23423,
+      "sha256": "ecdcb57e6ced18840a132f171da0d54def919150a626c7531cbe2e86d7932489"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/retained/source/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/retained/source/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/retained/source/prepare_fixture.py": {
+      "bytes": 2049,
+      "sha256": "c5caef0641eb766efb1d34bea2bbd0ebe179c1e0e25a3c05b65f4a7561f95169"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/retained/source/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/root-baseline-ax.txt": {
+      "bytes": 1573,
+      "sha256": "8d6212e3d208efc6365255f1db0d93ee38b2976e4de50eab074d963d3c414113"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/root-baseline.png": {
+      "bytes": 183641,
+      "sha256": "08f76994400b65655ceede2317a16f24c9bc1c9437440581727049b3ef0f2227"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/root-quit-action-result.json": {
+      "bytes": 888,
+      "sha256": "1e22d8b5ad978f83c4a294e146c167a877f223a8fcd3da794d44fb6884de1fc6"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/root-quit-action-upfront.json": {
+      "bytes": 258,
+      "sha256": "cf5efc112c063320bd2afd4e62365261dde6b7d555cf36c17fbc701c0641e3b0"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/root-quit-menu-ax.txt": {
+      "bytes": 699,
+      "sha256": "36fcf686c8161387e12d65ee68f1a7027ad1c699d4cbfaefa78f0706d9910ac5"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/unauthorized-outer-result.json": {
+      "bytes": 858,
+      "sha256": "3e7f6e4a629f4a5fec081af8abd30caba25d96dd0839e04198461531d2b96a9a"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/unauthorized-outer-upfront.json": {
+      "bytes": 534,
+      "sha256": "b52e8d1c641429d177b33b667f55d79d184a1b6c5d0a8d2ed020f9fabd23d1fe"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/unauthorized-proof-source.py": {
+      "bytes": 2458,
+      "sha256": "62dd01068340c9ed2a399677eb992e090ab0c850a1a3f9bb98df8f4b8ddf224b"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/unauthorized.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/unauthorized.stdout": {
+      "bytes": 1403,
+      "sha256": "efc4606cd0cc179ada2c1b2e1545183608af0c0d4a92c82e42289462303b5550"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-canonical-quit-v3-20261018/upfront-retention.json": {
+      "bytes": 5300,
+      "sha256": "b346fde1dc4f4343391cb066535a6a6b347d1915c89e13ff11ad46b2c61e19db"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/case-input.json": {
+      "bytes": 2136,
+      "sha256": "f7e2fa938e9a5d5529729b7a1ab731abf9de3bcf54515f8c8e7e484c99c6b15c"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/observer-console.txt": {
+      "bytes": 3391,
+      "sha256": "dcb7173948854550f35bb28dd3920917994d9d64949d720a20cc6708a2f1bffa"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/observer-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/proof/case-result.json": {
+      "bytes": 425,
+      "sha256": "9401a252555dba7fd85cecf862b71610560add1713b414631bbcb18e1ac486e8"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/proof/events.jsonl": {
+      "bytes": 3391,
+      "sha256": "dcb7173948854550f35bb28dd3920917994d9d64949d720a20cc6708a2f1bffa"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/proof/listener-1.command.json": {
+      "bytes": 163,
+      "sha256": "d5bb992c424901f2eed4a8dbf63f609190815c1d7dd91fef9bd699bf96cefb8e"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/proof/listener-1.command.result.json": {
+      "bytes": 86,
+      "sha256": "f3cc39709936caedd60338c4a59ca2d2a174952fd992414cc843ebc5addcc851"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/proof/listener-1.stdout": {
+      "bytes": 27,
+      "sha256": "e42686d6f44ed0619a48e96051e0b83e303d0a47911bbf266301cd2b01b5da83"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/proof/listener-1.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/retained/source/build-test-fixture-runtime.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/retained/source/japp_lifecycle_probe.py": {
+      "bytes": 23423,
+      "sha256": "ecdcb57e6ced18840a132f171da0d54def919150a626c7531cbe2e86d7932489"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/retained/source/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/retained/source/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/retained/source/prepare_fixture.py": {
+      "bytes": 2049,
+      "sha256": "c5caef0641eb766efb1d34bea2bbd0ebe179c1e0e25a3c05b65f4a7561f95169"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/retained/source/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/root-baseline-ax.txt": {
+      "bytes": 1671,
+      "sha256": "7452be38d2882f20209e447c3b5f1db1d74297dc75631f79fb4cbce09a276b11"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/root-baseline.png": {
+      "bytes": 184448,
+      "sha256": "e8f8ca709c8fc97627d537bdd81c2cd67b0c18a8dae9714f779bcf6a93b6f6ef"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/root-close-action-result.json": {
+      "bytes": 308,
+      "sha256": "662459cca4e1e36f3ef54417c79fefa18c7f68923f29152aa6672869b2f8a0ff"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/root-close-action-upfront.json": {
+      "bytes": 158,
+      "sha256": "8a73cdad66fea4b826343aff9f06270edbd4ee27789afa6f0e517e0ebd36fb4f"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/root-close-menu-ax.txt": {
+      "bytes": 180,
+      "sha256": "6d1219004d17d5f506f2f554783a3308912fc7522ff3c22b48c274c264d5e7af"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-contained-v3-native-20261019/upfront-retention.json": {
+      "bytes": 5431,
+      "sha256": "0eec2adb2013ab2c646e3877a898f39324e3bd1e26059b2990266ed7e7b5d723"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/case-input.json": {
+      "bytes": 2175,
+      "sha256": "70a55d65f99a7058da60d598fc66d797c5cca8cb5a6050a3ce072ea9cf9e4738"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/observer-console.txt": {
+      "bytes": 5018,
+      "sha256": "2788144c5a1bebf4067a77768380b150beb7e6f1747ef06ba43b238ac1a89796"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/observer-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/proof/case-result.json": {
+      "bytes": 422,
+      "sha256": "947e153d4ad4dfc0645c8269f9b93c849f880c075fc45004067c671f887322d3"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/proof/events.jsonl": {
+      "bytes": 5018,
+      "sha256": "2788144c5a1bebf4067a77768380b150beb7e6f1747ef06ba43b238ac1a89796"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/proof/listener-1.command.json": {
+      "bytes": 160,
+      "sha256": "d96567c562a86e5a30bd86e26a3b1aaa3fc4e9f06a210166667dc1cf3616c8a3"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/proof/listener-1.command.result.json": {
+      "bytes": 86,
+      "sha256": "121484cc3a2a21b785ec91d75d7c00e43c8747e9a5fec1b6521bebfb589a413c"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/proof/listener-1.stdout": {
+      "bytes": 27,
+      "sha256": "109d3507b3881fbfe7aaa500ab00ea92700a11267e0214ba1dc419307008fa3f"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/proof/listener-1.stdout.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/retained/source/build-test-fixture-runtime.py": {
+      "bytes": 12609,
+      "sha256": "15d9271e20983334b897cc5d18da2aee67080c597a62e294dbd6aac64868e23c"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/retained/source/japp_lifecycle_probe.py": {
+      "bytes": 23423,
+      "sha256": "ecdcb57e6ced18840a132f171da0d54def919150a626c7531cbe2e86d7932489"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/retained/source/japp_mac_probe.py": {
+      "bytes": 7546,
+      "sha256": "c6c4264a052473976e95bad9583a40c48eca9b133595e3a7a7576b909d2bcbfb"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/retained/source/japp_probe_core.py": {
+      "bytes": 3822,
+      "sha256": "0931af93ff3b5ad61d38b5f46ca366478be32206e97c5946c5e2080e2dac85ee"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/retained/source/prepare_fixture.py": {
+      "bytes": 2049,
+      "sha256": "c5caef0641eb766efb1d34bea2bbd0ebe179c1e0e25a3c05b65f4a7561f95169"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/retained/source/service_fixture.py": {
+      "bytes": 2729,
+      "sha256": "d85783f15e1bbd50d32fa0de1a682ce604eb5289a2e3fbb74a2fea03b47d8f2b"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-baseline-ax.txt": {
+      "bytes": 1671,
+      "sha256": "7452be38d2882f20209e447c3b5f1db1d74297dc75631f79fb4cbce09a276b11"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-baseline.png": {
+      "bytes": 184448,
+      "sha256": "e8f8ca709c8fc97627d537bdd81c2cd67b0c18a8dae9714f779bcf6a93b6f6ef"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-cleanup-failure-ax.txt": {
+      "bytes": 1806,
+      "sha256": "655553532764c1f9684133e2b1e0a9e8872f64d6fd57b0878d1c3c846bc85026"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-cleanup-failure.png": {
+      "bytes": 192176,
+      "sha256": "5db511300f409a0ec4b994b9c1c7634ded48ba6759a537503848356c0769a9e4"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-close-action-result.json": {
+      "bytes": 2212,
+      "sha256": "7229c39a8d241351adc893edb157e74684f9720a4544518cb443ec69a3533228"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-close-action-upfront.json": {
+      "bytes": 156,
+      "sha256": "7dd46680cc987d2b7db4544f4db82f599ef60b923a6830692fc13934b2841b13"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-close-menu-ax.txt": {
+      "bytes": 180,
+      "sha256": "6d1219004d17d5f506f2f554783a3308912fc7522ff3c22b48c274c264d5e7af"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-retry-action-result.json": {
+      "bytes": 824,
+      "sha256": "694050d33e088ea3d40d9603f06e9c8c2e405a5b5f8f709cd428ecda53fdb01a"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-retry-action-upfront.json": {
+      "bytes": 179,
+      "sha256": "e2b6e20063f5a57209bdb8f58808df387c9f6e4372dd267a19ab55996a5f4814"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/root-retry-menu-ax.txt": {
+      "bytes": 744,
+      "sha256": "99ab93efa7d3f6f1316787475306c6cfa770009cfe438e0f9044eba034739260"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-escaped-v3-native-20261019/upfront-retention.json": {
+      "bytes": 5435,
+      "sha256": "6eae2428c93edc06cef832e551ad8a5226f33215e22b4352f97b2247fa6a4c30"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-hosted-ci-cac56-20261018/actual-checkout-commit.json": {
+      "bytes": 2600,
+      "sha256": "896f19883c0996ed114a1fefb66d222920a3e92fcc315a6bf69c78d351dd588d"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-hosted-ci-cac56-20261018/jobs.json": {
+      "bytes": 21210,
+      "sha256": "600bfab1f851e7ced681d834f80fa5a1b0ac1658fb7f3835ad261ec12023213c"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-hosted-ci-cac56-20261018/run.json": {
+      "bytes": 12360,
+      "sha256": "7a8bde76e73ca944c49c3ca543ec2ae50d7e45ccbc0eb83b497e11718801f1b8"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-hosted-ci-cac56-20261018/windows-complete-raw.txt": {
+      "bytes": 1222127,
+      "sha256": "b07d95e48026821c87f11cfd6d05cc8550c5145676f76b96eae3243973c166d3"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-root-app-build-v3-20261018/app-tree.json": {
+      "bytes": 9172,
+      "sha256": "3a003c09e6868d35b38f86620a2042ede1fb657701429e01b792b3ed48bd2f3a"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-root-app-build-v3-20261018/app.json": {
+      "bytes": 345,
+      "sha256": "d966b845e8c2bf8182f29718e3cf227ca7ad22d1f8f5a0b6c1788ef8a597a4c9"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-root-app-build-v3-20261018/tracked-after.json": {
+      "bytes": 234816,
+      "sha256": "cfe9c7d895f579af3f69ee66a7cb10401511e5732d8cee91d270f6d73f0a08bd"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-root-app-build-v3-20261018/tracked-before.json": {
+      "bytes": 234816,
+      "sha256": "cfe9c7d895f579af3f69ee66a7cb10401511e5732d8cee91d270f6d73f0a08bd"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-root-fixture-apps-v3-20261018/contained/app-upfront-tree.json": {
+      "bytes": 8332,
+      "sha256": "c3e62b986d2a16f3d6a3883df04d44ae83841b0c44461557a8637b26dff5087d"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-root-fixture-apps-v3-20261018/contained/native-build/runtime-stage/manifest.json": {
+      "bytes": 8274,
+      "sha256": "f74db1cf0288a81315d47dbe6a05cc23371e80ddb511279293977b2b040ab973"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-root-fixture-apps-v3-serial-20261018/escaped/app-upfront-tree.json": {
+      "bytes": 8332,
+      "sha256": "c33da6f73df7e1ac733d90bfd2e6b4792cc8a2ccadb9341de98645c1018b627d"
+    },
+    "records/native-independent-review/premise-v1/inputs/tmp/japp-m03-w03-root-fixture-apps-v3-serial-20261018/escaped/native-build/runtime-stage/manifest.json": {
+      "bytes": 8274,
+      "sha256": "b120f92403ed5847dac683500e16da5f5f37e329adca6e4c68d33944f9489a7a"
+    },
+    "records/native-independent-review/premise-v1/source-archive-file-hashes.json": {
+      "bytes": 234816,
+      "sha256": "cfe9c7d895f579af3f69ee66a7cb10401511e5732d8cee91d270f6d73f0a08bd"
+    },
+    "records/native-independent-review/retention-manifest.json": {
+      "bytes": 71721,
+      "sha256": "3d76789e3f4e222bac0a2943266ead6ef7585b7faaf5f413d081721cb0af526e"
+    },
+    "records/native-independent-review/source-archive-file-hashes.json": {
+      "bytes": 234816,
+      "sha256": "cfe9c7d895f579af3f69ee66a7cb10401511e5732d8cee91d270f6d73f0a08bd"
+    },
+    "retention-manifest.json": {
+      "bytes": 186761,
+      "sha256": "6beddb56e8c883df5ea1061f2a7debe3039a4c7d27924c3816c048018667d54f"
+    },
+    "selection.json": {
+      "bytes": 511451,
+      "sha256": "eed05278c1b719d6ddebc50815c0a3a6c9802a1eb3442275e4fd48b71de27753"
+    },
+    "tracked-after.json": {
+      "bytes": 480468,
+      "sha256": "be6ee3466bd663fea75bfa06f06c31ba704b9de4794a4619de29707a70385db6"
+    },
+    "tracked-before.json": {
+      "bytes": 480468,
+      "sha256": "be6ee3466bd663fea75bfa06f06c31ba704b9de4794a4619de29707a70385db6"
+    }
+  },
+  "omitted_local_only": {
+    "blobs/d6c7fc9d1d58d10a942c21693a221d017491b83823b8d7ce359d394a51dc19b4": {
+      "bytes": 273090560,
+      "sha256": "d6c7fc9d1d58d10a942c21693a221d017491b83823b8d7ce359d394a51dc19b4"
+    }
+  },
+  "sha256": "f5f6d9564e81f9167cb26bec43cc2071d50b53f5e6e58bcb0693ddb6bca68683"
+}

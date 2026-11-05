@@ -1,0 +1,52 @@
+{
+  "created_utc": "2026-10-29T15:18:48.295851+00:00",
+  "local_full": {
+    "active_suites_pass": 20,
+    "browser_pass": [
+      278,
+      2,
+      62,
+      17
+    ],
+    "contract": 10,
+    "doctor_pass": 28,
+    "head": "80e68ac9a24cd7ebf2874af625b866a055b9abe6",
+    "independent_joins": 2275,
+    "independent_report_sha256": "f9402890ac853d977a1ff22cf6e33090d421f02414d15f241a10d6396a106ff5",
+    "native_same_unique_cases_each_three_modes": 342,
+    "native_separate_unit": 1,
+    "python_pass": 2141,
+    "runtime_files": 40,
+    "source_files": 2187,
+    "source_runtime_full_modes_clean_status_head_tree_endpoints_equal": true,
+    "tree": "3ce188444df26df24a9cc24b112c4d0ab03e892b",
+    "typescript_pass": 4006,
+    "verify_seconds": 1165.7460883751046
+  },
+  "milestone_certification_release_credit": false,
+  "prior_hosted": {
+    "active_suites_mac": {
+      "fail": 3,
+      "pass": 17
+    },
+    "active_suites_windows_ubuntu_each": {
+      "fail": 2,
+      "pass": 18
+    },
+    "conclusion": "failure",
+    "head": "07eb77bd4dde2cd41e867cc7512bae28f1a721b8",
+    "independent_joins": 443,
+    "independent_report_sha256": "02f380d4313f1aacef1d054b0e1f60d4b21422828348611ad070bf4d314d0f80",
+    "mac_browser": {
+      "event_order": "UNKNOWN",
+      "fail": 1,
+      "failure": "rollback expectedFAILED receivedVERIFIED",
+      "pass": 277,
+      "raw_log_referenced_attachments_retained_in_artifacts": false
+    },
+    "native_package_job": "SKIPPED",
+    "run": 40803470877,
+    "tested_merge": "1a0e7819a597f43d0c2c3a602c237c87fefc7d21",
+    "tree": "eadbd0d66cacc8561c4a3925b8aed907f5f7f8fd"
+  }
+}

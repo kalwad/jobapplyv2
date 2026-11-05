@@ -1,0 +1,10 @@
+{
+  "observed": {
+    "model name": "AMD EPYC 9V45 96-Core Processor",
+    "vendor_id": "AuthenticAMD",
+    "cpu family": "26",
+    "model": "2",
+    "stepping": "1"
+  },
+  "gate": "NOT_APPLIED_DIAGNOSTIC"
+}

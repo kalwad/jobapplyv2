@@ -1,0 +1,511 @@
+{
+  "format_version": "W14_PAIRED_APPROVED_OPTION_TOKENS_PLAIN_V1",
+  "declared_at": "2026-10-16T17:15:49.837819+00:00",
+  "work_package": "M02-W14",
+  "authority": "NONE",
+  "gate_pass": false,
+  "status": "PREDECLARED_SOURCE_ONLY_NOT_EXECUTED",
+  "scope": "FOUR_SYNTHETIC_GROUPED_EN_US_MY_INFORMATION_VARIANTS_ONE_SHARED_LEGACY_COMPONENT_VS_CURRENT_DEFAULT_MV3",
+  "case_count": 4,
+  "inputs_file_digest": "sha256:2d1ce7ba5acf2414f5936b47055e9afd412ffbee0f8a247cd2c6f583548c3812",
+  "oracles_file_digest": "sha256:96a9fa8780c4b0c5bee78edf9f0b721ea171c598ef3e9cd89cd33ddf8ccb3626",
+  "cases": [
+    {
+      "index": 0,
+      "case_id": "benchmarkcase_17AXF7N6VDCJXSV8WAEDCHRW1G",
+      "fixture_id": "W12-WORKDAY-GROUPED-en-US-MY_INFORMATION",
+      "original_case_id": "benchmarkcase_7FHETQGRS7Q4VX31SGMAHK338T",
+      "original_input_digest": "sha256:f1690e3e2812cc2a57caa00034d0540416f52a17f1ad417aebb4920addc2d04d",
+      "original_canonical_case_digest": "sha256:50e5ef6ad8c56b81410b18d9e436682d3b14d21a6a603057726873c5bd9aa05f",
+      "original_oracle_digest": "sha256:5403d4f0a59d814d7e1036ab0eb3385404ba5099baf110f4ff34ce1e8ede29c4",
+      "input_digest": "sha256:bb904ced47f62b40be48fd63d6b3cfd6ea798bf6082a0c6f50d35f933f2f072a",
+      "html_digest": "sha256:947e1889e76f9fa974e55f41d7456eafda315b3f026a54b426be027644335521",
+      "profile_digest": "sha256:151e8572fc123ab45408a7826d72f8f5a0518e079e6282fe0fdfd5eb0cc19172",
+      "oracle_digest": "sha256:c43ff4a39372feea1849d9696f005b9bd4664d275f84aa4869d2677028d0b2eb",
+      "ordinary_expectations": [
+        {
+          "key": "first-name",
+          "concept": "FIRST_NAME",
+          "value": "Synthetic",
+          "required": true
+        },
+        {
+          "key": "last-name",
+          "concept": "LAST_NAME",
+          "value": "Applicant",
+          "required": true
+        },
+        {
+          "key": "email",
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid",
+          "required": true
+        },
+        {
+          "key": "phone",
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100",
+          "required": true
+        },
+        {
+          "key": "website",
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile",
+          "required": false
+        },
+        {
+          "key": "street-address",
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue",
+          "required": true
+        },
+        {
+          "key": "city",
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City",
+          "required": true
+        },
+        {
+          "key": "state",
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan",
+          "required": true
+        },
+        {
+          "key": "postal-code",
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104",
+          "required": true
+        },
+        {
+          "key": "country",
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States",
+          "required": true
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "case_id": "benchmarkcase_4N6PQ8ZBMFFCM97D0HB0P49AJM",
+      "fixture_id": "W12-GREENHOUSE-GROUPED-en-US-MY_INFORMATION",
+      "original_case_id": "benchmarkcase_5ZFV555N324C5TW0D3Y3ZKQC0B",
+      "original_input_digest": "sha256:0d09096eb8ec8095c86b0495a1bdf03ebc5b773e6fff09fc0cf15635c892b1d3",
+      "original_canonical_case_digest": "sha256:d7799f24e1988b31b2a08677bbe4ec3f08ce38730aa7d428477240752d640741",
+      "original_oracle_digest": "sha256:addd374475e09662293e34dd6df65790bd9e5ca3db4443101414a6bb6be034bb",
+      "input_digest": "sha256:9da16d922d2a40dc4931120cb981ec185a7d8bcc66983c4a3d5326b3717362ea",
+      "html_digest": "sha256:0525c26dc41139bb71e4720bee51bb311d7441744defefad9992564a7c2298ff",
+      "profile_digest": "sha256:151e8572fc123ab45408a7826d72f8f5a0518e079e6282fe0fdfd5eb0cc19172",
+      "oracle_digest": "sha256:4826a2eab2a244d19b106fbb2a24026372e1abcf42b7bca73c8df2058575674f",
+      "ordinary_expectations": [
+        {
+          "key": "first-name",
+          "concept": "FIRST_NAME",
+          "value": "Synthetic",
+          "required": true
+        },
+        {
+          "key": "last-name",
+          "concept": "LAST_NAME",
+          "value": "Applicant",
+          "required": true
+        },
+        {
+          "key": "email",
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid",
+          "required": true
+        },
+        {
+          "key": "phone",
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100",
+          "required": true
+        },
+        {
+          "key": "website",
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile",
+          "required": false
+        },
+        {
+          "key": "street-address",
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue",
+          "required": true
+        },
+        {
+          "key": "city",
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City",
+          "required": true
+        },
+        {
+          "key": "state",
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan",
+          "required": true
+        },
+        {
+          "key": "postal-code",
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104",
+          "required": true
+        },
+        {
+          "key": "country",
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States",
+          "required": true
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "case_id": "benchmarkcase_14W801B90ZX8QZMQKTE65FKZD6",
+      "fixture_id": "W12-LEVER-GROUPED-en-US-MY_INFORMATION",
+      "original_case_id": "benchmarkcase_03V44C83WM2VFNX01STRHHGRXF",
+      "original_input_digest": "sha256:aec4c666d6a6ed88579a89513e576eb6cf1f4b0d279be1d1b2b4fc7bff2f6680",
+      "original_canonical_case_digest": "sha256:9f4e54bb65edea144e2d6617b276b36ee30f815d2f477b84979f86e649179c75",
+      "original_oracle_digest": "sha256:3bb842e0ff7ed410e019d4d59121c7a8c057625456f601e489fc157d9646f18b",
+      "input_digest": "sha256:49e8db5721812285db5b7180ab472c3dbe0b7dc9fd2f6a5227d7641037b679fd",
+      "html_digest": "sha256:3cbda61754b6c3e590cecda8b936f90cd4dec4b49c56360d463c1c25aa257522",
+      "profile_digest": "sha256:151e8572fc123ab45408a7826d72f8f5a0518e079e6282fe0fdfd5eb0cc19172",
+      "oracle_digest": "sha256:9123e5a4ece9724b81d34b8816dadd55e346f451d8b1aa4bc91fae5209d59fd8",
+      "ordinary_expectations": [
+        {
+          "key": "first-name",
+          "concept": "FIRST_NAME",
+          "value": "Synthetic",
+          "required": true
+        },
+        {
+          "key": "last-name",
+          "concept": "LAST_NAME",
+          "value": "Applicant",
+          "required": true
+        },
+        {
+          "key": "email",
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid",
+          "required": true
+        },
+        {
+          "key": "phone",
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100",
+          "required": true
+        },
+        {
+          "key": "website",
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile",
+          "required": false
+        },
+        {
+          "key": "street-address",
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue",
+          "required": true
+        },
+        {
+          "key": "city",
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City",
+          "required": true
+        },
+        {
+          "key": "state",
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan",
+          "required": true
+        },
+        {
+          "key": "postal-code",
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104",
+          "required": true
+        },
+        {
+          "key": "country",
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States",
+          "required": true
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "case_id": "benchmarkcase_5PEWA5521D0Q0JZ6PMKNW96NNJ",
+      "fixture_id": "W12-ASHBY-GROUPED-en-US-MY_INFORMATION",
+      "original_case_id": "benchmarkcase_2J80QHS92HHFAJD1WZQ7DZ1X15",
+      "original_input_digest": "sha256:34a8f74e1af2b3bd071d03c395fb0a3c9d1a3487abe9b4e167aa8e525c1763bf",
+      "original_canonical_case_digest": "sha256:90be584059b064ab88a7688a05e45ef1da9cdf6bd1919c1295d08d0d2b7e4b3a",
+      "original_oracle_digest": "sha256:95b98fe6c2b9a88d81f2a2f9a4076afaa4ed788976a8fdd763a7c0033cdcbc1a",
+      "input_digest": "sha256:3132b64faba9b9b97db27748d45c8c762354183771606c3c4fbca875f103f827",
+      "html_digest": "sha256:4ca1939c8531c3130c7d4ecd0c101474eefde6700324285b0dd035ef0e5a19f0",
+      "profile_digest": "sha256:151e8572fc123ab45408a7826d72f8f5a0518e079e6282fe0fdfd5eb0cc19172",
+      "oracle_digest": "sha256:02bddc176b6e3aad02e072c27341359208bcfe61d728efc104d7b554653c29e4",
+      "ordinary_expectations": [
+        {
+          "key": "first-name",
+          "concept": "FIRST_NAME",
+          "value": "Synthetic",
+          "required": true
+        },
+        {
+          "key": "last-name",
+          "concept": "LAST_NAME",
+          "value": "Applicant",
+          "required": true
+        },
+        {
+          "key": "email",
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid",
+          "required": true
+        },
+        {
+          "key": "phone",
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100",
+          "required": true
+        },
+        {
+          "key": "website",
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile",
+          "required": false
+        },
+        {
+          "key": "street-address",
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue",
+          "required": true
+        },
+        {
+          "key": "city",
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City",
+          "required": true
+        },
+        {
+          "key": "state",
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan",
+          "required": true
+        },
+        {
+          "key": "postal-code",
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104",
+          "required": true
+        },
+        {
+          "key": "country",
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "allowed_delta_from_original": {
+    "ADDRESS_COUNTRY": {
+      "plain_value": "United States",
+      "added_valueToken": "United States"
+    },
+    "ADDRESS_REGION": {
+      "plain_value": "Michigan",
+      "added_valueToken": "Michigan"
+    }
+  },
+  "unchanged": [
+    "html bytes",
+    "document wrapper bytes",
+    "ten plain fact values and order",
+    "ordinary exact expected values",
+    "all other field expected abstentions",
+    "literal legacy meter body",
+    "20ms authored rerender",
+    "static aria-invalid markup"
+  ],
+  "token_semantics_review": {
+    "ontology_country_option_values": [],
+    "ontology_region_option_values": [],
+    "resolver_rule": "EXACT_LABEL_OR_CONFIGURED_ALIAS_OR_STABLE_TOKEN",
+    "existing_W14_approved_tokens": [
+      "United States",
+      "Michigan"
+    ],
+    "case_normalization": "Existing W14 approved tokens equal plain values United States/Michigan. Label phrase comparison is normalized. No new country/state aliases or runtime capability changes are introduced.",
+    "no_resolution_or_outcome_assumption": true
+  },
+  "legacy_representation": {
+    "raw_facts_source": "paired-inputs.json",
+    "profile_known_keys_equal_original": {
+      "full_name": "Synthetic Applicant",
+      "email": "synthetic@example.invalid",
+      "phone": "2025550100",
+      "website_url": "https://example.invalid/profile",
+      "address_street1": "100 Synthetic Avenue",
+      "address_city": "Synthetic City",
+      "address_state": "Michigan",
+      "address_zip": "48104",
+      "address_country_name": "United States"
+    },
+    "profile_projection_digest": "sha256:061f9c98814da7d786e1eb775a5224756e2e8e0cb453147483db341d1f51e5ea",
+    "unsupported_metadata": "Converter records country/region valueToken metadata as unsupported and omits it from the unchanged legacy profile interface. The router is not claimed to have consumed these tokens.",
+    "invented_defaults_added": false
+  },
+  "candidate_representation": "Forward explicit approved valueToken into actual buildApprovedRecordSet; SELECT transaction uses actual W09 optionResolution.valueDigest only when resolved. Never substitute raw option text/digest.",
+  "execution_order": "Both fresh systems run only after approval/CPU coordination; all four rows attempted even if accuracy is poor. No archived outcome substitutes for a new run.",
+  "origins": {
+    "candidate": "http://127.0.0.1:4761",
+    "legacy": "http://127.0.0.1:18886",
+    "equal": false
+  },
+  "observation_limits": [
+    "Event witnesses are not independent immediate native property observations.",
+    "Native validity alone does not establish site acceptance.",
+    "No Simplify result is captured.",
+    "No full product, two-product, broad ATS, timing superiority, statistical superiority, or Gate A claim.",
+    "Four variants are related synthetic examples, not independent broad coverage.",
+    "Same required actual-extension-realm native observer on both systems covers only its frozen installed surfaces; retained references, other realms, main-world mutations and uninstalled APIs remain unobserved."
+  ],
+  "legacy_source_identity": {
+    "repository": "https://github.com/kalwad/JobApply",
+    "commit": "c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd",
+    "tree": "7a1a830ddb2519c7e23043fb9e46c364cbada3cf"
+  },
+  "upstream_source_identity": {
+    "commit": "629aa992f3e3c3d05575686f350a7173e8b5e108",
+    "committer_date": "2026-04-15T00:33:34Z",
+    "repository_url": "https://github.com/tcpsyn/CareerPulse",
+    "tree": "4e134dae19fc3661dd71bb0ff0476ed32be35e29"
+  },
+  "shared_component_equivalence": {
+    "upstream_extension_git_tree": "1fa9e0aab2d5134d6eab5a189342d20afa9f57a3",
+    "jobapply_extension_git_tree": "1fa9e0aab2d5134d6eab5a189342d20afa9f57a3",
+    "upstream_app_git_tree": "8eb2a24cce4eddb9ee58027d67f00737485026f1",
+    "jobapply_app_git_tree": "8eb2a24cce4eddb9ee58027d67f00737485026f1",
+    "license_blob": "9f4d2c46a0df879c11efa36dce0bca7b1284a512",
+    "provenance": "JobApply pinned ATTRIBUTION.md names upstream CareerPulse repository and baseline/careerpulse-upstream tag. GH API tag resolves to the pinned upstream commit; Git tree object IDs prove component bytes identical. One actual component execution is shared-byte evidence, not two independent product runs."
+  },
+  "server_lifecycle": "run-legacy.mjs refuses occupied loopback port, owns its child server, requires fresh runtime nonce plus frozen campaign lock digest before browser launch, and terminates only owned child processes.",
+  "predeclaration_revision": 2,
+  "supersedes_unexecuted_source_lock": "sha256:f5a392b66961222c94208aef30de64f28495d548b2f20dfeee7e730de2f6c711",
+  "native_observer": {
+    "requirement": "SAME_REQUIRED_BEFORE_EITHER_SYSTEM_WRITES",
+    "helper_path": "e2e/extension/support/autofill-w14-native-witness.ts",
+    "helper_sha256": "sha256:9000acd4227e906f9f7b0063dab5a39e7aa2187a226bdb82df530e6e2a329a49",
+    "source": "CDP_EXTENSION_ISOLATED_REALM_NATIVE_1",
+    "realm": "ACTUAL_EXTENSION_CONTENT_SCRIPT",
+    "surfaces": [
+      "INPUT_VALUE",
+      "TEXTAREA_VALUE",
+      "SELECT_VALUE",
+      "INPUT_CHECKED",
+      "INPUT_FILES",
+      "SELECT_INDEX",
+      "SCROLL_TOP",
+      "ACTIVATION",
+      "FOCUS",
+      "BLUR",
+      "EVENT_DISPATCH"
+    ],
+    "actors": [
+      "CANDIDATE_DEFAULT_MV3",
+      "UNMODIFIED_LEGACY_MV3"
+    ],
+    "integrity": "Install exact unique runtime-id realm; snapshot integrity/sequence/surfaces before first synthetic write and after settle; refuse unavailable or failed integrity.",
+    "limits": [
+      "Installed prototype surfaces in one actual extension realm only.",
+      "No retained pre-install native references, other realms, uninstalled APIs, main-world page mutations, closed roots or live employer forms are covered.",
+      "Both systems retain identical event meter/final snapshots, but runtime architecture/browser/origins may differ."
+    ],
+    "coverage": "COMPLETE_INSTALLED_NATIVE_SURFACES"
+  },
+  "preexecution_source_revision": 4,
+  "preexecution_source_revision_reason": "COMPLETE_DECLARED_RUNTIME_INVENTORY_AFTER_FINAL_DRIVER_KERNEL_REVIEW",
+  "source_lock_revised_at": "2026-10-16T17:36:40.250599+00:00",
+  "owned_launcher": {
+    "browser_runner_deadline_ms": 180000,
+    "sigterm_wait_ms": 5000,
+    "sigkill_wait_ms": 5000,
+    "termination_scope": "OWNED_DIRECT_CHILD_HANDLES_ONLY",
+    "forced_browser_descendant_processes": "UNOBSERVED",
+    "normal_context_cleanup": "EXPLICIT_CONTEXT_CLOSE_AND_PROFILE_REMOVE_RECORDS_WITH_EMPTY_CLEANUP_ERRORS",
+    "timeout_remains_error": true
+  },
+  "offline_join_truth": "RECOMPUTED_FROM_UNIQUE_FINAL_NATIVE_VALUES_VS_FROZEN_EXPECTATIONS_SUPPLIED_FLAGS_ARE_CLAIMS_ONLY",
+  "runtime_python_required": "3.12.13",
+  "preexecution_previous_campaign_lock_digest": "sha256:561bc786d35c51e9705b0c0659bec6b180e0bbd7c59bc9ea28752e9e690a759d",
+  "preexecution_runtime_review_record": "Parent reviewed final expanded driver delta sha256:8a889e0916bda5cc4ee55bdbf0ed97af5653b4104e8f7e732d258143d9bbd0df and final72 source manifest sha256:4290937bab75ce3f0eef89b3cee7933f9a66dec4eda6815715acedbe582b72fb before either new paired system execution; outside candidate runtime is byte-exact to current root.",
+  "preexecution_no_paired_system_run_declared": true,
+  "preexecution_rebind_prepared_at": "2026-10-16T18:12:52.855Z",
+  "preexecution_runtime_inventory_correction": "The old 316-path inventory was incomplete for newer runtime helpers and included 98 irrelevant Python bytecode cache files. This pre-execution source revision binds every file in declared source/generated directories, including open-dom, mutation-guard and option-meaning, while excluding only declared dependency/build/cache outputs. No system run under the old inventory is claimed.",
+  "candidate_runtime_inventory_policy": {
+    "format_version": "W14_PAIRED_CANDIDATE_RUNTIME_INVENTORY_1",
+    "directories": [
+      "apps/extension/entrypoints",
+      "apps/extension/src",
+      "e2e/extension/support",
+      "packages/contracts/generated",
+      "packages/contracts/schemas",
+      "packages/contracts/src",
+      "packages/evaluation-runner/src",
+      "packages/form-engine/src"
+    ],
+    "files": [
+      ".nvmrc",
+      "apps/extension/package.json",
+      "apps/extension/tsconfig.json",
+      "apps/extension/tsconfig.typecheck.json",
+      "apps/extension/wxt.config.ts",
+      "package.json",
+      "packages/contracts/package.json",
+      "packages/evaluation-runner/package.json",
+      "packages/form-engine/package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "tsconfig.base.json",
+      "tsconfig.json"
+    ],
+    "excluded_directory_names": [
+      ".git",
+      ".turbo",
+      ".wxt",
+      "__pycache__",
+      "coverage",
+      "dist",
+      "node_modules"
+    ],
+    "excluded_file_suffixes": [
+      ".pyc",
+      ".pyo",
+      ".tsbuildinfo"
+    ],
+    "required_runtime_paths": [
+      "apps/extension/entrypoints/background.ts",
+      "apps/extension/entrypoints/feasibility.content.ts",
+      "apps/extension/src/driver-engine.ts",
+      "apps/extension/src/drivers/choice-drivers.ts",
+      "apps/extension/src/drivers/mutation-guard.ts",
+      "apps/extension/src/open-dom.ts",
+      "apps/extension/src/option-meaning.ts",
+      "e2e/extension/support/autofill-w14-native-witness.ts",
+      "e2e/extension/support/extension-test.ts",
+      "e2e/extension/support/research-harness.ts",
+      "packages/contracts/generated/MANIFEST.json",
+      "packages/contracts/generated/typescript/index.ts",
+      "packages/form-engine/src/option-resolver.ts"
+    ],
+    "max_files": 16384,
+    "max_total_bytes": 134217728,
+    "non_source_limits": "Installed third-party dependencies are bound by toolchain/package/lock files; actual extension bundle bytes require separate fresh-build provenance and start/end build inventories."
+  },
+  "candidate_runtime_inventory_digest": "sha256:1ac47982914c5e7786e5aa395f3b5d296930fa238018974719c916e49adbffe2",
+  "candidate_runtime_inventory_count": 352
+}

@@ -1,0 +1,59 @@
+{
+  "members": [
+    {
+      "path": "corrected-packet/HANDOFF.json",
+      "bytes": 338,
+      "sha256": "240fb94cf219c72d34589f1248c7c69dc1461d0765700b2bf8e1044527832200",
+      "mode": 420
+    },
+    {
+      "path": "corrected-packet/REPACK.md",
+      "bytes": 631,
+      "sha256": "401e1f606cb7911574771ccf6c8a8f28a20cc6b20f733d1a916a74361b7f3372",
+      "mode": 420
+    },
+    {
+      "path": "corrected-packet/SOURCE.json",
+      "bytes": 12250,
+      "sha256": "3761bc0366dd18b3a8996e5f2a257be97619dfaa7284056b96b5a62033f96250",
+      "mode": 420
+    },
+    {
+      "path": "corrected-packet/proof.tar.gz",
+      "bytes": 403416,
+      "sha256": "0ce803e5145ba9b2775bd17bacea91dddcdf26b2408eada48097b4a883aeb9af",
+      "mode": 420
+    },
+    {
+      "path": "corrected-packet/repack-executed.py",
+      "bytes": 2630,
+      "sha256": "5adfecc7b688817f6bbad136c0a2bcc237c0cf8fa6522e82d977b722cb0eab05",
+      "mode": 420
+    },
+    {
+      "path": "data-review/REVIEW.md",
+      "bytes": 7299,
+      "sha256": "c86d8583a68c8c23647a72d0440b58e5f08271802f23ccc204fb2f2c8ef7f101",
+      "mode": 420
+    },
+    {
+      "path": "data-review/data-review.json",
+      "bytes": 17694,
+      "sha256": "89c41186d63f919ecde6a837123962dcfb335ee620b3b24833eedca1de34dc94",
+      "mode": 420
+    },
+    {
+      "path": "data-review/manifest.json",
+      "bytes": 20594,
+      "sha256": "9c41bb0c4e47313a1ba3093a1f2b36b487ae1db0dddd9ffbcde6424fd3633ffd",
+      "mode": 420
+    },
+    {
+      "path": "data-review/v1-data-review.json",
+      "bytes": 14619,
+      "sha256": "89512ed163900db43cd623a1c9261a6ec0bebb24066e66a05ba21219dddb1505",
+      "mode": 420
+    }
+  ],
+  "safe_regular_members": 9
+}

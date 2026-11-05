@@ -1,0 +1,5 @@
+2026-11-02T21:56:50.9647373Z start
+2026-11-02T21:56:50.9732844Z configuration
+2026-11-02T21:56:51.0736705Z operating-system
+2026-11-02T21:56:51.2129600Z interactive-user
+2026-11-02T21:56:51.2184117Z caught at interactive-user

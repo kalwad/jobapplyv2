@@ -34,8 +34,8 @@ import {
 import {
   loadSemanticRules,
   type SemanticRuleEntryData,
-} from "../../../generator/semantic-rules.ts";
-import { validateSemanticContractV1 } from "../../../generated/typescript/semantic/rules.v1.ts";
+} from "../../../generator/semantic-rules-v2.ts";
+import { validateSemanticContractV2 } from "../../../generated/typescript/semantic/rules.v2.ts";
 import { adapterBatchFor, loadCorpus } from "../adapters/corpus-loader.ts";
 import { canonicalJson, type PlainJson } from "../adapters/normalization.ts";
 import { parseRawJson } from "../adapters/raw-json.ts";
@@ -83,6 +83,9 @@ export interface NodeSignature {
   extension_point: boolean | null;
   property_names: NodeSignature | null;
   max_properties: number | null;
+  /** Present only for the new disjoint union kind; inherited node bytes stay exact. */
+  union_discriminator?: string;
+  union_branches?: NodeSignature[];
 }
 
 export interface DocumentSignature {
@@ -150,6 +153,11 @@ export interface SemanticRuleCatalogSignature {
   canonical_sha256: string;
 }
 
+export interface SemanticRuleCatalogV2Signature extends SemanticRuleCatalogSignature {
+  inherited_catalog_sha256: string;
+  additive_rule_ids: string[];
+}
+
 export interface HistoricalWitnessInventorySignature {
   repository_path: string;
   format_version: string;
@@ -196,6 +204,7 @@ export interface CompatibilitySignature {
   commands: CommandSignature[];
   allow_rows: AllowRowSignature[];
   semantic_rule_catalog: SemanticRuleCatalogSignature;
+  semantic_rule_catalog_v2?: SemanticRuleCatalogV2Signature;
   semantic_rules: SemanticRuleSignature[];
   historical_witness_inventory: HistoricalWitnessInventorySignature;
   semantic_witnesses: SemanticWitnessSignature[];
@@ -310,6 +319,12 @@ function nodeSignature(node: IrType): NodeSignature {
       };
     case "nullable":
       return { ...result, inner: nodeSignature(node.inner) };
+    case "discriminatedUnion":
+      return {
+        ...result,
+        union_discriminator: node.discriminator,
+        union_branches: node.branches.map(nodeSignature),
+      };
     case "object":
       return {
         ...result,
@@ -338,6 +353,11 @@ function nodeSignature(node: IrType): NodeSignature {
       return exhaustive;
     }
   }
+}
+
+/** Pure test-only signature projection for new IR boundary regression cases. */
+export function signatureForIrType(node: IrType): NodeSignature {
+  return nodeSignature(node);
 }
 
 function renderVersion(version: {
@@ -438,30 +458,38 @@ export function buildCompatibilitySignature(
     validator,
     errorCatalog,
   });
-  const corpus = loadCorpus(
-    join(repoRoot, "packages/contracts/test/contract/corpus"),
-  );
+  // Separate bounded inventories preserve the historical 511-case preimage
+  // and the unchanged 512-request protocol bound in every actual adapter run.
+  const corpora = [
+    loadCorpus(join(repoRoot, "packages/contracts/test/contract/corpus")),
+    loadCorpus(
+      join(repoRoot, "packages/contracts/test/contract/gate-waiver-corpus"),
+    ),
+  ];
+  const corpus = { cases: corpora.flatMap((source) => source.cases) };
+  if (
+    new Set(corpus.cases.map((entry) => entry.id)).size !== corpus.cases.length
+  ) {
+    throw new Error("compatibility corpus case identifiers overlap");
+  }
   const historicalInventory = loadHistoricalWitnessInventory(
     join(repoRoot, HISTORICAL_WITNESS_REPOSITORY_PATH),
   );
   const requests = {
     python: new Map(
-      adapterBatchFor(corpus, "python").requests.map((request) => [
-        request.case_id,
-        request,
-      ]),
+      corpora
+        .flatMap((source) => adapterBatchFor(source, "python").requests)
+        .map((request) => [request.case_id, request]),
     ),
     rust: new Map(
-      adapterBatchFor(corpus, "rust").requests.map((request) => [
-        request.case_id,
-        request,
-      ]),
+      corpora
+        .flatMap((source) => adapterBatchFor(source, "rust").requests)
+        .map((request) => [request.case_id, request]),
     ),
     typescript: new Map(
-      adapterBatchFor(corpus, "typescript").requests.map((request) => [
-        request.case_id,
-        request,
-      ]),
+      corpora
+        .flatMap((source) => adapterBatchFor(source, "typescript").requests)
+        .map((request) => [request.case_id, request]),
     ),
   };
   const supportedCases: SupportedCaseSignature[] = [];
@@ -527,7 +555,7 @@ export function buildCompatibilitySignature(
         `semantic witness is structurally invalid: ${corpusCase.id}`,
       );
     }
-    const observed = validateSemanticContractV1(corpusCase.schema_ref, input);
+    const observed = validateSemanticContractV2(corpusCase.schema_ref, input);
     const expectedErrorCode = corpusCase.expected.valid
       ? null
       : (corpusCase.expected.error_code ?? null);
@@ -570,7 +598,7 @@ export function buildCompatibilitySignature(
         `historical semantic witness is structurally invalid: ${witness.id}`,
       );
     }
-    const observed = validateSemanticContractV1(witness.schema_ref, input);
+    const observed = validateSemanticContractV2(witness.schema_ref, input);
     const failedRuleIds = new Set<string>(
       observed.valid ? [] : observed.issues.map((issue) => issue.rule_id),
     );
@@ -619,9 +647,27 @@ export function buildCompatibilitySignature(
     commands: security.commands.map((entry) => commandSignature(entry)),
     allow_rows: security.allow.map((entry) => allowRowSignature(entry)),
     semantic_rule_catalog: {
+      repository_path: semanticRules.inheritedV1.repositoryPath,
+      catalog_version: semanticRules.inheritedV1.version,
+      canonical_sha256: digest(
+        JSON.parse(semanticRules.inheritedV1.rawText) as PlainJson,
+      ),
+    },
+    semantic_rule_catalog_v2: {
       repository_path: semanticRules.repositoryPath,
       catalog_version: semanticRules.version,
       canonical_sha256: digest(JSON.parse(semanticRules.rawText) as PlainJson),
+      inherited_catalog_sha256: digest(
+        JSON.parse(semanticRules.inheritedV1.rawText) as PlainJson,
+      ),
+      additive_rule_ids: semanticRules.entries
+        .filter(
+          (entry) =>
+            !semanticRules.inheritedV1.entries.some(
+              (inherited) => inherited.rule_id === entry.rule_id,
+            ),
+        )
+        .map((entry) => entry.rule_id),
     },
     semantic_rules: semanticRules.entries.map((entry) =>
       semanticRuleSignature(entry),
@@ -734,6 +780,16 @@ function compareNode(
         structuralAddition = true;
         finding(additive, "ENUM_TOKEN_ADDED", `${subject}/${token}`);
       }
+    }
+  } else if (baseline.kind === "discriminatedUnion") {
+    // Any change to a previously published union is conservatively breaking.
+    // Do not infer that moving tags/fields between branches preserves oneOf.
+    if (
+      baseline.union_discriminator !== current.union_discriminator ||
+      canonicalJson(baseline.union_branches) !==
+        canonicalJson(current.union_branches)
+    ) {
+      finding(findings, "CONSTRAINT_CHANGED", subject);
     }
   } else if (baseline.kind === "object") {
     if (
@@ -1105,6 +1161,74 @@ function historicalInventoryOf(
   return legacyCompatible.historical_witness_inventory ?? null;
 }
 
+const GATE_V2_ADDITIVE_RULE_IDS = [
+  "GATE_DECISION_INERT_TEXT_V2",
+  "GATE_DECISION_INTEGRITY_V2",
+  "GATE_EVIDENCE_COMPLETENESS_V2",
+  "GATE_EVIDENCE_INERT_TEXT_V2",
+] as const;
+
+function validV2CatalogDeclaration(
+  value: SemanticRuleCatalogV2Signature,
+): boolean {
+  return (
+    value.repository_path ===
+      "packages/contracts/catalog/semantic-rules.v2.json" &&
+    value.catalog_version === "1.2.0" &&
+    /^[0-9a-f]{64}$/.test(value.canonical_sha256) &&
+    /^[0-9a-f]{64}$/.test(value.inherited_catalog_sha256) &&
+    canonicalJson(value.additive_rule_ids) ===
+      canonicalJson(GATE_V2_ADDITIVE_RULE_IDS)
+  );
+}
+
+function compareV2SemanticCatalog(
+  baseline: CompatibilitySignature,
+  current: CompatibilitySignature,
+  findings: CompatibilityFinding[],
+  additive: CompatibilityFinding[],
+): boolean {
+  const previous = baseline.semantic_rule_catalog_v2;
+  const candidate = current.semantic_rule_catalog_v2;
+  const subject = "packages/contracts/catalog/semantic-rules.v2.json";
+  if (candidate === undefined) {
+    if (previous !== undefined)
+      finding(findings, "SEMANTIC_RULE_CATALOG_V2_REMOVED", subject);
+    return false;
+  }
+  if (!validV2CatalogDeclaration(candidate)) {
+    finding(findings, "SEMANTIC_RULE_CATALOG_V2_INVALID", subject);
+    return false;
+  }
+  const inheritedBefore = semanticCatalogOf(baseline);
+  const inheritedNow = semanticCatalogOf(current);
+  if (
+    inheritedBefore !== null &&
+    canonicalJson(inheritedBefore) !== canonicalJson(inheritedNow)
+  ) {
+    finding(findings, "SEMANTIC_RULE_CATALOG_V2_INHERITANCE_CHANGED", subject);
+    return false;
+  }
+  if (previous === undefined) {
+    if (
+      candidate.inherited_catalog_sha256 !==
+      semanticCatalogOf(current)?.canonical_sha256
+    ) {
+      finding(
+        findings,
+        "SEMANTIC_RULE_CATALOG_V2_INHERITANCE_CHANGED",
+        subject,
+      );
+      return false;
+    }
+    finding(additive, "SEMANTIC_RULE_CATALOG_V2_ADDED", subject);
+  } else if (canonicalJson(previous) !== canonicalJson(candidate)) {
+    finding(findings, "SEMANTIC_RULE_CATALOG_V2_CHANGED", subject);
+    return false;
+  }
+  return true;
+}
+
 /**
  * Compare the finite semantic-rule bindings introduced in M01-W06.
  *
@@ -1122,6 +1246,12 @@ function compareSemanticRules(
 ): void {
   const baselineCatalog = semanticCatalogOf(baseline);
   const currentCatalog = semanticCatalogOf(current);
+  const v2CatalogValid = compareV2SemanticCatalog(
+    baseline,
+    current,
+    findings,
+    additive,
+  );
   const baselineRules = semanticRulesOf(baseline);
   const currentRules = semanticRulesOf(current);
 
@@ -1218,7 +1348,13 @@ function compareSemanticRules(
     const minorAdvancedWithinMajor =
       currentVersion[0] === baselineVersion[0] &&
       currentVersion[1] > baselineVersion[1];
-    if (!minorAdvancedWithinMajor) {
+    const declaredV2RuleIds = new Set(
+      current.semantic_rule_catalog_v2?.additive_rule_ids ?? [],
+    );
+    const allAddedRulesDeclaredInV2 =
+      v2CatalogValid &&
+      addedRules.every((entry) => declaredV2RuleIds.has(entry.rule_id));
+    if (!minorAdvancedWithinMajor && !allAddedRulesDeclaredInV2) {
       finding(
         findings,
         "SEMANTIC_RULE_CATALOG_MINOR_BUMP_REQUIRED",
@@ -1230,7 +1366,7 @@ function compareSemanticRules(
   const bindingsUnchanged =
     canonicalJson(baselineRules) === canonicalJson(currentRules);
   if (
-    bindingsUnchanged &&
+    (bindingsUnchanged || v2CatalogValid) &&
     baselineCatalog.repository_path === currentCatalog.repository_path &&
     baselineCatalog.catalog_version === currentCatalog.catalog_version &&
     baselineCatalog.canonical_sha256 !== currentCatalog.canonical_sha256
@@ -1503,6 +1639,14 @@ export function currentCanonicalInputHashes(): Readonly<
         join(
           REPOSITORY_ROOT,
           "packages/contracts/catalog/semantic-rules.v1.json",
+        ),
+      ),
+    ),
+    semantic_rule_catalog_v2: digest(
+      readJson(
+        join(
+          REPOSITORY_ROOT,
+          "packages/contracts/catalog/semantic-rules.v2.json",
         ),
       ),
     ),

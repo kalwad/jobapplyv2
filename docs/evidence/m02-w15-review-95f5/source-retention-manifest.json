@@ -1,0 +1,51 @@
+{
+  "candidate_commit": "95f5b09f43d9bef06d6158ea0bb8b9e0e3aa9123",
+  "candidate_tree": "b85166b035fbf90a1b8c85d54f52461ccc422dd6",
+  "authority": "NONE",
+  "owner_decision": "PENDING",
+  "authoritative_gate_state": "IN_PROGRESS",
+  "files": [
+    {
+      "source": "/tmp/japp-m02-w15-predecision-95f5-retained-20261018/proof.tar.gz",
+      "repository_path": "docs/evidence/m02-w15-review-95f5/predecision-proof.tar.gz",
+      "bytes": 10325434,
+      "sha256": "5085d94111a2dab8aba4f879f9ffb197287bd436d8df5193aef8aaafc505f5aa"
+    },
+    {
+      "source": "/tmp/japp-m02-w15-predecision-95f5-retained-20261018/retention-manifest.json",
+      "repository_path": "docs/evidence/m02-w15-review-95f5/predecision-retention-manifest.json",
+      "bytes": 34194,
+      "sha256": "268c806298e3fc6460beb0a91d99217b036f4a8ad93642174af92826f7da84bf"
+    },
+    {
+      "source": "/tmp/japp-m02-w15-final-pack-proposal-20261018/candidate-index.final-predecision.json",
+      "repository_path": "docs/evidence/m02-w15-review-95f5/candidate-index.json",
+      "bytes": 95701,
+      "sha256": "2c2e3d3b191aeabc798be522934361bb4c28cad91216827a3606802ed760651d"
+    },
+    {
+      "source": "/tmp/japp-m02-w15-independent-audit/final-gate-a-verdict95f5/verdict.json",
+      "repository_path": "docs/evidence/m02-w15-review-95f5/independent-verdict.json",
+      "bytes": 5520,
+      "sha256": "b86bca4619fe541e6a82b0ef01175c35de3ebcbd344798efc33f340929b729cf"
+    },
+    {
+      "source": "/tmp/japp-m02-w15-independent-audit/final-gate-a-verdict95f5/review.md",
+      "repository_path": "docs/evidence/m02-w15-review-95f5/independent-review.md",
+      "bytes": 9419,
+      "sha256": "b61d99b5a2d80e26ea69b3c107a544982540eed5b600c9ead85e8d9007017bbd"
+    },
+    {
+      "source": "/tmp/japp-m02-w15-independent-final-gate95f5-retained/proof.tar.gz",
+      "repository_path": "docs/evidence/m02-w15-review-95f5/independent-proof.tar.gz",
+      "bytes": 55310,
+      "sha256": "7c18b1123063908036094b7986628d21ddc0fdd3e0d7b520a76747747ab7a218"
+    },
+    {
+      "source": "/tmp/japp-m02-w15-independent-final-gate95f5-retained/archive-verification.json",
+      "repository_path": "docs/evidence/m02-w15-review-95f5/independent-archive-verification.json",
+      "bytes": 616,
+      "sha256": "eeddd0b9201a51432de5ec5404d69eaa5d69379afe4730ee431e08d648cff501"
+    }
+  ]
+}

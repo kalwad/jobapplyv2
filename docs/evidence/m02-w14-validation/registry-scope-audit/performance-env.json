@@ -1,0 +1,5 @@
+{
+  "JAPP_W13_PERFORMANCE_SAMPLES": "20",
+  "JAPP_W14_REQUIRE_TARGET_PERFORMANCE": "1",
+  "JAPP_W14_ARTIFACT_DIRECTORY": "/tmp/japp-w14-registry-scope-audit/artifacts"
+}

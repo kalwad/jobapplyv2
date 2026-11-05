@@ -1,0 +1,22 @@
+[    0.000000] clocksource: hyperv_clocksource_msr: mask: 0xffffffffffffffff max_cycles: 0x24e6a1710, max_idle_ns: 440795202120 ns
+[    0.486228] x86/fpu: Supporting XSAVE feature 0x1000: 'Control-flow Kernel registers (KVM only)'
+[    2.495722] kvm_amd: TSC scaling supported
+[    2.495970] kvm_amd: Nested Virtualization enabled
+[    2.496205] kvm_amd: Nested Paging enabled
+[    2.496461] kvm_amd: kvm_amd: Hyper-V enlightened NPT TLB flush enabled
+[    2.496609] kvm_amd: kvm_amd: Hyper-V Direct TLB Flush enabled
+[    2.496756] kvm_amd: Virtual VMLOAD VMSAVE supported
+[    2.496905] kvm_amd: PMU virtualization is disabled
+[ 1099.094735] kvm: kvm [2912]: vcpu0, guest rIP: 0xfffff800e556bbfc Unhandled WRMSR(0xc0010004) = 0xffffffffffffd8f0
+[ 1099.094806] kvm: kvm [2912]: vcpu0, guest rIP: 0xfffff800e556bcb9 Unhandled WRMSR(0xc0010000) = 0x530076
+[ 1099.094856] kvm: kvm [2912]: vcpu1, guest rIP: 0xfffff800e556bbfc Unhandled WRMSR(0xc0010004) = 0xffffffffffffd8f0
+[ 1099.094878] kvm: kvm [2912]: vcpu1, guest rIP: 0xfffff800e556bcb9 Unhandled WRMSR(0xc0010000) = 0x530076
+[ 1099.249462] kvm: kvm [2912]: vcpu0, guest rIP: 0xfffff800e556bcb9 Unhandled WRMSR(0xc0010001) = 0x4300c0
+[ 1241.456427] nbd0: detected capacity change from 0 to 167772160
+[ 1241.457314]  nbd0: p1 p2 p3 p4
+[ 1244.553992]  nbd0: p1 p2 p3 p4
+[ 1246.606273] ntfs3: Enabled Linux POSIX ACLs support
+[ 1246.606296] ntfs3: Read-only LZX/Xpress compression included
+[ 1246.682179] block nbd0: NBD_DISCONNECT
+[ 1246.682206] block nbd0: Disconnected due to user request.
+[ 1246.682231] block nbd0: shutting down sockets

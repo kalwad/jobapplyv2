@@ -1,0 +1,1422 @@
+{
+  "format_version": "W14_SHADOW_COMPACT_ARCHIVE_1",
+  "files": 283,
+  "bytes": 14842644,
+  "entries": [
+    {
+      "path": "ARCHIVE-NOTES.json",
+      "bytes": 1079,
+      "sha256": "11d6c9a30c863172bc51e9f8cd1196228da094c8af72b60a9ac6bee42b8f76cb"
+    },
+    {
+      "path": "FINAL-proof-map.json",
+      "bytes": 7482,
+      "sha256": "4d102457f86775a623c90aa88f9fd7c8c1c6798d44c5f50fb019757927b3a4d1"
+    },
+    {
+      "path": "FINAL-proposed/apps/extension/README.md",
+      "bytes": 9174,
+      "sha256": "7c80b779982e1ce9186268636fc89799236e63bd1f4ec46636095d6120671720"
+    },
+    {
+      "path": "FINAL-proposed/apps/extension/src/driver-engine.ts",
+      "bytes": 50429,
+      "sha256": "3a9ee1949b0d6a48f8720894df97411bf51d8dda712af42bd4b01ce0b5517396"
+    },
+    {
+      "path": "FINAL-proposed/apps/extension/src/drivers/choice-drivers.ts",
+      "bytes": 13347,
+      "sha256": "323e3fff8212b2ec7237be2190cd4b8a08146728c3cb833ce76e2461944c2936"
+    },
+    {
+      "path": "FINAL-proposed/apps/extension/src/drivers/driver-contract.ts",
+      "bytes": 3051,
+      "sha256": "59ac010116c836c09d821f1bf1cb609a6c0e6b7c836443f334e44e9d9ec654fb"
+    },
+    {
+      "path": "FINAL-proposed/apps/extension/src/drivers/driver-dom.ts",
+      "bytes": 10430,
+      "sha256": "3331fa3b3f200b556c2a1a1de250fb8388dbe6398d221607f16aee9a2fbd7efa"
+    },
+    {
+      "path": "FINAL-proposed/apps/extension/src/drivers/file-upload-driver.ts",
+      "bytes": 6764,
+      "sha256": "8923a217399cbd6fecac1e8770e00d327f1fa56362e237d6a200b8a02c644a1a"
+    },
+    {
+      "path": "FINAL-proposed/apps/extension/src/drivers/mutation-guard.ts",
+      "bytes": 1019,
+      "sha256": "394b83f15446b16613e1175871c04c9d0209341efa9b184362d4da46fc9d0085"
+    },
+    {
+      "path": "FINAL-proposed/apps/extension/src/drivers/repeater-driver.ts",
+      "bytes": 11607,
+      "sha256": "535391867af4f3d026a6027fed9227c491ef07da4fa40b02ecefd844b5981c95"
+    },
+    {
+      "path": "FINAL-proposed/apps/extension/src/drivers/text-like-drivers.ts",
+      "bytes": 6773,
+      "sha256": "d39682b692f372d91279a130b73b614afdde6bb1ef0da62f06fb6a7e63e5c316"
+    },
+    {
+      "path": "FINAL-proposed/apps/extension/src/drivers/widget-drivers.ts",
+      "bytes": 21781,
+      "sha256": "932acd65ae2ce72e666afe02f4d68115001874ea5652f1eb752595121c5a125c"
+    },
+    {
+      "path": "FINAL-proposed/apps/extension/src/dynamic-engine.ts",
+      "bytes": 47925,
+      "sha256": "5e942ba654d58ef909f68a0281f96dfe1a47c048dca1d3cfd922ed8ae1c92cd1"
+    },
+    {
+      "path": "FINAL-proposed/apps/extension/src/field-scanner.ts",
+      "bytes": 59420,
+      "sha256": "348216e25db8a63165306d4a3493f2737d8a199c2e3a08fe0c8d7c12365ae452"
+    },
+    {
+      "path": "FINAL-proposed/apps/extension/src/open-dom.ts",
+      "bytes": 15022,
+      "sha256": "871458a44bb04d1dab13b2c977d573a70495e1227c580581ebf01d1208c2c353"
+    },
+    {
+      "path": "FINAL-proposed/apps/extension/src/scanner-protocol.ts",
+      "bytes": 27256,
+      "sha256": "e028d92d28e9924007a4ae278a0a17ff42d76149334a01a05bcf45c56edfac8b"
+    },
+    {
+      "path": "FINAL-proposed/e2e/extension/extension-drivers.spec.ts",
+      "bytes": 48641,
+      "sha256": "53463398a599e1aa0a411f46a1a17e6e82dfe57b01ee5588504fecbb81a6ed5d"
+    },
+    {
+      "path": "FINAL-proposed/e2e/extension/extension-w14-option-preservation-peer.spec.ts",
+      "bytes": 4952,
+      "sha256": "c4579b1577b6a26c774c052327ad408ff1177ddfdb452d0315ce2f85508164a5"
+    },
+    {
+      "path": "FINAL-proposed/e2e/extension/extension-w14-outside-owner-peer.spec.ts",
+      "bytes": 12894,
+      "sha256": "6847946921a3d1d14f465178123195f950c567c311a66ca49ff19ce0630eb7bb"
+    },
+    {
+      "path": "FINAL-proposed/e2e/extension/extension-w14-post-input-ownership-peer.spec.ts",
+      "bytes": 3962,
+      "sha256": "d35bb587132250debd64b1542bb7216e9346b3dac3ef4f759bda171a2b02a95a"
+    },
+    {
+      "path": "FINAL-proposed/e2e/extension/extension-w14-result-ownership-peer.spec.ts",
+      "bytes": 7820,
+      "sha256": "6b1cddd02d49faebff003a71b8aa63b087c922e450e7d8a9c752e4f18aaf57b1"
+    },
+    {
+      "path": "FINAL-proposed/e2e/extension/extension-w14-semantic-lookup.spec.ts",
+      "bytes": 2112,
+      "sha256": "1ef6debd7f58e65dcd8ea9f7905c861fef97e5a5fa8b9408ce4e8af3b19be5fd"
+    },
+    {
+      "path": "FINAL-proposed/e2e/extension/extension-w14-shadow-peer.spec.ts",
+      "bytes": 27063,
+      "sha256": "42954079c8f9210aaab2e2d5ad61c4cc277ce698abb7cc54803fcde0354a7128"
+    },
+    {
+      "path": "FINAL-proposed/e2e/extension/extension-w14-shadow.spec.ts",
+      "bytes": 42346,
+      "sha256": "97066a0688a93e7fd597b0813d1b601ecba91d5e3e4c0c6671849434c234c6e6"
+    },
+    {
+      "path": "FINAL-proposed/e2e/extension/extension-w14-topology-scaling.spec.ts",
+      "bytes": 6049,
+      "sha256": "9607673a93dd68a3063fecb70eea04c48cbca9ef495a8ee109faaf4b82b27c20"
+    },
+    {
+      "path": "FINAL-source-manifest.json",
+      "bytes": 4932,
+      "sha256": "86ae035ae1afde5ca4a7b1e3f06636b36018a5afd214c15ff75c1b1228a20603"
+    },
+    {
+      "path": "base/apps/extension/README.md",
+      "bytes": 4708,
+      "sha256": "70586d292efa39376acfd8d177ab103c57992591fedd32a1c91dd59addc94cb5"
+    },
+    {
+      "path": "base/apps/extension/src/driver-engine.ts",
+      "bytes": 39706,
+      "sha256": "d279d4c5f2527a0a46c014e84e0e57035a0537826b20130efba1e84e9dd91796"
+    },
+    {
+      "path": "base/apps/extension/src/drivers/choice-drivers.ts",
+      "bytes": 10872,
+      "sha256": "6ea0571aba9c328587a1898b974af0eb7939207346b03efb01e3f303e9877c62"
+    },
+    {
+      "path": "base/apps/extension/src/drivers/driver-contract.ts",
+      "bytes": 2801,
+      "sha256": "7357310f8084ee683ced2912508be62d86455bcdb681fd5c47b3c91d5791b446"
+    },
+    {
+      "path": "base/apps/extension/src/drivers/driver-dom.ts",
+      "bytes": 10179,
+      "sha256": "154ceb8ad9cea2cccc8d51624353ac1a1157ee85505e44389217ef88bad8d7d1"
+    },
+    {
+      "path": "base/apps/extension/src/drivers/file-upload-driver.ts",
+      "bytes": 6575,
+      "sha256": "c6da487bac5d33ac2efca9de0aa9e045bc076e1fbc7deaaa62622a8450832641"
+    },
+    {
+      "path": "base/apps/extension/src/drivers/repeater-driver.ts",
+      "bytes": 9312,
+      "sha256": "3d1621613e8eda8897bd63ae504a16e42212337703f3701455524b65e9f59159"
+    },
+    {
+      "path": "base/apps/extension/src/drivers/text-like-drivers.ts",
+      "bytes": 6203,
+      "sha256": "c25309768be1431f23ccd3363740509833bbaea8f06be0ab8e2f16173fc2b67c"
+    },
+    {
+      "path": "base/apps/extension/src/drivers/widget-drivers.ts",
+      "bytes": 19455,
+      "sha256": "1b0e9be2e5d09b34132f8fb4034a6f33257e819bbf93a52dff81adf23ccd1202"
+    },
+    {
+      "path": "base/apps/extension/src/dynamic-engine.ts",
+      "bytes": 39256,
+      "sha256": "898b195483fefe025508ccfbf486d248af95f80d3d4a3014d3c1c469335c6222"
+    },
+    {
+      "path": "base/apps/extension/src/field-scanner.ts",
+      "bytes": 49958,
+      "sha256": "8fbbaaa0193fc63c18b0ca611f963b24b4795df59357c7687a04a77eebadba2c"
+    },
+    {
+      "path": "base/apps/extension/src/scanner-protocol.ts",
+      "bytes": 27179,
+      "sha256": "bf6d944b34252d2effe165094ee61742d7df5a7e6f530a47e48b607338d41b49"
+    },
+    {
+      "path": "base/e2e/extension/extension-drivers.spec.ts",
+      "bytes": 47209,
+      "sha256": "c6a71fe420b23fe239a8bb0b5beedccf9dade926532718767500e1734252b22b"
+    },
+    {
+      "path": "logs/japp-w14-description-after.log",
+      "bytes": 3179,
+      "sha256": "7728c15374fa09be6872f3a2d62177931e22fc9a184d1babf8e9bead195f8587"
+    },
+    {
+      "path": "logs/japp-w14-description-before.log",
+      "bytes": 7260,
+      "sha256": "f846a8929701fc90d9bce9f1ef2747bc1f392f2c4ec44e9482bb825ed60c2d9c"
+    },
+    {
+      "path": "logs/japp-w14-final-choice-format.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "logs/japp-w14-final-e2e-types.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/japp-w14-final-extension-types.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/japp-w14-final-format.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "logs/japp-w14-final-lint-fix.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/japp-w14-final-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/japp-w14-final-units.log",
+      "bytes": 295,
+      "sha256": "a14a5a599066515c5ff2d5271ce6c7838949ad66fa851349d47e9a96f27f9661"
+    },
+    {
+      "path": "logs/japp-w14-guards-repair-focused.log",
+      "bytes": 2253,
+      "sha256": "02ce64ac53c550316443fb1d872357d91bde301f95a0c05b850c035d9dd4b0f2"
+    },
+    {
+      "path": "logs/japp-w14-outer-owner-after.log",
+      "bytes": 7124,
+      "sha256": "8fd0302438381fe6894279cf4673c55c830dcfc721c2d29aa154c49ef7af261b"
+    },
+    {
+      "path": "logs/japp-w14-outside-owner-before.log",
+      "bytes": 18711,
+      "sha256": "d729144988044295b21b50d5dfb0ce494582b0e7e9a2941714086f98b06c7cc4"
+    },
+    {
+      "path": "logs/japp-w14-owner-depth-before.log",
+      "bytes": 7373,
+      "sha256": "d7d5d30fd2d30977ab36674462868f4d0128e719bb5576c2a37ff64d9b49bdeb"
+    },
+    {
+      "path": "logs/japp-w14-ownership-final.log",
+      "bytes": 3762,
+      "sha256": "27348674f7b9b9acbf290a08f1372bad3806822c6767d7fba1786842d43de494"
+    },
+    {
+      "path": "logs/japp-w14-ownership-guards-after.log",
+      "bytes": 3869,
+      "sha256": "e5651d569f96fdba01e07680c578cf0c65503b17589e2b08196ed5a352fa9910"
+    },
+    {
+      "path": "logs/japp-w14-ownership-marker-final.log",
+      "bytes": 4262,
+      "sha256": "e1374c9c19dd432be6af4b4dfd20f7f675b4d8dc1a280a77fd702c6154b48f7d"
+    },
+    {
+      "path": "logs/japp-w14-ownership-publication-final.log",
+      "bytes": 4469,
+      "sha256": "8dab577bc47e51b72a0b504002e79c0aa9d1be87a2b9e2be0dc8192e4d2b6863"
+    },
+    {
+      "path": "logs/japp-w14-post-input-before.log",
+      "bytes": 7335,
+      "sha256": "08b88d39f5efbec49acd624bad40495fe2d0406415f50916113eaa547847cc57"
+    },
+    {
+      "path": "logs/japp-w14-pre-shadow-baseline20.log",
+      "bytes": 39516,
+      "sha256": "071026f8a0ea347a53eef39d5e3296ab2653d3dc4f80939ca0f0dce9c4e74c8a"
+    },
+    {
+      "path": "logs/japp-w14-prompt-before.log",
+      "bytes": 4359,
+      "sha256": "99b346cc6d16c4946a99044fdd49b43568c9180b947d62091325726e17a1c5eb"
+    },
+    {
+      "path": "logs/japp-w14-result-ownership-before.log",
+      "bytes": 4503,
+      "sha256": "8ff962a7b69bac700d647cc861e5714fe9d2462ddf01e9bccf8d0769c051da7b"
+    },
+    {
+      "path": "logs/japp-w14-result-validation-before.log",
+      "bytes": 4521,
+      "sha256": "c883d4baddb7fe82734a702509f82ca9d0b9fd295862886c8c47b8c64d3f9311"
+    },
+    {
+      "path": "logs/japp-w14-shadow-after-final.log",
+      "bytes": 4377,
+      "sha256": "c2370b7441a8875f7ec2755d800fffc1b8b01ce38a0919a523422d7e3c9432fc"
+    },
+    {
+      "path": "logs/japp-w14-shadow-after-peer.log",
+      "bytes": 26552,
+      "sha256": "9f64225ffde5e7800f680a3d82994704be14be082d33288c66cc9b76fd8b260d"
+    },
+    {
+      "path": "logs/japp-w14-shadow-after.log",
+      "bytes": 4736,
+      "sha256": "1cd5cd5b2d3f81fed8c1679f0ae1a7d5cc4d0d7671c3137f7cd7724f185e6649"
+    },
+    {
+      "path": "logs/japp-w14-shadow-before-retained.log",
+      "bytes": 6920,
+      "sha256": "c3789dca7260afdf22c7654ee6647a8a4c55c7e6d4d49e2bdcaec75cc1d8cb96"
+    },
+    {
+      "path": "logs/japp-w14-shadow-before.log",
+      "bytes": 20618,
+      "sha256": "ff3125303f3685e5a2aa16f7e3104f3d220ece4c78d5bb65b686d9fb4f78d626"
+    },
+    {
+      "path": "logs/japp-w14-shadow-cached-final.log",
+      "bytes": 6874,
+      "sha256": "41b750f2293c5b4660bd60239a1549b39760875ba4d6a96734d26e1e72cf681e"
+    },
+    {
+      "path": "logs/japp-w14-shadow-cached.log",
+      "bytes": 5771,
+      "sha256": "be92e008b5eda42f47133a4eb5a0dad0390b85722a7dcd04a5daba892c79801e"
+    },
+    {
+      "path": "logs/japp-w14-shadow-current-cost.log",
+      "bytes": 7814,
+      "sha256": "381e50726efcb52af40a5398da7f7a33bb4ce04242f5609be589c045e6ecd64b"
+    },
+    {
+      "path": "logs/japp-w14-shadow-current-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/japp-w14-shadow-current-units.log",
+      "bytes": 295,
+      "sha256": "d687ae9c248747fd69288fecb62783146600345c1d56878fa97ba06892498217"
+    },
+    {
+      "path": "logs/japp-w14-shadow-e2e-types.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/japp-w14-shadow-final-target20.log",
+      "bytes": 3556,
+      "sha256": "209160d35b083a816981467f0066834d7c74b2b608052e36f2566f7b982518bf"
+    },
+    {
+      "path": "logs/japp-w14-shadow-final96.log",
+      "bytes": 17947,
+      "sha256": "fcdb7d21b4f651294ac11be4593d5dbc2f77c228929d2afee2e35557b7887c4a"
+    },
+    {
+      "path": "logs/japp-w14-shadow-format-check.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "logs/japp-w14-shadow-format-final.log",
+      "bytes": 238,
+      "sha256": "a7602cf0ae435a4ecd3d063f649e7c2b0ea60188bc57b3a13d2b2cc649c4b6fa"
+    },
+    {
+      "path": "logs/japp-w14-shadow-format.log",
+      "bytes": 317,
+      "sha256": "2387c9d50fd93de229c55cc19f8c6cb705a177f593f5f14e42246521964ecece"
+    },
+    {
+      "path": "logs/japp-w14-shadow-guards-final.log",
+      "bytes": 16942,
+      "sha256": "6f7740f84239e5f1c3a3a56b02db56469eb003d6f0af05454d4efd2d10709d99"
+    },
+    {
+      "path": "logs/japp-w14-shadow-guards-retained.log",
+      "bytes": 27002,
+      "sha256": "58c8dfe2db7a54872c2a5bea99531087c544f48b79aeca093f5acb01400e61c2"
+    },
+    {
+      "path": "logs/japp-w14-shadow-guards-target20.log",
+      "bytes": 3556,
+      "sha256": "b1291d8dfaad9108c826aa3beb0585306247714a51cf463be29cecd8c4668d3b"
+    },
+    {
+      "path": "logs/japp-w14-shadow-lint-current.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/japp-w14-shadow-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/japp-w14-shadow-marker-target20.log",
+      "bytes": 3549,
+      "sha256": "16cb8a1dce6d6fdff508bae547e52f1839717a7f602398ea0fe98671d822ff3c"
+    },
+    {
+      "path": "logs/japp-w14-shadow-newtests-format.log",
+      "bytes": 106,
+      "sha256": "748cfd32e1ef07557ff325db1828f99029a29a9cd239893ebd2f48c86f93b3a4"
+    },
+    {
+      "path": "logs/japp-w14-shadow-optimization-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/japp-w14-shadow-publication-final-regression.log",
+      "bytes": 21792,
+      "sha256": "70fc2b5d08f09b360a797d84784f527574e7d65964672fdaf710e790a0d25595"
+    },
+    {
+      "path": "logs/japp-w14-shadow-publication-target20-rows.log",
+      "bytes": 44125,
+      "sha256": "7cc35f11a5a4c3f5052972354cdb5fc3d8ebc0bd065f39b1af352cd977cd1f97"
+    },
+    {
+      "path": "logs/japp-w14-shadow-publication-target20.log",
+      "bytes": 3549,
+      "sha256": "51dc178836590092a0f2d19fc4ab4eb30356a8117f31a05121c51ae6eecd1eef"
+    },
+    {
+      "path": "logs/japp-w14-shadow-target128-final.log",
+      "bytes": 3556,
+      "sha256": "68be26ebd6e5371852c0b27ef17596f9980fe5ccbd7f286dfb3246cf387ea532"
+    },
+    {
+      "path": "logs/japp-w14-shadow-target128.log",
+      "bytes": 3556,
+      "sha256": "5bf154ff67c5b5ed1ddde2a0bb148fb1aa851e5e1b77a448754a464478870236"
+    },
+    {
+      "path": "logs/japp-w14-shadow-types.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/japp-w14-shadow-units.log",
+      "bytes": 245,
+      "sha256": "b500a6c7a86ec5819daba7e6bd2c0790a5ba4404b1a2236060b6963a876440ea"
+    },
+    {
+      "path": "logs/japp-w14-shadow-unrelated-scaling.log",
+      "bytes": 6629,
+      "sha256": "af4adc5513227dd4f0668fac6be77d5d875c558674e153953116a36ee07f6a9d"
+    },
+    {
+      "path": "passing20-predecessor-runtime-manifest.json",
+      "bytes": 3632,
+      "sha256": "978e553a00779b60ede90504f17dcee533f619e4bfc37e957369ddaba61f53e5"
+    },
+    {
+      "path": "proofs/before-retained/extension-w14-shadow.spec.ts",
+      "bytes": 12416,
+      "sha256": "6335df471a4ded878cba83336723f54ae296107ecb2a7ae01db18e97dda52b94"
+    },
+    {
+      "path": "proofs/before-retained/manifest.json",
+      "bytes": 2104,
+      "sha256": "ef71c0b134054ae157322d51487b5a55acc512f1d3f313a9a4ba0d66a6bb3dfc"
+    },
+    {
+      "path": "proofs/before-retained/mounted-shadow-trace-frame.jpeg",
+      "bytes": 24593,
+      "sha256": "d3e43d1bfcf973179c0471d0de8ac3ba6b010cfe23319da0688accd839d52cfb"
+    },
+    {
+      "path": "proofs/before-retained/raw.log",
+      "bytes": 6920,
+      "sha256": "c3789dca7260afdf22c7654ee6647a8a4c55c7e6d4d49e2bdcaec75cc1d8cb96"
+    },
+    {
+      "path": "proofs/before-retained/test-results/.last-run.json",
+      "bytes": 145,
+      "sha256": "1cf127c69f6d8f28d17400f176ea35399fb4e461c06989210b0d2a5150de7479"
+    },
+    {
+      "path": "proofs/before-retained/test-results/extension-extension-w14-sh-0f5a9--open-shadow-late-duplicate-chromium/error-context.md",
+      "bytes": 7310,
+      "sha256": "93874e34834db574eb5b7b71c6b4bef2c06973e241c52ccaf392eaa988523dc4"
+    },
+    {
+      "path": "proofs/before-retained/test-results/extension-extension-w14-sh-0f5a9--open-shadow-late-duplicate-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/before-retained/test-results/extension-extension-w14-sh-0f5a9--open-shadow-late-duplicate-chromium/trace.zip",
+      "bytes": 159443,
+      "sha256": "b0308681907075dc5ec20ea30807732c3b043545b8df59f46e33e990d674f777"
+    },
+    {
+      "path": "proofs/before-retained/test-results/extension-extension-w14-sh-6b2ff-s-reported-and-never-filled-chromium/error-context.md",
+      "bytes": 11806,
+      "sha256": "f141ce000dc9a1304f9b121922d9a43b7ed56d945902ea3b91a9c0a4757cc4af"
+    },
+    {
+      "path": "proofs/before-retained/test-results/extension-extension-w14-sh-6b2ff-s-reported-and-never-filled-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/before-retained/test-results/extension-extension-w14-sh-6b2ff-s-reported-and-never-filled-chromium/trace.zip",
+      "bytes": 85267,
+      "sha256": "b9166b0c52d74a9cdd8823ab4f15333d4304acb404f7acee3a0eb363693457c1"
+    },
+    {
+      "path": "proofs/description-before/extracted-json/073183c2da1920ae60a900041c315389666e1b5b017876a8fa0b63c89fe17cad.json",
+      "bytes": 17104,
+      "sha256": "073183c2da1920ae60a900041c315389666e1b5b017876a8fa0b63c89fe17cad"
+    },
+    {
+      "path": "proofs/description-before/extracted-json/8fdf3494b4b075d66b8465148fd0c9178d048d0215c9abcb60523b469b6b89e7.json",
+      "bytes": 17106,
+      "sha256": "8fdf3494b4b075d66b8465148fd0c9178d048d0215c9abcb60523b469b6b89e7"
+    },
+    {
+      "path": "proofs/description-before/extracted-json-index.json",
+      "bytes": 679,
+      "sha256": "0551d0494c161ddcb7f98241a380d85fb410ac4708a871976d764a85b7a7d6a3"
+    },
+    {
+      "path": "proofs/description-before/peer.spec.ts",
+      "bytes": 22140,
+      "sha256": "373c011c92b51e4a6cb4f4c4c362968df9cd8a17463f7b20269f3871a08a7714"
+    },
+    {
+      "path": "proofs/description-before/raw.log",
+      "bytes": 7260,
+      "sha256": "f846a8929701fc90d9bce9f1ef2747bc1f392f2c4ec44e9482bb825ed60c2d9c"
+    },
+    {
+      "path": "proofs/description-before/test-results/.last-run.json",
+      "bytes": 145,
+      "sha256": "3eae02a0936cd04b5853d6892773b39305321fc36481a38f29a3a9f75ce4a18f"
+    },
+    {
+      "path": "proofs/description-before/test-results/extension-extension-w14-sh-9c0fa--earlier-applicant-approval-chromium/error-context.md",
+      "bytes": 5422,
+      "sha256": "20dbfa9a51c28ae26e00309224e0397f0264c334d443d645f4bae6a8410f8adf"
+    },
+    {
+      "path": "proofs/description-before/test-results/extension-extension-w14-sh-9c0fa--earlier-applicant-approval-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/description-before/test-results/extension-extension-w14-sh-9c0fa--earlier-applicant-approval-chromium/trace.zip",
+      "bytes": 175574,
+      "sha256": "ad46823172109fca0ecb901cfa320370c4ba1df594775043a0f1416981d6f6fb"
+    },
+    {
+      "path": "proofs/description-before/test-results/extension-extension-w14-sh-d9dfe--earlier-applicant-approval-chromium/error-context.md",
+      "bytes": 5424,
+      "sha256": "1a5fb62564f798ef5b872364321d41c6673e5f5a13b33fb2d79b3d555c99a1b2"
+    },
+    {
+      "path": "proofs/description-before/test-results/extension-extension-w14-sh-d9dfe--earlier-applicant-approval-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/description-before/test-results/extension-extension-w14-sh-d9dfe--earlier-applicant-approval-chromium/trace.zip",
+      "bytes": 175224,
+      "sha256": "bb99243b66ab1e0663efd25a29d8578ba700d85b89c4ec0dec872f9582b0aee5"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/failed-cases/extension-extension-driver-b7b3c-l-widget-failure-rolls-back-chromium/error-context.md",
+      "bytes": 9172,
+      "sha256": "2587f782843ad076e136dee02e075a5be77bbcd70820098ad5a514e0c165f144"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/failed-cases/extension-extension-driver-b7b3c-l-widget-failure-rolls-back-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/failed-cases/extension-extension-driver-b7b3c-l-widget-failure-rolls-back-chromium/test-failed-2.png",
+      "bytes": 66607,
+      "sha256": "5ca6208cd76315e59c8f84fcdb5fddcb2f9072b7f555f5a40847aa8b60578ac4"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/failed-cases/extension-extension-driver-b7b3c-l-widget-failure-rolls-back-chromium/test-failed-3.png",
+      "bytes": 27162,
+      "sha256": "ab5fb88ab019f1b7cdea3dd9b947f868ab1eb474fb3741a94ee145914996ce0c"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/failed-cases/extension-extension-driver-b7b3c-l-widget-failure-rolls-back-chromium/trace.zip",
+      "bytes": 343817,
+      "sha256": "16555d67fe296eac4ceee3aa9e561baa9ad505bbd18775c01472b443a6accf36"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/failed-cases/extension-extension-driver-e96f1-a-bound-and-refuses-absence-chromium/error-context.md",
+      "bytes": 9973,
+      "sha256": "2c426706cbb1dd5e7118f15ab0657869d93034e9a80fd1c350b48af041cea958"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/failed-cases/extension-extension-driver-e96f1-a-bound-and-refuses-absence-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/failed-cases/extension-extension-driver-e96f1-a-bound-and-refuses-absence-chromium/test-failed-2.png",
+      "bytes": 81475,
+      "sha256": "c3705a7cfcd62d3908ef9fc2dd322c27a5daa6b112cc775566e50d9c670a5215"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/failed-cases/extension-extension-driver-e96f1-a-bound-and-refuses-absence-chromium/test-failed-3.png",
+      "bytes": 27162,
+      "sha256": "ab5fb88ab019f1b7cdea3dd9b947f868ab1eb474fb3741a94ee145914996ce0c"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/failed-cases/extension-extension-driver-e96f1-a-bound-and-refuses-absence-chromium/trace.zip",
+      "bytes": 3079918,
+      "sha256": "55957c9022caef6d6123a07e7c7021ea7ff6872277a68e642b85e626fa2a97df"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/failed-cases/extension-extension-w14-shadow-W14-open-shadow-local-error-chromium/error-context.md",
+      "bytes": 9142,
+      "sha256": "1dadf40529fdf9d85954f42fb402e9777fe6b1dfa799ece49a7270341330fc95"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/failed-cases/extension-extension-w14-shadow-W14-open-shadow-local-error-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/failed-cases/extension-extension-w14-shadow-W14-open-shadow-local-error-chromium/trace.zip",
+      "bytes": 162611,
+      "sha256": "b9fb6ab6b76bb84018d4e9fd8e56ccc2eca7a298f1bbeda959ad507ea7932e4c"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/source/apps/extension/src/driver-engine.ts",
+      "bytes": 45011,
+      "sha256": "3bfb49feb879eb315edc8ed06cb7e6886e1bc50443369158fc41691414da72e7"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/source/apps/extension/src/drivers/choice-drivers.ts",
+      "bytes": 12708,
+      "sha256": "b4dfe3192ec82a9a1d5c99c485abf008756476d95823a0e2ca04035faa7a6c82"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/source/apps/extension/src/drivers/widget-drivers.ts",
+      "bytes": 21781,
+      "sha256": "932acd65ae2ce72e666afe02f4d68115001874ea5652f1eb752595121c5a125c"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/source/e2e/extension/extension-drivers.spec.ts",
+      "bytes": 47209,
+      "sha256": "c6a71fe420b23fe239a8bb0b5beedccf9dade926532718767500e1734252b22b"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/source/e2e/extension/extension-w14-shadow.spec.ts",
+      "bytes": 42023,
+      "sha256": "8299fe20b480e790bc71abb19bc2fd825b539fa3a1afc4b64a80da10425584c0"
+    },
+    {
+      "path": "proofs/guards-retained-before-repair/stdout.log",
+      "bytes": 27002,
+      "sha256": "58c8dfe2db7a54872c2a5bea99531087c544f48b79aeca093f5acb01400e61c2"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/0ac0eaaa371d332b4f06d39fdb4aa21a84adfbb06038c5a124284eee0dd9b507.json",
+      "bytes": 18698,
+      "sha256": "0ac0eaaa371d332b4f06d39fdb4aa21a84adfbb06038c5a124284eee0dd9b507"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/178dab25d83c9a9b946bfb4bd8fec8ec9b6d91acd688ef83d7e52827217d8015.json",
+      "bytes": 22724,
+      "sha256": "178dab25d83c9a9b946bfb4bd8fec8ec9b6d91acd688ef83d7e52827217d8015"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/2386919a14c8dc2b8788f7fce6788fdade112b9e6155b880a4093417cd5fe342.json",
+      "bytes": 15533,
+      "sha256": "2386919a14c8dc2b8788f7fce6788fdade112b9e6155b880a4093417cd5fe342"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/2d550a2cd80a3b3f0a96a790c5ab1cf58a803541861ab6b643a615a8d5eac84f.json",
+      "bytes": 18691,
+      "sha256": "2d550a2cd80a3b3f0a96a790c5ab1cf58a803541861ab6b643a615a8d5eac84f"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/308bdfec4a8c5c98873611580903f7871e5c72e04bf05307c320f6c046b4850a.json",
+      "bytes": 18168,
+      "sha256": "308bdfec4a8c5c98873611580903f7871e5c72e04bf05307c320f6c046b4850a"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/3f3fdf281f9b93b5979502b94d33024fd17f2b63c1d84f65bcbbe1a425a87265.json",
+      "bytes": 22905,
+      "sha256": "3f3fdf281f9b93b5979502b94d33024fd17f2b63c1d84f65bcbbe1a425a87265"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/4bf04d17a53a15fc2745e82030b41667ab9b2e5dbfff954bace7138305dec751.json",
+      "bytes": 17374,
+      "sha256": "4bf04d17a53a15fc2745e82030b41667ab9b2e5dbfff954bace7138305dec751"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/784750bd482f4b104cbc4fba18500f64bf6cb1558fe496d93d36d6d3a432c0ee.json",
+      "bytes": 19841,
+      "sha256": "784750bd482f4b104cbc4fba18500f64bf6cb1558fe496d93d36d6d3a432c0ee"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/90b52ea648d8704c8afe98097b226c5a83ce7af8660a4d5ba7ae410f1cf0b40c.json",
+      "bytes": 9328,
+      "sha256": "90b52ea648d8704c8afe98097b226c5a83ce7af8660a4d5ba7ae410f1cf0b40c"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/90c4534f00cbdb9322c7807717b7499620e509442d81a2abb9b8e687480a4296.json",
+      "bytes": 10347,
+      "sha256": "90c4534f00cbdb9322c7807717b7499620e509442d81a2abb9b8e687480a4296"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/a3b771f02e193ee1ee62487cba97259ac6c2b76fe326477dfd52fdcc7062048d.json",
+      "bytes": 9276,
+      "sha256": "a3b771f02e193ee1ee62487cba97259ac6c2b76fe326477dfd52fdcc7062048d"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/b6398ed8b274df55e424363b0a606fdd43e7a6ef21e5d35323f1e894e8ea223c.json",
+      "bytes": 10347,
+      "sha256": "b6398ed8b274df55e424363b0a606fdd43e7a6ef21e5d35323f1e894e8ea223c"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/b845a4855554ff424a25224f37c72e0cbef2009170b952182a98e609cd3c7556.json",
+      "bytes": 22903,
+      "sha256": "b845a4855554ff424a25224f37c72e0cbef2009170b952182a98e609cd3c7556"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/c70b6a649ad4eea9aa6660b6b4c49c96dcb47e621c70229d389b067c23fad6b5.json",
+      "bytes": 15531,
+      "sha256": "c70b6a649ad4eea9aa6660b6b4c49c96dcb47e621c70229d389b067c23fad6b5"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/c7b14c75226a07e471ad8c3339fdfc0ad0accd17eae6cd3af8c8ff107f190ea4.json",
+      "bytes": 9275,
+      "sha256": "c7b14c75226a07e471ad8c3339fdfc0ad0accd17eae6cd3af8c8ff107f190ea4"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/cec29ae677f2936ed18186024838789e1c59b470652cb06819ddfaa9110299ed.json",
+      "bytes": 17382,
+      "sha256": "cec29ae677f2936ed18186024838789e1c59b470652cb06819ddfaa9110299ed"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/d4077606b8a45b9b43e51db504abef05ee8400abb94633c4f045e5a28a5ef549.json",
+      "bytes": 9328,
+      "sha256": "d4077606b8a45b9b43e51db504abef05ee8400abb94633c4f045e5a28a5ef549"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/d5869ff612f5bb07febbccead27dba1481c60a24749765649ab6d053c699562f.json",
+      "bytes": 22718,
+      "sha256": "d5869ff612f5bb07febbccead27dba1481c60a24749765649ab6d053c699562f"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/d7b8de6ebab74681aed15603e50af1ecdec82d347f7f232113a4957f933a0c7a.json",
+      "bytes": 18166,
+      "sha256": "d7b8de6ebab74681aed15603e50af1ecdec82d347f7f232113a4957f933a0c7a"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json/dc26a22a0e254e77a8a8bc904051682962eb015bd70670203f86d8438bbc06c9.json",
+      "bytes": 19832,
+      "sha256": "dc26a22a0e254e77a8a8bc904051682962eb015bd70670203f86d8438bbc06c9"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/extracted-json-index.json",
+      "bytes": 6828,
+      "sha256": "d68222aa58892f03e636e42669e61a0a7f435f2d9c3d120d32521e13ef7dd4c1"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/field-scanner.ts",
+      "bytes": 59420,
+      "sha256": "348216e25db8a63165306d4a3493f2737d8a199c2e3a08fe0c8d7c12365ae452"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/peer12.spec.ts",
+      "bytes": 12894,
+      "sha256": "6847946921a3d1d14f465178123195f950c567c311a66ca49ff19ce0630eb7bb"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/stdout.log",
+      "bytes": 7124,
+      "sha256": "8fd0302438381fe6894279cf4673c55c830dcfc721c2d29aa154c49ef7af261b"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/.last-run.json",
+      "bytes": 45,
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-semant-78725--obsolete-global-uniqueness-chromium/trace.zip",
+      "bytes": 166410,
+      "sha256": "0f9c696b220f801ea58f00e55fc1cabf9b4d852de25ad397122c12e999f97f53"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-semant-a6b2a-nherit-stale-node-authority-chromium/trace.zip",
+      "bytes": 176161,
+      "sha256": "cf346fa5c1409907dd0bca3477c065959a629dd1f9b57cd3aab953001066d645"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-semant-bfe13-ns-and-duplicate-candidates-chromium/trace.zip",
+      "bytes": 194049,
+      "sha256": "fedf78b9e246eb2542f7d97b92b08df2d787c16e24c5c6bfd4fe9c3d6a95f12b"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-ou-0890e-e-prevents-applicant-writes-chromium/trace.zip",
+      "bytes": 165930,
+      "sha256": "3ee1642f2ea4a8c89194b6bb24be4f11e6053fd5028a30facc04689d8f6df020"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-ou-32f79-s-prevents-applicant-writes-chromium/trace.zip",
+      "bytes": 167075,
+      "sha256": "237c0485a3a5a7bb6c85156f3475c4827e2db4796fdfba097749d6ef2465be54"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-ou-33d01-l-prevents-applicant-writes-chromium/trace.zip",
+      "bytes": 163677,
+      "sha256": "680328241815da67f226d13907c7ec635b74dfc28ec23004ccb6b0a3ca74e1c8"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-ou-3d02c-uses-partial-owner-evidence-chromium/trace.zip",
+      "bytes": 162636,
+      "sha256": "0cbce6f895cb00b6ea8b70a5d235fdf395c7444e47abf4a5cfeb3e877ee0817c"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-ou-4b7e0-uses-partial-owner-evidence-chromium/trace.zip",
+      "bytes": 165458,
+      "sha256": "377d060ae60ef5f8309fab0b3a73561230e73d2a7bd81e357210e1a36e923a85"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-ou-747bd--and-reports-required-field-chromium/trace.zip",
+      "bytes": 162397,
+      "sha256": "0d8779d100764e49031bbe80ed2e9e551fc004052072518ca352e851e999f4a9"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-ou-89a9b-uses-partial-owner-evidence-chromium/trace.zip",
+      "bytes": 152677,
+      "sha256": "a851f1fd25cbdd1f2b4d5efa3aa60225ba5f5f684c81e8cb60fb0b87d4765c99"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-ou-94a76--and-reports-required-field-chromium/trace.zip",
+      "bytes": 162871,
+      "sha256": "6be042a6155f1a94d2a6538a47cb49939e1dfb6aa59b00e03bd5e6bfee0097ad"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-ou-957b3-l-prevents-applicant-writes-chromium/trace.zip",
+      "bytes": 163516,
+      "sha256": "739acda9ed5fcc5c8da09076e4542fc53e75160775b0a69befda3c8758783498"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-ou-aec81-e-prevents-applicant-writes-chromium/trace.zip",
+      "bytes": 166818,
+      "sha256": "b1303af322e4c8984d92f77222a8c886807f71a03d4a3288424cdef911faf062"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-ou-b3010-uses-partial-owner-evidence-chromium/trace.zip",
+      "bytes": 163020,
+      "sha256": "7e17000adfe39fb97948cec9ccfedc82c5874885b17974e261a46083993f63ba"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-ou-ec505-s-prevents-applicant-writes-chromium/trace.zip",
+      "bytes": 168219,
+      "sha256": "6ee71e448d525d3485b08bbe91e9f49e663b083d94d7836171dd3ddc8f41dc68"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-po-c3ea9-fication-and-undo-authority-chromium/trace.zip",
+      "bytes": 168517,
+      "sha256": "5ce939d78f088818d625046d7ba3b8f6f496d4804693c16d66c0e7884e1349e8"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-po-ca6e2-fication-and-undo-authority-chromium/trace.zip",
+      "bytes": 156931,
+      "sha256": "2e3e181da4813f2885f3a2730f7b3d1c8ba880d11f1de60bb7ffcdc8caf542cb"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-re-7ba6a-fication-and-undo-authority-chromium/trace.zip",
+      "bytes": 169444,
+      "sha256": "24f51da484340429c7d261ffa520eaaa83e0d7f5ed9632e5394784505005be5b"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-re-88abd-fication-and-undo-authority-chromium/trace.zip",
+      "bytes": 172401,
+      "sha256": "a355e5b6acb421f851ad1f782d10a7c01344981ce85b2a2edd5f26e3dd5df855"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-se-90fd7--preserves-global-ambiguity-chromium/trace.zip",
+      "bytes": 156609,
+      "sha256": "69036a26ebb7792d9c5aa681c96dbea202240ae729bc5634b72304a1dd9fc9e1"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-sh-14ab6-ses-stale-READY-publication-chromium/trace.zip",
+      "bytes": 174499,
+      "sha256": "7b267cf367aad50646e5d55da5bd9aa66cbf8f35008fffccff7235be23ab7322"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-sh-281bd-an-approved-applicant-write-chromium/trace.zip",
+      "bytes": 167518,
+      "sha256": "45c255ec6a8cbacbfb840dd5d812b21915baa23f6f2436408d2cd618f003ba6a"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-sh-31c9e-ts-post-await-option-commit-chromium/trace.zip",
+      "bytes": 171211,
+      "sha256": "e2d4509610feceaf1ae3b58787012c6904b1611e512900ecce6a6da65cd9863f"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-sh-328b8-e-absolute-eight-root-depth-chromium/trace.zip",
+      "bytes": 162052,
+      "sha256": "cead69e282954fddcc69f94ec23cd91b5b524d8de20a50aa4d1a9d66c6665aed"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-sh-742c3-ts-post-await-option-commit-chromium/trace.zip",
+      "bytes": 172094,
+      "sha256": "99c8187d74281fffa4379806dc5e1c910a21b5b65b9b41a07f9cb3a2372dfbdf"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-sh-94001-e-absolute-eight-root-depth-chromium/trace.zip",
+      "bytes": 162982,
+      "sha256": "6571e2a407b9cbb6e34a5e9d64bd61e38e0e0edf36557452b77c6aab33933716"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-sh-9c0fa--earlier-applicant-approval-chromium/trace.zip",
+      "bytes": 171427,
+      "sha256": "6a5b511ef35b9b6d77fac56dec57dfb838f28265923f255a7157c3ccbea821a6"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-sh-a0dc9-logy-observer-subscriptions-chromium/trace.zip",
+      "bytes": 165069,
+      "sha256": "94ca2645be098ffb37eb760b43d25956e01ae48ce2d81206a17749de6581a705"
+    },
+    {
+      "path": "proofs/outer-owner-final-proof/test-results/extension-extension-w14-sh-d9dfe--earlier-applicant-approval-chromium/trace.zip",
+      "bytes": 158861,
+      "sha256": "0d4dfa8eedcbe0252f8316d9f365ddf6de6dfd0cb4dbb17b840336779b663b06"
+    },
+    {
+      "path": "proofs/outside-owner-before/extracted-json/74e5afc7b80185876667c6952c304709f001ad12c0767363cd67f69439ed7a8b.json",
+      "bytes": 22488,
+      "sha256": "74e5afc7b80185876667c6952c304709f001ad12c0767363cd67f69439ed7a8b"
+    },
+    {
+      "path": "proofs/outside-owner-before/extracted-json/86da574e2ab3d55b9fe430b55124e9835a55d7b7a1239560833b3293f8aec42e.json",
+      "bytes": 22649,
+      "sha256": "86da574e2ab3d55b9fe430b55124e9835a55d7b7a1239560833b3293f8aec42e"
+    },
+    {
+      "path": "proofs/outside-owner-before/extracted-json/9c88448c176b075dbb5368747c915e25b922e86977356cb1eb7a2d1397a6679e.json",
+      "bytes": 22483,
+      "sha256": "9c88448c176b075dbb5368747c915e25b922e86977356cb1eb7a2d1397a6679e"
+    },
+    {
+      "path": "proofs/outside-owner-before/extracted-json/a1e6724f0143d6bf2987af83f44625ada8478102ec59c038263def588323922f.json",
+      "bytes": 22494,
+      "sha256": "a1e6724f0143d6bf2987af83f44625ada8478102ec59c038263def588323922f"
+    },
+    {
+      "path": "proofs/outside-owner-before/extracted-json/bcadd648d1d7623fdc64108783a80a858e620faad4790b74b9c126bf1ef4395c.json",
+      "bytes": 22489,
+      "sha256": "bcadd648d1d7623fdc64108783a80a858e620faad4790b74b9c126bf1ef4395c"
+    },
+    {
+      "path": "proofs/outside-owner-before/extracted-json/f34ee03bb7772603c9c17d6bd3bcaaf1b7154517ff577fd02a5fcae2fb7c07e4.json",
+      "bytes": 22648,
+      "sha256": "f34ee03bb7772603c9c17d6bd3bcaaf1b7154517ff577fd02a5fcae2fb7c07e4"
+    },
+    {
+      "path": "proofs/outside-owner-before/extracted-json-index.json",
+      "bytes": 2191,
+      "sha256": "91f4e96ade4e3d0cbdedeca633d1efc3e46684fb3a94e515211ff282e736022f"
+    },
+    {
+      "path": "proofs/outside-owner-before/field-scanner.ts",
+      "bytes": 59186,
+      "sha256": "c130de74ddbd985a44a27fd43b52c9ac9ef80730735d0074713d3cb6fc7f7a35"
+    },
+    {
+      "path": "proofs/outside-owner-before/peer6.spec.ts",
+      "bytes": 5393,
+      "sha256": "14361abf4eb616cacae84f36afdd990d7118f260d19414fa6d706f9ccb611ac2"
+    },
+    {
+      "path": "proofs/outside-owner-before/stdout.log",
+      "bytes": 18711,
+      "sha256": "d729144988044295b21b50d5dfb0ce494582b0e7e9a2941714086f98b06c7cc4"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/.last-run.json",
+      "bytes": 341,
+      "sha256": "6ffb71212d976520014d823d5318cfc237540c863541af142e3f1239e15b38f6"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-0890e-e-prevents-applicant-writes-chromium/error-context.md",
+      "bytes": 6100,
+      "sha256": "efd64a190e48eb06b5268f5bbf73a72c75fae4a987963b347852a234cb9fd8f8"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-0890e-e-prevents-applicant-writes-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-0890e-e-prevents-applicant-writes-chromium/trace.zip",
+      "bytes": 169639,
+      "sha256": "00c09d68bf13a1825fe8fcfa3ee4254234a5ba6323c1fe0d026640d6b5713b4e"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-32f79-s-prevents-applicant-writes-chromium/error-context.md",
+      "bytes": 6093,
+      "sha256": "bdf223b536bba1748dcd09e294d627575ced1976eecf13ef6a1ca80a351c3ed3"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-32f79-s-prevents-applicant-writes-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-32f79-s-prevents-applicant-writes-chromium/trace.zip",
+      "bytes": 169472,
+      "sha256": "c9cbf96acf68dc31118ab36723893e20cbe72831905dca79ed7236a4ad7d5c8b"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-33d01-l-prevents-applicant-writes-chromium/error-context.md",
+      "bytes": 6154,
+      "sha256": "46343f67afc027638ccc408aa787088daf115cd05ac4ced269ab80b3d819fa2e"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-33d01-l-prevents-applicant-writes-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-33d01-l-prevents-applicant-writes-chromium/trace.zip",
+      "bytes": 170753,
+      "sha256": "3013b6f426aa12e75abe3dfa782404ad4996e74199e3e156540bfcf4b553ac72"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-957b3-l-prevents-applicant-writes-chromium/error-context.md",
+      "bytes": 6152,
+      "sha256": "d73fb3a472e349eb9b316220bb1c03b4c5507c66718c954f4e2673738e14c420"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-957b3-l-prevents-applicant-writes-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-957b3-l-prevents-applicant-writes-chromium/trace.zip",
+      "bytes": 169245,
+      "sha256": "01f2d9ed15158cbebde071eb9d936c8f3b8059f905e4866978eb6862348572d3"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-aec81-e-prevents-applicant-writes-chromium/error-context.md",
+      "bytes": 6102,
+      "sha256": "868ae5d01522c23c4d13f7f7647d485a526f70d74b88caab94a5ec26592c5035"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-aec81-e-prevents-applicant-writes-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-aec81-e-prevents-applicant-writes-chromium/trace.zip",
+      "bytes": 170906,
+      "sha256": "f7f347883d29e7ce983c40eadc31452c7b84178a8cac95c1eca14ead482d0e81"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-ec505-s-prevents-applicant-writes-chromium/error-context.md",
+      "bytes": 6091,
+      "sha256": "85b5bad4fe0fb84ed54ccf7cd9c367916984a30eca5ea16008f06a75c2561c3e"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-ec505-s-prevents-applicant-writes-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/outside-owner-before/test-results/extension-extension-w14-ou-ec505-s-prevents-applicant-writes-chromium/trace.zip",
+      "bytes": 169399,
+      "sha256": "405174ccf4cca06404632670a5b178347d201a362a622ad06fd2368088bd8d5c"
+    },
+    {
+      "path": "proofs/owner-depth-before/extracted-json/02700c247168d99340e0946c92d1ace4835a35a2cda499ba2c01a2ef4df87815.json",
+      "bytes": 17144,
+      "sha256": "02700c247168d99340e0946c92d1ace4835a35a2cda499ba2c01a2ef4df87815"
+    },
+    {
+      "path": "proofs/owner-depth-before/extracted-json/3a7ce2bc81f1ae983cfd4380a1fd32af3bca9861bbdad3686c2ea2ad2dc7293c.json",
+      "bytes": 17146,
+      "sha256": "3a7ce2bc81f1ae983cfd4380a1fd32af3bca9861bbdad3686c2ea2ad2dc7293c"
+    },
+    {
+      "path": "proofs/owner-depth-before/extracted-json-index.json",
+      "bytes": 679,
+      "sha256": "419bf994994a296e3104108fb15370c5188613f986ddd78bc131845b86f506ca"
+    },
+    {
+      "path": "proofs/owner-depth-before/peer8.spec.ts",
+      "bytes": 8551,
+      "sha256": "6bb7987af336557b064f9de371834be6dbda148868d26bedfc77ece358ca35d1"
+    },
+    {
+      "path": "proofs/owner-depth-before/stdout.log",
+      "bytes": 7373,
+      "sha256": "d7d5d30fd2d30977ab36674462868f4d0128e719bb5576c2a37ff64d9b49bdeb"
+    },
+    {
+      "path": "proofs/owner-depth-before/test-results/.last-run.json",
+      "bytes": 145,
+      "sha256": "3093d1675691e074d389319568961e525e5b3193ee454c865815ef8c790e9698"
+    },
+    {
+      "path": "proofs/owner-depth-before/test-results/extension-extension-w14-ou-747bd--and-reports-required-field-chromium/error-context.md",
+      "bytes": 5655,
+      "sha256": "507e78602755e5a883a9fe57d80d94c87086bb006a928d19075ce99452a9eb1e"
+    },
+    {
+      "path": "proofs/owner-depth-before/test-results/extension-extension-w14-ou-747bd--and-reports-required-field-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/owner-depth-before/test-results/extension-extension-w14-ou-747bd--and-reports-required-field-chromium/trace.zip",
+      "bytes": 170190,
+      "sha256": "b6aa8080306ae8c72c1e5802802a892f9781e4f97ff9a966a13638e06debfd6b"
+    },
+    {
+      "path": "proofs/owner-depth-before/test-results/extension-extension-w14-ou-94a76--and-reports-required-field-chromium/error-context.md",
+      "bytes": 5657,
+      "sha256": "5a6ad175ef3800267a14cd8142b23b27a53c8973227128549102bb180de38dcb"
+    },
+    {
+      "path": "proofs/owner-depth-before/test-results/extension-extension-w14-ou-94a76--and-reports-required-field-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/owner-depth-before/test-results/extension-extension-w14-ou-94a76--and-reports-required-field-chromium/trace.zip",
+      "bytes": 158019,
+      "sha256": "217fce261f4e4ba7d495475fd5f473e61cf414661d7b002437fc2da839da1f9b"
+    },
+    {
+      "path": "proofs/post-input-before/driver-engine.ts",
+      "bytes": 47423,
+      "sha256": "2fdc2373785cc986a6724e7f2944e8bf892a9215491a87a742fe6c9f167a65a1"
+    },
+    {
+      "path": "proofs/post-input-before/extracted-json/5bf28da54382b4fb42b01a1520f04a47c08b0fd471b635210ea71bc390268ab4.json",
+      "bytes": 19796,
+      "sha256": "5bf28da54382b4fb42b01a1520f04a47c08b0fd471b635210ea71bc390268ab4"
+    },
+    {
+      "path": "proofs/post-input-before/extracted-json/a6ff10c88b2e5968c67cad0b72865ee596026b364483d39bb89ab358ebb6fcf6.json",
+      "bytes": 19795,
+      "sha256": "a6ff10c88b2e5968c67cad0b72865ee596026b364483d39bb89ab358ebb6fcf6"
+    },
+    {
+      "path": "proofs/post-input-before/extracted-json-index.json",
+      "bytes": 679,
+      "sha256": "082fda2759f8a915fa381a1b9dfbc0dbbe2538ede7129d82f76124092e474bf0"
+    },
+    {
+      "path": "proofs/post-input-before/peer.spec.ts",
+      "bytes": 3962,
+      "sha256": "d35bb587132250debd64b1542bb7216e9346b3dac3ef4f759bda171a2b02a95a"
+    },
+    {
+      "path": "proofs/post-input-before/stdout.log",
+      "bytes": 7335,
+      "sha256": "08b88d39f5efbec49acd624bad40495fe2d0406415f50916113eaa547847cc57"
+    },
+    {
+      "path": "proofs/post-input-before/test-results/.last-run.json",
+      "bytes": 145,
+      "sha256": "50523fd53c88e930062464b0e15135fe83aab985f89801f59790150b329f81a8"
+    },
+    {
+      "path": "proofs/post-input-before/test-results/extension-extension-w14-po-c3ea9-fication-and-undo-authority-chromium/error-context.md",
+      "bytes": 5492,
+      "sha256": "f2b700f30d79ed59ece38cacdec2590daf3ba61c5a8b83b7b833165df50bd279"
+    },
+    {
+      "path": "proofs/post-input-before/test-results/extension-extension-w14-po-c3ea9-fication-and-undo-authority-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/post-input-before/test-results/extension-extension-w14-po-c3ea9-fication-and-undo-authority-chromium/trace.zip",
+      "bytes": 171883,
+      "sha256": "1784f97addf0b237a223a3a5b21bce900c2424b10dfda6e4f2b91972be2d0ec5"
+    },
+    {
+      "path": "proofs/post-input-before/test-results/extension-extension-w14-po-ca6e2-fication-and-undo-authority-chromium/error-context.md",
+      "bytes": 5494,
+      "sha256": "2c910c0e4066707781abcffcec86486efcde071133a0fc6e0045574daab6cbef"
+    },
+    {
+      "path": "proofs/post-input-before/test-results/extension-extension-w14-po-ca6e2-fication-and-undo-authority-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/post-input-before/test-results/extension-extension-w14-po-ca6e2-fication-and-undo-authority-chromium/trace.zip",
+      "bytes": 160202,
+      "sha256": "86884c091cdf02c3eb5110a4f63ef7d477c2581f13152ad0c9255610b8b7c086"
+    },
+    {
+      "path": "proofs/pre-shadow-baseline20/raw-scaling.json",
+      "bytes": 49198,
+      "sha256": "415a974e4022f7b4684a13edd299524dd6056c886fc7ccf450ebeb8b95f6b4b7"
+    },
+    {
+      "path": "proofs/pre-shadow-baseline20/stdout.log",
+      "bytes": 39516,
+      "sha256": "071026f8a0ea347a53eef39d5e3296ab2653d3dc4f80939ca0f0dce9c4e74c8a"
+    },
+    {
+      "path": "proofs/prompt-before/extracted-json/e3a9c45303250576336aafd52c1fa96d7485b3168584565ffc086c0bb3bb74d8.json",
+      "bytes": 18694,
+      "sha256": "e3a9c45303250576336aafd52c1fa96d7485b3168584565ffc086c0bb3bb74d8"
+    },
+    {
+      "path": "proofs/prompt-before/extracted-json-index.json",
+      "bytes": 335,
+      "sha256": "f2423edbf8a7ea43364b4b00ea297e224fb54c162103acc263d70a68b949412f"
+    },
+    {
+      "path": "proofs/prompt-before/peer.spec.ts",
+      "bytes": 26488,
+      "sha256": "6a9a91673a307204219e20262cb9230db90064cd09a43683c8f67409b2ea8416"
+    },
+    {
+      "path": "proofs/prompt-before/raw.log",
+      "bytes": 4359,
+      "sha256": "99b346cc6d16c4946a99044fdd49b43568c9180b947d62091325726e17a1c5eb"
+    },
+    {
+      "path": "proofs/prompt-before/test-results/.last-run.json",
+      "bytes": 96,
+      "sha256": "bd247134ccb5525e66ff3f8caa54b2a8013aaa067c780b217485110881264bba"
+    },
+    {
+      "path": "proofs/prompt-before/test-results/extension-extension-w14-sh-5397c-ts-post-await-option-commit-chromium/error-context.md",
+      "bytes": 5766,
+      "sha256": "d203a0005fb9d2ddc4e57ed44cc663ce6babf8a3a65d52f8787e39c8d6e2a608"
+    },
+    {
+      "path": "proofs/prompt-before/test-results/extension-extension-w14-sh-5397c-ts-post-await-option-commit-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/prompt-before/test-results/extension-extension-w14-sh-5397c-ts-post-await-option-commit-chromium/trace.zip",
+      "bytes": 173247,
+      "sha256": "a9ff9d702113586848bd07b6c740b7999b2323d712be7114a317a2d2a67b6828"
+    },
+    {
+      "path": "proofs/publication-regression-before-reason/driver-engine.ts",
+      "bytes": 50092,
+      "sha256": "e6945f062327bc756b61e39c11150d555d90c7b32d30b31c0d2f934f1796bede"
+    },
+    {
+      "path": "proofs/publication-regression-before-reason/failed-cases/extension-extension-driver-8fe2f-jected-matches-never-verify-chromium/error-context.md",
+      "bytes": 9003,
+      "sha256": "7c006c3415cc87945b86b61145cba2e9900941728f07cef5482e888f3584b421"
+    },
+    {
+      "path": "proofs/publication-regression-before-reason/failed-cases/extension-extension-driver-8fe2f-jected-matches-never-verify-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/publication-regression-before-reason/failed-cases/extension-extension-driver-8fe2f-jected-matches-never-verify-chromium/test-failed-2.png",
+      "bytes": 18091,
+      "sha256": "74e801ac910e3116bd452b1b6dd388889742ac66f2fc2994751c98402ca54f62"
+    },
+    {
+      "path": "proofs/publication-regression-before-reason/failed-cases/extension-extension-driver-8fe2f-jected-matches-never-verify-chromium/test-failed-3.png",
+      "bytes": 27162,
+      "sha256": "ab5fb88ab019f1b7cdea3dd9b947f868ab1eb474fb3741a94ee145914996ce0c"
+    },
+    {
+      "path": "proofs/publication-regression-before-reason/failed-cases/extension-extension-driver-8fe2f-jected-matches-never-verify-chromium/trace.zip",
+      "bytes": 270947,
+      "sha256": "470c9c847624dabc6d71713200c1fdd0d6faa5c3cf708dfd27ea2fb8403d9174"
+    },
+    {
+      "path": "proofs/publication-regression-before-reason/stdout.log",
+      "bytes": 21792,
+      "sha256": "70fc2b5d08f09b360a797d84784f527574e7d65964672fdaf710e790a0d25595"
+    },
+    {
+      "path": "proofs/publication-target20-proof/benchmark-source.ts",
+      "bytes": 13174,
+      "sha256": "e129f819b41b22e7b05447e3a7d86d43c2c5ab1860f62724a4fa857db18904da"
+    },
+    {
+      "path": "proofs/publication-target20-proof/raw-scaling.json",
+      "bytes": 55352,
+      "sha256": "6f90c9cedd3dc428d815dedaae7e3b33a09824d87aa63e910a6060e3c15519b5"
+    },
+    {
+      "path": "proofs/publication-target20-proof/stdout.log",
+      "bytes": 44125,
+      "sha256": "7cc35f11a5a4c3f5052972354cdb5fc3d8ebc0bd065f39b1af352cd977cd1f97"
+    },
+    {
+      "path": "proofs/publication-target20-proof/summary.json",
+      "bytes": 474,
+      "sha256": "c1f9ad2c87b1510343eddf153570b18daa13aaa05fddea2f491badc0fa00d661"
+    },
+    {
+      "path": "proofs/result-ownership-before/driver-engine.ts",
+      "bytes": 48276,
+      "sha256": "d992ea4bddcb65f485e6b09c184dcb6ccf2710590eda5afa8e9a447e5fdbac12"
+    },
+    {
+      "path": "proofs/result-ownership-before/extracted-json/195d4d7f01192f85d831774ee6e4db99abc378417bbb7671b853d31d028ed000.json",
+      "bytes": 17314,
+      "sha256": "195d4d7f01192f85d831774ee6e4db99abc378417bbb7671b853d31d028ed000"
+    },
+    {
+      "path": "proofs/result-ownership-before/extracted-json-index.json",
+      "bytes": 334,
+      "sha256": "8fc4a3fad732a228fbb2910e6d29c13d2d202901f6cbb1eae69e0062be49243f"
+    },
+    {
+      "path": "proofs/result-ownership-before/peer.spec.ts",
+      "bytes": 7273,
+      "sha256": "409e915f8468728c97011d601b53780e16fe2533501e2be9bac51a98b26683ce"
+    },
+    {
+      "path": "proofs/result-ownership-before/stdout.log",
+      "bytes": 4503,
+      "sha256": "8ff962a7b69bac700d647cc861e5714fe9d2462ddf01e9bccf8d0769c051da7b"
+    },
+    {
+      "path": "proofs/result-ownership-before/test-results/.last-run.json",
+      "bytes": 96,
+      "sha256": "777ab88fa96c68cd578b4abeae35cae6032c5c72f2f062c1bc56a4bad1d9402e"
+    },
+    {
+      "path": "proofs/result-ownership-before/test-results/extension-extension-w14-re-88abd-fication-and-undo-authority-chromium/error-context.md",
+      "bytes": 5779,
+      "sha256": "ded54db425124fee59c2d2186c9232d9364f0485504499b56240c121db112139"
+    },
+    {
+      "path": "proofs/result-ownership-before/test-results/extension-extension-w14-re-88abd-fication-and-undo-authority-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/result-ownership-before/test-results/extension-extension-w14-re-88abd-fication-and-undo-authority-chromium/trace.zip",
+      "bytes": 175151,
+      "sha256": "c8ca4032ee7cbcaf3d023080ed6cd6d0155545c0406d473aed4f85b5bb63d6ad"
+    },
+    {
+      "path": "proofs/result-validation-before/driver-engine.ts",
+      "bytes": 50080,
+      "sha256": "96f1f89e41d228ff5c4cb5ea11e8bb3f5eb8ff90355c251a6dc485ede460e7ae"
+    },
+    {
+      "path": "proofs/result-validation-before/extracted-json/a52ac531109e1be1024d6d01ddf07487d0aa6bdad1629fd5e3e0976a1cc184e9.json",
+      "bytes": 17328,
+      "sha256": "a52ac531109e1be1024d6d01ddf07487d0aa6bdad1629fd5e3e0976a1cc184e9"
+    },
+    {
+      "path": "proofs/result-validation-before/extracted-json-index.json",
+      "bytes": 344,
+      "sha256": "69756ac9ad32f0e5b9b3909b9de2546ae71eeffb3e5950a50ed50bbc1e27061c"
+    },
+    {
+      "path": "proofs/result-validation-before/stdout.log",
+      "bytes": 4521,
+      "sha256": "c883d4baddb7fe82734a702509f82ca9d0b9fd295862886c8c47b8c64d3f9311"
+    },
+    {
+      "path": "proofs/result-validation-before/test-results/.last-run.json",
+      "bytes": 96,
+      "sha256": "e20486bddeeebb7d80b07bfc2acaaf23c10e71f853d5be34fb8c6cb1f8af30fd"
+    },
+    {
+      "path": "proofs/result-validation-before/test-results/extension-extension-w14-re-7ba6a-fication-and-undo-authority-chromium/error-context.md",
+      "bytes": 6061,
+      "sha256": "bf4af57618201f5696a6fac3820d148d8551c927cfe7f4d78ae3a582e5ef3263"
+    },
+    {
+      "path": "proofs/result-validation-before/test-results/extension-extension-w14-re-7ba6a-fication-and-undo-authority-chromium/test-failed-1.png",
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+    },
+    {
+      "path": "proofs/result-validation-before/test-results/extension-extension-w14-re-7ba6a-fication-and-undo-authority-chromium/trace.zip",
+      "bytes": 160305,
+      "sha256": "0c237a3296c1c902cd1e32bc5a64b61c7ce5ab1d9bdc16cecae0b2a149ba36c6"
+    },
+    {
+      "path": "shadow-support-FINAL.patch",
+      "bytes": 229946,
+      "sha256": "8579a82be6239376803395d517b2292b4692404947886e70b9a898282ce0600c"
+    }
+  ]
+}

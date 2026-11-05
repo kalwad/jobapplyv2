@@ -1,0 +1,452 @@
+{
+  "all_selected_original_archive_bytes_full_modes_verified": true,
+  "members": [
+    {
+      "bytes": 6755,
+      "mode": 420,
+      "path": "common-facade-independent-review/REVIEW.md",
+      "sha256": "21168bb2dca9afb84f880d32d5e5b2b64462fc553935c3677e8130bed571cde0",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-native-secret-common-independent-review/v1/REVIEW.md"
+    },
+    {
+      "bytes": 11298,
+      "mode": 420,
+      "path": "common-facade-independent-review/data-review.json",
+      "sha256": "ef2ce91e6bea9585c7f5c539eb4e55aa26aa5eea2bf9f2cc63441b12f92a17ec",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-native-secret-common-independent-review/v1/data-review.json"
+    },
+    {
+      "bytes": 8725,
+      "mode": 420,
+      "path": "common-facade-independent-review/manifest.json",
+      "sha256": "5c71cdd346657d63ec8817ef0d0ea6873b2a085bc248bf03ca2673fb663da994",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-native-secret-common-independent-review/v1/manifest.json"
+    },
+    {
+      "bytes": 1601,
+      "mode": 420,
+      "path": "common-facade-independent-review/source-review.json",
+      "sha256": "9e6051df13818bacf5cf666fcff4c7d6fbe260e4ff051834dc0d4d138498cb40",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-native-secret-common-independent-review/v1/source-review.json"
+    },
+    {
+      "bytes": 63770,
+      "mode": 420,
+      "path": "common-facade/ARCHIVE.json",
+      "sha256": "8c2f93d7bf79e35370cd019d2f8a0edf5510d50919f6759e8b490671377f2206",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-native-secret-common-preparation/v1/ARCHIVE.json"
+    },
+    {
+      "bytes": 2803,
+      "mode": 420,
+      "path": "common-facade/CACHE-INPUTS.json",
+      "sha256": "2b796ac83c851b781bee613e20fb1a92db5eeb1c13c5c6f6e4da96942fc8d2ea",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-native-secret-common-preparation/v1/CACHE-INPUTS.json"
+    },
+    {
+      "bytes": 10517,
+      "mode": 420,
+      "path": "common-facade/CHECKS.json",
+      "sha256": "091bbb9359d60c77381d2db8c7b0bf6709356e0fa67d527f460322261c139a15",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-native-secret-common-preparation/v1/CHECKS.json"
+    },
+    {
+      "bytes": 1438,
+      "mode": 420,
+      "path": "common-facade/HANDOFF.json",
+      "sha256": "5b95e8489aa35daac7dc3ec7cbb3f3685149eb8e7360d97e30715ec30a8846eb",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-native-secret-common-preparation/v1/HANDOFF.json"
+    },
+    {
+      "bytes": 5679,
+      "mode": 420,
+      "path": "common-facade/PARENT-INPUTS.json",
+      "sha256": "5b3aa78e8519ce25eec6624367d1ea82725030ee6281349ccef57f569c6c7e8c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-native-secret-common-preparation/v1/PARENT-INPUTS.json"
+    },
+    {
+      "bytes": 6980,
+      "mode": 420,
+      "path": "common-facade/README.md",
+      "sha256": "de1c6c5b74c178f3f4bf9511ca7e0e8e777e007ce173e5ee03f573143c323886",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-native-secret-common-preparation/v1/README.md"
+    },
+    {
+      "bytes": 59299,
+      "mode": 420,
+      "path": "common-facade/SOURCE.json",
+      "sha256": "94d85435a7d0f22341b5d35edba6da51591d16a5bf9926e8ba3ab35fef3791d5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-native-secret-common-preparation/v1/SOURCE.json"
+    },
+    {
+      "bytes": 210,
+      "mode": 420,
+      "path": "common-facade/TEST-FIRST.json",
+      "sha256": "83f3bd0cc3f657866a667d980cbebbe19699aedfa64f5244efc7a57a0e99d6de",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-native-secret-common-preparation/v1/TEST-FIRST.json"
+    },
+    {
+      "bytes": 668949,
+      "mode": 420,
+      "path": "common-facade/proof.tar.gz",
+      "sha256": "f46dd177d030cab6e3b91b7464621a0b262500553bee6ec9902f9e715a8a76d2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-native-secret-common-preparation/v1/proof.tar.gz"
+    },
+    {
+      "bytes": 1829,
+      "mode": 420,
+      "path": "sdk-private-pipe-selected/README.md",
+      "sha256": "a25b8c041a38b4d2d3d54f0fa83587d8068838b29f943d1bc8e28f5510b3b97e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sdk-private-startup-evidence-v1/README.md"
+    },
+    {
+      "bytes": 144,
+      "mode": 420,
+      "path": "sdk-private-pipe-selected/artifact.json",
+      "sha256": "b47cb1b0bc3210ae6a10038ca5cd34759a01397463e08959517ddf3db6771864",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sdk-private-startup-evidence-v1/artifact.json"
+    },
+    {
+      "bytes": 1469446,
+      "mode": 420,
+      "path": "sdk-private-pipe-selected/proof.tar.gz",
+      "sha256": "7cb68d44b4b0a497b45486180766445ca7ce20bfc93d846a2137a7922c0940f4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sdk-private-startup-evidence-v1/proof.tar.gz"
+    },
+    {
+      "bytes": 52671,
+      "mode": 420,
+      "path": "sdk-private-pipe-selected/retention-manifest.json",
+      "sha256": "4a97166d0748f611fb120184e13fd85e3e9780bb7f4d103de18d175512788e3d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sdk-private-startup-evidence-v1/retention-manifest.json"
+    },
+    {
+      "bytes": 1413,
+      "mode": 420,
+      "path": "sdk-private-pipe-selected/summary.json",
+      "sha256": "6caec68d1971728f5bd058ced4b360b14b48cc9f69326375f81b912a64f0dbf9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sdk-private-startup-evidence-v1/summary.json"
+    },
+    {
+      "bytes": 790078,
+      "mode": 420,
+      "path": "selected-packets-and-dependencies-independent-review/REVIEW-MANIFEST.json",
+      "sha256": "ba7f695512e50775d183e83b2421b76edea7de403545324708f7dbc2c25849e0",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-preparation-retention-review-v1/REVIEW-MANIFEST.json"
+    },
+    {
+      "bytes": 8190,
+      "mode": 420,
+      "path": "selected-packets-and-dependencies-independent-review/REVIEW.md",
+      "sha256": "6650ac073af06ea69ecf2ff14066ca48d6e4de028551dac7d6367b0bf9c4c25e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-preparation-retention-review-v1/REVIEW.md"
+    },
+    {
+      "bytes": 25905,
+      "mode": 420,
+      "path": "selected-packets-and-dependencies-independent-review/audit-attempt-001.py",
+      "sha256": "0a9f4f51394dd21306b7e18feae0bbf1c656f43d0fc173b341c516bd0ac80ee3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-preparation-retention-review-v1/audit-attempt-001.py"
+    },
+    {
+      "bytes": 25929,
+      "mode": 420,
+      "path": "selected-packets-and-dependencies-independent-review/audit-attempt-002.py",
+      "sha256": "2489dd8771a3bb200e65b423df100628c4f1176e3a72c24a83fdaa0de0a4a8ec",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-preparation-retention-review-v1/audit-attempt-002.py"
+    },
+    {
+      "bytes": 26653,
+      "mode": 420,
+      "path": "selected-packets-and-dependencies-independent-review/audit.py",
+      "sha256": "27d0fcc25146bf0a1ad2cac39f00aa01027459f788255becf24992e3646a0bb4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-preparation-retention-review-v1/audit.py"
+    },
+    {
+      "bytes": 960704,
+      "mode": 420,
+      "path": "selected-packets-and-dependencies-independent-review/checks-run-001.json",
+      "sha256": "954503e391172d607ada6008386e8e546f3fdc3c504e0a7c68022c549aa98e95",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-preparation-retention-review-v1/checks-run-001.json"
+    },
+    {
+      "bytes": 1852061,
+      "mode": 420,
+      "path": "selected-packets-and-dependencies-independent-review/checks-run-002.json",
+      "sha256": "69ec168ab1fa9ff1ee8213d7b3349c305412f83f9c5160d2e7bb0e6d4c251601",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-preparation-retention-review-v1/checks-run-002.json"
+    },
+    {
+      "bytes": 1851815,
+      "mode": 420,
+      "path": "selected-packets-and-dependencies-independent-review/checks-run-003.json",
+      "sha256": "b3bcecfca7f640958cc036258fd84467959bb2637ddc117d92f59e1c769170b7",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-preparation-retention-review-v1/checks-run-003.json"
+    },
+    {
+      "bytes": 1853166,
+      "mode": 420,
+      "path": "selected-packets-and-dependencies-independent-review/checks-run-004.json",
+      "sha256": "d8ba6a5f1d3bc2ea7294a245bb43b420c8dec67ecd294554e6ec1d0a3374d616",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-preparation-retention-review-v1/checks-run-004.json"
+    },
+    {
+      "bytes": 7993,
+      "mode": 420,
+      "path": "selected-packets-and-dependencies-independent-review/review-data.json",
+      "sha256": "2deb9f861a0e50387e75df4e26eca97e55af5376b303052025660dc25749f73c",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-preparation-retention-review-v1/review-data.json"
+    },
+    {
+      "bytes": 1854,
+      "mode": 420,
+      "path": "sqlcipher-dependency-metadata/README.md",
+      "sha256": "c70986884e6e98469098f5da96b8deaa4a2c7bcda3f4a124b42fda6b0c29c6ef",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sqlcipher-crossplatform-dependencies-v1/README.md"
+    },
+    {
+      "bytes": 3271,
+      "mode": 420,
+      "path": "sqlcipher-dependency-metadata/SOURCE.json",
+      "sha256": "dc15d145de1abdfa0c79a4f71bf9c3977ae247c4899f47c9311c4a667c302b9b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sqlcipher-crossplatform-dependencies-v1/SOURCE.json"
+    },
+    {
+      "bytes": 1451,
+      "mode": 420,
+      "path": "sqlcipher-dependency-metadata/command-result-transcription.json",
+      "sha256": "ecf92aef83a7c1d82b7b1ca3c85f5842a98610186702faa603c2214b2f0705f5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sqlcipher-crossplatform-dependencies-v1/command-result-transcription.json"
+    },
+    {
+      "bytes": 5925,
+      "mode": 420,
+      "path": "sqlcipher-dependency-metadata/inspect_downloads.py",
+      "sha256": "3782c642d841c61fdaf49a382dba8ea1a51784e6734665f752e3bd8f1d26ea3d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sqlcipher-crossplatform-dependencies-v1/inspect_downloads.py"
+    },
+    {
+      "bytes": 2815,
+      "mode": 420,
+      "path": "sqlcipher-dependency-metadata/inspect_sdist.py",
+      "sha256": "b6f2d9b2d3c52cbae61a8e06b40dddf61b7382b19d6d569a5bd99a769e8c4bb5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sqlcipher-crossplatform-dependencies-v1/inspect_sdist.py"
+    },
+    {
+      "bytes": 9009,
+      "mode": 420,
+      "path": "sqlcipher-dependency-metadata/inspection.json",
+      "sha256": "87d6988cf78822c9c0739e008ff01a5fbcc3b8abcbc175885213a0504fe05d62",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sqlcipher-crossplatform-dependencies-v1/inspection.json"
+    },
+    {
+      "bytes": 69969,
+      "mode": 420,
+      "path": "sqlcipher-dependency-metadata/pypi-release-original.json",
+      "sha256": "1d5984c04ecb7a47c31ce20c41698a1fbedd66dfcf8b94d94c82dd2dbcaa2de8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sqlcipher-crossplatform-dependencies-v1/pypi-release-original.json"
+    },
+    {
+      "bytes": 255,
+      "mode": 420,
+      "path": "sqlcipher-dependency-metadata/pypi-request-receipt.json",
+      "sha256": "0fe019f49b4d9e6a48abcc3f79b9055c23126d337c89f384a4fc3f16bf9e8326",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sqlcipher-crossplatform-dependencies-v1/pypi-request-receipt.json"
+    },
+    {
+      "bytes": 52140,
+      "mode": 420,
+      "path": "sqlcipher-dependency-metadata/sdist-inspection.json",
+      "sha256": "0cb323be31d85a214ef1e888dfd8791ae03f76dda5da3a087375e5582dc87c05",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sqlcipher-crossplatform-dependencies-v1/sdist-inspection.json"
+    },
+    {
+      "bytes": 4157,
+      "mode": 420,
+      "path": "sqlcipher-dependency-metadata/sqlcipher3-0.6.4-cp312-cp312-macosx_11_0_arm64.whl.readable-metadata.json",
+      "sha256": "7ee729e19360cd7b4b97e6fe6895d527abf1f8c7431f3e371c197d7f94c8845b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sqlcipher-crossplatform-dependencies-v1/sqlcipher3-0.6.4-cp312-cp312-macosx_11_0_arm64.whl.readable-metadata.json"
+    },
+    {
+      "bytes": 4133,
+      "mode": 420,
+      "path": "sqlcipher-dependency-metadata/sqlcipher3-0.6.4-cp312-cp312-manylinux_2_28_x86_64.whl.readable-metadata.json",
+      "sha256": "68f819209847ef79fc18fd9d3bbc95c97fbfdbed5cfdbe3f1dad7cf427d34bf0",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sqlcipher-crossplatform-dependencies-v1/sqlcipher3-0.6.4-cp312-cp312-manylinux_2_28_x86_64.whl.readable-metadata.json"
+    },
+    {
+      "bytes": 4313,
+      "mode": 420,
+      "path": "sqlcipher-dependency-metadata/sqlcipher3-0.6.4-cp312-cp312-win_amd64.whl.readable-metadata.json",
+      "sha256": "5a7fc472689577a9342a0b189b3c8bc055648d1557ac3ff74a5d5d17e49c5204",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-sqlcipher-crossplatform-dependencies-v1/sqlcipher3-0.6.4-cp312-cp312-win_amd64.whl.readable-metadata.json"
+    },
+    {
+      "bytes": 6656,
+      "mode": 420,
+      "path": "ubuntu-secret-v2-independent-review/REVIEW.md",
+      "sha256": "47be3a5226336e3587da21771c96c59b2abec994b55228dd00b656d2b0ece6dd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-independent-review/v2/REVIEW.md"
+    },
+    {
+      "bytes": 8114,
+      "mode": 420,
+      "path": "ubuntu-secret-v2-independent-review/data-review.json",
+      "sha256": "202a662cc55eaf7b8a9d7d87285047a00d43c11de46c05a76d3800314633808d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-independent-review/v2/data-review.json"
+    },
+    {
+      "bytes": 11725,
+      "mode": 420,
+      "path": "ubuntu-secret-v2-independent-review/manifest.json",
+      "sha256": "40efb1cdc7d5e4788f9515d0572aae964121318ee3f8aa6223489ad131340add",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-independent-review/v2/manifest.json"
+    },
+    {
+      "bytes": 1711,
+      "mode": 420,
+      "path": "ubuntu-secret-v2-independent-review/source-review.json",
+      "sha256": "56f60c1a5585d3356ea1fd51f68fac65722a2f80f737430fae582deb2b6a9afd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-independent-review/v2/source-review.json"
+    },
+    {
+      "bytes": 428,
+      "mode": 420,
+      "path": "ubuntu-secret-v2/ARCHIVE.json",
+      "sha256": "b0307970c4032e9b0206150ae30445912c3b45cd19c3afb9e51c48b81225aaa8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-preparation/v2/ARCHIVE.json"
+    },
+    {
+      "bytes": 1110,
+      "mode": 420,
+      "path": "ubuntu-secret-v2/AUTHORIZATION.md",
+      "sha256": "85aa183a2e0fabcbad1ba6acada69cc7446c3f301fcf5561b0ac9006246cea9a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-preparation/v2/AUTHORIZATION.md"
+    },
+    {
+      "bytes": 363,
+      "mode": 420,
+      "path": "ubuntu-secret-v2/BASELINE.json",
+      "sha256": "b006ebfa3a6ec9a7762f1650818d3851a4ef67af260159b2c5dfc4184f6995f5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-preparation/v2/BASELINE.json"
+    },
+    {
+      "bytes": 1452,
+      "mode": 420,
+      "path": "ubuntu-secret-v2/CHECKS.json",
+      "sha256": "c25a5ee8239c80e0192ea83bd007a40ad5277495769c3a464a2ccd98db423dcb",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-preparation/v2/CHECKS.json"
+    },
+    {
+      "bytes": 3719,
+      "mode": 420,
+      "path": "ubuntu-secret-v2/HANDOFF.md",
+      "sha256": "b4eb357a6cf97ded029ab6355920307bc8636d3e4f5f3106b49b87effac5857a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-preparation/v2/HANDOFF.md"
+    },
+    {
+      "bytes": 1170,
+      "mode": 420,
+      "path": "ubuntu-secret-v2/INPUTS.json",
+      "sha256": "62eec0f4e30dfe669ea6d35c9887c7d7f857c1e335fca87e29adcff34601185e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-preparation/v2/INPUTS.json"
+    },
+    {
+      "bytes": 6889,
+      "mode": 420,
+      "path": "ubuntu-secret-v2/OFFICIAL-SOURCES.json",
+      "sha256": "63a3e5b5db1305e199640fa9222c399f2727c41b23f20de614360e6b139afb5d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-preparation/v2/OFFICIAL-SOURCES.json"
+    },
+    {
+      "bytes": 719,
+      "mode": 420,
+      "path": "ubuntu-secret-v2/ORACLE-CORRECTION.patch",
+      "sha256": "c515e76ea61431ec4f1478214f37273916a9d356e8fb9188150cee3fb37c6fe2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-preparation/v2/ORACLE-CORRECTION.patch"
+    },
+    {
+      "bytes": 4543,
+      "mode": 420,
+      "path": "ubuntu-secret-v2/PRODUCTION-DELTA.patch",
+      "sha256": "f87afeff294c3adad4c28bbfb65f0a42a64571311edf9640e345697c85e3244e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-preparation/v2/PRODUCTION-DELTA.patch"
+    },
+    {
+      "bytes": 5794,
+      "mode": 420,
+      "path": "ubuntu-secret-v2/README.md",
+      "sha256": "7aa1bdf843ac38d96782869cba11ce7ebabc23611465f63221be452b532cddd8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-preparation/v2/README.md"
+    },
+    {
+      "bytes": 40024,
+      "mode": 420,
+      "path": "ubuntu-secret-v2/SOURCE.json",
+      "sha256": "71514527f9588b9532da1a999beb2800668bd597f6875536713633c30173ab53",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-preparation/v2/SOURCE.json"
+    },
+    {
+      "bytes": 15019,
+      "mode": 420,
+      "path": "ubuntu-secret-v2/TEST-BODY-JOINS.json",
+      "sha256": "9d5cf5f740cb70556fd67e3bd847b1a3c9ea0ba05408f3faf52bc917a280fbda",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-preparation/v2/TEST-BODY-JOINS.json"
+    },
+    {
+      "bytes": 13661,
+      "mode": 420,
+      "path": "ubuntu-secret-v2/TESTS-DELTA.patch",
+      "sha256": "59168290ac613d368c6e71a9c02d331834b37d22617d57aa7845c69772c50ec8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-preparation/v2/TESTS-DELTA.patch"
+    },
+    {
+      "bytes": 1007187,
+      "mode": 420,
+      "path": "ubuntu-secret-v2/proof.tar.gz",
+      "sha256": "62c03cd759be0221a2353648138a9944953e5b557678517e6f02bc6d0c3c2f8d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-ubuntu-secret-preparation/v2/proof.tar.gz"
+    },
+    {
+      "bytes": 1636,
+      "mode": 420,
+      "path": "windows-authority-selected/README.md",
+      "sha256": "8a377a8d82af665c7d4cc13477185d9bd88827d276b508bfa8f04a2c632d30f8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-windows-profile-authority-evidence-v1/README.md"
+    },
+    {
+      "bytes": 143,
+      "mode": 420,
+      "path": "windows-authority-selected/artifact.json",
+      "sha256": "8310607d9468668a5165754b0d31f59d4f7a3fbd62a53bf4c7663d4a92d9c8fd",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-windows-profile-authority-evidence-v1/artifact.json"
+    },
+    {
+      "bytes": 260283,
+      "mode": 420,
+      "path": "windows-authority-selected/proof.tar.gz",
+      "sha256": "938fbeb0c946551ecc02ece5e9a583acc42ed832ec8000bf6b725f41a9ae25d1",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-windows-profile-authority-evidence-v1/proof.tar.gz"
+    },
+    {
+      "bytes": 4462,
+      "mode": 420,
+      "path": "windows-authority-selected/retention-manifest.json",
+      "sha256": "814505382f996f7d627ddcff7d8a974e2a6eb538571b86ba3a72218e6f4f4d04",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-windows-profile-authority-evidence-v1/retention-manifest.json"
+    },
+    {
+      "bytes": 540,
+      "mode": 420,
+      "path": "windows-authority-selected/summary.json",
+      "sha256": "3620bee537ad94c3c057f10888be629d573b750d4b93e99de172cda29b221bac",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m04-windows-profile-authority-evidence-v1/summary.json"
+    }
+  ],
+  "omissions": [
+    "Three SQLCipher project-wheel bodies and upstream sdist remain outside; exact original metadata/source pins and independent data review retained.",
+    "Selected SDK/Windows envelopes retain only their declared inner subsets, not entire outside preparations or SDK native binary.",
+    "No canonical runtime/dependency/default activation."
+  ],
+  "regular_members": 63
+}

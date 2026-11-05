@@ -1,0 +1,28 @@
+{
+  "build_run": 41249725017,
+  "branch": "diag/win-product-final (never merged)",
+  "branch_commit": "121938d84a96f267d2abc39a4f28ed85a0e12063",
+  "base": "a5ec1e3",
+  "changed_product_files": {
+    "apps/desktop/src-tauri/src/lib.rs": {
+      "bytes": 13421,
+      "sha256": "e92090aa953cf7ef4c7008f1f8cd6a230e632d16846b27736763c7425c754e10",
+      "equals_working_tree_at_retention": true
+    },
+    "apps/desktop/src-tauri/src/service/runtime_descriptor.rs": {
+      "bytes": 8549,
+      "sha256": "7f75ebd6f05e4cbd8d6f9765d839a00128847c44b24db50554811a917fdce3db",
+      "equals_working_tree_at_retention": true
+    },
+    "apps/desktop/src-tauri/Cargo.toml": {
+      "bytes": 2813,
+      "sha256": "c3dac6149832565e8a73d054f9d9e0d42fd729ca4659425b81cd780d7d596716",
+      "equals_working_tree_at_retention": true
+    },
+    "apps/desktop/src-tauri/Cargo.lock": {
+      "bytes": 112971,
+      "sha256": "a7c9862794bf1439137532dc28a4d42674adc1089c03e2b5301c41237a5778d4",
+      "equals_working_tree_at_retention": true
+    }
+  }
+}

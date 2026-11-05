@@ -1,0 +1,10 @@
+{
+  "started_utc": "2026-10-28T23:53:35.372546+00:00",
+  "actor_wall_limit_seconds": 125,
+  "runtime_digest_verified": false,
+  "qualified_full": false,
+  "release_permitted": false,
+  "actor_exit_code": 0,
+  "elapsed_seconds": 7.626890459097922,
+  "finished_utc": "2026-10-28T23:53:42.999507+00:00"
+}

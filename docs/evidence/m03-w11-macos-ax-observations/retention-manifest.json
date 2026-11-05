@@ -1,0 +1,402 @@
+{
+  "all_selected_original_archive_bytes_full_modes_verified": true,
+  "members": [
+    {
+      "bytes": 1538,
+      "mode": 420,
+      "path": "actual-observations/01-diagnostics.ax.txt",
+      "sha256": "ecbccee9a721cd5b0b3646e9559b7cce4e5dff254b7aa9b367dd5a79f7610e33",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/01-diagnostics.ax.txt"
+    },
+    {
+      "bytes": 218119,
+      "mode": 420,
+      "path": "actual-observations/01-diagnostics.jpg",
+      "sha256": "95ddb54a02cad137263e0e3715fc6a5fc7d8667203d5a6bd07ec1a9ae5db334b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/01-diagnostics.jpg"
+    },
+    {
+      "bytes": 2082,
+      "mode": 420,
+      "path": "actual-observations/02-tab.ax.txt",
+      "sha256": "6d1766fec9745c06088b1a92b6bd82baf2d4960e9ffa0fc2e943ef8cbeea104a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/02-tab.ax.txt"
+    },
+    {
+      "bytes": 2095,
+      "mode": 420,
+      "path": "actual-observations/03-enter-refresh.ax.txt",
+      "sha256": "8602e23a970ba7ccdc2aaba19f003ccf65f18531a92f592909f0ac775eac681a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/03-enter-refresh.ax.txt"
+    },
+    {
+      "bytes": 2118,
+      "mode": 420,
+      "path": "actual-observations/04-shift-tab.ax.txt",
+      "sha256": "9d9f507b6f3c97c23c7d8a7feddfb539f0b4b3c67db68cd4ab0cffc3406dd389",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/04-shift-tab.ax.txt"
+    },
+    {
+      "bytes": 1622,
+      "mode": 420,
+      "path": "actual-observations/05-home.ax.txt",
+      "sha256": "811f01e41d3c01757c73bdb7820909e051f4cf3479bef8bf85fb4678fc970bc4",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/05-home.ax.txt"
+    },
+    {
+      "bytes": 186291,
+      "mode": 420,
+      "path": "actual-observations/05-home.jpg",
+      "sha256": "f6acf74920d350ea80f63ef4613cce9666431203bb2e4b37206c38b87c777f9d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/05-home.jpg"
+    },
+    {
+      "bytes": 1357,
+      "mode": 420,
+      "path": "actual-observations/06-jobs.ax.txt",
+      "sha256": "2c4198a7fcd62700a572aa22edca6094dcdf8fde2d9947e5cc65e59cc9aeecf2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/06-jobs.ax.txt"
+    },
+    {
+      "bytes": 153084,
+      "mode": 420,
+      "path": "actual-observations/06-jobs.jpg",
+      "sha256": "a7b423774356e48b8151f469d9a60fe064b19ec28719dc2127e02f7bfe2efb49",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/06-jobs.jpg"
+    },
+    {
+      "bytes": 1382,
+      "mode": 420,
+      "path": "actual-observations/07-tracker.ax.txt",
+      "sha256": "3493d879d728e5b26f93545568c14215bc65a683207d907a7231030ca59cf02b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/07-tracker.ax.txt"
+    },
+    {
+      "bytes": 155929,
+      "mode": 420,
+      "path": "actual-observations/07-tracker.jpg",
+      "sha256": "0b67618d1eca29ab0b4d4006ced2e2941a60977eedca3942400f054c981cc325",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/07-tracker.jpg"
+    },
+    {
+      "bytes": 1450,
+      "mode": 420,
+      "path": "actual-observations/08-documents.ax.txt",
+      "sha256": "a6143b48d564fdaca5a56877fd88bc2958653e955ae4c9b23c9a890d48e954f8",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/08-documents.ax.txt"
+    },
+    {
+      "bytes": 165959,
+      "mode": 420,
+      "path": "actual-observations/08-documents.jpg",
+      "sha256": "3b4cabe4c481fd9320a86ed9bde98259b399a6828fcf5cd2ee628b62eac97d5b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/08-documents.jpg"
+    },
+    {
+      "bytes": 1377,
+      "mode": 420,
+      "path": "actual-observations/09-profile.ax.txt",
+      "sha256": "299ecf27435f906c463aaaa7c9355a3f341b10a82907a777acbf00c3340152e7",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/09-profile.ax.txt"
+    },
+    {
+      "bytes": 153835,
+      "mode": 420,
+      "path": "actual-observations/09-profile.jpg",
+      "sha256": "4fb51ed90186447a1aaaf74a64d37d0eb3207f02bd2f9290b1c5222094295fda",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/09-profile.jpg"
+    },
+    {
+      "bytes": 1381,
+      "mode": 420,
+      "path": "actual-observations/10-settings.ax.txt",
+      "sha256": "e0651404906b49c14985a9b6bca2fc40c06a21a9e7d09ae8c3d1fc775467c9ec",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/10-settings.ax.txt"
+    },
+    {
+      "bytes": 155839,
+      "mode": 420,
+      "path": "actual-observations/10-settings.jpg",
+      "sha256": "c3238746889a2979b1eb5923494c2c40e5274d2813f939eed40030d7820f5e0e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/10-settings.jpg"
+    },
+    {
+      "bytes": 161,
+      "mode": 420,
+      "path": "actual-observations/11-view-menu.ax.txt",
+      "sha256": "a24226946a32bba2bfe90f6e4c9fa6b669a4f2fdce863bda5bade94b6d23e062",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/11-view-menu.ax.txt"
+    },
+    {
+      "bytes": 161,
+      "mode": 420,
+      "path": "actual-observations/12-menu-dismissed.ax.txt",
+      "sha256": "a24226946a32bba2bfe90f6e4c9fa6b669a4f2fdce863bda5bade94b6d23e062",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/12-menu-dismissed.ax.txt"
+    },
+    {
+      "bytes": 161,
+      "mode": 420,
+      "path": "actual-observations/13-cmd-plus.ax.txt",
+      "sha256": "a24226946a32bba2bfe90f6e4c9fa6b669a4f2fdce863bda5bade94b6d23e062",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/13-cmd-plus.ax.txt"
+    },
+    {
+      "bytes": 1381,
+      "mode": 420,
+      "path": "actual-observations/14-menu-cancel.ax.txt",
+      "sha256": "e0651404906b49c14985a9b6bca2fc40c06a21a9e7d09ae8c3d1fc775467c9ec",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/14-menu-cancel.ax.txt"
+    },
+    {
+      "bytes": 1381,
+      "mode": 420,
+      "path": "actual-observations/15-cmd-plus-content.ax.txt",
+      "sha256": "e0651404906b49c14985a9b6bca2fc40c06a21a9e7d09ae8c3d1fc775467c9ec",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/15-cmd-plus-content.ax.txt"
+    },
+    {
+      "bytes": 155840,
+      "mode": 420,
+      "path": "actual-observations/15-cmd-plus-content.jpg",
+      "sha256": "3efc6a7f3be824c7a18e4651cad8f4b8a4686c498736bd16d31c240e5566d9b6",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/15-cmd-plus-content.jpg"
+    },
+    {
+      "bytes": 1418,
+      "mode": 420,
+      "path": "actual-observations/16-keyboard-skip-focus.ax.txt",
+      "sha256": "9dfa3e65963a3e7556ab2d80f2ce70ec1067cf490e03947697f9031a2c8cb83a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/16-keyboard-skip-focus.ax.txt"
+    },
+    {
+      "bytes": 1384,
+      "mode": 420,
+      "path": "actual-observations/17-keyboard-skip-applied.ax.txt",
+      "sha256": "f25937a0f2f3502d4eb21c6b01baa773a47836b311864eb110f8781b1ae259e3",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/17-keyboard-skip-applied.ax.txt"
+    },
+    {
+      "bytes": 49,
+      "mode": 420,
+      "path": "actual-observations/18-after-native-quit.error.txt",
+      "sha256": "64acca1b0fd045061d7a1445eeebe3274188f87a070a6907e76b2bb6e9c59186",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/18-after-native-quit.error.txt"
+    },
+    {
+      "bytes": 3004,
+      "mode": 420,
+      "path": "actual-observations/HANDOFF.md",
+      "sha256": "eb55b9e7144ccf57986b420f36b32a1bdd8c7af109675657c76e51d297843926",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/HANDOFF.md"
+    },
+    {
+      "bytes": 8041,
+      "mode": 420,
+      "path": "actual-observations/SOURCE.json",
+      "sha256": "058ed34c726acd249b6c9620d45c8ed3650db56b3fabc79d271b2e15c90da34d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/SOURCE.json"
+    },
+    {
+      "bytes": 1069,
+      "mode": 420,
+      "path": "actual-observations/capture-helper.executed.js",
+      "sha256": "d0ad506bd399201957459f9e8f396f8635d8fb171fd475df4c0a0b230a0c3997",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/capture-helper.executed.js"
+    },
+    {
+      "bytes": 2764,
+      "mode": 420,
+      "path": "actual-observations/events.json",
+      "sha256": "8cb20ca7315d3894c59d5445c27df3381d805e8bf59c5b9560c6ccb8e540d5a9",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/events.json"
+    },
+    {
+      "bytes": 3970,
+      "mode": 420,
+      "path": "actual-observations/frontend-reference/apps/desktop/src/diagnostics.tsx",
+      "sha256": "fd89ba7b7379b7c9b09dee74b4c6d2a60d2e908079c9a21d740185894dc14ff1",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/frontend-reference/apps/desktop/src/diagnostics.tsx"
+    },
+    {
+      "bytes": 392,
+      "mode": 420,
+      "path": "actual-observations/frontend-reference/apps/desktop/src/main.tsx",
+      "sha256": "dee9fd1cc75e43637a8368ef74682271b6c28541456a3266e26bfa0a6dfd92f1",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/frontend-reference/apps/desktop/src/main.tsx"
+    },
+    {
+      "bytes": 2140,
+      "mode": 420,
+      "path": "actual-observations/frontend-reference/apps/desktop/src/native-metadata.ts",
+      "sha256": "61c2735301f89e1338abbea1b256692e38d4fbc59471fd644e8338df86a6b1c5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/frontend-reference/apps/desktop/src/native-metadata.ts"
+    },
+    {
+      "bytes": 1846,
+      "mode": 420,
+      "path": "actual-observations/frontend-reference/apps/desktop/src/navigation.ts",
+      "sha256": "c4cf092fb5565b48e84c66622ede0d29630e5665449171d340f4b3d54a7f32b1",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/frontend-reference/apps/desktop/src/navigation.ts"
+    },
+    {
+      "bytes": 5732,
+      "mode": 420,
+      "path": "actual-observations/frontend-reference/apps/desktop/src/service-diagnostics-panel.tsx",
+      "sha256": "bb3fec9d7e2de8aa9d9fc2e1eca9ca0d448297f50198729d2c669b4799217e42",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/frontend-reference/apps/desktop/src/service-diagnostics-panel.tsx"
+    },
+    {
+      "bytes": 8216,
+      "mode": 420,
+      "path": "actual-observations/frontend-reference/apps/desktop/src/service-diagnostics.ts",
+      "sha256": "1a1c75c6991abf896c1982a41896e8892b7573faa94908c97ddc7b2e0ee7ea25",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/frontend-reference/apps/desktop/src/service-diagnostics.ts"
+    },
+    {
+      "bytes": 4523,
+      "mode": 420,
+      "path": "actual-observations/frontend-reference/apps/desktop/src/shell.css",
+      "sha256": "eb155d9dd1db14ffcd5612398f6bfbf6eeaa00c146f3cb83b47854da025e042e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/frontend-reference/apps/desktop/src/shell.css"
+    },
+    {
+      "bytes": 6218,
+      "mode": 420,
+      "path": "actual-observations/frontend-reference/apps/desktop/src/shell.tsx",
+      "sha256": "2a9ccf979e56bc5683dfe27a9c51f3239e203e58a39103c35b8d4bc6f8bff8fe",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/frontend-reference/apps/desktop/src/shell.tsx"
+    },
+    {
+      "bytes": 38,
+      "mode": 420,
+      "path": "actual-observations/frontend-reference/apps/desktop/src/vite-env.d.ts",
+      "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/frontend-reference/apps/desktop/src/vite-env.d.ts"
+    },
+    {
+      "bytes": 1604,
+      "mode": 420,
+      "path": "actual-observations/frontend-reference/packages/ui/src/error-boundary.tsx",
+      "sha256": "1653c9a765597f69a3a6ca41da557adcb4e165b0edefa8fd087805df291f551a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/frontend-reference/packages/ui/src/error-boundary.tsx"
+    },
+    {
+      "bytes": 507,
+      "mode": 420,
+      "path": "actual-observations/frontend-reference/packages/ui/src/index.ts",
+      "sha256": "816df391ef64125a68d6f71145efd2e64082c0130fd1ce6ddfb1ce863f3cce33",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/frontend-reference/packages/ui/src/index.ts"
+    },
+    {
+      "bytes": 1748,
+      "mode": 420,
+      "path": "actual-observations/frontend-reference/packages/ui/src/navigation.tsx",
+      "sha256": "7ced7f603c295b76901400b16cf20d913a831277be73d39012aaa77584080ed2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/frontend-reference/packages/ui/src/navigation.tsx"
+    },
+    {
+      "bytes": 1357,
+      "mode": 420,
+      "path": "actual-observations/frontend-reference/packages/ui/src/status.tsx",
+      "sha256": "a8087dd160d58e2f2e03936a46a2d296197186ff6633ae2b16bc82e515b1790e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/frontend-reference/packages/ui/src/status.tsx"
+    },
+    {
+      "bytes": 4170,
+      "mode": 420,
+      "path": "actual-observations/frontend-reference/packages/ui/src/tokens.css",
+      "sha256": "e6b08b2ab55b93e81b7252bf8f2669bd708b034b56cd7fa79f95760240c8e588",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/frontend-reference/packages/ui/src/tokens.css"
+    },
+    {
+      "bytes": 6123,
+      "mode": 420,
+      "path": "actual-observations/observer-executed.py",
+      "sha256": "14e2380d8b6baf81d576b237e5acc4b917b0b36d1ef335795fbfc9d116be88ea",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/observer-executed.py"
+    },
+    {
+      "bytes": 416263,
+      "mode": 420,
+      "path": "actual-observations/original-app-build-source.json",
+      "sha256": "5d72763b777e473abbf2c514ff33bb2ca3051b064799d02f64e17ee8d79869da",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/original-app-build-source.json"
+    },
+    {
+      "bytes": 10207,
+      "mode": 420,
+      "path": "actual-observations/original-app-prior-observation.json",
+      "sha256": "b911e67da54479a575669dbe65f94044f8103dcefec441ae58a02e37cb2f2cc2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/original-app-prior-observation.json"
+    },
+    {
+      "bytes": 12975,
+      "mode": 420,
+      "path": "actual-observations/post-ui-identity.json",
+      "sha256": "462c02e04f24c112aeb367de8f0ad83cc5484b18cd5bbd17da1be28e22c1e62d",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility/v1/post-ui-identity.json"
+    },
+    {
+      "bytes": 6926,
+      "mode": 420,
+      "path": "different-review/FOLLOWUP-PLAN.md",
+      "sha256": "6f3fb8ed5804a95a3f2ee77d5f50709cb997fda713339befbe7c8aa699fdb61a",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility-independent-review/v1/FOLLOWUP-PLAN.md"
+    },
+    {
+      "bytes": 3755,
+      "mode": 420,
+      "path": "different-review/REVIEW.md",
+      "sha256": "4a007b02dd2a51c47a65f240ec6e47327d7cd54fa249350d3327a9cfc3ba4193",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility-independent-review/v1/REVIEW.md"
+    },
+    {
+      "bytes": 30677,
+      "mode": 420,
+      "path": "different-review/actual-data-checks.json",
+      "sha256": "f17f8834b0238a81934410efde3ceaf7f1ce5887de1316f9dad801798b241df5",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility-independent-review/v1/actual-data-checks.json"
+    },
+    {
+      "bytes": 9229,
+      "mode": 420,
+      "path": "different-review/audit.py",
+      "sha256": "b53dc5b4ac577a020a54db7efff506b910d8f3ab0bfd1e1d73b229ae418538e0",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility-independent-review/v1/audit.py"
+    },
+    {
+      "bytes": 1209,
+      "mode": 420,
+      "path": "different-review/manifest.json",
+      "sha256": "91277e030a7fd9be6479d191706dac9354ce7aeeac31bb06a6a440c3be60285b",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility-independent-review/v1/manifest.json"
+    },
+    {
+      "bytes": 8699,
+      "mode": 420,
+      "path": "different-review/observer-v1/audit.py",
+      "sha256": "21d332e1ddb1b4c8cb7c8b30501ef4c19b49813e0969abfc167dd3380e41c512",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility-independent-review/v1/observer-v1/audit.py"
+    },
+    {
+      "bytes": 256,
+      "mode": 420,
+      "path": "different-review/observer-v1/note.json",
+      "sha256": "e9bbfccaf4d02389a4d23e9cf2d99b9e54a3d3108129e5687504bbfd23422d5e",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility-independent-review/v1/observer-v1/note.json"
+    },
+    {
+      "bytes": 2647,
+      "mode": 420,
+      "path": "different-review/visual-review.json",
+      "sha256": "44c55ac390f1817b3a8a43e4c66c46fc2482d118d0de40021e24fc5b881471b2",
+      "source_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/m03-w11-macos-accessibility-independent-review/v1/visual-review.json"
+    }
+  ],
+  "omissions": [
+    "Historical43app binaries/runtime payload bodies are not copied; original fullmap and postUIbody/fullmode joins are retained.",
+    "No fresh bd4/native-zoom build or numerical200percent/orphan/screenreader narration evidence exists in this packet."
+  ],
+  "regular_members": 56
+}

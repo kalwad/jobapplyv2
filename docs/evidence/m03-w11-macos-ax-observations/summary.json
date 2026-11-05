@@ -1,0 +1,35 @@
+{
+  "created_utc": "2026-10-29T18:33:57.451614+00:00",
+  "different_review": {
+    "joins": 169,
+    "manifest_sha256": "91277e030a7fd9be6479d191706dac9354ce7aeeac31bb06a6a440c3be60285b",
+    "report_sha256": "4a007b02dd2a51c47a65f240ec6e47327d7cd54fa249350d3327a9cfc3ba4193",
+    "verdict": "CLEAR_AS_RECORDED_LIMITED_OBSERVATIONS"
+  },
+  "images_actually_viewed_by_different_reviewer": 8,
+  "limits": [
+    "No VoiceOver output or whole accessibility qualification",
+    "Content Cmdplus capture unchanged; no accepted numerical200percent",
+    "No prelaunch/continuous process-custody or immediate whole-source epoch proof",
+    "Follow-up plan is unexecuted",
+    "No formal W11/visual baseline/milestone/release acceptance"
+  ],
+  "native_keyboard_observed": [
+    "Tab to Check again",
+    "Return advances CheckedAt",
+    "ShiftTab to Diagnostics",
+    "eight reverseTabs to skip link",
+    "Return focuses main"
+  ],
+  "observation_scope": "Historical204-built real native macOS app at exact spaces/Unicode path; current14frontend/sharedUI source copies byte/fullmode-identical; no fresh native-entry build",
+  "quit_observation": "Actual CUA App quit error; no new process/listener/orphan measurements",
+  "routes_observed": [
+    "Home",
+    "Jobs",
+    "Tracker",
+    "Documents",
+    "Profile",
+    "Settings",
+    "Diagnostics"
+  ]
+}

@@ -1,0 +1,33 @@
+[
+ {
+  "t": 0.0,
+  "uptime": "43.70",
+  "event": "probe-start",
+  "variant": "nrsuspend"
+ },
+ {
+  "t": 12.1,
+  "uptime": "55.80",
+  "event": "hashed",
+  "archives": 808
+ },
+ {
+  "t": 118.5,
+  "uptime": "162.21",
+  "event": "installed",
+  "exit_code": 0,
+  "log_bytes": 242847
+ },
+ {
+  "t": 118.5,
+  "uptime": "162.22",
+  "event": "configured"
+ },
+ {
+  "t": 119.0,
+  "uptime": "162.68",
+  "event": "gdm-restarted",
+  "exit_code": 0,
+  "seconds": 0.1
+ }
+]

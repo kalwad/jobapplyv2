@@ -46,3 +46,33 @@ packages/contracts/test/contract/rust-harness/Cargo.lock
 test-results/
 playwright-report/
 blob-report/
+
+# M02-W14 isolated legacy comparison preimages and source commitments are
+# frozen, hash-checked before browser actions; generic formatting changes bytes.
+e2e/extension/legacy-candidate/preimages/
+e2e/extension/legacy-candidate/source-bindings.json
+
+# M02-W14 paired comparison declarations/data/preimages are byte-frozen and
+# hash-checked before either new run; executable source remains formatted.
+e2e/extension/legacy-paired-options/*.json
+e2e/extension/legacy-paired-options/preimages/
+e2e/extension/legacy-paired-options/preexecution-history/**
+
+# M02-W15 R10 comparison source commitments and original immutable preimages.
+# The exact seven JSON files are serialized by the source-freeze builder and
+# hashed in the R10 lock/manifest; executable source remains linted/formatted.
+e2e/extension/legacy-paired-options-r10/campaign.lock.json
+e2e/extension/legacy-paired-options-r10/source-bindings.json
+e2e/extension/legacy-paired-options-r10/predeclaration.json
+e2e/extension/legacy-paired-options-r10/paired-inputs.json
+e2e/extension/legacy-paired-options-r10/paired-oracles.json
+e2e/extension/legacy-paired-options-r10/legacy-projections.json
+e2e/extension/legacy-paired-options-r10/r10-readiness.json
+e2e/extension/legacy-paired-options-r10/preimages/
+
+# M03 desktop native and isolated renderer build output
+apps/desktop/src-tauri/target/
+apps/desktop/src-tauri/gen/
+apps/desktop/src-tauri/runtime-payload/
+apps/desktop/dist-renderer/
+apps/desktop/src-tauri/Cargo.lock

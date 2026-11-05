@@ -1,0 +1,138 @@
+{
+  "format": "INDEPENDENT_FROZEN_730_ARCHIVE_PEER_1",
+  "authority": "NONE",
+  "archive": "/tmp/japp-w14-frozen-730c641-retained/proof.tar.gz",
+  "archive_sha256": "0584744b75a3940f88d35fa842fd9386c66b9a9a8d12c5de278d957d0deb8c58",
+  "archive_bytes": 6867546,
+  "members": 88,
+  "checks": [
+    {
+      "name": "exact_archive_hash_size",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "outer_manifest_authority_scope",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "outer_paths_unique_88",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "safe_regular_unique_no_links_or_traversal",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "outer_exhaustive_members",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "all88_outer_hashes_bytes",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "embedded_index_exhaustive_except_self",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "embedded_scope_none_self_exclusion",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "exact_original_path_set_frozen-full",
+      "passed": true,
+      "observed": 58
+    },
+    {
+      "name": "every_original_byte_exact_frozen-full",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "exact_original_path_set_audit-preparation",
+      "passed": true,
+      "observed": 15
+    },
+    {
+      "name": "every_original_byte_exact_audit-preparation",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "exact_original_path_set_independent-audit",
+      "passed": true,
+      "observed": 13
+    },
+    {
+      "name": "every_original_byte_exact_independent-audit",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "exact_group_counts",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "sealed_audit_manifest_and_report_exact",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "sealed79_all_pass_no_checker_repairs_or_product_reruns",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "actual_clean_730_full_source_scope",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "all19_active_pass_visual_future",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "exact_test_counts",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "native128_raw20_rank19_unchanged1500",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "contact_separate_p95_90_preserved_and90_abstentions",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "no_blanket_gate_or_r9_outcome",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "checker_preparation_history_unchanged",
+      "passed": true,
+      "observed": null
+    }
+  ],
+  "all_checks_pass": true,
+  "material_findings": [],
+  "gate_pass": false,
+  "limits": [
+    "Archive closure/byte-scope audit only; actual full79check audit separately sealed.",
+    "Local full19PASS and lower-bound native128 timing do not establish public/Simplify/nativeWindows/formalW15/ownerGateA.",
+    "No root writes, archive/source modifications, product reruns, builds or browsers."
+  ]
+}

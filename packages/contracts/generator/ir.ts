@@ -134,6 +134,14 @@ export interface IrObjectType {
   readonly maxProperties: number | null;
 }
 
+/** A oneOf whose closed object members are provably disjoint by one required tag. */
+export interface IrDiscriminatedUnionType {
+  readonly kind: "discriminatedUnion";
+  readonly metadata: IrMetadata;
+  readonly discriminator: string;
+  readonly branches: readonly IrObjectType[];
+}
+
 export type IrType =
   | IrStringType
   | IrEnumType
@@ -144,7 +152,8 @@ export type IrType =
   | IrRefType
   | IrNullableType
   | IrAnyType
-  | IrObjectType;
+  | IrObjectType
+  | IrDiscriminatedUnionType;
 
 export interface IrDefinition {
   readonly name: string;
@@ -285,6 +294,26 @@ function extractEnum(node: JsonObject, context: NodeContext): IrEnumType {
     extracted.push(token);
   }
   return { kind: "enum", metadata: extractMetadata(node), tokens: extracted };
+}
+
+function extractConst(node: JsonObject, context: NodeContext): IrEnumType {
+  assertOnlyKeywords(node, context, new Set(["type", "const"]));
+  if (
+    (node.type !== undefined && node.type !== "string") ||
+    typeof node.const !== "string" ||
+    !ENUM_TOKEN_PATTERN.test(node.const)
+  ) {
+    fail(
+      context,
+      "const is supported only for a finite string token with optional type:string",
+    );
+  }
+  // A single-token Literal is exactly the accepted set of this string const.
+  return {
+    kind: "enum",
+    metadata: extractMetadata(node),
+    tokens: [node.const],
+  };
 }
 
 function extractString(node: JsonObject, context: NodeContext): IrStringType {
@@ -618,6 +647,76 @@ function extractObject(
   };
 }
 
+function extractDiscriminatedUnion(
+  node: JsonObject,
+  context: NodeContext,
+  documentId: string,
+): IrDiscriminatedUnionType {
+  assertOnlyKeywords(node, context, new Set(["oneOf"]));
+  if (
+    context.pointer !== "#" &&
+    !/^#\/\$defs\/[a-z][A-Za-z0-9]*$/.test(context.pointer)
+  ) {
+    fail(
+      context,
+      "oneOf is supported only as a named root or $defs object union",
+    );
+  }
+  if (
+    !Array.isArray(node.oneOf) ||
+    node.oneOf.length < 2 ||
+    node.oneOf.length > 32
+  ) {
+    fail(context, "oneOf requires two to thirty-two closed object members");
+  }
+  const branches = node.oneOf.map((member, index) => {
+    const memberContext = child(context, "oneOf", String(index));
+    if (!isJsonObject(member) || member.type !== "object") {
+      fail(memberContext, "oneOf members must be inline closed objects");
+    }
+    const branch = extractObject(member, memberContext, documentId);
+    if (branch.extensionPoint) {
+      fail(memberContext, "oneOf members cannot be open extension objects");
+    }
+    return branch;
+  });
+  const first = branches[0];
+  if (first === undefined) {
+    fail(context, "oneOf requires closed object members");
+  }
+  const candidates = first.properties
+    .filter((property) => property.required && property.type.kind === "enum")
+    .map((property) => property.name)
+    .filter((name) => {
+      const tokens = new Set<string>();
+      for (const branch of branches) {
+        const property = branch.properties.find((entry) => entry.name === name);
+        if (property?.required !== true || property.type.kind !== "enum")
+          return false;
+        for (const token of property.type.tokens) {
+          if (tokens.has(token)) return false;
+          tokens.add(token);
+        }
+      }
+      return true;
+    });
+  if (candidates.length !== 1 || candidates[0] === undefined) {
+    fail(
+      context,
+      "oneOf requires exactly one shared required finite string discriminator with pairwise disjoint token sets",
+    );
+  }
+  // Every accepted object has exactly one tag in exactly one branch. Therefore
+  // this tagged union preserves oneOf's exactly-one-match semantics, rather
+  // than replacing an overlapping oneOf with a permissive anyOf.
+  return {
+    kind: "discriminatedUnion",
+    metadata: extractMetadata(node),
+    discriminator: candidates[0],
+    branches,
+  };
+}
+
 function extractType(
   node: JsonObject,
   context: NodeContext,
@@ -628,6 +727,12 @@ function extractType(
   }
   if (node.anyOf !== undefined) {
     return extractNullable(node, context, documentId);
+  }
+  if (node.oneOf !== undefined) {
+    return extractDiscriminatedUnion(node, context, documentId);
+  }
+  if (node.const !== undefined) {
+    return extractConst(node, context);
   }
   if (node.enum !== undefined) {
     return extractEnum(node, context);
@@ -780,6 +885,12 @@ function assertResolvable(documents: readonly IrDocument[]): void {
       }
       return;
     }
+    if (type.kind === "discriminatedUnion") {
+      for (const [index, branch] of type.branches.entries()) {
+        visit(document, branch, `${pointer}/oneOf/${String(index)}`);
+      }
+      return;
+    }
     if (type.kind === "nullable") {
       visit(document, type.inner, `${pointer}/anyOf`);
       return;
@@ -819,6 +930,12 @@ function collectIntraDocumentDependencies(
   if (type.kind === "ref") {
     if (type.targetId === documentId && type.targetDef !== null) {
       out.add(type.targetDef);
+    }
+    return;
+  }
+  if (type.kind === "discriminatedUnion") {
+    for (const branch of type.branches) {
+      collectIntraDocumentDependencies(documentId, branch, out);
     }
     return;
   }
@@ -888,6 +1005,75 @@ function orderDefinitions(document: IrDocument): IrDocument {
   return { ...document, definitions: ordered };
 }
 
+/** New union declarations cannot depend on themselves, including through roots. */
+function assertAcyclicUnionReferences(documents: readonly IrDocument[]): void {
+  const nodes = new Map<
+    string,
+    { document: IrDocument; type: IrType; pointer: string }
+  >();
+  for (const document of documents) {
+    if (document.root !== null)
+      nodes.set(document.id, { document, type: document.root, pointer: "#" });
+    for (const definition of document.definitions) {
+      nodes.set(`${document.id}#/$defs/${definition.name}`, {
+        document,
+        type: definition.type,
+        pointer: `#/$defs/${definition.name}`,
+      });
+    }
+  }
+  const references = (type: IrType, out: string[]): void => {
+    if (type.kind === "ref") {
+      out.push(
+        type.targetDef === null
+          ? type.targetId
+          : `${type.targetId}#/$defs/${type.targetDef}`,
+      );
+    } else if (type.kind === "nullable") {
+      references(type.inner, out);
+    } else if (type.kind === "array") {
+      references(type.items, out);
+    } else if (type.kind === "discriminatedUnion") {
+      for (const branch of type.branches) references(branch, out);
+    } else if (type.kind === "object") {
+      for (const property of type.properties) references(property.type, out);
+      if (type.propertyNames !== null) references(type.propertyNames, out);
+    }
+  };
+  for (const [key, union] of nodes) {
+    if (union.type.kind !== "discriminatedUnion") continue;
+    const complete = new Set<string>();
+    const visiting = new Set<string>();
+    const walk = (current: string): void => {
+      if (union.pointer !== "#" && current === union.document.id) {
+        throw new UnsupportedConstructError(
+          union.document.relativePath,
+          union.pointer,
+          "union definition dependency on its document root is not supported " +
+            "because definitions are emitted before that root",
+        );
+      }
+      if (visiting.has(current)) {
+        throw new UnsupportedConstructError(
+          union.document.relativePath,
+          union.pointer,
+          `discriminated union dependency cycle through ${current}; recursive models are not supported`,
+        );
+      }
+      if (complete.has(current)) return;
+      const node = nodes.get(current);
+      if (node === undefined) return; // assertResolvable already rejects danglers.
+      visiting.add(current);
+      const dependencies: string[] = [];
+      references(node.type, dependencies);
+      for (const dependency of dependencies) walk(dependency);
+      visiting.delete(current);
+      complete.add(current);
+    };
+    walk(key);
+  }
+}
+
 /**
  * Build the IR catalog from a convention-checked schema catalog. Document
  * order is normalized to sorted `$id` order so emission never depends on
@@ -900,5 +1086,6 @@ export function buildIrCatalog(catalog: SchemaCatalog): IrCatalog {
   );
   const documents = entries.map(extractDocument).map(orderDefinitions);
   assertResolvable(documents);
+  assertAcyclicUnionReferences(documents);
   return { documents };
 }

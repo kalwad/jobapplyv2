@@ -1,0 +1,4015 @@
+﻿[
+    {
+        "t":  0.69,
+        "key":  "facts",
+        "value":  {
+                      "interactive":  true,
+                      "explorer":  1,
+                      "ps":  "5.1.26100.33648",
+                      "user":  "runneradmin",
+                      "clr":  "4.0.30319.42000",
+                      "temp_long":  "C:\\Users\\runneradmin\\AppData\\Local\\Temp",
+                      "build":  "10.0.26100.0",
+                      "webview2":  "155.0.4283.62",
+                      "localappdata":  "C:\\Users\\runneradmin\\AppData\\Local",
+                      "temp":  "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp",
+                      "screen":  "{Width=1024, Height=768}",
+                      "os":  "Microsoft Windows Server 2025 Datacenter",
+                      "session":  2
+                  }
+    },
+    {
+        "t":  2.47,
+        "key":  "compile-owned-cs",
+        "value":  {
+                      "value":  "compiled",
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  3.142,
+        "key":  "package",
+        "value":  {
+                      "service_exists":  true,
+                      "root":  "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\JobApply Ω space probe",
+                      "root_long":  "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\JobApply Ω space probe"
+                  }
+    },
+    {
+        "t":  3.371,
+        "key":  "launch-1",
+        "value":  {
+                      "value":  1876,
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  6.455,
+        "key":  "launch-1-names",
+        "value":  {
+                      "names":  ""
+                  }
+    },
+    {
+        "t":  7.483,
+        "key":  "launch-1-names",
+        "value":  {
+                      "names":  "Diagnostics | Open Diagnostics | Check your desktop app in Diagnostics. | Check Diagnostics | Unavailable in this build"
+                  }
+    },
+    {
+        "t":  7.52,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  7.86,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  8.21,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  8.544,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  8.881,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  9.225,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  9.574,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  9.914,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  10.255,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  10.602,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  10.933,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  11.264,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  11.604,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  11.95,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  12.289,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  12.633,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  12.977,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  13.323,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  13.669,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  14.007,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  14.352,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  14.688,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  15.027,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  15.37,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  15.728,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  16.074,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  16.427,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  16.762,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  17.104,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  17.439,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  17.775,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  18.116,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  18.454,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  18.789,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  19.125,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  19.46,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  19.797,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  20.149,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  20.488,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  20.828,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  21.169,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  21.511,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  21.845,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  22.187,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  22.524,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  22.866,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  23.2,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  23.534,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  23.87,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  24.217,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  24.55,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  24.897,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  25.233,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  25.569,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  25.905,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  26.242,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  26.582,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  26.922,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  27.261,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  27.603,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  27.944,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  28.284,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  28.619,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  28.955,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  29.298,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  29.632,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  29.997,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  30.341,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  30.694,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  31.032,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  31.379,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  31.719,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  32.07,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  32.415,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  32.764,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  33.111,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  33.447,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  33.782,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  34.119,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  34.455,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  34.788,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  35.139,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  35.478,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  35.819,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  36.185,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  36.53,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  36.868,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  37.207,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  37.542,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  37.879,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  38.217,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  38.558,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  38.895,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  39.233,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  39.572,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  39.91,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  40.256,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  40.61,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  40.949,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  41.288,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  41.628,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  41.962,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  42.301,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  42.646,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  42.979,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  43.314,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  43.646,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  43.991,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  44.328,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  44.666,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  45.009,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  45.345,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  45.682,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  46.035,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  46.371,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  46.716,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  47.068,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  47.412,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  47.762,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  48.097,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  48.434,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  48.776,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  49.115,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  49.451,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  49.784,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  50.119,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  50.454,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  50.792,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  51.125,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  51.471,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  51.805,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  52.151,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  52.497,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  52.854,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  53.191,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  53.533,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  53.871,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  54.21,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  54.56,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  54.91,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  55.249,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  55.59,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  55.928,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  56.272,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  56.616,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  56.958,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  57.304,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  57.642,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  57.983,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  58.321,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  58.665,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  59.013,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  59.36,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  59.698,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  60.042,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  60.38,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  60.726,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  61.064,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  61.405,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  61.741,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  62.08,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  62.418,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  62.753,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  63.097,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  63.444,
+        "key":  "launch-1-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  63.773,
+        "key":  "launch-1-ready-timeout",
+        "value":  {
+                      "names":  "Desktop App — Local service failed |  | Home · Desktop app |  | Home · Desktop app - Web content |  |  |  |  |  |  |  |  |  | Home · Desktop app |  | Skip to main content |  | Workspace | Desktop app | Primary |  | Home | Home | Jobs | Jobs | Tracker | Tracker | Documents / Resumes | Documents / Resumes | Profile | Profile | Settings | Settings | Diagnostics | Diagnostics | Development build |  |  | Home | Open Diagnostics |  | Your workspace | Your workspace | Check your desktop app in Diagnostics. | Profile, documents, and application tools are not available in this build. |  | Navigation | Navigation | Available | Local service | Local service | Check Diagnostics | AI provider | AI provider | Unavailable in this build |  | Local workspace · No application submission is available in this build. |  |  |  | Desktop App — Local service failed | System Menu Bar | System | Minimize | Maximize | Close | Application | File"
+                  }
+    },
+    {
+        "t":  64.013,
+        "key":  "shot-ready-1",
+        "value":  {
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  64.041,
+        "key":  "image-identity",
+        "value":  {
+                      "value":  [
+                                    {
+                                        "long_equals":  false,
+                                        "equals_temp_join":  false,
+                                        "pid":  1876,
+                                        "image":  "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\JobApply Ω space probe\\desktop.exe"
+                                    },
+                                    {
+                                        "long_equals":  false,
+                                        "equals_temp_join":  false,
+                                        "pid":  1700,
+                                        "image":  "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\155.0.4283.62\\msedgewebview2.exe"
+                                    },
+                                    {
+                                        "long_equals":  false,
+                                        "equals_temp_join":  false,
+                                        "pid":  9720,
+                                        "image":  "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\155.0.4283.62\\msedgewebview2.exe"
+                                    },
+                                    {
+                                        "long_equals":  false,
+                                        "equals_temp_join":  false,
+                                        "pid":  4364,
+                                        "image":  "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\155.0.4283.62\\msedgewebview2.exe"
+                                    },
+                                    {
+                                        "long_equals":  false,
+                                        "equals_temp_join":  false,
+                                        "pid":  8964,
+                                        "image":  "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\155.0.4283.62\\msedgewebview2.exe"
+                                    },
+                                    {
+                                        "long_equals":  false,
+                                        "equals_temp_join":  false,
+                                        "pid":  8036,
+                                        "image":  "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\155.0.4283.62\\msedgewebview2.exe"
+                                    },
+                                    {
+                                        "long_equals":  false,
+                                        "equals_temp_join":  false,
+                                        "pid":  7956,
+                                        "image":  "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\155.0.4283.62\\msedgewebview2.exe"
+                                    }
+                                ],
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  65.187,
+        "key":  "service-port",
+        "value":  {
+                      "port":  0
+                  }
+    },
+    {
+        "t":  65.288,
+        "key":  "unauthorized-body",
+        "value":  {
+                      "ok":  false,
+                      "inner":  "System.Net.Http.HttpRequestException: An error occurred while sending the request.",
+                      "message":  "Exception calling \"GetResult\" with \"0\" argument(s): \"An error occurred while sending the request.\"",
+                      "error_type":  "System.Management.Automation.MethodInvocationException"
+                  }
+    },
+    {
+        "t":  65.369,
+        "key":  "focus-timing",
+        "value":  {
+                      "ok":  false,
+                      "inner":  null,
+                      "message":  "no Check again button",
+                      "error_type":  "System.Management.Automation.RuntimeException"
+                  }
+    },
+    {
+        "t":  65.438,
+        "key":  "keyboard-check-again-head",
+        "value":  {
+                      "ok":  false,
+                      "inner":  "System.InvalidOperationException: Owned control unavailable: Check again",
+                      "message":  "Exception calling \"KeyboardCheckAgain\" with \"0\" argument(s): \"Owned control unavailable: Check again\"",
+                      "error_type":  "System.Management.Automation.MethodInvocationException"
+                  }
+    },
+    {
+        "t":  67.539,
+        "key":  "menu-expand-file",
+        "value":  {
+                      "value":  "expanded",
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  68.084,
+        "key":  "shot-menu-open",
+        "value":  {
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  131.3,
+        "key":  "menu-quit-under-window",
+        "value":  {
+                      "ok":  false,
+                      "inner":  "System.Runtime.InteropServices.COMException: Operation timed out. (Exception from HRESULT: 0x80131505)",
+                      "message":  "Exception calling \"FindFirst\" with \"2\" argument(s): \"Operation timed out. (Exception from HRESULT: 0x80131505)\"",
+                      "error_type":  "System.Management.Automation.MethodInvocationException"
+                  }
+    },
+    {
+        "t":  131.316,
+        "key":  "menu-quit-under-desktop",
+        "value":  {
+                      "value":  {
+
+                                },
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  131.327,
+        "key":  "menu-quit-invoke-desktop-popup",
+        "value":  {
+                      "ok":  false,
+                      "inner":  null,
+                      "message":  "no owned popup Quit",
+                      "error_type":  "System.Management.Automation.RuntimeException"
+                  }
+    },
+    {
+        "t":  141.335,
+        "key":  "menu-quit-drain",
+        "value":  {
+                      "value":  false,
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  141.37,
+        "key":  "released-timing-1",
+        "value":  {
+                      "ok":  false,
+                      "inner":  "System.Net.Sockets.SocketException: The requested address is not valid in its context",
+                      "message":  "Exception calling \"BeginConnect\" with \"4\" argument(s): \"The requested address is not valid in its context\"",
+                      "error_type":  "System.Management.Automation.MethodInvocationException"
+                  }
+    },
+    {
+        "t":  141.439,
+        "key":  "launch-2",
+        "value":  {
+                      "value":  4352,
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  141.451,
+        "key":  "launch-2-names",
+        "value":  {
+                      "names":  "\u003cerror MethodInvocationException: Exception calling \"Names\" with \"0\" argument(s): \"Owned window unavailable\"\u003e"
+                  }
+    },
+    {
+        "t":  141.804,
+        "key":  "launch-2-names",
+        "value":  {
+                      "names":  ""
+                  }
+    },
+    {
+        "t":  142.144,
+        "key":  "launch-2-names",
+        "value":  {
+                      "names":  "Diagnostics | Open Diagnostics | Check your desktop app in Diagnostics. | Check Diagnostics | Unavailable in this build"
+                  }
+    },
+    {
+        "t":  142.164,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  142.492,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  142.826,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  143.154,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  143.49,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  143.865,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  144.234,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  144.563,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  144.892,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  145.228,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  145.559,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  145.89,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  146.226,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  146.558,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  146.887,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  147.213,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  147.552,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  147.881,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  148.209,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  148.538,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  148.875,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  149.215,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  149.552,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  149.882,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  150.22,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  150.55,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  150.885,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  151.213,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  151.547,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  151.881,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  152.21,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  152.542,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  152.88,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  153.212,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  153.541,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  153.874,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  154.215,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  154.542,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  154.881,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  155.208,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  155.536,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  155.871,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  156.199,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  156.529,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  156.856,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  157.187,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  157.527,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  157.857,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  158.19,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  158.526,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  158.857,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  159.183,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  159.516,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  159.858,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  160.188,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  160.522,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  160.852,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  161.182,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  161.522,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  161.852,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  162.183,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  162.51,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  162.852,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  163.181,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  163.519,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  163.853,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  164.179,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  164.53,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  164.856,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  165.182,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  165.525,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  165.857,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  166.189,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  166.524,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  166.856,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  167.184,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  167.522,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  167.85,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  168.176,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  168.514,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  168.842,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  169.178,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  169.512,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  169.848,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  170.177,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  170.51,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  170.841,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  171.168,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  171.521,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  171.869,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  172.196,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  172.541,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  172.869,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  173.197,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  173.539,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  173.869,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  174.2,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  174.535,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  174.867,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  175.201,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  175.533,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  175.869,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  176.199,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  176.536,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  176.863,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  177.195,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  177.522,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  177.858,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  178.194,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  178.525,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  178.86,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  179.193,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  179.54,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  179.875,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  180.203,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  180.535,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  180.861,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  181.19,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  181.519,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  181.844,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  182.191,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  182.529,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  182.854,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  183.186,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  183.511,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  183.846,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  184.18,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  184.509,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  184.841,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  185.175,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  185.504,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  185.835,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  186.161,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  186.495,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  186.822,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  187.151,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  187.489,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  187.831,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  188.173,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  188.499,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  188.837,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  189.165,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  189.493,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  189.823,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  190.15,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  190.48,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  190.809,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  191.153,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  191.492,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  191.824,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  192.163,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  192.491,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  192.857,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  193.185,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  193.519,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  193.856,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  194.183,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  194.515,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  194.842,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  195.184,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  195.52,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  195.846,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  196.178,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  196.511,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  196.843,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  197.18,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  197.506,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  197.838,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  198.169,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  198.496,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  198.826,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  199.154,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  199.495,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  199.819,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  200.145,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  200.495,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  200.834,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  201.168,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  201.5,
+        "key":  "launch-2-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  201.815,
+        "key":  "launch-2-ready-timeout",
+        "value":  {
+                      "names":  "Desktop App — Local service failed |  | Home · Desktop app |  | Home · Desktop app - Web content |  |  |  |  | Home · Desktop app |  | Skip to main content |  | Workspace | Desktop app | Primary |  | Home | Home | Jobs | Jobs | Tracker | Tracker | Documents / Resumes | Documents / Resumes | Profile | Profile | Settings | Settings | Diagnostics | Diagnostics | Development build |  |  | Home | Open Diagnostics |  | Your workspace | Your workspace | Check your desktop app in Diagnostics. | Profile, documents, and application tools are not available in this build. |  | Navigation | Navigation | Available | Local service | Local service | Check Diagnostics | AI provider | AI provider | Unavailable in this build |  | Local workspace · No application submission is available in this build. |  | Desktop App — Local service failed | System Menu Bar | System | Minimize | Maximize | Close | Application | File"
+                  }
+    },
+    {
+        "t":  202.273,
+        "key":  "ctrl-q-head",
+        "value":  {
+                      "value":  "sent",
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  212.305,
+        "key":  "ctrl-q-drain",
+        "value":  {
+                      "value":  false,
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  212.344,
+        "key":  "shot-after-ctrl-q",
+        "value":  {
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  212.35,
+        "key":  "ctrl-q-members-left",
+        "value":  {
+                      "value":  7,
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  212.668,
+        "key":  "close-window-fallback",
+        "value":  {
+                      "value":  true,
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  212.676,
+        "key":  "launch-3",
+        "value":  {
+                      "value":  3188,
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  212.684,
+        "key":  "launch-3-names",
+        "value":  {
+                      "names":  "\u003cerror MethodInvocationException: Exception calling \"Names\" with \"0\" argument(s): \"Owned window unavailable\"\u003e"
+                  }
+    },
+    {
+        "t":  213.017,
+        "key":  "launch-3-names",
+        "value":  {
+                      "names":  ""
+                  }
+    },
+    {
+        "t":  213.358,
+        "key":  "launch-3-names",
+        "value":  {
+                      "names":  "Diagnostics | Open Diagnostics | Check your desktop app in Diagnostics. | Check Diagnostics | Unavailable in this build"
+                  }
+    },
+    {
+        "t":  213.379,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  213.711,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  214.038,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  214.375,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  214.706,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  215.034,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  215.37,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  215.701,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  216.031,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  216.366,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  216.697,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  217.024,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  217.364,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  217.7,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  218.033,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  218.36,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  218.697,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  219.024,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  219.359,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  219.691,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  220.018,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  220.357,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  220.694,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  221.027,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  221.356,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  221.691,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  222.026,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  222.355,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  222.686,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  223.023,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  223.385,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  223.719,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  224.047,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  224.375,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  224.707,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  225.036,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  225.366,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  225.7,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  226.031,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  226.372,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  226.71,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  227.043,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  227.373,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  227.7,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  228.051,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  228.389,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  228.719,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  229.055,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  229.393,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  229.726,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  230.055,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  230.391,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  230.732,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  231.065,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  231.402,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  231.734,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  232.067,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  232.4,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  232.738,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  233.07,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  233.399,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  233.766,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  234.093,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  234.423,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  234.754,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  235.09,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  235.421,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  235.758,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  236.091,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  236.42,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  236.754,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  237.083,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  237.417,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  237.744,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  238.077,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  238.407,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  238.744,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  239.081,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  239.416,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  239.743,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  240.081,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  240.431,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  240.776,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  241.108,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  241.438,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  241.772,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  242.102,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  242.44,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  242.776,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  243.135,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  243.467,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  243.801,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  244.135,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  244.465,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  244.799,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  245.135,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  245.471,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  245.805,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  246.141,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  246.478,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  246.809,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  247.142,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  247.477,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  247.808,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  248.144,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  248.475,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  248.806,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  249.141,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  249.475,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  249.805,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  250.139,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  250.469,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  250.802,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  251.134,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  251.465,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  251.797,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  252.148,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  252.481,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  252.812,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  253.14,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  253.475,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  253.816,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  254.166,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  254.514,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  254.847,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  255.177,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  255.505,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  255.838,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  256.168,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  256.502,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  256.836,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  257.165,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  257.501,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  257.831,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  258.167,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  258.501,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  258.837,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  259.179,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  259.512,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  259.846,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  260.178,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  260.532,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  260.873,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  261.201,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  261.533,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  261.869,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  262.202,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  262.552,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  262.883,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  263.216,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  263.551,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  263.884,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  264.214,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  264.552,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  264.88,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  265.209,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  265.537,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  265.865,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  266.211,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  266.544,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  266.875,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  267.207,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  267.542,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  267.876,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  268.21,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  268.544,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  268.883,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  269.226,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  269.56,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  269.895,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  270.227,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  270.559,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  270.907,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  271.235,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  271.566,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  271.902,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  272.234,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  272.567,
+        "key":  "launch-3-diagnostics-invoke-error",
+        "value":  {
+                      "message":  "Exception calling \"Invoke\" with \"1\" argument(s): \"Owned control has no native invocation pattern\""
+                  }
+    },
+    {
+        "t":  272.887,
+        "key":  "launch-3-ready-timeout",
+        "value":  {
+                      "names":  "Desktop App — Local service failed |  | Home · Desktop app |  | Home · Desktop app - Web content |  |  |  |  | Home · Desktop app |  | Skip to main content |  | Workspace | Desktop app | Primary |  | Home | Home | Jobs | Jobs | Tracker | Tracker | Documents / Resumes | Documents / Resumes | Profile | Profile | Settings | Settings | Diagnostics | Diagnostics | Development build |  |  | Home | Open Diagnostics |  | Your workspace | Your workspace | Check your desktop app in Diagnostics. | Profile, documents, and application tools are not available in this build. |  | Navigation | Navigation | Available | Local service | Local service | Check Diagnostics | AI provider | AI provider | Unavailable in this build |  | Local workspace · No application submission is available in this build. |  | Desktop App — Local service failed | System Menu Bar | System | Minimize | Maximize | Close | Application | File"
+                  }
+    },
+    {
+        "t":  272.917,
+        "key":  "focus-webview-then-ctrl-q",
+        "value":  {
+                      "ok":  false,
+                      "inner":  "System.InvalidOperationException: Target element cannot receive focus.",
+                      "message":  "Exception calling \"SetFocus\" with \"0\" argument(s): \"Target element cannot receive focus.\"",
+                      "error_type":  "System.Management.Automation.MethodInvocationException"
+                  }
+    },
+    {
+        "t":  273.162,
+        "key":  "close-window-fallback-3",
+        "value":  {
+                      "value":  true,
+                      "ok":  true
+                  }
+    },
+    {
+        "t":  273.17,
+        "key":  "end",
+        "value":  {
+
+                  }
+    }
+]

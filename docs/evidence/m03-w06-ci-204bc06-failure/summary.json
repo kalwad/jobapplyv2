@@ -1,0 +1,577 @@
+{
+  "schema": "M03_W06_HISTORICAL_TERMINAL_CI_204BC06_FAILURE_V1",
+  "scope": "INDEPENDENT_TERMINAL_CI_204BC06_DATA_JOIN_NO_FUTURE_CI_OR_NATIVE_PACKAGE_ACCEPTANCE",
+  "run": 40790930093,
+  "run_url": "https://github.com/kalwad/jobapplyv2/actions/runs/40790930093",
+  "run_conclusion": "failure",
+  "head": "204bc06a374631f4b40d4fc382f573a77ef9242a",
+  "actual_checkout": "e4687f0d608af7deb1e80b5879a7102c8f1edf8a",
+  "tree": "5b5bfeda09b60654adce335e0e21cd9ad056e120",
+  "tracked_blob_count": 2070,
+  "jobs": [
+    {
+      "id": 123175707603,
+      "name": "doctor + verify (macos-15)",
+      "status": "completed",
+      "conclusion": "failure",
+      "actual_checkout_commit": "e4687f0d608af7deb1e80b5879a7102c8f1edf8a",
+      "actual_checkout_tree": "5b5bfeda09b60654adce335e0e21cd9ad056e120",
+      "passed_suites": 18,
+      "failed_suites": [
+        "integrity",
+        "python"
+      ],
+      "suite_rows": [
+        {
+          "suite": "toolchain",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "format",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "lint",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "typecheck",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "unit-ts",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "contract-gen",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "fixture-corpus",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "evaluation-corpus",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "contract",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "build",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "e2e-browser",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "w14-public-controlled",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "w14-public-contact-controlled",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "visual",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "python",
+          "verdict": "FAIL"
+        },
+        {
+          "suite": "rust",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "portability",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "traceability",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "status",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "integrity",
+          "verdict": "FAIL"
+        }
+      ],
+      "unit_passed": 4006,
+      "python": "PREFLIGHT_REFUSED_NO_COLLECTION_EXECUTION",
+      "raw_log_bytes": 1141799,
+      "raw_log_sha256": "2886adb03a7394a37317020f01f41502bc591bd9258bc29ed6e49b7103410a88",
+      "rust_raw_summaries": [
+        [
+          "ok",
+          "1",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "10",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "342",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "342",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "342",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
+      "id": 123175707971,
+      "name": "doctor + verify (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "failure",
+      "actual_checkout_commit": "e4687f0d608af7deb1e80b5879a7102c8f1edf8a",
+      "actual_checkout_tree": "5b5bfeda09b60654adce335e0e21cd9ad056e120",
+      "passed_suites": 18,
+      "failed_suites": [
+        "integrity",
+        "python"
+      ],
+      "suite_rows": [
+        {
+          "suite": "toolchain",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "format",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "lint",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "typecheck",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "unit-ts",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "contract-gen",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "fixture-corpus",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "evaluation-corpus",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "contract",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "build",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "e2e-browser",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "w14-public-controlled",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "w14-public-contact-controlled",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "visual",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "python",
+          "verdict": "FAIL"
+        },
+        {
+          "suite": "rust",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "portability",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "traceability",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "status",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "integrity",
+          "verdict": "FAIL"
+        }
+      ],
+      "unit_passed": 4006,
+      "python": "PREFLIGHT_REFUSED_NO_COLLECTION_EXECUTION",
+      "raw_log_bytes": 1231056,
+      "raw_log_sha256": "e4ed786f1a56a24c554e64fc8afc74649a2d35cb9d11cf005f95666e6164e17b",
+      "rust_raw_summaries": [
+        [
+          "ok",
+          "1",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "10",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "338",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "338",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "338",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
+      "id": 123175708107,
+      "name": "doctor + verify (windows-2025)",
+      "status": "completed",
+      "conclusion": "failure",
+      "actual_checkout_commit": "e4687f0d608af7deb1e80b5879a7102c8f1edf8a",
+      "actual_checkout_tree": "5b5bfeda09b60654adce335e0e21cd9ad056e120",
+      "passed_suites": 17,
+      "failed_suites": [
+        "integrity",
+        "python",
+        "rust"
+      ],
+      "suite_rows": [
+        {
+          "suite": "toolchain",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "format",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "lint",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "typecheck",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "unit-ts",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "contract-gen",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "fixture-corpus",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "evaluation-corpus",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "contract",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "build",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "e2e-browser",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "w14-public-controlled",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "w14-public-contact-controlled",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "visual",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "python",
+          "verdict": "FAIL"
+        },
+        {
+          "suite": "rust",
+          "verdict": "FAIL"
+        },
+        {
+          "suite": "portability",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "traceability",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "status",
+          "verdict": "PASS"
+        },
+        {
+          "suite": "integrity",
+          "verdict": "FAIL"
+        }
+      ],
+      "unit_passed": 4006,
+      "python": "PREFLIGHT_REFUSED_NO_COLLECTION_EXECUTION",
+      "raw_log_bytes": 1024080,
+      "raw_log_sha256": "b4e2eaf96bf4d6e680e293650841f7e5da6c02ad74a6009f4ba55f4556d8a773",
+      "rust_raw_summaries": [
+        [
+          "ok",
+          "1",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ok",
+          "10",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "FAILED",
+          "300",
+          "16",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    }
+  ],
+  "native_development_package": "SKIPPED",
+  "artifacts": [
+    {
+      "id": 12863170049,
+      "name": "playwright-failure-windows-2025",
+      "bytes": 2759053,
+      "sha256": "f9aa69b650a0a8505e8102387b65bb7af0eefa8b3e28d828931fb37b2e198047",
+      "safe_regular_members": 160
+    },
+    {
+      "id": 12862937444,
+      "name": "playwright-failure-macos-15",
+      "bytes": 3989224,
+      "sha256": "bd204613841164cd85e32f27f6cbfea055ec2a7f990ce2fa76c40d27f014cf22",
+      "safe_regular_members": 160
+    },
+    {
+      "id": 12862677788,
+      "name": "playwright-failure-ubuntu-24.04",
+      "bytes": 3840233,
+      "sha256": "813419e043f3d1a3ab3dc003555522ef3fd3295b62de5de024e01478c69b9863",
+      "safe_regular_members": 160
+    },
+    {
+      "id": 12862502104,
+      "name": "windows-native-loader-e4687f0d608af7deb1e80b5879a7102c8f1edf8a",
+      "bytes": 8140730,
+      "sha256": "3446eb91624b94354361e22ff2839a8c70f54ee7c3de979cd2c1475177bf300c",
+      "safe_regular_members": 95
+    }
+  ],
+  "independent_join_checks": 615,
+  "self_hosted_runner_inventory": {
+    "scope": "ONE_REPOSITORY_READ_ONLY_SELF_HOSTED_RUNNER_API_INVENTORY_NO_REGISTRATION_OR_ACCESS_CHANGE",
+    "repository": "kalwad/jobapplyv2",
+    "argv": [
+      "gh",
+      "api",
+      "--include",
+      "--method",
+      "GET",
+      "repos/kalwad/jobapplyv2/actions/runners?per_page=100"
+    ],
+    "start_utc": "2026-10-29T00:10:56.883662+00:00",
+    "end_utc": "2026-10-29T00:10:57.343604+00:00",
+    "exit_code": 0,
+    "http_status": 200,
+    "raw_response_sha256": "480047560a60daf0bc2a1ac204fdde9e726a325bbe8f2846a1571fe1fff2ce50",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "total_count": 0,
+    "runners": [],
+    "document_reference": null,
+    "limit": "Runner labels/online status do not prove Windows11, GNOME, native GUI availability or certification.",
+    "page_complete": true
+  },
+  "corrected_revision": "9872acaf6191ce77fd1c077ef27ea972b71b8315",
+  "corrected_run": "https://github.com/kalwad/jobapplyv2/actions/runs/40795147477",
+  "corrected_run_result": "SEPARATE_PENDING_AT_PACKET_PREPARATION_NOT_ASSUMED",
+  "canonical_state_promotion": "NONE",
+  "raw_retention": "all3completejoblogs+officialrunZIP+all4originalartifactZIPs+everymemberinventory; redundant expanded copies omitted from compact archive"
+}

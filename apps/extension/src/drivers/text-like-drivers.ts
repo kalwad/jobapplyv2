@@ -1,3 +1,8 @@
+import {
+  isElementVisible,
+  isElementEnabled,
+  targetIsCurrent,
+} from "../field-scanner.ts";
 // M02-W10 text-family drivers: ordinary native text controls and native
 // date inputs.
 //
@@ -21,12 +26,16 @@ import {
   type SemanticObservation,
 } from "../driver-evidence.ts";
 import { setNativeValue } from "./driver-dom.ts";
+import { mutateCurrent } from "./mutation-guard.ts";
 import type {
   CapturedUndo,
   ControlDriver,
   DriverContext,
   PreconditionOutcome,
 } from "./driver-contract.ts";
+
+// This engine-local marker is thrown only before writeText's native setter.
+export class NativeValueChangedDuringFocusError extends Error {}
 
 const TEXT_INPUT_TYPES = new Set([
   "text",
@@ -72,12 +81,31 @@ function intendedText(context: DriverContext): string {
 function writeText(
   host: HTMLInputElement | HTMLTextAreaElement,
   value: string,
-): void {
+  context: DriverContext,
+  preserveViewport = false,
+): Promise<void> {
   // Real focus, framework-observable value change, real blur: the minimal
   // faithful interaction envelope, including site-side blur rewrites.
-  host.focus();
-  setNativeValue(host, value);
-  host.blur();
+  return mutateCurrent(context, host, (current) => {
+    const valueBeforeFocus = host.value;
+    if (preserveViewport) host.focus({ preventScroll: true });
+    else host.focus();
+    // Focus invokes page handlers synchronously. Preserve a newer page value
+    // before the setter; this refusal has made no extension value write.
+    if (host.value !== valueBeforeFocus)
+      throw new NativeValueChangedDuringFocusError(
+        "native value changed during focus",
+      );
+    // An attached duplicate/removed/hidden control still refuses.
+    if (
+      !targetIsCurrent(context.document, current) ||
+      !isElementVisible(host) ||
+      !isElementEnabled(host)
+    )
+      throw new Error("native target changed during focus");
+    setNativeValue(host, value);
+    host.blur();
+  });
 }
 
 export const textDriver: ControlDriver = {
@@ -110,8 +138,12 @@ export const textDriver: ControlDriver = {
     });
   },
   execute(context: DriverContext): Promise<void> {
-    writeText(requireTextHost(context), intendedText(context));
-    return Promise.resolve();
+    return writeText(
+      requireTextHost(context),
+      intendedText(context),
+      context,
+      true,
+    );
   },
   observe(context: DriverContext): Promise<SemanticObservation> {
     return Promise.resolve(textObservation(requireTextHost(context).value));
@@ -120,8 +152,7 @@ export const textDriver: ControlDriver = {
     if (typeof payload !== "string") {
       throw new Error("text driver invariant: undo payload is not a string");
     }
-    writeText(requireTextHost(context), payload);
-    return Promise.resolve();
+    return writeText(requireTextHost(context), payload, context, true);
   },
 };
 
@@ -178,8 +209,11 @@ export const dateDriver: ControlDriver = {
     // The exact intended ISO date only; no semantic inference or repair.
     // A site-invalid date (for example outside min/max) still executes and
     // is then honestly rejected by the site-acceptance postcondition.
-    writeText(requireDateHost(context), context.intended.iso_date);
-    return Promise.resolve();
+    return writeText(
+      requireDateHost(context),
+      context.intended.iso_date,
+      context,
+    );
   },
   observe(context: DriverContext): Promise<SemanticObservation> {
     return Promise.resolve(dateObservation(requireDateHost(context).value));
@@ -188,7 +222,6 @@ export const dateDriver: ControlDriver = {
     if (typeof payload !== "string") {
       throw new Error("date driver invariant: undo payload is not a string");
     }
-    writeText(requireDateHost(context), payload);
-    return Promise.resolve();
+    return writeText(requireDateHost(context), payload, context);
   },
 };

@@ -1,0 +1,64 @@
+{
+ "attestor-primitives.json": {
+  "bytes": 4283,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag36-attestor-primitives:attestor-primitives.json",
+  "sha256": "5eebaae036afc6047db79d46ecb015b094a396704692e93adf0c6bf848c073dc"
+ },
+ "attestor-run1.stderr.txt": {
+  "bytes": 543,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag36-attestor-primitives:attestor-run1.stderr.txt",
+  "sha256": "9ffbb782f0cb0b0957c7e1b3418060ddaac22ad09fece00e163b2e2e683a422d"
+ },
+ "attestor-run2.stderr.txt": {
+  "bytes": 543,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag36-attestor-primitives:attestor-run2.stderr.txt",
+  "sha256": "9ffbb782f0cb0b0957c7e1b3418060ddaac22ad09fece00e163b2e2e683a422d"
+ },
+ "attestor_primitives.ps1": {
+  "bytes": 9635,
+  "origin": "diag/windows-service-env@91f70e90e8ac0b64658c8f4b9fccd4781e15bb16:diag/attestor_primitives.ps1",
+  "sha256": "95012626a725ac6fb5afae4e9d36240ca7e9a7324388ccb4912828457626e91a"
+ },
+ "proof-current-attestor-trace.txt": {
+  "bytes": 231,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag36-attestor-primitives:proof-current/attestor-trace.txt",
+  "sha256": "e512e48c7b40ca6ab8334a159756ed12b3a62895e0d4a7c503c65dfc8051a25b"
+ },
+ "run1-attestor-trace.txt": {
+  "bytes": 231,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag36-attestor-primitives:run1-attestor-trace.txt",
+  "sha256": "672fc9ae67e419e9129e102f1bb4b8c5c19a447149539b46b32eaac24d2419e2"
+ },
+ "run1-machine-error.json": {
+  "bytes": 410,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag36-attestor-primitives:run1-machine-error.json",
+  "sha256": "c0053ff9540d15aed7d23ab74c50f9ff4e8152f54593f3e683e6bdfbeb641b4b"
+ },
+ "shared-trace.txt": {
+  "bytes": 91,
+  "crlf_reduced_to_lf_repeatedly": true,
+  "origin": "artifact diag36-attestor-primitives:shared-trace.txt",
+  "sha256": "70cf7bc1479b400bbc0ab9ef2a5b9d97499e4a9c5c63be8db7a82ba1bb109094"
+ },
+ "windows11_bootstrap.ps1": {
+  "bytes": 8277,
+  "origin": "diag/windows-service-env@91f70e90e8ac0b64658c8f4b9fccd4781e15bb16:diag/repo-root/scripts/windows11/windows11_bootstrap.ps1",
+  "sha256": "a188d35ec1d79232111b96124be769048fe13db56e465bd38bce1a5ea7e6f3a9"
+ },
+ "windows11_guest.ps1": {
+  "bytes": 38495,
+  "origin": "diag/windows-service-env@91f70e90e8ac0b64658c8f4b9fccd4781e15bb16:diag/repo-root/scripts/windows11/windows11_guest.ps1",
+  "sha256": "6805076b497f2dcc5980fb41844ce388a38d277e05d50cc42b8c2d3d7dde2ed1"
+ },
+ "workflow.yml": {
+  "bytes": 1504,
+  "origin": "diag/windows-service-env@91f70e90e8ac0b64658c8f4b9fccd4781e15bb16:.github/workflows/ci.yml",
+  "sha256": "cd5b15680ade2a0f4c7a607934193398b3184ae49a09d491a9c2df73bd400ff5"
+ }
+}
