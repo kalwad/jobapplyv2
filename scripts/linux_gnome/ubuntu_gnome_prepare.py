@@ -4,10 +4,10 @@ Run only in a disposable hosted Noble job after source review. Uses a private
 apt configuration and, by default, an empty private dpkg status so the candidate
 closure does not silently depend on packages preinstalled on the build runner.
 A host-tool closure may instead resolve against a copy of the runner's dpkg
-status (ADR-0009): it then downloads only what the pinned runner image lacks,
-and records by name and version every installed runner package that the
-downloaded closure depends on, with its dpkg status, for the campaign to
-re-check. Every root must still be downloaded. Output stays
+status (ADR-0009): it then downloads every root, and only those dependencies
+the pinned runner image lacks at an acceptable version, and records by name and
+version every installed runner package that the downloaded closure declares a
+dependency on, with its dpkg status, for the campaign to re-check. Output stays
 UNREVIEWED until a different review chooses its exact manifest SHA256.
 """
 
@@ -226,8 +226,11 @@ def runner_provided(
     """Every installed runner package the downloaded closure depends on.
 
     Pre-Depends and Depends are walked from each downloaded package through
-    every alternative, by name or Provides, ignoring version constraints, so
-    the list over-approximates what the closure can use. A relation that
+    every alternative and every provider, by name or Provides, ignoring
+    version constraints, so the list over-approximates the declared
+    relations. An Essential package that no walked relation declares (packages
+    need not declare them) is not recorded; like everything else on the
+    image, it is bound only through the runner image version. A relation that
     neither a downloaded nor an installed package satisfies fails. Each row
     records the package's version, architecture and dpkg status, and dpkg's
     live database must agree with the copied status for every recorded row.
@@ -321,8 +324,11 @@ def resolve(
     config = apt_config(root)
     if runner_status:
         # A bounded regular file, copied: apt never writes the runner's own status.
+        # The copy replaces apt_config's empty placeholder atomically, so a
+        # non-empty private status is always a complete copy of the runner's.
         sha(DPKG_STATUS, DPKG_STATUS_CAP)
-        shutil.copyfile(DPKG_STATUS, root / "status")
+        shutil.copyfile(DPKG_STATUS, root / "status.copying")
+        (root / "status.copying").replace(root / "status")
     # APT_CONFIG is read before the default configuration fragments; -c alone
     # would load host hooks before these private directory overrides.
     environment = ["/usr/bin/env", "APT_CONFIG=" + str(config)]

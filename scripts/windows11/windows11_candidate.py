@@ -188,6 +188,22 @@ def tool_pin(root: Path, name: str) -> dict[str, Any]:
     return {"path": name, "link": link, "target": target, "sha256": digest(actual)}
 
 
+def retain_runner_status(private: Path, output: Path) -> None:
+    """Retain the private dpkg status apt resolved against, as runner-dpkg-status.
+
+    apt_config first writes an empty placeholder, which resolve() replaces
+    atomically with a complete copy of the runner's status. So only a non-empty
+    private status is retained: a refusal before the copy must not leave the
+    placeholder as the runner's record. This runs in a finally block, so it
+    never raises.
+    """
+    try:
+        if private.is_file() and private.stat().st_size > 0:
+            shutil.copyfile(private, output / "runner-dpkg-status")
+    except OSError:
+        return
+
+
 def stage_host(owner: Owner, closure: Path, lock: dict[str, Any], output: Path) -> None:
     # ADR-0009 binds the runner-provided packages through this image version.
     image = os.environ.get(RUNNER_IMAGE_VERSION)
@@ -325,18 +341,17 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one custody/endpoint bracket
             },
         )
         host = work / "host-candidate"
-        # ADR-0009: what the pinned runner image already provides is recorded
-        # by version and re-checked by the campaign instead of downloaded.
+        # ADR-0009: a dependency the pinned runner image already provides is
+        # recorded by version and re-checked by the campaign instead of
+        # downloaded; every root is still downloaded.
         try:
             lock = resolve(owner, work / "apt", host, HOST_ROOTS, runner_status=True)
         finally:
             # Retained even when resolution refuses, so a refusal can be traced
             # to the runner package that caused it.
-            if (work / "apt" / "status").is_file():
-                shutil.copyfile(
-                    work / "apt" / "status", args.output / "runner-dpkg-status"
-                )
-        if digest(args.output / "runner-dpkg-status") != lock["dpkg_status_sha256"]:
+            retain_runner_status(work / "apt" / "status", args.output)
+        retained = args.output / "runner-dpkg-status"
+        if not retained.is_file() or digest(retained) != lock["dpkg_status_sha256"]:
             raise ValueError("Retained runner dpkg status differs from the resolution")
         simulate_host_install(owner, host, lock["packages"])
         stage_host(owner, host, lock, inputs)
