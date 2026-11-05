@@ -6,17 +6,17 @@
   "repository_id": 1312360079,
   "pull_request": 1,
   "head_branch": "codex/autofill-evaluation-hardening",
-  "request_id": "5e91a1ed48a00d68056b331a33c170eb",
-  "expected_source_sha": "2bf7a4d81f22b1b7bbff54688321f580999cc2b7",
-  "request_parent_sha": "2bf7a4d81f22b1b7bbff54688321f580999cc2b7",
-  "package_build_sha": "392273d75ada771e706a8c8c9796efdee6fbb97b",
-  "source_tree_sha": "1aeb86757c5b1421bed00136932e9e8b22144f16",
+  "request_id": "3a8b8d9b662f9f60553052c1fec38bd5",
+  "expected_source_sha": "591b193dde2a7304992a8bbee570efff77dbc012",
+  "request_parent_sha": "591b193dde2a7304992a8bbee570efff77dbc012",
+  "package_build_sha": "9557ee6424c9b9442703863864160e635ae48a55",
+  "source_tree_sha": "301b0abd3a0fcaadea23294f589e1c15a369a9e5",
   "artifact": {
-    "run_id": "41886247050",
-    "run_attempt": "2",
-    "run_head_sha": "2bf7a4d81f22b1b7bbff54688321f580999cc2b7",
-    "artifact_id": "13360153843",
-    "digest_sha256": "07edbd2310d440932b422d24451d80f7a9c4d93c5d6b407ce8c075d6c990ef7c",
-    "package_manifest_sha256": "5fd55126f85768ca88449e00aa4f6bc94b5f3f7c216e04f3e8a7d94eaa5e8c16"
+    "run_id": "41946911308",
+    "run_attempt": "1",
+    "run_head_sha": "591b193dde2a7304992a8bbee570efff77dbc012",
+    "artifact_id": "13382930330",
+    "digest_sha256": "3faa33f626989e54d19c98d602b5bc31c9094ccbb602724ce7c338aa62414a57",
+    "package_manifest_sha256": "c8fdc3ec7ffda5e69480183df1290e8f149ebb834ecba4bfdff5b909e40a9532"
   }
 }
